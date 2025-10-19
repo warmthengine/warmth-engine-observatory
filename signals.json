@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "last_updated": "2025-10-16T18:30:00Z",
+    "version": "1.0.0",
+    "we_gsi": {
+      "current": 50,
+      "previous": 50,
+      "trend": "stable",
+      "status": "MEDIUM/AMBER"
+    },
+    "signal_count": 4,
+    "total_commitment": "$13B+",
+    "methodology_version": "1.0"
+  },
+  "signals": [
+    {
+      "id": "signal-001",
+      "date": "2025-10-15",
+      "title": "Meta's $1.5 Billion, 1 GW AI Data Centre in Texas",
+      "description": "Meta Platforms announced construction of a massive AI data centre in El Paso, Texas, representing $1.5 billion in infrastructure investment with 1 gigawatt of power capacity. The facility will support Meta's AI training operations and includes partnership with local utilities for renewable energy integration.",
+      "impact": "High",
+      "confidence": "High",
+      "source_url": "https://about.fb.com/news/2025/10/meta-el-paso-data-center/",
+      "context": "Demonstrates hyperscaler willingness to commit substantial capital to AI infrastructure outside traditional tech hubs, signaling confidence in long-term AI compute demand and coordination with regional power authorities."
+    },
+    {
+      "id": "signal-002",
+      "date": "2025-10-13",
+      "title": "OpenAI-Broadcom Partnership: 10 Gigawatt AI Processing Network",
+      "description": "OpenAI and Broadcom announced a strategic partnership to develop a distributed AI processing network spanning multiple continents with combined power capacity of 10 gigawatts. The initiative includes custom silicon development and coordination with national grid operators in five countries.",
+      "impact": "High",
+      "confidence": "High",
+      "source_url": "https://openai.com/blog/broadcom-partnership",
+      "context": "Represents unprecedented scale of private-sector coordination for AI infrastructure, requiring multi-national regulatory alignment and grid modernization commitments. The 10 GW figure exceeds the total power consumption of some small nations."
+    },
+    {
+      "id": "signal-003",
+      "date": "2025-10-13",
+      "title": "UK-U.S. £11 Billion Bilateral AI Infrastructure Agreement",
+      "description": "The United Kingdom and United States formalized a bilateral agreement committing £11 billion to joint AI research infrastructure, including shared computing facilities, transatlantic fiber connectivity upgrades, and harmonized data governance frameworks.",
+      "impact": "High",
+      "confidence": "High",
+      "source_url": "https://www.gov.uk/government/news/uk-us-tech-deal",
+      "context": "First major bilateral treaty explicitly structured around AI infrastructure coordination, establishing precedent for state-level commitments to computational resource sharing and regulatory harmonization."
+    },
+    {
+      "id": "signal-004",
+      "date": "2025-10-10",
+      "title": "U.S. Senate Passes GAIN AI Act: National Infrastructure Framework",
+      "description": "The U.S. Senate passed the Global AI Infrastructure Network (GAIN) Act with bipartisan support, establishing federal coordination mechanisms for AI data center development, power grid integration, and international compute resource sharing agreements.",
+      "impact": "High",
+      "confidence": "High",
+      "source_url": "https://www.senate.gov/legislative/gain-ai-act",
+      "context": "Marks formal institutionalization of AI infrastructure as national security priority, creating legislative framework for coordinated deployment that transcends market mechanisms alone."
+    }
+  ],
+  "api_info": {
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "update_frequency": "weekly",
+    "contact": "warmthengine@github"
+  }
+}

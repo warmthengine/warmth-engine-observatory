@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Archive - Warmth Engine Observatory</title>
+    <style>
+        /* === CSS VARIABLES === */
+        :root {
+            /* Color Palette */
+            --observatory-dark: #0a0c12;
+            --observatory-card: #151821;
+            --observatory-section: #1d222e;
+            --observatory-border: #2a3142;
+            --observatory-accent: #3a7c5c;
+            
+            /* Text Colors */
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            /* Status Colors */
+            --status-high: #10b981;
+            --status-medium: #f59e0b;
+            --status-low: #ef4444;
+        }
+
+        /* === BASE STYLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--observatory-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .archive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* === NAVIGATION === */
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            display: inline-block;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* === HEADER === */
+        .archive-header {
+            border-bottom: 1px solid var(--observatory-border);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* === FILTER SECTION === */
+        .filter-section {
+            background: var(--observatory-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: transparent;
+            border: 1px solid var(--observatory-border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .filter-button:hover {
+            background: rgba(58, 124, 92, 0.1);
+            border-color: var(--observatory-accent);
+            color: var(--text-primary);
+        }
+
+        .filter-button.active {
+            background: var(--observatory-accent);
+            border-color: var(--observatory-accent);
+            color: white;
+        }
+
+        /* === COMING SOON SECTION === */
+        .coming-soon {
+            background: var(--observatory-section);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .coming-soon h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .coming-soon-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .coming-soon p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .feature-list {
+            text-align: left;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .feature-list h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--observatory-accent);
+            font-weight: bold;
+        }
+
+        /* === PREVIEW SIGNALS === */
+        .preview-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .signal-item {
+            background: var(--observatory-card);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--observatory-border);
+            transition: border-color 0.2s;
+        }
+
+        .signal-item:hover {
+            border-color: var(--observatory-accent);
+        }
+
+        .signal-date {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .signal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .signal-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .signal-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .impact-badge, .confidence-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .impact-high { background: rgba(239, 68, 68, 0.2); color: var(--status-low); }
+        .confidence-high { background: rgba(16, 185, 129, 0.2); color: var(--status-high); }
+
+        /* === SUBSCRIBE CTA === */
+        .subscribe-cta {
+            background: rgba(58, 124, 92, 0.1);
+            border-left: 4px solid var(--observatory-accent);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .subscribe-cta h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .subscribe-cta p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+            background: var(--observatory-accent);
+            color: white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* === FOOTER === */
+        .archive-footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--observatory-border);
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .filter-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="archive-container">
+        <a href="index.html" class="back-link">← Back to Main Observatory</a>
+        
+        <div class="archive-header">
+            <h1>Signal Archive</h1>
+            <p class="subtitle">Historical Coordination Signals & WE GSI Tracking</p>
+        </div>
+
+        <!-- Filter Section (Future Functionality) -->
+        <div class="filter-section">
+            <div class="filter-row">
+                <span class="filter-label">Filter by Impact:</span>
+                <button class="filter-button active">All</button>
+                <button class="filter-button">High</button>
+                <button class="filter-button">Medium</button>
+                <button class="filter-button">Low</button>
+            </div>
+            <div class="filter-row" style="margin-top: 1rem;">
+                <span class="filter-label">Filter by Type:</span>
+                <button class="filter-button active">All Signals</button>
+                <button class="filter-button">Infrastructure</button>
+                <button class="filter-button">Policy</button>
+                <button class="filter-button">Investment</button>
+            </div>
+        </div>
+
+        <!-- Coming Soon Section -->
+        <div class="coming-soon">
+            <h2>Comprehensive Archive Launching Soon</h2>
+            <div class="coming-soon-content">
+                <p>The Signal Archive is currently under development as we build our historical database of coordination signals and WE Global Stability Index trends.</p>
+                
+                <div class="feature-list">
+                    <h3>Archive Features (Coming Soon)</h3>
+                    <ul>
+                        <li>Chronological organisation of all coordination signals from October 2025 onwards</li>
+                        <li>Advanced search and filter capabilities by impact level, confidence, and signal type</li>
+                        <li>Historical WE Global Stability Index trends with interactive timeline visualisation</li>
+                        <li>Downloadable datasets for researchers in CSV and JSON formats</li>
+                        <li>Signal relationship mapping showing connections between related events</li>
+                        <li>Monthly synthesis reports analysing coordination pattern evolution</li>
+                    </ul>
+                </div>
+
+                <p><strong>First Update:</strong> The archive will be populated following our bi-weekly signal updates, with the first historical dataset available after the next WE GSI assessment.</p>
+            </div>
+        </div>
+
+        <!-- Preview: Current Signals -->
+        <div class="preview-section">
+            <h2 class="section-header">Current Signals (Preview)</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                These signals are currently live on the main Observatory. Historical signals will be archived here systematically.
+            </p>
+
+            <div class="signal-item">
+                <div class="signal-date">2025-10-15</div>
+                <h3 class="signal-title">Meta's $1.5 Billion, 1 GW AI Data Centre in Texas with Pre-Built Grid Infrastructure</h3>
+                <p class="signal-description">
+                    Meta Platforms announced an initial investment of over $1.5 billion for a new AI-optimised data centre in El Paso, Texas, designed to scale to 1 gigawatt (GW) of capacity, with direct funding of new grid infrastructure.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+            </div>
+
+            <div class="signal-item">
+                <div class="signal-date">2025-10-13</div>
+                <h3 class="signal-title">OpenAI-Broadcom 10 GW Custom AI Accelerator Partnership</h3>
+                <p class="signal-description">
+                    OpenAI and Broadcom announced a strategic collaboration to co-develop and deploy 10 gigawatts (GW) of custom AI accelerators designed by OpenAI, fabricated by TSMC on a 3nm process, and optimised for inference workloads.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribe CTA -->
+        <div class="subscribe-cta">
+            <h3>📬 Get Signals Before They're Archived</h3>
+            <p>Subscribe to receive coordination signals and WE GSI updates directly to your inbox. Free weekly intelligence delivered as events unfold.</p>
+            <a href="mailto:warmthengine@proton.me?subject=Subscribe%20to%20Free%20Coordination%20Signals&body=Please%20add%20me%20to%20your%20free%20coordination%20intelligence%20list.%0A%0AName:%0AOrganisation%20(optional):%0ASpecific%20interests%20(optional):" 
+               class="cta-button">
+                Subscribe (It's Free)
+            </a>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">
+                <em>No spam. Unsubscribe anytime. Historical signals remain freely accessible in this archive.</em>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="archive-footer">
+            <p>Warmth Engine Observatory - C-MAD Monitoring Framework</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Independent AI Infrastructure Intelligence</p>
+            <p style="margin-top: 1rem;">
+                <a href="index.html" style="color: var(--observatory-accent); text-decoration: none;">Return to Main Observatory →</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Placeholder for future filter functionality
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from siblings
+                this.parentElement.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Future: This will filter the archive content
+                console.log('Filter selected:', this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

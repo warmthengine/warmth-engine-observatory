@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Warmth Engine Observatory</title>
+    <link>https://warmthengine.github.io/warmth-engine-observatory/</link>
+    <description>AI Infrastructure Coordination Monitoring Platform - Tracking signals of computational mutual assured destruction through the WE Global Stability Index</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Oct 2025 18:30:00 +0000</lastBuildDate>
+    <atom:link href="https://warmthengine.github.io/warmth-engine-observatory/feed.xml" rel="self" type="application/rss+xml"/>
+    <generator>Warmth Engine Observatory v1.0</generator>
+    <managingEditor>warmthengine@github (Warmth Engine Observatory)</managingEditor>
+    <webMaster>warmthengine@github (Warmth Engine Observatory)</webMaster>
+    
+    <!-- Signal 001 -->
+    <item>
+      <title>Meta's $1.5 Billion, 1 GW AI Data Centre in Texas</title>
+      <link>https://warmthengine.github.io/warmth-engine-observatory/#signal-001</link>
+      <guid isPermaLink="true">https://warmthengine.github.io/warmth-engine-observatory/#signal-001</guid>
+      <pubDate>Tue, 15 Oct 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <p><strong>Impact:</strong> High | <strong>Confidence:</strong> High</p>
+        <p>Meta Platforms announced construction of a massive AI data centre in El Paso, Texas, representing $1.5 billion in infrastructure investment with 1 gigawatt of power capacity. The facility will support Meta's AI training operations and includes partnership with local utilities for renewable energy integration.</p>
+        <p><strong>Context:</strong> Demonstrates hyperscaler willingness to commit substantial capital to AI infrastructure outside traditional tech hubs, signaling confidence in long-term AI compute demand and coordination with regional power authorities.</p>
+        <p><a href="https://about.fb.com/news/2025/10/meta-el-paso-data-center/">View Source</a></p>
+      ]]></description>
+      <category>AI Infrastructure</category>
+      <category>Data Centers</category>
+    </item>
+    
+    <!-- Signal 002 -->
+    <item>
+      <title>OpenAI-Broadcom Partnership: 10 Gigawatt AI Processing Network</title>
+      <link>https://warmthengine.github.io/warmth-engine-observatory/#signal-002</link>
+      <guid isPermaLink="true">https://warmthengine.github.io/warmth-engine-observatory/#signal-002</guid>
+      <pubDate>Sun, 13 Oct 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <p><strong>Impact:</strong> High | <strong>Confidence:</strong> High</p>
+        <p>OpenAI and Broadcom announced a strategic partnership to develop a distributed AI processing network spanning multiple continents with combined power capacity of 10 gigawatts. The initiative includes custom silicon development and coordination with national grid operators in five countries.</p>
+        <p><strong>Context:</strong> Represents unprecedented scale of private-sector coordination for AI infrastructure, requiring multi-national regulatory alignment and grid modernization commitments. The 10 GW figure exceeds the total power consumption of some small nations.</p>
+        <p><a href="https://openai.com/blog/broadcom-partnership">View Source</a></p>
+      ]]></description>
+      <category>AI Infrastructure</category>
+      <category>International Cooperation</category>
+    </item>
+    
+    <!-- Signal 003 -->
+    <item>
+      <title>UK-U.S. £11 Billion Bilateral AI Infrastructure Agreement</title>
+      <link>https://warmthengine.github.io/warmth-engine-observatory/#signal-003</link>
+      <guid isPermaLink="true">https://warmthengine.github.io/warmth-engine-observatory/#signal-003</guid>
+      <pubDate>Sun, 13 Oct 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <p><strong>Impact:</strong> High | <strong>Confidence:</strong> High</p>
+        <p>The United Kingdom and United States formalized a bilateral agreement committing £11 billion to joint AI research infrastructure, including shared computing facilities, transatlantic fiber connectivity upgrades, and harmonized data governance frameworks.</p>
+        <p><strong>Context:</strong> First major bilateral treaty explicitly structured around AI infrastructure coordination, establishing precedent for state-level commitments to computational resource sharing and regulatory harmonization.</p>
+        <p><a href="https://www.gov.uk/government/news/uk-us-tech-deal">View Source</a></p>
+      ]]></description>
+      <category>AI Infrastructure</category>
+      <category>Government Policy</category>
+    </item>
+    
+    <!-- Signal 004 -->
+    <item>
+      <title>U.S. Senate Passes GAIN AI Act: National Infrastructure Framework</title>
+      <link>https://warmthengine.github.io/warmth-engine-observatory/#signal-004</link>
+      <guid isPermaLink="true">https://warmthengine.github.io/warmth-engine-observatory/#signal-004</guid>
+      <pubDate>Thu, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+        <p><strong>Impact:</strong> High | <strong>Confidence:</strong> High</p>
+        <p>The U.S. Senate passed the Global AI Infrastructure Network (GAIN) Act with bipartisan support, establishing federal coordination mechanisms for AI data center development, power grid integration, and international compute resource sharing agreements.</p>
+        <p><strong>Context:</strong> Marks formal institutionalization of AI infrastructure as national security priority, creating legislative framework for coordinated deployment that transcends market mechanisms alone.</p>
+        <p><a href="https://www.senate.gov/legislative/gain-ai-act">View Source</a></p>
+      ]]></description>
+      <category>AI Infrastructure</category>
+      <category>Government Policy</category>
+    </item>
+    
+  </channel>
+</rss>

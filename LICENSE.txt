@@ -1,0 +1,30 @@
+Copyright © 2025 Warmth Engine Observatory. All rights reserved.
+
+This work is licensed under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0).
+
+YOU ARE FREE TO:
+- Share - copy and redistribute the material in any medium or format
+
+UNDER THE FOLLOWING TERMS:
+- Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- NonCommercial - You may not use the material for commercial purposes without explicit written permission.
+- NoDerivatives - If you remix, transform, or build upon the material, you may not distribute the modified material.
+
+Full legal text: https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+WHAT THIS COVERS:
+- Warmth Engine Observatory website and platform
+- WE Global Stability Index methodology
+- Coordination Signal Classification System
+- All proprietary frameworks and documentation
+
+ATTRIBUTION FORMAT:
+"Warmth Engine Observatory (2025). [Specific Work Title]. Available at: [URL]. Licensed under CC BY-NC-ND 4.0."
+
+COMMERCIAL LICENSING:
+For commercial use, enterprise licensing, or consulting services:
+Contact: warmthengine@proton.me
+
+This license supplements intellectual property rights established through prior publication of The Warmth Engine Series (Substack, SSRN October 10, 2025).
+
+Last updated: October 2025

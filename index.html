@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warmth Engine Observatory - C-MAD Monitoring Framework</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Independent monitoring of AI infrastructure coordination patterns through the C-MAD framework. Real-time tracking of strategic commitments, policy frameworks, and technological sovereignty dynamics.">
+    <meta name="keywords" content="AI infrastructure, C-MAD, coordination monitoring, technological sovereignty, AI policy, infrastructure intelligence">
+    <meta name="author" content="Warmth Engine Observatory">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://warmthengine.github.io/warmth-engine-observatory/">
+    <meta property="og:title" content="Warmth Engine Observatory - C-MAD Monitoring Framework">
+    <meta property="og:description" content="Independent monitoring of AI infrastructure coordination patterns. Track strategic commitments, policy frameworks, and technological sovereignty dynamics.">
+    <meta property="og:image" content="https://warmthengine.github.io/warmth-engine-observatory/og-preview.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://warmthengine.github.io/warmth-engine-observatory/">
+    <meta property="twitter:title" content="Warmth Engine Observatory - C-MAD Monitoring Framework">
+    <meta property="twitter:description" content="Independent monitoring of AI infrastructure coordination patterns.">
+    <meta property="twitter:image" content="https://warmthengine.github.io/warmth-engine-observatory/og-preview.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    
+    <style>
+        /* === CSS VARIABLES === */
+        :root {
+            /* Color Palette */
+            --observatory-dark: #0a0c12;
+            --observatory-card: #151821;
+            --observatory-section: #1d222e;
+            --observatory-border: #2a3142;
+            --observatory-accent: #3a7c5c;
+            
+            /* Text Colors */
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            /* Status Colors */
+            --status-high: #10b981;
+            --status-medium: #f59e0b;
+            --status-low: #ef4444;
+        }
+
+        /* === PRINT STYLES === */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 1rem;
+            }
+            
+            .admin-panel,
+            .subscribe-cta-prominent,
+            .subscribe-cta,
+            .donation-section,
+            .nav-links,
+            .copy-btn,
+            .cta-button {
+                display: none !important;
+            }
+            
+            .observatory-container {
+                max-width: 100%;
+            }
+            
+            .stability-index,
+            .coordination-signals,
+            .expandable-section {
+                background: white;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                color: black;
+            }
+            
+            .expandable-content {
+                max-height: none !important;
+                display: block !important;
+            }
+            
+            .expand-icon {
+                display: none;
+            }
+        }
+
+        /* === BASE STYLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--observatory-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .observatory-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* === STATS DASHBOARD === */
+        .stats-dashboard {
+            background: var(--observatory-section);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-value.highlight {
+            color: var(--observatory-accent);
+        }
+
+        .recency-indicator {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .recency-indicator.recent {
+            color: var(--status-high);
+        }
+
+        /* === ADMIN PANEL === */
+        .admin-panel {
+            background: var(--observatory-section);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--observatory-accent);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-header h3 {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .slider-container {
+            margin-bottom: 1rem;
+        }
+
+        .slider-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        #gaugeSlider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+        }
+
+        #gaugeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: 2px solid var(--observatory-accent);
+        }
+
+        #gaugeSlider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: 2px solid var(--observatory-accent);
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            background: var(--observatory-accent);
+            color: white;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            background: #4a9c7c;
+        }
+
+        .admin-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+
+        .admin-note code {
+            background: var(--observatory-dark);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        /* === HEADER & NAVIGATION === */
+        .last-updated {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .observatory-header {
+            border-bottom: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* === WE GLOBAL STABILITY INDEX === */
+        .stability-index {
+            background: var(--observatory-card);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: border-left 0.5s ease-in-out;
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .index-explainer {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            text-align: left;
+            background: rgba(58, 124, 92, 0.05);
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--observatory-accent);
+        }
+
+        .index-explainer strong {
+            color: var(--text-primary);
+        }
+
+        /* Visual Gauge Styling */
+        .stability-gauge-container {
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .stability-gauge {
+            height: 60px;
+            background: linear-gradient(to right, 
+                var(--status-low) 0%, 
+                var(--status-low) 33%, 
+                var(--status-medium) 33%, 
+                var(--status-medium) 66%, 
+                var(--status-high) 66%, 
+                var(--status-high) 100%);
+            border-radius: 30px;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .gauge-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            z-index: 10;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .gauge-indicator::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .gauge-label {
+            flex: 1;
+            text-align: center;
+        }
+
+        .gauge-label.low { color: var(--status-low); }
+        .gauge-label.medium { color: var(--status-medium); }
+        .gauge-label.high { color: var(--status-high); }
+
+        .index-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            transition: color 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .status-percentage {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .trend-indicator {
+            font-size: 0.9rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            background: rgba(58, 124, 92, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .stability-timestamp {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .gauge-description {
+            color: var(--text-secondary);
+            margin: 1rem auto 1.5rem auto;
+            font-size: 0.9rem;
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        .methodology-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .methodology-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* === COORDINATION SIGNALS === */
+        .coordination-signals {
+            background: var(--observatory-section);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+        }
+
+        .signal-item {
+            background: var(--observatory-card);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--observatory-border);
+        }
+
+        .signal-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .signal-date {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .signal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .signal-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .signal-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .impact-badge, .confidence-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .impact-high { background: rgba(239, 68, 68, 0.2); color: var(--status-low); }
+        .impact-medium { background: rgba(245, 158, 11, 0.2); color: var(--status-medium); }
+        .impact-low { background: rgba(156, 163, 175, 0.2); color: var(--text-secondary); }
+
+        .confidence-high { background: rgba(16, 185, 129, 0.2); color: var(--status-high); }
+        .confidence-medium { background: rgba(245, 158, 11, 0.2); color: var(--status-medium); }
+        .confidence-low { background: rgba(156, 163, 175, 0.2); color: var(--text-secondary); }
+
+        .signal-context {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .signal-source {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--observatory-border);
+        }
+
+        .source-link {
+            color: var(--observatory-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .source-link:hover {
+            color: #4a9c7c;
+            text-decoration: underline;
+        }
+
+        .full-analysis-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .full-analysis-link:hover {
+            text-decoration: underline;
+            color: var(--text-primary);
+        }
+
+        /* === SUBSCRIBE CTA (PROMINENT) === */
+        .subscribe-cta-prominent {
+            background: rgba(58, 124, 92, 0.1);
+            border-left: 4px solid var(--observatory-accent);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .subscribe-cta-prominent h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .subscribe-cta-prominent p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* === EXPANDABLE SECTIONS === */
+        .expandable-section {
+            background: var(--observatory-card);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--observatory-border);
+            margin-bottom: 2rem;
+        }
+
+        .expandable-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .expandable-header:hover {
+            color: var(--status-medium);
+        }
+
+        .expand-icon {
+            transition: transform 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .expand-icon.expanded {
+            transform: rotate(90deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expandable-content.expanded {
+            max-height: 10000px;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expandable-content-inner {
+            padding-top: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .expandable-content-inner h3 {
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .expandable-content-inner h4 {
+            color: var(--text-primary);
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .expandable-content-inner p {
+            margin-bottom: 1rem;
+        }
+
+        .expandable-content-inner ul {
+            margin: 0.5rem 0 1rem 2rem;
+        }
+
+        .expandable-content-inner li {
+            margin-bottom: 0.5rem;
+        }
+
+        .expandable-content-inner strong {
+            color: var(--text-primary);
+        }
+
+        .scoring-note {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--observatory-accent);
+        }
+
+        .subscribe-cta {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--observatory-accent);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: var(--observatory-accent);
+            color: white;
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid var(--observatory-accent);
+            color: var(--observatory-accent);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* === VISUAL TIMELINE === */
+        .framework-timeline {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(58, 124, 92, 0.05);
+            border-radius: 8px;
+            border: 1px solid var(--observatory-border);
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, 
+                var(--observatory-accent) 0%, 
+                var(--observatory-accent) 100%);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--observatory-accent);
+            border: 3px solid var(--observatory-dark);
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            box-shadow: 0 0 0 4px rgba(58, 124, 92, 0.2);
+        }
+
+        .timeline-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* === DONATION SECTION === */
+        .donation-section {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--observatory-border);
+            margin-top: 2rem;
+        }
+
+        .donation-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .crypto-donations {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .crypto-option {
+            text-align: center;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--observatory-border);
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .crypto-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .address {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            word-break: break-all;
+            max-width: 250px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--observatory-border);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+        }
+
+        .donation-narrative {
+            max-width: 600px;
+            margin: 2rem auto;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* === FOOTER === */
+        .observatory-footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--observatory-border);
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .stats-dashboard {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .crypto-donations {
+                gap: 1.5rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                text-align: center;
+            }
+
+            .timeline-items {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline-line {
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                height: auto;
+                transform: translateX(-50%);
+            }
+
+            .timeline-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signal-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .qr-code {
+                width: 150px;
+                height: 150px;
+            }
+
+            .index-value {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="observatory-container">
+        <!-- Stats Dashboard -->
+        <div class="stats-dashboard">
+            <div class="stat-item">
+                <span class="stat-label">Signals This Month</span>
+                <span class="stat-value" id="signalCount">4</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Infrastructure Committed</span>
+                <span class="stat-value highlight" id="totalCommitment">$13B+</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Last Update</span>
+                <span class="recency-indicator" id="recencyIndicator">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="admin-panel">
+            <div class="admin-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3a7c5c" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"></path>
+                </svg>
+                <h3>Admin Control Panel</h3>
+            </div>
+            <div class="slider-container">
+                <label class="slider-label">
+                    WE GSI Position: <strong><span id="sliderValue">50</span>%</strong>
+                </label>
+                <input type="range" id="gaugeSlider" min="0" max="100" value="50">
+            </div>
+            <div class="preset-buttons">
+                <button class="preset-btn" onclick="setGaugePosition(15)">Crisis (15%)</button>
+                <button class="preset-btn" onclick="setGaugePosition(30)">Low (30%)</button>
+                <button class="preset-btn" onclick="setGaugePosition(50)">Medium (50%)</button>
+                <button class="preset-btn" onclick="setGaugePosition(75)">High (75%)</button>
+                <button class="preset-btn" onclick="setGaugePosition(92)">Stable (92%)</button>
+            </div>
+            <p class="admin-note">
+                💡 Access this panel by adding <code>?admin=true</code> to the URL
+            </p>
+        </div>
+
+        <!-- Last Updated Timestamp -->
+        <div class="last-updated">Last updated: <span id="lastUpdatedFull">October 16, 2025 – 18:30 UTC</span></div>
+        
+        <!-- Header -->
+        <header class="observatory-header">
+            <h1>Warmth Engine Observatory</h1>
+            <p class="subtitle">C-MAD Monitoring Framework</p>
+            <div class="nav-links">
+                <a href="#methodology" onclick="expandSection('methodology')">Methodology</a>
+                <a href="#research" onclick="expandSection('research')">Research</a>
+                <a href="#about" onclick="expandSection('about')">About</a>
+                <a href="#support" onclick="expandSection('support')">Support</a>
+                <a href="archive.html">Signal Archive</a>
+                <a href="signals.json" target="_blank">JSON API</a>
+                <a href="signals.csv" download>Download CSV</a>
+                <a href="feed.xml" target="_blank">RSS Feed</a>
+            </div>
+        </header>
+
+        <!-- WE Global Stability Index -->
+        <section class="stability-index" id="stabilitySection">
+            <h2 class="section-header">WE Global Stability Index</h2>
+            
+            <div class="index-explainer">
+                <strong>What this measures:</strong> Assessment of coordination signal strength across preparation, authorisation, and control mechanisms. This index indicates whether observable patterns suggest movement towards cooperative stability (HIGH/GREEN), transitional uncertainty (MEDIUM/AMBER), or dangerous fragmentation (LOW/RED).
+            </div>
+
+            <div class="stability-gauge-container">
+                <div class="stability-gauge">
+                    <div class="gauge-indicator" id="gaugeIndicator"></div>
+                </div>
+                <div class="gauge-labels">
+                    <span class="gauge-label low">LOW/RED<br>Fragmentation</span>
+                    <span class="gauge-label medium">MEDIUM/AMBER<br>Transitional</span>
+                    <span class="gauge-label high">HIGH/GREEN<br>Stable</span>
+                </div>
+            </div>
+
+            <div class="index-value" id="indexValue">
+                <span id="statusLabel">MEDIUM/AMBER</span>
+                <span class="status-percentage" id="statusPercentage">(50%)</span>
+                <span class="trend-indicator" id="trendIndicator">→ from 50%</span>
+            </div>
+            <div class="stability-timestamp">Updated: <span id="gsiTimestamp">October 16, 2025 – 18:30 UTC</span></div>
+            
+            <p class="gauge-description" id="gaugeDescription">
+                Coordination pressure exists (mutual dependencies are real), but equilibrium is unresolved. Observable patterns point both towards cooperation and fragmentation.
+            </p>
+            
+            <div class="scoring-note" style="background: rgba(58, 124, 92, 0.05); padding: 1rem; border-radius: 6px; margin: 1.5rem 0; border-left: 3px solid var(--observatory-accent);">
+                <p style="margin: 0; font-size: 0.9rem;"><strong>Baseline Methodology Note:</strong> The WE GSI launched at 50% (neutral baseline) in October 2025, reflecting the genuine transitional state where significant coordination signals coexist with fragmentation pressures. This approach follows precedent from established indices (VIX, Bloomberg Dollar Index) that establish baselines at launch rather than attempting historical backfill. The index will naturally converge toward its true equilibrium as signals accumulate over time.</p>
+            </div>
+            
+            <a href="#methodology" class="methodology-link" onclick="expandSection('methodology')">View Methodology & Scoring Framework →</a>
+        </section>
+
+        <!-- Recent Coordination Signals -->
+        <section class="coordination-signals">
+            <h2 class="section-header">Recent Coordination Signals</h2>
+            
+            <div class="signal-item">
+                <div class="signal-date">2025-10-15</div>
+                <h3 class="signal-title">Meta's $1.5 Billion, 1 GW AI Data Centre in Texas with Pre-Built Grid Infrastructure</h3>
+                <p class="signal-description">
+                    Meta Platforms announced an initial investment of over $1.5 billion for a new AI-optimised data centre in El Paso, Texas, 
+                    designed to scale to 1 gigawatt (GW) of capacity, with direct funding of new grid infrastructure including transmission lines and substations.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+                <p class="signal-context">
+                    Demonstrates hyperscaler willingness to fund public energy infrastructure to accelerate deployment timelines, whether through intentional coordination or emergent market adaptation.
+                </p>
+                <div class="signal-source">
+                    <a href="https://about.fb.com/news/2025/10/metas-new-ai-optimized-data-center-el-paso/" class="source-link" target="_blank" rel="noopener noreferrer">Source: Meta Newsroom →</a>
+                </div>
+            </div>
+
+            <div class="signal-item">
+                <div class="signal-date">2025-10-13</div>
+                <h3 class="signal-title">OpenAI-Broadcom 10 GW Custom AI Accelerator Partnership</h3>
+                <p class="signal-description">
+                    OpenAI and Broadcom announced a strategic collaboration to co-develop and deploy 10 gigawatts (GW) of custom AI accelerators. 
+                    The chips are designed by OpenAI and optimised for AI inference workloads at unprecedented scale.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+                <p class="signal-context">
+                    Represents a shift toward hardware sovereignty and challenges NVIDIA's infrastructure dominance, consistent with either strategic coordination or convergent market evolution toward computational independence.
+                </p>
+                <div class="signal-source">
+                    <a href="https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/" class="source-link" target="_blank" rel="noopener noreferrer">Source: OpenAI Official Announcement →</a>
+                </div>
+            </div>
+
+            <div class="signal-item">
+                <div class="signal-date">2025-09-16</div>
+                <h3 class="signal-title">UK-U.S. Tech Prosperity Deal: £31 Billion AI Infrastructure Commitment</h3>
+                <p class="signal-description">
+                    Following a UK-U.S. bilateral technology summit, U.S. tech firms collectively committed £31 billion to UK AI infrastructure development, 
+                    including data centre construction, compute capacity expansion, and research partnerships. The "Tech Prosperity Deal" represents unprecedented 
+                    private-sector alignment with government industrial strategy.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+                <p class="signal-context">
+                    Establishes a clear model of policy-driven, public-private coordination to lock in compute capacity and technological sovereignty, whether through intentional design or convergent policy evolution.
+                </p>
+                <div class="signal-source">
+                    <a href="https://www.gov.uk/government/news/us-uk-pact-will-boost-advances-in-drug-discovery-create-tens-of-thousands-of-jobs-and-transform-lives" class="source-link" target="_blank" rel="noopener noreferrer">Source: UK Government Press Release →</a>
+                </div>
+            </div>
+
+            <div class="signal-item">
+                <div class="signal-date">2025-10-10</div>
+                <h3 class="signal-title">U.S. Senate Passes GAIN AI Act, Prioritising Domestic Chip Supply</h3>
+                <p class="signal-description">
+                    The U.S. Senate passed the GAIN AI Act as part of the National Defense Authorization Act, mandating that major chip manufacturers 
+                    prioritise U.S. customers for advanced AI chips through an "America-First Right of Refusal" mechanism. The legislation requires 
+                    manufacturers to prioritise domestic sales, prohibits undercutting U.S. prices overseas, and mandates government notification of foreign sales.
+                </p>
+                <div class="signal-meta">
+                    <span class="impact-badge impact-high">High Impact</span>
+                    <span class="confidence-badge confidence-high">High Confidence</span>
+                </div>
+                <p class="signal-context">
+                    Actively reshapes global AI supply chains by legally locking in domestic access to critical semiconductors, consistent with coordination pressure or standard sovereignty assertion.
+                </p>
+                <div class="signal-source">
+                    <a href="https://www.banks.senate.gov/news/press-releases/sen-banks-secures-key-legislation-in-senate-passed-national-defense-authorization-act" class="source-link" target="_blank" rel="noopener noreferrer">Source: U.S. Senate (Senator Banks Press Release) →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prominent Subscribe CTA -->
+        <section class="subscribe-cta-prominent">
+            <h3>📬 Get Weekly Coordination Intelligence</h3>
+            <p>Stay informed about critical AI infrastructure developments. Free weekly signals + WE GSI updates delivered directly to your inbox.</p>
+            <div class="cta-buttons">
+                <a href="mailto:warmthengine@proton.me?subject=Subscribe%20to%20Free%20Coordination%20Signals&body=Please%20add%20me%20to%20your%20free%20coordination%20intelligence%20list.%0A%0AName:%0AOrganisation%20(optional):%0ASpecific%20interests%20(optional):" 
+                   class="cta-button cta-primary">
+                    Subscribe (It's Free)
+                </a>
+                <a href="#support" onclick="expandSection('support')" class="cta-button cta-secondary">
+                    View Premium Options
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+                <em>No spam. Unsubscribe anytime. Core signals remain freely accessible regardless of subscription.</em>
+            </p>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" class="expandable-section">
+            <div class="expandable-header" 
+                 onclick="toggleSection('methodology')"
+                 role="button"
+                 aria-expanded="false"
+                 aria-controls="methodology-content"
+                 tabindex="0">
+                <h2 class="section-header">Methodology</h2>
+                <span class="expand-icon" aria-hidden="true">▶</span>
+            </div>
+            <div class="expandable-content" id="methodology-content">
+                <div class="expandable-content-inner">
+                    <div class="scoring-note" style="background: rgba(58, 124, 92, 0.1); padding: 1.2rem; border-radius: 6px; margin: 1.5rem 0;">
+                        <p style="font-size: 1.05rem;"><strong>Core Principle:</strong> "We document patterns rather than prove coordination. Complex systems often require analysis before definitive proof becomes available. Following publication of 'The Coordination Imperative,' our methodology now distinguishes between development-phase analysis (how systems are built) and operational-phase analysis (how existing integrated systems create strategic pressures through C-MAD dynamics)."</p>
+                    </div>
+
+                    <h3>Working with Systematic Opacity</h3>
+                    <p>The Warmth Engine Observatory employs <strong>Analytical Prophecy</strong> - a methodological framework for analysing rapid technological transformation through systematic pattern recognition in complex systems.</p>
+
+                    <h4>Why This Approach Is Necessary</h4>
+                    <p>Our extensive research, alongside independent investigations by major news organisations, confirms systematic opacity in AI data centre ownership, location, and capacity across major jurisdictions. This opacity is not incidental but structural - operating through coordinated mechanisms that recur across independent legal systems:</p>
+                    <ul>
+                        <li><strong>Shell company registrations</strong> obscure beneficial ownership</li>
+                        <li><strong>Non-disclosure agreements</strong> bind public officials, preventing disclosure of developer identities</li>
+                        <li><strong>Regulatory frameworks</strong> collect facility-level data but prohibit public access</li>
+                        <li><strong>Trade secret exemptions</strong> systematically redact operational specifications</li>
+                    </ul>
+
+                    <h3>The C-MAD Framework</h3>
+                    <p><strong>Computational Mutual Assured Destruction (C-MAD)</strong> examines how operational AI infrastructure concentration creates coordination pressure through mutual vulnerability. Unlike development-phase frameworks addressing pre-deployment competition, C-MAD analyses strategic dynamics once systems are already integrated into critical infrastructure.</p>
+                    
+                    <p>When financial systems, logistics networks, communications platforms, and energy grids depend on concentrated processing capacity, disruption costs exceed competitive benefits for all parties simultaneously. This transforms strategic incentives from zero-sum competition towards coordination pressure.</p>
+
+                    <div class="scoring-note">
+                        <h4>C-MAD vs MAIM: Critical Distinction</h4>
+                        <p><strong>MAIM (Mutual Assured AI Malfunction):</strong> Addresses pre-deployment phase through deterrence - preventing dangerous AI development via credible sabotage threats targeting adversaries' computational infrastructure.</p>
+                        <p><strong>C-MAD (Computational Mutual Assured Destruction):</strong> Addresses operational phase through coordination - managing existing dependencies once AI systems are already integrated into critical infrastructure. When systems are operational, disruption harms all parties simultaneously, creating Stag Hunt coordination dynamics rather than Prisoner's Dilemma defection incentives.</p>
+                    </div>
+
+                    <h3>The Four-Headed Analysis</h3>
+                    <p>Complex systems operate through interconnected domains maintaining functional independence whilst contributing to systemic objectives:</p>
+                    <ul>
+                        <li><strong>Technological Head:</strong> Infrastructure development and hardware systems</li>
+                        <li><strong>Financial Head:</strong> Resource allocation and value capture mechanisms</li>
+                        <li><strong>Psychological Head:</strong> Behavioural conditioning and attention dynamics</li>
+                        <li><strong>Governance Head:</strong> Regulatory frameworks and authorisation processes</li>
+                    </ul>
+
+                    <h3>Scoring Methodology</h3>
+                    
+                    <div class="scoring-note">
+                        <h4>Scoring Methodology</h4>
+                        <p><em>We use qualitative assessment (High/Medium/Low) for impact and confidence, prioritising interpretive rigour over false precision. Coordination dynamics resist simple quantification - our scoring reflects that reality.</em></p>
+                    </div>
+
+                    <h4>Impact Assessment (High/Medium/Low)</h4>
+                    <ul>
+                        <li><strong>High Impact:</strong> Definitive shifts in hardware sovereignty, policy frameworks creating categorical precedent, or infrastructure commitments exceeding $1B</li>
+                        <li><strong>Medium Impact:</strong> Significant but not transformative developments affecting regional rather than global dynamics</li>
+                        <li><strong>Low Impact:</strong> Incremental changes within existing frameworks</li>
+                    </ul>
+
+                    <h4>Confidence Levels (High/Medium/Low)</h4>
+                    <ul>
+                        <li><strong>High Confidence:</strong> Multiple primary sources (SEC filings, government documents, corporate earnings reports)</li>
+                        <li><strong>Medium Confidence:</strong> Reputable secondary sources with consistent cross-referencing</li>
+                        <li><strong>Low Confidence:</strong> Single-source reporting requiring additional verification</li>
+                    </ul>
+
+                    <h3>The WE Global Stability Index</h3>
+                    <p>Our assessment of coordination signal strength across preparation, authorisation, and control mechanisms:</p>
+                    
+                    <p><strong>🟢 HIGH/GREEN = Stable Coordination</strong><br>
+                    Coordination mechanisms function effectively. Major powers maintain agreements sustaining infrastructure stability.</p>
+                    
+                    <p><strong>🟡 MEDIUM/AMBER = Transitional Uncertainty</strong><br>
+                    Coordination pressure exists (mutual dependencies are real), but equilibrium is unresolved. Observable patterns point both towards cooperation and fragmentation.</p>
+                    
+                    <p><strong>🔴 LOW/RED = Dangerous Fragmentation</strong><br>
+                    Fragmentation pressures dominate coordination efforts. Blocs pursue infrastructure sovereignty despite recognising mutual harm.</p>
+
+                    <h4>Baseline Establishment: Why 50%?</h4>
+
+                    <p>The WE GSI launched at 50% (neutral baseline) in October 2025, representing the midpoint between complete fragmentation (0%) and perfect coordination (100%). This starting point reflects our assessment of current global AI infrastructure dynamics:</p>
+
+                    <div class="scoring-note" style="background: rgba(58, 124, 92, 0.05); padding: 1.2rem; border-radius: 6px; margin: 1rem 0;">
+                        <h5 style="margin-top: 0; font-size: 1rem;">Methodological Rationale</h5>
+                        
+                        <p><strong>Current State Assessment (October 2025):</strong></p>
+                        <ul>
+                            <li><strong>Coordination indicators:</strong> UK-U.S. £31B tech deal, OpenAI-Broadcom partnership, cross-border cloud platforms, international AI safety forums</li>
+                            <li><strong>Fragmentation indicators:</strong> U.S.-China chip restrictions, GAIN AI Act protectionism, EU digital sovereignty requirements, competing national AI strategies</li>
+                            <li><strong>Assessment:</strong> Genuine transitional uncertainty - neither coordination nor fragmentation clearly dominant</li>
+                        </ul>
+                        
+                        <p><strong>Why Not Historical Backfill?</strong></p>
+                        <p>We do not attempt to retroactively score the 2022-2025 infrastructure buildout period because:</p>
+                        <ol>
+                            <li><strong>Methodological integrity:</strong> Our scoring framework did not exist during that period; retrofitting judgements would create false precision</li>
+                            <li><strong>Source verification:</strong> Many historical announcements are no longer accessible or verifiable through primary sources</li>
+                            <li><strong>Resource constraints:</strong> Scoring 300+ historical signals (3 years × ~2/week) would delay launch indefinitely whilst providing questionable analytical value</li>
+                            <li><strong>Forward measurement focus:</strong> The WE GSI measures <em>current coordination dynamics</em>, not cumulative historical state</li>
+                        </ol>
+                        
+                        <p><strong>Natural Equilibrium Discovery:</strong></p>
+                        <p>The index will converge toward its true equilibrium regardless of starting point. If genuine coordination pressure dominates, the index will drift upward toward HIGH/GREEN (67-100%) over 6-12 months. If fragmentation dominates, it will drift toward LOW/RED (0-33%). If we are genuinely in transitional uncertainty, it will oscillate around MEDIUM/AMBER (34-66%). This natural convergence validates the methodology through observable signal accumulation rather than historical reconstruction.</p>
+                        
+                        <p><strong>Established Precedent:</strong></p>
+                        <p>This approach follows precedent from authoritative indices: the VIX (launched 1993 without historical backfill), Bloomberg Dollar Index (baseline established 2004), and OECD Better Life Index (launched 2011 from current state). These indices became definitive through consistent forward measurement, not retrospective reconstruction.</p>
+                    </div>
+
+                    <p><em>The 2022-2025 infrastructure buildout created the current transitional state we measure. Those three years of development are "priced in" to our 50% starting assessment, not missing data requiring backfill.</em></p>
+
+                    <h3>How the WE Global Stability Index Reflects C-MAD Dynamics</h3>
+                    
+                    <p>The WE GSI assesses whether observable infrastructure patterns suggest movement toward Stag Hunt coordination equilibria or continued Prisoner's Dilemma fragmentation:</p>
+
+                    <p><strong>🟢 HIGH/GREEN (Stable Coordination):</strong> Observable patterns consistent with actors achieving Stag Hunt's payoff-dominant equilibrium - mutual cooperation through shared infrastructure stability yields higher returns than competitive disruption. Coordination mechanisms function effectively to sustain infrastructure stability, even when cooperation is contested or imperfect.</p>
+
+                    <p><strong>🟡 MEDIUM/AMBER (Transitional Uncertainty):</strong> Coordination pressure exists (mutual dependencies are real), but equilibrium is unresolved. Observable patterns point both toward Stag Hunt cooperation and Prisoner's Dilemma defection. Multiple factors prevent stable equilibrium: insufficient trust between actors, absence of effective assurance mechanisms, conflicting strategic incentives, or incomplete recognition of mutual vulnerability.</p>
+
+                    <p><strong>🔴 LOW/RED (Dangerous Fragmentation):</strong> Patterns consistent with Prisoner's Dilemma dynamics dominating despite mutual vulnerability. Fragmentation pressures override coordination efforts. Blocs pursue infrastructure sovereignty despite recognising disruption harms all parties - defection dominates regardless of long-term costs.</p>
+
+                    <div class="scoring-note" style="background: rgba(59, 130, 246, 0.1); padding: 1.2rem; border-radius: 6px; margin: 1.5rem 0;">
+                        <h5 style="margin-top: 0; font-size: 1rem;">Note on Index Interpretation</h5>
+                        <p>The WE GSI reflects the asymmetric nature of coordination risk. Movement within the GREEN zone (67-100%) represents variations in stability depth, whilst entry into the RED zone (&lt;33%) indicates critical risk regardless of specific position. This asymmetry reflects C-MAD dynamics: coordination is gradual to build but rapid to collapse. The index measures current coordination pressure direction, not cumulative coordination achievement.</p>
+                    </div>
+
+                    <h4>Distinguishing the Observatory's Approach</h4>
+                    
+                    <p>This framework distinguishes the Observatory's C-MAD approach from traditional geopolitical analysis: we assess whether operational dependencies create strategic complementarities (Stag Hunt) rather than treating AI infrastructure as zero-sum competition (Prisoner's Dilemma).</p>
+
+                    <p>The WE GSI provides the only game-theoretic stability assessment of AI infrastructure coordination.</p>
+
+                    <h3>WE GSI as APMF Operationalization</h3>
+                    
+                    <p>The WE Global Stability Index quantitatively operationalizes the Analytical Prophecy Methodology Framework's Four-Headed Analysis for AI infrastructure coordination assessment. Each coordination signal is evaluated across the four analytical domains (Technological, Financial, Psychological, Governance) identified in APMF, plus temporal momentum tracking directional change.</p>
+
+                    <p>This approach maintains APMF's core methodological principles:</p>
+
+                    <ul>
+                        <li><strong>Pattern Recognition Over Causal Certainty:</strong> We score observable patterns without claiming definitive proof of coordination</li>
+                        <li><strong>Multi-Domain Convergence:</strong> Signals are assessed across all four heads simultaneously</li>
+                        <li><strong>Coordination-Emergence Uncertainty:</strong> Scores acknowledge uncertainty between intentional coordination and emergent adaptation</li>
+                        <li><strong>Epistemic Humility:</strong> Bipolar scoring (-2 to +2) reflects that evidence can point toward either coordination or fragmentation</li>
+                    </ul>
+
+                    <p>The WE GSI extends APMF's Post-Convergence Strategic Analysis by providing quantitative structure for assessing whether observable infrastructure patterns suggest movement toward Stag Hunt coordination equilibria (HIGH/GREEN) or continued Prisoner's Dilemma fragmentation (LOW/RED).</p>
+
+                    <h3>WE GSI Dimensional Framework</h3>
+
+                    <p>The WE GSI uses exactly 5 dimensions to operationalize the Four-Headed Analysis:</p>
+
+                    <h4>Dimension 1: Technological Head Coordination (-2 to +2)</h4>
+                    
+                    <p><strong>Definition:</strong> The degree to which AI infrastructure - compute capacity, data centres, supply chains, and energy systems - is shared and interoperable versus fragmented and sovereign.</p>
+
+                    <p><strong>Scoring Criteria:</strong></p>
+                    <ul>
+                        <li><strong>+2 (Strong Coordination):</strong> Joint infrastructure development, shared compute resources, coordinated supply chain diversification. Example: Multi-country AI data centre consortiums, cross-border power purchase agreements for AI infrastructure.</li>
+                        <li><strong>+1 (Moderate Coordination):</strong> Compatible systems without explicit integration, friend-shoring strategies, regional cooperation. Example: Cloud platforms operating across allied nations with compatible architecture.</li>
+                        <li><strong>0 (Neutral/Ambiguous):</strong> Parallel infrastructure development without explicit coordination or restriction. Example: Domestic data centre builds without cross-border linkages.</li>
+                        <li><strong>-1 (Moderate Fragmentation):</strong> Preferential domestic infrastructure, limited interoperability, supply chain bifurcation. Example: Sovereign cloud mandates, behind-the-meter data centre power generation.</li>
+                        <li><strong>-2 (Strong Fragmentation):</strong> Explicit technological decoupling, adversarial infrastructure, complete supply chain separation. Example: Coordinated semiconductor export controls, mandatory indigenous technology stacks.</li>
+                    </ul>
+
+                    <h4>Dimension 2: Financial Head Coordination (-2 to +2)</h4>
+                    
+                    <p><strong>Definition:</strong> The openness versus restriction of capital flows, investment, and financial resources for AI development.</p>
+
+                    <p><strong>Scoring Criteria:</strong></p>
+                    <ul>
+                        <li><strong>+2 (Strong Coordination):</strong> Coordinated capital flow management, reciprocal investment frameworks, joint funding vehicles. Example: Allied nations establish matching venture co-investment funds for dual-use AI.</li>
+                        <li><strong>+1 (Moderate Coordination):</strong> Open investment with standard screening, bilateral investment agreements. Example: FDI screening exists but approvals common for non-adversarial investments.</li>
+                        <li><strong>0 (Neutral/Ambiguous):</strong> General regulatory stability, no targeted AI investment policies. Example: Free capital flow with standard CFIUS review applying to all sectors equally.</li>
+                        <li><strong>-1 (Moderate Fragmentation):</strong> Selective investment restrictions, increased FDI scrutiny for AI, strategic sector protection. Example: Expanded CFIUS scope, domestic-priority subsidies.</li>
+                        <li><strong>-2 (Strong Fragmentation):</strong> Aggressive outbound and inbound investment controls, capital prohibitions, adversarial financial positioning. Example: Outbound investment rules prohibiting AI chip investment in adversarial nations, forced divestitures.</li>
+                    </ul>
+
+                    <h4>Dimension 3: Psychological Head Coordination (-2 to +2)</h4>
+                    
+                    <p><strong>Definition:</strong> The trust, confidence, behavioural patterns, and narrative framing that enable or inhibit AI infrastructure cooperation.</p>
+
+                    <p><strong>Scoring Criteria:</strong></p>
+                    <ul>
+                        <li><strong>+2 (Strong Coordination):</strong> Formalised trust infrastructure, mutual recognition agreements, shared ethical frameworks. Example: Harmonised ethical AI frameworks for defence applications, binding AI safety standards.</li>
+                        <li><strong>+1 (Moderate Coordination):</strong> Consistent positive framing, bilateral trust-building initiatives, voluntary ethical alignment. Example: G7 voluntary AI principles, bilateral AI cooperation workstreams.</li>
+                        <li><strong>0 (Neutral/Ambiguous):</strong> Mixed public sentiment, unstable narratives, absence of clear trust signals. Example: Competing narratives without dominant frame.</li>
+                        <li><strong>-1 (Moderate Fragmentation):</strong> Adversarial framing, trust erosion, competing ethical frameworks. Example: Incompatible values-based AI content requirements, systematic trust gaps in data governance.</li>
+                        <li><strong>-2 (Strong Fragmentation):</strong> Weaponised narratives, systematic trust breakdown, adversarial behavioural conditioning. Example: AI-enabled malign influence operations, declared systemic distrust in official statements.</li>
+                    </ul>
+
+                    <h4>Dimension 4: Governance Head Coordination (-2 to +2)</h4>
+                    
+                    <p><strong>Definition:</strong> The alignment versus divergence of policies, regulations, legal frameworks, and authorisation mechanisms governing AI development and deployment.</p>
+
+                    <p><strong>Scoring Criteria:</strong></p>
+                    <ul>
+                        <li><strong>+2 (Strong Coordination):</strong> Unified regulatory frameworks, multilateral agreement implementation, harmonised standards. Example: Coordinated semiconductor export controls, international AI standards with mutual recognition.</li>
+                        <li><strong>+1 (Moderate Coordination):</strong> Bilateral policy alignment, compatible regulations, multilateral forum participation. Example: G7 AI processes, bilateral regulatory coordination frameworks.</li>
+                        <li><strong>0 (Neutral/Ambiguous):</strong> Diverse policies without strong conflict, different approaches without incompatibility. Example: Different regulatory philosophies without direct clash.</li>
+                        <li><strong>-1 (Moderate Fragmentation):</strong> Conflicting regulations, incompatible compliance requirements, unilateral restrictions. Example: Conflicting data localisation requirements, proliferation of incompatible audit frameworks.</li>
+                        <li><strong>-2 (Strong Fragmentation):</strong> Adversarial policy frameworks, designed incompatibility, weaponised regulation. Example: Mandatory data localisation with extraterritorial enforcement, complete regulatory decoupling.</li>
+                    </ul>
+
+                    <h4>Dimension 5: Temporal Momentum (-1 to +1)</h4>
+                    
+                    <p><strong>Definition:</strong> The recent directional change across all four APMF heads, capturing whether coordination dynamics are improving, stable, or deteriorating.</p>
+
+                    <p><strong>Scoring Criteria:</strong></p>
+                    <ul>
+                        <li><strong>+1 (Positive Momentum):</strong> Recent announcements of new partnerships, easing of restrictions, trust-building initiatives. Example: New multilateral AI cooperation frameworks announced in past 90 days.</li>
+                        <li><strong>0 (Stable):</strong> Continuation of existing patterns without major shifts. Example: Existing partnerships maintained without expansion or contraction.</li>
+                        <li><strong>-1 (Negative Momentum):</strong> Recent restrictions, partnership dissolutions, adversarial policy announcements. Example: New export controls implemented, investment bans announced.</li>
+                    </ul>
+
+                    <h3>WE GSI Calculation Methodology</h3>
+
+                    <h4>Individual Signal Scoring</h4>
+                    
+                    <p>Each signal receives five scores (one per dimension):</p>
+                    
+                    <p><strong>Signal Score = Tech Head + Financial Head + Psychological Head + Governance Head + Temporal</strong><br>
+                    Range: -10 (maximum fragmentation) to +10 (maximum coordination)</p>
+
+                    <h4>Signal Weighting by Type</h4>
+                    
+                    <ul>
+                        <li><strong>Weight 4:</strong> Coordination mechanism signals (bilateral agreements, joint frameworks)</li>
+                        <li><strong>Weight 3:</strong> Infrastructure commitment signals (major investments, facility builds)</li>
+                        <li><strong>Weight 2:</strong> Policy framework signals (legislation, regulatory changes)</li>
+                        <li><strong>Weight 1:</strong> Corporate partnership signals (standard commercial agreements)</li>
+                    </ul>
+
+                    <h4>WE GSI Percentage Calculation</h4>
+                    
+                    <p><strong>Raw Score = Σ (Signal Score × Signal Type Weight)</strong></p>
+                    
+                    <p><strong>GSI % = 50 + (Raw Score / Maximum Possible Raw Score) × 50</strong></p>
+                    
+                    <p><strong>Where:</strong></p>
+                    <ul>
+                        <li>50% = neutral baseline (balanced coordination and fragmentation pressures)</li>
+                        <li>Range: 0% (complete fragmentation) to 100% (complete coordination)</li>
+                        <li>Typically: 40-60% (MEDIUM/AMBER transitional uncertainty)</li>
+                    </ul>
+
+                    <h4>Mapping to Stability Categories</h4>
+                    <ul>
+                        <li><strong>0-33%:</strong> LOW/RED (Dangerous Fragmentation)</li>
+                        <li><strong>34-66%:</strong> MEDIUM/AMBER (Transitional Uncertainty)</li>
+                        <li><strong>67-100%:</strong> HIGH/GREEN (Stable Coordination)</li>
+                    </ul>
+
+                    <div class="scoring-note">
+                        <h4>Epistemic Boundaries</h4>
+                        <p>The WE GSI calculation provides quantitative structure to pattern assessment, <strong>not precision measurement</strong>. Given systematic opacity in AI infrastructure, we score observable public signals rather than attempting to measure unknowable operational realities. The formula creates <strong>consistent evaluation criteria</strong> and <strong>transparent reasoning</strong>, while acknowledging inherent limitations in knowledge about classified systems.</p>
+                        
+                        <p>This is analytical scaffolding for systematic judgment, not algorithmic certainty. The weights and scoring criteria reflect current APMF methodology (v1.0) and will evolve as our framework develops.</p>
+                    </div>
+
+                    <p style="margin-top: 2rem;"><strong>Framework Version:</strong> 1.0<br>
+                    <strong>Last Updated:</strong> October 2025<br>
+                    <strong>Methodology Evolution:</strong> Changes to framework documented in METHODOLOGY_CHANGELOG.md</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="expandable-section">
+            <div class="expandable-header" 
+                 onclick="toggleSection('research')"
+                 role="button"
+                 aria-expanded="false"
+                 aria-controls="research-content"
+                 tabindex="0">
+                <h2 class="section-header">Research</h2>
+                <span class="expand-icon" aria-hidden="true">▶</span>
+            </div>
+            <div class="expandable-content" id="research-content">
+                <div class="expandable-content-inner">
+                    <h3>The Warmth Engine Series</h3>
+                    <p>Our research framework documents systematic preparation, authorisation, and control mechanisms enabling AI deployment at unprecedented scale. The series employs analytical prophecy to analyse rapid technological transformation through pattern recognition across domains where traditional transparency mechanisms have failed.</p>
+
+                    <!-- Visual Timeline -->
+                    <div class="framework-timeline">
+                        <div class="timeline-header">
+                            <strong>Framework Progression: From Preparation to Coordination</strong>
+                        </div>
+                        <div class="timeline-container">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-items">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-label">HYDRA</div>
+                                    <div class="timeline-desc">Preparation<br>Apparatus</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-label">WARMTH ENGINE</div>
+                                    <div class="timeline-desc">Authorisation<br>Apparatus</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-label">ALEXANDRIA</div>
+                                    <div class="timeline-desc">Control<br>Apparatus</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-label">CITADEL</div>
+                                    <div class="timeline-desc">Operational<br>Convergence</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-label">C-MAD</div>
+                                    <div class="timeline-desc">Coordination<br>Imperative</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Published Research Papers</h4>
+                    
+                    <h4>Analytical Prophecy Methodology Framework (APMF)</h4>
+                    <p><em>Pattern Recognition in Systematic Opacity</em></p>
+                    <p>The foundational methodological framework enabling analysis of rapid technological transformation through systematic pattern recognition where traditional transparency fails. Core components include temporal precision, multi-domain convergence, and coordination-emergence uncertainty management.</p>
+
+                    <h4>Part I: The Hydra Testament</h4>
+                    <p><em>Cryptocurrency as Systematic Preparation Apparatus</em></p>
+                    <p>Documents how cryptocurrency markets functioned as preparation infrastructure for AI deployment, subsidising GPU development and energy infrastructure through four interconnected mechanisms:</p>
+                    <ul>
+                        <li><strong>Technological:</strong> Mining subsidised GPU development and energy infrastructure now inherited by AI systems</li>
+                        <li><strong>Financial:</strong> Sequential investment vehicles preserved Bitcoin's scarcity whilst enabling continuous extraction</li>
+                        <li><strong>Psychological:</strong> Markets demonstrated behavioural conditioning techniques for algorithmic governance</li>
+                        <li><strong>Governance:</strong> Regulatory arbitrage enabled operational continuity through jurisdictional cycling</li>
+                    </ul>
+
+                    <h4>Part II: The Warmth Engine Testament</h4>
+                    <p><em>Climate Emergency as AI Authorisation Apparatus</em></p>
+                    <p>Analyses how climate emergency discourse created authorisation mechanisms enabling massive computational resource consumption under environmental necessity:</p>
+                    <ul>
+                        <li><strong>Narrative Head:</strong> Climate urgency creates moral permission for otherwise questionable resource consumption</li>
+                        <li><strong>Infrastructure Head:</strong> Energy demands are reframed as climate solutions rather than climate costs</li>
+                        <li><strong>Governance Head:</strong> Emergency conditions justify expedited deployment with reduced democratic oversight</li>
+                        <li><strong>Control Head:</strong> Climate metrics become the basis for algorithmic resource allocation</li>
+                    </ul>
+
+                    <h4>Part III: The Alexandria Testament</h4>
+                    <p><em>Physical Infrastructure Colonialism as Control Apparatus</em></p>
+                    <p>Examines how processing control enables systematic value extraction from global data commons through non-retrofittable infrastructure requirements:</p>
+                    <ul>
+                        <li><strong>Technological Head:</strong> Physical infrastructure requirements create non-retrofittable barriers to competitive AI deployment</li>
+                        <li><strong>Financial Head:</strong> Capital requirements for infrastructure obsolescence systematically filter market participants</li>
+                        <li><strong>Psychological Head:</strong> Behavioural conditioning normalises processing inequality through algorithmic authority acceptance</li>
+                        <li><strong>Governance Head:</strong> Export controls and energy sovereignty merge to create technological chokepoints</li>
+                    </ul>
+
+                    <div class="scoring-note">
+                        <h4>Processing Colonialism: Core Concept</h4>
+                        <p><strong>Extension of data colonialism theory to physical infrastructure control:</strong> Unlike traditional data colonialism focused on epistemic control, processing colonialism examines how control over advanced AI processing creates systematic value extraction from global data commons. Those controlling computational infrastructure ("the keys to the Alexandria library") extract value from worldwide data contributions whilst restricting competitive processing alternatives through non-retrofittable infrastructure requirements (liquid cooling, copper interconnects, dedicated nuclear power generation).</p>
+                    </div>
+
+                    <h4>Part IV: The Citadel</h4>
+                    <p><em>Operational Convergence</em></p>
+                    <p>Synthesises preparation, authorisation, and control mechanisms, introducing the concept of operational convergence into geographically concentrated technological sovereignty citadels - physical complexes combining AI computational cores, dedicated energy infrastructure, and strategic positioning.</p>
+
+                    <div class="scoring-note">
+                        <h4>Technological Sovereignty Citadels</h4>
+                        <p><strong>Geographically concentrated complexes</strong> combining AI computational cores, dedicated energy infrastructure (sovereign power generation), and strategic positioning that create zones of technological inclusion and exclusion. These represent operational convergence where preparation (Hydra), authorisation (Warmth Engine), and control (Alexandria) mechanisms function simultaneously within integrated physical infrastructure.</p>
+                    </div>
+
+                    <h4>Part V: The Coordination Imperative</h4>
+                    <p><em>Computational Mutual Assured Destruction</em></p>
+                    <p>Develops the C-MAD framework, analysing how operational dependencies create strategic coordination pressure through mutual vulnerability and Stag Hunt dynamics. When critical systems depend on concentrated processing, disruption costs exceed competitive benefits for all parties simultaneously.</p>
+
+                    <h3>Key Theoretical Contributions</h3>
+                    <ul>
+                        <li><strong>Analytical Prophecy:</strong> Methodological framework for pattern recognition in complex systems during accelerated change</li>
+                        <li><strong>Four-Headed Analysis:</strong> Multi-domain framework examining technological, financial, psychological, and governance mechanisms</li>
+                        <li><strong>Processing Colonialism:</strong> Extension of data colonialism theory to physical infrastructure control</li>
+                        <li><strong>C-MAD Framework:</strong> Game-theoretic analysis of coordination pressure in operational AI infrastructure</li>
+                        <li><strong>Technological Sovereignty Citadels:</strong> Geographic concentration creating zones of inclusion and exclusion</li>
+                    </ul>
+
+                    <h3>Access Full Research</h3>
+                    <p>The complete Warmth Engine Series consolidates research originally published September-October 2025. Data verified through October 2025.</p>
+
+                    <div class="scoring-note" style="background: rgba(59, 130, 246, 0.1); padding: 1.2rem; border-radius: 6px; margin: 1.5rem 0;">
+                        <h4 style="margin-top: 0;">Available Now on Substack:</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Analytical Prophecy: A Methodological Framework</strong> - <a href="https://warmthengine.substack.com/p/analytical-prophecy-a-methodological" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                            <li><strong>Part I: The Hydra Testament - Cryptocurrency as Systematic Preparation Apparatus</strong> - <a href="https://warmthengine.substack.com/p/the-hydra-testament-cryptocurrency" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                            <li><strong>Part II: The Warmth Engine Testament - Climate Emergency as AI Authorisation Apparatus</strong> - <a href="https://warmthengine.substack.com/p/the-warmth-engine-testament-climate" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                            <li><strong>Part III: The Alexandria Testament - Physical Infrastructure Colonialism as Control Apparatus</strong> - <a href="https://warmthengine.substack.com/p/the-alexandria-testament-data-processing" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                            <li><strong>Part IV: The Citadel - Operational Convergence</strong> - <a href="https://warmthengine.substack.com/p/the-citadel-operational-convergence" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                            <li><strong>Part V: The Coordination Imperative - Computational Mutual Assured Destruction</strong> - <a href="https://warmthengine.substack.com/p/the-coordination-imperative-computational" target="_blank" rel="noopener noreferrer" style="color: var(--observatory-accent);">Read on Substack →</a></li>
+                        </ul>
+                        
+                        <p style="margin-top: 1rem; margin-bottom: 0;"><strong>Academic Publication:</strong> Complete PDF series and SSRN submissions pending review (submitted October 10, 2025). Links will be updated upon publication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="expandable-section">
+            <div class="expandable-header" 
+                 onclick="toggleSection('about')"
+                 role="button"
+                 aria-expanded="false"
+                 aria-controls="about-content"
+                 tabindex="0">
+                <h2 class="section-header">About</h2>
+                <span class="expand-icon" aria-hidden="true">▶</span>
+            </div>
+            <div class="expandable-content" id="about-content">
+                <div class="expandable-content-inner">
+                    <h3>Mission: Neutral Monitoring of AI Infrastructure Coordination</h3>
+                    <p>The Warmth Engine Observatory positions as a neutral monitor rather than advocate. Like astronomical observatories tracking celestial mechanics, we document coordination dynamics shaping AI infrastructure deployment - providing strategic intelligence synthesis for policymakers, researchers, and corporations navigating technological sovereignty challenges.</p>
+
+                    <h3>Intellectual Foundation</h3>
+                    <p>The Warmth Engine Observatory is built on <strong>12 original frameworks</strong> developed through 13 years of participant-observer research (2012-2025), including:</p>
+                    <ul>
+                        <li><strong>C-MAD Framework</strong> - Computational Mutual Assured Destruction game theory applied to AI infrastructure</li>
+                        <li><strong>Analytical Prophecy</strong> - Pattern recognition methodology for rapid technological transformation</li>
+                        <li><strong>Four-Headed Analysis</strong> - Cross-domain integration (Technology, Finance, Psychology, Governance)</li>
+                        <li><strong>Plus 9 additional original frameworks</strong> documented in The Warmth Engine Series</li>
+                    </ul>
+
+                    <div class="scoring-note" style="background: rgba(58, 124, 92, 0.1); padding: 1.2rem; border-radius: 6px; margin: 1.5rem 0;">
+                        <h4>Established Intellectual Priority</h4>
+                        <p><strong>The Warmth Engine Series</strong> - Published on Substack and submitted to Social Science Research Network (SSRN) on October 10, 2025, establishing timestamped intellectual priority for all underlying frameworks.</p>
+                        <p><strong>Verification:</strong> All frameworks are independently timestamped via Substack publication, SSRN submission, Internet Archive, and blockchain-based OpenTimestamps.</p>
+                        <p><em>Complete framework documentation available for research collaboration or commercial licensing inquiries.</em></p>
+                    </div>
+
+                    <h3>Category Creation: AI Infrastructure Coordination Intelligence</h3>
+                    <p>The Warmth Engine Observatory creates a new intelligence category that doesn't currently exist in the market.</p>
+
+                    <div class="scoring-note" style="background: rgba(59, 130, 246, 0.1); padding: 1.2rem; border-radius: 6px; margin: 1.5rem 0;">
+                        <h4>Why This Category Matters</h4>
+                        <p>Organisations currently lack real-time intelligence on whether global AI infrastructure is coordinating or fragmenting - a question with trillion-dollar implications for strategy, risk, and investment.</p>
+                        
+                        <p><strong>What exists today:</strong></p>
+                        <ul>
+                            <li>Technical chip analysis (misses coordination dynamics)</li>
+                            <li>AI policy monitoring (misses operational infrastructure)</li>
+                            <li>Market research (misses game-theoretic stability assessment)</li>
+                            <li>Geopolitical analysis (treats AI as zero-sum competition)</li>
+                        </ul>
+                        
+                        <p><strong>What we provide uniquely:</strong></p>
+                        <ul>
+                            <li>✅ Real-time coordination signal tracking</li>
+                            <li>✅ Quantitative stability assessment (WE GSI)</li>
+                            <li>✅ Cross-domain pattern recognition</li>
+                            <li>✅ Operational infrastructure focus</li>
+                            <li>✅ Game-theoretic coordination analysis</li>
+                        </ul>
+                        
+                        <p><em>We're not competing in existing markets - we're defining the essential intelligence category for the AI infrastructure era.</em></p>
+                    </div>
+
+                    <h3>Why This Matters</h3>
+                    <p>When traditional transparency mechanisms fail due to systematic opacity, pattern-based reconstruction becomes essential. Our participant-observer methodology documents patterns through sustained firsthand observation - capturing insights that secondary interpretation alone cannot provide.</p>
+
+                    <h3>Why "Warmth Engine"</h3>
+                    <p>The name reflects the central dynamic we document: climate necessity driving computational acceleration, creating the coordination pressures our frameworks analyse.</p>
+
+                    <h3>The Cryptocurrency Genesis</h3>
+                    <p>This observatory emerged from thirteen years of direct participation in cryptocurrency systems (2012–2025), documenting patterns invisible to external analysis. Through sustained firsthand observation, we tracked how mining subsidised GPU development, how sequential investment vehicles managed liquidity, how behavioural conditioning normalised algorithmic authority, and how regulatory arbitrage enabled operational continuity.</p>
+
+                    <p>The participant-observer methodology provides access to systemic responses invisible to secondary reconstruction. When systems function through opacity, sustained firsthand observation becomes necessary rather than optional.</p>
+
+                    <h3>Analytical Prophecy: A Methodological Innovation</h3>
+                    <p>Traditional analytical frameworks - academic research, investigative journalism, policy analysis - were designed for different technological and temporal conditions. As system complexity increases and transformation accelerates, these approaches face structural limitations preventing adequate analysis of emergent phenomena.</p>
+
+                    <p><strong>Analytical prophecy</strong> emerges as a methodological response to these constraints, combining systematic pattern recognition with explicit acknowledgment of interpretive uncertainty. The framework maintains empirical grounding whilst accepting that complex systems often require analysis before definitive proof becomes available.</p>
+
+                    <h4>Core Principles:</h4>
+                    <ul>
+                        <li><strong>Pattern Recognition Over Causal Certainty:</strong> Document convergent effects without claiming definitive causal relationships</li>
+                        <li><strong>Coordination-Emergence Uncertainty:</strong> Acknowledge uncertainty between intentional coordination and emergent adaptation</li>
+                        <li><strong>Multi-Domain Convergence:</strong> Examine patterns across technological, financial, psychological, and governance domains simultaneously</li>
+                        <li><strong>Temporal Precision:</strong> Emphasise precise temporal relationships and coordinated timing across independent domains</li>
+                    </ul>
+
+                    <h3>What We Track</h3>
+                    <ul>
+                        <li><strong>Confirmed Strategic Commitments:</strong> Multi-billion dollar infrastructure investments, policy frameworks creating regulatory precedent, energy sovereignty convergence</li>
+                        <li><strong>Temporal Precision:</strong> Coordinated timing across independent domains suggesting systematic rather than coincidental effects</li>
+                        <li><strong>Geographic Concentration:</strong> Processing capabilities concentrating in specific citadels combining non-retrofittable infrastructure, sovereign energy generation, and strategic positioning</li>
+                    </ul>
+
+                    <h3>What We Cannot Track</h3>
+                    <ul>
+                        <li><strong>Operational Capacity:</strong> Real-time utilisation rates, specific model training runs, deployment-level technical specifications</li>
+                        <li><strong>Intentionality:</strong> We document convergent effects without claiming definitive knowledge about coordination versus emergence</li>
+                        <li><strong>Comprehensive Coverage:</strong> Systematic opacity means some developments remain invisible to pattern-based analysis</li>
+                    </ul>
+
+                    <h3>Epistemic Humility</h3>
+                    <p>We maintain clear distinctions between observable patterns and causal claims:</p>
+                    <ul>
+                        <li>We <strong>document patterns</strong> rather than prove coordination</li>
+                        <li>We <strong>suggest systematic effects</strong> rather than demonstrate conspiracy</li>
+                        <li>We maintain <strong>"whether intentional or emergent"</strong> qualifications throughout analysis</li>
+                        <li>We use <strong>"appears consistent with"</strong> rather than "confirms" when interpreting evidence</li>
+                    </ul>
+
+                    <h3>Who We Serve</h3>
+                    <ul>
+                        <li><strong>Policymakers:</strong> Strategic intelligence on infrastructure coordination patterns requiring governance responses. <em>Example: Our C-MAD framework analysis informs how operational dependencies create coordination pressure distinct from development-phase competition.</em></li>
+                        <li><strong>Researchers:</strong> Methodological innovation for analysing rapid technological transformation. <em>Example: Analytical prophecy provides pattern recognition frameworks when traditional transparency mechanisms fail systematically.</em></li>
+                        <li><strong>Corporations:</strong> Competitive intelligence on technological sovereignty dynamics. <em>Example: Track sovereign AI investment patterns ($500B+ committed 2024–2025) signalling defensive responses to processing dependencies.</em></li>
+                        <li><strong>Civil Society:</strong> Transparency into infrastructure concentration reshaping power relationships. <em>Example: Documentation of systematic opacity (shell companies, NDAs, trade secret exemptions) enables informed public discourse on data centre deployment.</em></li>
+                    </ul>
+
+                    <h3>Independence and Transparency</h3>
+                    <p>The Warmth Engine Observatory operates independently through community support via cryptocurrency donations. We maintain no institutional affiliations, accept no corporate funding, and pursue no advocacy agenda beyond documenting observable coordination patterns.</p>
+
+                    <p>Our research methodology, data sources, and verification processes are fully transparent. All quantitative claims undergo multi-pass verification through primary sources. Where uncertainty exists, we explicitly acknowledge limitations rather than making unsupported claims.</p>
+
+                    <div class="subscribe-cta">
+                        <h4>🚀 Free Coordination Intelligence</h4>
+                        <p><strong>Subscribe to our core signals:</strong> Get weekly coordination signals and stability index updates directly to your inbox. Stay informed about critical AI infrastructure developments.</p>
+                        <div class="cta-buttons">
+                            <a href="mailto:warmthengine@proton.me?subject=Subscribe%20to%20Free%20Coordination%20Signals&body=Please%20add%20me%20to%20your%20free%20coordination%20intelligence%20list.%0A%0AName:%0AOrganisation%20(optional):%0ASpecific%20interests%20(optional):" 
+                               class="cta-button cta-primary">
+                                Subscribe to Free Signals
+                            </a>
+                            <a href="#support" onclick="expandSection('support')" class="cta-button cta-secondary">
+                                View Premium Options
+                            </a>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
+                            <em>No spam. Unsubscribe anytime. Free subscribers get weekly signals + stability index.</em>
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h4>For Research Inquiries</h4>
+                        <p>Contact us at: <a href="mailto:warmthengine@proton.me" class="methodology-link">warmthengine@proton.me</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="expandable-section">
+            <div class="expandable-header" 
+                 onclick="toggleSection('support')"
+                 role="button"
+                 aria-expanded="false"
+                 aria-controls="support-content"
+                 tabindex="0">
+                <h2 class="section-header">Support</h2>
+                <span class="expand-icon" aria-hidden="true">▶</span>
+            </div>
+            <div class="expandable-content" id="support-content">
+                <div class="expandable-content-inner">
+                    <h3>Support Independent AI Infrastructure Intelligence</h3>
+                    <p>The Warmth Engine Observatory operates independently through cryptocurrency donations - no institutional affiliations, no corporate sponsors, no advocacy agenda. We maintain complete financial transparency: donation addresses are public, usage is documented, funds support research operations only.</p>
+
+                    <h4>What Your Support Enables</h4>
+                    <ul>
+                        <li><strong>Signal Monitoring:</strong> Continuous tracking of coordination signals across multiple domains</li>
+                        <li><strong>Methodology Development:</strong> Refinement of analytical prophecy framework for complex systems</li>
+                        <li><strong>Infrastructure Costs:</strong> Secure hosting, data processing, and verification systems</li>
+                        <li><strong>Research Expansion:</strong> Deeper analysis of emerging coordination patterns</li>
+                    </ul>
+
+                    <h4>Funding Transparency</h4>
+                    <p>All donations are publicly verifiable on-chain. We publish quarterly transparency reports detailing:</p>
+                    <ul>
+                        <li>Total donations received by cryptocurrency</li>
+                        <li>Operational expenditures by category</li>
+                        <li>Research priorities funded by community support</li>
+                        <li>Future development roadmap based on funding levels</li>
+                    </ul>
+
+                    <h4>Premium Services (Coming Soon)</h4>
+                    <p>Based on community support levels, we plan to develop premium services including:</p>
+                    <ul>
+                        <li><strong>Detailed Analysis Reports:</strong> In-depth examination of specific coordination signals</li>
+                        <li><strong>Custom Monitoring:</strong> Tailored tracking of specific infrastructure developments</li>
+                        <li><strong>Consulting Services:</strong> Strategic advisory for organisations navigating AI infrastructure coordination</li>
+                        <li><strong>API Access:</strong> Programmatic access to coordination signals and stability metrics</li>
+                    </ul>
+
+                    <p style="margin-top: 2rem;"><em>Premium features will be developed based on community support levels. All basic coordination signals and stability indices remain freely accessible regardless of funding.</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section class="donation-section">
+            <h3 class="donation-title">Support Independent Research</h3>
+            
+            <div class="donation-narrative" style="margin-bottom: 2rem; border-left: 4px solid var(--observatory-accent); padding-left: 1rem;">
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Completing the Loop</h4>
+                <p><strong>Cryptocurrency → AI Infrastructure → Coordination Analysis</strong></p>
+                <p>The Hydra Testament documented how cryptocurrency mining - from Bitcoin's pioneering infrastructure innovations to Ethereum's GPU acceleration - subsidised the hardware and energy capacity that AI now inherits.</p>
+                <p>Now that same decentralised ecosystem can complete the loop: funding independent analysis ensuring these systems evolve towards coordination rather than fragmentation.</p>
+            </div>
+
+            <div class="crypto-donations">
+                <div class="crypto-option">
+                    <div class="qr-code">
+                        <img src="bitcoin-qr.png" 
+                             alt="Bitcoin donation address QR code for bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+                             loading="lazy"
+                             width="180"
+                             height="180">
+                    </div>
+                    <div class="crypto-label">Bitcoin (BTC)</div>
+                    <div class="address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
+                    <button class="copy-btn" onclick="copyToClipboard('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">Copy Address</button>
+                </div>
+                
+                <div class="crypto-option">
+                    <div class="qr-code">
+                        <img src="ethereum-qr.png" 
+                             alt="Ethereum donation address QR code for 0x742d35Cc6634C0532925a3b8D4B607f7C6eA9d4f"
+                             loading="lazy"
+                             width="180"
+                             height="180">
+                    </div>
+                    <div class="crypto-label">Ethereum (ETH)</div>
+                    <div class="address">0x742d35Cc6634C0532925a3b8D4B607f7C6eA9d4f</div>
+                    <button class="copy-btn" onclick="copyToClipboard('0x742d35Cc6634C0532925a3b8D4B607f7C6eA9d4f')">Copy Address</button>
+                </div>
+            </div>
+            
+            <div class="donation-narrative">
+                <p><em>Your support enables independent monitoring of AI infrastructure coordination patterns. All donations are publicly verifiable on-chain, with quarterly transparency reports detailing fund allocation.</em></p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="observatory-footer">
+            <p>Warmth Engine Observatory - C-MAD Monitoring Framework</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Independent AI Infrastructure Intelligence</p>
+            
+            <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted);">
+                © 2025 Warmth Engine Observatory. All rights reserved.<br>
+                Licensed under <a href="LICENSE.txt" style="color: var(--observatory-accent); text-decoration: none;">Creative Commons BY-NC-ND 4.0</a>
+                | <a href="IP-NOTICE.txt" style="color: var(--observatory-accent); text-decoration: none;">Intellectual Property Notice</a>
+            </p>
+            
+            <p style="margin-top: 1rem; font-size: 0.8rem;">
+                <a href="CHANGELOG.md" style="color: var(--observatory-accent); text-decoration: none;">Changelog</a> | 
+                Version 1.0
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Load configuration
+        let gaugePosition = typeof CONFIG !== 'undefined' ? CONFIG.gaugePosition : 50;
+        let previousGaugePosition = typeof CONFIG !== 'undefined' ? CONFIG.previousGaugePosition : 50;
+        const lastUpdateDate = typeof CONFIG !== 'undefined' ? CONFIG.lastUpdateDate : '2025-10-16T18:30:00Z';
+        const signalCount = typeof CONFIG !== 'undefined' ? CONFIG.signalCount : 4;
+        const totalCommitment = typeof CONFIG !== 'undefined' ? CONFIG.totalCommitment : '$13B+';
+
+        // Check URL for admin mode
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('admin') === 'true') {
+            document.getElementById('adminPanel').classList.add('active');
+        }
+
+        // Calculate recency
+        function updateRecencyIndicator() {
+            const now = new Date();
+            const lastUpdate = new Date(lastUpdateDate);
+            const diffMs = now - lastUpdate;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffDays = Math.floor(diffHours / 24);
+            
+            const indicator = document.getElementById('recencyIndicator');
+            
+            if (diffHours < 1) {
+                indicator.textContent = 'Just now';
+                indicator.classList.add('recent');
+            } else if (diffHours < 24) {
+                indicator.textContent = `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+                indicator.classList.add('recent');
+            } else if (diffDays < 7) {
+                indicator.textContent = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+                if (diffDays <= 2) indicator.classList.add('recent');
+            } else if (diffDays < 30) {
+                const weeks = Math.floor(diffDays / 7);
+                indicator.textContent = `${weeks} week${weeks !== 1 ? 's' : ''} ago`;
+            } else {
+                const months = Math.floor(diffDays / 30);
+                indicator.textContent = `${months} month${months !== 1 ? 's' : ''} ago`;
+            }
+        }
+
+        // Update stats dashboard
+        function updateStatsDashboard() {
+            document.getElementById('signalCount').textContent = signalCount;
+            document.getElementById('totalCommitment').textContent = totalCommitment;
+            updateRecencyIndicator();
+        }
+
+        // Color interpolation function
+        function getGaugeColor(position) {
+            if (position < 50) {
+                // Red to Yellow (0-50)
+                const ratio = position / 50;
+                const r = 239;
+                const g = Math.round(68 + (158 * ratio)); // 68 -> 226
+                const b = 68;
+                return `rgb(${r}, ${g}, ${b})`;
+            } else {
+                // Yellow to Green (50-100)
+                const ratio = (position - 50) / 50;
+                const r = Math.round(245 - (229 * ratio)); // 245 -> 16
+                const g = Math.round(158 + (27 * ratio)); // 158 -> 185
+                const b = Math.round(11 + (118 * ratio)); // 11 -> 129
+                return `rgb(${r}, ${g}, ${b})`;
+            }
+        }
+
+        // Get status info
+        function getStatusInfo(position) {
+            if (position < 33) {
+                return {
+                    label: 'LOW/RED',
+                    description: 'Even minimal structural cooperation has broken down. Blocs pursue infrastructure sovereignty despite recognising mutual harm from disruption.'
+                };
+            } else if (position < 67) {
+                return {
+                    label: 'MEDIUM/AMBER',
+                    description: 'Coordination pressure exists (mutual dependencies are real), but equilibrium is unresolved. Observable patterns point both towards cooperation and fragmentation.'
+                };
+            } else {
+                return {
+                    label: 'HIGH/GREEN',
+                    description: 'Even minimal structural cooperation exists. Major powers maintain basic agreements preventing catastrophic infrastructure disruption.'
+                };
+            }
+        }
+
+        // Get trend indicator
+        function getTrendIndicator(current, previous) {
+            if (current > previous) {
+                return `↗ from ${previous}%`;
+            } else if (current < previous) {
+                return `↘ from ${previous}%`;
+            } else {
+                return `→ from ${previous}%`;
+            }
+        }
+
+        // Update gauge display
+        function updateGauge() {
+            const color = getGaugeColor(gaugePosition);
+            const statusInfo = getStatusInfo(gaugePosition);
+            const trendText = getTrendIndicator(gaugePosition, previousGaugePosition);
+            
+            const indicator = document.getElementById('gaugeIndicator');
+            const stabilitySection = document.getElementById('stabilitySection');
+            const indexValue = document.getElementById('indexValue');
+            const statusLabel = document.getElementById('statusLabel');
+            const statusPercentage = document.getElementById('statusPercentage');
+            const trendIndicator = document.getElementById('trendIndicator');
+            const gaugeDescription = document.getElementById('gaugeDescription');
+            
+            // Update indicator position and color
+            indicator.style.left = `${gaugePosition}%`;
+            indicator.style.border = `3px solid ${color}`;
+            indicator.style.boxShadow = `0 2px 8px rgba(0,0,0,0.4), 0 0 0 4px ${color}40`;
+            
+            // Update arrow color using a dynamic style element
+            const existingStyle = document.getElementById('dynamic-arrow-style');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            const style = document.createElement('style');
+            style.id = 'dynamic-arrow-style';
+            style.textContent = `
+                #gaugeIndicator::after {
+                    border-top-color: ${color} !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Update section border
+            stabilitySection.style.borderLeft = `4px solid ${color}`;
+            
+            // Update status display
+            indexValue.style.color = color;
+            statusLabel.textContent = statusInfo.label;
+            statusPercentage.textContent = `(${gaugePosition}%)`;
+            trendIndicator.textContent = trendText;
+            gaugeDescription.textContent = statusInfo.description;
+        }
+
+        // Set gauge position
+        function setGaugePosition(value) {
+            gaugePosition = value;
+            document.getElementById('gaugeSlider').value = value;
+            document.getElementById('sliderValue').textContent = value;
+            updateGauge();
+        }
+
+        // Slider input handler
+        document.getElementById('gaugeSlider').addEventListener('input', function(e) {
+            setGaugePosition(Number(e.target.value));
+        });
+
+        // Toggle expandable sections
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const header = content.previousElementSibling;
+            const icon = header.querySelector('.expand-icon');
+            
+            const isExpanded = content.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+            header.setAttribute('aria-expanded', isExpanded);
+            
+            // Save state to localStorage
+            try {
+                localStorage.setItem(`section-${sectionId}`, isExpanded ? 'expanded' : 'collapsed');
+            } catch (e) {
+                // localStorage not available, ignore
+            }
+        }
+
+        // Expand section when navigation link is clicked
+        function expandSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const header = content.previousElementSibling;
+            const icon = header.querySelector('.expand-icon');
+            
+            // Open the target section without closing others
+            content.classList.add('expanded');
+            icon.classList.add('expanded');
+            header.setAttribute('aria-expanded', 'true');
+            
+            // Save state
+            try {
+                localStorage.setItem(`section-${sectionId}`, 'expanded');
+            } catch (e) {
+                // localStorage not available, ignore
+            }
+            
+            // Scroll to the section
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Restore section states from localStorage
+        function restoreSectionStates() {
+            const sections = ['methodology', 'research', 'about', 'support'];
+            sections.forEach(sectionId => {
+                try {
+                    const state = localStorage.getItem(`section-${sectionId}`);
+                    if (state === 'expanded') {
+                        const content = document.getElementById(sectionId + '-content');
+                        const header = content.previousElementSibling;
+                        const icon = header.querySelector('.expand-icon');
+                        
+                        content.classList.add('expanded');
+                        icon.classList.add('expanded');
+                        header.setAttribute('aria-expanded', 'true');
+                    }
+                } catch (e) {
+                    // localStorage not available, ignore
+                }
+            });
+        }
+
+        // Copy to clipboard function with fallback
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopySuccess(event.target);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                    fallbackCopyTextToClipboard(text, event.target);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, event.target);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess(button);
+            } catch (err) {
+                console.error('Fallback: Could not copy text', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess(btn) {
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.style.background = 'rgba(16, 185, 129, 0.2)';
+            btn.style.color = 'var(--status-high)';
+            btn.style.borderColor = 'var(--status-high)';
+            
+            setTimeout(function() {
+                btn.textContent = originalText;
+                btn.style.background = 'transparent';
+                btn.style.color = 'var(--text-secondary)';
+                btn.style.borderColor = 'var(--observatory-border)';
+            }, 2000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize gauge
+            updateGauge();
+            
+            // Update stats dashboard
+            updateStatsDashboard();
+            
+            // Restore section states
+            restoreSectionStates();
+
+            // Add smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add keyboard support for expandable headers
+            document.querySelectorAll('.expandable-header').forEach(header => {
+                header.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
