@@ -647,8 +647,8 @@
         }
 
         .expandable-content-inner ol {
-            margin: 0.5rem 0 1rem 2.5rem;
-            padding-left: 1rem;
+            margin: 0.5rem 0 1rem 1.5rem;
+            padding-left: 0.5rem;
         }
 
         .expandable-content-inner li {
@@ -726,32 +726,37 @@
         .timeline-container {
             position: relative;
             padding: 1rem 0;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .timeline-line {
             position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(to right, 
+            top: 0;
+            left: 50%;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, 
                 var(--observatory-accent) 0%, 
                 var(--observatory-accent) 100%);
-            transform: translateY(-50%);
+            transform: translateX(-50%);
             z-index: 1;
         }
 
         .timeline-items {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 2rem;
             position: relative;
             z-index: 2;
         }
 
         .timeline-item {
-            flex: 1;
-            text-align: center;
-            padding: 0 0.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            min-height: 50px;
         }
 
         .timeline-dot {
@@ -760,8 +765,37 @@
             background: var(--observatory-accent);
             border: 3px solid var(--observatory-dark);
             border-radius: 50%;
-            margin: 0 auto 1rem auto;
             box-shadow: 0 0 0 4px rgba(58, 124, 92, 0.2);
+            grid-column: 2;
+            grid-row: 1;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .timeline-content {
+            display: contents;
+        }
+
+        .timeline-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            text-align: right;
+            padding-right: 1.5rem;
+            grid-column: 1;
+            grid-row: 1;
+            align-self: center;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            text-align: left;
+            padding-left: 1.5rem;
+            grid-column: 3;
+            grid-row: 1;
+            align-self: center;
         }
 
         .timeline-label {
@@ -919,30 +953,23 @@
             .cta-button {
                 text-align: center;
             }
-
-            .timeline-items {
-                flex-direction: column;
-                gap: 2rem;
+            
+            .timeline-container {
+                padding: 1rem 0.5rem;
             }
-
-            .timeline-line {
-                left: 50%;
-                top: 0;
-                bottom: 0;
-                width: 3px;
-                height: auto;
-                transform: translateX(-50%);
-            }
-
+            
             .timeline-item {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                text-align: left;
+                gap: 0.5rem;
             }
-
-            .timeline-dot {
-                flex-shrink: 0;
+            
+            .timeline-label {
+                font-size: 0.85rem;
+                padding-right: 0.75rem;
+            }
+            
+            .timeline-desc {
+                font-size: 0.8rem;
+                padding-left: 0.75rem;
             }
         }
 
@@ -1503,28 +1530,38 @@
                             <div class="timeline-items">
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="timeline-label">HYDRA</div>
-                                    <div class="timeline-desc">Preparation<br>Apparatus</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-label">HYDRA</div>
+                                        <div class="timeline-desc">Preparation Apparatus</div>
+                                    </div>
                                 </div>
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="timeline-label">WARMTH ENGINE</div>
-                                    <div class="timeline-desc">Authorisation<br>Apparatus</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-label">WARMTH ENGINE</div>
+                                        <div class="timeline-desc">Authorisation Apparatus</div>
+                                    </div>
                                 </div>
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="timeline-label">ALEXANDRIA</div>
-                                    <div class="timeline-desc">Control<br>Apparatus</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-label">ALEXANDRIA</div>
+                                        <div class="timeline-desc">Control Apparatus</div>
+                                    </div>
                                 </div>
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="timeline-label">CITADEL</div>
-                                    <div class="timeline-desc">Operational<br>Convergence</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-label">CITADEL</div>
+                                        <div class="timeline-desc">Operational Convergence</div>
+                                    </div>
                                 </div>
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="timeline-label">C-MAD</div>
-                                    <div class="timeline-desc">Coordination<br>Imperative</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-label">C-MAD</div>
+                                        <div class="timeline-desc">Coordination Imperative</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
