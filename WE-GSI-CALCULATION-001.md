@@ -294,15 +294,15 @@ Monitor directional trends over multiple assessments rather than treating single
 
 ---
 
-## Methodology Correction (October 21, 2025)
+## Methodology Correction (October 20, 2025)
 
 **Initial Assessment (October 19, 2025):**
 - Signal #3 classified as Coordination Mechanism (Weight: 4)
 - Total Weighted Score: +48
 - Maximum Possible Score: 100
-- WE GSI: 74%
+- WE GSI: 74% (raw)
 
-**Corrected Assessment (October 21, 2025):**
+**Corrected Assessment (October 20, 2025):**
 
 Following independent verification of primary sources, Signal #3 (UK-U.S. Tech Prosperity Deal) was reclassified from Coordination Mechanism (Weight: 4) to Infrastructure Commitment (Weight: 3).
 
@@ -316,27 +316,16 @@ Following independent verification of primary sources, Signal #3 (UK-U.S. Tech P
 
 **Total Weighted Score:** +40 (previously +48)  
 **Maximum Possible Score:** 90 (previously 100)  
-**WE GSI:** 72% (previously 74%)
+**WE GSI:** 72.2% raw → **72%** displayed (previously 74%)
 
-**Additional Correction:** Signal #4 name updated to reflect full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act" rather than "Global AI Infrastructure Network."
+**Additional Corrections:**
+- Signal #4 name updated to full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act"
+- Removed non-methodological calibration adjustment
+- WE GSI now displays raw calculated value
 
-**Transparency Note:** This correction demonstrates our commitment to accuracy over narrative convenience. The launch position of 72% (HIGH/GREEN) reflects strong coordination pressure from major infrastructure commitments and bilateral frameworks, partially offset by protectionist policy measures. With only 4 signals, early-stage volatility is expected as the index discovers its natural equilibrium through signal accumulation.
+**Display Convention:** WE GSI values are displayed rounded to the nearest whole number for clarity (e.g., 72.2% displays as 72%). Raw calculations maintain full precision in data files for verification purposes.
 
-**Rationale:** The £31 billion commitment represents private-sector investments by U.S. tech firms (Microsoft, NVIDIA, Google, CoreWeave, and others) announced within a government-brokered partnership framework, not direct bilateral government funding. Whilst the Tech Prosperity Deal is a legitimate government-to-government agreement establishing collaboration on AI, quantum computing, and nuclear energy research, the financial commitments are voluntary private investments rather than government budget allocations.
-
-**Recalculated Weighted Scores:**
-- Signal 1 (Meta): +15
-- Signal 2 (OpenAI-Broadcom): +5
-- Signal 3 (UK-U.S. Deal): +8 × 3 = **+24** (previously +32)
-- Signal 4 (GAIN AI Act): -4
-
-**Total Weighted Score:** +40 (previously +48)  
-**Maximum Possible Score:** 90 (previously 100)  
-**WE GSI:** 72.2% (raw) → **55%** (adjusted)
-
-**Additional Correction:** Signal #4 name updated to reflect full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act" rather than "Global AI Infrastructure Network."
-
-**Transparency Note:** This correction demonstrates our commitment to accuracy over narrative convenience. The 3-point reduction (58% → 55%) maintains the MEDIUM/AMBER classification whilst ensuring signal classifications accurately reflect their underlying nature.
+**Transparency Note:** This correction demonstrates our commitment to accuracy over narrative convenience. The corrected position of 72% (HIGH/GREEN) reflects strong coordination pressure from major infrastructure commitments and bilateral frameworks, partially offset by protectionist policy measures. With only 4 signals, early-stage volatility is expected as the index discovers its natural equilibrium through signal accumulation.
 
 ---
 
@@ -357,7 +346,7 @@ Following independent verification of primary sources, Signal #3 (UK-U.S. Tech P
 ---
 
 **Calculation Verified:** 2025-10-19  
-**Methodology Correction:** 2025-10-21  
+**Methodology Correction:** 2025-10-20  
 **Methodology Version:** 1.0  
 **Next Assessment:** Approximately 2025-11-02 (bi-weekly)
 
