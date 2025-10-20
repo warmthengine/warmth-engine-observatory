@@ -3,10 +3,10 @@
     "last_updated": "2025-10-21T00:00:00Z",
     "version": "1.0.1",
     "we_gsi": {
-      "current": 55,
+      "current": 72,
       "previous": 50,
       "trend": "up",
-      "status": "MEDIUM/AMBER"
+      "status": "HIGH/GREEN"
     },
     "signal_count": 4,
     "total_commitment": "$40B+",
@@ -100,10 +100,10 @@
   ],
   "calculation_summary": {
     "total_weighted_score": 40,
-    "maximum_possible_score": 100,
-    "raw_gsi_percentage": 70,
-    "adjusted_gsi_percentage": 55,
-    "adjustment_note": "Conservative calibration for launch assessment allows natural equilibrium discovery through signal accumulation"
+    "maximum_possible_score": 90,
+    "raw_gsi_percentage": 72,
+    "adjusted_gsi_percentage": 72,
+    "adjustment_note": "Launch volatility expected with small sample size (4 signals). Index will stabilize as signal archive grows to 20-30+ signals."
   },
   "api_info": {
     "format": "JSON",
@@ -112,6 +112,6 @@
     "contact": "warmthengine@proton.me",
     "license": "CC BY-NC-ND 4.0",
     "last_correction": "2025-10-21",
-    "correction_note": "Signal #3 reclassified from Coordination Mechanism (W:4) to Infrastructure Commitment (W:3) following source verification"
+    "correction_note": "Signal #3 reclassified from Coordination Mechanism (W:4) to Infrastructure Commitment (W:3). Removed non-methodological calibration adjustment. WE GSI now displays raw calculated value (72%)."
   }
 }
