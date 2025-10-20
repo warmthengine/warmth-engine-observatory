@@ -27,6 +27,45 @@ GSI % = 50 + (Raw Score / Maximum Possible Score) × 50
 
 ---
 
+## Assessment Window Methodology
+
+**Signal Archive vs. WE GSI Calculation:**
+
+The Warmth Engine Observatory distinguishes between:
+
+**1. Signal Archive (Cumulative)**
+- All signals tracked since September 16, 2025
+- Cumulative count displayed in stats dashboard
+- Provides historical depth and trend context
+
+**2. Assessment Window (Rolling)**
+- WE GSI calculation uses signals from assessment period (typically 30-90 days)
+- Current assessment: September 16 - October 15, 2025 (30 days)
+- As platform matures, assessment window will standardize to 90 days
+
+**Rationale for Rolling Window:**
+
+A rolling assessment window ensures the WE GSI reflects current coordination dynamics:
+- **Signal decay:** Infrastructure announcements from 6 months ago have less relevance to current coordination pressure
+- **Temporal momentum:** Recent signals (last 90 days) better indicate directional trends
+- **Dynamic equilibrium:** The index adapts to changing coordination climate rather than anchoring to historical patterns
+
+**Future Assessments:**
+
+Once the signal archive exceeds 90 days of coverage, the WE GSI will calculate from a standardized 90-day rolling window. This means:
+- Signals older than 90 days remain in the archive (cumulative count)
+- But only signals from the most recent 90 days influence the current WE GSI calculation
+- This allows the index to respond to acceleration or deceleration in coordination trends
+
+**Current Assessment Period:**
+- Start: September 16, 2025 (earliest signal)
+- End: October 15, 2025 (latest signal)
+- Duration: 30 days (all available signals included)
+
+**Note:** The first 3-6 assessments will use all available signals due to limited archive depth. The 90-day rolling window will be implemented once sufficient signal history exists (approximately January 2026).
+
+---
+
 ## Signal 1: Meta $1.5B Texas Data Centre
 
 **Date:** 2025-10-15  
