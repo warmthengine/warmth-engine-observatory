@@ -16,6 +16,25 @@ The Warmth Engine Observatory is an independent monitoring platform tracking coo
 
 ---
 
+## Status
+
+**Launch Date:** October 19, 2025  
+**Version:** Beta v1.0  
+**Maturity Level:** Experimental methodology with 4-signal foundation  
+**Current Assessment:** 72% (HIGH/GREEN - Strong Coordination Pressure)  
+**Recommendation:** Directional intelligence input; methodological validation ongoing  
+**Track Record:** Establishing (launched October 2025)
+
+**Beta Caveats:**
+- Small sample size (4 signals) → expect volatility as signals accumulate
+- Subjective dimensional scoring → inter-rater reliability testing planned for Q1 2026
+- Unproven prediction accuracy → building track record over 6-12 months
+- Western observability bias → limited coverage of China/Russia/classified programs
+
+For detailed limitations, see the [Methodology](https://warmthengine.github.io/warmth-engine-observatory/) section.
+
+---
+
 ## What We Track
 
 The Observatory monitors four categories of coordination signals:
