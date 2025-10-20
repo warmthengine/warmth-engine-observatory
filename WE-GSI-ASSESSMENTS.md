@@ -11,9 +11,11 @@
 
 **Rationale:** Following source verification, the £31 billion commitment represents private-sector investments by U.S. technology firms announced within a government partnership framework, not direct government-to-government funding. Whilst the Tech Prosperity Deal is a legitimate bilateral agreement establishing UK-U.S. collaboration, the infrastructure investments are voluntary private commitments.
 
-**Impact on WE GSI:** Reduced from 58% to 55% (remains MEDIUM/AMBER classification)
+**Impact on WE GSI:** Calculation corrected from 74% to 72% (HIGH/GREEN classification)
 
 **Additional Correction:** Signal #4 name corrected to full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act"
+
+**Additional Correction:** Removed non-methodological calibration adjustment factor. WE GSI now displays raw calculated value, with volatility acknowledged as expected for small sample size.
 
 **Date Corrected:** October 21, 2025  
 **Correction Applied:** Pre-launch (stealth testing phase)  
@@ -27,10 +29,10 @@
 **Period Covered:** September 16 - October 15, 2025  
 **Signals Assessed:** 4
 
-### WE GSI Position: 55%
-**Status:** MEDIUM/AMBER (Transitional Uncertainty)  
+### WE GSI Position: 72%
+**Status:** HIGH/GREEN (Strong Coordination Pressure)  
 **Previous Position:** 50% (baseline)  
-**Change:** +5 points (↗)
+**Change:** +22 points (↗)
 
 ---
 
@@ -71,11 +73,12 @@
 **Total Weighted Score:** +15 + 5 + 24 - 4 = **+40**  
 **Maximum Possible Score:** 90  
 
-**Raw Calculation:**  
-GSI % = 50 + (40/90) × 50 = 72.2%
+**WE GSI Calculation:**  
+GSI % = 50 + (40/90) × 50 = 72.2% → **72%**
 
-**Adjusted Launch Position:** 55%  
-*(Conservative calibration for first assessment - allows natural equilibrium discovery through signal accumulation)*
+**Launch Position:** 72% (HIGH/GREEN)
+
+**Volatility Note:** With only 4 signals, early assessments exhibit expected volatility. Each new signal has approximately 25% influence on the index. As the signal archive grows to 20-30+ signals over coming months, percentage swings will moderate naturally and the index will find its equilibrium.
 
 ---
 
@@ -87,9 +90,9 @@ GSI % = 50 + (40/90) × 50 = 72.2%
 - Emerging protectionist policy frameworks (U.S. GAIN AI Act)
 - Net positive coordination pressure, but fragmentation risks visible
 
-**Directional Assessment:** Modest upward trend from baseline equilibrium
+**Directional Assessment:** Strong upward trend from baseline equilibrium
 
-**Outlook:** The 55% MEDIUM/AMBER assessment reflects coexisting coordination and fragmentation pressures. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
+**Outlook:** The 72% HIGH/GREEN assessment reflects strong coordination pressure from major bilateral frameworks (UK-U.S. Tech Prosperity Deal) and infrastructure commitments (Meta, OpenAI-Broadcom), partially offset by protectionist policy measures (GAIN Act). The position indicates current signal mix strongly favours coordination over fragmentation. With limited sample size (4 signals), expect significant volatility in early assessments. New signals could shift the index 15-20 points in either direction as equilibrium is discovered through signal accumulation.
 
 ---
 
@@ -97,7 +100,7 @@ GSI % = 50 + (40/90) × 50 = 72.2%
 
 **Baseline Rationale:** The WE GSI launched at 50% (neutral baseline) reflecting the genuine transitional state observable in October 2025, where significant coordination signals coexist with fragmentation pressures. This approach follows precedent from established indices (VIX, Bloomberg Dollar Index) that establish baselines at launch rather than attempting historical backfill.
 
-**Calibration Adjustment:** The first assessment applies a conservative adjustment (72% raw → 55% adjusted) to establish a stable baseline. This allows the index to find its natural equilibrium as signals accumulate. Future assessments will use raw calculations without adjustment.
+**Launch Volatility:** The first assessment yields 72% based on raw calculation from 4 signals. With small sample size, early-stage volatility is expected and mathematically normal. The index will stabilize as signal archive grows and diverse signal mix provides more balanced assessments.
 
 **Detailed Calculation:** See `WE-GSI-CALCULATION-001.md` for complete dimensional scoring transparency.
 
