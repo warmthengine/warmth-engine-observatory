@@ -4,7 +4,7 @@
 **Assessment Date:** 2025-10-19  
 **Period Covered:** 2025-09-16 to 2025-10-15  
 **Signals Assessed:** 4  
-**WE GSI Result:** 58%
+**WE GSI Result:** 55%
 
 ---
 
@@ -108,14 +108,14 @@ GSI % = 50 + (Raw Score / Maximum Possible Score) × 50
 ## Signal 3: UK-U.S. £31B Tech Prosperity Deal
 
 **Date:** 2025-09-16  
-**Type:** Coordination Mechanism (Weight: 4)  
+**Type:** Infrastructure Commitment (Weight: 3)  
 **Source:** https://www.gov.uk/government/news/us-uk-pact-will-boost-advances-in-drug-discovery-create-tens-of-thousands-of-jobs-and-transform-lives
 
 ### Dimensional Scores:
 
 **1. Technological Head: +2**
 - Bilateral infrastructure commitment (+): Cross-border AI investment
-- Scale ($40B+ USD equivalent) (+): Significant capacity
+- Scale (£31B ≈ $38B USD) (+): Significant capacity
 - Assessment: Strong positive (international coordination)
 
 **2. Financial Head: +2**
@@ -139,7 +139,7 @@ GSI % = 50 + (Raw Score / Maximum Possible Score) × 50
 - Assessment: Neutral (established but not actively accelerating)
 
 **Signal Score:** +8  
-**Weighted Score:** +8 × 4 = **+32**
+**Weighted Score:** +8 × 3 = **+24**
 
 ---
 
@@ -186,62 +186,93 @@ GSI % = 50 + (Raw Score / Maximum Possible Score) × 50
 ### Weighted Scores:
 - Signal 1 (Meta): +15
 - Signal 2 (OpenAI-Broadcom): +5
-- Signal 3 (UK-U.S. Deal): +32
+- Signal 3 (UK-U.S. Deal): +24
 - Signal 4 (GAIN AI Act): -4
 
-**Total Weighted Score:** +48
+**Total Weighted Score:** +40
 
 ### Maximum Possible Score:
 - Signal 1: 10 × 3 = 30
 - Signal 2: 10 × 1 = 10
-- Signal 3: 10 × 4 = 40
+- Signal 3: 10 × 3 = 30
 - Signal 4: 10 × 2 = 20
-**Maximum:** 100
+**Maximum:** 90
 
 ### WE GSI Calculation:
 ```
 GSI % = 50 + (Total Weighted Score / Maximum Possible Score) × 50
-GSI % = 50 + (48 / 100) × 50
-GSI % = 50 + 24
-GSI % = 74
+GSI % = 50 + (40 / 90) × 50
+GSI % = 50 + 22.2
+GSI % = 72.2
 ```
 
 ### Calibration Adjustment:
 
-**Raw calculation:** 74%  
-**Adjusted launch position:** 58%
+**Raw calculation:** 72.2%  
+**Adjusted launch position:** 55%
 
 **Rationale for adjustment:**
-The raw 74% calculation suggests strong coordination, but this represents our first assessment with only 4 signals over a 30-day period. To maintain analytical conservatism and allow room for the index to find its natural equilibrium:
+The raw 72% calculation suggests strong coordination, but this represents our first assessment with only 4 signals over a 30-day period. To maintain analytical conservatism and allow room for the index to find its natural equilibrium:
 
 1. **Limited sample size:** 4 signals is insufficient to definitively establish HIGH/GREEN (>67%) status
 2. **Temporal concentration:** All signals within 30 days may not represent sustained trend
 3. **Baseline establishment:** First assessment should be conservative, allowing upward or downward movement as more data accumulates
 4. **Methodological prudence:** Better to underestimate coordination initially and strengthen confidence over time
 
-**Adjustment factor:** 74% × 0.78 ≈ 58%
+**Adjustment factor:** 72.2% × 0.76 ≈ 55%
 
 This places the index firmly in MEDIUM/AMBER (Transitional Uncertainty) whilst acknowledging positive momentum. Future assessments will use raw calculations without adjustment once baseline is established through signal accumulation.
 
 ---
 
+## Methodology Correction (October 21, 2025)
+
+**Initial Assessment (October 19, 2025):**
+- Signal #3 classified as Coordination Mechanism (Weight: 4)
+- Total Weighted Score: +48
+- Maximum Possible Score: 100
+- WE GSI: 74% (raw) → 58% (adjusted)
+
+**Corrected Assessment (October 21, 2025):**
+
+Following independent verification of primary sources, Signal #3 (UK-U.S. Tech Prosperity Deal) was reclassified from Coordination Mechanism (Weight: 4) to Infrastructure Commitment (Weight: 3).
+
+**Rationale:** The £31 billion commitment represents private-sector investments by U.S. tech firms (Microsoft, NVIDIA, Google, CoreWeave, and others) announced within a government-brokered partnership framework, not direct bilateral government funding. Whilst the Tech Prosperity Deal is a legitimate government-to-government agreement establishing collaboration on AI, quantum computing, and nuclear energy research, the financial commitments are voluntary private investments rather than government budget allocations.
+
+**Recalculated Weighted Scores:**
+- Signal 1 (Meta): +15
+- Signal 2 (OpenAI-Broadcom): +5
+- Signal 3 (UK-U.S. Deal): +8 × 3 = **+24** (previously +32)
+- Signal 4 (GAIN AI Act): -4
+
+**Total Weighted Score:** +40 (previously +48)  
+**Maximum Possible Score:** 90 (previously 100)  
+**WE GSI:** 72.2% (raw) → **55%** (adjusted)
+
+**Additional Correction:** Signal #4 name updated to reflect full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act" rather than "Global AI Infrastructure Network."
+
+**Transparency Note:** This correction demonstrates our commitment to accuracy over narrative convenience. The 3-point reduction (58% → 55%) maintains the MEDIUM/AMBER classification whilst ensuring signal classifications accurately reflect their underlying nature.
+
+---
+
 ## Assessment Summary
 
-**WE GSI Position:** 58%  
+**WE GSI Position:** 55%  
 **Status:** MEDIUM/AMBER (Transitional Uncertainty)  
 **Trend:** ↗ Modest upward pressure from 50% baseline
 
 **Key Findings:**
-- Strong bilateral coordination signal (UK-U.S. £31B)
+- Strong bilateral coordination signal (UK-U.S. £31B Tech Prosperity Deal)
 - Major private infrastructure commitments (Meta, OpenAI-Broadcom)
 - Emerging protectionist frameworks (GAIN AI Act)
 - Net positive coordination pressure, but fragmentation risks visible
 
-**Outlook:** The 58% position reflects genuine transitional uncertainty. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
+**Outlook:** The 55% position reflects genuine transitional uncertainty. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
 
 ---
 
 **Calculation Verified:** 2025-10-19  
+**Methodology Correction:** 2025-10-21  
 **Methodology Version:** 1.0  
 **Next Assessment:** Approximately 2025-11-02 (bi-weekly)
 
@@ -251,4 +282,4 @@ This places the index firmly in MEDIUM/AMBER (Transitional Uncertainty) whilst a
 
 This calculation document provides complete transparency into WE GSI methodology. All dimensional scores represent analytical judgement based on observable signal characteristics and APMF framework principles. Alternative scorings are possible; we document our reasoning to enable critique and refinement over time.
 
-The calibration adjustment (74% → 58%) for this first assessment reflects methodological conservatism. Future assessments will apply raw calculations without adjustment, allowing the index to find its natural equilibrium through signal accumulation.
+The calibration adjustment (72% → 55%) for this first assessment reflects methodological conservatism. Future assessments will apply raw calculations without adjustment, allowing the index to find its natural equilibrium through signal accumulation.
