@@ -1,15 +1,36 @@
 # WE Global Stability Index - Assessment History
 
+## Methodology Corrections Log
+
+### Correction #001 - October 21, 2025
+
+**Issue Identified:** Signal #3 (UK-U.S. Tech Prosperity Deal) misclassified
+
+**Original Classification:** Coordination Mechanism (Weight: 4)  
+**Corrected Classification:** Infrastructure Commitment (Weight: 3)
+
+**Rationale:** Following source verification, the £31 billion commitment represents private-sector investments by U.S. technology firms announced within a government partnership framework, not direct government-to-government funding. Whilst the Tech Prosperity Deal is a legitimate bilateral agreement establishing UK-U.S. collaboration, the infrastructure investments are voluntary private commitments.
+
+**Impact on WE GSI:** Reduced from 58% to 55% (remains MEDIUM/AMBER classification)
+
+**Additional Correction:** Signal #4 name corrected to full acronym: "Guaranteeing Access and Innovation for National AI (GAIN) Act"
+
+**Date Corrected:** October 21, 2025  
+**Correction Applied:** Pre-launch (stealth testing phase)  
+**Transparency:** Full calculation adjustment documented in WE-GSI-CALCULATION-001.md
+
+---
+
 ## Assessment #001 - October 2025 (Launch)
 
 **Date:** 2025-10-19  
 **Period Covered:** September 16 - October 15, 2025  
 **Signals Assessed:** 4
 
-### WE GSI Position: 58%
+### WE GSI Position: 55%
 **Status:** MEDIUM/AMBER (Transitional Uncertainty)  
 **Previous Position:** 50% (baseline)  
-**Change:** +8 points (↗)
+**Change:** +5 points (↗)
 
 ---
 
@@ -30,9 +51,9 @@
 - **Source:** https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/
 
 #### Signal 3: UK-U.S. £31B Tech Prosperity Deal (2025-09-16)
-- **Type:** Coordination Mechanism (Weight: 4)
+- **Type:** Infrastructure Commitment (Weight: 3)
 - **Score:** +8 (Tech: +2, Finance: +2, Psych: +2, Gov: +2, Temp: 0)
-- **Weighted:** +32
+- **Weighted:** +24
 - **Impact:** High | **Confidence:** High
 - **Source:** https://www.gov.uk/government/news/us-uk-pact-will-boost-advances-in-drug-discovery-create-tens-of-thousands-of-jobs-and-transform-lives
 
@@ -47,13 +68,13 @@
 
 ### Calculation Summary:
 
-**Total Weighted Score:** +15 + 5 + 32 - 4 = **+48**  
-**Maximum Possible Score:** 100  
+**Total Weighted Score:** +15 + 5 + 24 - 4 = **+40**  
+**Maximum Possible Score:** 90  
 
 **Raw Calculation:**  
-GSI % = 50 + (48/100) × 50 = 74%
+GSI % = 50 + (40/90) × 50 = 72.2%
 
-**Adjusted Launch Position:** 58%  
+**Adjusted Launch Position:** 55%  
 *(Conservative calibration for first assessment - allows natural equilibrium discovery through signal accumulation)*
 
 ---
@@ -68,7 +89,7 @@ GSI % = 50 + (48/100) × 50 = 74%
 
 **Directional Assessment:** Modest upward trend from baseline equilibrium
 
-**Outlook:** The 58% MEDIUM/AMBER assessment reflects coexisting coordination and fragmentation pressures. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
+**Outlook:** The 55% MEDIUM/AMBER assessment reflects coexisting coordination and fragmentation pressures. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
 
 ---
 
@@ -76,7 +97,7 @@ GSI % = 50 + (48/100) × 50 = 74%
 
 **Baseline Rationale:** The WE GSI launched at 50% (neutral baseline) reflecting the genuine transitional state observable in October 2025, where significant coordination signals coexist with fragmentation pressures. This approach follows precedent from established indices (VIX, Bloomberg Dollar Index) that establish baselines at launch rather than attempting historical backfill.
 
-**Calibration Adjustment:** The first assessment applies a conservative adjustment (74% raw → 58% adjusted) to establish a stable baseline. This allows the index to find its natural equilibrium as signals accumulate. Future assessments will use raw calculations without adjustment.
+**Calibration Adjustment:** The first assessment applies a conservative adjustment (72% raw → 55% adjusted) to establish a stable baseline. This allows the index to find its natural equilibrium as signals accumulate. Future assessments will use raw calculations without adjustment.
 
 **Detailed Calculation:** See `WE-GSI-CALCULATION-001.md` for complete dimensional scoring transparency.
 
@@ -87,7 +108,7 @@ GSI % = 50 + (48/100) × 50 = 74%
 **Methodology Version:** 1.0  
 **Recorded By:** Warmth Engine Observatory  
 **Framework:** C-MAD + APMF  
-**Last Updated:** 2025-10-19
+**Last Updated:** 2025-10-21
 
 ---
 
