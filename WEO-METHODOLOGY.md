@@ -107,6 +107,93 @@ Evidence quality hierarchy (APMF compliance):
 
 ---
 
+## Signal Archive vs. Assessment Window
+
+The Warmth Engine Observatory uses a dual-timeframe approach to balance historical depth with current relevance:
+
+### Signal Archive (Cumulative Tracking)
+
+**Purpose:** Comprehensive historical record of all coordination signals
+
+**Scope:**
+- All signals tracked since September 16, 2025 (earliest signal: UK-U.S. Tech Prosperity Deal)
+- Cumulative count displayed in platform stats dashboard
+- Infrastructure commitment figures are similarly cumulative
+- Provides depth and context for long-term trend analysis
+
+**Principle:** Infrastructure investments do not expire. A data centre announced in September 2025 remains part of the coordination landscape in 2026. The archive grows continuously to establish historical patterns and validate predictive frameworks.
+
+---
+
+### Assessment Window (Rolling Calculation)
+
+**Purpose:** Current coordination climate measurement
+
+**Scope:**
+- WE GSI calculation uses signals from most recent assessment period (typically 30-90 days)
+- Current assessment: 30 days (all available signals during launch phase)
+- Standard window: 90 days (to be implemented January 2026 once sufficient signal history exists)
+- Ensures index reflects current coordination dynamics rather than historical patterns
+
+**Rationale for Rolling Window:**
+
+1. **Signal Decay:** Infrastructure announcements from 6+ months ago have diminished relevance to current coordination pressure. A bilateral agreement from January has less influence on July's coordination climate than recent signals.
+
+2. **Temporal Momentum:** Recent signals (last 90 days) better indicate directional trends and acceleration/deceleration of coordination patterns.
+
+3. **Dynamic Equilibrium:** The index must adapt to changing coordination climate rather than anchoring to historical patterns. Coordination can accelerate or decelerate rapidly in response to geopolitical shifts.
+
+4. **Methodological Precedent:** Established volatility indices (VIX) and economic indicators use rolling windows to maintain current relevance whilst preserving historical context.
+
+---
+
+### Implementation Timeline
+
+**Phase 1 (October 2025 - December 2025):**
+- Assessment window: All available signals (growing from 30 to ~90 days)
+- Rationale: Limited archive depth requires using all signals for credible calculation
+- WE GSI reflects cumulative coordination pressure during establishment phase
+
+**Phase 2 (January 2026 onwards):**
+- Assessment window: Standardised 90-day rolling window
+- Signals older than 90 days: Remain in archive but excluded from current WE GSI calculation
+- Enables responsive measurement of coordination acceleration/deceleration
+
+**Archive vs. Index Distinction:**
+- **"SIGNALS TRACKED"** (dashboard) = Cumulative archive count (grows forever)
+- **WE GSI calculation** = Based on assessment window signals only (rolling 90 days)
+- This separation allows historical depth whilst maintaining current relevance
+
+---
+
+### Methodological Transparency
+
+**Why this matters:**
+
+Users must understand that:
+- Growing signal counts ≠ automatically rising WE GSI
+- The index can decrease even as total signals increase (if recent signals are fragmentation-oriented)
+- Historical coordination victories don't prevent future fragmentation
+- Current coordination climate is what the WE GSI measures
+
+**Example scenario (April 2026):**
+- Signal archive: 64 signals tracked since September 2025
+- Assessment window: 12 signals from January-March 2026
+- If those 12 recent signals show fragmentation, WE GSI decreases despite growing archive
+
+This design prevents "ratchet effect" where index only moves upward and ensures measurement validity during potential coordination breakdown periods.
+
+---
+
+### Key Dates Reference
+
+**Archive Start:** September 16, 2025 (UK-U.S. Tech Prosperity Deal)  
+**Platform Launch:** October 19, 2025 (Warmth Engine Observatory)  
+**WE GSI Baseline:** 50% (neutral starting point for index calculation)  
+**Rolling Window Activation:** January 2026 (when sufficient signal history exists)
+
+---
+
 ## Known Limitations & Systematic Biases
 
 Epistemic boundaries (transparency commitment):
