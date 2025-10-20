@@ -7,7 +7,7 @@
 const CONFIG = {
     // === WE GLOBAL STABILITY INDEX ===
     // Current gauge position (0-100)
-    gaugePosition: 55,
+    gaugePosition: 72,
     
     // Previous position for trend arrow
     // Shows: "↑ from 45%" or "↓ from 55%" or "→ from 50%"
