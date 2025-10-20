@@ -1,63 +1,117 @@
 {
   "metadata": {
-    "last_updated": "2025-10-16T18:30:00Z",
-    "version": "1.0.0",
+    "last_updated": "2025-10-21T00:00:00Z",
+    "version": "1.0.1",
     "we_gsi": {
-      "current": 50,
+      "current": 55,
       "previous": 50,
-      "trend": "stable",
+      "trend": "up",
       "status": "MEDIUM/AMBER"
     },
     "signal_count": 4,
-    "total_commitment": "$13B+",
+    "total_commitment": "$40B+",
     "methodology_version": "1.0"
   },
   "signals": [
     {
       "id": "signal-001",
       "date": "2025-10-15",
-      "title": "Meta's $1.5 Billion, 1 GW AI Data Centre in Texas",
-      "description": "Meta Platforms announced construction of a massive AI data centre in El Paso, Texas, representing $1.5 billion in infrastructure investment with 1 gigawatt of power capacity. The facility will support Meta's AI training operations and includes partnership with local utilities for renewable energy integration.",
+      "title": "Meta's $1.5 Billion, 1 GW AI Data Centre in Texas with Pre-Built Grid Infrastructure",
+      "description": "Meta Platforms announced an initial investment of over $1.5 billion for a new AI-optimised data centre in El Paso, Texas, designed to scale to 1 gigawatt (GW) of capacity, with direct funding of new grid infrastructure including transmission lines and substations.",
+      "type": "Infrastructure Commitment",
+      "weight": 3,
       "impact": "High",
       "confidence": "High",
-      "source_url": "https://about.fb.com/news/2025/10/meta-el-paso-data-center/",
-      "context": "Demonstrates hyperscaler willingness to commit substantial capital to AI infrastructure outside traditional tech hubs, signaling confidence in long-term AI compute demand and coordination with regional power authorities."
+      "source_url": "https://about.fb.com/news/2025/10/metas-new-ai-optimized-data-center-el-paso/",
+      "context": "Demonstrates hyperscaler willingness to fund public energy infrastructure to accelerate deployment timelines, whether through intentional coordination or emergent market adaptation.",
+      "dimensions": {
+        "technological": 1,
+        "financial": 2,
+        "psychological": 0,
+        "governance": 1,
+        "temporal": 1
+      },
+      "signal_score": 5,
+      "weighted_score": 15
     },
     {
       "id": "signal-002",
       "date": "2025-10-13",
-      "title": "OpenAI-Broadcom Partnership: 10 Gigawatt AI Processing Network",
-      "description": "OpenAI and Broadcom announced a strategic partnership to develop a distributed AI processing network spanning multiple continents with combined power capacity of 10 gigawatts. The initiative includes custom silicon development and coordination with national grid operators in five countries.",
+      "title": "OpenAI-Broadcom 10 GW Custom AI Accelerator Partnership",
+      "description": "OpenAI and Broadcom announced a strategic collaboration to co-develop and deploy 10 gigawatts (GW) of custom AI accelerators. The chips are designed by OpenAI and optimised for AI inference workloads at unprecedented scale.",
+      "type": "Corporate Partnership",
+      "weight": 1,
       "impact": "High",
       "confidence": "High",
-      "source_url": "https://openai.com/blog/broadcom-partnership",
-      "context": "Represents unprecedented scale of private-sector coordination for AI infrastructure, requiring multi-national regulatory alignment and grid modernization commitments. The 10 GW figure exceeds the total power consumption of some small nations."
+      "source_url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+      "context": "Represents a shift towards hardware sovereignty and challenges NVIDIA's infrastructure dominance, consistent with either strategic coordination or convergent market evolution towards computational independence.",
+      "dimensions": {
+        "technological": 2,
+        "financial": 1,
+        "psychological": 1,
+        "governance": 0,
+        "temporal": 1
+      },
+      "signal_score": 5,
+      "weighted_score": 5
     },
     {
       "id": "signal-003",
-      "date": "2025-10-13",
-      "title": "UK-U.S. £11 Billion Bilateral AI Infrastructure Agreement",
-      "description": "The United Kingdom and United States formalized a bilateral agreement committing £11 billion to joint AI research infrastructure, including shared computing facilities, transatlantic fiber connectivity upgrades, and harmonized data governance frameworks.",
+      "date": "2025-09-16",
+      "title": "UK-U.S. Tech Prosperity Deal: £31 Billion Private Investment Framework",
+      "description": "During President Trump's September 2025 UK state visit, Britain and the U.S. announced the Tech Prosperity Deal, a joint technology partnership. Under this government-brokered framework, U.S. tech firms (Microsoft, NVIDIA, Google, CoreWeave, and others) pledged £31 billion towards UK AI infrastructure, including data centres, chips, and research facilities. The deal also establishes UK-U.S. collaboration on AI, quantum computing, and nuclear energy research.",
+      "type": "Infrastructure Commitment",
+      "weight": 3,
       "impact": "High",
       "confidence": "High",
-      "source_url": "https://www.gov.uk/government/news/uk-us-tech-deal",
-      "context": "First major bilateral treaty explicitly structured around AI infrastructure coordination, establishing precedent for state-level commitments to computational resource sharing and regulatory harmonization."
+      "source_url": "https://www.gov.uk/government/news/us-uk-pact-will-boost-advances-in-drug-discovery-create-tens-of-thousands-of-jobs-and-transform-lives",
+      "context": "Demonstrates significant private-sector investment in AI infrastructure coordinated through bilateral government partnership framework, establishing precedent for public-private coordination in advanced technology development.",
+      "dimensions": {
+        "technological": 2,
+        "financial": 2,
+        "psychological": 2,
+        "governance": 2,
+        "temporal": 0
+      },
+      "signal_score": 8,
+      "weighted_score": 24
     },
     {
       "id": "signal-004",
       "date": "2025-10-10",
-      "title": "U.S. Senate Passes GAIN AI Act: National Infrastructure Framework",
-      "description": "The U.S. Senate passed the Global AI Infrastructure Network (GAIN) Act with bipartisan support, establishing federal coordination mechanisms for AI data center development, power grid integration, and international compute resource sharing agreements.",
+      "title": "U.S. Senate Advances Guaranteeing Access and Innovation for National AI (GAIN) Act",
+      "description": "The U.S. Senate advanced the Guaranteeing Access and Innovation for National AI (GAIN) Act on October 10, 2025, as part of the FY2026 National Defence Authorization Act. The legislation mandates that AI chip manufacturers give U.S. buyers priority access to advanced processors through an 'America-First Right of Refusal' before allowing exports to foreign adversaries. Exporters must obtain licences and certify no U.S. customer backlog exists before shipping high-end chips abroad.",
+      "type": "Policy Framework",
+      "weight": 2,
       "impact": "High",
       "confidence": "High",
-      "source_url": "https://www.senate.gov/legislative/gain-ai-act",
-      "context": "Marks formal institutionalization of AI infrastructure as national security priority, creating legislative framework for coordinated deployment that transcends market mechanisms alone."
+      "source_url": "https://www.banks.senate.gov/news/press-releases/sen-banks-secures-key-legislation-in-senate-passed-national-defense-authorization-act",
+      "context": "Actively reshapes global AI supply chains by legally prioritising domestic chip access, representing clear fragmentation pressure consistent with protectionist technology sovereignty policies rather than international coordination.",
+      "dimensions": {
+        "technological": 0,
+        "financial": -1,
+        "psychological": -1,
+        "governance": 1,
+        "temporal": -1
+      },
+      "signal_score": -2,
+      "weighted_score": -4
     }
   ],
+  "calculation_summary": {
+    "total_weighted_score": 40,
+    "maximum_possible_score": 100,
+    "raw_gsi_percentage": 70,
+    "adjusted_gsi_percentage": 55,
+    "adjustment_note": "Conservative calibration for launch assessment allows natural equilibrium discovery through signal accumulation"
+  },
   "api_info": {
     "format": "JSON",
     "encoding": "UTF-8",
-    "update_frequency": "weekly",
-    "contact": "warmthengine@github"
+    "update_frequency": "bi-weekly",
+    "contact": "warmthengine@proton.me",
+    "license": "CC BY-NC-ND 4.0",
+    "last_correction": "2025-10-21",
+    "correction_note": "Signal #3 reclassified from Coordination Mechanism (W:4) to Infrastructure Commitment (W:3) following source verification"
   }
 }
