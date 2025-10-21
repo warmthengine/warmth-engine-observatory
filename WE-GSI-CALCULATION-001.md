@@ -341,7 +341,7 @@ Following independent verification of primary sources, Signal #3 (UK-U.S. Tech P
 - Emerging protectionist frameworks (GAIN AI Act)
 - Net positive coordination pressure, but fragmentation risks visible
 
-**Outlook:** The 55% position reflects genuine transitional uncertainty. Sustained movement toward HIGH/GREEN (>67%) would require additional bilateral frameworks, multilateral agreements, or reduction in protectionist measures. Movement toward LOW/RED (<33%) would require breakdown of existing partnerships or escalation of trade restrictions.
+**Outlook:** The 72% position reflects strong coordination pressure from major infrastructure commitments and bilateral frameworks, partially offset by emerging protectionist measures. With only 4 signals, this position has high volatility—new signals could shift the index by 10-15 percentage points in either direction. Sustained movement toward EXTREME/GREEN (>85%) would require additional multilateral agreements and reduction in protectionist measures. Movement toward MEDIUM/AMBER (33-67%) or LOW/RED (<33%) would require breakdown of existing partnerships, escalation of trade restrictions, or major fragmentation signals.
 
 ---
 
@@ -356,4 +356,4 @@ Following independent verification of primary sources, Signal #3 (UK-U.S. Tech P
 
 This calculation document provides complete transparency into WE GSI methodology. All dimensional scores represent analytical judgement based on observable signal characteristics and APMF framework principles. Alternative scorings are possible; we document our reasoning to enable critique and refinement over time.
 
-The calibration adjustment (72% → 55%) for this first assessment reflects methodological conservatism. Future assessments will apply raw calculations without adjustment, allowing the index to find its natural equilibrium through signal accumulation.
+The WE GSI displays the raw calculated value (72%) without adjustment. With only 4 signals, early-stage volatility is expected—each new signal can shift the index by approximately 10-15 percentage points. The index will stabilize as the signal archive grows beyond 20-30 signals, allowing natural equilibrium discovery through data accumulation rather than methodological calibration.
