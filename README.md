@@ -357,4 +357,4 @@ All analysis is offered as participant-observer documentation, not authoritative
 
 **The Warmth Engine Observatory - Making AI Infrastructure Coordination Visible**
 
-*"Whether by design or emergence, we document what is." - Analytical Prophecy*
+*"Whether by design or emergence, we document what is." - Analytical Prophecy* 
