@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Warmth Engine</title>
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           RESEARCH PAGE R5.1 — Bridging Zone Architecture
+           Warm Dark Theme (Zinc, cooler-shifted) — Distinct from WEO (Slate-Blue)
+           
+           Changes in R5.1:
+           - Shifted zinc palette slightly cooler for better harmony with WEO panel
+             (#18181B → #1A1B1F, #27272A → #282A2E, #3F3F46 → #3D3F44)
+           
+           Changes in R5:
+           - Added Methodology Extensions zone with WEO slate-blue styling
+           - TCS and TCD papers in bridging zone
+           - Updated separation note to acknowledge the bridge
+           
+           Previous (R4):
+           - Fixed character encoding (em-dash, bullet, copyright)
+           
+           Previous (R3):
+           - Landing page as "curated pointer" not library
+           - Let Zenodo handle metrics, full abstract, keywords
+           - Explicit separation note
+           - Declarations section for scholarly rigour
+           ================================================================= */
+        
+        :root {
+            /* Warm Dark Background System (Zinc family — slightly cooler for harmony with WEO) */
+            --bg-primary: #1A1B1F;
+            --bg-card: #282A2E;
+            --bg-elevated: #3D3F44;
+            --border-primary: #64748B;
+            --border-subtle: #505258;
+            
+            /* Text Hierarchy */
+            --text-primary: #FAFAFA;
+            --text-secondary: #E4E4E7;
+            --text-tertiary: #A1A1AA;
+            --text-muted: #71717A;
+            
+            /* Accent — warm amber */
+            --accent-primary: #F59E0B;
+            --accent-hover: #D97706;
+            --accent-subtle: #78716C;
+            
+            /* WEO Slate-Blue System (for bridging zone) */
+            --weo-bg-primary: #0F172A;
+            --weo-bg-card: #1E293B;
+            --weo-bg-elevated: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-accent-teal: #2DD4BF;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #1A1B1F;
+            --surface-raised: #282A2E;
+            --surface-overlay: #3D3F44;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #F59E0B;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Button pressed feedback */
+        button:active,
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: var(--accent-primary);
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(120, 113, 108, 0.1) 100%);
+          border: 1px solid rgba(245, 158, 11, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: var(--accent-primary);
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(245, 158, 11, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: var(--accent-primary);
+          background: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        /* Mobile nav styles */
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: rgba(26, 27, 31, 0.97);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-top: 2px solid rgba(245, 158, 11, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--duration-normal) var(--ease-out);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+
+          .weo-nav-links.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
+
+          .weo-nav-links a {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+          }
+
+          .weo-nav-toggle {
+            display: flex;
+          }
+        }
+        
+        /* Header */
+        .page-header {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .page-subtitle {
+            font-size: 0.9375rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* Zone Labels */
+        .zone-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid;
+        }
+        
+        .zone-label--foundational {
+            color: var(--accent-primary);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        
+        .zone-label--extensions {
+            color: var(--weo-accent-teal);
+            border-color: rgba(45, 212, 191, 0.3);
+        }
+        
+        /* Publication Card — Foundational (Amber) */
+        .publication-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .publication-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: var(--space-md);
+        }
+        
+        .publication-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .meta-separator {
+            color: var(--text-muted);
+        }
+        
+        .meta-badge {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            color: var(--text-tertiary);
+        }
+        
+        .meta-badge.open-access {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-primary);
+        }
+        
+        /* DOI Row */
+        .doi-row {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .doi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: var(--bg-elevated);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .doi-badge .label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        
+        /* Contents List */
+        .contents-list {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .contents-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contents-list ol {
+            list-style: none;
+            counter-reset: contents;
+        }
+        
+        .contents-list li {
+            counter-increment: contents;
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            font-size: 0.875rem;
+            padding: var(--space-xs) 0;
+        }
+        
+        .contents-list li::before {
+            content: counter(contents) ".";
+            flex-shrink: 0;
+            width: 1.25rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+        
+        .work-title {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        /* Link Button — Amber */
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--accent-primary);
+            color: #18181B;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            transition: background-color var(--duration-fast) var(--ease-out);
+        }
+        
+        .link-button:hover {
+            background: var(--accent-hover);
+        }
+        
+        .link-button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* ========================================
+           BRIDGING ZONE — WEO Slate-Blue Styling
+           ======================================== */
+        .bridging-zone {
+            background: var(--weo-bg-primary);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .bridging-zone .zone-label--extensions {
+            color: var(--weo-accent-teal);
+            border-color: rgba(45, 212, 191, 0.3);
+        }
+        
+        /* Publication Card — WEO Style (inside bridging zone) */
+        .publication-card--weo {
+            background: var(--weo-bg-card);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        .publication-card--weo:last-of-type {
+            margin-bottom: 0;
+        }
+        
+        .publication-card--weo .publication-title {
+            font-size: 1rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .publication-card--weo .publication-meta {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .publication-card--weo .meta-badge {
+            background: var(--weo-bg-elevated);
+        }
+        
+        .publication-card--weo .meta-badge.open-access {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--weo-accent-teal);
+        }
+        
+        .publication-card--weo .doi-badge {
+            background: var(--weo-bg-elevated);
+        }
+        
+        /* Link Button — WEO Teal */
+        .link-button--weo {
+            background: var(--weo-accent-teal);
+            color: #0F172A;
+        }
+        
+        .link-button--weo:hover {
+            background: #5EEAD4;
+        }
+        
+        /* Bridging Note */
+        .bridging-note {
+            font-size: 0.8125rem;
+            color: #94A3B8;
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Separation Note */
+        .separation-note {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.7;
+        }
+        
+        /* Declarations */
+        .declarations {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+        
+        .declarations p {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .declarations p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .declarations strong {
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .publication-card {
+                padding: var(--space-lg);
+            }
+            
+            .bridging-zone {
+                padding: var(--space-lg);
+            }
+            
+            .publication-card--weo {
+                padding: var(--space-md);
+            }
+            
+            .publication-title {
+                font-size: 1rem;
+            }
+            
+            .publication-card--weo .publication-title {
+                font-size: 0.9375rem;
+            }
+            
+            .publication-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-xs);
+            }
+            
+            .meta-separator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="research.html" class="active">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Research</h1>
+            <p class="page-subtitle">Independent research by Warmth Engine</p>
+        </header>
+        
+        <!-- Zone A: Foundational Research -->
+        <div class="zone-label zone-label--foundational">Foundational Research</div>
+        
+        <!-- Publication Card — The Warmth Engine Series -->
+        <article class="publication-card">
+            <h2 class="publication-title">The Warmth Engine Series: Analytical Prophecy and the Convergence of AI Sovereignty, Infrastructure Colonialism, and the Coordination Imperative</h2>
+            
+            <div class="publication-meta">
+                <span>Warmth Engine</span>
+                <span class="meta-separator">•</span>
+                <span>October 2025</span>
+                <span class="meta-separator">•</span>
+                <span>Zenodo</span>
+                <span class="meta-badge">Working Paper</span>
+                <span class="meta-badge open-access">Open Access</span>
+            </div>
+            
+            <div class="doi-row">
+                <div class="doi-badge">
+                    <span class="label">DOI</span>
+                    <span>10.5281/zenodo.17451629</span>
+                </div>
+            </div>
+            
+            <div class="contents-list">
+                <div class="contents-label">Contents</div>
+                <ol>
+                    <li><span class="work-title">Analytical Prophecy</span></li>
+                    <li><span class="work-title">The Hydra Testament</span></li>
+                    <li><span class="work-title">The Warmth Engine Testament</span></li>
+                    <li><span class="work-title">The Alexandria Testament</span></li>
+                    <li><span class="work-title">The Citadel</span></li>
+                    <li><span class="work-title">The Coordination Imperative</span></li>
+                </ol>
+            </div>
+            
+            <a href="https://zenodo.org/records/17451629" class="link-button" target="_blank" rel="noopener noreferrer">
+                View on Zenodo
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+            </a>
+        </article>
+        
+        <!-- Separation Note -->
+        <section class="section">
+            <div class="section-label">Note</div>
+            <p class="separation-note">This independent research and the Warmth Engine Observatory platform are conducted separately. The Observatory applies structured classification methodology to observable events, including the novel 7-type Coordination Connections taxonomy; this research explores theoretical frameworks through analytical observation.</p>
+        </section>
+        
+        <!-- Zone B: Methodology Extensions (Bridging Zone) -->
+        <div class="bridging-zone">
+            <div class="zone-label zone-label--extensions">Methodology Extensions</div>
+            
+            <p class="bridging-note">These papers extend WEO methodology and operationalise C-MAD theory introduced in The Coordination Imperative (Part VI of The Warmth Engine Series).</p>
+            
+            <!-- TCS Paper -->
+            <article class="publication-card--weo">
+                <h3 class="publication-title">Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns</h3>
+                
+                <div class="publication-meta">
+                    <span>Warmth Engine</span>
+                    <span class="meta-separator">•</span>
+                    <span>January 2026</span>
+                    <span class="meta-separator">•</span>
+                    <span>Zenodo</span>
+                    <span class="meta-badge">Working Paper</span>
+                    <span class="meta-badge open-access">Open Access</span>
+                </div>
+                
+                <div class="doi-row">
+                    <div class="doi-badge">
+                        <span class="label">DOI</span>
+                        <span>10.5281/zenodo.18427585</span>
+                    </div>
+                </div>
+                
+                <a href="https://zenodo.org/records/18427585" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
+                    View on Zenodo
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                </a>
+            </article>
+            
+            <!-- TCD Paper -->
+            <article class="publication-card--weo">
+                <h3 class="publication-title">Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis</h3>
+                
+                <div class="publication-meta">
+                    <span>Warmth Engine</span>
+                    <span class="meta-separator">•</span>
+                    <span>January 2026</span>
+                    <span class="meta-separator">•</span>
+                    <span>Zenodo</span>
+                    <span class="meta-badge">Technical Note</span>
+                    <span class="meta-badge open-access">Open Access</span>
+                </div>
+                
+                <div class="doi-row">
+                    <div class="doi-badge">
+                        <span class="label">DOI</span>
+                        <span>10.5281/zenodo.18427587</span>
+                    </div>
+                </div>
+                
+                <a href="https://zenodo.org/records/18427587" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
+                    View on Zenodo
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                </a>
+            </article>
+        </div>
+        
+        <!-- Declarations -->
+        <section class="section">
+            <div class="section-label">Declarations</div>
+            <div class="declarations">
+                <p><strong>Funding:</strong> Not applicable</p>
+                <p><strong>Conflicts of interest:</strong> Not applicable</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+      // Navigation toggle for mobile
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('open');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+</body>
+</html>

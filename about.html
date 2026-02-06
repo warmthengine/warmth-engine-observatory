@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Warmth Engine Observatory</title>
+    <meta name="description" content="About the Warmth Engine Observatory — tracking AI infrastructure coordination dynamics across geopolitical blocs.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="About — Warmth Engine Observatory">
+    <meta property="og:description" content="Tracking AI infrastructure coordination dynamics across geopolitical blocs.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           ABOUT PAGE R7 — Platform Orientation & FAQ
+           Observatory Palette (Slate-Blue) — Platform Documentation
+           
+           This page provides platform orientation for new users:
+           - What WEO is (and is not)
+           - Target audiences
+           - Limitations and trade-offs
+           - Frequently asked questions
+           
+           Style: Systems Analyst | UK English | Institutional Audience
+           
+           Changes in R7:
+           - Hero: Added "PLATFORM" label, subtle teal glow accent
+           - Stats: Reduced to 2 (Verified Events, Coordination Connections)
+           - What WEO Is: Now icon grid with green ticks (parity with Is Not)
+           - WEO Avatar: Monogram with subtle teal gradient
+           - FAQ: Restored working toggle script
+           - Email: Fixed mailto link
+           
+           Previous versions:
+           - R6: Terminology fixes, CC count update
+           - R4: Removed gauge-related FAQs (deferred to V2.2+)
+           - R3: Fixed FAQ prediction answer, multi-gauge text, email
+           ================================================================= */
+        
+        :root {
+            /* Background & Surface — Observatory Palette */
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-elevated: #334155;
+            --border-primary: #334155;
+            --border-subtle: #475569;
+            
+            /* Text Hierarchy */
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #94A3B8;
+            --text-muted: #64748B;
+            
+            /* Accent */
+            --accent-primary: #3B82F6;
+            --accent-hover: #60A5FA;
+            
+            /* Coordination Connections / Teal Accent */
+            --accent-teal: #2DD4BF;
+            --accent-teal-muted: rgba(45, 212, 191, 0.15);
+            --accent-teal-glow: rgba(45, 212, 191, 0.08);
+            
+            /* Status */
+            --status-positive: #22C55E;
+            --status-positive-bg: rgba(34, 197, 94, 0.12);
+            --status-negative: #EF4444;
+            --status-negative-bg: rgba(239, 68, 68, 0.12);
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #0F172A;
+            --surface-raised: #1E293B;
+            --surface-overlay: #334155;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #60A5FA;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Button pressed feedback */
+        button:active,
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: #2DD4BF;
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: #2DD4BF;
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: #2DD4BF;
+          background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .weo-nav-toggle:hover {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60A5FA;
+        }
+
+        .weo-nav-toggle:hover span {
+          background: var(--text-primary);
+        }
+
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-top: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          
+          .weo-nav-links.open {
+            display: flex;
+          }
+          
+          .weo-nav-links a {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+          }
+          
+          .weo-nav-toggle {
+            display: flex;
+          }
+        }
+        
+        /* Header */
+        .page-header {
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.02em;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Prose */
+        .prose {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .prose p {
+            margin-bottom: var(--space-md);
+        }
+        
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .prose a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .prose a:hover {
+            color: var(--accent-hover);
+        }
+        
+        /* Hero Box — subtle teal panel glow */
+        .hero-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(45, 212, 191, 0.375);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl) var(--space-xl) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            text-align: center;
+            box-shadow: 0 0 30px -5px rgba(45, 212, 191, 0.3);
+        }
+        
+        .hero-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .hero-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.01em;
+        }
+        
+        .hero-type {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .hero-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Stats Grid — 2 items */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Stats Section with Label */
+        .stats-section {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .stats-label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+        
+        /* Principle Grid — for What WEO Is (green ticks) */
+        .principle-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .principle-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .principle-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--accent-teal);
+            opacity: 0.7;
+        }
+        
+        .principle-content {
+            flex: 1;
+        }
+        
+        .principle-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .principle-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Limitation List — for What WEO Is Not (red X) */
+        .limitation-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .limitation-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .limitation-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: #F87171;
+            opacity: 0.6;
+        }
+        
+        .limitation-content {
+            flex: 1;
+        }
+        
+        .limitation-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .limitation-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Audience Grid */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .audience-item {
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .audience-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .audience-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* FAQ */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) 0;
+            cursor: pointer;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .faq-question:hover {
+            color: var(--accent-primary);
+        }
+        
+        .faq-question-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .faq-toggle {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+            transition: transform var(--duration-normal) var(--ease-out);
+        }
+        
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-bottom: var(--space-lg);
+        }
+        
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+        
+        .faq-answer-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .faq-answer-text p {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .faq-answer-text p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Creator Section */
+        .creator-section {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+        }
+        
+        /* WEO Logo Avatar — subtle teal gradient */
+        .creator-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-teal-muted) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .creator-logo-text {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            letter-spacing: -0.02em;
+        }
+        
+        .creator-content {
+            flex: 1;
+        }
+        
+        .creator-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .creator-desc {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+        }
+        
+        /* Independence Notice */
+        .independence-notice {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--status-positive);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .independence-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--status-positive);
+        }
+        
+        .independence-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .independence-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Contact Box */
+        .contact-box {
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        
+        .contact-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-email {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .contact-email:hover {
+            color: var(--accent-hover);
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 767px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .creator-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="research.html">Research</a>
+            <a href="about.html" class="active">About</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">About</h1>
+            <p class="page-subtitle">What WEO is, what it tracks, and how it works</p>
+        </header>
+        
+        <!-- Hero -->
+        <section class="section">
+            <div class="hero-box">
+                <div class="hero-title">AI Infrastructure Coordination Dynamics</div>
+                <div class="hero-type">Platform</div>
+                <div class="hero-subtitle">Tracking verified events and the coordination connections between them</div>
+            </div>
+            
+            <div class="card">
+                <div class="prose">
+                    <p>The Warmth Engine Observatory (WEO) tracks AI infrastructure coordination dynamics across geopolitical blocs through verified events and mapped coordination connections.</p>
+                    <p>The platform applies institutional-grade methodology adapted from Basel Committee frameworks, intelligence community standards, and academic evidence grading. Events are classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc), domain, and event type. The 7-type Coordination Connections taxonomy tracks how events influence, enable, or respond to one another — the first systematic framework for mapping these relationships.</p>
+                </div>
+                
+                <div class="stats-section">
+                    <div class="stats-label">Current Database</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">87</div>
+                            <div class="stat-label">Verified Events</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">58</div>
+                            <div class="stat-label">Coordination Connections</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- What WEO Is -->
+        <section class="section">
+            <h2 class="section-title">What WEO Is</h2>
+            <div class="card">
+                <div class="principle-list">
+                    <div class="principle-item">
+                        <svg class="principle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="9 12 12 15 16 10"/>
+                        </svg>
+                        <div class="principle-content">
+                            <div class="principle-title">Evidence-Only Observation</div>
+                            <div class="principle-desc">WEO classifies based on observable facts from official public documentation. Implementation evidence required, not announcements. Hidden intent, private communications, and future intentions are explicitly outside measurement scope.</div>
+                        </div>
+                    </div>
+                    <div class="principle-item">
+                        <svg class="principle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="9 12 12 15 16 10"/>
+                        </svg>
+                        <div class="principle-content">
+                            <div class="principle-title">Reproducibility Over Comprehensiveness</div>
+                            <div class="principle-desc">Classification criteria are explicit and evidence-based, enabling independent verification. Where ambiguity exists, documented escalation protocols ensure transparent resolution.</div>
+                        </div>
+                    </div>
+                    <div class="principle-item">
+                        <svg class="principle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="9 12 12 15 16 10"/>
+                        </svg>
+                        <div class="principle-content">
+                            <div class="principle-title">Verification Rigour</div>
+                            <div class="principle-desc">Gold-standard evidentiary requirements adapted from cross-sector practices ensure data quality comparable to major financial indices.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Why WEO Exists -->
+        <section class="section">
+            <h2 class="section-title">Why WEO Exists</h2>
+            <div class="card">
+                <div class="prose">
+                    <p>No existing framework systematically documents AI infrastructure coordination dynamics at the intersection of technology deployment, geopolitical alignment, and institutional governance. Existing frameworks address either technology (AI capability benchmarks), economics (trade flows), or politics (governance indicators) — but none classify and document their coordination interdependencies.</p>
+                    <p>WEO addresses this gap through a structured classification methodology applied to verified events.</p>
+                    <p>WEO addresses coordination at the systemic level — how major power centres coordinate around AI infrastructure deployment. The current implementation tracks nation-state and geopolitical bloc dynamics; the methodology architecture accommodates future bloc formations (corporate, regional, infrastructural) as power structures evolve. This systemic focus differs from operational AI infrastructure management, which addresses how organisations run their own AI systems efficiently.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- What WEO Is Not -->
+        <section class="section">
+            <h2 class="section-title">What WEO Is Not</h2>
+            <div class="card">
+                <div class="limitation-list">
+                    <div class="limitation-item">
+                        <svg class="limitation-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div class="limitation-content">
+                            <div class="limitation-title">Not a Prediction Engine</div>
+                            <div class="limitation-desc">WEO tracks verified events that have occurred. It does not forecast future developments or predict coordination trends.</div>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <svg class="limitation-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div class="limitation-content">
+                            <div class="limitation-title">Not Real-Time Tracking</div>
+                            <div class="limitation-desc">6-month verification lag ensures implementation confirmation. WEO measures verified outcomes, not announcements or proposals.</div>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <svg class="limitation-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div class="limitation-content">
+                            <div class="limitation-title">Not Comprehensive Coverage</div>
+                            <div class="limitation-desc">WEO prioritises reproducibility over comprehensiveness. Events must meet rigorous verification standards to enter the database.</div>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <svg class="limitation-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div class="limitation-content">
+                            <div class="limitation-title">Not Intent Analysis</div>
+                            <div class="limitation-desc">WEO tracks observable actions, not strategic intent. Hidden motivations, private communications, and undisclosed agreements are outside scope.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Target Audiences -->
+        <section class="section">
+            <h2 class="section-title">Target Audiences</h2>
+            <div class="card">
+                <div class="audience-grid">
+                    <div class="audience-item">
+                        <div class="audience-name">Institutional Investors</div>
+                        <div class="audience-desc">Actionable intelligence on AI infrastructure coordination dynamics, with transparent methodology and verifiable data.</div>
+                    </div>
+                    <div class="audience-item">
+                        <div class="audience-name">Policy Makers</div>
+                        <div class="audience-desc">Neutral analysis with clear definitions, documented rationale, and explicit classification logic.</div>
+                    </div>
+                    <div class="audience-item">
+                        <div class="audience-name">Independent Researchers</div>
+                        <div class="audience-desc">Replicable methodology with full source transparency, enabling verification and challenge of findings.</div>
+                    </div>
+                    <div class="audience-item">
+                        <div class="audience-name">Technologists</div>
+                        <div class="audience-desc">Precise definitions, clear classification methodology, and documented technical specifications.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ -->
+        <section class="section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="card">
+                <div class="faq-list">
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">How do events enter the database?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>Events enter the database as verification completes. This reflects research pipeline timing rather than historical implementation sequence — events are added when sufficient data exists to verify, classify, and document them.</p>
+                                <p>All events must meet gold-standard verification requirements: 2+ primary sources OR 1 primary + 2 corroborating sources, plus implementation evidence confirming the event actually occurred (not just announced).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">Why is there a 6-month verification lag?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>The 6-month lag trades recency for verification quality. Announcements happen instantly; implementation takes months. WEO tracks verified outcomes, not announcements.</p>
+                                <p>This window allows for: implementation confirmation (construction complete, law enacted, system operational), third-party validation emergence, source verification and accuracy validation, and evidence accumulation from multiple independent sources.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">What are Coordination Connections?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>Coordination Connections are verified relationships between events — how events influence, enable, or respond to one another. Each connection requires documentary evidence meeting confidence thresholds.</p>
+                                <p>Seven connection types are tracked: Policy Cascade, Joint Issuance, Funding Flow, Regulatory Enablement, Response, Framework Family, and Parallel Policy. These reveal coordination patterns across the database.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">How can the methodology be verified?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>Complete methodology documentation is publicly available on the <a href="methodology.html" style="color: var(--accent-primary); text-decoration: none;">Methodology</a> page. The WEO Methodology Manual provides full technical specification covering event verification, significance assessment, tier classification, domain classification, and coordination connections.</p>
+                                <p>Classification criteria are explicit and evidence-based, enabling independent verification. External validation is encouraged.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">What do the tier classifications mean?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>Tier 1 (Cross-Bloc):</strong> Coordination involving both Western and Eastern Blocs with binding commitments and material integration.</p>
+                                <p><strong>Tier 2 (Between-Bloc):</strong> One bloc creating structural separation from the other through parallel buildout or policy restrictions, with explicit cross-bloc targeting documented in official sources. Further classified by Fragmentation Type (Buildout or Restriction) and direction (Western-Led or Eastern-Led).</p>
+                                <p><strong>Tier 3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc — Western or Eastern.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-question-text">How are Non-Aligned nations classified?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>Non-Aligned nations (India, Brazil, Indonesia, South Africa, etc.) pursue strategic autonomy through multi-alignment with both blocs. WEO classifies events involving these nations based on the dominant partnership in each specific event.</p>
+                                <p>The Primary Partner Test applies three criteria in order: Financial Backing (≥66⅔% from one bloc), Technology Transfer (critical technology provider), and Strategic Initiative Leadership. The same nation may appear in Western Bloc events and Eastern Bloc events depending on partnership context.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Creator -->
+        <section class="section">
+            <h2 class="section-title">Creator</h2>
+            <div class="card">
+                <div class="creator-section">
+                    <div class="creator-logo">
+                        <span class="creator-logo-text">WEO</span>
+                    </div>
+                    <div class="creator-content">
+                        <div class="creator-name">Warmth Engine</div>
+                        <div class="creator-desc">
+                            The Warmth Engine Observatory is an independent research platform. Full methodological transparency is maintained throughout — research methodology, data sources, and verification processes are publicly documented.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="independence-notice">
+                    <svg class="independence-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <div class="independence-text">
+                        <strong>Editorial Independence:</strong> WEO maintains full control over methodology, analysis, and editorial decisions. No external relationship influences analytical conclusions. The platform tracks observable coordination patterns without advocacy agenda.
+                    </div>
+                </div>
+                
+                <div class="contact-box">
+                    <div class="contact-label">Contact</div>
+                    <a href="mailto:warmthengine@proton.me" class="contact-email">warmthengine@proton.me</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+      // FAQ toggle function
+      function toggleFaq(element) {
+        const faqItem = element.parentElement;
+        faqItem.classList.toggle('open');
+      }
+      
+      // Navigation toggle for mobile
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('open');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+</body>
+</html>

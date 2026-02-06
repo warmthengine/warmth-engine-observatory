@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloc Membership Register — Warmth Engine Observatory</title>
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           BLOC MEMBERSHIP REGISTER R1 — Nation Classification Reference
+           Observatory Palette (Slate-Blue) — Platform Documentation
+           
+           This page documents bloc membership for WEO event classification.
+           Bloc membership determines tier classification for all verified events.
+           
+           Style: Systems Analyst | UK English | Institutional Audience
+           ================================================================= */
+        
+        :root {
+            /* Background & Surface — Observatory Palette */
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-elevated: #334155;
+            --border-primary: #334155;
+            --border-subtle: #475569;
+            
+            /* Text Hierarchy */
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #94A3B8;
+            --text-muted: #64748B;
+            
+            /* Accent */
+            --accent-primary: #3B82F6;
+            --accent-hover: #60A5FA;
+            
+            /* Bloc Colours */
+            --bloc-western: #60A5FA;
+            --bloc-western-muted: rgba(96, 165, 250, 0.15);
+            --bloc-eastern: #FB923C;
+            --bloc-eastern-muted: rgba(251, 146, 60, 0.15);
+            --bloc-non-aligned: #94A3B8;
+            --bloc-non-aligned-muted: rgba(148, 163, 184, 0.15);
+            
+            /* Status colours */
+            --status-positive: #22C55E;
+            --status-negative: #EF4444;
+            --status-neutral: #94A3B8;
+            --status-warning: #F59E0B;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #0F172A;
+            --surface-raised: #1E293B;
+            --surface-overlay: #334155;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #60A5FA;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Button pressed feedback */
+        button:active,
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: #2DD4BF;
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: #2DD4BF;
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: #2DD4BF;
+          background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .weo-nav-toggle:hover {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60A5FA;
+        }
+
+        .weo-nav-toggle:hover span {
+          background: var(--text-primary);
+        }
+
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-top: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          
+          .weo-nav-links.open {
+            display: flex;
+          }
+          
+          .weo-nav-links a {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+          }
+          
+          .weo-nav-toggle {
+            display: flex;
+          }
+        }
+        
+        /* Header */
+        .page-header {
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.02em;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+        
+        /* Register Status Banner */
+        .register-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .register-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+        
+        .register-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .register-meta-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .register-meta-value {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .register-meta-value.version {
+            font-family: var(--font-mono);
+            color: var(--accent-hover);
+        }
+        
+        /* Blocs Intro */
+        .blocs-intro {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .blocs-intro p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Summary Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .summary-item.western {
+            border-color: var(--bloc-western);
+            border-width: 2px;
+        }
+        
+        .summary-item.eastern {
+            border-color: var(--bloc-eastern);
+            border-width: 2px;
+        }
+        
+        .summary-item.non-aligned {
+            border-color: var(--bloc-non-aligned);
+            border-width: 2px;
+        }
+        
+        .summary-value {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .summary-value.western {
+            color: var(--bloc-western);
+        }
+        
+        .summary-value.eastern {
+            color: var(--bloc-eastern);
+        }
+        
+        .summary-value.non-aligned {
+            color: var(--bloc-non-aligned);
+        }
+        
+        .summary-label {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Bloc Section */
+        .bloc-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-lg);
+            overflow: hidden;
+        }
+        
+        .bloc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg) var(--space-xl);
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border-primary);
+            cursor: pointer;
+            transition: background var(--duration-fast) var(--ease-out);
+        }
+        
+        .bloc-header:hover {
+            background: var(--border-primary);
+        }
+        
+        .bloc-header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .bloc-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .bloc-indicator.western {
+            background: var(--bloc-western);
+        }
+        
+        .bloc-indicator.eastern {
+            background: var(--bloc-eastern);
+        }
+        
+        .bloc-indicator.non-aligned {
+            background: var(--bloc-non-aligned);
+        }
+        
+        .bloc-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .bloc-count {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .bloc-count.western {
+            background: var(--bloc-western-muted);
+            color: var(--bloc-western);
+        }
+        
+        .bloc-count.eastern {
+            background: var(--bloc-eastern-muted);
+            color: var(--bloc-eastern);
+        }
+        
+        .bloc-count.non-aligned {
+            background: var(--bloc-non-aligned-muted);
+            color: var(--bloc-non-aligned);
+        }
+        
+        .bloc-chevron {
+            width: 20px;
+            height: 20px;
+            color: var(--text-muted);
+            transition: transform var(--duration-normal) var(--ease-out);
+        }
+        
+        .bloc-section.expanded .bloc-chevron {
+            transform: rotate(180deg);
+        }
+        
+        .bloc-content {
+            display: none;
+            padding: var(--space-xl);
+        }
+        
+        .bloc-section.expanded .bloc-content {
+            display: block;
+        }
+        
+        /* Subcategory */
+        .subcategory {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .subcategory:last-child {
+            margin-bottom: 0;
+        }
+        
+        .subcategory-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .subcategory-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .subcategory-count {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* Nation List */
+        .nation-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        
+        .nation-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+        
+        .nation-tag.has-evidence {
+            border-color: var(--border-subtle);
+        }
+        
+        .nation-tag .evidence-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--status-warning);
+        }
+        
+        /* Nation Table */
+        .nation-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8125rem;
+        }
+        
+        /* Table scroll container (holds indicators + scroll wrapper) */
+        .table-scroll-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        /* Table scroll wrapper for mobile */
+        .table-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Scroll indicators */
+        .table-scroll-indicator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 32px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity var(--duration-slow) var(--ease-out);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .table-scroll-indicator.visible { opacity: 1; }
+        .table-scroll-indicator.left { 
+            left: 0; 
+            background: linear-gradient(to right, rgba(30, 41, 59, 0.95) 0%, transparent 100%); 
+        }
+        .table-scroll-indicator.right { 
+            right: 0; 
+            background: linear-gradient(to left, rgba(30, 41, 59, 0.95) 0%, transparent 100%); 
+        }
+        .table-scroll-chevrons { 
+            font-size: 14px; 
+            color: rgba(148, 163, 184, 0.9); 
+            letter-spacing: -3px; 
+            animation: table-scroll-pulse 1.5s ease-in-out infinite; 
+        }
+        .table-scroll-indicator.left .table-scroll-chevrons { padding-left: 4px; }
+        .table-scroll-indicator.right .table-scroll-chevrons { padding-right: 4px; }
+        @keyframes table-scroll-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        
+        .nation-table th,
+        .nation-table td {
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .nation-table th {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--bg-primary);
+        }
+        
+        .nation-table td {
+            color: var(--text-secondary);
+        }
+        
+        .nation-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .nation-table .nation-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .nation-table .date-cell {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .nation-table .evidence-link {
+            color: var(--accent-hover);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        
+        .nation-table .evidence-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Prose */
+        .prose {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .prose p {
+            margin-bottom: var(--space-md);
+        }
+        
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .prose ul {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+        
+        .prose li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* EU Expandable */
+        .eu-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+        
+        .eu-toggle:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+        
+        .eu-toggle svg {
+            width: 14px;
+            height: 14px;
+            transition: transform var(--duration-normal) var(--ease-out);
+        }
+        
+        .eu-toggle.expanded svg {
+            transform: rotate(180deg);
+        }
+        
+        .eu-members {
+            display: none;
+            margin-top: var(--space-md);
+            padding: var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            line-height: 1.8;
+        }
+        
+        .eu-members.visible {
+            display: block;
+        }
+        
+        /* Methodology Section */
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .methodology-item {
+            padding: var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .methodology-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-hover);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .methodology-label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .methodology-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* Snapshot History */
+        .snapshot-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .snapshot-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .snapshot-item.current {
+            border-color: var(--accent-primary);
+            border-width: 2px;
+        }
+        
+        .snapshot-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            min-width: 100px;
+        }
+        
+        .snapshot-label {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+        
+        .snapshot-label.current {
+            color: var(--accent-hover);
+            font-weight: 500;
+        }
+        
+        .snapshot-badge {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-primary);
+        }
+        
+        /* Permanence Note */
+        .permanence-note {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: rgba(251, 146, 60, 0.08);
+            border: 1px solid rgba(251, 146, 60, 0.25);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .permanence-note svg {
+            width: 20px;
+            height: 20px;
+            color: var(--bloc-eastern);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .permanence-note-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+        
+        .permanence-note-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Document Info */
+        .document-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-top: var(--space-2xl);
+        }
+        
+        .document-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .document-info-item {
+            font-size: 0.8125rem;
+        }
+        
+        .document-info-label {
+            color: var(--text-muted);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .document-info-value {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 767px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .register-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nation-table {
+                min-width: 500px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .table-scroll-indicator {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .bloc-header {
+                padding: var(--space-md);
+            }
+            
+            .bloc-content {
+                padding: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="blocs.html" class="active">Blocs</a>
+            <a href="research.html">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Bloc Membership Register</h1>
+            <p class="page-subtitle">AI Infrastructure Coordination — Nation Classification</p>
+        </header>
+        
+        <!-- Blocs Intro -->
+        <div class="blocs-intro">
+            <p>WEO assigns bloc membership based on demonstrated infrastructure alignment, not political rhetoric. Western and Eastern Blocs represent distinct coordination clusters — nations whose AI infrastructure decisions consistently align with bloc patterns.</p>
+        </div>
+        
+        <!-- Register Status Banner -->
+        <div class="register-banner">
+            <div class="register-meta">
+                <div class="register-meta-item">
+                    <span class="register-meta-label">Last Verified</span>
+                    <span class="register-meta-value">14 December 2025</span>
+                </div>
+                <div class="register-meta-item">
+                    <span class="register-meta-label">Register Version</span>
+                    <span class="register-meta-value version">2025.12.14-001</span>
+                </div>
+                <div class="register-meta-item">
+                    <span class="register-meta-label">Document ID</span>
+                    <span class="register-meta-value">WEO-REG-001</span>
+                </div>
+                <div class="register-meta-item">
+                    <span class="register-meta-label">Status</span>
+                    <span class="register-meta-value">Living Register</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Section -->
+        <section class="section">
+            <h2 class="section-title">Current Register Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item western">
+                    <div class="summary-value western">37</div>
+                    <div class="summary-label">Western Bloc</div>
+                </div>
+                <div class="summary-item eastern">
+                    <div class="summary-value eastern">10</div>
+                    <div class="summary-label">Eastern Bloc</div>
+                </div>
+                <div class="summary-item non-aligned">
+                    <div class="summary-value non-aligned">12</div>
+                    <div class="summary-label">Non-Aligned</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Western Bloc Section -->
+        <section class="section">
+            <h2 class="section-title">Bloc Classifications</h2>
+            
+            <div class="bloc-section expanded" id="western-bloc">
+                <div class="bloc-header" onclick="toggleBloc('western-bloc')">
+                    <div class="bloc-header-left">
+                        <span class="bloc-indicator western"></span>
+                        <span class="bloc-title">Western Bloc</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                        <span class="bloc-count western">37</span>
+                        <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="bloc-content">
+                    
+                    <!-- Core Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Core Members</span>
+                            <span class="subcategory-count">(34)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations with systematic, long-standing alignment on export controls, AI safety standards, and semiconductor supply chains. Classification is stable and does not require event-by-event reassessment.</p>
+                        </div>
+                        <div class="nation-list" style="margin-bottom: var(--space-md);">
+                            <span class="nation-tag">United States</span>
+                            <span class="nation-tag">United Kingdom</span>
+                            <span class="nation-tag">Canada</span>
+                            <span class="nation-tag">Australia</span>
+                            <span class="nation-tag">Japan</span>
+                            <span class="nation-tag">South Korea</span>
+                            <span class="nation-tag">Taiwan</span>
+                        </div>
+                        <button class="eu-toggle" id="eu-toggle" onclick="toggleEU()">
+                            European Union (27 members)
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="eu-members" id="eu-members">
+                            Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden
+                        </div>
+                    </div>
+                    
+                    <!-- Conditional Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Conditional Members</span>
+                            <span class="subcategory-count">(3)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations that have moved into Western regulatory/technology orbit through specific agreements, partnerships, or conditional technology access. Status is contingent on continued compliance with conditions.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Date of Shift</th>
+                                    <th>Key Evidence</th>
+                                    <th>Sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">UAE</td>
+                                    <td class="date-cell">Nov 2025</td>
+                                    <td>G42 divested Huawei; US approved 35,000 NVIDIA Blackwell chips; Microsoft $1.5B investment with IGAA conditions</td>
+                                    <td>
+                                        <a href="https://www.cnbc.com/2025/11/20/us-approves-ai-chip-exports-to-gulf-after-saudi-crown-prince-visit.html" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://www.thenationalnews.com/future/technology/2025/11/20/uae-ai-nvidia-chips-us/" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Saudi Arabia</td>
+                                    <td class="date-cell">Nov 2025</td>
+                                    <td>US approved chip exports to Humain/PIF entities; NVIDIA strategic partnership; SDAIA using IBM watsonx.ai</td>
+                                    <td>
+                                        <a href="https://www.cnbc.com/2025/11/20/us-approves-ai-chip-exports-to-gulf-after-saudi-crown-prince-visit.html" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://nvidianews.nvidia.com/news/saudi-arabia-and-nvidia-to-build-ai-factories-to-power-next-wave-of-intelligence-for-the-age-of-reasoning" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Israel</td>
+                                    <td class="date-cell">Jul 2025</td>
+                                    <td>US-Israel AI & Energy MOU</td>
+                                    <td>
+                                        <a href="https://www.energy.gov/articles/us-and-israel-pledge-work-together-unleash-ai-innovation-new-memorandum-understanding" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                    <!-- Functional Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Functional Members</span>
+                            <span class="subcategory-count">(1)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations with de facto alignment through governance participation and technology choices, without formal conditional access agreements.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Date of Shift</th>
+                                    <th>Key Evidence</th>
+                                    <th>Sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">Singapore</td>
+                                    <td class="date-cell">Nov 2024</td>
+                                    <td>AI Safety Institute Network founding member; NVIDIA/Google/Microsoft infrastructure dominance</td>
+                                    <td>
+                                        <a href="https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/digital-trust-centre" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                    <!-- Governance Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Governance Members</span>
+                            <span class="subcategory-count">(1)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations participating in Western-led governance frameworks without significant technology infrastructure alignment.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Date of Shift</th>
+                                    <th>Key Evidence</th>
+                                    <th>Sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">Kenya</td>
+                                    <td class="date-cell">2024</td>
+                                    <td>AI Safety Institute Network member; US tech investment hub</td>
+                                    <td>
+                                        <a href="https://www.nist.gov/news-events/news/2024/11/fact-sheet-us-department-commerce-us-department-state-launch-international" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Eastern Bloc Section -->
+            <div class="bloc-section" id="eastern-bloc">
+                <div class="bloc-header" onclick="toggleBloc('eastern-bloc')">
+                    <div class="bloc-header-left">
+                        <span class="bloc-indicator eastern"></span>
+                        <span class="bloc-title">Eastern Bloc</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                        <span class="bloc-count eastern">10</span>
+                        <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="bloc-content">
+                    
+                    <!-- Core Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Core Members</span>
+                            <span class="subcategory-count">(2)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations forming the core of the alternative technology governance and supply chain ecosystem.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Key Evidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">China (PRC)</td>
+                                    <td>Global AI Governance Initiative; Digital Silk Road; Huawei/semiconductor independence drive; export controls on critical minerals</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Russia</td>
+                                    <td>Xi-Putin Strategic Partnership (May 2024); Military AI cooperation statement (May 2025)</td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                    <!-- Aligned Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Aligned Members</span>
+                            <span class="subcategory-count">(3)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations with formal political/military alignment to Eastern Bloc core members.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Category</th>
+                                    <th>Key Evidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">Belarus</td>
+                                    <td>Aligned</td>
+                                    <td>Russia-aligned; Union State integration</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">North Korea</td>
+                                    <td>Aligned (Sanctioned)</td>
+                                    <td>Fully dependent on Chinese/Russian tech transfers; sanctions bypass</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Iran</td>
+                                    <td>Aligned (Sanctioned)</td>
+                                    <td>Defence tech transfers; sanctions bypass cooperation</td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                    <!-- Dependent Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Dependent Members</span>
+                            <span class="subcategory-count">(5)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations with deep Huawei/ZTE or Chinese infrastructure dependency creating high switching costs, even without formal political alignment.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Key Evidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">Kazakhstan</td>
+                                    <td>Digital Silk Road 2.0; Chinese "sovereign AI" infrastructure</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Uzbekistan</td>
+                                    <td>Digital Silk Road 2.0; SCO integration</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Pakistan</td>
+                                    <td>CPEC; Huawei/ZTE infrastructure lock-in</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Egypt</td>
+                                    <td>Smart city/surveillance tech; Digital Silk Road MoUs</td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Ethiopia</td>
+                                    <td>Huawei/ZTE telecom infrastructure</td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                    <!-- Leaning Members -->
+                    <div class="subcategory">
+                        <div class="subcategory-header">
+                            <span class="subcategory-title">Leaning Members</span>
+                            <span class="subcategory-count">(1)</span>
+                        </div>
+                        <div class="prose" style="margin-bottom: var(--space-md);">
+                            <p>Nations that have made significant moves toward Eastern Bloc technology alignment but have not fully committed.</p>
+                        </div>
+                        <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                            <thead>
+                                <tr>
+                                    <th>Nation</th>
+                                    <th>Date of Shift</th>
+                                    <th>Key Evidence</th>
+                                    <th>Sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nation-name">Brazil</td>
+                                    <td class="date-cell">Jul 2025</td>
+                                    <td>BRICS Rio de Janeiro Declaration</td>
+                                    <td>
+                                        <a href="https://www.mea.gov.in/bilateral-documents.htm?dtl%2F39770" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Non-Aligned Section -->
+            <div class="bloc-section" id="non-aligned">
+                <div class="bloc-header" onclick="toggleBloc('non-aligned')">
+                    <div class="bloc-header-left">
+                        <span class="bloc-indicator non-aligned"></span>
+                        <span class="bloc-title">Non-Aligned</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                        <span class="bloc-count non-aligned">12</span>
+                        <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="bloc-content">
+                    <div class="prose" style="margin-bottom: var(--space-lg);">
+                        <p>Nations not listed in Western or Eastern Bloc sections require <strong>event-by-event assessment</strong> using the Primary Partner Test. The same nation can appear in Western Bloc events, Eastern Bloc events, or sovereign events depending on specific partnership context.</p>
+                    </div>
+                    
+                    <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
+                        <thead>
+                            <tr>
+                                <th>Nation</th>
+                                <th>Tendency</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="nation-name">India</td>
+                                <td>Western-leaning (Hardware)</td>
+                                <td>Micron/Tata chip production; iCET partnership; BUT BRICS member</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Indonesia</td>
+                                <td>True Hedging</td>
+                                <td>Microsoft $1.7B AND China-ASEAN AI Lab; successful "double-stacking"</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Vietnam</td>
+                                <td>Western-leaning (Supply Chain)</td>
+                                <td>Comprehensive Strategic Partnership with US; Amkor, Marvell ecosystem</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Turkey</td>
+                                <td>Isolated</td>
+                                <td>Excluded from US AI Safety Network AND BRICS full membership</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Malaysia</td>
+                                <td>Western-leaning (Semiconductors)</td>
+                                <td>Intel, Infineon, Micron investments; "China Plus One" positioning</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Thailand</td>
+                                <td>Balanced</td>
+                                <td>Mixed technology relationships</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Mexico</td>
+                                <td>Western-leaning (Geography)</td>
+                                <td>USMCA; but diversifying</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Argentina</td>
+                                <td>Shifting</td>
+                                <td>Political changes affecting alignment</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">South Africa</td>
+                                <td>Eastern-leaning (Political)</td>
+                                <td>Strong BRICS advocate; but limited 2025 AI treaty evidence</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Nigeria</td>
+                                <td>Undetermined</td>
+                                <td>Largest African economy; mixed infrastructure</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">Philippines</td>
+                                <td>Western-leaning</td>
+                                <td>US alliance strengthening</td>
+                            </tr>
+                            <tr>
+                                <td class="nation-name">New Zealand</td>
+                                <td>Western-leaning</td>
+                                <td>Five Eyes member; AISI Network participant</td>
+                            </tr>
+                        </tbody>
+                    </table></div></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Classification Methodology -->
+        <section class="section">
+            <h2 class="section-title">Classification Methodology</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p><strong>Technology over Politics:</strong> Bloc membership reflects observable technology/supply chain alignment, not political statements. Every classification requires documented evidence with sources.</p>
+                </div>
+                
+                <h3 class="card-title">Primary Partner Test (for Non-Aligned Nations)</h3>
+                <div class="methodology-grid">
+                    <div class="methodology-item">
+                        <div class="methodology-number">01</div>
+                        <div class="methodology-label">Financial Backing</div>
+                        <div class="methodology-desc">Which bloc provides ≥66⅔% of funding?</div>
+                    </div>
+                    <div class="methodology-item">
+                        <div class="methodology-number">02</div>
+                        <div class="methodology-label">Technology Transfer</div>
+                        <div class="methodology-desc">Which bloc provides critical/core technology?</div>
+                    </div>
+                    <div class="methodology-item">
+                        <div class="methodology-number">03</div>
+                        <div class="methodology-label">Strategic Initiative Leadership</div>
+                        <div class="methodology-desc">Which bloc initiated or leads the initiative?</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Snapshot History -->
+        <section class="section">
+            <h2 class="section-title">Snapshot History</h2>
+            <div class="card">
+                <div class="snapshot-list">
+                    <div class="snapshot-item current">
+                        <span class="snapshot-date">14 Dec 2025</span>
+                        <span class="snapshot-label current">Current Register (Version 2025.12.14-001)</span>
+                        <span class="snapshot-badge">Active</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">30 Nov 2025</span>
+                        <span class="snapshot-label">Version 2025.11.30-001 — Initial register creation</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">20 Nov 2025</span>
+                        <span class="snapshot-label">UAE, Saudi Arabia → Western Bloc (Conditional)</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">Nov 2024</span>
+                        <span class="snapshot-label">Singapore → Western Bloc (Functional); Kenya → Western Bloc (Governance)</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">Jul 2025</span>
+                        <span class="snapshot-label">Brazil → Eastern Bloc (Leaning); Israel → Western Bloc (Conditional)</span>
+                    </div>
+                </div>
+                
+                <div class="permanence-note">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <div class="permanence-note-text">
+                        <strong>Event Classification Permanence:</strong> Events retain their original bloc classification permanently, even if a nation subsequently changes bloc alignment. Historical snapshots enable accurate audit trails for longitudinal analysis.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Document Information -->
+        <div class="document-info">
+            <h3 class="card-title" style="margin-bottom: var(--space-md);">Document Information</h3>
+            <div class="document-info-grid">
+                <div class="document-info-item">
+                    <div class="document-info-label">Document Type</div>
+                    <div class="document-info-value">Living Register (Non-Evergreen)</div>
+                </div>
+                <div class="document-info-item">
+                    <div class="document-info-label">Update Frequency</div>
+                    <div class="document-info-value">As required (geopolitical shifts)</div>
+                </div>
+                <div class="document-info-item">
+                    <div class="document-info-label">Authority</div>
+                    <div class="document-info-value">WEO Methodology Team</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+        function toggleBloc(blocId) {
+            const bloc = document.getElementById(blocId);
+            bloc.classList.toggle('expanded');
+        }
+        
+        function toggleEU() {
+            const toggle = document.getElementById('eu-toggle');
+            const members = document.getElementById('eu-members');
+            toggle.classList.toggle('expanded');
+            members.classList.toggle('visible');
+        }
+        
+        // Navigation toggle for mobile
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (navToggle && navLinks) {
+          navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+          });
+          
+          // Close when clicking outside
+          document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+              navLinks.classList.remove('open');
+            }
+          });
+        }
+        
+        // Table scroll indicators
+        function updateScrollIndicators(container) {
+            const wrapper = container.querySelector('.table-scroll-wrapper');
+            const leftIndicator = container.querySelector('.table-scroll-indicator.left');
+            const rightIndicator = container.querySelector('.table-scroll-indicator.right');
+            if (!wrapper || !leftIndicator || !rightIndicator) return;
+            
+            // Only show indicators on mobile
+            if (window.innerWidth > 768) {
+                leftIndicator.classList.remove('visible');
+                rightIndicator.classList.remove('visible');
+                return;
+            }
+            
+            const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+            const currentScroll = wrapper.scrollLeft;
+            
+            // Need scrolling? (table wider than container)
+            const needsScroll = maxScroll > 10;
+            
+            // Show left indicator if scrolled right
+            leftIndicator.classList.toggle('visible', needsScroll && currentScroll > 10);
+            // Show right indicator if can scroll right
+            rightIndicator.classList.toggle('visible', needsScroll && currentScroll < maxScroll - 10);
+        }
+        
+        // Initialize scroll indicators for all table containers
+        document.querySelectorAll('.table-scroll-container').forEach(container => {
+            const wrapper = container.querySelector('.table-scroll-wrapper');
+            if (wrapper) {
+                wrapper.addEventListener('scroll', () => updateScrollIndicators(container));
+                // Initial check with slight delay for layout
+                setTimeout(() => updateScrollIndicators(container), 150);
+            }
+        });
+        
+        // Re-check on resize
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.table-scroll-container').forEach(updateScrollIndicators);
+        });
+    </script>
+</body>
+</html>

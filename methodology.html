@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology — Warmth Engine Observatory</title>
+    <meta name="description" content="WEO V2.1 methodology for measuring AI infrastructure coordination dynamics through verified events, tier classification, and coordination connections.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Methodology — Warmth Engine Observatory">
+    <meta property="og:description" content="How WEO measures AI infrastructure coordination dynamics through verified events and systematic classification.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           METHODOLOGY PAGE R6 — Public-Facing Methodology Summary
+           Observatory Palette (Slate-Blue) — Platform Documentation
+           
+           Aligned with WEO Methodology Manual V2.1 (7-chapter structure)
+           Gauge scoring and spillover mechanics deferred to V2.2+
+           
+           Style: Systems Analyst | UK English | Institutional Audience
+           
+           Changes in R6:
+           - Fixed domain grid to 4 columns (was 5, Climate removed)
+           - Fixed connection types to balanced 4-3 grid layout
+           - Updated download links to Zenodo (Manual + Rationale)
+           - Changed download icon to external link icon
+           - Added secondary button style for Rationale
+           
+           Previous versions:
+           - R5: Fixed Event Types/Domain descriptions
+           - R4: Removed principle box, added Event Types, CC colours
+           - R3: Removed gauge calculation content, aligned to 5-stage sequence
+           ================================================================= */
+        
+        :root {
+            /* Background & Surface — Observatory Palette */
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-elevated: #334155;
+            --border-primary: #334155;
+            --border-subtle: #475569;
+            
+            /* Text Hierarchy */
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #94A3B8;
+            --text-muted: #64748B;
+            
+            /* Accent */
+            --accent-primary: #3B82F6;
+            --accent-hover: #60A5FA;
+            
+            /* Tier Colours */
+            --tier-t1: #2DD4BF;
+            --tier-t2: #EF4444;
+            --tier-t3: #94A3B8;
+            
+            /* Bloc Colours */
+            --bloc-western: #60A5FA;
+            --bloc-eastern: #FB923C;
+            
+            /* Domain Colours */
+            --domain-tech: #3B82F6;
+            --domain-security: #EF4444;
+            --domain-trade: #10B981;
+            --domain-energy: #F59E0B;
+            
+            /* Connection Type Colours (matching map key) */
+            --cc-policy-cascade: #3B82F6;
+            --cc-joint-issuance: #8B5CF6;
+            --cc-funding-flow: #10B981;
+            --cc-regulatory-enablement: #6366F1;
+            --cc-response: #F59E0B;
+            --cc-framework-family: #06B6D4;
+            --cc-parallel-policy: #94A3B8;
+            
+            /* Status */
+            --status-positive: #22C55E;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #0F172A;
+            --surface-raised: #1E293B;
+            --surface-overlay: #334155;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #60A5FA;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Button pressed feedback */
+        button:active,
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: #2DD4BF;
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: #2DD4BF;
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: #2DD4BF;
+          background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .weo-nav-toggle:hover {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60A5FA;
+        }
+
+        .weo-nav-toggle:hover span {
+          background: var(--text-primary);
+        }
+
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-top: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          
+          .weo-nav-links.open {
+            display: flex;
+          }
+          
+          .weo-nav-links a {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+          }
+          
+          .weo-nav-toggle {
+            display: flex;
+          }
+        }
+        
+        /* Header */
+        .page-header {
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.02em;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .card-subtitle {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        /* Prose */
+        .prose {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .prose p {
+            margin-bottom: var(--space-md);
+        }
+        
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .prose a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .prose a:hover {
+            color: var(--accent-hover);
+        }
+        
+        /* Two Dynamics Grid */
+        .dynamics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .dynamic-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .dynamic-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .dynamic-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .dynamic-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Event Types Grid */
+        .event-types-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+        
+        .event-type-item {
+            padding: var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        
+        .event-type-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .event-type-desc {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        
+        /* Tier Classification */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .tier-item {
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .tier-badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .tier-badge.t1 { background: rgba(45, 212, 191, 0.15); color: var(--tier-t1); }
+        .tier-badge.t2 { background: rgba(239, 68, 68, 0.15); color: var(--tier-t2); }
+        .tier-badge.t3 { background: rgba(148, 163, 184, 0.15); color: var(--tier-t3); }
+        
+        .tier-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tier-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .tier-detail {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+        }
+        
+        .tier-detail strong {
+            color: var(--text-tertiary);
+        }
+        
+        /* Domain Grid — 4 domains */
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+        
+        .domain-item {
+            padding: var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            border-left: 3px solid;
+        }
+        
+        .domain-item.tech { border-color: var(--domain-tech); }
+        .domain-item.security { border-color: var(--domain-security); }
+        .domain-item.trade { border-color: var(--domain-trade); }
+        .domain-item.energy { border-color: var(--domain-energy); }
+        
+        .domain-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .domain-durability {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--text-muted);
+        }
+        
+        /* Processing Sequence */
+        .sequence-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+        
+        .sequence-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .sequence-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            width: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .sequence-content {
+            flex: 1;
+        }
+        
+        .sequence-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .sequence-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* Connections Feature */
+        .feature-highlight {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(45, 212, 191, 0.08) 100%);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+        }
+        
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        .feature-badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(45, 212, 191, 0.15);
+            color: var(--tier-t1);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .feature-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .connection-types {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+        
+        /* Connection Type Badges with Colour Accents */
+        .connection-type {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            border: 1px solid;
+        }
+        
+        .connection-type.policy-cascade {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--cc-policy-cascade);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .connection-type.joint-issuance {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--cc-joint-issuance);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .connection-type.funding-flow {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--cc-funding-flow);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        
+        .connection-type.regulatory-enablement {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--cc-regulatory-enablement);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .connection-type.response {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--cc-response);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        
+        .connection-type.framework-family {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--cc-framework-family);
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+        
+        .connection-type.parallel-policy {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--cc-parallel-policy);
+            border-color: rgba(100, 116, 139, 0.3);
+        }
+        
+        /* Verification Standards */
+        .standards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .standard-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .standard-value {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .standard-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Methodological Foundations */
+        .foundation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .foundation-item {
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .foundation-source {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .foundation-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .foundation-application {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Qualification Pathways (4-column grid for all frameworks) */
+        .pathway-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .pathway-item {
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border-top: 3px solid var(--accent-primary);
+        }
+        
+        .pathway-name {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .pathway-scope {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .pathway-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .download-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .download-desc {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--accent-primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: background var(--duration-fast) var(--ease-out);
+        }
+        
+        .download-button:hover {
+            background: var(--accent-hover);
+        }
+        
+        .download-button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .download-button--secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+        }
+        
+        .download-button--secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .download-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: var(--space-md);
+        }
+        
+        /* Quick Start Box */
+        .quick-start-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-left: 4px solid var(--tier-t1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .quick-start-label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--tier-t1);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .quick-start-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .quick-start-item {
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+        
+        .qs-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+        
+        .qs-value {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .quick-start-footer {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-primary);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 767px) {
+            .quick-start-item {
+                flex-direction: column;
+                gap: var(--space-xs);
+            }
+            
+            .qs-label {
+                min-width: auto;
+            }
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 767px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .dynamics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-types-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .domain-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .connection-types {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pathway-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .foundation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .standards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html" class="active">Methodology</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="research.html">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Methodology</h1>
+            <p class="page-subtitle">How WEO tracks verified events and the connections between them</p>
+        </header>
+        
+        <!-- Quick Start -->
+        <div class="quick-start-box">
+            <div class="quick-start-label">WEO Methodology in 60 Seconds</div>
+            <div class="quick-start-content">
+                <div class="quick-start-item">
+                    <span class="qs-label">What we document:</span>
+                    <span class="qs-value">AI infrastructure events demonstrating coordination or fragmentation dynamics</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">How we verify:</span>
+                    <span class="qs-value">2+ primary sources OR 1 primary + 2 corroborating; 6-month verification lag</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">How we classify:</span>
+                    <span class="qs-value">Three tiers — T1: Cross-Bloc coordination, T2: Between-Bloc fragmentation, T3: Intra-Bloc coordination; four domains; four event types</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">How we connect:</span>
+                    <span class="qs-value">Seven Coordination Connection types with confidence levels (CC-V, CC-E, CC-A)</span>
+                </div>
+            </div>
+            <div class="quick-start-footer">Full methodology below. Manual available for download.</div>
+        </div>
+        
+        <!-- What WEO Measures -->
+        <section class="section">
+            <h2 class="section-title">What WEO Tracks</h2>
+            <div class="card">
+                <div class="prose">
+                    <p>The Warmth Engine Observatory tracks observable coordination and fragmentation dynamics across geopolitical blocs through verified events and mapped coordination connections.</p>
+                    <p><strong>Primary differentiator:</strong> The 7-type Coordination Connections taxonomy is the first systematic framework for tracking verified relationships between AI infrastructure events.</p>
+                </div>
+                
+                <div class="dynamics-grid">
+                    <div class="dynamic-item">
+                        <div class="dynamic-icon">◈</div>
+                        <div class="dynamic-name">Coordination</div>
+                        <div class="dynamic-desc">Active integration, cooperation, and alignment between or within blocs</div>
+                    </div>
+                    <div class="dynamic-item">
+                        <div class="dynamic-icon">◇</div>
+                        <div class="dynamic-name">Fragmentation</div>
+                        <div class="dynamic-desc">Structural separation through parallel buildout or policy barriers</div>
+                    </div>
+                </div>
+                
+                <div class="prose">
+                    <p>All classifications are based on observable facts from official public documentation. Implementation evidence is required, not announcements. Hidden intent, private communications, and future intentions are explicitly outside scope.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Processing Sequence -->
+        <section class="section">
+            <h2 class="section-title">Processing Sequence</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Events progress through five sequential stages. Failure at Stage 1 or 2 excludes the event from the database. Stages 3–5 classify qualifying events and document their relationships.</p>
+                </div>
+                
+                <div class="sequence-list">
+                    <div class="sequence-item">
+                        <span class="sequence-number">1</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Event Verification</div>
+                            <div class="sequence-desc">Gold-standard evidentiary requirements, implementation evidence, 6-month verification lag</div>
+                        </div>
+                    </div>
+                    <div class="sequence-item">
+                        <span class="sequence-number">2</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Significance Assessment</div>
+                            <div class="sequence-desc">Keohane Pre-Filter (coordination), Basel 5-Factor (physical), Route-Based (software), PISA-5 (policy)</div>
+                        </div>
+                    </div>
+                    <div class="sequence-item">
+                        <span class="sequence-number">3</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Tier Classification</div>
+                            <div class="sequence-desc">T1 Cross-Bloc, T2 Between-Bloc (Buildout/Restriction), T3 Intra-Bloc</div>
+                        </div>
+                    </div>
+                    <div class="sequence-item">
+                        <span class="sequence-number">4</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Domain Classification</div>
+                            <div class="sequence-desc">Energy/Infrastructure, Security, Technology, Trade</div>
+                        </div>
+                    </div>
+                    <div class="sequence-item">
+                        <span class="sequence-number">5</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Coordination Connections</div>
+                            <div class="sequence-desc">Cross-event relationships documented with confidence levels</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Geopolitical Significance -->
+        <section class="section">
+            <h2 class="section-title">Geopolitical Significance Assessment</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Events must demonstrate geopolitical significance to qualify for database entry. Four assessment pathways apply based on event nature, with an auto-qualification route for multi-nation coordination.</p>
+                </div>
+                
+                <div class="pathway-grid">
+                    <div class="pathway-item">
+                        <div class="pathway-name">Keohane Pre-Filter</div>
+                        <div class="pathway-scope">Multi-nation coordination</div>
+                        <div class="pathway-desc">Events meeting Keohane coordination criteria auto-qualify. Multi-nation coordination is inherently significant.</div>
+                    </div>
+                    <div class="pathway-item">
+                        <div class="pathway-name">Basel 5-Factor</div>
+                        <div class="pathway-scope">Physical AI infrastructure</div>
+                        <div class="pathway-desc">Size, Interconnectedness, Substitutability, Complexity, & Cross-jurisdictional Impact.</div>
+                    </div>
+                    <div class="pathway-item">
+                        <div class="pathway-name">Route-Based</div>
+                        <div class="pathway-scope">Software and platforms</div>
+                        <div class="pathway-desc">Four strategic routes: Official Designation, Investment Scale, Multi-Criteria Assessment, AI Model Distribution.</div>
+                    </div>
+                    <div class="pathway-item">
+                        <div class="pathway-name">PISA-5</div>
+                        <div class="pathway-scope">Policy and institutional</div>
+                        <div class="pathway-desc">Jurisdictional Significance, Regulatory Scope, AI Centrality (mandatory gate), Enforcement & Accountability, & International Relevance.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Event Types -->
+        <section class="section">
+            <h2 class="section-title">Event Types</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Events are classified by Event Type — the mechanism by which the action occurs and the actor type involved. Event Type is distinct from Domain (which classifies subject matter) and Tier (which classifies coordination scale).</p>
+                </div>
+                
+                <div class="event-types-grid">
+                    <div class="event-type-item">
+                        <div class="event-type-name">Coordination</div>
+                        <div class="event-type-desc">2+ parties mutually accommodated positions through negotiation</div>
+                    </div>
+                    <div class="event-type-item">
+                        <div class="event-type-name">Infrastructure</div>
+                        <div class="event-type-desc">Physical/digital systems deployed by government/sovereign entity</div>
+                    </div>
+                    <div class="event-type-item">
+                        <div class="event-type-name">Policy</div>
+                        <div class="event-type-desc">Single jurisdiction enacted regulation (unilateral)</div>
+                    </div>
+                    <div class="event-type-item">
+                        <div class="event-type-name">Corporate</div>
+                        <div class="event-type-desc">Private sector action (partnerships, releases, market events)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tier Classification -->
+        <section class="section">
+            <h2 class="section-title">Tier Classification</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Events are classified into three tiers based on bloc participation and coordination dynamics — whether events represent coordination or fragmentation. Each tier captures a distinct dynamic in AI infrastructure alignment.</p>
+                </div>
+                
+                <div class="tier-grid">
+                    <div class="tier-item">
+                        <div class="tier-header">
+                            <span class="tier-badge t1">T1</span>
+                        </div>
+                        <div class="tier-name">Cross-Bloc Coordination</div>
+                        <div class="tier-desc">Coordination involving participation from both Western and Eastern Blocs with binding commitments and material integration.</div>
+                        <div class="tier-detail"><strong>Test:</strong> Cross-bloc participation + binding/implemented + material integration</div>
+                    </div>
+                    <div class="tier-item">
+                        <div class="tier-header">
+                            <span class="tier-badge t2">T2</span>
+                        </div>
+                        <div class="tier-name">Between-Bloc Fragmentation</div>
+                        <div class="tier-desc">One bloc creating structural separation from the other through parallel buildout or policy restrictions, with explicit cross-bloc targeting.</div>
+                        <div class="tier-detail"><strong>Frag Type:</strong> Buildout or Restriction · Western-Led or Eastern-Led</div>
+                    </div>
+                    <div class="tier-item">
+                        <div class="tier-header">
+                            <span class="tier-badge t3">T3</span>
+                        </div>
+                        <div class="tier-name">Intra-Bloc Coordination</div>
+                        <div class="tier-desc">Coordination occurring entirely within a single bloc — Western or Eastern.</div>
+                        <div class="tier-detail"><strong>Bloc:</strong> Western Bloc (WB) or Eastern Bloc (EB)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Domain Classification -->
+        <section class="section">
+            <h2 class="section-title">Domain Classification</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Events are assigned to one of four domains based on their primary subject matter. Domain classification captures what the event is primarily about.</p>
+                </div>
+                
+                <div class="domain-grid">
+                    <div class="domain-item energy">
+                        <div class="domain-name">Energy/Infra</div>
+                        <div class="domain-durability">20–60 yr</div>
+                    </div>
+                    <div class="domain-item security">
+                        <div class="domain-name">Security</div>
+                        <div class="domain-durability">15+ yr</div>
+                    </div>
+                    <div class="domain-item tech">
+                        <div class="domain-name">Technology</div>
+                        <div class="domain-durability">2–5 yr</div>
+                    </div>
+                    <div class="domain-item trade">
+                        <div class="domain-name">Trade</div>
+                        <div class="domain-durability">3–10 yr</div>
+                    </div>
+                </div>
+                
+                <div class="prose">
+                    <p><strong>Durability ranges</strong> reflect typical commitment horizons for events within each domain.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Coordination Connections -->
+        <section class="section">
+            <h2 class="section-title">Coordination Connections</h2>
+            <div class="card">
+                <div class="feature-highlight">
+                    <div class="feature-header">
+                        <span class="feature-badge">Novel Framework</span>
+                        <span class="feature-title">Event Relationship Layer</span>
+                    </div>
+                    <div class="prose">
+                        <p>Coordination Connections are verified relationships between events — the first systematic taxonomy for mapping how AI infrastructure events influence, enable, or respond to one another. Each connection requires documentary evidence meeting confidence thresholds. No existing framework captures these event-to-event relationships.</p>
+                    </div>
+                    <div class="connection-types">
+                        <span class="connection-type policy-cascade">Policy Cascade</span>
+                        <span class="connection-type joint-issuance">Joint Issuance</span>
+                        <span class="connection-type funding-flow">Funding Flow</span>
+                        <span class="connection-type regulatory-enablement">Regulatory Enablement</span>
+                        <span class="connection-type response">Response</span>
+                        <span class="connection-type framework-family">Framework Family</span>
+                        <span class="connection-type parallel-policy">Parallel Policy</span>
+                    </div>
+                </div>
+                
+                <div class="prose" style="margin-top: var(--space-lg);">
+                    <p><strong>Confidence Levels:</strong> CC-V (Verified) requires primary source documentation. CC-E (Established) requires authoritative statement with corroboration. CC-A (Analytical) permits analyst assessment for parallel policy patterns.</p>
+                    <p><strong>Auditability:</strong> Every connection can be verified against the evidence cited. The full Coordination Connections methodology is documented in Chapter 7 of the Methodology Manual.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Verification Standards -->
+        <section class="section">
+            <h2 class="section-title">Verification Standards</h2>
+            <div class="card">
+                <div class="standards-grid">
+                    <div class="standard-item">
+                        <div class="standard-value">2+</div>
+                        <div class="standard-label">Primary Sources</div>
+                    </div>
+                    <div class="standard-item">
+                        <div class="standard-value">6mo</div>
+                        <div class="standard-label">Verification Lag</div>
+                    </div>
+                    <div class="standard-item">
+                        <div class="standard-value">70%+</div>
+                        <div class="standard-label">Confidence Floor</div>
+                    </div>
+                </div>
+                
+                <div class="prose" style="margin-top: var(--space-lg);">
+                    <p>WEO aims to meet the verification rigour of major financial indices. All events require either 2+ primary sources OR 1 primary + 2 corroborating sources. The 6-month verification lag ensures implementation confirmation before database entry.</p>
+                    <p>Low-confidence events (&lt;70%) are excluded from the database. Only HIGH (90%+) and MEDIUM (70–90%) confidence events appear in WEO.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Methodological Foundations -->
+        <section class="section">
+            <h2 class="section-title">Methodological Foundations</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>WEO applies proven institutional methodologies to tracking AI infrastructure coordination dynamics.</p>
+                </div>
+                
+                <div class="foundation-grid">
+                    <div class="foundation-item">
+                        <div class="foundation-source">Keohane (1984)</div>
+                        <div class="foundation-name">After Hegemony Framework</div>
+                        <div class="foundation-application">Definition of coordination — mutual policy adjustment through negotiation</div>
+                    </div>
+                    <div class="foundation-item">
+                        <div class="foundation-source">Basel Committee (2018)</div>
+                        <div class="foundation-name">G-SIB Methodology</div>
+                        <div class="foundation-application">Systemic importance assessment for physical infrastructure via 5-factor framework</div>
+                    </div>
+                    <div class="foundation-item">
+                        <div class="foundation-source">Cross-Sector Standards</div>
+                        <div class="foundation-name">Verification Protocols</div>
+                        <div class="foundation-application">ICD 203/206, UK PHIA, Reuters, EFCSN, Jane's, GRADE, Cochrane</div>
+                    </div>
+                    <div class="foundation-item">
+                        <div class="foundation-source">Finnemore & Sikkink (1998)</div>
+                        <div class="foundation-name">Norm Cascade Research</div>
+                        <div class="foundation-application">33% convergence threshold for demonstrated coordination validation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Full Documentation -->
+        <section class="section">
+            <h2 class="section-title">Full Documentation</h2>
+            <div class="download-section">
+                <div class="download-title">WEO Methodology Manual</div>
+                <div class="download-desc">Complete technical specification covering all 7 chapters</div>
+                <a href="https://zenodo.org/records/18427566" class="download-button" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                    View on Zenodo
+                </a>
+                <div class="download-meta">January 2026 · DOI: 10.5281/zenodo.18427566</div>
+            </div>
+            
+            <div class="download-section" style="margin-top: var(--space-lg);">
+                <div class="download-title">WEO Methodology Rationale</div>
+                <div class="download-desc">Empirical derivation and calibration justification for all methodology components</div>
+                <a href="https://zenodo.org/records/18427583" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                    View on Zenodo
+                </a>
+                <div class="download-meta">January 2026 · DOI: 10.5281/zenodo.18427583</div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+      // Navigation toggle for mobile
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('open');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+</body>
+</html>

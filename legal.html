@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy & Terms of Service — Warmth Engine Observatory</title>
+    <meta name="description" content="Privacy Policy and Terms of Service for the Warmth Engine Observatory platform.">
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           LEGAL PAGE — Privacy Policy & Terms of Service
+           Observatory Palette (Slate-Blue) — Platform Documentation
+           
+           Style: Systems Analyst | UK English | Institutional Audience
+           ================================================================= */
+        
+        :root {
+            /* Background & Surface — Observatory Palette */
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-elevated: #334155;
+            --border-primary: #334155;
+            --border-subtle: #475569;
+            
+            /* Text Hierarchy */
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #94A3B8;
+            --text-muted: #64748B;
+            
+            /* Accent */
+            --accent-primary: #3B82F6;
+            --accent-hover: #60A5FA;
+            
+            /* Coordination Connections / Teal Accent */
+            --accent-teal: #2DD4BF;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #0F172A;
+            --surface-raised: #1E293B;
+            --surface-overlay: #334155;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #60A5FA;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: #2DD4BF;
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: #2DD4BF;
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: #2DD4BF;
+          background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .weo-nav-toggle:hover {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60A5FA;
+        }
+
+        .weo-nav-toggle:hover span {
+          background: var(--text-primary);
+        }
+
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-toggle {
+            display: flex;
+          }
+          
+          .weo-nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            align-items: stretch;
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-top: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all var(--duration-normal) var(--ease-out);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          
+          .weo-nav-links.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
+          
+          .weo-nav-links a {
+            padding: var(--space-sm) var(--space-md);
+          }
+        }
+        
+        /* Page Header */
+        .page-header {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .page-subtitle {
+            font-size: 0.9375rem;
+            color: var(--text-tertiary);
+        }
+        
+        .last-updated {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            margin-top: var(--space-sm);
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+        }
+        
+        /* Prose */
+        .prose {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .prose p {
+            margin-bottom: var(--space-md);
+        }
+        
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .prose h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .prose h3:first-child {
+            margin-top: 0;
+        }
+        
+        .prose ul {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+        
+        .prose li {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .prose a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .prose a:hover {
+            color: var(--accent-hover);
+        }
+        
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Contact box */
+        .contact-box {
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .contact-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .contact-email {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .contact-email:hover {
+            color: var(--accent-hover);
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="research.html">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Privacy Policy & Terms of Service</h1>
+            <p class="page-subtitle">How WEO handles your data and the terms governing platform use</p>
+            <p class="last-updated">Last updated: February 2026</p>
+        </header>
+        
+        <!-- Privacy Policy -->
+        <section class="section">
+            <h2 class="section-title">Privacy Policy</h2>
+            <div class="card">
+                <div class="prose">
+                    <h3>Information We Collect</h3>
+                    <p>The Warmth Engine Observatory collects minimal information necessary to operate the platform:</p>
+                    <ul>
+                        <li><strong>Subscriber Email Addresses:</strong> When you subscribe through Ko-fi, we receive your email address to send you your access code. We retain this email to manage your subscription and provide support.</li>
+                        <li><strong>Contact Communications:</strong> If you email us, we retain that correspondence to respond to your enquiry.</li>
+                    </ul>
+                    
+                    <h3>Information We Do Not Collect</h3>
+                    <ul>
+                        <li>We do not use tracking cookies</li>
+                        <li>We do not sell or share data with third parties</li>
+                        <li>We do not collect payment card details — Ko-fi handles all payment processing</li>
+                        <li>We do not use advertising or ad-tracking technologies</li>
+                    </ul>
+                    
+                    <h3>Third-Party Services</h3>
+                    <p><strong>Ko-fi:</strong> Subscription payments are processed through Ko-fi. Their privacy policy governs how they handle your payment information. WEO receives your email address from Ko-fi to fulfil your subscription but does not receive or store payment card details.</p>
+                    <p><strong>Cloudflare:</strong> The platform may use Cloudflare for security and performance. Cloudflare's privacy policy applies to their services.</p>
+                    
+                    <h3>Data Retention</h3>
+                    <p>Subscriber email addresses are retained while your subscription is active and for a reasonable period afterward for support purposes. Contact correspondence is retained as needed to provide support. You may request deletion of your data by contacting us.</p>
+                    
+                    <h3>Your Rights</h3>
+                    <p>You have the right to request access to, correction of, or deletion of any personal data we hold. Contact us at the email below for any privacy-related requests.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Terms of Service -->
+        <section class="section">
+            <h2 class="section-title">Terms of Service</h2>
+            <div class="card">
+                <div class="prose">
+                    <h3>Acceptance of Terms</h3>
+                    <p>By accessing or using the Warmth Engine Observatory platform, you agree to be bound by these Terms of Service. If you do not agree, please do not use the platform.</p>
+                    
+                    <h3>Platform Description</h3>
+                    <p>WEO is a platform that tracks AI infrastructure coordination dynamics through verified events and the coordination connections between them. The platform provides research and analysis tools for understanding geopolitical AI infrastructure dynamics.</p>
+                    
+                    <h3>Use of Content</h3>
+                    <ul>
+                        <li><strong>Free Tier:</strong> Basic event information and map visualisation are freely accessible.</li>
+                        <li><strong>Analyst Tier:</strong> Full analysis, framework assessments, and detailed source documentation require an active subscription.</li>
+                        <li><strong>Attribution:</strong> If you reference WEO data or analysis in publications or presentations, please cite "Warmth Engine Observatory" with a link to the platform.</li>
+                        <li><strong>No Redistribution:</strong> Analyst-tier content should not be systematically redistributed or republished without permission.</li>
+                    </ul>
+                    
+                    <h3>Intellectual Property</h3>
+                    <p>WEO's original methodological contributions — including the Coordination Connections taxonomy and the specific integration of analytical frameworks for AI infrastructure coordination — are the intellectual property of Warmth Engine.</p>
+                    <p>WEO adapts established frameworks (Basel Committee G-SIB methodology, Keohane institutional cooperation theory, intelligence community verification standards) with appropriate attribution for the novel domain of AI infrastructure coordination.</p>
+                    <p>The underlying event data is compiled from public sources, which retain their original ownership and licensing.</p>
+                    
+                    <h3>Disclaimer</h3>
+                    <p>WEO provides documentation and analysis of AI infrastructure coordination dynamics. This content is for informational and research purposes only. WEO:</p>
+                    <ul>
+                        <li>Does not provide investment, legal, or policy advice</li>
+                        <li>Does not make predictions about future events</li>
+                        <li>Applies rigorous multi-source verification but cannot guarantee that underlying third-party sources are free from error</li>
+                        <li>Documents patterns rather than making causal claims</li>
+                    </ul>
+                    
+                    <h3>Limitation of Liability</h3>
+                    <p>WEO is provided "as is" without warranties of any kind. We are not liable for any decisions made based on platform content, or for any damages arising from platform use or inability to access the platform.</p>
+                    
+                    <h3>Subscription Terms</h3>
+                    <ul>
+                        <li>Subscriptions are processed through Ko-fi and are subject to their terms</li>
+                        <li>Access codes are for individual use and should not be shared</li>
+                        <li>We reserve the right to revoke access for terms violations</li>
+                        <li>Refunds are handled according to Ko-fi's refund policy</li>
+                    </ul>
+                    
+                    <h3>Modifications</h3>
+                    <p>We may update these terms periodically. Continued use of the platform after changes constitutes acceptance of the modified terms. Significant changes will be noted with an updated "Last updated" date.</p>
+                    
+                    <h3>Governing Law</h3>
+                    <p>These terms are governed by the laws of England and Wales. We encourage resolving any concerns through good-faith communication in the first instance. If formal resolution is required, the courts of England and Wales shall have jurisdiction.</p>
+                </div>
+                
+                <div class="contact-box">
+                    <div class="contact-label">Contact</div>
+                    <a href="mailto:warmthengine@proton.me" class="contact-email">warmthengine@proton.me</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+      // Navigation toggle for mobile
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('open');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+</body>
+</html>

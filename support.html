@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Warmth Engine Observatory</title>
+    <meta name="description" content="Support the Warmth Engine Observatory — help sustain independent tracking of AI infrastructure coordination dynamics.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Support — Warmth Engine Observatory">
+    <meta property="og:description" content="Help sustain independent tracking of AI infrastructure coordination dynamics.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =================================================================
+           SUPPORT PAGE R1 — Subscription & Donation Options
+           Observatory Palette (Slate-Blue) — Platform Documentation
+           
+           This page provides:
+           - Mission framing for support
+           - Free vs Analyst tier comparison
+           - Ko-fi integration
+           - Crypto donation addresses
+           - Institutional enquiry contact
+           
+           Style: Systems Analyst | UK English | Accessible
+           ================================================================= */
+        
+        :root {
+            /* Background & Surface — Observatory Palette */
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-elevated: #334155;
+            --border-primary: #334155;
+            --border-subtle: #475569;
+            
+            /* Text Hierarchy */
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #94A3B8;
+            --text-muted: #64748B;
+            
+            /* Accent */
+            --accent-primary: #3B82F6;
+            --accent-hover: #60A5FA;
+            
+            /* Coordination Connections / Teal Accent */
+            --accent-teal: #2DD4BF;
+            --accent-teal-muted: rgba(45, 212, 191, 0.15);
+            --accent-teal-glow: rgba(45, 212, 191, 0.08);
+            
+            /* Support/Gold Accent */
+            --accent-gold: #F59E0B;
+            --accent-gold-muted: rgba(245, 158, 11, 0.15);
+            --accent-gold-glow: rgba(245, 158, 11, 0.08);
+            
+            /* Status */
+            --status-positive: #22C55E;
+            --status-positive-bg: rgba(34, 197, 94, 0.12);
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* ========================================
+               WEO UX REFINEMENTS - Phase 2c Design Tokens
+               ======================================== */
+            /* Timing */
+            --duration-instant: 80ms;
+            --duration-fast: 150ms;
+            --duration-normal: 200ms;
+            --duration-slow: 300ms;
+            
+            /* Easing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Surfaces */
+            --surface-base: #0F172A;
+            --surface-raised: #1E293B;
+            --surface-overlay: #334155;
+            
+            /* Interactive */
+            --hover-overlay: rgba(255, 255, 255, 0.08);
+            --focus-ring: #60A5FA;
+            --focus-ring-offset: 2px;
+        }
+        
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* ========================================
+           WEO UX REFINEMENTS - Focus Ring Styles
+           ======================================== */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+        }
+        
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Button pressed feedback */
+        button:active,
+        .btn:active,
+        .tier-cta:active,
+        .copy-button:active {
+            transform: scale(0.97);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+        
+        /* ========================================
+           WEO NAVIGATION BAR — Subpages
+           ======================================== */
+        .weo-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-md) 0;
+          margin-bottom: var(--space-xl);
+          border-bottom: 1px solid var(--border-primary);
+        }
+
+        .weo-nav-brand {
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          text-decoration: none;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 0.875rem;
+          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-brand:hover {
+          color: #2DD4BF;
+        }
+
+        .weo-nav-logo {
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-mono);
+          font-size: 0.5rem;
+          font-weight: 700;
+          color: #2DD4BF;
+        }
+
+        .weo-nav-links {
+          display: flex;
+          align-items: center;
+          gap: var(--space-xs);
+        }
+
+        .weo-nav-links a {
+          padding: var(--space-xs) var(--space-sm);
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          border-radius: var(--radius-sm);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .weo-nav-links a:hover {
+          color: var(--text-primary);
+          background: rgba(59, 130, 246, 0.1);
+        }
+
+        .weo-nav-links a.active {
+          color: #2DD4BF;
+          background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* Mobile hamburger */
+        .weo-nav-toggle {
+          display: none;
+          width: 32px;
+          height: 32px;
+          background: var(--bg-elevated);
+          border: 1px solid var(--border-primary);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+        }
+
+        .weo-nav-toggle span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-tertiary);
+          border-radius: 1px;
+          transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .weo-nav-toggle:hover {
+          background: rgba(59, 130, 246, 0.2);
+          border-color: #60A5FA;
+        }
+
+        .weo-nav-toggle:hover span {
+          background: var(--text-primary);
+        }
+
+        @media (max-width: 767px) {
+          .weo-nav {
+            position: relative;
+          }
+          
+          .weo-nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-top: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-top: var(--space-sm);
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+          }
+          
+          .weo-nav-links.open {
+            display: flex;
+          }
+          
+          .weo-nav-links a {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+          }
+          
+          .weo-nav-toggle {
+            display: flex;
+          }
+        }
+        
+        /* Header */
+        .page-header {
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.02em;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.01em;
+        }
+        
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+        }
+        
+        .prose {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .prose p {
+            margin-bottom: var(--space-md);
+        }
+        
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .prose strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Hero Mission Box */
+        .mission-box {
+            background: linear-gradient(135deg, var(--accent-teal-glow) 0%, var(--bg-card) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .mission-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--accent-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .mission-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            line-height: 1.3;
+        }
+        
+        .mission-desc {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Tier Comparison */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        @media (max-width: 640px) {
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .tier-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            position: relative;
+        }
+        
+        .tier-card.featured {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, var(--accent-gold-glow) 0%, var(--bg-primary) 100%);
+        }
+        
+        .tier-badge {
+            position: absolute;
+            top: -10px;
+            right: var(--space-lg);
+            background: var(--accent-gold);
+            color: #0F172A;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .tier-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tier-price {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .tier-price .period {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        
+        .tier-price .alt-price {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--text-tertiary);
+            margin-top: var(--space-xs);
+        }
+        
+        .tier-features {
+            list-style: none;
+        }
+        
+        .tier-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            padding: var(--space-xs) 0;
+        }
+        
+        .tier-features li svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .tier-features li svg.check {
+            color: var(--status-positive);
+        }
+        
+        .tier-features li svg.neutral {
+            color: var(--text-muted);
+        }
+        
+        /* Tier locked items */
+        .tier-locked {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .tier-locked-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tier-locked-items {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+        
+        /* Support Options Section */
+        .support-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+        
+        .support-option {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+        }
+        
+        .support-option-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        .support-option-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+        }
+        
+        .support-option-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .support-option-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .support-option-desc {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+        
+        .support-option-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            border-left: 2px solid var(--accent-teal);
+        }
+        
+        .support-option-badge {
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-gold);
+            background: var(--accent-gold-muted);
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+        
+        .support-option.featured {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--accent-gold-glow) 100%);
+        }
+        
+        /* Ko-fi Button */
+        .kofi-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: #FF5E5B;
+            color: white;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+        
+        .kofi-button:hover {
+            background: #E54542;
+            transform: translateY(-1px);
+        }
+        
+        .kofi-button.secondary {
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .kofi-button.secondary:hover {
+            background: var(--border-primary);
+            color: var(--text-primary);
+        }
+        
+        .kofi-button svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Crypto Addresses */
+        .crypto-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .crypto-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+        }
+        
+        .crypto-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            width: 40px;
+            flex-shrink: 0;
+        }
+        
+        .crypto-address {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            word-break: break-all;
+        }
+        
+        .crypto-placeholder {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* Institutional Section */
+        .institutional-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+        
+        .institutional-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .institutional-desc {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+        
+        .institutional-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .institutional-link:hover {
+            color: var(--accent-hover);
+        }
+        
+        .institutional-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Independence Notice */
+        .independence-notice {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--status-positive);
+        }
+        
+        .independence-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--status-positive);
+        }
+        
+        .independence-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .independence-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .footer-text a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        
+        .footer-text a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: var(--space-lg);
+            }
+            
+            .mission-box {
+                padding: var(--space-lg);
+            }
+            
+            .mission-title {
+                font-size: 1.125rem;
+            }
+            
+            .tier-card {
+                padding: var(--space-md);
+            }
+            
+            .crypto-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-xs);
+            }
+            
+            .crypto-label {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="index.html" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="index.html">Map</a>
+            <a href="events.html">Events</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="research.html">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html" class="active">Support</a>
+          </div>
+        </nav>
+        
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Support</h1>
+            <p class="page-subtitle">Help sustain independent tracking of AI infrastructure coordination dynamics</p>
+        </header>
+        
+        <!-- Mission -->
+        <section class="section">
+            <div class="mission-box">
+                <div class="mission-label">Independent Platform</div>
+                <div class="mission-title">Building the coordination thermostat for AI governance</div>
+                <div class="mission-desc">WEO tracks verified AI infrastructure events and the connections between them — creating visibility into whether humanity is coordinating or fragmenting on critical infrastructure.</div>
+            </div>
+        </section>
+        
+        <!-- Tiers -->
+        <section class="section">
+            <h2 class="section-title">Access Tiers</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>WEO operates on a freemium model. Core access is free; supporters unlock full platform features.</p>
+                </div>
+                
+                <div class="tier-grid">
+                    <!-- Free Tier -->
+                    <div class="tier-card">
+                        <div class="tier-name">Free Access</div>
+                        <div class="tier-price">$0 <span class="period">/ forever</span></div>
+                        <ul class="tier-features">
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                All events on map with basic metadata
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Event name, date, type, location, scale
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Tier, bloc, domain classification
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Verification indicators (source count, confidence)
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                3-4 sample events with full access
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Full methodology documentation
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Analyst Tier -->
+                    <div class="tier-card featured">
+                        <div class="tier-badge">Recommended</div>
+                        <div class="tier-name">Analyst</div>
+                        <div class="tier-price">
+                            $10 <span class="period">/ month</span>
+                            <span class="alt-price">or $100/year (save $20)</span>
+                        </div>
+                        <ul class="tier-features">
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Everything in Free, plus:
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Framework Assessment (Basel 5-Factor / Keohane / PISA-5 / Route-Based)
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Tier & Bloc Classification Rationales
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Coordination Connection Details & Evidence
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Cross-Event Navigation
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Full Source Documentation (Primary + Corroborating)
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Version History &amp; Rolling Updates
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Related Events
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Priority access to new analytical capabilities as they deploy
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Support Options -->
+        <section class="section">
+            <h2 class="section-title">Support Options</h2>
+            <div class="card">
+                <div class="support-options">
+                    
+                    <!-- Ko-fi Monthly -->
+                    <div class="support-option featured">
+                        <div class="support-option-header">
+                            <div class="support-option-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                            </div>
+                            <div class="support-option-title">Monthly Membership</div>
+                            <div class="support-option-badge">Full Access</div>
+                        </div>
+                        <div class="support-option-desc">
+                            $10/month via Ko-fi. Full Analyst access — framework assessments (Basel 5-Factor, Keohane, PISA-5, Route-Based), tier and bloc classification rationales, Coordination Connection details and evidence, cross-event navigation, full source documentation, version history and rolling updates, related events, and priority access to new analytical capabilities. Cancel anytime.
+                        </div>
+                        <div class="support-option-note">
+                            After subscribing, you'll receive access credentials via the email associated with your Ko-fi account within 24 hours.
+                        </div>
+                        <a href="https://ko-fi.com/warmthengine#tier17673996231870" class="kofi-button" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/></svg>
+                            Subscribe on Ko-fi
+                        </a>
+                    </div>
+                    
+                    <!-- Ko-fi One-Time -->
+                    <div class="support-option">
+                        <div class="support-option-header">
+                            <div class="support-option-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            </div>
+                            <div class="support-option-title">One-Time Donation</div>
+                        </div>
+                        <div class="support-option-desc">
+                            Support WEO's independence with a one-time contribution. One-time donations do not include Analyst tier access.
+                        </div>
+                        <a href="https://ko-fi.com/warmthengine" class="kofi-button secondary" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/></svg>
+                            Donate on Ko-fi
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Institutional -->
+        <section class="section">
+            <h2 class="section-title">Institutional Enquiries</h2>
+            <div class="card">
+                <div class="institutional-box">
+                    <div class="institutional-title">Partnerships, Investment & Institutional Access</div>
+                    <div class="institutional-desc">
+                        For institutional access, partnership opportunities, custom analysis, or investment enquiries, please get in touch. WEO welcomes partners aligned with rigorous, independent analysis of AI infrastructure coordination dynamics.
+                    </div>
+                    <a href="mailto:warmthengine@proton.me" class="institutional-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        warmthengine@proton.me
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Independence Notice -->
+        <section class="section">
+            <div class="card">
+                <div class="independence-notice">
+                    <svg class="independence-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <div class="independence-text">
+                        <strong>Methodology-First Independence.</strong> WEO's analytical integrity is non-negotiable — no funder, partner, or subscriber influences methodology or editorial conclusions. We welcome aligned partners who share this commitment. Your support sustains this model.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links" style="margin-top: 0.5rem;">
+                <a href="legal.html" style="color: var(--text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--duration-fast) var(--ease-out);">Privacy Policy & Terms of Service</a>
+            </p>
+        </footer>
+        
+    </div>
+    
+    <script>
+      // Navigation toggle for mobile
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('open');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+</body>
+</html>
