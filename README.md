@@ -31,15 +31,17 @@ The WEO methodology is documented across four publications, all available on Zen
 
 ### Core Documentation
 
-- **WEO Methodology Manual** — Operational specification covering event verification, significance assessment, tier classification, domain classification, and coordination connection methodology
-
-- **WEO Methodology Rationale** — Companion document providing empirical derivation, theoretical grounding, and calibration justification for all methodology components
+| Publication                                                  | DOI                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **WEO Methodology Manual** — Operational specification covering event verification, significance assessment, tier classification, domain classification, and coordination connection methodology | [`10.5281/zenodo.18427566`](https://doi.org/10.5281/zenodo.18427566) |
+| **WEO Methodology Rationale** — Companion document providing empirical derivation, theoretical grounding, and calibration justification for all methodology components | [`10.5281/zenodo.18427583`](https://doi.org/10.5281/zenodo.18427583) |
 
 ### Methodology Extensions
 
-- **Toward Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination connection metrics and theoretical foundations (Layer 2 framework)
-
-- **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining coordination connections across different tiers
+| Publication                                                  | DOI                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Toward Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination connection metrics and theoretical foundations (Layer 2 framework) | [`10.5281/zenodo.18427585`](https://doi.org/10.5281/zenodo.18427585) |
+| **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining coordination connections across different tiers | [`10.5281/zenodo.18427587`](https://doi.org/10.5281/zenodo.18427587) |
 
 ---
 
