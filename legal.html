@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -572,7 +571,7 @@
                 
                 <div class="contact-box">
                     <div class="contact-label">Contact</div>
-                    <a href="/cdn-cgi/l/email-protection#7e091f0c130a161b101917101b3e0e0c110a111050131b" class="contact-email"><span class="__cf_email__" data-cfemail="691e081b041d010c070e00070c29191b061d060747040c">[email&#160;protected]</span></a>
+                    <a href="mailto:warmthengine@proton.me" class="contact-email">warmthengine@proton.me</a>
                 </div>
             </div>
         </section>
@@ -614,7 +613,7 @@
         
     </div>
     
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
       // Navigation toggle for mobile
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
@@ -624,4 +623,15 @@
           navLinks.classList.toggle('open');
         });
         
-        // Close menu when clicking outs
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('open');
+          }
+        });
+      }
+    </script>
+    <script data-goatcounter="https://warmthengine.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
