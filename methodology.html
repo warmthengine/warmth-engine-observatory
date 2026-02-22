@@ -2,14 +2,17 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Methodology — Warmth Engine Observatory</title>
-    <meta name="description" content="WEO V2.1 methodology for measuring AI infrastructure coordination dynamics through verified events, tier classification, and coordination connections.">
+    <meta name="description" content="WEO V1.1 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, and coordination connections.">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Methodology — Warmth Engine Observatory">
     <meta property="og:description" content="How WEO measures AI infrastructure coordination dynamics through verified events and systematic classification.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
     
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +24,7 @@
            METHODOLOGY PAGE R6 — Public-Facing Methodology Summary
            Observatory Palette (Slate-Blue) — Platform Documentation
            
-           Aligned with WEO Methodology Manual V2.1 (7-chapter structure)
+           Aligned with WEO Methodology Manual V1.1 (8-chapter structure)
            Gauge scoring and spillover mechanics deferred to V2.2+
            
            Style: Systems Analyst | UK English | Institutional Audience
@@ -574,6 +577,55 @@
             color: var(--text-muted);
         }
         
+        /* Industry Tags */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+        
+        .industry-item {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            border-left: 3px solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 3rem;
+        }
+        
+        .industry-item.ind-telecoms {
+            border-left-style: dashed;
+        }
+        
+        .industry-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .industry-note {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .industry-item.ind-semi { border-color: rgb(173,180,255); }
+        .industry-item.ind-cloud { border-color: rgb(103,232,249); }
+        .industry-item.ind-ai { border-color: rgb(211,168,255); }
+        .industry-item.ind-defence { border-color: rgb(255,160,173); }
+        .industry-item.ind-energy { border-color: rgb(251,191,36); }
+        .industry-item.ind-finance { border-color: rgb(134,239,172); }
+        .industry-item.ind-mining { border-color: rgb(226,178,128); }
+        .industry-item.ind-trade { border-color: rgb(94,234,212); }
+        .industry-item.ind-auto { border-color: rgb(118,201,2); }
+        .industry-item.ind-quantum { border-color: rgb(194,174,255); }
+        .industry-item.ind-telecoms { border-color: rgb(189,186,184); }
+        
         /* Processing Sequence */
         .sequence-list {
             display: flex;
@@ -613,6 +665,23 @@
         .sequence-desc {
             font-size: 0.75rem;
             color: var(--text-tertiary);
+        }
+        
+        .sequence-interstitial {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius-md);
+        }
+        
+        .sequence-interstitial-marker {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            width: 1.5rem;
+            flex-shrink: 0;
+            text-align: center;
         }
         
         /* Connections Feature */
@@ -980,6 +1049,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
+            .industry-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .connection-types {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1044,6 +1117,10 @@
                 <div class="quick-start-item">
                     <span class="qs-label">How we classify:</span>
                     <span class="qs-value">Three tiers — T1: Cross-Bloc coordination, T2: Between-Bloc fragmentation, T3: Intra-Bloc coordination; four domains; four event types</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">What we tag:</span>
+                    <span class="qs-value">11 categories identifying which industries each event's documented provisions address</span>
                 </div>
                 <div class="quick-start-item">
                     <span class="qs-label">How we connect:</span>
@@ -1116,6 +1193,13 @@
                         <div class="sequence-content">
                             <div class="sequence-name">Domain Classification</div>
                             <div class="sequence-desc">Energy/Infrastructure, Security, Technology, Trade</div>
+                        </div>
+                    </div>
+                    <div class="sequence-interstitial">
+                        <span class="sequence-interstitial-marker">◈</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Industry Tags</div>
+                            <div class="sequence-desc">11 categories identifying which industries each event's documented provisions address</div>
                         </div>
                     </div>
                     <div class="sequence-item">
@@ -1261,6 +1345,57 @@
             </div>
         </section>
         
+        <!-- Industry Tags -->
+        <section class="section">
+            <h2 class="section-title">Industry Tags</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <p>Each event is tagged with the industry whose operational landscape its documented provisions most directly address. Industry tags are distinct from classification — they identify an external relationship rather than an intrinsic property of the event.</p>
+                </div>
+                
+                <div class="industry-grid">
+                    <div class="industry-item ind-semi">
+                        <div class="industry-name">Semiconductors & Equipment</div>
+                    </div>
+                    <div class="industry-item ind-cloud">
+                        <div class="industry-name">Cloud, Data Centres & Connectivity Infrastructure</div>
+                    </div>
+                    <div class="industry-item ind-ai">
+                        <div class="industry-name">AI Software & Platforms</div>
+                    </div>
+                    <div class="industry-item ind-defence">
+                        <div class="industry-name">Defence & Aerospace</div>
+                    </div>
+                    <div class="industry-item ind-energy">
+                        <div class="industry-name">Energy & Power Infrastructure</div>
+                    </div>
+                    <div class="industry-item ind-finance">
+                        <div class="industry-name">Financial Services & Investment</div>
+                    </div>
+                    <div class="industry-item ind-mining">
+                        <div class="industry-name">Mining & Critical Minerals</div>
+                    </div>
+                    <div class="industry-item ind-trade">
+                        <div class="industry-name">Trade & Logistics</div>
+                    </div>
+                    <div class="industry-item ind-auto">
+                        <div class="industry-name">Automotive & Manufacturing</div>
+                    </div>
+                    <div class="industry-item ind-quantum">
+                        <div class="industry-name">Quantum Computing Infrastructure</div>
+                    </div>
+                    <div class="industry-item ind-telecoms">
+                        <div class="industry-name">Telecoms</div>
+                        <div class="industry-note">Structural secondary only</div>
+                    </div>
+                </div>
+                
+                <div class="prose" style="margin-top: var(--space-lg);">
+                    <p><strong>Primary/secondary structure:</strong> Each event receives one primary tag. Up to two secondary tags document specific pathways to other industries via mechanism statements.</p>
+                </div>
+            </div>
+        </section>
+        
         <!-- Coordination Connections -->
         <section class="section">
             <h2 class="section-title">Coordination Connections</h2>
@@ -1286,7 +1421,7 @@
                 
                 <div class="prose" style="margin-top: var(--space-lg);">
                     <p><strong>Confidence Levels:</strong> CC-V (Verified) requires primary source documentation. CC-E (Established) requires authoritative statement with corroboration. CC-A (Analytical) permits analyst assessment for parallel policy patterns.</p>
-                    <p><strong>Auditability:</strong> Every connection can be verified against the evidence cited. The full Coordination Connections methodology is documented in Chapter 7 of the Methodology Manual.</p>
+                    <p><strong>Auditability:</strong> Every connection can be verified against the evidence cited.</p>
                 </div>
             </div>
         </section>
@@ -1355,26 +1490,26 @@
             <h2 class="section-title">Full Documentation</h2>
             <div class="download-section">
                 <div class="download-title">WEO Methodology Manual</div>
-                <div class="download-desc">Complete technical specification covering all 7 chapters</div>
-                <a href="https://zenodo.org/records/18427566" class="download-button" target="_blank" rel="noopener noreferrer">
+                <div class="download-desc">Complete technical specification covering all 8 chapters</div>
+                <a href="https://zenodo.org/records/18427565" class="download-button" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
                     </svg>
                     View on Zenodo
                 </a>
-                <div class="download-meta">January 2026 · DOI: 10.5281/zenodo.18427566</div>
+                <div class="download-meta">DOI: 10.5281/zenodo.18427565</div>
             </div>
             
             <div class="download-section" style="margin-top: var(--space-lg);">
                 <div class="download-title">WEO Methodology Rationale</div>
                 <div class="download-desc">Empirical derivation and calibration justification for all methodology components</div>
-                <a href="https://zenodo.org/records/18427583" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
+                <a href="https://zenodo.org/records/18427582" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
                     </svg>
                     View on Zenodo
                 </a>
-                <div class="download-meta">January 2026 · DOI: 10.5281/zenodo.18427583</div>
+                <div class="download-meta">DOI: 10.5281/zenodo.18427582</div>
             </div>
         </section>
         
@@ -1403,7 +1538,7 @@
         });
       }
     </script>
-    <script data-goatcounter="https://warmthengine.goatcounter.com/count"
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

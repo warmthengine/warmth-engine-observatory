@@ -877,7 +877,7 @@
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                Tier, bloc, domain classification
+                                Tier, bloc, domain classification and industry tags
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -885,7 +885,7 @@
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                3-4 sample events with full access
+                                6 sample events with full access
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -961,7 +961,7 @@
                             <div class="support-option-badge">Full Access</div>
                         </div>
                         <div class="support-option-desc">
-                            $10/month via Ko-fi. Full Analyst access — framework assessments (Basel 5-Factor, Keohane, PISA-5, Route-Based), tier and bloc classification rationales, Coordination Connection details and evidence, cross-event navigation, full source documentation, version history and rolling updates, related events, and priority access to new analytical capabilities. Cancel anytime.
+                            $10/month via Ko-fi. Full Analyst access — framework assessments (Basel 5-Factor, Keohane, PISA-5, Route-Based), tier and bloc classification rationales, industry tags, Coordination Connection details and evidence, cross-event navigation, full source documentation, version history and rolling updates, related events, and priority access to new analytical capabilities. Cancel anytime.
                         </div>
                         <div class="support-option-note">
                             After subscribing, you'll receive access credentials via the email associated with your Ko-fi account within 24 hours.
@@ -1000,12 +1000,13 @@
                 <div class="institutional-box">
                     <div class="institutional-title">Partnerships, Investment & Institutional Access</div>
                     <div class="institutional-desc">
-                        For institutional access, partnership opportunities, custom analysis, or investment enquiries, please get in touch. WEO welcomes partners aligned with rigorous, independent analysis of AI infrastructure coordination dynamics.
+                        For institutional access, partnership opportunities, custom analysis, or investment enquiries, please get in touch. WEO welcomes partners aligned with rigorous, independent Coordination Intelligence on AI infrastructure dynamics.
                     </div>
-                    <a href="mailto:warmthengine@proton.me" class="institutional-link">
+                    <a id="weoInstitutionalEmail" class="institutional-link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        warmthengine@proton.me
+                        <span id="weoInstitutionalEmailText"></span>
                     </a>
+                    <script>!function(){var a=document.getElementById('weoInstitutionalEmail'),s=document.getElementById('weoInstitutionalEmailText'),u='warm'+'thengine',d='proton'+'.me';a.href='mai'+'lto:'+u+'@'+d;s.textContent=u+'@'+d;}();</script>
                 </div>
             </div>
         </section>
@@ -1046,13 +1047,13 @@
         
         // Close when clicking outside
         document.addEventListener('click', function(e) {
-          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+          if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
             navLinks.classList.remove('open');
           }
         });
       }
     </script>
-    <script data-goatcounter="https://warmthengine.goatcounter.com/count"
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

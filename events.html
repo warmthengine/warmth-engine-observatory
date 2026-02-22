@@ -7,6 +7,7 @@
     <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Database — Warmth Engine Observatory</title>
+    <meta name="description" content="WEO event database — 87 verified AI infrastructure coordination events classified by tier, domain, and bloc with industry tags. Filter, search, and explore coordination dynamics.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -340,6 +341,122 @@
         .cc-count.has-cc { color: #2DD4BF; text-shadow: 0 0 6px rgba(45, 212, 191, 0.4); }
         .cc-count.highly-connected { color: #2DD4BF; text-shadow: 0 0 8px rgba(45, 212, 191, 0.6), 0 0 12px rgba(45, 212, 191, 0.3); }
         .cc-count.no-cc { color: var(--text-muted); }
+        /* ========================================
+           INDUSTRY TAG SHELF
+           Transitional classification zone between header and body.
+           ======================================== */
+        .industry-shelf {
+            background: rgba(255, 255, 255, 0.025);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 5;
+            margin: 12px -24px -24px -24px;
+        }
+        .ind-tag {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            border-radius: 3px;
+            position: relative;
+        }
+        /* Primary — filled */
+        .ind-tag.ind-primary { padding: 3px 8px; font-size: 0.6875rem; font-weight: 500; }
+        .ind-tag.ind-primary.badge-ind-semi { background: rgba(173,180,255,0.18); color: rgba(173,180,255,0.9); border: 1px solid rgba(173,180,255,0.3); }
+        .ind-tag.ind-primary.badge-ind-cloud { background: rgba(103,232,249,0.18); color: rgba(103,232,249,0.9); border: 1px solid rgba(103,232,249,0.3); }
+        .ind-tag.ind-primary.badge-ind-ai { background: rgba(211,168,255,0.18); color: rgba(211,168,255,0.9); border: 1px solid rgba(211,168,255,0.3); }
+        .ind-tag.ind-primary.badge-ind-defence { background: rgba(255,160,173,0.18); color: rgba(255,160,173,0.9); border: 1px solid rgba(255,160,173,0.3); }
+        .ind-tag.ind-primary.badge-ind-energy { background: rgba(251,191,36,0.18); color: rgba(251,191,36,0.9); border: 1px solid rgba(251,191,36,0.3); }
+        .ind-tag.ind-primary.badge-ind-finance { background: rgba(134,239,172,0.18); color: rgba(134,239,172,0.9); border: 1px solid rgba(134,239,172,0.3); }
+        .ind-tag.ind-primary.badge-ind-mining { background: rgba(226,178,128,0.18); color: rgba(226,178,128,0.9); border: 1px solid rgba(226,178,128,0.3); }
+        .ind-tag.ind-primary.badge-ind-trade { background: rgba(94,234,212,0.18); color: rgba(94,234,212,0.9); border: 1px solid rgba(94,234,212,0.3); }
+        .ind-tag.ind-primary.badge-ind-auto { background: rgba(118,201,2,0.18); color: rgba(118,201,2,0.9); border: 1px solid rgba(118,201,2,0.3); }
+        .ind-tag.ind-primary.badge-ind-quantum { background: rgba(194,174,255,0.18); color: rgba(194,174,255,0.9); border: 1px solid rgba(194,174,255,0.3); }
+        .ind-tag.ind-primary.badge-ind-telecoms { background: rgba(189,186,184,0.18); color: rgba(189,186,184,0.9); border: 1px solid rgba(189,186,184,0.3); }
+        /* Secondary — outlined, operational */
+        .ind-tag.ind-secondary { padding: 2px 7px; font-size: 0.625rem; font-weight: 400; background: transparent; cursor: pointer; transition: opacity 0.15s ease, background 0.15s ease, transform 0.1s ease; -webkit-tap-highlight-color: transparent; }
+        .ind-tag.ind-secondary:hover { opacity: 1; }
+        .ind-tag.ind-secondary:active { transform: scale(0.97); }
+        /* Touch target expansion for secondary tags */
+        .ind-tag.ind-secondary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 44px;
+            min-height: 44px;
+        }
+        .ind-tag.ind-secondary.badge-ind-semi { color: rgba(173,180,255,0.75); border: 1px solid rgba(173,180,255,0.3); }
+        .ind-tag.ind-secondary.badge-ind-semi:hover { background: rgba(173,180,255,0.08); color: rgba(173,180,255,0.9); }
+        .ind-tag.ind-secondary.badge-ind-cloud { color: rgba(103,232,249,0.75); border: 1px solid rgba(103,232,249,0.3); }
+        .ind-tag.ind-secondary.badge-ind-cloud:hover { background: rgba(103,232,249,0.08); color: rgba(103,232,249,0.9); }
+        .ind-tag.ind-secondary.badge-ind-ai { color: rgba(211,168,255,0.75); border: 1px solid rgba(211,168,255,0.3); }
+        .ind-tag.ind-secondary.badge-ind-ai:hover { background: rgba(211,168,255,0.08); color: rgba(211,168,255,0.9); }
+        .ind-tag.ind-secondary.badge-ind-defence { color: rgba(255,160,173,0.75); border: 1px solid rgba(255,160,173,0.3); }
+        .ind-tag.ind-secondary.badge-ind-defence:hover { background: rgba(255,160,173,0.08); color: rgba(255,160,173,0.9); }
+        .ind-tag.ind-secondary.badge-ind-energy { color: rgba(251,191,36,0.75); border: 1px solid rgba(251,191,36,0.3); }
+        .ind-tag.ind-secondary.badge-ind-energy:hover { background: rgba(251,191,36,0.08); color: rgba(251,191,36,0.9); }
+        .ind-tag.ind-secondary.badge-ind-finance { color: rgba(134,239,172,0.75); border: 1px solid rgba(134,239,172,0.3); }
+        .ind-tag.ind-secondary.badge-ind-finance:hover { background: rgba(134,239,172,0.08); color: rgba(134,239,172,0.9); }
+        .ind-tag.ind-secondary.badge-ind-mining { color: rgba(226,178,128,0.75); border: 1px solid rgba(226,178,128,0.3); }
+        .ind-tag.ind-secondary.badge-ind-mining:hover { background: rgba(226,178,128,0.08); color: rgba(226,178,128,0.9); }
+        .ind-tag.ind-secondary.badge-ind-trade { color: rgba(94,234,212,0.75); border: 1px solid rgba(94,234,212,0.3); }
+        .ind-tag.ind-secondary.badge-ind-trade:hover { background: rgba(94,234,212,0.08); color: rgba(94,234,212,0.9); }
+        .ind-tag.ind-secondary.badge-ind-auto { color: rgba(118,201,2,0.75); border: 1px solid rgba(118,201,2,0.3); }
+        .ind-tag.ind-secondary.badge-ind-auto:hover { background: rgba(118,201,2,0.08); color: rgba(118,201,2,0.9); }
+        .ind-tag.ind-secondary.badge-ind-quantum { color: rgba(194,174,255,0.75); border: 1px solid rgba(194,174,255,0.3); }
+        .ind-tag.ind-secondary.badge-ind-quantum:hover { background: rgba(194,174,255,0.08); color: rgba(194,174,255,0.9); }
+        .ind-tag.ind-secondary.badge-ind-telecoms { color: rgba(189,186,184,0.75); border: 1px solid rgba(189,186,184,0.3); }
+        .ind-tag.ind-secondary.badge-ind-telecoms:hover { background: rgba(189,186,184,0.08); color: rgba(189,186,184,0.9); }
+        /* Mechanism popover */
+        .ind-tag-wrap { position: relative; display: inline-flex; align-items: center; }
+        .ind-mechanism-popover {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #252B36;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 10px 12px;
+            font-size: 0.6875rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            width: max-content;
+            max-width: 320px;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+        .ind-mechanism-popover::before { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:rgba(255,255,255,0.08); }
+        .ind-mechanism-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:#252B36; }
+        .ind-mechanism-popover .mechanism-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:4px; }
+        .ind-mechanism-popover.visible { display: block; }
+        /* Industry multi-select filter */
+        .industry-filter-wrap { position: relative; }
+        .industry-filter-btn { background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.8125rem; padding: var(--space-xs) var(--space-sm); cursor: pointer; display: flex; align-items: center; gap: 6px; min-width: 120px; justify-content: space-between; }
+        .industry-filter-btn:hover { border-color: var(--text-muted); }
+        .industry-filter-btn .filter-arrow { font-size: 0.5rem; color: var(--text-muted); transition: transform 0.15s; }
+        .industry-filter-btn.open .filter-arrow { transform: rotate(180deg); }
+        .industry-filter-btn .filter-count { background: rgba(148,163,184,0.2); color: #94A3B8; font-size: 0.625rem; font-weight: 600; padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono); }
+        .industry-dropdown { position: absolute; top: calc(100% + 4px); left: 0; background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); padding: 6px 0; z-index: 100; min-width: 240px; max-height: 320px; overflow-y: auto; display: none; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .industry-dropdown.show { display: block; }
+        .industry-dropdown label { display: flex; align-items: center; gap: 8px; padding: 5px 12px; cursor: pointer; font-size: 0.75rem; color: var(--text-secondary); transition: background 0.1s; }
+        .industry-dropdown label:hover { background: rgba(148,163,184,0.08); }
+        .industry-dropdown label.telecoms-label { color: var(--text-muted); font-style: italic; }
+        .industry-dropdown input[type="checkbox"] { accent-color: #94A3B8; width: 14px; height: 14px; flex-shrink: 0; }
+        .industry-dropdown .ind-color-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+        .industry-dropdown .dropdown-divider { height: 1px; background: var(--border-primary); margin: 4px 0; }
+        .industry-dropdown .dropdown-clear { padding: 5px 12px; font-size: 0.6875rem; color: var(--text-muted); cursor: pointer; text-align: center; }
+        .industry-dropdown .dropdown-clear:hover { color: var(--text-secondary); }
         .badge-highly-connected { background: rgba(45,212,191,0.15); color: #2DD4BF; animation: cc-badge-glow 3s ease-in-out infinite; }
         @keyframes cc-badge-glow { 0%, 100% { box-shadow: 0 0 4px rgba(45,212,191,0.3); } 50% { box-shadow: 0 0 8px rgba(45,212,191,0.5); } }
         .cc-section { background: var(--bg-primary); border-radius: var(--radius-md); padding: var(--space-lg); margin-bottom: var(--space-md); border-left: 3px solid #2DD4BF; }
@@ -935,7 +1052,7 @@
             padding: var(--space-lg); 
             border-bottom: 1px solid var(--border-primary); 
             background: var(--surface-raised);
-            z-index: 10;
+            z-index: 50;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         .modal-close { 
@@ -952,7 +1069,9 @@
         }
         .modal-close:hover { color: var(--text-primary); }
         .modal-close:active { transform: scale(0.95); }
-        .modal-title { font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-xs); padding-right: var(--space-xl); }
+        .modal-title { font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-xs); padding-right: var(--space-xl); cursor: pointer; }
+        .modal-title:hover { opacity: 0.8; }
+        .modal-title:active { opacity: 0.65; }
         .modal-subtitle { font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: var(--space-sm); }
         .modal-meta { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
         .modal-body { padding: var(--space-lg); }
@@ -1343,11 +1462,14 @@
       font-size: 9px;
       font-weight: 600;
       color: #64748B;
-      cursor: help;
+      cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
       flex-shrink: 0;
       margin-left: 4px;
       position: relative;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .weo-info-trigger:hover {
@@ -1428,7 +1550,6 @@
       display: inline-flex;
       align-items: center;
       overflow: visible;
-      z-index: 100;
     }
     
     .badge-with-tooltip .weo-info-trigger {
@@ -2085,9 +2206,6 @@
         </div>
         
         <div class="filters">
-            <div class="filter-group"><span class="filter-label">Tier</span>
-                <select class="filter-select" id="filter-tier"><option value="all">All Tiers</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option></select>
-            </div>
             <div class="filter-group"><span class="filter-label">Bloc</span>
                 <select class="filter-select" id="filter-bloc"><option value="all">All Blocs</option><option value="Western">Western</option><option value="Eastern">Eastern</option><option value="Cross-Bloc">Cross-Bloc</option><option value="Western-Led">Western-Led</option><option value="Eastern-Led">Eastern-Led</option></select>
             </div>
@@ -2096,6 +2214,27 @@
             </div>
             <div class="filter-group"><span class="filter-label">Domain</span>
                 <select class="filter-select" id="filter-domain"><option value="all">All Domains</option><option value="Energy/Infrastructure">Energy/Infra</option><option value="Security">Security</option><option value="Technology">Technology</option><option value="Trade">Trade</option></select>
+            </div>
+
+            <div class="filter-group"><span class="filter-label">Industry</span>
+                <div class="industry-filter-wrap" id="industry-filter-wrap">
+                    <button class="industry-filter-btn" id="industry-filter-btn" type="button">All Industries <span class="filter-arrow">▼</span></button>
+                    <div class="industry-dropdown" id="industry-dropdown">
+                        <label><input type="checkbox" value="Semiconductors & Equipment"><span class="ind-color-dot" style="background:#ADB4FF;"></span>Semi &amp; Equip</label>
+                        <label><input type="checkbox" value="Cloud, Data Centres & Connectivity Infrastructure"><span class="ind-color-dot" style="background:#67E8F9;"></span>Cloud &amp; DC</label>
+                        <label><input type="checkbox" value="AI Software & Platforms"><span class="ind-color-dot" style="background:#D3A8FF;"></span>AI S&amp;P</label>
+                        <label><input type="checkbox" value="Defence & Aerospace"><span class="ind-color-dot" style="background:#FFA0AD;"></span>Def &amp; Aero</label>
+                        <label><input type="checkbox" value="Energy & Power Infrastructure"><span class="ind-color-dot" style="background:#FBBF24;"></span>Energy &amp; Power</label>
+                        <label><input type="checkbox" value="Financial Services & Investment"><span class="ind-color-dot" style="background:#86EFAC;"></span>Fin &amp; Invest</label>
+                        <label><input type="checkbox" value="Mining & Critical Minerals"><span class="ind-color-dot" style="background:#E2B280;"></span>Mining &amp; Min</label>
+                        <label><input type="checkbox" value="Trade & Logistics"><span class="ind-color-dot" style="background:#5EEAD4;"></span>Trade &amp; Log</label>
+                        <label><input type="checkbox" value="Automotive & Manufacturing"><span class="ind-color-dot" style="background:#76C902;"></span>Auto &amp; Mfg</label>
+                        <label><input type="checkbox" value="Quantum Computing Infrastructure"><span class="ind-color-dot" style="background:#C2AEFF;"></span>Quantum</label>
+                        <label class="telecoms-label"><input type="checkbox" value="Telecoms"><span class="ind-color-dot" style="background:#BDBAB8;"></span>Telecoms <span style="font-size:0.6rem;opacity:0.6;">(secondary only)</span></label>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-clear" id="industry-clear-btn">Clear all</div>
+                    </div>
+                </div>
             </div>
             <input type="text" class="search-input" id="search-input" placeholder="Search events...">
             <div class="sample-legend"><span class="sample-legend-icon">★</span><span>Sample events with full analysis</span></div>
@@ -2115,6 +2254,7 @@
                     <th data-sort="tier" class="th-with-tooltip">Tier<span class="th-tooltip">Coordination Tier: T1 Cross-Bloc, T2 Between-Bloc, T3 Intra-Bloc</span></th>
                     <th data-sort="bloc" class="th-with-tooltip">Bloc<span class="th-tooltip">Bloc Attribution: Western, Eastern, Cross-Bloc, or Western/Eastern-Led</span></th>
                     <th data-sort="domain" class="th-with-tooltip">Domain<span class="th-tooltip">Subject Matter: Energy/Infrastructure, Security, Technology, or Trade</span></th>
+                    <th data-sort="industry" class="th-with-tooltip">Industry<span class="th-tooltip">Industry tag: which industry's operational landscape is most directly addressed</span></th>
                     <th data-sort="cc" class="th-with-tooltip">CC<span class="th-tooltip">Coordination Connections — verified relationships between events</span></th>
                     <th class="th-with-tooltip">Verif<span class="th-tooltip">Verification Checkpoints: AI Connection, Threshold, Implementation, Currency</span></th>
                     <th class="th-with-tooltip">Conf<span class="th-tooltip">Confidence Tier: A (High 90%+), B (Medium 70-90%), C (Moderate)</span></th>
@@ -2138,6 +2278,8 @@
                 <h2 class="modal-title" id="modal-title"></h2>
                 <div class="modal-subtitle" id="modal-subtitle"></div>
                 <div class="modal-meta" id="modal-meta"></div>
+                <!-- Industry tag shelf — inside header for sticky positioning and iOS touch compat -->
+                <div id="modal-industry-shelf"></div>
             </div>
             <!-- Context Banner - shown when arriving from map -->
             <div class="modal-context-banner" id="modalContextBanner" onclick="closeModal()">
@@ -2148,8 +2290,176 @@
         </div>
     </div>
 <script>
+    // ========================================
+    // WEO DATABASE VERSION CONSTANT
+    // Single source of truth — update this block when the database changes
+    // ========================================
+    const WEO_DB = {
+      event_count: 87,
+      cc_count: 58,
+      last_updated: "2026-02-20",
+      db_version: "1.1.0"
+    };
+
 // Event location lookup (extracted from index.html)
 const eventLocations = {"10":"Washington, DC, United States","11":"Washington, DC, United States","12":"Brussels, Belgium","14":"Beijing, China","15":"Hiroshima, Japan","16":"Gaithersburg, Maryland, United States","17":"London, United Kingdom","18":"Phoenix, Arizona, United States","19":"Geneva, Switzerland","20":"Geneva, Switzerland","21":"London, United Kingdom","22":"Abu Dhabi, UAE","24":"Paris, France","25":"Beijing, China","26":"Riyadh, Saudi Arabia","27":"San Francisco, United States","29":"Moscow, Russia","30":"Brussels, Belgium","31":"Navi Mumbai, India","32":"Washington, DC, United States","33":"Tokyo, Japan","34":"Beijing, China","38":"Kuala Lumpur, Malaysia","39":"Ottawa, Canada","40":"Washington, DC, United States","41":"Beijing, China","42":"Beijing, China","44":"Singapore","45":"Gwangju, South Korea","46":"Abu Dhabi, UAE","47":"Taipei, Taiwan","49":"Riyadh, Saudi Arabia","51":"Sanand, Gujarat, India","52":"Abu Dhabi, UAE","53":"New York City, USA","54":"New York City, USA","56":"Kigali, Rwanda","57":"Addis Ababa, Ethiopia","58":"Moscow, Russia","61":"Dubai, UAE","62":"Paris, France","64":"Santiago, Chile","65":"Abu Dhabi, UAE","66":"Beijing, China","67":"Seoul, South Korea","68":"Hangzhou, China","69":"Hangzhou, China","70":"Clay, New York, United States","71":"Hanoi, Vietnam (Hoa Lac Hi-Tech Park)","72":"Rayong, Thailand (Eastern Economic Corridor)","73":"Moscow, Russia","74":"Moscow, Russia","75":"Shenzhen, China","76":"Shenzhen, China (Huawei HQ; launched at HDC.Cloud 2023 Dongguan)","77":"Bologna, Italy","78":"Barcelona, Spain","79":"Memphis, Tennessee, United States","80":"Abu Dhabi, UAE","83":"Peoria, Arizona, United States","84":"Beijing, China","85":"Mountain View, California, USA","86":"Redmond, Washington, USA","87":"Washington, D.C., United States","88":"Taylor, Texas, United States","89":"Sherman, Texas, United States","90":"Malta, New York, United States","91":"Kajaani, Finland","92":"Guimarães, Portugal","93":"Beijing, China","94":"Beijing, China","95":"Beijing, China (ByteDance HQ)","96":"Shanghai, China","97":"Geneva, Switzerland","98":"Geneva, Switzerland","99":"Pennsylvania, United States","100":"Jülich, Germany","101":"Geneva, Switzerland","102":"Chengdu, China","01":"Guiyang, China","02":"Kikuyo Town, Kumamoto Prefecture, Japan","03":"Beijing, China","04":"New York City, USA","05":"Tokyo, Japan","06":"Washington, DC, United States","07":"Beijing, China","08":"Gaithersburg, Maryland, United States","09":"Geneva, Switzerland"};
+
+
+// Industry Tags Data (11-category taxonomy)
+const industryTagsData = {
+"01":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"The EDWC plan mandates the coordinated development of renewable energy infrastructure (solar, wind, hydropower), smart grids, energy storage systems, and source-grid-load-storage integration to power western data centre hubs."}]},
+"02":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"JASM\u2019s Phase 1 factory produces ASICs on 22/28 nm processes for image sensors and automotive applications, directly addressing semiconductor supply for automotive manufacturing."}]},
+"03":{primary:"Semiconductors & Equipment",secondary:[{tag:"Financial Services & Investment",mechanism:"The fund\u2019s governance designates the Ministry of Finance as the largest shareholder (17%, \u00A560B) and six state-owned commercial banks as investors contributing \u00A5114B (~33% of total capital)."}]},
+"04":{primary:"AI Software & Platforms",secondary:[]},
+"05":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"The Act establishes systems to ensure stable supplies of designated critical materials and allows the government to impose measures across supply chains."},{tag:"Financial Services & Investment",mechanism:"Certified businesses become eligible for subsidies, interest subsidies, two-step loans via Japan Finance Corporation, equity purchases, and credit insurance."}]},
+"06":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"The Guardrails Rule establishes Expansion and Technology Clawback provisions prohibiting CHIPS-funded entities from expanding semiconductor manufacturing in foreign countries of concern."},{tag:"Financial Services & Investment",mechanism:"Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit, and the $39B CHIPS for America Fund establishes direct subsidy and loan disbursement structures."}]},
+"07":{primary:"AI Software & Platforms",secondary:[{tag:"Trade & Logistics",mechanism:"Article 2 applies the Measures to any generative AI service accessible within the PRC regardless of provider location, establishing cross-border trade compliance requirements."}]},
+"08":{primary:"AI Software & Platforms",secondary:[]},
+"09":{primary:"AI Software & Platforms",secondary:[]},
+"10":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"The trilateral coordination created parallel national export licensing regimes for semiconductor manufacturing equipment across the Netherlands, Japan, and the United States."}]},
+"11":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"Intel received a separate $3B Secure Enclave contract from the Departments of Defense and Commerce to expand trusted manufacturing for national security applications."},{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, Intel is subject to the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years."}]},
+"12":{primary:"Semiconductors & Equipment",secondary:[{tag:"Financial Services & Investment",mechanism:"The European Chips Act establishes a framework for public support measures, including subsidies and incentives for integrated production facilities and open EU foundries."},{tag:"Trade & Logistics",mechanism:"The Act empowers the Commission to request information along the semiconductor supply chain and to prioritise crisis-relevant production orders."}]},
+"14":{primary:"Mining & Critical Minerals",secondary:[{tag:"Semiconductors & Equipment",mechanism:"Gallium and germanium are critical semiconductor manufacturing inputs \u2014 gallium for compound semiconductors (GaN, GaAs), germanium for fiber-optic and aerospace semiconductor applications."},{tag:"Trade & Logistics",mechanism:"MOFCOM/GACC Announcement No. 23 establishes an export licensing regime requiring provincial-level approval, end-user certifications, and Customs review."}]},
+"15":{primary:"AI Software & Platforms",secondary:[]},
+"16":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"The USAISI\u2019s TRAINS Taskforce brings together U.S. government partners to identify, measure, and manage national security implications of AI."}]},
+"17":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"The UK AI Safety Institute\u2019s published approach defines core functions in evaluations of advanced AI systems, foundational AI research, and information exchange."}]},
+"18":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, TSMC Arizona is bound by the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years post-award."}]},
+"19":{primary:"AI Software & Platforms",secondary:[]},
+"20":{primary:"AI Software & Platforms",secondary:[]},
+"21":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"The Five Eyes guidance sets best practices to secure AI systems, including protecting model weights and using cryptographic controls over AI software artifacts."},{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"The guidance instructs organisations deploying AI to secure surrounding networks and isolate weight storage in highly restricted zones with hardware protections."}]},
+"22":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Trade & Logistics",mechanism:"The IGAA requires G42 to divest from China, remove Chinese hardware, and commit to compliance with U.S. and international trade, security, and business integrity laws."},{tag:"Financial Services & Investment",mechanism:"The IGAA governs a $1.5B Microsoft equity investment granting Microsoft a minority stake and board seat, coupled with a $1B AI developer fund."}]},
+"24":{primary:"AI Software & Platforms",secondary:[]},
+"25":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"The joint statement commits both sides to establish regular consultation mechanisms on AI governance and strengthen cooperation in AI and open-source technology development."},{tag:"Trade & Logistics",mechanism:"The joint statement opposes drawing ideological lines and disrupting the global AI supply chain through technological monopolies and unilateral coercive measures."}]},
+"26":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"27":{primary:"AI Software & Platforms",secondary:[]},
+"29":{primary:"AI Software & Platforms",secondary:[]},
+"30":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"Recital 24 expressly excludes AI systems developed or used exclusively for military and defence purposes from the Act\u2019s scope."},{tag:"Financial Services & Investment",mechanism:"Annex III lists AI systems for credit scoring and creditworthiness assessment as high-risk, directly addressing compliance for financial services deploying AI in lending."}]},
+"31":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"32":{primary:"AI Software & Platforms",secondary:[]},
+"33":{primary:"Semiconductors & Equipment",secondary:[]},
+"34":{primary:"AI Software & Platforms",secondary:[]},
+"38":{primary:"Semiconductors & Equipment",secondary:[]},
+"39":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"The Strategy allocates up to $700M to support new or expanded data centres through the AI Compute Challenge, addressing power-hungry AI data centre operations."},{tag:"AI Software & Platforms",mechanism:"The Strategy sets aside up to $300M via the AI Compute Access Fund to provide affordable access to compute power for SMEs."}]},
+"40":{primary:"Financial Services & Investment",secondary:[{tag:"Semiconductors & Equipment",mechanism:"The Final Rule specifically prohibits or requires notification for U.S. person investments in Chinese entities engaged in covered activities related to semiconductors and microelectronics."},{tag:"Quantum Computing Infrastructure",mechanism:"The Final Rule prohibits U.S. person investments in Chinese entities that develop quantum computers or produce critical quantum computing components."}]},
+"41":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"The Plan mandates compute centres adopt source-grid-load-storage technologies and integrate renewable energy for nearby consumption."},{tag:"Semiconductors & Equipment",mechanism:"Box 6 directs pilot verification for key products including CPUs, GPUs, operating systems, and storage, requiring independently controllable hardware."}]},
+"42":{primary:"Mining & Critical Minerals",secondary:[{tag:"Semiconductors & Equipment",mechanism:"The October 2025 MOFCOM expansion explicitly subjects exports of rare-earth-containing items to licensing review when destined for sub-14nm logic chips and 256-layer memory chips."},{tag:"Trade & Logistics",mechanism:"The December 2023 ban and April/October 2025 expansions establish an extraterritorial trade compliance architecture with a 0.1% value threshold for foreign-produced goods."}]},
+"44":{primary:"AI Software & Platforms",secondary:[]},
+"45":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"The K-Cloud project aims to develop domestic AI semiconductors and apply them to data centres, including funding construction of a new domestic NPU data centre."},{tag:"Financial Services & Investment",mechanism:"The Ministry of Science and ICT commits 826.2 billion KRW from 2023 to 2030 for staged AI semiconductor development."}]},
+"46":{primary:"Financial Services & Investment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"MGX has launched a Global AI Infrastructure Investment Partnership targeting next-generation data centres and energy platforms."},{tag:"Energy & Power Infrastructure",mechanism:"The Global AI Infrastructure Investment Partnership commits tens of billions to energy platforms alongside data centres."}]},
+"47":{primary:"Semiconductors & Equipment",secondary:[{tag:"AI Software & Platforms",mechanism:"The Programme allocates part of its NT$300B budget to integrating generative AI with chip manufacturing and driving innovation via AI and semiconductor applications."}]},
+"49":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Alat\u2019s strategy includes forming a joint venture with SoftBank to manufacture industrial robots in Saudi Arabia as part of creating a manufacturing hub."}]},
+"51":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Renesas contributes advanced semiconductor technology and is globally known for automotive chips; the OSAT facility\u2019s services directly address semiconductor supply for automotive customers."}]},
+"52":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"GAIIP\u2019s founding announcement commits the partnership to invest in energy infrastructure, with GE Vernova and NextEra Energy as collaborators for energy solutions."},{tag:"Financial Services & Investment",mechanism:"GAIIP mobilises $30B in private equity capital with potential to reach $100B including debt financing, with Kuwait Investment Authority as first non-founder financial anchor."}]},
+"53":{primary:"AI Software & Platforms",secondary:[]},
+"54":{primary:"AI Software & Platforms",secondary:[]},
+"56":{primary:"AI Software & Platforms",secondary:[]},
+"57":{primary:"AI Software & Platforms",secondary:[]},
+"58":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"Decree No. 124 explicitly lists defence as a target sector for AI readiness, aiming for 95% critical industry AI implementation by 2030."}]},
+"61":{primary:"AI Software & Platforms",secondary:[]},
+"62":{primary:"AI Software & Platforms",secondary:[{tag:"Financial Services & Investment",mechanism:"The plan deploys \u20AC10B through direct equity investments in AI companies, fund-of-funds strategy, and France 2030 co-funding instruments."},{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"The plan allocates investment to AI infrastructure players and includes co-founding a 1.4GW AI campus joint venture with MGX, Mistral AI, and NVIDIA."}]},
+"64":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"The Plan mandates regional technology campuses in areas with high renewable energy availability and creates an industry sustainability agreement promoting energy sustainability."}]},
+"65":{primary:"AI Software & Platforms",secondary:[]},
+"66":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"The GAGI states all countries should adopt a prudent attitude to AI research, development, and application in the military field."},{tag:"Trade & Logistics",mechanism:"The GAGI opposes drawing ideological lines and disrupting the global AI supply chain through technological monopolies and unilateral coercive measures."}]},
+"67":{primary:"AI Software & Platforms",secondary:[]},
+"68":{primary:"AI Software & Platforms",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"AWS, Microsoft Azure, and Google Cloud each deployed DeepSeek-R1 as a managed or marketplace model on their cloud platforms."}]},
+"69":{primary:"AI Software & Platforms",secondary:[]},
+"70":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, Micron is bound by the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years post-award."}]},
+"71":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"72":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"73":{primary:"AI Software & Platforms",secondary:[{tag:"Financial Services & Investment",mechanism:"GigaChat is integrated into Sberbank Online and deployed across 80% of customer service operations, providing banking query resolution and financial advice."}]},
+"74":{primary:"AI Software & Platforms",secondary:[]},
+"75":{primary:"AI Software & Platforms",secondary:[]},
+"76":{primary:"AI Software & Platforms",secondary:[{tag:"Telecoms",mechanism:"Huawei released a dedicated Telecom Foundation Model for telecoms carrier operations including 5G fault diagnosis and network status analysis."}]},
+"77":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"78":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"79":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"TVA Board approved 150MW of power via MLGW, xAI committed $24M for a new substation, and deployed 35+ on-site gas turbines generating ~247MW."}]},
+"80":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"CG-1 is offered as a cloud service through Cerebras Cloud and G42 Cloud, providing 4 exaFLOPS as managed cloud instances."}]},
+"83":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, Amkor is bound by the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years post-award."}]},
+"84":{primary:"AI Software & Platforms",secondary:[]},
+"85":{primary:"AI Software & Platforms",secondary:[]},
+"86":{primary:"AI Software & Platforms",secondary:[]},
+"87":{primary:"AI Software & Platforms",secondary:[]},
+"88":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"Samsung\u2019s CHIPS-funded Austin facility expansion supports production of FD-SOI for aerospace, defence, and automotive, with DoD collaboration commitments."},{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, Samsung is bound by the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years post-award."}]},
+"89":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"The award funds 65nm\u2013130nm analog and embedded processing chip production, with automotive and industrial explicitly identified as critical end markets."},{tag:"Trade & Logistics",mechanism:"As a CHIPS Act award recipient, TI is bound by the Guardrails Rule\u2019s Expansion and Technology Clawback provisions for ten years post-award."}]},
+"90":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"The CHIPS award supports onshoring of technologies important to U.S. defence and intelligence communities, building on GF\u2019s DMEA Category 1A Trusted Supplier accreditation."},{tag:"Automotive & Manufacturing",mechanism:"GF\u2019s Malta facility will produce high-value technologies for automotive, and Vermont will create the first U.S. high-volume GaN on Silicon manufacturing for EVs."}]},
+"91":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"CSC concluded an energy supply agreement with Vattenfall for 100% renewable hydroelectric power, and the warm-water cooling system supplies ~20% of Kajaani\u2019s district heating."}]},
+"92":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"Deucalion provides compute capacity through EuroHPC JU peer-reviewed calls, with up to 20% reserved for industry and SME access."}]},
+"93":{primary:"AI Software & Platforms",secondary:[]},
+"94":{primary:"AI Software & Platforms",secondary:[]},
+"95":{primary:"AI Software & Platforms",secondary:[]},
+"96":{primary:"AI Software & Platforms",secondary:[{tag:"Automotive & Manufacturing",mechanism:"The AIM Global Centre is chartered under UNIDO\u2019s Global Alliance on AI for Industry and Manufacturing to promote AI best-practices for manufacturing in developing countries."}]},
+"97":{primary:"AI Software & Platforms",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Annex A interprets IEC 61508-3 for AI technology elements, and Annex D maps the IEC 61508 safety life cycle to AI, addressing functional safety for industrial systems."}]},
+"98":{primary:"AI Software & Platforms",secondary:[]},
+"99":{primary:"Energy & Power Infrastructure",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"The restructured 17-year PPA commits up to 1,920MW of carbon-free nuclear power specifically to AWS data centres, explicitly structured to power AI and cloud operations."}]},
+"100":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"101":{primary:"AI Software & Platforms",secondary:[]},
+"102":{primary:"AI Software & Platforms",secondary:[]}
+};
+const industryClassMap = {"Semiconductors & Equipment":"badge-ind-semi","Cloud, Data Centres & Connectivity Infrastructure":"badge-ind-cloud","AI Software & Platforms":"badge-ind-ai","Defence & Aerospace":"badge-ind-defence","Energy & Power Infrastructure":"badge-ind-energy","Financial Services & Investment":"badge-ind-finance","Mining & Critical Minerals":"badge-ind-mining","Trade & Logistics":"badge-ind-trade","Automotive & Manufacturing":"badge-ind-auto","Quantum Computing Infrastructure":"badge-ind-quantum","Telecoms":"badge-ind-telecoms"};
+const industryAbbrev = {"Semiconductors & Equipment":"Semi & Equip","Cloud, Data Centres & Connectivity Infrastructure":"Cloud & DC","AI Software & Platforms":"AI S&P","Defence & Aerospace":"Def & Aero","Energy & Power Infrastructure":"Energy & Power","Financial Services & Investment":"Fin & Invest","Mining & Critical Minerals":"Mining & Min","Trade & Logistics":"Trade & Log","Automotive & Manufacturing":"Auto & Mfg","Quantum Computing Infrastructure":"Quantum","Telecoms":"Telecoms"};
+const getIndBadgeClass = (tag) => industryClassMap[tag] || 'badge-ind-ai';
+const getIndAbbrev = (tag) => industryAbbrev[tag] || tag;
+const getIndTags = (eventId) => industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]};
+
+// Generate industry shelf HTML — sits between header and body
+function generateIndustryShelfHtml(eventId) {
+    const tags = getIndTags(eventId);
+    let html = '<div class="industry-shelf">';
+    // Primary — filled, read-only, "?" for methodology
+    html += '<span class="badge-with-tooltip"><span class="ind-tag ind-primary ' + getIndBadgeClass(tags.primary) + '">' + getIndAbbrev(tags.primary) + '</span><span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span></span>';
+    // Secondary — outlined, operational (click for mechanism), "?" for methodology
+    for (let i = 0; i < tags.secondary.length; i++) {
+        const s = tags.secondary[i];
+        html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndBadgeClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + s.tag + '</div>' + s.mechanism + '</div></span>';
+    }
+    html += '</div>';
+    return html;
+}
+
+function toggleMechanism(tagEl) {
+    const wrap = tagEl.closest('.ind-tag-wrap');
+    const popover = wrap.querySelector('.ind-mechanism-popover');
+    const wasVisible = popover.classList.contains('visible');
+    // Close all open popovers first
+    document.querySelectorAll('.ind-mechanism-popover.visible').forEach(function(p) {
+        p.classList.remove('visible');
+        p.style.left = '';
+        p.style.transform = '';
+    });
+    if (!wasVisible) {
+        // Reset positioning before measuring
+        popover.style.left = '50%';
+        popover.style.transform = 'translateX(-50%)';
+        popover.classList.add('visible');
+
+        // Clamp to viewport — prevent overflow on narrow screens
+        requestAnimationFrame(function() {
+            var rect = popover.getBoundingClientRect();
+            var rightEdge = window.innerWidth - 8;
+            var leftEdge = 8;
+
+            if (rect.right > rightEdge) {
+                var shift = rect.right - rightEdge;
+                popover.style.left = 'calc(50% - ' + shift + 'px)';
+            } else if (rect.left < leftEdge) {
+                var shift = leftEdge - rect.left;
+                popover.style.left = 'calc(50% + ' + shift + 'px)';
+            }
+        });
+    }
+}
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.ind-tag-wrap')) {
+        document.querySelectorAll('.ind-mechanism-popover.visible').forEach(p => p.classList.remove('visible'));
+    }
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.ind-mechanism-popover.visible').forEach(p => p.classList.remove('visible'));
+    }
+});
+
+let selectedIndustries = [];
 
 const freeEvents = [
 {"event_id": "01", "event_name": "China East Data West Compute Infrastructure Network", "event_type": "Infrastructure", "implementation_date": "February 2022", "geographic_scope": "China national (8 computing hubs, 10 data centre clusters)", "description_brief": "National integrated big data centre system channeling computing resources from eastern to western China. Establishes eight national computing hubs with 215.5 EFlops capacity.", "investment_scale": "$27B total leveraged", "tier": 3, "bloc": "Eastern", "domain": "Energy/Infrastructure", "source_count_primary": 3, "source_count_corroborating": 4, "confidence_tier": "A", "verification_checkpoints": {"ai_connection": true, "quantitative_threshold": true, "implementation_status": true, "currency_window": true}, "is_sample_event": true},
@@ -14115,12 +14425,14 @@ const updateStats = () => {
     const t2 = freeEvents.filter(e=>e.tier===2).length;
     const t3 = freeEvents.filter(e=>e.tier===3).length;
     const totalCC = Object.values(ccCounts).reduce((sum, c) => sum + c, 0) / 2; // Divide by 2 since each connection counts twice
+    const updatedText = WEO_DB.last_updated ? (() => { const d = new Date(WEO_DB.last_updated + 'T00:00:00'); return 'Updated ' + d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); })() : '';
     document.getElementById('stats-bar').innerHTML = `
         <div class="stat-item"><span class="stat-value">${freeEvents.length}</span><span class="stat-label">Events</span></div>
         <div class="stat-item"><span class="stat-value">${t1}</span><span class="stat-label">T1 Cross-Bloc</span></div>
         <div class="stat-item"><span class="stat-value">${t2}</span><span class="stat-label">T2 Between-Bloc</span></div>
         <div class="stat-item"><span class="stat-value">${t3}</span><span class="stat-label">T3 Intra-Bloc</span></div>
         <div class="stat-item"><span class="stat-value" style="color:#2DD4BF;">${Math.round(totalCC)}</span><span class="stat-label">Connections</span></div>
+        ${updatedText ? `<div class="stat-item"><span class="stat-label" style="color:var(--text-muted);font-style:italic;">${updatedText}</span></div>` : ''}
     `;
 };
 
@@ -14137,6 +14449,7 @@ const renderTable = () => {
             <td><span class="badge ${getTierBadgeClass(e.tier)}">T${e.tier}</span></td>
             <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${e.bloc}</span></td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':e.domain}</span></td>
+            <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span></td>
             <td><span class="cc-count ${ccClass}">${cc}</span></td>
             <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">✓</span>`).join('')}</div></td>
             <td><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span></td>
@@ -14152,18 +14465,22 @@ const renderTable = () => {
 };
 
 const applyFilters = () => {
-    const tier = document.getElementById('filter-tier').value;
     const bloc = document.getElementById('filter-bloc').value;
     const domain = document.getElementById('filter-domain').value;
     const type = document.getElementById('filter-type').value;
     const search = document.getElementById('search-input').value.toLowerCase();
-    filteredEvents = freeEvents.filter(e => 
-        (tier==='all'||e.tier===parseInt(tier)) &&
-        (bloc==='all'||e.bloc===bloc) &&
-        (domain==='all'||e.domain===domain) &&
-        (type==='all'||e.event_type===type) &&
-        (!search||e.event_name.toLowerCase().includes(search)||e.description_brief.toLowerCase().includes(search))
-    );
+    filteredEvents = freeEvents.filter(e => {
+        if (bloc!=='all' && e.bloc!==bloc) return false;
+        if (domain!=='all' && e.domain!==domain) return false;
+        if (type!=='all' && e.event_type!==type) return false;
+        if (search && !e.event_name.toLowerCase().includes(search) && !e.description_brief.toLowerCase().includes(search)) return false;
+        if (selectedIndustries.length > 0) {
+            const tags = getIndTags(e.event_id);
+            const allTags = [tags.primary, ...tags.secondary.map(s => s.tag)];
+            if (!selectedIndustries.some(si => allTags.includes(si))) return false;
+        }
+        return true;
+    });
     sortEvents(); renderTable();
 };
 
@@ -14178,6 +14495,7 @@ const sortEvents = () => {
             case 'tier': av=a.tier;bv=b.tier;break;
             case 'bloc': av=a.bloc;bv=b.bloc;break;
             case 'domain': av=a.domain;bv=b.domain;break;
+            case 'industry': av=getIndTags(a.event_id).primary;bv=getIndTags(b.event_id).primary;break;
             case 'type': av=a.event_type;bv=b.event_type;break;
             case 'date': av=a.implementation_date;bv=b.implementation_date;break;
             case 'cc': av=getCCCount(a.event_id);bv=getCCCount(b.event_id);break;
@@ -14227,6 +14545,15 @@ const openModal = (id) => {
         <span class="badge-with-tooltip"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${e.domain}</span>${domainTooltip}</span>
         ${highlyConnBadge}
     `;
+    document.getElementById('modal-industry-shelf').innerHTML = generateIndustryShelfHtml(id);
+    
+    // Title click scrolls to top of modal
+    var titleEl = document.getElementById('modal-title');
+    titleEl.style.cursor = 'pointer';
+    titleEl.onclick = function() {
+        var overlay = document.getElementById('modal-overlay');
+        if (overlay) overlay.scrollTo({top: 0, behavior: 'smooth'});
+    };
     
     // Show appropriate notice based on access type
     let html = '';
@@ -14429,7 +14756,7 @@ const openModal = (id) => {
                 <div class="paid-section-title section-title-with-tooltip">▼ Verification${checkpointsTooltip}</div>
                 <div class="detail-grid">
                     <div><div class="detail-label">Sources</div><div class="detail-value">${sourceTallyText}</div></div>
-                    <div><div class="detail-label">Confidence</div><div class="detail-value badge-with-tooltip"><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span> ${e.confidence_tier==='A'?'(HIGH: 90%+)':e.confidence_tier==='B'?'(MEDIUM: 70-90%)':'(LOW)'}${confidenceTooltip}</div></div>
+                    <div><div class="detail-label">Confidence</div><div class="detail-value badge-with-tooltip"><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span>\u00a0${e.confidence_tier==='A'?'(HIGH: 90%+)':e.confidence_tier==='B'?'(MEDIUM: 70-90%)':'(LOW)'}${confidenceTooltip}</div></div>
                 </div>
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
@@ -14579,7 +14906,7 @@ const openModal = (id) => {
                 <div class="detail-section-title section-title-with-tooltip">Verification${freeCheckpointsTooltip}</div>
                 <div class="detail-grid">
                     <div><div class="detail-label">Sources</div><div class="detail-value">${freeSourceTallyText}</div></div>
-                    <div><div class="detail-label">Confidence</div><div class="detail-value badge-with-tooltip"><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span> ${e.confidence_tier==='A'?'(HIGH: 90%+)':e.confidence_tier==='B'?'(MEDIUM: 70-90%)':'(LOW)'}${freeConfidenceTooltip}</div></div>
+                    <div><div class="detail-label">Confidence</div><div class="detail-value badge-with-tooltip"><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span>\u00a0${e.confidence_tier==='A'?'(HIGH: 90%+)':e.confidence_tier==='B'?'(MEDIUM: 70-90%)':'(LOW)'}${freeConfidenceTooltip}</div></div>
                 </div>
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
@@ -14629,6 +14956,20 @@ const openModal = (id) => {
     document.getElementById('modal-body').innerHTML = html;
     document.getElementById('modal-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Attach direct click handlers to all tooltip triggers for iOS/touch compat
+    document.querySelectorAll('#event-modal .weo-info-trigger').forEach(function(trigger) {
+        trigger.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (activeTooltipTrigger === trigger && tooltipOverlay && tooltipOverlay.classList.contains('visible')) {
+                hideTooltipImmediate();
+            } else {
+                showTooltip(trigger);
+                activeTooltipTrigger = trigger;
+            }
+        };
+    });
 };
 
 const closeModal = () => { 
@@ -14671,10 +15012,27 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(updateTableScrollIndicators, 150);
     }
     
-    ['filter-tier','filter-bloc','filter-domain','filter-type'].forEach(id => 
+    ['filter-bloc','filter-domain','filter-type'].forEach(id => 
         document.getElementById(id).addEventListener('change', applyFilters)
     );
     document.getElementById('search-input').addEventListener('input', applyFilters);
+    // Industry multi-select filter dropdown
+    const indBtn = document.getElementById('industry-filter-btn');
+    const indDropdown = document.getElementById('industry-dropdown');
+    const indWrap = document.getElementById('industry-filter-wrap');
+    indBtn.addEventListener('click', (ev) => { ev.stopPropagation(); indDropdown.classList.toggle('show'); indBtn.classList.toggle('open'); });
+    document.addEventListener('click', (ev) => { if (!indWrap.contains(ev.target)) { indDropdown.classList.remove('show'); indBtn.classList.remove('open'); } });
+    indDropdown.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+            selectedIndustries = Array.from(indDropdown.querySelectorAll('input:checked')).map(c => c.value);
+            indBtn.innerHTML = selectedIndustries.length === 0 ? 'All Industries <span class="filter-arrow">▼</span>' : 'Industry <span class="filter-count">' + selectedIndustries.length + '</span> <span class="filter-arrow">▼</span>';
+            applyFilters();
+        });
+    });
+    document.getElementById('industry-clear-btn').addEventListener('click', () => {
+        indDropdown.querySelectorAll('input:checked').forEach(cb => cb.checked = false);
+        selectedIndustries = []; indBtn.innerHTML = 'All Industries <span class="filter-arrow">▼</span>'; applyFilters();
+    });
     document.querySelectorAll('.events-table th[data-sort]').forEach(th => 
         th.addEventListener('click', () => {
             currentSort = {
@@ -14750,6 +15108,24 @@ function initWEOTooltips() {
       e.preventDefault();
       e.stopPropagation();
       
+      if (activeTooltipTrigger === trigger && tooltipOverlay.classList.contains('visible')) {
+        hideTooltipImmediate();
+      } else {
+        showTooltip(trigger);
+        activeTooltipTrigger = trigger;
+        tooltipJustShown = true;
+        setTimeout(function() { tooltipJustShown = false; }, 300);
+      }
+    } else if (!e.target.closest('#weo-tooltip-overlay') && !tooltipJustShown) {
+      hideTooltipImmediate();
+    }
+  });
+  
+  // Touch handler for iOS — ensures tooltips work even if click synthesis fails
+  modalOverlay.addEventListener('touchend', function(e) {
+    const trigger = e.target.closest('.weo-info-trigger');
+    if (trigger) {
+      e.preventDefault();
       if (activeTooltipTrigger === trigger && tooltipOverlay.classList.contains('visible')) {
         hideTooltipImmediate();
       } else {
@@ -15046,6 +15422,7 @@ if (navToggle && navLinks) {
       </div>
     </div>
   </div>
+
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

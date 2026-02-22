@@ -18,7 +18,7 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 
 ## Platform Components
 
-- **Event Database** — Verified AI infrastructure coordination events classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc) and domain (Energy/Infrastructure, Security, Technology, Trade)
+- **Event Database** — Verified AI infrastructure coordination events classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc) and domain (Energy/Infrastructure, Security, Technology, Trade), and tagged by industry sector (11-category GICS-anchored taxonomy)
 - **Coordination Connections** — Documented relationships between events revealing structural patterns across the database (Policy Cascade, Joint Issuance, Funding Flow, Regulatory Enablement, Response, Framework Family, Parallel Policy)
 - **Interactive Map** — Geographic visualisation of global AI infrastructure deployment
 - **Evidence-Based Verification** — Every event verified through primary and corroborating sources with gold-standard evidentiary requirements
@@ -31,17 +31,17 @@ The WEO methodology is documented across four publications, all available on Zen
 
 ### Core Documentation
 
-| Publication                                                  | DOI                                                          |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **WEO Methodology Manual** — Operational specification covering event verification, significance assessment, tier classification, domain classification, and coordination connection methodology | [`10.5281/zenodo.18427566`](https://doi.org/10.5281/zenodo.18427566) |
-| **WEO Methodology Rationale** — Companion document providing empirical derivation, theoretical grounding, and calibration justification for all methodology components | [`10.5281/zenodo.18427583`](https://doi.org/10.5281/zenodo.18427583) |
+| Publication | DOI |
+|---|---|
+| **WEO Methodology Manual** — Operational specification covering event verification, significance assessment, tier classification, domain classification, industry tagging, and coordination connection methodology | [`10.5281/zenodo.18427565`](https://doi.org/10.5281/zenodo.18427565) |
+| **WEO Methodology Rationale** — Companion document providing empirical derivation, theoretical grounding, and calibration justification for all methodology components | [`10.5281/zenodo.18427582`](https://doi.org/10.5281/zenodo.18427582) |
 
 ### Methodology Extensions
 
-| Publication                                                  | DOI                                                          |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **Toward Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination connection metrics and theoretical foundations (Layer 2 framework) | [`10.5281/zenodo.18427585`](https://doi.org/10.5281/zenodo.18427585) |
-| **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining coordination connections across different tiers | [`10.5281/zenodo.18427587`](https://doi.org/10.5281/zenodo.18427587) |
+| Publication | DOI |
+|---|---|
+| **Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination connection metrics and theoretical foundations (Layer 2 framework) | [`10.5281/zenodo.18427584`](https://doi.org/10.5281/zenodo.18427584) |
+| **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining coordination connections across different tiers | [`10.5281/zenodo.18427586`](https://doi.org/10.5281/zenodo.18427586) |
 
 ---
 

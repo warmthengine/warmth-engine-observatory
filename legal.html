@@ -6,8 +6,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy, Terms of Service & Data Correction Policy — Warmth Engine Observatory</title>
-    <meta name="description" content="Privacy Policy, Terms of Service, and Data Correction Policy for the Warmth Engine Observatory platform.">
+    <title>Privacy Policy & Terms of Service — Warmth Engine Observatory</title>
+    <meta name="description" content="Privacy Policy and Terms of Service for the Warmth Engine Observatory platform.">
     
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -480,8 +480,8 @@
         
         <!-- Header -->
         <header class="page-header">
-            <h1 class="page-title">Privacy Policy, Terms & Data Correction</h1>
-            <p class="page-subtitle">How WEO handles your data, the terms governing platform use, and our data correction process</p>
+            <h1 class="page-title">Privacy Policy & Terms of Service</h1>
+            <p class="page-subtitle">How WEO handles your data and the terms governing platform use</p>
             <p class="last-updated">Last updated: February 2026</p>
         </header>
         
@@ -571,37 +571,8 @@
                 
                 <div class="contact-box">
                     <div class="contact-label">Contact</div>
-                    <a href="mailto:warmthengine@proton.me" class="contact-email">warmthengine@proton.me</a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Data Correction Policy -->
-        <section class="section">
-            <h2 class="section-title">Data Correction Policy</h2>
-            <div class="card">
-                <div class="prose">
-                    <h3>Commitment to Accuracy</h3>
-                    <p>WEO is committed to the accuracy of its database. Every event undergoes multi-source verification through the <a href="methodology.html">WEO Methodology</a>, and all changes are tracked through the platform's version history system. However, if you believe an event record contains a factual inaccuracy or misclassification, we welcome corrections.</p>
-                    
-                    <h3>Submitting a Correction</h3>
-                    <p>Please contact <a href="mailto:warmthengine@proton.me">warmthengine@proton.me</a> with:</p>
-                    <ul>
-                        <li>The Event ID</li>
-                        <li>A description of the alleged error</li>
-                        <li>Citation to primary sources supporting your correction</li>
-                    </ul>
-                    
-                    <h3>Review Process</h3>
-                    <ul>
-                        <li>WEO will acknowledge receipt within 5 business days.</li>
-                        <li>The event will be re-verified against the WEO Methodology.</li>
-                        <li>If an error is confirmed, the database will be corrected and the change documented in the event's version history with full audit trail.</li>
-                        <li>If the evidence is inconclusive, the current classification will be maintained and a rationale provided.</li>
-                    </ul>
-                    
-                    <h3>Scope</h3>
-                    <p>WEO classifies events based on the application of its published methodology to primary sources. Classifications are not altered on the basis of disputes over interpretation that fall within the documented analytical boundaries of the methodology.</p>
+                    <a id="weoContactEmail" class="contact-email"></a>
+                    <script>!function(){var a=document.getElementById('weoContactEmail'),u='warm'+'thengine',d='proton'+'.me';a.href='mai'+'lto:'+u+'@'+d;a.textContent=u+'@'+d;}();</script>
                 </div>
             </div>
         </section>
@@ -623,15 +594,15 @@
           navLinks.classList.toggle('open');
         });
         
-        // Close when clicking outside
+        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
-          if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+          if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
             navLinks.classList.remove('open');
           }
         });
       }
     </script>
-    <script data-goatcounter="https://warmthengine.goatcounter.com/count"
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

@@ -1322,6 +1322,8 @@
       margin-bottom: 8px;
       padding-right: 40px;
     }
+    .panel-title:hover { opacity: 0.8; }
+    .panel-title:active { opacity: 0.65; }
 
     .panel-subtitle {
       font-size: 13px;
@@ -1409,6 +1411,153 @@
       }
     }
 
+
+    /* ========================================
+       INDUSTRY TAG SHELF
+       Transitional classification zone between header badges and body.
+       Tonal surface step per deep research: subtle background shift,
+       single top border, no bottom border.
+       ======================================== */
+    .industry-shelf {
+      background: rgba(255, 255, 255, 0.025);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* Tag base — shared by primary and secondary */
+    .ind-tag {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    /* Primary tags — FILLED treatment */
+    .ind-tag.ind-primary {
+      padding: 3px 8px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+    }
+    .ind-tag.ind-primary.badge-ind-semi { background: rgba(173,180,255,0.18); color: rgba(173,180,255,0.9); border: 1px solid rgba(173,180,255,0.3); }
+    .ind-tag.ind-primary.badge-ind-cloud { background: rgba(103,232,249,0.18); color: rgba(103,232,249,0.9); border: 1px solid rgba(103,232,249,0.3); }
+    .ind-tag.ind-primary.badge-ind-ai { background: rgba(211,168,255,0.18); color: rgba(211,168,255,0.9); border: 1px solid rgba(211,168,255,0.3); }
+    .ind-tag.ind-primary.badge-ind-defence { background: rgba(255,160,173,0.18); color: rgba(255,160,173,0.9); border: 1px solid rgba(255,160,173,0.3); }
+    .ind-tag.ind-primary.badge-ind-energy { background: rgba(251,191,36,0.18); color: rgba(251,191,36,0.9); border: 1px solid rgba(251,191,36,0.3); }
+    .ind-tag.ind-primary.badge-ind-finance { background: rgba(134,239,172,0.18); color: rgba(134,239,172,0.9); border: 1px solid rgba(134,239,172,0.3); }
+    .ind-tag.ind-primary.badge-ind-mining { background: rgba(226,178,128,0.18); color: rgba(226,178,128,0.9); border: 1px solid rgba(226,178,128,0.3); }
+    .ind-tag.ind-primary.badge-ind-trade { background: rgba(94,234,212,0.18); color: rgba(94,234,212,0.9); border: 1px solid rgba(94,234,212,0.3); }
+    .ind-tag.ind-primary.badge-ind-auto { background: rgba(118,201,2,0.18); color: rgba(118,201,2,0.9); border: 1px solid rgba(118,201,2,0.3); }
+    .ind-tag.ind-primary.badge-ind-quantum { background: rgba(194,174,255,0.18); color: rgba(194,174,255,0.9); border: 1px solid rgba(194,174,255,0.3); }
+    .ind-tag.ind-primary.badge-ind-telecoms { background: rgba(189,186,184,0.18); color: rgba(189,186,184,0.9); border: 1px solid rgba(189,186,184,0.3); }
+
+    /* Secondary tags — OUTLINED treatment, compact, operational (clickable) */
+    .ind-tag.ind-secondary {
+      padding: 2px 7px;
+      font-size: 0.625rem;
+      font-weight: 400;
+      background: transparent;
+      cursor: pointer;
+      transition: opacity 0.15s ease, background 0.15s ease, transform 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ind-tag.ind-secondary:hover { opacity: 1; }
+    .ind-tag.ind-secondary:active { transform: scale(0.97); }
+    /* Touch target expansion for secondary tags */
+    .ind-tag.ind-secondary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .ind-tag.ind-secondary.badge-ind-semi { color: rgba(173,180,255,0.75); border: 1px solid rgba(173,180,255,0.3); }
+    .ind-tag.ind-secondary.badge-ind-semi:hover { background: rgba(173,180,255,0.08); color: rgba(173,180,255,0.9); }
+    .ind-tag.ind-secondary.badge-ind-cloud { color: rgba(103,232,249,0.75); border: 1px solid rgba(103,232,249,0.3); }
+    .ind-tag.ind-secondary.badge-ind-cloud:hover { background: rgba(103,232,249,0.08); color: rgba(103,232,249,0.9); }
+    .ind-tag.ind-secondary.badge-ind-ai { color: rgba(211,168,255,0.75); border: 1px solid rgba(211,168,255,0.3); }
+    .ind-tag.ind-secondary.badge-ind-ai:hover { background: rgba(211,168,255,0.08); color: rgba(211,168,255,0.9); }
+    .ind-tag.ind-secondary.badge-ind-defence { color: rgba(255,160,173,0.75); border: 1px solid rgba(255,160,173,0.3); }
+    .ind-tag.ind-secondary.badge-ind-defence:hover { background: rgba(255,160,173,0.08); color: rgba(255,160,173,0.9); }
+    .ind-tag.ind-secondary.badge-ind-energy { color: rgba(251,191,36,0.75); border: 1px solid rgba(251,191,36,0.3); }
+    .ind-tag.ind-secondary.badge-ind-energy:hover { background: rgba(251,191,36,0.08); color: rgba(251,191,36,0.9); }
+    .ind-tag.ind-secondary.badge-ind-finance { color: rgba(134,239,172,0.75); border: 1px solid rgba(134,239,172,0.3); }
+    .ind-tag.ind-secondary.badge-ind-finance:hover { background: rgba(134,239,172,0.08); color: rgba(134,239,172,0.9); }
+    .ind-tag.ind-secondary.badge-ind-mining { color: rgba(226,178,128,0.75); border: 1px solid rgba(226,178,128,0.3); }
+    .ind-tag.ind-secondary.badge-ind-mining:hover { background: rgba(226,178,128,0.08); color: rgba(226,178,128,0.9); }
+    .ind-tag.ind-secondary.badge-ind-trade { color: rgba(94,234,212,0.75); border: 1px solid rgba(94,234,212,0.3); }
+    .ind-tag.ind-secondary.badge-ind-trade:hover { background: rgba(94,234,212,0.08); color: rgba(94,234,212,0.9); }
+    .ind-tag.ind-secondary.badge-ind-auto { color: rgba(118,201,2,0.75); border: 1px solid rgba(118,201,2,0.3); }
+    .ind-tag.ind-secondary.badge-ind-auto:hover { background: rgba(118,201,2,0.08); color: rgba(118,201,2,0.9); }
+    .ind-tag.ind-secondary.badge-ind-quantum { color: rgba(194,174,255,0.75); border: 1px solid rgba(194,174,255,0.3); }
+    .ind-tag.ind-secondary.badge-ind-quantum:hover { background: rgba(194,174,255,0.08); color: rgba(194,174,255,0.9); }
+    .ind-tag.ind-secondary.badge-ind-telecoms { color: rgba(189,186,184,0.75); border: 1px solid rgba(189,186,184,0.3); }
+    .ind-tag.ind-secondary.badge-ind-telecoms:hover { background: rgba(189,186,184,0.08); color: rgba(189,186,184,0.9); }
+
+    /* Mechanism popover — click-triggered on secondary tags */
+    .ind-tag-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .ind-mechanism-popover {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #252B36;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 0.6875rem;
+      line-height: 1.5;
+      color: #CBD5E1;
+      width: max-content;
+      max-width: 280px;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+    .ind-mechanism-popover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+    .ind-mechanism-popover::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-bottom-color: #252B36;
+    }
+    .ind-mechanism-popover .mechanism-title {
+      font-size: 0.5625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94A3B8;
+      margin-bottom: 4px;
+    }
+    .ind-mechanism-popover.visible { display: block; }
+
+    /* Peek mode: hide shelf tooltips and popovers */
+    .detail-panel.peek-mode .industry-shelf .weo-info-trigger { display: none; }
+    .detail-panel.peek-mode .industry-shelf .ind-mechanism-popover { display: none !important; }
     /* Panel Body */
     .panel-body {
       padding: 0 0 40px 0;
@@ -3757,7 +3906,7 @@
       display: none;
       flex-direction: column;
       gap: 6px;
-      margin-top: 10px;
+      margin-bottom: 10px;
     }
     
     .legend-cc-content.expanded {
@@ -4577,7 +4726,7 @@
       <span class="separator">·</span>
       <span class="stat-number" id="total-connections-count">58</span> Connections
     </div>
-    <div class="weo-status-updated">Updated February 2026</div>
+    <div class="weo-status-updated" id="weo-status-updated">Updated February 2026</div>
     
     <!-- Navigation Menu Toggle -->
     <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu">
@@ -4705,7 +4854,7 @@
           </div>
           <div class="legend-item">
             <div class="legend-marker t2 dashed"></div>
-            <span class="legend-label">T2 — Red dashed (Fragmentation)</span>
+            <span class="legend-label">T2 — Red dashed</span>
           </div>
         </div>
       </div>
@@ -4726,13 +4875,6 @@
       
       <!-- Coordination Connections -->
       <div class="legend-section legend-cc-section">
-        <div class="legend-cc-header" onclick="toggleLegendCC()">
-          <div class="legend-cc-title-wrapper">
-            <div class="legend-cc-mini-line"></div>
-            <span class="legend-cc-title-text">Coordination Connections</span>
-          </div>
-          <span class="legend-cc-toggle" id="legendCCToggle">▼</span>
-        </div>
         <div class="legend-cc-content" id="legendCCContent">
           <div class="legend-cc-item">
             <div class="legend-cc-line type-1"></div>
@@ -4776,6 +4918,13 @@
             </div>
           </div>
         </div>
+        <div class="legend-cc-header" onclick="toggleLegendCC()">
+          <div class="legend-cc-title-wrapper">
+            <div class="legend-cc-mini-line"></div>
+            <span class="legend-cc-title-text">Coordination Connections</span>
+          </div>
+          <span class="legend-cc-toggle" id="legendCCToggle">▲</span>
+        </div>
       </div>
     </div>
   </div>
@@ -4787,24 +4936,26 @@
       <button class="orientation-close" id="orientationClose">×</button>
     </div>
     <div class="orientation-content">
-      <p>Verified AI infrastructure events mapped by location.</p>
+      <p>Verified AI infrastructure coordination events, mapped by location.</p>
       
-      <p><strong>Colours indicate bloc affiliation:</strong></p>
+      <p><strong>Marker colours show bloc affiliation:</strong></p>
       <ul class="orientation-legend">
-        <li><span class="legend-dot western"></span> Western Bloc</li>
-        <li><span class="legend-dot eastern"></span> Eastern Bloc</li>
+        <li><span class="legend-dot western"></span> Western</li>
+        <li><span class="legend-dot eastern"></span> Eastern</li>
         <li><span class="legend-dot cross"></span> Cross-Bloc</li>
       </ul>
       
-      <p>Click any marker for event details and Coordination Connections.</p>
+      <p>Red dashed borders indicate fragmentation events (T2). Marker icons show event type — Infrastructure, Policy, Coordination, and Corporate. <span style="color: #FFD700;">★</span> marks sample events with full analysis.</p>
+      
+      <p>Click any marker for detailed classification, industry tags, and Coordination Connections.</p>
       
       <div class="orientation-divider"></div>
       
       <p><strong>What This Documents</strong></p>
       <ul class="orientation-points">
-        <li>Geographic distribution of AI infrastructure events</li>
-        <li>Coordination dynamics (Cross-Bloc and Intra-Bloc) and fragmentation dynamics (Between-Bloc)</li>
-        <li>Verified relationships between events across the database</li>
+        <li>AI infrastructure coordination dynamics across geopolitical blocs</li>
+        <li>Three tiers of coordination scale: Cross-Bloc (T1), Between-Bloc fragmentation (T2), and Intra-Bloc (T3)</li>
+        <li>Verified Coordination Connections — documented relationships between events across the database</li>
       </ul>
     </div>
     <div class="orientation-footer">
@@ -4901,6 +5052,17 @@
   </div>
 
     <script>
+    // ========================================
+    // WEO DATABASE VERSION CONSTANT
+    // Single source of truth — update this block when the database changes
+    // ========================================
+    const WEO_DB = {
+      event_count: 87,
+      cc_count: 58,
+      last_updated: "2026-02-20",
+      db_version: "1.1.0"
+    };
+
 // WEO Event Data - Generated 2026-01-17
 // Total events: 77 (6 samples, 71 standard)
 // Source: WEO_57_EVENTS_SCORING_READY.md + subsequent additions through Events 88-92
@@ -11392,6 +11554,56 @@ function calculateDistanceKm(lat1, lng1, lat2, lng2) {
 
 // Distance threshold for "nearby" vs "distant" events (km)
 const NEARBY_THRESHOLD_KM = 500;
+const CC_MAX_ZOOM = 14; // Cap zoom for CC navigation - prevents dark tiles at zoom 18-19
+
+// Calculate fitBounds padding that avoids UI panels during CC navigation.
+// Called before peek mode is applied, so assumes upcoming peek layout:
+// - Desktop (>1024px): right-side panel that may expand from peek
+// - Tablet/Mobile (<=1024px): bottom peek panel, no right panel obstruction
+function getCCFitBoundsPadding() {
+  const mapRect = map.getContainer().getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  let leftPad = 50;
+  let topPad = 50;
+  let rightPad = 50;
+  let bottomPad = 50;
+  
+  // Left-side panels: WEO header and legend
+  const headerPanel = document.getElementById('weoStatusPanel');
+  if (headerPanel && !headerPanel.classList.contains('hidden')) {
+    const rect = headerPanel.getBoundingClientRect();
+    leftPad = Math.max(leftPad, rect.right - mapRect.left + 24);
+    topPad = Math.max(topPad, rect.bottom - mapRect.top + 24);
+  }
+  
+  const legendEl = document.querySelector('.map-legend');
+  if (legendEl) {
+    const rect = legendEl.getBoundingClientRect();
+    if (rect.width > 0) {
+      leftPad = Math.max(leftPad, rect.right - mapRect.left + 24);
+    }
+  }
+  
+  if (viewportWidth > 1024) {
+    // Desktop: reserve right side for panel (440px + buffer)
+    rightPad = 480;
+    bottomPad = 200;
+  } else {
+    // Tablet/Mobile: peek panel is at bottom, no right panel.
+    // Cap left padding — header is semi-transparent, partial overlap is fine.
+    // Without cap, header's ~330px eats almost half of a 768px screen.
+    const maxLeftPad = Math.round(viewportWidth * 0.2);
+    leftPad = Math.min(leftPad, maxLeftPad);
+    topPad = Math.min(topPad, 80);
+    rightPad = 50;
+    bottomPad = 200;
+  }
+  
+  return {
+    paddingTopLeft: [leftPad, topPad],
+    paddingBottomRight: [rightPad, bottomPad]
+  };
+}
 
 // Get the visual position of an event
 // Handles: individual markers, clustered markers, and spiderfied markers
@@ -11518,7 +11730,6 @@ function updateConnectionLineOnZoom() {
     
     // If line was removed, recreate it
     if (!ccVisState.connectionLine || !map.hasLayer(ccVisState.connectionLine)) {
-      // Line was lost - recreate it
       if (ccVisState.color) {
         const lineOptions = {
           color: ccVisState.color,
@@ -11533,18 +11744,24 @@ function updateConnectionLineOnZoom() {
         ccVisState.connectionLine = L.polyline([sourcePos, targetPos], lineOptions).addTo(map);
         applyGlowToLine(ccVisState.connectionLine);
       }
-      return;
+      // DON'T return here - still need to update edge labels and ring highlights below
+    } else {
+      // Line exists - update coords to current visual positions
+      try {
+        ccVisState.connectionLine.setLatLngs([sourcePos, targetPos]);
+      } catch (e) {
+        console.log('CC line update error:', e);
+      }
     }
     
-    // Line exists - update coords to current visual positions
-    try {
-      ccVisState.connectionLine.setLatLngs([sourcePos, targetPos]);
-    } catch (e) {
-      console.log('CC line update error:', e);
-    }
-    
-    // Update edge labels for off-screen events
+    // Always update edge labels and reapply ring highlights after any zoom
     updateCCEdgeLabels();
+    
+    // Reapply ring highlights (markers may have been recreated by cluster changes)
+    if (ccVisState.color) {
+      highlightMarkerWithRing(ccVisState.sourceEventId, ccVisState.color, ccVisState.isDashed);
+      highlightMarkerWithRing(ccVisState.targetEventId, ccVisState.color, ccVisState.isDashed);
+    }
     
     // Schedule a follow-up update to catch any cluster animation lag
     // This handles cases where getVisibleParent returns stale data during animation
@@ -11558,6 +11775,8 @@ function updateConnectionLineOnZoom() {
         try {
           ccVisState.connectionLine.setLatLngs([sourcePosFinal, targetPosFinal]);
         } catch (e) {}
+        // Also update edge labels with final positions
+        updateCCEdgeLabels();
       }
     }, 200);
   }, 300);
@@ -11707,20 +11926,16 @@ function showConnectionLine(sourceEventId, targetEventId, color, isDashed) {
   map.on('zoomend', updateConnectionLineOnZoom);
   map.on('moveend', updateConnectionLineOnZoom);
   
-  // DISTANT EVENTS: Zoom out to show both events on screen with the full line
+  // DISTANT EVENTS: Show both endpoints with CC line connecting them
   if (distanceKm > NEARBY_THRESHOLD_KM) {
-    // Calculate bounds that include both events
     const bounds = L.latLngBounds(
       [sourceEvent.lat, sourceEvent.lng],
       [targetEvent.lat, targetEvent.lng]
     );
     
-    // Fit bounds with padding to show both events clearly
-    // Account for the panel on the right side (440px)
     map.fitBounds(bounds, {
-      paddingTopLeft: [50, 50],
-      paddingBottomRight: [480, 50], // Extra padding for panel
-      maxZoom: 8, // Don't zoom in too close for distant connections
+      ...getCCFitBoundsPadding(),
+      maxZoom: CC_MAX_ZOOM,
       animate: true,
       duration: 0.6
     });
@@ -11728,20 +11943,56 @@ function showConnectionLine(sourceEventId, targetEventId, color, isDashed) {
     // After zoom animation completes, create line and highlights
     setTimeout(function() {
       createOrUpdateLine();
-      // For distant events, apply ring highlights after a delay to allow clusters to settle
       setTimeout(function() {
         applyRingHighlights();
-        // Update line position one more time after clusters have settled
         createOrUpdateLine();
-        // Check if either endpoint is under UI elements
         checkAndApplyPeekMode(sourceEventId, targetEventId);
         updateCCEdgeLabels();
       }, 400);
     }, 700);
     
   } else {
-    // NEARBY or CLUSTERED: Use zoomToShowLayer to reveal individual markers
-    // Create initial line (connects to cluster positions if clustered)
+    // NEARBY: Events are geographically close (<500km)
+    // But "nearby" doesn't mean "visible" — target may be off-screen
+    
+    // Check if target event is currently visible in the viewport
+    const targetLatLng = L.latLng(targetEvent.lat, targetEvent.lng);
+    const mapBounds = map.getBounds();
+    const targetInViewport = mapBounds.contains(targetLatLng);
+    
+    if (!targetInViewport) {
+      // Target is off-screen — treat like a distant event
+      // Unspiderfy first to prevent MarkerCluster animation conflicts
+      try { markers.unspiderfy(); } catch(e) {}
+      
+      const bounds = L.latLngBounds(
+        [sourceEvent.lat, sourceEvent.lng],
+        [targetEvent.lat, targetEvent.lng]
+      );
+      
+      // Short delay lets MarkerCluster finish unspiderfy cleanup
+      setTimeout(function() {
+        map.fitBounds(bounds, {
+          ...getCCFitBoundsPadding(),
+          maxZoom: CC_MAX_ZOOM,
+          animate: true,
+          duration: 0.6
+        });
+        
+        // After fitBounds animation, create line and highlights
+        setTimeout(function() {
+          createOrUpdateLine();
+          setTimeout(function() {
+            applyRingHighlights();
+            createOrUpdateLine();
+            checkAndApplyPeekMode(sourceEventId, targetEventId);
+            updateCCEdgeLabels();
+          }, 400);
+        }, 700);
+      }, 150);
+      
+    } else {
+    // Target IS in viewport — handle cluster-aware visualization
     createOrUpdateLine();
     
     if (sourceMarker && targetMarker) {
@@ -11763,20 +12014,18 @@ function showConnectionLine(sourceEventId, targetEventId, color, isDashed) {
         const cluster = sourceParent;
         const clusterLatLng = cluster.getLatLng();
         
-        // Zoom to max zoom level at cluster location - this triggers spiderfyOnMaxZoom
-        const maxZoom = map.getMaxZoom() || 18;
-        map.setView(clusterLatLng, maxZoom, { animate: true });
+        // Zoom to CC_MAX_ZOOM (not map maxZoom which makes tiles dark at 18-19)
+        // Then manually spiderfy the cluster
+        map.setView(clusterLatLng, CC_MAX_ZOOM, { animate: true });
         
-        // After zoom completes, the cluster should spiderfy automatically
-        // due to spiderfyOnMaxZoom: true setting
-        // But we also try to manually trigger it as backup
+        // After zoom completes, manually spiderfy the cluster
         setTimeout(function() {
           // Re-check cluster state after zoom
           const newSourceParent = markers.getVisibleParent(sourceMarker);
           const stillClustered = newSourceParent && newSourceParent !== sourceMarker;
           
           if (stillClustered && newSourceParent.spiderfy) {
-            // Still clustered - try to manually spiderfy
+            // Still clustered at this zoom - manually spiderfy
             try {
               newSourceParent.spiderfy();
             } catch(e) {
@@ -11789,42 +12038,77 @@ function showConnectionLine(sourceEventId, targetEventId, color, isDashed) {
         }, 600);
         
       } else if (inDifferentClusters || oneClusteredOneVisible) {
-        // Events are in different clusters OR one visible and one clustered
-        // Don't try to zoom to reveal both - just show the line connecting to cluster positions
-        // and apply peek mode if needed
+        // One or both in clusters, but target IS in viewport
+        // Unspiderfy first, fitBounds to show both, then re-spiderfy
+        try { markers.unspiderfy(); } catch(e) {}
         
-        // Update line position after a short delay to ensure cluster positions are settled
+        const bounds = L.latLngBounds(
+          [sourceEvent.lat, sourceEvent.lng],
+          [targetEvent.lat, targetEvent.lng]
+        );
+        
         setTimeout(function() {
-          createOrUpdateLine();
-          applyRingHighlights();
-          checkAndApplyPeekMode(sourceEventId, targetEventId);
-          updateCCEdgeLabels();
-        }, 300);
+          map.fitBounds(bounds, {
+            ...getCCFitBoundsPadding(),
+            maxZoom: CC_MAX_ZOOM,
+            animate: true,
+            duration: 0.6
+          });
+          
+          setTimeout(function() {
+            const sParent = markers.getVisibleParent(sourceMarker);
+            const tParent = markers.getVisibleParent(targetMarker);
+            
+            if (sParent && sParent !== sourceMarker && sParent.spiderfy) {
+              try { sParent.spiderfy(); } catch(e) {}
+            }
+            if (tParent && tParent !== targetMarker && tParent.spiderfy) {
+              if (!sParent || tParent !== sParent) {
+                try { tParent.spiderfy(); } catch(e) {}
+              }
+            }
+            
+            setTimeout(finalizeVisualization, 400);
+          }, 700);
+        }, 150);
         
       } else {
-        // Both markers are individually visible - use standard approach
-        // First zoom to show the source marker
-        markers.zoomToShowLayer(sourceMarker, function() {
-          // After source is visible, check if target is also visible
-          setTimeout(function() {
-            const targetVisible = markers.getVisibleParent(targetMarker) === targetMarker;
-            
-            if (!targetVisible) {
-              // Target is still in a cluster - zoom/spiderfy to show it too
-              markers.zoomToShowLayer(targetMarker, function() {
-                setTimeout(finalizeVisualization, 400);
-              });
-            } else {
-              // Both visible - finalize
-              setTimeout(finalizeVisualization, 400);
-            }
-          }, 300);
+        // Both markers are individually visible - fit both in view
+        // Use fitBounds with CC_MAX_ZOOM cap instead of zoomToShowLayer
+        // (zoomToShowLayer can zoom to 18-19, making tiles dark)
+        const bounds = L.latLngBounds(
+          [sourceEvent.lat, sourceEvent.lng],
+          [targetEvent.lat, targetEvent.lng]
+        );
+        
+        const currentZoom = map.getZoom();
+        map.fitBounds(bounds, {
+          ...getCCFitBoundsPadding(),
+          maxZoom: Math.min(CC_MAX_ZOOM, Math.max(currentZoom, 10)),
+          animate: true,
+          duration: 0.6
         });
+        
+        // After zoom, check if markers need spiderfying at new zoom level
+        setTimeout(function() {
+          const sParent = markers.getVisibleParent(sourceMarker);
+          const tParent = markers.getVisibleParent(targetMarker);
+          
+          if (sParent && sParent !== sourceMarker && sParent.spiderfy) {
+            try { sParent.spiderfy(); } catch(e) {}
+          }
+          if (tParent && tParent !== targetMarker && tParent.spiderfy) {
+            try { tParent.spiderfy(); } catch(e) {}
+          }
+          
+          setTimeout(finalizeVisualization, 400);
+        }, 700);
       }
     } else {
       // Fallback if markers not found
       setTimeout(finalizeVisualization, 800);
     }
+    } // end targetInViewport
   }
 }
 
@@ -12034,13 +12318,18 @@ function updateCCEdgeLabels() {
   const sourceScreen = map.latLngToContainerPoint(L.latLng(sourcePos[0], sourcePos[1]));
   const targetScreen = map.latLngToContainerPoint(L.latLng(targetPos[0], targetPos[1]));
   
-  // Get viewport bounds (accounting for panel on right)
+  // Get viewport bounds (accounting for panel position)
   const mapEl = document.getElementById('map');
   const detailPanel = document.getElementById('detailPanel');
-  // Panel width varies: 440px desktop, 380px tablet (≤1024px), 0px closed
-  const panelWidth = detailPanel?.classList.contains('open') 
-    ? (window.innerWidth <= 1024 ? 380 : 440) 
-    : 0;
+  const isOpen = detailPanel?.classList.contains('open');
+  const isPeek = detailPanel?.classList.contains('peek-mode');
+  // Only subtract panel width on desktop (>1024px) where panel is on the right side.
+  // On tablet/mobile, panel is a bottom sheet — no right-side obstruction.
+  // In peek mode, panel is docked at bottom even on desktop, so no right obstruction.
+  let panelWidth = 0;
+  if (isOpen && !isPeek && window.innerWidth > 1024) {
+    panelWidth = 440;
+  }
   const bounds = {
     left: 0,
     top: 0,
@@ -12316,37 +12605,22 @@ function handleCCConnectionClick(sourceEventId, targetEventId, connectionType, c
   ccVisState.targetEventId = targetEventId;
   ccVisState.connectionType = connectionType;
   ccVisState.confidenceLevel = confidenceLevel;
+  ccVisState.color = color;
+  ccVisState.isDashed = isDashed;
   
   // Push map view to history stack (parallel to panel history)
   mapViewHistory.push(mapViewToSave);
   
-  // Check if either event is currently inside a cluster (not individually visible)
-  // This needs to handle spiderfied clusters correctly
+  // Check clustering state for visualization decision
   function isEventClustered(eventId) {
     const marker = markerRefs[eventId];
     if (!marker) return false;
-    
     const visibleParent = markers.getVisibleParent(marker);
-    
-    // If visibleParent === marker, the marker is individually visible
-    if (visibleParent === marker) return false;
-    
-    // If visibleParent is a cluster, check if it's currently spiderfied
     if (visibleParent && visibleParent !== marker) {
-      // Check if this cluster is spiderfied by looking for the _spiderfied property
-      if (visibleParent._spiderfied) {
-        return false;
-      }
-      
-      // Also check if the marker element is actually visible on screen
-      if (marker._icon && marker._icon.offsetParent !== null) {
-        return false;
-      }
-      
-      // Marker is inside a non-spiderfied cluster
+      if (visibleParent._spiderfied) return false;
+      if (marker._icon && marker._icon.offsetParent !== null) return false;
       return true;
     }
-    
     return false;
   }
   
@@ -12354,53 +12628,29 @@ function handleCCConnectionClick(sourceEventId, targetEventId, connectionType, c
   const targetIsClustered = isEventClustered(targetEventId);
   const eitherIsClustered = sourceIsClustered || targetIsClustered;
   
-  if (distanceKm > NEARBY_THRESHOLD_KM || eitherIsClustered) {
-    // DISTANT or CLUSTERED: Draw connection line and zoom to show both
-    // When clustered, line connects to cluster position, making connection visible
+  // Also check if target is actually visible in the viewport
+  // (nearby + unclustered doesn't mean visible — target may be off-screen)
+  const targetLatLng = L.latLng(targetEvent.lat, targetEvent.lng);
+  const targetOffScreen = !map.getBounds().contains(targetLatLng);
+  
+  if (distanceKm > NEARBY_THRESHOLD_KM || eitherIsClustered || targetOffScreen) {
+    // DISTANT, CLUSTERED, or TARGET OFF-SCREEN: Draw connection line with navigation
     showConnectionLine(sourceEventId, targetEventId, color, isDashed);
   } else {
-    // NEARBY and BOTH UNCLUSTERED: Show ring highlights on both markers
+    // NEARBY and BOTH UNCLUSTERED (e.g. spiderfied): Ring highlights only
+    // Lines in dense spider clusters create visual clutter
+    highlightMarkerWithRing(sourceEventId, color, isDashed);
+    highlightMarkerWithRing(targetEventId, color, isDashed);
     
-    // For very close/same location events, don't change zoom at all
-    // Just ensure both markers are visible (they're already nearby)
-    const currentZoom = map.getZoom();
+    // Still add zoom/move listeners so CC state survives if user pans/zooms
+    map.on('zoomend', updateConnectionLineOnZoom);
+    map.on('moveend', updateConnectionLineOnZoom);
     
-    // Only adjust view if we need to - for same-location events, just stay put
-    if (distanceKm > 1) {
-      // Events are at least 1km apart - fit bounds but don't zoom out too much
-      const bounds = L.latLngBounds(
-        [sourceEvent.lat, sourceEvent.lng],
-        [targetEvent.lat, targetEvent.lng]
-      );
-      map.fitBounds(bounds, { 
-        padding: [80, 80],
-        maxZoom: Math.max(currentZoom, 14), // Don't zoom out from current level
-        animate: true,
-        duration: 0.5
-      });
-      
-      // Apply highlights AFTER fitBounds animation completes
-      setTimeout(function() {
-        highlightMarkerWithRing(sourceEventId, color, isDashed);
-        highlightMarkerWithRing(targetEventId, color, isDashed);
-        
-        // Check if peek mode is needed
-        if (ccVisState.active) {
-          checkAndApplyPeekMode(sourceEventId, targetEventId);
-        }
-      }, 600); // Wait for animation to complete
-    } else {
-      // Same location - apply highlights immediately
-      highlightMarkerWithRing(sourceEventId, color, isDashed);
-      highlightMarkerWithRing(targetEventId, color, isDashed);
-      
-      // Check if peek mode is needed
-      setTimeout(function() {
-        if (ccVisState.active) {
-          checkAndApplyPeekMode(sourceEventId, targetEventId);
-        }
-      }, 300);
-    }
+    setTimeout(function() {
+      if (ccVisState.active) {
+        checkAndApplyPeekMode(sourceEventId, targetEventId);
+      }
+    }, 300);
   }
   
   // Navigate to target event (adds to history)
@@ -13137,7 +13387,7 @@ function generateCCSection(eventId, showFullContent) {
 
     const markers = L.markerClusterGroup({
       maxClusterRadius: 50, spiderfyOnMaxZoom: true, showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
+      zoomToBoundsOnClick: false, // Disabled - we handle cluster clicks manually for CC-awareness
       // NO disableClusteringAtZoom - clustering stays active at all zoom levels
       // This ensures clicking any cluster will spiderfy properly
       animate: false, animateAddingMarkers: false,
@@ -13310,14 +13560,90 @@ function generateCCSection(eventId, showFullContent) {
     });
     map.addLayer(markers);
     
+    // Smart cluster click handler (replaces default zoomToBoundsOnClick)
+    // Strategy:
+    // - Small clusters at reasonable zoom: spiderfy in place
+    // - Co-located clusters: aggressive zoom to high level (next click spiderfies)
+    // - Spread-out clusters: zoom +3 centered for smooth drill-down
+    // Never auto-spiderfy after zoom — let the next click handle it cleanly.
+    const SPIDERFY_THRESHOLD = 5;
+    const MAX_CLUSTER_ZOOM = 16;
+    const MIN_SPIDERFY_ZOOM = 8;
+    const CO_LOCATED_THRESHOLD = 0.15; // ~17km
+    
+    markers.on('clusterclick', function(e) {
+      const cluster = e.layer;
+      const childCount = cluster.getChildCount();
+      const currentZoom = map.getZoom();
+      const clusterLatLng = cluster.getLatLng();
+      
+      // Check geographic spread
+      const bounds = cluster.getBounds();
+      const maxSpread = Math.max(
+        bounds.getNorth() - bounds.getSouth(),
+        bounds.getEast() - bounds.getWest()
+      );
+      const isCoLocated = maxSpread < CO_LOCATED_THRESHOLD;
+      
+      // Can we spiderfy here? (reasonable zoom + small or co-located or maxed out)
+      const wantSpiderfy = childCount <= SPIDERFY_THRESHOLD || isCoLocated || currentZoom >= MAX_CLUSTER_ZOOM;
+      
+      if (wantSpiderfy && currentZoom >= MIN_SPIDERFY_ZOOM) {
+        // Spiderfy in place — zoom is high enough for it to look good
+        if (cluster.spiderfy) {
+          try { cluster.spiderfy(); } catch(err) {}
+        }
+        return;
+      }
+      
+      // Need to zoom in. Pick target based on situation:
+      let targetZoom;
+      if (isCoLocated) {
+        // Co-located: zoom aggressively — further zooming won't help separate them.
+        // Go high enough that next click will spiderfy cleanly.
+        targetZoom = Math.max(currentZoom + 3, 12);
+      } else {
+        // Spread-out: progressive +3 drill-down
+        targetZoom = currentZoom + 3;
+      }
+      targetZoom = Math.min(targetZoom, MAX_CLUSTER_ZOOM);
+      
+      map.setView(clusterLatLng, targetZoom, { animate: true });
+      
+      // After zoom, update CC line if active
+      if (ccVisState.active) {
+        setTimeout(function() {
+          if (!ccVisState.active) return;
+          updateConnectionLineOnZoom();
+        }, 600);
+      }
+    });
+    
     // Listen for cluster spiderfy/unspiderfy to update CC visualisation
     markers.on('spiderfied', function(e) {
-      // Pan map to centre the spiderfied cluster for better visibility
+      // Pan map to centre the spiderfied cluster in the USABLE area (avoiding panels)
       if (e.cluster && e.cluster.getLatLng) {
         const clusterLatLng = e.cluster.getLatLng();
-        // Smooth pan to centre the cluster (with slight delay for visual polish)
         setTimeout(function() {
-          map.panTo(clusterLatLng, { animate: true, duration: 0.3 });
+          // Calculate offset to shift center away from header panel
+          const mapSize = map.getSize();
+          let offsetX = 0, offsetY = 0;
+          
+          const headerPanel = document.getElementById('weoStatusPanel');
+          if (headerPanel && !headerPanel.classList.contains('hidden')) {
+            const rect = headerPanel.getBoundingClientRect();
+            const mapRect = map.getContainer().getBoundingClientRect();
+            // Shift center rightward by half the panel width
+            offsetX = (rect.right - mapRect.left) / 2;
+            // Shift center downward by half the panel height
+            offsetY = (rect.bottom - mapRect.top) / 2;
+          }
+          
+          // Convert cluster position to pixel, apply offset, convert back
+          const targetPoint = map.latLngToContainerPoint(clusterLatLng);
+          const centerPoint = L.point(mapSize.x / 2 + offsetX, mapSize.y / 2 + offsetY);
+          const panOffset = targetPoint.subtract(centerPoint);
+          map.panBy(panOffset, { animate: true, duration: 0.3 });
         }, 50);
       }
       
@@ -13450,6 +13776,11 @@ function generateCCSection(eventId, showFullContent) {
     const panelOverlay = document.getElementById('panelOverlay');
     const panelContent = document.getElementById('panelContent');
 
+    function scrollPanelToTop() {
+      var panel = document.getElementById('detailPanel');
+      if (panel) panel.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function scrollToPanelSection(sectionKey) {
       var panel = document.getElementById('detailPanel');
       if (!panel) return;
@@ -13502,8 +13833,9 @@ function generateCCSection(eventId, showFullContent) {
       detailPanel.classList.remove('open');
       detailPanel.classList.remove('peek-mode'); // Remove peek mode when closing
       panelOverlay.classList.remove('visible');
-      // Clear CC visualisation and reset navigation state
-      clearCCVisualisation();
+      // DON'T clear CC visualisation here - the line should persist on the map
+      // so the user can close the panel to see the full CC line.
+      // CC vis is cleared when: a new marker is clicked (openPanel), or back nav (goBackInPanel)
       panelHistory = [];
       mapViewHistory = [];
       currentEventId = null;
@@ -13525,6 +13857,143 @@ function generateCCSection(eventId, showFullContent) {
       const map = { 'Technology': 'technology', 'Security': 'security', 'Trade': 'trade', 'Energy/Infrastructure': 'energy' };
       return map[domain] || 'technology';
     }
+    // Industry Tags Data (11-category taxonomy)
+    var industryTagsData = {
+"01":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"The EDWC plan mandates coordinated development of renewable energy infrastructure to power western data centre hubs."}]},
+"02":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"JASM Phase 1 produces ASICs on 22/28 nm for image sensors and automotive applications."}]},
+"03":{primary:"Semiconductors & Equipment",secondary:[{tag:"Financial Services & Investment",mechanism:"Ministry of Finance is the largest shareholder (17%) and six state-owned banks contribute \u00A5114B (~33% of total capital)."}]},
+"04":{primary:"AI Software & Platforms",secondary:[]},
+"05":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"The Act establishes systems to ensure stable supplies of designated critical materials across supply chains."},{tag:"Financial Services & Investment",mechanism:"Certified businesses become eligible for subsidies, loans, equity purchases, and credit insurance."}]},
+"06":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"The Guardrails Rule prohibits CHIPS-funded entities from expanding semiconductor manufacturing in foreign countries of concern."},{tag:"Financial Services & Investment",mechanism:"Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit and $39B in direct subsidies."}]},
+"07":{primary:"AI Software & Platforms",secondary:[{tag:"Trade & Logistics",mechanism:"Article 2 applies the Measures to any generative AI service accessible within the PRC regardless of provider location."}]},
+"08":{primary:"AI Software & Platforms",secondary:[]},"09":{primary:"AI Software & Platforms",secondary:[]},
+"10":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"Trilateral coordination created parallel national export licensing regimes for semiconductor manufacturing equipment."}]},
+"11":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"Intel received a $3B Secure Enclave contract for trusted manufacturing for national security applications."},{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years."}]},
+"12":{primary:"Semiconductors & Equipment",secondary:[{tag:"Financial Services & Investment",mechanism:"European Chips Act establishes public support including subsidies for integrated production facilities."},{tag:"Trade & Logistics",mechanism:"The Act empowers the Commission to request supply chain information and prioritise crisis-relevant production."}]},
+"14":{primary:"Mining & Critical Minerals",secondary:[{tag:"Semiconductors & Equipment",mechanism:"Gallium and germanium are critical semiconductor manufacturing inputs."},{tag:"Trade & Logistics",mechanism:"MOFCOM establishes export licensing regime requiring provincial-level approval and end-user certifications."}]},
+"15":{primary:"AI Software & Platforms",secondary:[]},"16":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"USAISI TRAINS Taskforce identifies and manages national security implications of AI."}]},
+"17":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"UK AISI defines core functions in evaluations of advanced AI systems and foundational AI research."}]},
+"18":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years post-award."}]},
+"19":{primary:"AI Software & Platforms",secondary:[]},"20":{primary:"AI Software & Platforms",secondary:[]},
+"21":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"Five Eyes guidance sets best practices to secure AI systems including protecting model weights."},{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"Guidance instructs organisations to secure networks and isolate weight storage in restricted zones."}]},
+"22":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Trade & Logistics",mechanism:"IGAA requires G42 to divest from China and comply with U.S. trade and security laws."},{tag:"Financial Services & Investment",mechanism:"IGAA governs $1.5B Microsoft equity investment with board seat and $1B AI developer fund."}]},
+"24":{primary:"AI Software & Platforms",secondary:[]},
+"25":{primary:"Defence & Aerospace",secondary:[{tag:"AI Software & Platforms",mechanism:"Joint statement commits to AI governance consultation and open-source cooperation."},{tag:"Trade & Logistics",mechanism:"Statement opposes technological monopolies disrupting the global AI supply chain."}]},
+"26":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},"27":{primary:"AI Software & Platforms",secondary:[]},"29":{primary:"AI Software & Platforms",secondary:[]},
+"30":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"Recital 24 excludes military/defence AI systems from scope."},{tag:"Financial Services & Investment",mechanism:"Annex III lists AI credit scoring systems as high-risk."}]},
+"31":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},"32":{primary:"AI Software & Platforms",secondary:[]},"33":{primary:"Semiconductors & Equipment",secondary:[]},"34":{primary:"AI Software & Platforms",secondary:[]},"38":{primary:"Semiconductors & Equipment",secondary:[]},
+"39":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"Strategy allocates up to $700M for data centre expansion."},{tag:"AI Software & Platforms",mechanism:"Strategy sets aside up to $300M for affordable compute access for SMEs."}]},
+"40":{primary:"Financial Services & Investment",secondary:[{tag:"Semiconductors & Equipment",mechanism:"Final Rule prohibits/requires notification for investments in Chinese semiconductor entities."},{tag:"Quantum Computing Infrastructure",mechanism:"Final Rule prohibits investments in Chinese quantum computing entities."}]},
+"41":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"Plan mandates source-grid-load-storage technologies and renewable energy integration."},{tag:"Semiconductors & Equipment",mechanism:"Box 6 directs pilot verification for CPUs, GPUs, requiring independently controllable hardware."}]},
+"42":{primary:"Mining & Critical Minerals",secondary:[{tag:"Semiconductors & Equipment",mechanism:"October 2025 MOFCOM expansion subjects rare-earth items to licensing for sub-14nm chip production."},{tag:"Trade & Logistics",mechanism:"Extraterritorial trade compliance with 0.1% value threshold for foreign-produced goods."}]},
+"44":{primary:"AI Software & Platforms",secondary:[]},
+"45":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"K-Cloud develops domestic AI semiconductors for data centres."},{tag:"Financial Services & Investment",mechanism:"826.2 billion KRW committed from 2023 to 2030 for AI semiconductor development."}]},
+"46":{primary:"Financial Services & Investment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"MGX targets next-generation data centres via Global AI Infrastructure Investment Partnership."},{tag:"Energy & Power Infrastructure",mechanism:"Partnership commits tens of billions to energy platforms alongside data centres."}]},
+"47":{primary:"Semiconductors & Equipment",secondary:[{tag:"AI Software & Platforms",mechanism:"Programme integrates generative AI with chip manufacturing."}]},
+"49":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Alat forms JV with SoftBank to manufacture industrial robots in Saudi Arabia."}]},
+"51":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Renesas contributes automotive chip technology; OSAT facility serves automotive customers."}]},
+"52":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"GAIIP invests in energy infrastructure with GE Vernova and NextEra Energy."},{tag:"Financial Services & Investment",mechanism:"GAIIP mobilises $30B with potential to reach $100B including debt financing."}]},
+"53":{primary:"AI Software & Platforms",secondary:[]},"54":{primary:"AI Software & Platforms",secondary:[]},"56":{primary:"AI Software & Platforms",secondary:[]},"57":{primary:"AI Software & Platforms",secondary:[]},
+"58":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"Decree No. 124 lists defence as a target sector for 95% AI implementation by 2030."}]},
+"61":{primary:"AI Software & Platforms",secondary:[]},
+"62":{primary:"AI Software & Platforms",secondary:[{tag:"Financial Services & Investment",mechanism:"Plan deploys \u20AC10B through equity, fund-of-funds, and co-funding instruments."},{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"Plan co-founds a 1.4GW AI campus JV with MGX, Mistral AI, and NVIDIA."}]},
+"64":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"Plan mandates campuses in areas with high renewable energy availability."}]},
+"65":{primary:"AI Software & Platforms",secondary:[]},
+"66":{primary:"AI Software & Platforms",secondary:[{tag:"Defence & Aerospace",mechanism:"GAGI calls for prudent attitude to military AI."},{tag:"Trade & Logistics",mechanism:"GAGI opposes technological monopolies disrupting the global AI supply chain."}]},
+"67":{primary:"AI Software & Platforms",secondary:[]},
+"68":{primary:"AI Software & Platforms",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"AWS, Azure, and GCP each deployed DeepSeek-R1 as managed cloud models."}]},
+"69":{primary:"AI Software & Platforms",secondary:[]},
+"70":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years post-award."}]},
+"71":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},"72":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"73":{primary:"AI Software & Platforms",secondary:[{tag:"Financial Services & Investment",mechanism:"GigaChat integrated into Sberbank Online across 80% of customer service operations."}]},
+"74":{primary:"AI Software & Platforms",secondary:[]},"75":{primary:"AI Software & Platforms",secondary:[]},
+"76":{primary:"AI Software & Platforms",secondary:[{tag:"Telecoms",mechanism:"Huawei released a Telecom Foundation Model for 5G fault diagnosis and network analysis."}]},
+"77":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},"78":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},
+"79":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"TVA approved 150MW, xAI built a substation and deployed 35+ gas turbines for ~247MW."}]},
+"80":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"CG-1 offered as cloud service via Cerebras Cloud and G42 Cloud."}]},
+"83":{primary:"Semiconductors & Equipment",secondary:[{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years post-award."}]},
+"84":{primary:"AI Software & Platforms",secondary:[]},"85":{primary:"AI Software & Platforms",secondary:[]},"86":{primary:"AI Software & Platforms",secondary:[]},"87":{primary:"AI Software & Platforms",secondary:[]},
+"88":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"Samsung CHIPS facility supports FD-SOI for aerospace/defence with DoD collaboration."},{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years post-award."}]},
+"89":{primary:"Semiconductors & Equipment",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Award funds analog chips with automotive/industrial as critical end markets."},{tag:"Trade & Logistics",mechanism:"CHIPS Act Guardrails Rule provisions apply for ten years post-award."}]},
+"90":{primary:"Semiconductors & Equipment",secondary:[{tag:"Defence & Aerospace",mechanism:"Award supports onshoring for defence/intelligence with DMEA Trusted Supplier accreditation."},{tag:"Automotive & Manufacturing",mechanism:"Malta produces automotive technologies; Vermont creates first US GaN on Silicon for EVs."}]},
+"91":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[{tag:"Energy & Power Infrastructure",mechanism:"Vattenfall supplies 100% renewable hydroelectric power; waste heat provides ~20% of city heating."}]},
+"92":{primary:"Semiconductors & Equipment",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"Deucalion provides compute via EuroHPC calls with 20% reserved for industry."}]},
+"93":{primary:"AI Software & Platforms",secondary:[]},"94":{primary:"AI Software & Platforms",secondary:[]},"95":{primary:"AI Software & Platforms",secondary:[]},
+"96":{primary:"AI Software & Platforms",secondary:[{tag:"Automotive & Manufacturing",mechanism:"AIM Global Centre promotes AI for manufacturing in developing countries."}]},
+"97":{primary:"AI Software & Platforms",secondary:[{tag:"Automotive & Manufacturing",mechanism:"Annex A interprets IEC 61508-3 for AI in industrial safety systems."}]},
+"98":{primary:"AI Software & Platforms",secondary:[]},
+"99":{primary:"Energy & Power Infrastructure",secondary:[{tag:"Cloud, Data Centres & Connectivity Infrastructure",mechanism:"17-year PPA commits up to 1,920MW nuclear power to AWS data centres."}]},
+"100":{primary:"Cloud, Data Centres & Connectivity Infrastructure",secondary:[]},"101":{primary:"AI Software & Platforms",secondary:[]},"102":{primary:"AI Software & Platforms",secondary:[]}
+    };
+    var indClassMap = {"Semiconductors & Equipment":"badge-ind-semi","Cloud, Data Centres & Connectivity Infrastructure":"badge-ind-cloud","AI Software & Platforms":"badge-ind-ai","Defence & Aerospace":"badge-ind-defence","Energy & Power Infrastructure":"badge-ind-energy","Financial Services & Investment":"badge-ind-finance","Mining & Critical Minerals":"badge-ind-mining","Trade & Logistics":"badge-ind-trade","Automotive & Manufacturing":"badge-ind-auto","Quantum Computing Infrastructure":"badge-ind-quantum","Telecoms":"badge-ind-telecoms"};
+    var indAbbrevMap = {"Semiconductors & Equipment":"Semi & Equip","Cloud, Data Centres & Connectivity Infrastructure":"Cloud & DC","AI Software & Platforms":"AI S&P","Defence & Aerospace":"Def & Aero","Energy & Power Infrastructure":"Energy & Power","Financial Services & Investment":"Fin & Invest","Mining & Critical Minerals":"Mining & Min","Trade & Logistics":"Trade & Log","Automotive & Manufacturing":"Auto & Mfg","Quantum Computing Infrastructure":"Quantum","Telecoms":"Telecoms"};
+    function getIndClass(tag) { return indClassMap[tag] || 'badge-ind-ai'; }
+    function getIndAbbrev(tag) { return indAbbrevMap[tag] || tag; }
+    function getIndTags(eventId) { return industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]}; }
+    function buildIndustryShelfHtml(eventId) {
+      var tags = getIndTags(eventId);
+      var html = '<div class="industry-shelf">';
+      // Primary tag — filled, read-only, with "?" methodology tooltip
+      html += '<span class="badge-with-tooltip"><span class="ind-tag ind-primary ' + getIndClass(tags.primary) + '">' + getIndAbbrev(tags.primary) + '</span><span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span></span>';
+      // Secondary tags — outlined, operational (click for mechanism popover), with "?" category tooltip
+      for (var i = 0; i < tags.secondary.length; i++) {
+        var s = tags.secondary[i];
+        html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + s.tag + '</div>' + s.mechanism + '</div></span>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function toggleMechanism(tagEl) {
+      var wrap = tagEl.closest('.ind-tag-wrap');
+      var popover = wrap.querySelector('.ind-mechanism-popover');
+      var wasVisible = popover.classList.contains('visible');
+      // Close all open popovers first
+      document.querySelectorAll('.ind-mechanism-popover.visible').forEach(function(p) { 
+        p.classList.remove('visible');
+        p.style.left = '';
+        p.style.transform = '';
+      });
+      if (!wasVisible) {
+        // Reset positioning before measuring
+        popover.style.left = '50%';
+        popover.style.transform = 'translateX(-50%)';
+        popover.classList.add('visible');
+        
+        // Clamp to viewport — prevent overflow on narrow screens
+        requestAnimationFrame(function() {
+          var rect = popover.getBoundingClientRect();
+          var panel = document.getElementById('detailPanel');
+          var panelRect = panel ? panel.getBoundingClientRect() : { left: 0, right: window.innerWidth };
+          var rightEdge = panelRect.right - 8;
+          var leftEdge = panelRect.left + 8;
+          
+          if (rect.right > rightEdge) {
+            // Overflows right — shift left
+            var shift = rect.right - rightEdge;
+            popover.style.left = 'calc(50% - ' + shift + 'px)';
+          } else if (rect.left < leftEdge) {
+            // Overflows left — shift right
+            var shift = leftEdge - rect.left;
+            popover.style.left = 'calc(50% + ' + shift + 'px)';
+          }
+        });
+      }
+    }
+
+    // Close mechanism popovers on outside click
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.ind-tag-wrap')) {
+        document.querySelectorAll('.ind-mechanism-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
+      }
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.ind-mechanism-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
+      }
+    });
+
 
     // ========================================
     // WEO TOOLTIP CONTENT DEFINITIONS
@@ -13736,7 +14205,7 @@ function generateCCSection(eventId, showFullContent) {
       }
       const sourceTallyText = totalPrimarySources + ' Primary, ' + totalCorroboratingSources + ' Corroborating' + (versionCount > 1 ? ' (across ' + versionCount + ' versions)' : '');
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-title">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + event.date + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + '</div></div><div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">Tier ' + event.confidence + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;"><div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Currency Window</span></div></div></div>' + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Framework Assessment (Basel 5-Factor / Keohane / PISA-5 / Route-Based)</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation (Primary + Corroborating URLs)</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #64748B;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + event.date + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + '</div></div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">Tier ' + event.confidence + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;"><div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Currency Window</span></div></div></div>' + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Framework Assessment (Basel 5-Factor / Keohane / PISA-5 / Route-Based)</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation (Primary + Corroborating URLs)</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #64748B;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -14185,14 +14654,21 @@ function generateCCSection(eventId, showFullContent) {
       const lastUpdateText = event.versionDate ? new Date(event.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
       const headerVersionBadge = event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + event.version + (lastUpdateText ? ' • Updated ' + lastUpdateText : '') + '</span>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + event.date + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + headerVersionBadge + '</div></div><div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content"><p><strong>Tier ' + event.tier + ' — ' + tierDesc + '</strong></p>' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + blocAnalysisHtml + '</div>' + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">Tier ' + event.confidence + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;"><div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection Verified</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Within Currency Window</span></div></div></div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + event.date + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + headerVersionBadge + '</div></div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content"><p><strong>Tier ' + event.tier + ' — ' + tierDesc + '</strong></p>' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + blocAnalysisHtml + '</div>' + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">Tier ' + event.confidence + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;"><div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection Verified</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Within Currency Window</span></div></div></div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
-      // When opening from map click, reset history and clear visualisation
+      // Check if clicked event is part of active CC - if so, keep the line
+      const isPartOfActiveCC = ccVisState.active && 
+        (event.id === ccVisState.sourceEventId || event.id === ccVisState.targetEventId);
+      
+      if (!isPartOfActiveCC) {
+        // New event unrelated to CC - clear visualisation and reset history
+        clearCCVisualisation();
+      }
+      // Always reset panel history for fresh map clicks
       panelHistory = [];
       currentEventId = event.id;
-      clearCCVisualisation();
       
       // Check if user is authenticated (paid) OR this is a sample event
       const isAuthenticated = document.body.classList.contains('weo-authenticated');
@@ -14715,9 +15191,14 @@ function generateCCSection(eventId, showFullContent) {
       
       const eventsEl = document.getElementById('total-events-count');
       const connectionsEl = document.getElementById('total-connections-count');
+      const updatedEl = document.getElementById('weo-status-updated');
       
       if (eventsEl) eventsEl.textContent = totalEvents;
       if (connectionsEl) connectionsEl.textContent = totalConnections;
+      if (updatedEl && WEO_DB.last_updated) {
+        const d = new Date(WEO_DB.last_updated + 'T00:00:00');
+        updatedEl.textContent = 'Updated ' + d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+      }
     }
     document.addEventListener('DOMContentLoaded', populateMapStats);
 
@@ -14755,6 +15236,7 @@ function generateCCSection(eventId, showFullContent) {
       </div>
     </div>
   </div>
+
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
