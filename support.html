@@ -36,77 +36,72 @@
         
         :root {
             /* Background & Surface — Observatory Palette */
-            --bg-primary: #0F172A;
-            --bg-card: #1E293B;
-            --bg-elevated: #334155;
-            --border-primary: #334155;
-            --border-subtle: #475569;
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
             
             /* Text Hierarchy */
-            --text-primary: #F1F5F9;
-            --text-secondary: #CBD5E1;
-            --text-tertiary: #94A3B8;
-            --text-muted: #64748B;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #64748B;
             
             /* Accent */
-            --accent-primary: #3B82F6;
-            --accent-hover: #60A5FA;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
             
             /* Coordination Connections / Teal Accent */
-            --accent-teal: #2DD4BF;
-            --accent-teal-muted: rgba(45, 212, 191, 0.15);
-            --accent-teal-glow: rgba(45, 212, 191, 0.08);
+            --weo-bloc-cross: #2DD4BF;
+            --weo-cross-glow: rgba(45, 212, 191, 0.15);
+            --weo-cross-bg: rgba(45, 212, 191, 0.08);
             
             /* Support/Gold Accent */
-            --accent-gold: #F59E0B;
-            --accent-gold-muted: rgba(245, 158, 11, 0.15);
-            --accent-gold-glow: rgba(245, 158, 11, 0.08);
+            --weo-sample-gold: #F59E0B;
+            --weo-sample-glow: rgba(245, 158, 11, 0.15);
+            --weo-sample-bg: rgba(245, 158, 11, 0.08);
             
             /* Status */
-            --status-positive: #22C55E;
-            --status-positive-bg: rgba(34, 197, 94, 0.12);
+            --weo-status-positive: #22C55E;
+            --weo-status-positive-bg: rgba(34, 197, 94, 0.12);
             
             /* Typography */
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
             
             /* Border Radius */
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
             
             /* ========================================
                WEO UX REFINEMENTS - Phase 2c Design Tokens
                ======================================== */
             /* Timing */
-            --duration-instant: 80ms;
-            --duration-fast: 150ms;
-            --duration-normal: 200ms;
-            --duration-slow: 300ms;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
             
             /* Easing */
-            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
-            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
-            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Surfaces */
-            --surface-base: #0F172A;
-            --surface-raised: #1E293B;
-            --surface-overlay: #334155;
-            
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
             /* Interactive */
-            --hover-overlay: rgba(255, 255, 255, 0.08);
-            --focus-ring: #60A5FA;
-            --focus-ring-offset: 2px;
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
         }
         
         /* Reset & Base */
@@ -124,14 +119,14 @@
         }
         
         *:focus-visible {
-            outline: 2px solid var(--focus-ring);
-            outline-offset: var(--focus-ring-offset);
+            outline: 2px solid var(--weo-focus-ring);
+            outline-offset: var(--weo-focus-ring-offset);
             border-radius: 4px;
         }
         
         button:focus-visible,
         a:focus-visible {
-            outline: 2px solid var(--focus-ring);
+            outline: 2px solid var(--weo-focus-ring);
             outline-offset: 2px;
         }
         
@@ -163,9 +158,9 @@
         }
         
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -174,7 +169,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: var(--space-2xl) var(--space-lg);
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
         }
         
         /* ========================================
@@ -184,20 +179,20 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: var(--space-md) 0;
-          margin-bottom: var(--space-xl);
-          border-bottom: 1px solid var(--border-primary);
+          padding: var(--weo-space-md) 0;
+          margin-bottom: var(--weo-space-xl);
+          border-bottom: 1px solid var(--weo-border-primary);
         }
 
         .weo-nav-brand {
           display: flex;
           align-items: center;
-          gap: var(--space-sm);
+          gap: var(--weo-space-sm);
           text-decoration: none;
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           font-weight: 600;
           font-size: 0.875rem;
-          transition: color var(--duration-fast) var(--ease-out);
+          transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-brand:hover {
@@ -213,7 +208,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-mono);
+          font-family: var(--weo-font-mono);
           font-size: 0.5rem;
           font-weight: 700;
           color: #2DD4BF;
@@ -222,21 +217,21 @@
         .weo-nav-links {
           display: flex;
           align-items: center;
-          gap: var(--space-xs);
+          gap: var(--weo-space-xs);
         }
 
         .weo-nav-links a {
-          padding: var(--space-xs) var(--space-sm);
-          color: var(--text-tertiary);
+          padding: var(--weo-space-xs) var(--weo-space-sm);
+          color: var(--weo-text-tertiary);
           text-decoration: none;
           font-size: 0.8125rem;
           font-weight: 500;
-          border-radius: var(--radius-sm);
-          transition: all var(--duration-fast) var(--ease-out);
+          border-radius: var(--weo-radius-sm);
+          transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-links a:hover {
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           background: rgba(59, 130, 246, 0.1);
         }
 
@@ -250,9 +245,9 @@
           display: none;
           width: 32px;
           height: 32px;
-          background: var(--bg-elevated);
-          border: 1px solid var(--border-primary);
-          border-radius: var(--radius-sm);
+          background: var(--weo-surface-overlay);
+          border: 1px solid var(--weo-border-primary);
+          border-radius: var(--weo-radius-sm);
           cursor: pointer;
           flex-direction: column;
           align-items: center;
@@ -264,9 +259,9 @@
           display: block;
           width: 16px;
           height: 2px;
-          background: var(--text-tertiary);
+          background: var(--weo-text-tertiary);
           border-radius: 1px;
-          transition: all var(--duration-normal) var(--ease-out);
+          transition: all var(--weo-duration-normal) var(--weo-ease-out);
         }
 
         .weo-nav-toggle:hover {
@@ -275,7 +270,7 @@
         }
 
         .weo-nav-toggle:hover span {
-          background: var(--text-primary);
+          background: var(--weo-text-primary);
         }
 
         @media (max-width: 767px) {
@@ -292,10 +287,10 @@
             flex-direction: column;
             background: rgba(15, 23, 42, 0.97);
             border: 1px solid rgba(96, 165, 250, 0.2);
-            border-top: 2px solid rgba(96, 165, 250, 0.4);
-            border-radius: var(--radius-md);
-            padding: var(--space-sm);
-            margin-top: var(--space-sm);
+            border-top: 2px solid rgba(96, 165, 250, 0.8);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-sm);
+            margin-top: var(--weo-space-sm);
             z-index: 100;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -308,7 +303,7 @@
           
           .weo-nav-links a {
             width: 100%;
-            padding: var(--space-sm) var(--space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
           }
           
           .weo-nav-toggle {
@@ -318,54 +313,56 @@
         
         /* Header */
         .page-header {
-            margin-bottom: var(--space-2xl);
-            padding-bottom: var(--space-lg);
-            border-bottom: 1px solid var(--border-primary);
+            margin-bottom: var(--weo-space-2xl);
+            padding-bottom: var(--weo-space-lg);
+            border-bottom: 1px solid var(--weo-border-primary);
         }
         
         .page-title {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
             letter-spacing: -0.02em;
         }
         
         .page-subtitle {
             font-size: 1rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             font-weight: 400;
         }
         
         /* Section */
         .section {
-            margin-bottom: var(--space-2xl);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .section-title {
+            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 1.125rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-lg);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-lg);
             letter-spacing: -0.01em;
         }
         
         /* Card */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15);
         }
         
         .prose {
             font-size: 0.9375rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.7;
         }
         
         .prose p {
-            margin-bottom: var(--space-md);
+            margin-bottom: var(--weo-space-md);
         }
         
         .prose p:last-child {
@@ -373,40 +370,41 @@
         }
         
         .prose strong {
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
             font-weight: 600;
         }
         
         /* Hero Mission Box */
         .mission-box {
-            background: linear-gradient(135deg, var(--accent-teal-glow) 0%, var(--bg-card) 100%);
+            background: linear-gradient(135deg, var(--weo-cross-bg) 0%, var(--weo-surface-raised) 100%);
             border: 1px solid rgba(45, 212, 191, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
             text-align: center;
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--weo-space-lg);
         }
         
         .mission-label {
+            font-family: var(--weo-font-mono);
             font-size: 0.6875rem;
             font-weight: 600;
-            color: var(--accent-teal);
+            color: var(--weo-bloc-cross);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: var(--space-sm);
+            letter-spacing: 0.08em;
+            margin-bottom: var(--weo-space-sm);
         }
         
         .mission-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-md);
             line-height: 1.3;
         }
         
         .mission-desc {
             font-size: 0.9375rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
@@ -416,8 +414,8 @@
         .tier-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
-            margin-top: var(--space-lg);
+            gap: var(--weo-space-lg);
+            margin-top: var(--weo-space-lg);
         }
         
         @media (max-width: 640px) {
@@ -427,59 +425,59 @@
         }
         
         .tier-card {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
+            background: var(--weo-surface-base);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-lg);
             position: relative;
         }
         
         .tier-card.featured {
-            border-color: var(--accent-gold);
-            background: linear-gradient(135deg, var(--accent-gold-glow) 0%, var(--bg-primary) 100%);
+            border-color: var(--weo-sample-gold);
+            background: linear-gradient(135deg, var(--weo-sample-bg) 0%, var(--weo-surface-base) 100%);
         }
         
         .tier-badge {
             position: absolute;
             top: -10px;
-            right: var(--space-lg);
-            background: var(--accent-gold);
+            right: var(--weo-space-lg);
+            background: var(--weo-sample-gold);
             color: #0F172A;
             font-size: 0.6875rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
         }
         
         .tier-name {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .tier-price {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-md);
         }
         
         .tier-price .period {
             font-size: 0.875rem;
             font-weight: 400;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         .tier-price .alt-price {
             display: block;
             font-size: 0.8125rem;
             font-weight: 400;
-            color: var(--text-tertiary);
-            margin-top: var(--space-xs);
+            color: var(--weo-text-tertiary);
+            margin-top: var(--weo-space-xs);
         }
         
         .tier-features {
@@ -489,10 +487,10 @@
         .tier-features li {
             display: flex;
             align-items: flex-start;
-            gap: var(--space-sm);
+            gap: var(--weo-space-sm);
             font-size: 0.8125rem;
-            color: var(--text-secondary);
-            padding: var(--space-xs) 0;
+            color: var(--weo-text-secondary);
+            padding: var(--weo-space-xs) 0;
         }
         
         .tier-features li svg {
@@ -503,32 +501,33 @@
         }
         
         .tier-features li svg.check {
-            color: var(--status-positive);
+            color: var(--weo-status-positive);
         }
         
         .tier-features li svg.neutral {
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         /* Tier locked items */
         .tier-locked {
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border-primary);
+            margin-top: var(--weo-space-md);
+            padding-top: var(--weo-space-md);
+            border-top: 1px solid var(--weo-border-primary);
         }
         
         .tier-locked-label {
+            font-family: var(--weo-font-mono);
             font-size: 0.6875rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: var(--space-xs);
+            letter-spacing: 0.08em;
+            margin-bottom: var(--weo-space-xs);
         }
         
         .tier-locked-items {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.5;
         }
         
@@ -536,32 +535,32 @@
         .support-options {
             display: flex;
             flex-direction: column;
-            gap: var(--space-lg);
+            gap: var(--weo-space-lg);
         }
         
         .support-option {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
+            background: var(--weo-surface-base);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-lg);
         }
         
         .support-option-header {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
+            gap: var(--weo-space-sm);
+            margin-bottom: var(--weo-space-md);
         }
         
         .support-option-icon {
             width: 32px;
             height: 32px;
-            background: var(--bg-elevated);
-            border-radius: var(--radius-sm);
+            background: var(--weo-surface-overlay);
+            border-radius: var(--weo-radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
         }
         
         .support-option-icon svg {
@@ -572,24 +571,24 @@
         .support-option-title {
             font-size: 0.9375rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .support-option-desc {
             font-size: 0.8125rem;
-            color: var(--text-tertiary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-tertiary);
+            margin-bottom: var(--weo-space-md);
             line-height: 1.6;
         }
         
         .support-option-note {
             font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: var(--space-md);
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-elevated);
-            border-radius: var(--radius-sm);
-            border-left: 2px solid var(--accent-teal);
+            color: var(--weo-text-muted);
+            margin-bottom: var(--weo-space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-overlay);
+            border-radius: var(--weo-radius-sm);
+            border-left: 2px solid var(--weo-bloc-cross);
         }
         
         .support-option-badge {
@@ -597,30 +596,30 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--accent-gold);
-            background: var(--accent-gold-muted);
+            color: var(--weo-sample-gold);
+            background: var(--weo-sample-glow);
             padding: 2px 8px;
-            border-radius: var(--radius-sm);
+            border-radius: var(--weo-radius-sm);
         }
         
         .support-option.featured {
-            border-color: var(--accent-gold);
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--accent-gold-glow) 100%);
+            border-color: var(--weo-sample-gold);
+            background: linear-gradient(135deg, var(--weo-surface-raised) 0%, var(--weo-sample-bg) 100%);
         }
         
         /* Ko-fi Button */
         .kofi-button {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
+            gap: var(--weo-space-sm);
             background: #FF5E5B;
             color: white;
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 600;
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
-            transition: all var(--duration-fast) var(--ease-out);
+            padding: var(--weo-space-sm) var(--weo-space-lg);
+            border-radius: var(--weo-radius-md);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .kofi-button:hover {
@@ -629,14 +628,14 @@
         }
         
         .kofi-button.secondary {
-            background: var(--bg-elevated);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-subtle);
+            background: var(--weo-surface-overlay);
+            color: var(--weo-text-secondary);
+            border: 1px solid var(--weo-border-subtle);
         }
         
         .kofi-button.secondary:hover {
-            background: var(--border-primary);
-            color: var(--text-primary);
+            background: var(--weo-border-primary);
+            color: var(--weo-text-primary);
         }
         
         .kofi-button svg {
@@ -648,76 +647,78 @@
         .crypto-list {
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
+            gap: var(--weo-space-sm);
         }
         
         .crypto-item {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-elevated);
-            border-radius: var(--radius-sm);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-overlay);
+            border-radius: var(--weo-radius-sm);
         }
         
         .crypto-label {
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.08em;
             width: 40px;
             flex-shrink: 0;
         }
         
         .crypto-address {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             word-break: break-all;
         }
         
         .crypto-placeholder {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             font-style: italic;
         }
         
         /* Institutional Section */
         .institutional-box {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
+            background: var(--weo-surface-base);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-lg);
             text-align: center;
         }
         
         .institutional-title {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-sm);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-sm);
         }
         
         .institutional-desc {
             font-size: 0.875rem;
-            color: var(--text-tertiary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-tertiary);
+            margin-bottom: var(--weo-space-md);
             line-height: 1.6;
         }
         
         .institutional-link {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
-            color: var(--accent-primary);
+            gap: var(--weo-space-sm);
+            color: var(--weo-accent-primary);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            transition: color var(--duration-fast) var(--ease-out);
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .institutional-link:hover {
-            color: var(--accent-hover);
+            color: var(--weo-accent-hover);
         }
         
         .institutional-link svg {
@@ -728,57 +729,78 @@
         /* Independence Notice */
         .independence-notice {
             display: flex;
-            gap: var(--space-md);
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
-            border-left: 3px solid var(--status-positive);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border-left: 3px solid var(--weo-status-positive);
         }
         
         .independence-icon {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
-            color: var(--status-positive);
+            color: var(--weo-status-positive);
         }
         
         .independence-text {
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.6;
         }
         
         .independence-text strong {
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         /* Footer */
         .page-footer {
-            margin-top: var(--space-2xl);
-            padding-top: var(--space-lg);
-            border-top: 1px solid var(--border-primary);
+            margin-top: var(--weo-space-2xl);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
         }
         
         .footer-text {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             line-height: 1.6;
         }
         
         .footer-text a {
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out);
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .footer-text a:hover {
-            color: var(--accent-primary);
+            color: var(--weo-accent-primary);
         }
         
+        /* ========================================
+           SIGNATURE 3: Data Value Treatment
+           Phase 3A — WEO Signature Style Spec v1.1
+           ======================================== */
+        .weo-value {
+            font-family: var(--weo-font-mono);
+            color: var(--weo-text-primary);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .weo-value.weo-value--pill {
+            background: var(--weo-surface-overlay, #334155);
+            padding: 0.1em 0.4em;
+            border-radius: var(--weo-radius-sm);
+        }
+
+        .weo-value--western { color: #60A5FA; }
+        .weo-value--eastern { color: #FB923C; }
+        .weo-value--cross   { color: #2DD4BF; }
+
         /* Responsive */
         @media (max-width: 640px) {
             .container {
-                padding: var(--space-xl) var(--space-md);
+                padding: var(--weo-space-xl) var(--weo-space-md);
             }
             
             .page-title {
@@ -786,11 +808,11 @@
             }
             
             .card {
-                padding: var(--space-lg);
+                padding: var(--weo-space-lg);
             }
             
             .mission-box {
-                padding: var(--space-lg);
+                padding: var(--weo-space-lg);
             }
             
             .mission-title {
@@ -798,13 +820,13 @@
             }
             
             .tier-card {
-                padding: var(--space-md);
+                padding: var(--weo-space-md);
             }
             
             .crypto-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: var(--space-xs);
+                gap: var(--weo-space-xs);
             }
             
             .crypto-label {
@@ -857,7 +879,7 @@
         <section class="section">
             <h2 class="section-title">Access Tiers</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>WEO operates on a freemium model. Core access is free; supporters unlock full platform features.</p>
                 </div>
                 
@@ -885,7 +907,7 @@
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                6 sample events with full access
+                                <span class="weo-value">6</span> sample events with full access
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -909,7 +931,7 @@
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                Framework Assessment (Basel 5-Factor / Keohane / PISA-5 / Route-Based)
+                                Qualification & Assessment Frameworks
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -925,7 +947,7 @@
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                Full Source Documentation (Primary + Corroborating)
+                                Full Source Documentation
                             </li>
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -961,7 +983,7 @@
                             <div class="support-option-badge">Full Access</div>
                         </div>
                         <div class="support-option-desc">
-                            $10/month via Ko-fi. Full Analyst access — framework assessments (Basel 5-Factor, Keohane, PISA-5, Route-Based), tier and bloc classification rationales, industry tags, Coordination Connection details and evidence, cross-event navigation, full source documentation, version history and rolling updates, related events, and priority access to new analytical capabilities. Cancel anytime.
+                            $10/month via Ko-fi. Full Analyst access — qualification and assessment frameworks, tier and bloc classification rationales, industry tags, Coordination Connection details and evidence, cross-event navigation, full source documentation, version history and rolling updates, related events, and priority access to new analytical capabilities. Cancel anytime.
                         </div>
                         <div class="support-option-note">
                             After subscribing, you'll receive access credentials via the email associated with your Ko-fi account within 24 hours.
@@ -1029,7 +1051,7 @@
         <footer class="page-footer">
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links" style="margin-top: 0.5rem;">
-                <a href="legal.html" style="color: var(--text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--duration-fast) var(--ease-out);">Privacy Policy & Terms of Service</a>
+                <a href="legal.html" style="color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--weo-duration-fast) var(--weo-ease-out);">Privacy Policy & Terms of Service</a>
             </p>
         </footer>
         

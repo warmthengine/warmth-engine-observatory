@@ -7,14 +7,17 @@
     <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found | Warmth Engine Observatory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --text-primary: #e4e4e7;
-            --text-secondary: #a1a1aa;
-            --accent-blue: #60a5fa;
-            --accent-glow: rgba(96, 165, 250, 0.15);
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-accent-hover: #60a5fa;
+            --weo-western-glow: rgba(96, 165, 250, 0.15);
         }
         
         * {
@@ -24,9 +27,9 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--weo-surface-base);
+            color: var(--weo-text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -40,10 +43,11 @@
         }
         
         .error-code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
             font-size: 8rem;
             font-weight: 700;
             line-height: 1;
-            background: linear-gradient(135deg, var(--accent-blue) 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, var(--weo-accent-hover) 0%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -54,12 +58,12 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .error-message {
             font-size: 1rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.6;
             margin-bottom: 2rem;
         }
@@ -67,18 +71,19 @@
         .home-link {
             display: inline-block;
             padding: 0.75rem 2rem;
-            background: var(--accent-glow);
-            border: 1px solid var(--accent-blue);
-            color: var(--accent-blue);
+            background: var(--weo-western-glow);
+            border: 1px solid var(--weo-accent-hover);
+            color: var(--weo-accent-hover);
             text-decoration: none;
             border-radius: 6px;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 200ms cubic-bezier(0.33, 1, 0.68, 1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
         
         .home-link:hover {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
+            background: var(--weo-accent-hover);
+            color: var(--weo-surface-base);
         }
         
         .observatory-badge {
@@ -88,15 +93,16 @@
         }
         
         .observatory-badge span {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
             font-size: 0.875rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.05em;
+            color: var(--weo-text-secondary);
+            letter-spacing: 0.08em;
         }
         
         .copyright {
             margin-top: 1rem;
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             opacity: 0.6;
         }
     </style>

@@ -32,77 +32,72 @@
         
         :root {
             /* Background & Surface — Observatory Palette */
-            --bg-primary: #0F172A;
-            --bg-card: #1E293B;
-            --bg-elevated: #334155;
-            --border-primary: #334155;
-            --border-subtle: #475569;
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
             
             /* Text Hierarchy */
-            --text-primary: #F1F5F9;
-            --text-secondary: #CBD5E1;
-            --text-tertiary: #94A3B8;
-            --text-muted: #64748B;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #64748B;
             
             /* Accent */
-            --accent-primary: #3B82F6;
-            --accent-hover: #60A5FA;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
             
             /* Bloc Colours */
-            --bloc-western: #60A5FA;
-            --bloc-western-muted: rgba(96, 165, 250, 0.15);
-            --bloc-eastern: #FB923C;
-            --bloc-eastern-muted: rgba(251, 146, 60, 0.15);
-            --bloc-non-aligned: #94A3B8;
-            --bloc-non-aligned-muted: rgba(148, 163, 184, 0.15);
+            --weo-bloc-western: #60A5FA;
+            --weo-western-glow: rgba(96, 165, 250, 0.15);
+            --weo-bloc-eastern: #FB923C;
+            --weo-eastern-glow: rgba(251, 146, 60, 0.15);
+            --weo-bloc-non-aligned: #94A3B8;
+            --weo-bloc-non-aligned-muted: rgba(148, 163, 184, 0.15);
             
             /* Status colours */
-            --status-positive: #22C55E;
-            --status-negative: #EF4444;
-            --status-neutral: #94A3B8;
-            --status-warning: #F59E0B;
+            --weo-status-positive: #22C55E;
+            --weo-status-negative: #EF4444;
+            --weo-status-neutral: #94A3B8;
+            --weo-status-warning: #F59E0B;
             
             /* Typography */
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
             
             /* Border Radius */
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
             
             /* ========================================
                WEO UX REFINEMENTS - Phase 2c Design Tokens
                ======================================== */
             /* Timing */
-            --duration-instant: 80ms;
-            --duration-fast: 150ms;
-            --duration-normal: 200ms;
-            --duration-slow: 300ms;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
             
             /* Easing */
-            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
-            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
-            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Surfaces */
-            --surface-base: #0F172A;
-            --surface-raised: #1E293B;
-            --surface-overlay: #334155;
-            
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
             /* Interactive */
-            --hover-overlay: rgba(255, 255, 255, 0.08);
-            --focus-ring: #60A5FA;
-            --focus-ring-offset: 2px;
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
         }
         
         /* Reset & Base */
@@ -120,14 +115,14 @@
         }
         
         *:focus-visible {
-            outline: 2px solid var(--focus-ring);
-            outline-offset: var(--focus-ring-offset);
+            outline: 2px solid var(--weo-focus-ring);
+            outline-offset: var(--weo-focus-ring-offset);
             border-radius: 4px;
         }
         
         button:focus-visible,
         a:focus-visible {
-            outline: 2px solid var(--focus-ring);
+            outline: 2px solid var(--weo-focus-ring);
             outline-offset: 2px;
         }
         
@@ -157,9 +152,9 @@
         }
         
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -168,7 +163,7 @@
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: var(--space-2xl) var(--space-lg);
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
         }
         
         /* ========================================
@@ -178,20 +173,20 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: var(--space-md) 0;
-          margin-bottom: var(--space-xl);
-          border-bottom: 1px solid var(--border-primary);
+          padding: var(--weo-space-md) 0;
+          margin-bottom: var(--weo-space-xl);
+          border-bottom: 1px solid var(--weo-border-primary);
         }
 
         .weo-nav-brand {
           display: flex;
           align-items: center;
-          gap: var(--space-sm);
+          gap: var(--weo-space-sm);
           text-decoration: none;
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           font-weight: 600;
           font-size: 0.875rem;
-          transition: color var(--duration-fast) var(--ease-out);
+          transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-brand:hover {
@@ -207,7 +202,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-mono);
+          font-family: var(--weo-font-mono);
           font-size: 0.5rem;
           font-weight: 700;
           color: #2DD4BF;
@@ -216,21 +211,21 @@
         .weo-nav-links {
           display: flex;
           align-items: center;
-          gap: var(--space-xs);
+          gap: var(--weo-space-xs);
         }
 
         .weo-nav-links a {
-          padding: var(--space-xs) var(--space-sm);
-          color: var(--text-tertiary);
+          padding: var(--weo-space-xs) var(--weo-space-sm);
+          color: var(--weo-text-tertiary);
           text-decoration: none;
           font-size: 0.8125rem;
           font-weight: 500;
-          border-radius: var(--radius-sm);
-          transition: all var(--duration-fast) var(--ease-out);
+          border-radius: var(--weo-radius-sm);
+          transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-links a:hover {
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           background: rgba(59, 130, 246, 0.1);
         }
 
@@ -244,9 +239,9 @@
           display: none;
           width: 32px;
           height: 32px;
-          background: var(--bg-elevated);
-          border: 1px solid var(--border-primary);
-          border-radius: var(--radius-sm);
+          background: var(--weo-surface-overlay);
+          border: 1px solid var(--weo-border-primary);
+          border-radius: var(--weo-radius-sm);
           cursor: pointer;
           flex-direction: column;
           align-items: center;
@@ -258,9 +253,9 @@
           display: block;
           width: 16px;
           height: 2px;
-          background: var(--text-tertiary);
+          background: var(--weo-text-tertiary);
           border-radius: 1px;
-          transition: all var(--duration-normal) var(--ease-out);
+          transition: all var(--weo-duration-normal) var(--weo-ease-out);
         }
 
         .weo-nav-toggle:hover {
@@ -269,7 +264,7 @@
         }
 
         .weo-nav-toggle:hover span {
-          background: var(--text-primary);
+          background: var(--weo-text-primary);
         }
 
         @media (max-width: 767px) {
@@ -286,10 +281,10 @@
             flex-direction: column;
             background: rgba(15, 23, 42, 0.97);
             border: 1px solid rgba(96, 165, 250, 0.2);
-            border-top: 2px solid rgba(96, 165, 250, 0.4);
-            border-radius: var(--radius-md);
-            padding: var(--space-sm);
-            margin-top: var(--space-sm);
+            border-top: 2px solid rgba(96, 165, 250, 0.8);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-sm);
+            margin-top: var(--weo-space-sm);
             z-index: 100;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -302,7 +297,7 @@
           
           .weo-nav-links a {
             width: 100%;
-            padding: var(--space-sm) var(--space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
           }
           
           .weo-nav-toggle {
@@ -312,52 +307,52 @@
         
         /* Header */
         .page-header {
-            margin-bottom: var(--space-2xl);
-            padding-bottom: var(--space-lg);
-            border-bottom: 1px solid var(--border-primary);
+            margin-bottom: var(--weo-space-2xl);
+            padding-bottom: var(--weo-space-lg);
+            border-bottom: 1px solid var(--weo-border-primary);
         }
         
         .page-title {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
             letter-spacing: -0.02em;
         }
         
         .page-subtitle {
             font-size: 1rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             font-weight: 400;
         }
         
         /* Register Status Banner */
         .register-banner {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-left: 4px solid var(--accent-primary);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-2xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-left: 4px solid var(--weo-accent-primary);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-lg);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .register-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-lg);
+            gap: var(--weo-space-lg);
             align-items: center;
         }
         
         .register-meta-item {
             display: flex;
             flex-direction: column;
-            gap: var(--space-xs);
+            gap: var(--weo-space-xs);
         }
         
         .register-meta-label {
             font-size: 0.6875rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -365,142 +360,160 @@
         .register-meta-value {
             font-size: 0.875rem;
             font-weight: 500;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .register-meta-value.version {
-            font-family: var(--font-mono);
-            color: var(--accent-hover);
+            font-family: var(--weo-font-mono);
+            color: var(--weo-accent-hover);
         }
         
         /* Blocs Intro */
         .blocs-intro {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-2xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-lg);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .blocs-intro p {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.7;
         }
         
         /* Section */
         .section {
-            margin-bottom: var(--space-2xl);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .section-title {
+            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: var(--space-md);
+            margin-bottom: var(--weo-space-md);
         }
         
         /* Cards */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-lg);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
+            margin-bottom: var(--weo-space-lg);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15);
         }
         
         .card-title {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-md);
         }
         
         /* Summary Grid */
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-lg);
+            gap: var(--weo-space-lg);
         }
         
         .summary-item {
             text-align: center;
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-primary);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border: 1px solid var(--weo-border-primary);
         }
         
         .summary-item.western {
-            border-color: var(--bloc-western);
+            border-color: var(--weo-bloc-western);
             border-width: 2px;
         }
         
         .summary-item.eastern {
-            border-color: var(--bloc-eastern);
+            border-color: var(--weo-bloc-eastern);
             border-width: 2px;
         }
         
         .summary-item.non-aligned {
-            border-color: var(--bloc-non-aligned);
+            border-color: var(--weo-bloc-non-aligned);
             border-width: 2px;
         }
         
         .summary-value {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: var(--space-xs);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .summary-value.western {
-            color: var(--bloc-western);
+            color: var(--weo-bloc-western);
         }
         
         .summary-value.eastern {
-            color: var(--bloc-eastern);
+            color: var(--weo-bloc-eastern);
         }
         
         .summary-value.non-aligned {
-            color: var(--bloc-non-aligned);
+            color: var(--weo-bloc-non-aligned);
         }
         
         .summary-label {
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             font-weight: 500;
         }
         
         /* Bloc Section */
         .bloc-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--space-lg);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            margin-bottom: var(--weo-space-lg);
             overflow: hidden;
+        }
+        
+        /* Bloc-coloured datum borders */
+        .bloc-section[data-bloc="western"] {
+            border-top: 2px solid rgba(96, 165, 250, 0.8);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15);
+        }
+        
+        .bloc-section[data-bloc="eastern"] {
+            border-top: 2px solid rgba(251, 146, 60, 0.85);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(251, 146, 60, 0.15);
+        }
+        
+        .bloc-section[data-bloc="cross"] {
+            border-top: 2px solid rgba(45, 212, 191, 0.8);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(45, 212, 191, 0.15);
         }
         
         .bloc-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: var(--space-lg) var(--space-xl);
-            background: var(--bg-elevated);
-            border-bottom: 1px solid var(--border-primary);
+            padding: var(--weo-space-lg) var(--weo-space-xl);
+            background: var(--weo-surface-overlay);
+            border-bottom: 1px solid var(--weo-border-primary);
             cursor: pointer;
-            transition: background var(--duration-fast) var(--ease-out);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .bloc-header:hover {
-            background: var(--border-primary);
+            background: var(--weo-border-primary);
         }
         
         .bloc-header-left {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .bloc-indicator {
@@ -510,51 +523,51 @@
         }
         
         .bloc-indicator.western {
-            background: var(--bloc-western);
+            background: var(--weo-bloc-western);
         }
         
         .bloc-indicator.eastern {
-            background: var(--bloc-eastern);
+            background: var(--weo-bloc-eastern);
         }
         
         .bloc-indicator.non-aligned {
-            background: var(--bloc-non-aligned);
+            background: var(--weo-bloc-non-aligned);
         }
         
         .bloc-title {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .bloc-count {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.875rem;
             font-weight: 600;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
         }
         
         .bloc-count.western {
-            background: var(--bloc-western-muted);
-            color: var(--bloc-western);
+            background: var(--weo-western-glow);
+            color: var(--weo-bloc-western);
         }
         
         .bloc-count.eastern {
-            background: var(--bloc-eastern-muted);
-            color: var(--bloc-eastern);
+            background: var(--weo-eastern-glow);
+            color: var(--weo-bloc-eastern);
         }
         
         .bloc-count.non-aligned {
-            background: var(--bloc-non-aligned-muted);
-            color: var(--bloc-non-aligned);
+            background: var(--weo-bloc-non-aligned-muted);
+            color: var(--weo-bloc-non-aligned);
         }
         
         .bloc-chevron {
             width: 20px;
             height: 20px;
-            color: var(--text-muted);
-            transition: transform var(--duration-normal) var(--ease-out);
+            color: var(--weo-text-muted);
+            transition: transform var(--weo-duration-normal) var(--weo-ease-out);
         }
         
         .bloc-section.expanded .bloc-chevron {
@@ -563,7 +576,7 @@
         
         .bloc-content {
             display: none;
-            padding: var(--space-xl);
+            padding: var(--weo-space-xl);
         }
         
         .bloc-section.expanded .bloc-content {
@@ -572,7 +585,7 @@
         
         /* Subcategory */
         .subcategory {
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--weo-space-xl);
         }
         
         .subcategory:last-child {
@@ -582,52 +595,52 @@
         .subcategory-header {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-sm);
-            border-bottom: 1px solid var(--border-primary);
+            gap: var(--weo-space-sm);
+            margin-bottom: var(--weo-space-md);
+            padding-bottom: var(--weo-space-sm);
+            border-bottom: 1px solid var(--weo-border-primary);
         }
         
         .subcategory-title {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
         }
         
         .subcategory-count {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         /* Nation List */
         .nation-list {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-sm);
+            gap: var(--weo-space-sm);
         }
         
         .nation-tag {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-sm);
+            gap: var(--weo-space-sm);
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
         }
         
         .nation-tag.has-evidence {
-            border-color: var(--border-subtle);
+            border-color: var(--weo-border-subtle);
         }
         
         .nation-tag .evidence-indicator {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: var(--status-warning);
+            background: var(--weo-status-warning);
         }
         
         /* Nation Table */
@@ -658,7 +671,7 @@
             width: 32px;
             pointer-events: none;
             opacity: 0;
-            transition: opacity var(--duration-slow) var(--ease-out);
+            transition: opacity var(--weo-duration-slow) var(--weo-ease-out);
             z-index: 10;
             display: flex;
             align-items: center;
@@ -685,22 +698,22 @@
         
         .nation-table th,
         .nation-table td {
-            padding: var(--space-sm) var(--space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
             text-align: left;
-            border-bottom: 1px solid var(--border-primary);
+            border-bottom: 1px solid var(--weo-border-primary);
         }
         
         .nation-table th {
             font-size: 0.6875rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            background: var(--bg-primary);
+            background: var(--weo-surface-base);
         }
         
         .nation-table td {
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
         }
         
         .nation-table tr:last-child td {
@@ -709,17 +722,17 @@
         
         .nation-table .nation-name {
             font-weight: 500;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .nation-table .date-cell {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         .nation-table .evidence-link {
-            color: var(--accent-hover);
+            color: var(--weo-accent-hover);
             text-decoration: none;
             font-size: 0.75rem;
         }
@@ -731,12 +744,12 @@
         /* Prose */
         .prose {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.7;
         }
         
         .prose p {
-            margin-bottom: var(--space-md);
+            margin-bottom: var(--weo-space-md);
         }
         
         .prose p:last-child {
@@ -744,43 +757,43 @@
         }
         
         .prose strong {
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
             font-weight: 600;
         }
         
         .prose ul {
-            margin: var(--space-md) 0;
-            padding-left: var(--space-lg);
+            margin: var(--weo-space-md) 0;
+            padding-left: var(--weo-space-lg);
         }
         
         .prose li {
-            margin-bottom: var(--space-sm);
+            margin-bottom: var(--weo-space-sm);
         }
         
         /* EU Expandable */
         .eu-toggle {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-sm);
+            gap: var(--weo-space-sm);
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             cursor: pointer;
-            transition: all var(--duration-fast) var(--ease-out);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .eu-toggle:hover {
-            border-color: var(--accent-primary);
-            color: var(--text-primary);
+            border-color: var(--weo-accent-primary);
+            color: var(--weo-text-primary);
         }
         
         .eu-toggle svg {
             width: 14px;
             height: 14px;
-            transition: transform var(--duration-normal) var(--ease-out);
+            transition: transform var(--weo-duration-normal) var(--weo-ease-out);
         }
         
         .eu-toggle.expanded svg {
@@ -789,12 +802,12 @@
         
         .eu-members {
             display: none;
-            margin-top: var(--space-md);
-            padding: var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
+            margin-top: var(--weo-space-md);
+            padding: var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-sm);
             font-size: 0.8125rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.8;
         }
         
@@ -806,73 +819,73 @@
         .methodology-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .methodology-item {
-            padding: var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-primary);
+            padding: var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border: 1px solid var(--weo-border-primary);
         }
         
         .methodology-number {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent-hover);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-accent-hover);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .methodology-label {
             font-size: 0.8125rem;
             font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .methodology-desc {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
         }
         
         /* Snapshot History */
         .snapshot-list {
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
+            gap: var(--weo-space-sm);
         }
         
         .snapshot-item {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            padding: var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-primary);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-sm);
+            border: 1px solid var(--weo-border-primary);
         }
         
         .snapshot-item.current {
-            border-color: var(--accent-primary);
+            border-color: var(--weo-accent-primary);
             border-width: 2px;
         }
         
         .snapshot-date {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             min-width: 100px;
         }
         
         .snapshot-label {
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             flex: 1;
         }
         
         .snapshot-label.current {
-            color: var(--accent-hover);
+            color: var(--weo-accent-hover);
             font-weight: 500;
         }
         
@@ -881,54 +894,54 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
             background: rgba(59, 130, 246, 0.15);
-            color: var(--accent-primary);
+            color: var(--weo-accent-primary);
         }
         
         /* Permanence Note */
         .permanence-note {
             display: flex;
             align-items: flex-start;
-            gap: var(--space-md);
-            padding: var(--space-lg);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-lg);
             background: rgba(251, 146, 60, 0.08);
             border: 1px solid rgba(251, 146, 60, 0.25);
-            border-radius: var(--radius-md);
-            margin-top: var(--space-lg);
+            border-radius: var(--weo-radius-md);
+            margin-top: var(--weo-space-lg);
         }
         
         .permanence-note svg {
             width: 20px;
             height: 20px;
-            color: var(--bloc-eastern);
+            color: var(--weo-bloc-eastern);
             flex-shrink: 0;
             margin-top: 2px;
         }
         
         .permanence-note-text {
             font-size: 0.8125rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
         }
         
         .permanence-note-text strong {
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         /* Document Info */
         .document-info {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
-            margin-top: var(--space-2xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-lg);
+            margin-top: var(--weo-space-2xl);
         }
         
         .document-info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .document-info-item {
@@ -936,41 +949,41 @@
         }
         
         .document-info-label {
-            color: var(--text-muted);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-muted);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .document-info-value {
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             font-weight: 500;
         }
         
         /* Footer */
         .page-footer {
-            margin-top: var(--space-2xl);
-            padding-top: var(--space-lg);
-            border-top: 1px solid var(--border-primary);
+            margin-top: var(--weo-space-2xl);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
         }
         
         .footer-text {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             line-height: 1.6;
         }
         
         .footer-text a {
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             text-decoration: none;
         }
         
         .footer-text a:hover {
-            color: var(--accent-primary);
+            color: var(--weo-accent-primary);
         }
         
         /* Responsive */
         @media (max-width: 767px) {
             .container {
-                padding: var(--space-xl) var(--space-md);
+                padding: var(--weo-space-xl) var(--weo-space-md);
             }
             
             .summary-grid {
@@ -1007,13 +1020,29 @@
             }
             
             .bloc-header {
-                padding: var(--space-md);
+                padding: var(--weo-space-md);
             }
             
             .bloc-content {
-                padding: var(--space-md);
+                padding: var(--weo-space-md);
             }
         }
+        
+        /* Signature 3: Data Value Treatment */
+        .weo-value {
+            font-family: var(--weo-font-mono);
+            color: var(--weo-text-primary);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .weo-value.weo-value--pill {
+            background: var(--weo-surface-overlay, #334155);
+            padding: 0.1em 0.4em;
+            border-radius: var(--weo-radius-sm);
+        }
+        .weo-value--western { color: var(--weo-bloc-western); }
+        .weo-value--eastern { color: var(--weo-bloc-eastern); }
+        .weo-value--cross   { color: var(--weo-bloc-cross); }
     </style>
 </head>
 <body>
@@ -1097,13 +1126,13 @@
         <section class="section">
             <h2 class="section-title">Bloc Classifications</h2>
             
-            <div class="bloc-section expanded" id="western-bloc">
+            <div class="bloc-section expanded" id="western-bloc" data-bloc="western">
                 <div class="bloc-header" onclick="toggleBloc('western-bloc')">
                     <div class="bloc-header-left">
                         <span class="bloc-indicator western"></span>
                         <span class="bloc-title">Western Bloc</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                    <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
                         <span class="bloc-count western">37</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
@@ -1118,10 +1147,10 @@
                             <span class="subcategory-title">Core Members</span>
                             <span class="subcategory-count">(34)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations with systematic, long-standing alignment on export controls, AI safety standards, and semiconductor supply chains. Classification is stable and does not require event-by-event reassessment.</p>
                         </div>
-                        <div class="nation-list" style="margin-bottom: var(--space-md);">
+                        <div class="nation-list" style="margin-bottom: var(--weo-space-md);">
                             <span class="nation-tag">United States</span>
                             <span class="nation-tag">United Kingdom</span>
                             <span class="nation-tag">Canada</span>
@@ -1147,7 +1176,7 @@
                             <span class="subcategory-title">Conditional Members</span>
                             <span class="subcategory-count">(3)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations that have moved into Western regulatory/technology orbit through specific agreements, partnerships, or conditional technology access. Status is contingent on continued compliance with conditions.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1196,7 +1225,7 @@
                             <span class="subcategory-title">Functional Members</span>
                             <span class="subcategory-count">(1)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations with de facto alignment through governance participation and technology choices, without formal conditional access agreements.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1227,7 +1256,7 @@
                             <span class="subcategory-title">Governance Members</span>
                             <span class="subcategory-count">(1)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations participating in Western-led governance frameworks without significant technology infrastructure alignment.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1256,13 +1285,13 @@
             </div>
             
             <!-- Eastern Bloc Section -->
-            <div class="bloc-section" id="eastern-bloc">
+            <div class="bloc-section" id="eastern-bloc" data-bloc="eastern">
                 <div class="bloc-header" onclick="toggleBloc('eastern-bloc')">
                     <div class="bloc-header-left">
                         <span class="bloc-indicator eastern"></span>
                         <span class="bloc-title">Eastern Bloc</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                    <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
                         <span class="bloc-count eastern">10</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
@@ -1277,7 +1306,7 @@
                             <span class="subcategory-title">Core Members</span>
                             <span class="subcategory-count">(2)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations forming the core of the alternative technology governance and supply chain ecosystem.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1306,7 +1335,7 @@
                             <span class="subcategory-title">Aligned Members</span>
                             <span class="subcategory-count">(3)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations with formal political/military alignment to Eastern Bloc core members.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1343,7 +1372,7 @@
                             <span class="subcategory-title">Dependent Members</span>
                             <span class="subcategory-count">(5)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations with deep Huawei/ZTE or Chinese infrastructure dependency creating high switching costs, even without formal political alignment.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1384,7 +1413,7 @@
                             <span class="subcategory-title">Leaning Members</span>
                             <span class="subcategory-count">(1)</span>
                         </div>
-                        <div class="prose" style="margin-bottom: var(--space-md);">
+                        <div class="prose" style="margin-bottom: var(--weo-space-md);">
                             <p>Nations that have made significant moves toward Eastern Bloc technology alignment but have not fully committed.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
@@ -1413,13 +1442,13 @@
             </div>
             
             <!-- Non-Aligned Section -->
-            <div class="bloc-section" id="non-aligned">
+            <div class="bloc-section" id="non-aligned" data-bloc="cross">
                 <div class="bloc-header" onclick="toggleBloc('non-aligned')">
                     <div class="bloc-header-left">
                         <span class="bloc-indicator non-aligned"></span>
                         <span class="bloc-title">Non-Aligned</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-md);">
+                    <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
                         <span class="bloc-count non-aligned">12</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
@@ -1427,7 +1456,7 @@
                     </div>
                 </div>
                 <div class="bloc-content">
-                    <div class="prose" style="margin-bottom: var(--space-lg);">
+                    <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                         <p>Nations not listed in Western or Eastern Bloc sections require <strong>event-by-event assessment</strong> using the Primary Partner Test. The same nation can appear in Western Bloc events, Eastern Bloc events, or sovereign events depending on specific partnership context.</p>
                     </div>
                     
@@ -1510,7 +1539,7 @@
         <section class="section">
             <h2 class="section-title">Classification Methodology</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p><strong>Technology over Politics:</strong> Bloc membership reflects observable technology/supply chain alignment, not political statements. Every classification requires documented evidence with sources.</p>
                 </div>
                 
@@ -1578,7 +1607,7 @@
         
         <!-- Document Information -->
         <div class="document-info">
-            <h3 class="card-title" style="margin-bottom: var(--space-md);">Document Information</h3>
+            <h3 class="card-title" style="margin-bottom: var(--weo-space-md);">Document Information</h3>
             <div class="document-info-grid">
                 <div class="document-info-item">
                     <div class="document-info-label">Document Type</div>

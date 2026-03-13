@@ -43,90 +43,85 @@
         
         :root {
             /* Background & Surface — Observatory Palette */
-            --bg-primary: #0F172A;
-            --bg-card: #1E293B;
-            --bg-elevated: #334155;
-            --border-primary: #334155;
-            --border-subtle: #475569;
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
             
             /* Text Hierarchy */
-            --text-primary: #F1F5F9;
-            --text-secondary: #CBD5E1;
-            --text-tertiary: #94A3B8;
-            --text-muted: #64748B;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #64748B;
             
             /* Accent */
-            --accent-primary: #3B82F6;
-            --accent-hover: #60A5FA;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
             
             /* Tier Colours */
-            --tier-t1: #2DD4BF;
-            --tier-t2: #EF4444;
-            --tier-t3: #94A3B8;
+            --weo-tier-t1: #2DD4BF;
+            --weo-tier-t2: #EF4444;
+            --weo-tier-t3: #94A3B8;
             
             /* Bloc Colours */
-            --bloc-western: #60A5FA;
-            --bloc-eastern: #FB923C;
+            --weo-bloc-western: #60A5FA;
+            --weo-bloc-eastern: #FB923C;
             
             /* Domain Colours */
-            --domain-tech: #3B82F6;
-            --domain-security: #EF4444;
-            --domain-trade: #10B981;
-            --domain-energy: #F59E0B;
+            --weo-domain-tech: #3B82F6;
+            --weo-domain-security: #EF4444;
+            --weo-domain-trade: #10B981;
+            --weo-domain-energy: #F59E0B;
             
             /* Connection Type Colours (matching map key) */
-            --cc-policy-cascade: #3B82F6;
-            --cc-joint-issuance: #8B5CF6;
-            --cc-funding-flow: #10B981;
-            --cc-regulatory-enablement: #6366F1;
-            --cc-response: #F59E0B;
-            --cc-framework-family: #06B6D4;
-            --cc-parallel-policy: #94A3B8;
+            --weo-cc-policy-cascade: #3B82F6;
+            --weo-cc-joint-issuance: #8B5CF6;
+            --weo-cc-funding-flow: #10B981;
+            --weo-cc-regulatory-enablement: #6366F1;
+            --weo-cc-response: #F59E0B;
+            --weo-cc-framework-family: #06B6D4;
+            --weo-cc-parallel-policy: #94A3B8;
             
             /* Status */
-            --status-positive: #22C55E;
+            --weo-status-positive: #22C55E;
             
             /* Typography */
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
             
             /* Border Radius */
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
             
             /* ========================================
                WEO UX REFINEMENTS - Phase 2c Design Tokens
                ======================================== */
             /* Timing */
-            --duration-instant: 80ms;
-            --duration-fast: 150ms;
-            --duration-normal: 200ms;
-            --duration-slow: 300ms;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
             
             /* Easing */
-            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
-            --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
-            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Surfaces */
-            --surface-base: #0F172A;
-            --surface-raised: #1E293B;
-            --surface-overlay: #334155;
-            
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
             /* Interactive */
-            --hover-overlay: rgba(255, 255, 255, 0.08);
-            --focus-ring: #60A5FA;
-            --focus-ring-offset: 2px;
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
         }
         
         /* Reset & Base */
@@ -144,14 +139,14 @@
         }
         
         *:focus-visible {
-            outline: 2px solid var(--focus-ring);
-            outline-offset: var(--focus-ring-offset);
+            outline: 2px solid var(--weo-focus-ring);
+            outline-offset: var(--weo-focus-ring-offset);
             border-radius: 4px;
         }
         
         button:focus-visible,
         a:focus-visible {
-            outline: 2px solid var(--focus-ring);
+            outline: 2px solid var(--weo-focus-ring);
             outline-offset: 2px;
         }
         
@@ -181,9 +176,9 @@
         }
         
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -192,7 +187,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: var(--space-2xl) var(--space-lg);
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
         }
         
         /* ========================================
@@ -202,20 +197,20 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: var(--space-md) 0;
-          margin-bottom: var(--space-xl);
-          border-bottom: 1px solid var(--border-primary);
+          padding: var(--weo-space-md) 0;
+          margin-bottom: var(--weo-space-xl);
+          border-bottom: 1px solid var(--weo-border-primary);
         }
 
         .weo-nav-brand {
           display: flex;
           align-items: center;
-          gap: var(--space-sm);
+          gap: var(--weo-space-sm);
           text-decoration: none;
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           font-weight: 600;
           font-size: 0.875rem;
-          transition: color var(--duration-fast) var(--ease-out);
+          transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-brand:hover {
@@ -231,7 +226,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-mono);
+          font-family: var(--weo-font-mono);
           font-size: 0.5rem;
           font-weight: 700;
           color: #2DD4BF;
@@ -240,21 +235,21 @@
         .weo-nav-links {
           display: flex;
           align-items: center;
-          gap: var(--space-xs);
+          gap: var(--weo-space-xs);
         }
 
         .weo-nav-links a {
-          padding: var(--space-xs) var(--space-sm);
-          color: var(--text-tertiary);
+          padding: var(--weo-space-xs) var(--weo-space-sm);
+          color: var(--weo-text-tertiary);
           text-decoration: none;
           font-size: 0.8125rem;
           font-weight: 500;
-          border-radius: var(--radius-sm);
-          transition: all var(--duration-fast) var(--ease-out);
+          border-radius: var(--weo-radius-sm);
+          transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
 
         .weo-nav-links a:hover {
-          color: var(--text-primary);
+          color: var(--weo-text-primary);
           background: rgba(59, 130, 246, 0.1);
         }
 
@@ -268,9 +263,9 @@
           display: none;
           width: 32px;
           height: 32px;
-          background: var(--bg-elevated);
-          border: 1px solid var(--border-primary);
-          border-radius: var(--radius-sm);
+          background: var(--weo-surface-overlay);
+          border: 1px solid var(--weo-border-primary);
+          border-radius: var(--weo-radius-sm);
           cursor: pointer;
           flex-direction: column;
           align-items: center;
@@ -282,9 +277,9 @@
           display: block;
           width: 16px;
           height: 2px;
-          background: var(--text-tertiary);
+          background: var(--weo-text-tertiary);
           border-radius: 1px;
-          transition: all var(--duration-normal) var(--ease-out);
+          transition: all var(--weo-duration-normal) var(--weo-ease-out);
         }
 
         .weo-nav-toggle:hover {
@@ -293,7 +288,7 @@
         }
 
         .weo-nav-toggle:hover span {
-          background: var(--text-primary);
+          background: var(--weo-text-primary);
         }
 
         @media (max-width: 767px) {
@@ -310,10 +305,10 @@
             flex-direction: column;
             background: rgba(15, 23, 42, 0.97);
             border: 1px solid rgba(96, 165, 250, 0.2);
-            border-top: 2px solid rgba(96, 165, 250, 0.4);
-            border-radius: var(--radius-md);
-            padding: var(--space-sm);
-            margin-top: var(--space-sm);
+            border-top: 2px solid rgba(96, 165, 250, 0.8);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-sm);
+            margin-top: var(--weo-space-sm);
             z-index: 100;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -326,7 +321,7 @@
           
           .weo-nav-links a {
             width: 100%;
-            padding: var(--space-sm) var(--space-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
           }
           
           .weo-nav-toggle {
@@ -336,46 +331,48 @@
         
         /* Header */
         .page-header {
-            margin-bottom: var(--space-2xl);
-            padding-bottom: var(--space-lg);
-            border-bottom: 1px solid var(--border-primary);
+            margin-bottom: var(--weo-space-2xl);
+            padding-bottom: var(--weo-space-lg);
+            border-bottom: 1px solid var(--weo-border-primary);
         }
         
         .page-title {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
             letter-spacing: -0.02em;
         }
         
         .page-subtitle {
             font-size: 1rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             font-weight: 400;
         }
         
         /* Section */
         .section {
-            margin-bottom: var(--space-2xl);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .section-title {
+            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: var(--space-md);
+            margin-bottom: var(--weo-space-md);
         }
         
         /* Cards */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-lg);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
+            margin-bottom: var(--weo-space-lg);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15);
         }
         
         .card:last-child {
@@ -385,25 +382,25 @@
         .card-title {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-md);
         }
         
         .card-subtitle {
             font-size: 0.8125rem;
-            color: var(--text-tertiary);
-            margin-bottom: var(--space-lg);
+            color: var(--weo-text-tertiary);
+            margin-bottom: var(--weo-space-lg);
         }
         
         /* Prose */
         .prose {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.7;
         }
         
         .prose p {
-            margin-bottom: var(--space-md);
+            margin-bottom: var(--weo-space-md);
         }
         
         .prose p:last-child {
@@ -411,50 +408,50 @@
         }
         
         .prose strong {
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
             font-weight: 600;
         }
         
         .prose a {
-            color: var(--accent-primary);
+            color: var(--weo-accent-primary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out);
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .prose a:hover {
-            color: var(--accent-hover);
+            color: var(--weo-accent-hover);
         }
         
         /* Two Dynamics Grid */
         .dynamics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-md);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-md);
+            margin: var(--weo-space-lg) 0;
         }
         
         .dynamic-item {
             text-align: center;
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
         }
         
         .dynamic-icon {
             font-size: 1.5rem;
-            margin-bottom: var(--space-sm);
+            margin-bottom: var(--weo-space-sm);
         }
         
         .dynamic-name {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .dynamic-desc {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.5;
         }
         
@@ -462,27 +459,27 @@
         .event-types-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-sm);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-lg) 0;
         }
         
         .event-type-item {
-            padding: var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
             text-align: center;
         }
         
         .event-type-name {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .event-type-desc {
             font-size: 0.625rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             line-height: 1.4;
         }
         
@@ -490,104 +487,104 @@
         .tier-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-md);
+            margin: var(--weo-space-lg) 0;
         }
         
         .tier-item {
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
         }
         
         .tier-header {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-sm);
+            gap: var(--weo-space-sm);
+            margin-bottom: var(--weo-space-sm);
         }
         
         .tier-badge {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
         }
         
-        .tier-badge.t1 { background: rgba(45, 212, 191, 0.15); color: var(--tier-t1); }
-        .tier-badge.t2 { background: rgba(239, 68, 68, 0.15); color: var(--tier-t2); }
-        .tier-badge.t3 { background: rgba(148, 163, 184, 0.15); color: var(--tier-t3); }
+        .tier-badge.t1 { background: rgba(45, 212, 191, 0.15); color: var(--weo-tier-t1); }
+        .tier-badge.t2 { background: rgba(239, 68, 68, 0.15); color: var(--weo-tier-t2); }
+        .tier-badge.t3 { background: rgba(148, 163, 184, 0.15); color: var(--weo-tier-t3); }
         
         .tier-name {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .tier-desc {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.5;
-            margin-bottom: var(--space-sm);
+            margin-bottom: var(--weo-space-sm);
         }
         
         .tier-detail {
             font-size: 0.6875rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         .tier-detail strong {
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
         }
         
         /* Domain Grid — 4 domains */
         .domain-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-sm);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-lg) 0;
         }
         
         .domain-item {
-            padding: var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
             text-align: center;
             border-left: 3px solid;
         }
         
-        .domain-item.tech { border-color: var(--domain-tech); }
-        .domain-item.security { border-color: var(--domain-security); }
-        .domain-item.trade { border-color: var(--domain-trade); }
-        .domain-item.energy { border-color: var(--domain-energy); }
+        .domain-item.tech { border-color: var(--weo-domain-tech); }
+        .domain-item.security { border-color: var(--weo-domain-security); }
+        .domain-item.trade { border-color: var(--weo-domain-trade); }
+        .domain-item.energy { border-color: var(--weo-domain-energy); }
         
         .domain-name {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .domain-durability {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.625rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         /* Industry Tags */
         .industry-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-sm);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-lg) 0;
         }
         
         .industry-item {
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
             text-align: center;
             border-left: 3px solid;
             display: flex;
@@ -604,12 +601,12 @@
         .industry-name {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .industry-note {
             font-size: 0.625rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             font-style: italic;
         }
         
@@ -629,24 +626,24 @@
         .sequence-list {
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-lg) 0;
         }
         
         .sequence-item {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            padding: var(--space-md) var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-md) var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
         }
         
         .sequence-number {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             width: 1.5rem;
             flex-shrink: 0;
         }
@@ -658,26 +655,26 @@
         .sequence-name {
             font-size: 0.875rem;
             font-weight: 500;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .sequence-desc {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
         }
         
         .sequence-interstitial {
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            padding: var(--space-md) var(--space-lg);
-            border: 1px dashed var(--border-subtle);
-            border-radius: var(--radius-md);
+            gap: var(--weo-space-md);
+            padding: var(--weo-space-md) var(--weo-space-lg);
+            border: 1px dashed var(--weo-border-subtle);
+            border-radius: var(--weo-radius-md);
         }
         
         .sequence-interstitial-marker {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             width: 1.5rem;
             flex-shrink: 0;
             text-align: center;
@@ -686,90 +683,90 @@
         /* Connections Feature */
         .feature-highlight {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(45, 212, 191, 0.08) 100%);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin: var(--space-lg) 0;
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
+            margin: var(--weo-space-lg) 0;
         }
         
         .feature-header {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
+            gap: var(--weo-space-sm);
+            margin-bottom: var(--weo-space-md);
         }
         
         .feature-badge {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
             background: rgba(45, 212, 191, 0.15);
-            color: var(--tier-t1);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            color: var(--weo-tier-t1);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
         }
         
         .feature-title {
             font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--weo-text-primary);
         }
         
         .connection-types {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-sm);
-            margin-top: var(--space-md);
+            gap: var(--weo-space-sm);
+            margin-top: var(--weo-space-md);
         }
         
         /* Connection Type Badges with Colour Accents */
         .connection-type {
             font-size: 0.6875rem;
             font-weight: 500;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
             border: 1px solid;
         }
         
         .connection-type.policy-cascade {
             background: rgba(59, 130, 246, 0.1);
-            color: var(--cc-policy-cascade);
+            color: var(--weo-cc-policy-cascade);
             border-color: rgba(59, 130, 246, 0.3);
         }
         
         .connection-type.joint-issuance {
             background: rgba(139, 92, 246, 0.1);
-            color: var(--cc-joint-issuance);
+            color: var(--weo-cc-joint-issuance);
             border-color: rgba(139, 92, 246, 0.3);
         }
         
         .connection-type.funding-flow {
             background: rgba(16, 185, 129, 0.1);
-            color: var(--cc-funding-flow);
+            color: var(--weo-cc-funding-flow);
             border-color: rgba(16, 185, 129, 0.3);
         }
         
         .connection-type.regulatory-enablement {
             background: rgba(99, 102, 241, 0.1);
-            color: var(--cc-regulatory-enablement);
+            color: var(--weo-cc-regulatory-enablement);
             border-color: rgba(99, 102, 241, 0.3);
         }
         
         .connection-type.response {
             background: rgba(245, 158, 11, 0.1);
-            color: var(--cc-response);
+            color: var(--weo-cc-response);
             border-color: rgba(245, 158, 11, 0.3);
         }
         
         .connection-type.framework-family {
             background: rgba(6, 182, 212, 0.1);
-            color: var(--cc-framework-family);
+            color: var(--weo-cc-framework-family);
             border-color: rgba(6, 182, 212, 0.3);
         }
         
         .connection-type.parallel-policy {
             background: rgba(100, 116, 139, 0.1);
-            color: var(--cc-parallel-policy);
+            color: var(--weo-cc-parallel-policy);
             border-color: rgba(100, 116, 139, 0.3);
         }
         
@@ -777,28 +774,28 @@
         .standards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .standard-item {
             text-align: center;
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
         }
         
         .standard-value {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .standard-label {
             font-size: 0.6875rem;
             font-weight: 500;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -807,34 +804,34 @@
         .foundation-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .foundation-item {
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
         }
         
         .foundation-source {
             font-size: 0.6875rem;
             font-weight: 500;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: var(--space-xs);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .foundation-name {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .foundation-application {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.5;
         }
         
@@ -842,74 +839,74 @@
         .pathway-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-md);
-            margin: var(--space-lg) 0;
+            gap: var(--weo-space-md);
+            margin: var(--weo-space-lg) 0;
         }
         
         .pathway-item {
-            padding: var(--space-lg);
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
-            border-top: 3px solid var(--accent-primary);
+            padding: var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border-top: 3px solid var(--weo-accent-primary);
         }
         
         .pathway-name {
             font-size: 0.8125rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .pathway-scope {
             font-size: 0.6875rem;
-            color: var(--text-muted);
-            margin-bottom: var(--space-sm);
+            color: var(--weo-text-muted);
+            margin-bottom: var(--weo-space-sm);
         }
         
         .pathway-desc {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             line-height: 1.5;
         }
         
         /* Download Section */
         .download-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
             text-align: center;
         }
         
         .download-title {
             font-size: 1.125rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            color: var(--weo-text-primary);
+            margin-bottom: var(--weo-space-xs);
         }
         
         .download-desc {
             font-size: 0.875rem;
-            color: var(--text-tertiary);
-            margin-bottom: var(--space-lg);
+            color: var(--weo-text-tertiary);
+            margin-bottom: var(--weo-space-lg);
         }
         
         .download-button {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-sm);
-            background: var(--accent-primary);
+            gap: var(--weo-space-sm);
+            background: var(--weo-accent-primary);
             color: white;
             font-size: 0.875rem;
             font-weight: 600;
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
+            padding: var(--weo-space-sm) var(--weo-space-lg);
+            border-radius: var(--weo-radius-md);
             text-decoration: none;
-            transition: background var(--duration-fast) var(--ease-out);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .download-button:hover {
-            background: var(--accent-hover);
+            background: var(--weo-accent-hover);
         }
         
         .download-button svg {
@@ -919,8 +916,8 @@
         
         .download-button--secondary {
             background: transparent;
-            color: var(--accent-primary);
-            border: 1px solid var(--accent-primary);
+            color: var(--weo-accent-primary);
+            border: 1px solid var(--weo-accent-primary);
         }
         
         .download-button--secondary:hover {
@@ -929,69 +926,69 @@
         
         .download-meta {
             font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: var(--space-md);
+            color: var(--weo-text-muted);
+            margin-top: var(--weo-space-md);
         }
         
         /* Quick Start Box */
         .quick-start-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-left: 4px solid var(--tier-t1);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-2xl);
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-left: 4px solid var(--weo-tier-t1);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-xl);
+            margin-bottom: var(--weo-space-2xl);
         }
         
         .quick-start-label {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.6875rem;
             font-weight: 600;
-            color: var(--tier-t1);
+            color: var(--weo-tier-t1);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--weo-space-lg);
         }
         
         .quick-start-content {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
         }
         
         .quick-start-item {
             display: flex;
-            gap: var(--space-md);
+            gap: var(--weo-space-md);
             align-items: flex-start;
         }
         
         .qs-label {
-            font-family: var(--font-mono);
+            font-family: var(--weo-font-mono);
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             min-width: 140px;
             flex-shrink: 0;
         }
         
         .qs-value {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--weo-text-secondary);
             line-height: 1.5;
         }
         
         .quick-start-footer {
-            margin-top: var(--space-lg);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border-primary);
+            margin-top: var(--weo-space-lg);
+            padding-top: var(--weo-space-md);
+            border-top: 1px solid var(--weo-border-primary);
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
         }
         
         @media (max-width: 767px) {
             .quick-start-item {
                 flex-direction: column;
-                gap: var(--space-xs);
+                gap: var(--weo-space-xs);
             }
             
             .qs-label {
@@ -1001,31 +998,52 @@
         
         /* Footer */
         .page-footer {
-            margin-top: var(--space-2xl);
-            padding-top: var(--space-lg);
-            border-top: 1px solid var(--border-primary);
+            margin-top: var(--weo-space-2xl);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
         }
         
         .footer-text {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--weo-text-muted);
             line-height: 1.6;
         }
         
         .footer-text a {
-            color: var(--text-tertiary);
+            color: var(--weo-text-tertiary);
             text-decoration: none;
-            transition: color var(--duration-fast) var(--ease-out);
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
         }
         
         .footer-text a:hover {
-            color: var(--accent-primary);
+            color: var(--weo-accent-primary);
         }
         
+        /* ========================================
+           SIGNATURE 3: Data Value Treatment
+           Phase 3A — WEO Signature Style Spec v1.1
+           ======================================== */
+        .weo-value {
+            font-family: var(--weo-font-mono);
+            color: var(--weo-text-primary);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .weo-value.weo-value--pill {
+            background: var(--weo-surface-overlay, #334155);
+            padding: 0.1em 0.4em;
+            border-radius: var(--weo-radius-sm);
+        }
+
+        .weo-value--western { color: var(--weo-bloc-western, #60A5FA); }
+        .weo-value--eastern { color: var(--weo-bloc-eastern, #FB923C); }
+        .weo-value--cross   { color: var(--weo-tier-t1, #2DD4BF); }
+
         /* Responsive */
         @media (max-width: 767px) {
             .container {
-                padding: var(--space-xl) var(--space-md);
+                padding: var(--weo-space-xl) var(--weo-space-md);
             }
             
             .page-title {
@@ -1115,7 +1133,7 @@
                 </div>
                 <div class="quick-start-item">
                     <span class="qs-label">How we classify:</span>
-                    <span class="qs-value">Three tiers — T1: Cross-Bloc coordination, T2: Between-Bloc fragmentation, T3: Intra-Bloc coordination; four domains; four event types</span>
+                    <span class="qs-value">Three tiers — <span class="weo-value weo-value--cross">T1</span>: Cross-Bloc coordination, <span class="weo-value">T2</span>: Between-Bloc fragmentation, <span class="weo-value">T3</span>: Intra-Bloc coordination; four domains; four event types</span>
                 </div>
                 <div class="quick-start-item">
                     <span class="qs-label">What we tag:</span>
@@ -1123,7 +1141,7 @@
                 </div>
                 <div class="quick-start-item">
                     <span class="qs-label">How we connect:</span>
-                    <span class="qs-value">Seven Coordination Connection types with confidence levels (CC-V, CC-E, CC-A)</span>
+                    <span class="qs-value"><span class="weo-value">Seven</span> Coordination Connection types with confidence levels (<span class="weo-value">CC-V</span>, <span class="weo-value">CC-E</span>, <span class="weo-value">CC-A</span>)</span>
                 </div>
             </div>
             <div class="quick-start-footer">Full methodology below. Manual available for download.</div>
@@ -1135,7 +1153,7 @@
             <div class="card">
                 <div class="prose">
                     <p>The Warmth Engine Observatory tracks observable coordination and fragmentation dynamics across geopolitical blocs through verified events and mapped coordination connections.</p>
-                    <p><strong>Primary differentiator:</strong> The 7-type Coordination Connections taxonomy is the first systematic framework for tracking verified relationships between AI infrastructure events.</p>
+                    <p><strong>Primary differentiator:</strong> The <span class="weo-value">7-type</span> Coordination Connections taxonomy is the first systematic framework for tracking verified relationships between AI infrastructure events.</p>
                 </div>
                 
                 <div class="dynamics-grid">
@@ -1161,7 +1179,7 @@
         <section class="section">
             <h2 class="section-title">Processing Sequence</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Events progress through five sequential stages. Failure at Stage 1 or 2 excludes the event from the database. Stages 3–5 classify qualifying events and document their relationships.</p>
                 </div>
                 
@@ -1216,7 +1234,7 @@
         <section class="section">
             <h2 class="section-title">Geopolitical Significance Assessment</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Events must demonstrate geopolitical significance to qualify for database entry. Four assessment pathways apply based on event nature, with an auto-qualification route for multi-nation coordination.</p>
                 </div>
                 
@@ -1249,7 +1267,7 @@
         <section class="section">
             <h2 class="section-title">Event Types</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Events are classified by Event Type — the mechanism by which the action occurs and the actor type involved. Event Type is distinct from Domain (which classifies subject matter) and Tier (which classifies coordination scale).</p>
                 </div>
                 
@@ -1278,7 +1296,7 @@
         <section class="section">
             <h2 class="section-title">Tier Classification</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Events are classified into three tiers based on bloc participation and coordination dynamics — whether events represent coordination or fragmentation. Each tier captures a distinct dynamic in AI infrastructure alignment.</p>
                 </div>
                 
@@ -1315,7 +1333,7 @@
         <section class="section">
             <h2 class="section-title">Domain Classification</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Events are assigned to one of four domains based on their primary subject matter. Domain classification captures what the event is primarily about.</p>
                 </div>
                 
@@ -1348,7 +1366,7 @@
         <section class="section">
             <h2 class="section-title">Industry Tags</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>Each event is tagged with the industry whose operational landscape its documented provisions most directly address. Industry tags are distinct from classification — they identify an external relationship rather than an intrinsic property of the event.</p>
                 </div>
                 
@@ -1389,7 +1407,7 @@
                     </div>
                 </div>
                 
-                <div class="prose" style="margin-top: var(--space-lg);">
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
                     <p><strong>Primary/secondary structure:</strong> Each event receives one primary tag. Up to two secondary tags document specific pathways to other industries via mechanism statements.</p>
                 </div>
             </div>
@@ -1418,8 +1436,8 @@
                     </div>
                 </div>
                 
-                <div class="prose" style="margin-top: var(--space-lg);">
-                    <p><strong>Confidence Levels:</strong> CC-V (Verified) requires primary source documentation. CC-E (Established) requires authoritative statement with corroboration. CC-A (Analytical) permits analyst assessment for parallel policy patterns.</p>
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
+                    <p><strong>Confidence Levels:</strong> <span class="weo-value">CC-V</span> (Verified) requires primary source documentation. <span class="weo-value">CC-E</span> (Established) requires authoritative statement with corroboration. <span class="weo-value">CC-A</span> (Analytical) permits analyst assessment for parallel policy patterns.</p>
                     <p><strong>Auditability:</strong> Every connection can be verified against the evidence cited.</p>
                 </div>
             </div>
@@ -1444,9 +1462,9 @@
                     </div>
                 </div>
                 
-                <div class="prose" style="margin-top: var(--space-lg);">
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
                     <p>WEO aims to meet the verification rigour of major financial indices. All events require either 2+ primary sources OR 1 primary + 2 corroborating sources. The 6-month verification lag ensures implementation confirmation before database entry.</p>
-                    <p>Low-confidence events (&lt;70%) are excluded from the database. Only HIGH (90%+) and MEDIUM (70–90%) confidence events appear in WEO.</p>
+                    <p>Low-confidence events (&lt;70%) are excluded from the database. Only <span class="weo-value weo-value--pill">HIGH (90%+)</span> and <span class="weo-value weo-value--pill">MEDIUM (70–90%)</span> confidence events appear in WEO.</p>
                 </div>
             </div>
         </section>
@@ -1455,7 +1473,7 @@
         <section class="section">
             <h2 class="section-title">Methodological Foundations</h2>
             <div class="card">
-                <div class="prose" style="margin-bottom: var(--space-lg);">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
                     <p>WEO applies proven institutional methodologies to tracking AI infrastructure coordination dynamics.</p>
                 </div>
                 
@@ -1499,7 +1517,7 @@
                 <div class="download-meta">DOI: 10.5281/zenodo.18427565</div>
             </div>
             
-            <div class="download-section" style="margin-top: var(--space-lg);">
+            <div class="download-section" style="margin-top: var(--weo-space-lg);">
                 <div class="download-title">WEO Methodology Rationale</div>
                 <div class="download-desc">Empirical derivation and calibration justification for all methodology components</div>
                 <a href="https://zenodo.org/records/18427582" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
