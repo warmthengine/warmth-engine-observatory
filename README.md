@@ -58,6 +58,8 @@ warmth-engine-observatory/
 ├── support.html        # Supporter access
 ├── legal.html          # Legal information
 ├── 404.html            # Custom error page
+├── sitemap.xml         # XML sitemap for search engines
+├── robots.txt          # Crawler directives
 ├── og-image.png        # Open Graph social preview image
 ├── favicon_32x32.png   # Browser tab icon (32px)
 ├── favicon_16x16.png   # Browser tab icon (16px)
