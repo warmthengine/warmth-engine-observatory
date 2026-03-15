@@ -1406,11 +1406,76 @@
     .supporter-locked a:hover { text-decoration: underline; }
     body.weo-authenticated .upgrade-cta { display: none; }
     
+    .ind-secondary-count {
+      font-size: 0.5625rem;
+      font-weight: 600;
+      color: var(--weo-text-muted);
+      margin-left: 3px;
+      font-family: var(--weo-font-mono);
+    }
+    /* Original Qualification Data Section */
+    .original-qualification-section {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .oq-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: #94A3B8;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color var(--weo-duration-fast) var(--weo-ease-out);
+    }
+    .oq-toggle:hover { color: #F59E0B; }
+    .oq-toggle-icon {
+      font-size: 10px;
+      transition: transform var(--weo-duration-fast) var(--weo-ease-out);
+    }
+    .oq-content {
+      margin-top: 8px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--weo-radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .genesis-item {
+      font-size: 12px;
+      color: #94A3B8;
+      margin-bottom: 6px;
+    }
+    .genesis-item:last-child { margin-bottom: 0; }
+    .genesis-label { color: #64748B; font-weight: 500; }
+    .genesis-description {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      line-height: 1.4;
+    }
+    .header-version-badge {
+      font-family: ui-monospace, 'SF Mono', 'Consolas', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: #94A3B8;
+      background: rgba(30, 41, 59, 0.4);
+      padding: 2px 6px;
+      border-radius: var(--weo-radius-sm);
+      opacity: 0.8;
+      cursor: pointer;
+    }
+    .header-version-badge:hover { opacity: 1; }
     .supporter-access-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.375rem;
       padding: 0.375rem 0.75rem;
+      margin-left: 0.5rem;
       background: rgba(245, 158, 11, 0.1);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: var(--weo-radius-sm);
@@ -2264,7 +2329,7 @@
     }
     .piet-gate-summary .gate-pass { color: rgba(34,197,94,0.60); font-size: 0.6875rem; flex-shrink: 0; margin-top: 1px; }
     .piet-gate-summary .gate-fail { color: rgba(248,113,113,0.60); font-size: 0.6875rem; flex-shrink: 0; margin-top: 1px; }
-    .piet-gate-summary .gate-name { font-weight: 500; color: rgba(255,255,255,0.50); }
+    .piet-gate-summary .gate-name { font-weight: 600; color: var(--weo-text-primary); }
     .piet-gate-summary .gate-metric { color: rgba(255,255,255,0.60); }
     .piet-gate-summary .gate-detail-chevron {
         margin-left: auto;
@@ -2296,8 +2361,8 @@
         line-height: 1.4;
     }
     .piet-evidence-label {
-        color: rgba(255,255,255,0.35);
-        font-weight: 500;
+        color: rgba(255,255,255,0.55);
+        font-weight: 600;
         min-width: 72px;
         flex-shrink: 0;
         text-transform: uppercase;
@@ -2314,13 +2379,13 @@
     /* Layer 4: Full rationale expand */
     .piet-rationale-toggle {
         font-size: 0.75rem;
-        color: rgba(45,212,191,0.50);
+        color: rgba(45,212,191,0.70);
         cursor: pointer;
         padding: 0.25rem 0 0.125rem 0;
         display: inline-block;
     }
     .piet-rationale-toggle:hover {
-        color: rgba(45,212,191,0.80);
+        color: rgba(45,212,191,0.95);
     }
     .piet-rationale-full {
         display: none;
@@ -2342,11 +2407,11 @@
     }
     .piet-sources-toggle {
         font-size: 0.75rem;
-        color: rgba(255,255,255,0.38);
+        color: rgba(255,255,255,0.55);
         cursor: pointer;
     }
     .piet-sources-toggle:hover {
-        color: rgba(255,255,255,0.55);
+        color: rgba(255,255,255,0.75);
     }
     .piet-sources-list {
         display: none;
@@ -2621,6 +2686,7 @@
     // Tooltip state — declared early to avoid reference errors in openModal click handlers
     let tooltipTimeout = null;
     let activeTooltipTrigger = null;
+    let tooltipOverlay = null;
 
     // ========================================
     // WEO DATABASE VERSION CONSTANT
@@ -2731,7 +2797,7 @@ async function loadWEOData(password) {
   // Try API first
   try {
     const [eventsRes, connectionsRes] = await Promise.all([
-      fetch(API_BASE + '/events', { headers }),
+      fetch(API_BASE + '/events', { headers, cache: password ? 'no-store' : 'default' }),
       fetch(API_BASE + '/connections')
     ]);
     if (eventsRes.ok) {
@@ -3341,6 +3407,56 @@ function generateVersionHistorySection(event, eventId) {
   '</div>';
 }
 
+// Generate Original Qualification Data expandable (for events with rolling updates)
+function generateOriginalQualificationSection(event) {
+  if (!event.version || event.version === '1.0' || !event.genesis) {
+    return '';
+  }
+
+  // Determine which framework qualified this event
+  let qualificationFramework = 'Unknown';
+  if (event.basel_factors && event.basel_factors.length > 0 && event.basel_factors.some(function(f) { return f.rationale; })) {
+    qualificationFramework = 'Basel 5-Factor';
+  } else if (event.keohane_factors && event.keohane_factors.length > 0 && event.keohane_factors.some(function(f) { return f.rationale; })) {
+    qualificationFramework = 'Keohane Pre-Filter';
+  } else if (event.pisa5_factors && event.pisa5_factors.length > 0 && event.pisa5_factors.some(function(f) { return f.rationale; })) {
+    qualificationFramework = 'PISA-5';
+  } else if (event.route_based_factors && event.route_based_factors.length > 0 && event.route_based_factors.some(function(f) { return f.rationale; })) {
+    qualificationFramework = 'Route-Based';
+  }
+
+  var genesisDate = event.genesisDate ? new Date(event.genesisDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
+
+  var genesisContent = '';
+  genesisContent += '<div class="genesis-item"><span class="genesis-label">Qualified via:</span> ' + qualificationFramework + '</div>';
+
+  if (event.genesis.investment) {
+    genesisContent += '<div class="genesis-item"><span class="genesis-label">Original Investment:</span> ' + event.genesis.investment + '</div>';
+  }
+
+  if (event.genesis.description) {
+    genesisContent += '<div class="genesis-item genesis-description"><span class="genesis-label">Original Description:</span> ' + event.genesis.description + '</div>';
+  }
+
+  return '<div class="original-qualification-section">' +
+    '<button class="oq-toggle" onclick="toggleOriginalQualification(this)" aria-expanded="false">' +
+      '<span class="oq-toggle-icon">▸</span> Original Qualification Data' + (genesisDate ? ' (' + genesisDate + ')' : '') +
+    '</button>' +
+    '<div class="oq-content" style="display: none;">' +
+      genesisContent +
+    '</div>' +
+  '</div>';
+}
+
+function toggleOriginalQualification(button) {
+  var content = button.nextElementSibling;
+  var icon = button.querySelector('.oq-toggle-icon');
+  var isExpanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isExpanded);
+  icon.textContent = isExpanded ? '▸' : '▾';
+  content.style.display = isExpanded ? 'none' : 'block';
+}
+
 // Utility functions
 const getTypeIcon = t => {
     const iconId = {Infrastructure:'infrastructure',Policy:'policy',Coordination:'coordination',Corporate:'corporate'}[t]||'infrastructure';
@@ -3719,7 +3835,7 @@ function generateCCSection(eventId, showFullContent) {
     }
     
     if (bidirectional.length > 0) {
-      html += '<div class="cc-group"><div class="cc-group-label">↔ Mutual / Related</div>';
+      html += '<div class="cc-group"><div class="cc-group-label">⟷ Related Framework / Parallel</div>';
       bidirectional.forEach(c => {
         const otherId = c.source === eventId ? c.target : c.source;
         const name = getEventNameById(otherId);
@@ -3765,7 +3881,7 @@ const renderTable = () => {
             <td><span class="badge ${getTierBadgeClass(e.tier)}">T${e.tier}</span></td>
             <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${e.bloc}</span></td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':e.domain}</span></td>
-            <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span></td>
+            <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + getIndTags(e.event_id).secondary.map(s => s.tag).join(', ') + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
             <td><span class="cc-count ${ccClass}">${cc}</span></td>
             <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">✓</span>`).join('')}</div></td>
             <td><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span></td>
@@ -3908,11 +4024,14 @@ const openModal = (id) => {
     const highlyConnectedTooltip = generateTooltip('highlyConnected', 'below');
     
     const highlyConnBadge = isHighlyConnected(id) ? `<span class="badge-with-tooltip"><span class="badge badge-highly-connected" onclick="scrollToModalSection('cc')">🔗 Highly Connected</span>${highlyConnectedTooltip}</span>` : '';
+    const lastUpdateText = full && full.versionDate ? new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
+    const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${full.version}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
     document.getElementById('modal-meta').innerHTML = `
         <span class="badge-with-tooltip"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">T${e.tier}</span>${tierTooltip}</span>
         <span class="badge-with-tooltip"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${e.bloc}</span>${blocTooltip}</span>
         <span class="badge-with-tooltip"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${e.domain}</span>${domainTooltip}</span>
         ${highlyConnBadge}
+        ${headerVersionBadge}
     `;
     document.getElementById('modal-industry-shelf').innerHTML = generateIndustryShelfHtml(id);
     
@@ -4140,23 +4259,23 @@ const openModal = (id) => {
                         let srcIdx = 1;
                         p.gates.forEach(g => { 
                             if(g.sources && g.sources.length > 0) { 
-                                groupedSources.push({ gate: g.name, sources: g.sources.map(s => ({...s, num: srcIdx++})) }); 
+                                groupedSources.push({ gate: g.factor, sources: g.sources.map(s => ({...s, num: srcIdx++})) }); 
                             } 
                         });
                         const totalSources = srcIdx - 1;
-                        const t2Badge = p.t2_impact_demonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through PIET Gate 3 evidence — qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
+                        const t2Badge = p.t2ImpactDemonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through PIET Gate 3 evidence — qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
                         return `
                         <div style="margin-top:1rem;margin-bottom:0.5rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div>
                         <div class="piet-verification-subsection">
                             <div class="piet-expand-trigger" onclick="this.classList.toggle('expanded'); this.parentElement.querySelector('.piet-detail-panel').classList.toggle('visible');">
-                                <span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> · ${p.gates_passed}/${p.gates.length} gates · ${p.confidence}${generateTooltip('piet', 'left')}${t2Badge}</span>
+                                <span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> · ${p.gatesPassed}/${p.gates.length} gates · ${p.confidence}${generateTooltip('piet', 'left')}${t2Badge}</span>
                                 <span class="piet-expand-chevron">▸</span>
                             </div>
                             <div class="piet-detail-panel">
                                 ${p.gates.map((g, gi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
                                         <span class="${g.pass ? 'gate-pass' : 'gate-fail'}">${g.pass ? '✓' : '✗'}</span>
-                                        <span><span class="gate-name">${g.name}:</span> <span class="gate-metric">${g.summary || g.rationale.substring(0, 80) + '…'}</span></span>
+                                        <span><span class="gate-name">${g.factor}:</span> <span class="gate-metric">${g.summary || g.rationale.substring(0, 80) + '…'}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
                                     <div class="piet-gate-evidence">
@@ -4194,7 +4313,7 @@ const openModal = (id) => {
                         let srcIdx = 1;
                         o.pathways.forEach(pw => { 
                             if(pw.sources && pw.sources.length > 0) { 
-                                groupedSources.push({ gate: pw.name, sources: pw.sources.map(s => ({...s, num: srcIdx++})) }); 
+                                groupedSources.push({ gate: pw.factor, sources: pw.sources.map(s => ({...s, num: srcIdx++})) }); 
                             } 
                         });
                         const totalSources = srcIdx - 1;
@@ -4209,7 +4328,7 @@ const openModal = (id) => {
                                 ${o.pathways.map((pw, pi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
                                         <span class="${pw.pass ? 'gate-pass' : 'gate-fail'}">${pw.pass ? '✓' : '✗'}</span>
-                                        <span><span class="gate-name">${pw.name}:</span> <span class="gate-metric">${pw.summary || pw.rationale.substring(0, 80) + '…'}</span></span>
+                                        <span><span class="gate-name">${pw.factor}:</span> <span class="gate-metric">${pw.summary || pw.rationale.substring(0, 80) + '…'}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
                                     <div class="piet-gate-evidence">
@@ -4323,7 +4442,10 @@ const openModal = (id) => {
         
         // Version History (if event has rolling updates) - EXPANDABLE ACCORDION
         html += generateVersionHistorySection(full, id);
-        
+
+        // Original Qualification Data (for events with genesis data and version > 1.0)
+        html += generateOriginalQualificationSection(full);
+
         // Coordination Connections section (for sample events with connections) - BEFORE Related Events
         const ccSectionHtml = generateCCSection(id, true);
         if (ccSectionHtml) {
@@ -4577,7 +4699,7 @@ const closeModal = () => {
 // WEO TOOLTIP SYSTEM INITIALIZATION
 // ========================================
 
-const tooltipOverlay = document.getElementById('weo-tooltip-overlay');
+tooltipOverlay = document.getElementById('weo-tooltip-overlay');
 const tooltipTitle = tooltipOverlay ? tooltipOverlay.querySelector('.weo-tooltip-title') : null;
 const tooltipBody = tooltipOverlay ? tooltipOverlay.querySelector('.weo-tooltip-body') : null;
 let tooltipsInitialized = false;
@@ -4844,7 +4966,8 @@ if (navToggle && navLinks) {
       if (!password) { input.classList.add('error'); error.classList.add('visible'); return; }
       try {
         const res = await fetch('https://warmthengine.com/api/events', {
-          headers: { 'X-WEO-Password': password }
+          headers: { 'X-WEO-Password': password },
+          cache: 'no-store'
         });
         const data = await res.json();
         if (data.meta && data.meta.tier === 'full') {
