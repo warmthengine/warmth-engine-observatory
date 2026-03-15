@@ -2618,6 +2618,10 @@
         </div>
     </div>
 <script>
+    // Tooltip state — declared early to avoid reference errors in openModal click handlers
+    let tooltipTimeout = null;
+    let activeTooltipTrigger = null;
+
     // ========================================
     // WEO DATABASE VERSION CONSTANT
     // Single source of truth — update this block when the database changes
@@ -3965,7 +3969,7 @@ const openModal = (id) => {
                         ${full.basel_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
-                                <div><span class="basel-factor-name">${f.name}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -3984,7 +3988,7 @@ const openModal = (id) => {
                         ${full.keohane_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
-                                <div><span class="basel-factor-name">${f.name}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -4002,7 +4006,7 @@ const openModal = (id) => {
                         ${full.pisa5_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
-                                <div><span class="basel-factor-name">${f.name}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -4049,7 +4053,7 @@ const openModal = (id) => {
                         ${full.route_based_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
-                                <div><span class="basel-factor-name">${f.name}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -4576,8 +4580,6 @@ const closeModal = () => {
 const tooltipOverlay = document.getElementById('weo-tooltip-overlay');
 const tooltipTitle = tooltipOverlay ? tooltipOverlay.querySelector('.weo-tooltip-title') : null;
 const tooltipBody = tooltipOverlay ? tooltipOverlay.querySelector('.weo-tooltip-body') : null;
-let tooltipTimeout = null;
-let activeTooltipTrigger = null;
 let tooltipsInitialized = false;
 
 function initWEOTooltips() {
