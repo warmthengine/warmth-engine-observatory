@@ -25,6 +25,19 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 
 ---
 
+## Architecture
+
+The platform uses a decoupled architecture: HTML files serve as lightweight UI shells that fetch data dynamically from the WEO API (Cloudflare Worker + KV).
+
+- **Data source:** Cloudflare KV via WEO API (`warmthengine.com/api/`)
+- **Authentication:** Server-side password validation via custom header
+- **Fallback:** Static JSON file for API downtime resilience
+- **Hosting:** GitHub Pages with custom domain
+
+Data updates flow through the API — no HTML changes required for new events or connections.
+
+---
+
 ## Methodology Documentation
 
 The WEO methodology is documented across four publications, all available on Zenodo with DOI registration:
@@ -49,23 +62,25 @@ The WEO methodology is documented across four publications, all available on Zen
 
 ```
 warmth-engine-observatory/
-├── index.html          # Main platform (interactive map)
-├── events.html         # Events database
-├── methodology.html    # Methodology overview
-├── blocs.html          # Bloc analysis
-├── research.html       # Research publications
-├── about.html          # About WEO
-├── support.html        # Supporter access
-├── legal.html          # Legal information
-├── 404.html            # Custom error page
-├── sitemap.xml         # XML sitemap for search engines
-├── robots.txt          # Crawler directives
-├── og-image.png        # Open Graph social preview image
-├── favicon_32x32.png   # Browser tab icon (32px)
-├── favicon_16x16.png   # Browser tab icon (16px)
-├── CNAME               # Custom domain configuration
-├── LICENSE.md          # License information
-└── README.md           # This file
+├── index.html                  # Main platform (interactive map)
+├── events.html                 # Events database
+├── methodology.html            # Methodology overview
+├── blocs.html                  # Bloc analysis
+├── research.html               # Research publications
+├── about.html                  # About WEO
+├── support.html                # Supporter access
+├── legal.html                  # Legal information
+├── 404.html                    # Custom error page
+├── data/
+│   └── events-free.json        # Static fallback (free-tier event data)
+├── sitemap.xml                 # XML sitemap for search engines
+├── robots.txt                  # Crawler directives
+├── og-image.png                # Open Graph social preview image
+├── favicon_32x32.png           # Browser tab icon (32px)
+├── favicon_16x16.png           # Browser tab icon (16px)
+├── CNAME                       # Custom domain configuration
+├── LICENSE.md                  # License information
+└── README.md                   # This file
 ```
 
 ---
