@@ -2732,10 +2732,10 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 95,
+      event_count: 97,
       cc_count: 60,
-      last_updated: "2026-03-13",
-      db_version: "1.1.0"
+      last_updated: "2026-03-18",
+      db_version: "1.2.0"
     };
 
 
@@ -2760,7 +2760,12 @@ function mapApiEventToFree(e) {
     source_count_primary: e.source_count_primary,
     source_count_corroborating: e.source_count_corroborating,
     confidence_tier: e.confidence,
-    verification_checkpoints: e.checkpoints || {
+    verification_checkpoints: e.checkpoints ? {
+      ai_connection: e.checkpoints.ai_connection ?? e.checkpoints.ai,
+      quantitative_threshold: e.checkpoints.quantitative_threshold ?? e.checkpoints.threshold,
+      implementation_status: e.checkpoints.implementation_status ?? e.checkpoints.implemented,
+      currency_window: e.checkpoints.currency_window ?? e.checkpoints.current
+    } : {
       ai_connection: true, quantitative_threshold: true,
       implementation_status: true, currency_window: true
     },
@@ -2779,7 +2784,9 @@ function mapApiEventToFull(e) {
   if (e.sources_primary != null) full.sources_primary = e.sources_primary;
   if (e.sources_corroborating != null) full.sources_corroborating = e.sources_corroborating;
   if (e.bloc_analysis != null) full.bloc_analysis = e.bloc_analysis;
-  if (e.related_events != null) full.related_events = e.related_events;
+  if (e.related_events != null) full.related_events = e.related_events.map(function(r) {
+    return { event_id: r.event_id || r.id, relationship: r.relationship };
+  });
 
   // Assessment frameworks: API names → events.html UI names
   if (e.basel5 != null) { full.basel_factors = e.basel5; full.basel_factors_met = e.basel5_factors_met; }

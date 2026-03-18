@@ -5303,9 +5303,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 95,
+      event_count: 97,
       cc_count: 60,
-      last_updated: "2026-03-13",
+      last_updated: "2026-03-18",
       db_version: "1.2.0"
     };
 
@@ -5438,13 +5438,13 @@ function mapApiEventToInternal(e) {
     version: e.version
   };
 
-  // Checkpoints: API uses snake_case, UI uses short camelCase
+  // Checkpoints: API returns short names {ai, threshold, implemented, current, aiDetail}
   if (e.checkpoints) {
     mapped.checkpoints = {
-      ai: e.checkpoints.ai_connection,
-      threshold: e.checkpoints.quantitative_threshold,
-      implemented: e.checkpoints.implementation_status,
-      current: e.checkpoints.currency_window,
+      ai: e.checkpoints.ai_connection ?? e.checkpoints.ai,
+      threshold: e.checkpoints.quantitative_threshold ?? e.checkpoints.threshold,
+      implemented: e.checkpoints.implementation_status ?? e.checkpoints.implemented,
+      current: e.checkpoints.currency_window ?? e.checkpoints.current,
       aiDetail: e.checkpoints.ai_detail || e.checkpoints.aiDetail || undefined
     };
   }
