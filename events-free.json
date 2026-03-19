@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 97,
-    "cc_count": 60,
-    "last_updated": "2026-03-18",
+    "event_count": 100,
+    "cc_count": 64,
+    "last_updated": "2026-03-19",
     "db_version": "1.2.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -196,8 +196,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "03",
@@ -245,8 +244,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "04",
@@ -374,7 +372,6 @@
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": [],
       "cc_count": 1,
-      "basel5_factors_met": null,
       "keohane_factors_met": 4
     },
     {
@@ -825,8 +822,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 5
+      "cc_count": 4
     },
     {
       "id": "12",
@@ -874,8 +870,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 1,
-      "basel5_factors_met": 5
+      "cc_count": 1
     },
     {
       "id": "14",
@@ -1387,8 +1382,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 5
+      "cc_count": 4
     },
     {
       "id": "19",
@@ -1855,8 +1849,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 3
+      "cc_count": 0
     },
     {
       "id": "27",
@@ -2048,8 +2041,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 3
+      "cc_count": 0
     },
     {
       "id": "32",
@@ -2241,8 +2233,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "39",
@@ -2290,8 +2281,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "40",
@@ -2339,8 +2329,7 @@
       "oep": null,
       "industry_primary": "Financial Services & Investment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "41",
@@ -2388,8 +2377,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "42",
@@ -2437,8 +2425,7 @@
       "oep": null,
       "industry_primary": "Mining & Critical Minerals",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "44",
@@ -2534,8 +2521,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 1,
-      "basel5_factors_met": 3
+      "cc_count": 1
     },
     {
       "id": "46",
@@ -2583,8 +2569,7 @@
       "oep": null,
       "industry_primary": "Financial Services & Investment",
       "industry_secondary": null,
-      "cc_count": 1,
-      "basel5_factors_met": 3
+      "cc_count": 1
     },
     {
       "id": "47",
@@ -2632,8 +2617,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "49",
@@ -2681,8 +2665,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 1,
-      "basel5_factors_met": 4
+      "cc_count": 1
     },
     {
       "id": "51",
@@ -2730,8 +2713,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "52",
@@ -2779,8 +2761,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "53",
@@ -3116,8 +3097,7 @@
       "oep": null,
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 3
+      "cc_count": 0
     },
     {
       "id": "64",
@@ -3165,8 +3145,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "66",
@@ -3310,7 +3289,7 @@
       "oep": null,
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": null,
-      "cc_count": 0
+      "cc_count": 2
     },
     {
       "id": "69",
@@ -3358,7 +3337,7 @@
       "oep": null,
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": null,
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "70",
@@ -3406,8 +3385,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 5
+      "cc_count": 4
     },
     {
       "id": "71",
@@ -3455,8 +3433,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "72",
@@ -3504,8 +3481,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "76",
@@ -3601,8 +3577,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 4
+      "cc_count": 4
     },
     {
       "id": "78",
@@ -3650,8 +3625,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 4
+      "cc_count": 4
     },
     {
       "id": "79",
@@ -3699,8 +3673,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 3
+      "cc_count": 0
     },
     {
       "id": "80",
@@ -3748,8 +3721,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
     },
     {
       "id": "83",
@@ -3797,8 +3769,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 4
+      "cc_count": 4
     },
     {
       "id": "84",
@@ -4038,8 +4009,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 3,
-      "basel5_factors_met": 5
+      "cc_count": 3
     },
     {
       "id": "89",
@@ -4087,8 +4057,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 1,
-      "basel5_factors_met": 5
+      "cc_count": 1
     },
     {
       "id": "90",
@@ -4136,8 +4105,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 2,
-      "basel5_factors_met": 5
+      "cc_count": 2
     },
     {
       "id": "91",
@@ -4323,8 +4291,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 3
+      "cc_count": 4
     },
     {
       "id": "93",
@@ -4660,8 +4627,7 @@
       "oep": null,
       "industry_primary": "Energy & Power Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "100",
@@ -4709,8 +4675,7 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 4,
-      "basel5_factors_met": 5
+      "cc_count": 4
     },
     {
       "id": "101",
@@ -5432,8 +5397,7 @@
       "oep": null,
       "industry_primary": "Mining & Critical Minerals",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "116",
@@ -5481,8 +5445,151 @@
       "oep": null,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": null,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "cc_count": 0
+    },
+    {
+      "id": "117",
+      "name": "Kimi K2 Open-Source Model Release",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "11 July 2025",
+      "location": "Beijing, China",
+      "scope": "Global (open-source release deployed on Western inference platforms)",
+      "description": "Moonshot AI released Kimi K2-Instruct, a 1.04-trillion-parameter mixture-of-experts language model with 32 billion activated parameters and 384 experts, trained on 15.5 trillion tokens using Multi-head Latent Attention (MLA) architecture. Released under Modified MIT License.",
+      "investment": "1.04T total parameters; 32B activated; 15.5T training tokens; Modified MIT License",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "AI Software & Platforms",
+      "industry_secondary": null,
+      "cc_count": 2
+    },
+    {
+      "id": "118",
+      "name": "Qwen3-Coder Open-Source Agentic Code Model Release",
+      "lat": 30.2741,
+      "lng": 120.1551,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "22 July 2025",
+      "location": "Hangzhou, China",
+      "scope": "Global (open-source release deployed on Western cloud platforms)",
+      "description": "Alibaba Cloud released Qwen3-Coder-480B-A35B-Instruct, a 480-billion-parameter mixture-of-experts agentic code model with 35 billion activated parameters. Trained on 7.5 trillion tokens including approximately 600 billion repository-level coding tokens, the model supports 256K native context length and is released under the Apache 2.0 licence.",
+      "investment": "480B total parameters; 35B activated; 7.5T training tokens; Apache 2.0 License",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "AI Software & Platforms",
+      "industry_secondary": null,
+      "cc_count": 1
+    },
+    {
+      "id": "119",
+      "name": "DeepSeek-V3.1 Open-Source Hybrid Model Release",
+      "lat": 30.2741,
+      "lng": 120.1551,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "21 August 2025",
+      "location": "Hangzhou, China",
+      "scope": "Global (open-source release deployed on Western cloud platforms)",
+      "description": "DeepSeek released V3.1, a 671-billion-parameter mixture-of-experts hybrid model with 37 billion activated parameters. Built via 840 billion tokens of continued pretraining on the V3 base architecture, V3.1 introduces hybrid Think/Non-Think inference modes allowing toggling between chain-of-thought reasoning and direct answers. Released under the MIT License.",
+      "investment": "671B total parameters; 37B activated; 14.8T base + 840B continued pretraining tokens; MIT License",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "AI Software & Platforms",
+      "industry_secondary": null,
+      "cc_count": 2
     }
   ]
 }
