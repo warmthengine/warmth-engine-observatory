@@ -2732,9 +2732,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 97,
-      cc_count: 60,
-      last_updated: "2026-03-18",
+      event_count: 100,
+      cc_count: 64,
+      last_updated: "2026-03-19",
       db_version: "1.2.0"
     };
 
@@ -4234,7 +4234,7 @@ const openModal = (id) => {
                     <thead>
                         <tr style="border-bottom:1px solid var(--weo-border-primary);">
                             <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;">Bloc</th>
-                            <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;">Involvement</th>
+                            <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;white-space:nowrap;">Involvement <span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event's implementation — who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div></span></span></th>
                             <th style="text-align:left;padding:0.5rem 0;color:var(--weo-text-muted);font-weight:500;">Role</th>
                         </tr>
                     </thead>

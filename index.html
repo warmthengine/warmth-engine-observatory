@@ -2325,7 +2325,7 @@
     .panel-badge.energy { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
     .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
     .bloc-table th, .bloc-table td { padding: 10px 12px; text-align: left; }
-    .bloc-table th { color: #94A3B8; font-weight: 500; font-size: 11px; text-transform: uppercase; background: rgba(51, 65, 85, 0.3); border-bottom: 1px solid #334155; }
+    .bloc-table th { color: #94A3B8; font-weight: 500; font-size: 11px; text-transform: uppercase; background: rgba(51, 65, 85, 0.3); border-bottom: 1px solid #334155; white-space: nowrap; }
     .bloc-table td { color: #CBD5E1; border-bottom: 1px solid rgba(51, 65, 85, 0.4); }
     .bloc-table tbody tr:last-child td { border-bottom: none; }
     .scoring-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.6); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
@@ -5303,9 +5303,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 97,
-      cc_count: 60,
-      last_updated: "2026-03-18",
+      event_count: 100,
+      cc_count: 64,
+      last_updated: "2026-03-19",
       db_version: "1.2.0"
     };
 
@@ -8831,7 +8831,7 @@ function generateCCSection(eventId, showFullContent) {
       
       let blocAnalysisHtml = '';
       if (event.blocAnalysis) {
-        blocAnalysisHtml = '<table class="bloc-table"><thead><tr><th>Bloc</th><th>Involvement</th><th>Role</th></tr></thead><tbody>' + event.blocAnalysis.map(function(b) { return '<tr><td>' + b.bloc + '</td><td style="color:' + (b.involvement === 'Yes' ? '#22C55E' : '#94A3B8') + ';">' + b.involvement + '</td><td>' + b.role + '</td></tr>'; }).join('') + '</tbody></table>';
+        blocAnalysisHtml = '<table class="bloc-table"><thead><tr><th>Bloc</th><th style="white-space:nowrap;">Involvement <span class="weo-info-trigger">\u24d8<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event\x27s implementation \u2014 who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div></span></span></th><th>Role</th></tr></thead><tbody>' + event.blocAnalysis.map(function(b) { return '<tr><td>' + b.bloc + '</td><td style="color:' + (b.involvement === 'Yes' ? '#22C55E' : '#94A3B8') + ';">' + b.involvement + '</td><td>' + b.role + '</td></tr>'; }).join('') + '</tbody></table>';
       }
       
       let sourcesHtml = '';

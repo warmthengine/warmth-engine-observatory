@@ -2,7 +2,7 @@
   "meta": {
     "event_count": 100,
     "cc_count": 64,
-    "last_updated": "2026-03-19",
+    "last_updated": "2026-03-20",
     "db_version": "1.2.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -457,12 +457,12 @@
         {
           "bloc": "Eastern",
           "involvement": "No",
-          "role": "Explicitly restricted via Section 103 guardrails"
+          "role": ""
         },
         {
           "bloc": "Non-Aligned",
-          "involvement": "Indirect",
-          "role": "Supply chain restructuring affects global partners"
+          "involvement": "No",
+          "role": ""
         }
       ],
       "sources_primary": [
@@ -904,7 +904,7 @@
         {
           "bloc": "Western",
           "involvement": "No",
-          "role": "Target of restrictions (particularly US)"
+          "role": ""
         },
         {
           "bloc": "Eastern",
@@ -913,8 +913,8 @@
         },
         {
           "bloc": "Non-Aligned",
-          "involvement": "Indirect",
-          "role": "Global supply chain effects"
+          "involvement": "No",
+          "role": ""
         }
       ],
       "sources_primary": [
