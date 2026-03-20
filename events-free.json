@@ -1,7 +1,7 @@
 {
   "meta": {
-    "event_count": 100,
-    "cc_count": 64,
+    "event_count": 101,
+    "cc_count": 66,
     "last_updated": "2026-03-20",
     "db_version": "1.2.0",
     "schema_version": "1.0",
@@ -774,7 +774,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "11",
@@ -2329,7 +2329,7 @@
       "oep": null,
       "industry_primary": "Financial Services & Investment",
       "industry_secondary": null,
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "41",
@@ -5588,6 +5588,54 @@
       "piet": null,
       "oep": null,
       "industry_primary": "AI Software & Platforms",
+      "industry_secondary": null,
+      "cc_count": 2
+    },
+    {
+      "id": "120",
+      "name": "US BIS Advanced Computing Semiconductor IFR",
+      "lat": 38.8951,
+      "lng": -77.0364,
+      "bloc": "Western-Led",
+      "tier": 2,
+      "type": "Policy",
+      "sample": false,
+      "date": "November 2023",
+      "location": "Washington, DC, United States",
+      "scope": "United States (extraterritorial — ~40 jurisdictions via FDP rule)",
+      "description": "BIS interim final rule (88 FR 73458) updating October 2022 export controls on advanced computing integrated circuits, revising controlled performance thresholds (TPP/PD) under ECCN 3A090. Expands the Advanced Computing Foreign Direct Product Rule from PRC/Macau to Country Groups D:1, D:4, and D:5.",
+      "investment": "Regulatory restriction (no direct financial allocation); EAR enforcement with civil/criminal penalties; extraterritorial FDP rule covering ~40 jurisdictions",
+      "domain": "Security",
+      "source_count_primary": 2,
+      "source_count_corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
       "cc_count": 2
     }
