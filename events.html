@@ -2363,13 +2363,34 @@
       font-size: 0.75rem;
       color: var(--weo-text-muted);
       line-height: 1.6;
+      position: relative;
     }
-    .cov-panel-footer a {
+    .cov-info-trigger {
       color: #94A3B8;
-      text-decoration: none;
+      cursor: pointer;
+      border-bottom: 1px dotted #94A3B8;
     }
-    .cov-panel-footer a:hover {
-      text-decoration: underline;
+    .cov-info-trigger:hover {
+      color: var(--weo-text-secondary);
+    }
+    .cov-info-popover {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 0;
+      max-width: 520px;
+      background: var(--weo-surface-base);
+      border: 1px solid #475569;
+      border-radius: var(--weo-radius-md);
+      padding: 16px 18px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #CBD5E1;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+    .cov-info-popover.visible {
+      display: block;
     }
     .cov-na {
       font-size: 0.75rem;
@@ -2835,7 +2856,8 @@
                     <div class="cov-grid-cell cov-count" id="cov-n-trade">5</div>
                 </div>
                 <div class="cov-panel-footer">
-                    Coverage confidence reflects WEO's assessment of documentation accessibility per domain and bloc, based on methodology analysis and observed discovery patterns. Event counts update with the database; confidence designations are reviewed at methodology milestones. <a href="methodology.html#coverage-visibility">Why does coverage vary?</a>
+                    <div class="cov-info-popover" id="cov-info-popover">WEO's documentation-based verification applies consistently across all blocs and domains. Coverage varies because documentation accessibility varies — some regulatory landscapes produce denser public records than others, and classified activity is excluded from scope across all blocs. Event counts in less-documented areas represent conservative lower bounds, not the full extent of AI infrastructure activity.</div>
+                    Coverage confidence reflects WEO's assessment of documentation accessibility per domain and bloc, based on methodology analysis and observed discovery patterns. Event counts update with the database; confidence designations are reviewed at methodology milestones. <span class="cov-info-trigger" onclick="document.getElementById('cov-info-popover').classList.toggle('visible')">Why does coverage vary?</span>
                 </div>
             </div>
         </div>
@@ -3248,10 +3270,13 @@ document.addEventListener('click', function(e) {
     if (!e.target.closest('.ind-tag-wrap') && !e.target.closest('.piet-t2-wrap')) {
         document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(p => p.classList.remove('visible'));
     }
+    if (!e.target.closest('.cov-panel-footer')) {
+        document.querySelectorAll('.cov-info-popover.visible').forEach(p => p.classList.remove('visible'));
+    }
 });
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(p => p.classList.remove('visible'));
+        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .cov-info-popover.visible').forEach(p => p.classList.remove('visible'));
     }
 });
 
