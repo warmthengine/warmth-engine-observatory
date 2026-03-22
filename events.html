@@ -2242,6 +2242,152 @@
       text-decoration: underline;
     }
 
+    /* Coverage Confidence Panel */
+    .cov-panel {
+      background: var(--weo-surface-raised);
+      border: 1px solid var(--weo-border-primary);
+      border-left: 3px solid #94A3B8;
+      border-radius: var(--weo-radius-lg);
+      margin-bottom: var(--weo-space-xl);
+      overflow: hidden;
+    }
+    .cov-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--weo-space-md) var(--weo-space-lg);
+      cursor: pointer;
+      transition: background var(--weo-duration-fast) var(--weo-ease-out);
+    }
+    .cov-panel-header:hover {
+      background: rgba(148, 163, 184, 0.04);
+    }
+    .cov-panel-left {
+      display: flex;
+      align-items: center;
+      gap: var(--weo-space-md);
+    }
+    .cov-panel-icon {
+      width: 18px;
+      height: 18px;
+      color: #94A3B8;
+      flex-shrink: 0;
+    }
+    .cov-panel-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--weo-text-primary);
+    }
+    .cov-panel-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .cov-panel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+    }
+    .cov-panel-chevron {
+      width: 16px;
+      height: 16px;
+      color: var(--weo-text-muted);
+      transition: transform var(--weo-duration-fast) var(--weo-ease-out), color var(--weo-duration-fast);
+      flex-shrink: 0;
+    }
+    .cov-panel-header:hover .cov-panel-chevron {
+      color: #94A3B8;
+    }
+    .cov-panel.expanded .cov-panel-chevron {
+      transform: rotate(180deg);
+      color: #94A3B8;
+    }
+    .cov-panel-content {
+      display: none;
+      padding: 0 var(--weo-space-lg) var(--weo-space-lg);
+      border-top: 1px solid var(--weo-border-primary);
+      animation: ccSummarySlide 0.2s ease;
+    }
+    .cov-panel.expanded .cov-panel-content {
+      display: block;
+    }
+    .cov-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.8fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(42px,0.6fr);
+      gap: 1px;
+      background: var(--weo-border-primary);
+      border-radius: var(--weo-radius-sm);
+      overflow: hidden;
+      font-size: 0.8125rem;
+      margin-top: var(--weo-space-md);
+    }
+    .cov-grid-cell {
+      background: var(--weo-surface-base);
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .cov-grid-cell.cov-header {
+      background: var(--weo-surface-raised);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--weo-text-muted);
+    }
+    .cov-grid-cell.cov-domain {
+      text-align: left;
+      padding-left: 12px;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      color: var(--weo-text-secondary);
+    }
+    .cov-grid-cell.cov-count {
+      font-family: var(--weo-font-mono);
+      font-size: 0.8125rem;
+      color: var(--weo-text-secondary);
+      min-width: 42px;
+      padding-right: 12px;
+    }
+    .cov-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 3px;
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .cov-badge-high { background: rgba(34,197,94,0.12); color: #22C55E; }
+    .cov-badge-med { background: rgba(245,158,11,0.12); color: #F59E0B; }
+    .cov-badge-low { background: rgba(148,163,184,0.15); color: #94A3B8; }
+    .cov-panel-footer {
+      margin-top: var(--weo-space-sm);
+      font-size: 0.75rem;
+      color: var(--weo-text-muted);
+      line-height: 1.6;
+    }
+    .cov-panel-footer a {
+      color: #94A3B8;
+      text-decoration: none;
+    }
+    .cov-panel-footer a:hover {
+      text-decoration: underline;
+    }
+    .cov-na {
+      font-size: 0.75rem;
+      color: var(--weo-text-muted);
+    }
+    .cov-domain-short { display: none; }
+    .cov-domain-full { display: inline; }
+    @media (max-width: 640px) {
+      .cov-grid {
+        grid-template-columns: minmax(80px,1.4fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 42px;
+      }
+      .cov-grid-cell.cov-domain {
+        font-size: 0.75rem;
+      }
+      .cov-domain-short { display: inline; }
+      .cov-domain-full { display: none; }
+    }
+
     /* PIET/OEP Verification Subsection — 4-layer progressive disclosure */
     .piet-verification-subsection {
         margin-top: 0.75rem;
@@ -2633,6 +2779,63 @@
                             Connections identify documented relationships between events. CC-V and CC-E require documentary evidence; CC-A reflects analyst assessment of policy similarity.
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Coverage Confidence Panel -->
+        <div class="cov-panel" id="cov-panel">
+            <div class="cov-panel-header" onclick="toggleCovPanel()" aria-expanded="false" aria-controls="cov-panel-content">
+                <div class="cov-panel-left">
+                    <svg class="cov-panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span class="cov-panel-title">Coverage Confidence</span>
+                    <div class="cov-panel-dots">
+                        <span class="cov-panel-dot" style="background:#22C55E;"></span>
+                        <span class="cov-panel-dot" style="background:#F59E0B;"></span>
+                        <span class="cov-panel-dot" style="background:#94A3B8;"></span>
+                    </div>
+                </div>
+                <svg class="cov-panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="cov-panel-content" id="cov-panel-content">
+                <div class="cov-grid">
+                    <div class="cov-grid-cell cov-header"></div>
+                    <div class="cov-grid-cell cov-header" style="color:#60A5FA;">WB</div>
+                    <div class="cov-grid-cell cov-header" style="color:#FB923C;">EB</div>
+                    <div class="cov-grid-cell cov-header" style="color:#2DD4BF;">XB</div>
+                    <div class="cov-grid-cell cov-header">n</div>
+
+                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #3B82F6;"><span class="cov-domain-full">Technology</span><span class="cov-domain-short">Tech</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-tech">56</div>
+
+                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #F59E0B;"><span class="cov-domain-full">Energy / Infrastructure</span><span class="cov-domain-short">Energy / Infra</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
+                    <div class="cov-grid-cell"><span class="cov-na">—</span></div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-ei">32</div>
+
+                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #EF4444;"><span class="cov-domain-full">Security</span><span class="cov-domain-short">Security</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
+                    <div class="cov-grid-cell"><span class="cov-na">—</span></div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-sec">13</div>
+
+                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #10B981;"><span class="cov-domain-full">Trade</span><span class="cov-domain-short">Trade</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
+                    <div class="cov-grid-cell"><span class="cov-na">—</span></div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-trade">5</div>
+                </div>
+                <div class="cov-panel-footer">
+                    Coverage confidence reflects WEO's assessment of documentation accessibility per domain and bloc, based on methodology analysis and observed discovery patterns. Event counts update with the database; confidence designations are reviewed at methodology milestones. <a href="methodology.html#coverage-visibility">Why does coverage vary?</a>
                 </div>
             </div>
         </div>
@@ -3652,7 +3855,37 @@ function generateEvidencePanel(conn) {
   if (detail.framework_relationship) {
     html += '<p><strong>Relationship:</strong> ' + detail.framework_relationship + '</p>';
   }
-  
+
+  // Enabling relationship (for Regulatory Enablement)
+  if (detail.enabling_relationship) {
+    html += '<p><strong>Enabling:</strong> ' + detail.enabling_relationship + '</p>';
+  }
+
+  // Award comparison cards (for Framework Family CHIPS Act subgroup)
+  if (detail.award_a && detail.award_b) {
+    html += '<div class="cc-funding-grid">';
+
+    // Award A
+    html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
+    html += '<div class="cc-funding-label">' + detail.award_a.recipient + '</div>';
+    html += '<div class="cc-funding-value">' + detail.award_a.award_amount + '</div>';
+    if (detail.award_a.focus) {
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_a.focus + '</div>';
+    }
+    html += '</div>';
+
+    // Award B
+    html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
+    html += '<div class="cc-funding-label">' + detail.award_b.recipient + '</div>';
+    html += '<div class="cc-funding-value">' + detail.award_b.award_amount + '</div>';
+    if (detail.award_b.focus) {
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_b.focus + '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>';
+  }
+
   // Hierarchical relationship (for Policy Cascade)
   if (detail.hierarchical_relationship) {
     const hr = detail.hierarchical_relationship;
@@ -3745,7 +3978,68 @@ function generateEvidencePanel(conn) {
     html += '</div>'; // End cc-vh-entries
     html += '</div>'; // End cc-verification-history
   }
-  
+
+  // Progressive disclosure: normative reference (for ISO Framework Family)
+  if (detail.normative_reference) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Normative Reference</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.normative_reference + '</div>';
+    html += '</div>';
+  }
+
+  // Progressive disclosure: implementation mapping (for Policy Cascade)
+  if (detail.implementation_mapping) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Implementation Details</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.implementation_mapping + '</div>';
+    html += '</div>';
+  }
+
+  // Progressive disclosure: linguistic markers (for Chinese regulatory CCs)
+  if (detail.linguistic_markers) {
+    const lm = detail.linguistic_markers;
+    let lmText = '';
+    if (typeof lm === 'object' && !Array.isArray(lm)) {
+        if (lm.marker) lmText += '"' + lm.marker + '"';
+        if (lm.function) lmText += ' — ' + lm.function;
+    } else if (Array.isArray(lm)) {
+        lmText = lm.map(function(m) { return m.marker ? '"' + m.marker + '" — ' + (m.function || m.translation || '') : String(m); }).join('<br>');
+    } else {
+        lmText = String(lm);
+    }
+    if (lmText) {
+        html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+        html += '<div class="cc-criterion-header">';
+        html += '<span class="cc-criterion-name">Original-Language Markers</span>';
+        html += '<span class="cc-criterion-expand">▼</span>';
+        html += '</div>';
+        html += '<div class="cc-criterion-evidence">' + lmText + '</div>';
+        html += '</div>';
+    }
+  }
+  if (!detail.linguistic_markers && detail.linguistic_marker) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Original-Language Markers</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.linguistic_marker + '</div>';
+    html += '</div>';
+  }
+
+  // Cross-references badge
+  if (detail.cross_references) {
+    html += '<div class="cc-transparency-note" style="font-size: 0.85em; opacity: 0.7;">';
+    html += '📎 Cross-references documented';
+    html += '</div>';
+  }
+
   // Sources
   if (detail.sources && detail.sources.length > 0) {
     html += '<div class="cc-sources">';
@@ -4894,6 +5188,31 @@ function toggleCCSummary() {
   header.setAttribute('aria-expanded', !isExpanded);
 }
 
+function toggleCovPanel() {
+  const panel = document.getElementById('cov-panel');
+  const header = panel.querySelector('.cov-panel-header');
+  const isExpanded = panel.classList.contains('expanded');
+  
+  panel.classList.toggle('expanded');
+  header.setAttribute('aria-expanded', !isExpanded);
+}
+
+function updateCovCounts() {
+  var domainCounts = { 'Technology': 0, 'Energy/Infrastructure': 0, 'Security': 0, 'Trade': 0 };
+  freeEvents.forEach(function(e) {
+    if (domainCounts.hasOwnProperty(e.domain)) domainCounts[e.domain]++;
+  });
+  var el;
+  el = document.getElementById('cov-n-tech');
+  if (el) el.textContent = domainCounts['Technology'];
+  el = document.getElementById('cov-n-ei');
+  if (el) el.textContent = domainCounts['Energy/Infrastructure'];
+  el = document.getElementById('cov-n-sec');
+  if (el) el.textContent = domainCounts['Security'];
+  el = document.getElementById('cov-n-trade');
+  if (el) el.textContent = domainCounts['Trade'];
+}
+
 // ========================================
 // DYNAMIC STATS POPULATION
 // Automatically updates counts from data
@@ -4977,6 +5296,7 @@ function populateDynamicStats() {
 // Initialize dynamic stats on page load
 // populateDynamicStats runs after data load — DOMContentLoaded already fired
 if (typeof populateDynamicStats === 'function') populateDynamicStats();
+if (typeof updateCovCounts === 'function') updateCovCounts();
 
 // Navigation toggle for mobile
 const navToggle = document.getElementById('navToggle');
@@ -5033,6 +5353,7 @@ if (navToggle && navLinks) {
         console.log('[WEO] Full-tier data loaded after authentication');
         applyFilters(); updateStats(); renderTable();
         if (typeof populateDynamicStats === 'function') populateDynamicStats();
+        if (typeof updateCovCounts === 'function') updateCovCounts();
       }).catch(function(err) { console.error('[WEO] Re-fetch failed:', err); });
     }
     function revokeAccess() {
@@ -5042,6 +5363,7 @@ if (navToggle && navLinks) {
         console.log('[WEO] Free-tier data loaded after logout');
         applyFilters(); updateStats(); renderTable();
         if (typeof populateDynamicStats === 'function') populateDynamicStats();
+        if (typeof updateCovCounts === 'function') updateCovCounts();
       }).catch(function(err) { console.error('[WEO] Re-fetch failed:', err); });
     }
     function logoutAccess() { localStorage.removeItem(WEO_AUTH_KEY); localStorage.removeItem(WEO_PASSWORD_KEY); revokeAccess(); closeAccessModal(); }
@@ -5076,6 +5398,7 @@ if (navToggle && navLinks) {
 
     // Expose functions to global scope for inline onclick handlers
     window.toggleCCSummary = toggleCCSummary;
+    window.toggleCovPanel = toggleCovPanel;
     window.checkAccess = checkAccess;
     window.logoutAccess = logoutAccess;
     window.openAccessModal = openAccessModal;

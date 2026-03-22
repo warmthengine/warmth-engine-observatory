@@ -5303,9 +5303,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 101,
-      cc_count: 66,
-      last_updated: "2026-03-20",
+      event_count: 106,
+      cc_count: 76,
+      last_updated: "2026-03-21",
       db_version: "1.2.0"
     };
 
@@ -7118,12 +7118,44 @@ function generateEvidencePanel(conn) {
   if (detail.framework_relationship) {
     html += '<p><strong>Relationship:</strong> ' + detail.framework_relationship + '</p>';
   }
-  
+
+  // Enabling relationship (for Regulatory Enablement)
+  if (detail.enabling_relationship) {
+    html += '<p><strong>Enabling:</strong> ' + detail.enabling_relationship + '</p>';
+  }
+
+  // Award comparison cards (for Framework Family CHIPS Act subgroup)
+  if (detail.award_a && detail.award_b) {
+    html += '<div class="cc-funding-grid">';
+
+    // Award A
+    html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
+    html += '<div class="cc-funding-label">' + detail.award_a.recipient + '</div>';
+    html += '<div class="cc-funding-value">' + detail.award_a.award_amount + '</div>';
+    if (detail.award_a.focus) {
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_a.focus + '</div>';
+    }
+    html += '</div>';
+
+    // Award B
+    html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
+    html += '<div class="cc-funding-label">' + detail.award_b.recipient + '</div>';
+    html += '<div class="cc-funding-value">' + detail.award_b.award_amount + '</div>';
+    if (detail.award_b.focus) {
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_b.focus + '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>';
+  }
+
   // Hierarchical relationship (for Policy Cascade)
   if (detail.hierarchical_relationship) {
     const hr = detail.hierarchical_relationship;
-    if (hr.parent && hr.child) {
+    if (typeof hr === 'object' && hr.parent && hr.child) {
       html += '<p><strong>Parent:</strong> ' + hr.parent + '<br><strong>Child:</strong> ' + hr.child + '</p>';
+    } else if (typeof hr === 'string') {
+      html += '<p><strong>Hierarchy:</strong> ' + hr + '</p>';
     }
   }
   
@@ -7209,7 +7241,68 @@ function generateEvidencePanel(conn) {
     html += '</div>'; // End cc-vh-entries
     html += '</div>'; // End cc-verification-history
   }
-  
+
+  // Progressive disclosure: normative reference (for ISO Framework Family)
+  if (detail.normative_reference) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Normative Reference</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.normative_reference + '</div>';
+    html += '</div>';
+  }
+
+  // Progressive disclosure: implementation mapping (for Policy Cascade)
+  if (detail.implementation_mapping) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Implementation Details</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.implementation_mapping + '</div>';
+    html += '</div>';
+  }
+
+  // Progressive disclosure: linguistic markers (for Chinese regulatory CCs)
+  if (detail.linguistic_markers) {
+    const lm = detail.linguistic_markers;
+    let lmText = '';
+    if (typeof lm === 'object' && !Array.isArray(lm)) {
+        if (lm.marker) lmText += '"' + lm.marker + '"';
+        if (lm.function) lmText += ' — ' + lm.function;
+    } else if (Array.isArray(lm)) {
+        lmText = lm.map(function(m) { return m.marker ? '"' + m.marker + '" — ' + (m.function || m.translation || '') : String(m); }).join('<br>');
+    } else {
+        lmText = String(lm);
+    }
+    if (lmText) {
+        html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+        html += '<div class="cc-criterion-header">';
+        html += '<span class="cc-criterion-name">Original-Language Markers</span>';
+        html += '<span class="cc-criterion-expand">▼</span>';
+        html += '</div>';
+        html += '<div class="cc-criterion-evidence">' + lmText + '</div>';
+        html += '</div>';
+    }
+  }
+  if (!detail.linguistic_markers && detail.linguistic_marker) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Original-Language Markers</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + detail.linguistic_marker + '</div>';
+    html += '</div>';
+  }
+
+  // Cross-references badge
+  if (detail.cross_references) {
+    html += '<div class="cc-transparency-note" style="font-size: 0.85em; opacity: 0.7;">';
+    html += '📎 Cross-references documented';
+    html += '</div>';
+  }
+
   // Sources
   if (detail.sources && detail.sources.length > 0) {
     html += '<div class="cc-sources">';

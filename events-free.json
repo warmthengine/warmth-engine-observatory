@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 101,
-    "cc_count": 66,
-    "last_updated": "2026-03-20",
+    "event_count": 106,
+    "cc_count": 76,
+    "last_updated": "2026-03-22",
     "db_version": "1.2.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -581,7 +581,7 @@
           "mechanism": "Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit and $39B in direct subsidies."
         }
       ],
-      "cc_count": 8,
+      "cc_count": 9,
       "basel5_factors_met": 5
     },
     {
@@ -822,7 +822,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "12",
@@ -1382,7 +1382,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "19",
@@ -1430,7 +1430,7 @@
       "oep": null,
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": null,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "20",
@@ -3385,7 +3385,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "71",
@@ -3769,7 +3769,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "84",
@@ -4009,7 +4009,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "89",
@@ -4057,7 +4057,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 1
+      "cc_count": 2
     },
     {
       "id": "90",
@@ -4105,7 +4105,7 @@
       "oep": null,
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "91",
@@ -4723,7 +4723,7 @@
       "oep": null,
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": null,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "102",
@@ -5638,6 +5638,250 @@
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": null,
       "cc_count": 2
+    },
+    {
+      "id": "121",
+      "name": "China Graphite Export Controls (MOFCOM/GAC No. 39/2023)",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "01 December 2023",
+      "location": "Beijing, China",
+      "scope": "Mainland China (global export impact)",
+      "description": "Export licensing controls on specified graphite materials and products per MOFCOM/GAC Joint Announcement No. 39/2023. Controls capture high-purity synthetic graphite, natural flake graphite, spherical graphite, and expanded graphite defined by HS code specifications. China produces approximately 77% of global natural graphite.",
+      "investment": "N/A (regulatory instrument). Trade disruption: flake graphite exports declined 93.93% MoM December 2023; fine flake graphite prices decreased 20% through first 10 months of 2024",
+      "domain": "Trade",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "PIET (3/4 gates — Impact-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "ai_connection_pathway": "piet",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "Mining & Critical Minerals",
+      "industry_secondary": null,
+      "cc_count": 0
+    },
+    {
+      "id": "122",
+      "name": "China MOFCOM Dual-Use Export Ban (No. 46/2024)",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern-Led",
+      "tier": 2,
+      "type": "Policy",
+      "sample": false,
+      "date": "03 December 2024",
+      "location": "Beijing, China",
+      "scope": "National (China) targeting the United States",
+      "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
+      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to $59,750/t; US imports of germanium, bismuth, and molybdenum fell to zero",
+      "domain": "Security",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "PIET (3/4 gates — Impact-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "ai_connection_pathway": "piet",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "Mining & Critical Minerals",
+      "industry_secondary": null,
+      "cc_count": 0
+    },
+    {
+      "id": "123",
+      "name": "SK Hynix CHIPS and Science Act Award",
+      "lat": 40.4237,
+      "lng": -86.9212,
+      "bloc": "Western-Led",
+      "tier": 2,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "19 December 2024",
+      "location": "West Lafayette, Indiana, United States",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "US Department of Commerce CHIPS and Science Act incentives award to SK Hynix for high-bandwidth memory advanced packaging fabrication facility in West Lafayette, Indiana. World's leading HBM producer building first US-based advanced packaging facility. Mass production expected second half of 2028.",
+      "investment": "$3.87B total investment ($458M direct federal funding + $500M loans under CHIPS Incentives Program)",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "Semiconductors & Equipment",
+      "industry_secondary": null,
+      "cc_count": 8
+    },
+    {
+      "id": "124",
+      "name": "ISO/IEC 42005:2025 AI System Impact Assessment",
+      "lat": 46.2044,
+      "lng": 6.1432,
+      "bloc": "Cross-Bloc",
+      "tier": 1,
+      "type": "Coordination",
+      "sample": false,
+      "date": "28 May 2025",
+      "location": "Geneva, Switzerland",
+      "scope": "International (ISO/IEC member nations)",
+      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies from both blocs. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
+      "investment": "Stage 60.60 (Published); full International Standard status with normative authority; 48 P-member national bodies",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "AI Software & Platforms",
+      "industry_secondary": null,
+      "cc_count": 2
+    },
+    {
+      "id": "125",
+      "name": "UK Isambard-AI Phase 2 National Supercomputer",
+      "lat": 51.5054,
+      "lng": -2.5426,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "17 July 2025",
+      "location": "Bristol, United Kingdom",
+      "scope": "United Kingdom (national AI research resource)",
+      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
+      "investment": "£225M (~$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 3,
+      "source_count_corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "tier_rationale": null,
+      "bloc_analysis": null,
+      "sources_primary": null,
+      "sources_corroborating": null,
+      "related_events": null,
+      "basel5": null,
+      "version_date": null,
+      "genesis_date": null,
+      "genesis": null,
+      "rolling_updates": null,
+      "keohane": null,
+      "pisa5": null,
+      "route_based": null,
+      "qualification_pathway": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "tiebreaker": null,
+      "piet": null,
+      "oep": null,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "industry_secondary": null,
+      "cc_count": 0
     }
   ]
 }
