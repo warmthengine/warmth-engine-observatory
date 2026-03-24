@@ -921,11 +921,11 @@
                     <div class="stats-label">Current Database</div>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-value">95</div>
+                            <div class="stat-value" id="weo-event-count">109</div>
                             <div class="stat-label">Verified Events</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">60</div>
+                            <div class="stat-value" id="weo-cc-count">81</div>
                             <div class="stat-label">Coordination Connections</div>
                         </div>
                     </div>
@@ -1226,6 +1226,19 @@
           }
         });
       }
+
+      // Fetch live counts from WEO API
+      fetch('https://warmthengine.com/api/events')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && d.meta) {
+            var evEl = document.getElementById('weo-event-count');
+            var ccEl = document.getElementById('weo-cc-count');
+            if (evEl && d.meta.event_count) evEl.textContent = d.meta.event_count;
+            if (ccEl && d.meta.cc_count) ccEl.textContent = d.meta.cc_count;
+          }
+        })
+        .catch(function() { /* fallback values already in HTML */ });
     </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
