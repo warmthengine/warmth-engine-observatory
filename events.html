@@ -1793,6 +1793,65 @@
     .version-history-content {
       padding-bottom: 16px;
     }
+
+    .tiebreaker-trigger {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: var(--weo-text-primary);
+      transition: color var(--weo-duration-fast) var(--weo-ease-out);
+    }
+
+    .tiebreaker-trigger:hover {
+      color: #60A5FA;
+    }
+
+    .tiebreaker-trigger .title-text {
+      font-family: var(--weo-font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+
+    .tiebreaker-trigger .tiebreaker-result-badge {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: #94A3B8;
+      background: rgba(100, 116, 139, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--weo-radius-lg);
+    }
+
+    .tiebreaker-trigger .chevron-icon {
+      width: 20px;
+      height: 20px;
+      margin-left: auto;
+      color: #64748B;
+      transition: transform var(--weo-duration-normal) var(--weo-ease-out);
+    }
+
+    .tiebreaker-trigger[aria-expanded="true"] .chevron-icon {
+      transform: rotate(90deg);
+    }
+
+    .tiebreaker-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--weo-duration-slow) var(--weo-ease-out);
+    }
+
+    .tiebreaker-panel[data-expanded="true"] {
+      max-height: 800px;
+    }
+
+    .tiebreaker-content {
+      padding-top: var(--weo-space-sm);
+    }
     
     .version-entry-panel {
       max-height: 0;
@@ -2958,9 +3017,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 109,
-      cc_count: 82,
-      last_updated: "2026-03-23",
+      event_count: 112,
+      cc_count: 90,
+      last_updated: "2026-03-25",
       db_version: "1.2.0"
     };
 
@@ -3331,7 +3390,7 @@ const weoTooltips = {
   },
   tiebreaker: {
     title: 'Human Review Tiebreaker',
-    body: 'Secondary assessment for events scoring exactly 3/5 on PISA-5 (including F3). Five criteria (TB1-TB5) evaluate resource commitment, institutional permanence, stakeholder engagement, international influence, and governance innovation. ≥3/5 tiebreakers required to qualify.'
+    body: 'Secondary assessment for events scoring exactly 3/5 on PISA-5 (including F3). Five criteria evaluate resource commitment, institutional permanence, stakeholder engagement, international influence, and governance innovation. ≥3/5 tiebreakers required to qualify.'
   },
   piet: {
     title: 'PIET — Post-Implementation Evidence Track',
@@ -3540,6 +3599,14 @@ function toggleVersionHistory(eventId) {
   var button = document.getElementById('version-history-btn-' + eventId);
   var panel = document.getElementById('version-history-panel-' + eventId);
   if (!button || !panel) return;
+  var isExpanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isExpanded);
+  panel.setAttribute('data-expanded', !isExpanded);
+}
+
+function toggleTiebreaker(button) {
+  var panel = button.nextElementSibling;
+  if (!panel) return;
   var isExpanded = button.getAttribute('aria-expanded') === 'true';
   button.setAttribute('aria-expanded', !isExpanded);
   panel.setAttribute('data-expanded', !isExpanded);
@@ -4504,17 +4571,25 @@ const openModal = (id) => {
             const tiebreakerTooltip = generateTooltip('tiebreaker', 'left');
             html += `
                 <div class="paid-section">
-                    <div class="paid-section-title section-title-with-tooltip">▼ Human Review Assessment${tiebreakerTooltip}</div>
-                    <p style="font-size:0.8125rem;color:var(--weo-text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ${full.tiebreaker.triggerReason}</p>
-                    <div class="basel-grid">
-                        ${full.tiebreaker.assessment.map(tb=>`
-                            <div class="basel-factor">
-                                <span class="basel-status ${tb.pass?'pass':'fail'}">${tb.pass?'✅':'❌'}</span>
-                                <div><span class="basel-factor-name">${tb.criterion}:</span> <span class="basel-rationale">${tb.rationale}</span></div>
+                    <button class="tiebreaker-trigger" aria-expanded="false" onclick="toggleTiebreaker(this)">
+                        <span class="title-text">Human Review Assessment</span>${tiebreakerTooltip}
+                        <span class="tiebreaker-result-badge">${full.tiebreaker.result}</span>
+                        <svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>
+                    </button>
+                    <div class="tiebreaker-panel" data-expanded="false">
+                        <div class="tiebreaker-content">
+                            <p style="font-size:0.8125rem;color:var(--weo-text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ${full.tiebreaker.triggerReason}</p>
+                            <div class="basel-grid">
+                                ${full.tiebreaker.assessment.map(tb=>`
+                                    <div class="basel-factor">
+                                        <span class="basel-status ${tb.pass?'pass':'fail'}">${tb.pass?'✅':'❌'}</span>
+                                        <div><span class="basel-factor-name">${tb.criterion.replace(/^TB\d+:\s*/, '')}:</span> <span class="basel-rationale">${tb.rationale}</span></div>
+                                    </div>
+                                `).join('')}
                             </div>
-                        `).join('')}
+                            <p style="margin-top:0.75rem;font-weight:600;">Result: ${full.tiebreaker.result}</p>
+                        </div>
                     </div>
-                    <p style="margin-top:0.75rem;font-weight:600;">Result: ${full.tiebreaker.result}</p>
                 </div>
             `;
         }

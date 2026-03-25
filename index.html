@@ -4454,6 +4454,77 @@
       min-height: 0;
     }
 
+    .tiebreaker-trigger {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 12px 0;
+      background: transparent;
+      border: none;
+      border-left: 3px solid #2DD4BF;
+      padding-left: 12px;
+      cursor: pointer;
+      min-height: 44px;
+      text-align: left;
+    }
+
+    .tiebreaker-trigger:hover {
+      background: rgba(30, 41, 59, 0.3);
+    }
+
+    .tiebreaker-trigger:focus-visible {
+      outline: 2px solid #2DD4BF;
+      outline-offset: -2px;
+    }
+
+    .tiebreaker-trigger .title-text {
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .tiebreaker-trigger .tiebreaker-result-badge {
+      margin-left: 8px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-family: ui-monospace, 'SF Mono', 'Consolas', monospace;
+      color: #2DD4BF;
+      background: rgba(45, 212, 191, 0.1);
+      border-radius: var(--weo-radius-lg);
+      opacity: 0.8;
+    }
+
+    .tiebreaker-trigger .chevron-icon {
+      margin-left: auto;
+      width: 16px;
+      height: 16px;
+      fill: #94A3B8;
+      transition: transform var(--duration-normal) var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .tiebreaker-trigger[aria-expanded="true"] .chevron-icon {
+      transform: rotate(90deg);
+    }
+
+    .tiebreaker-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 280ms cubic-bezier(0.2, 0, 0.38, 0.9);
+    }
+
+    .tiebreaker-panel[data-expanded="true"] {
+      grid-template-rows: 1fr;
+    }
+
+    .tiebreaker-content {
+      overflow: hidden;
+      min-height: 0;
+    }
+
     /* Child accordion panels - faster animation */
     .version-entry-panel {
       display: grid;
@@ -5303,9 +5374,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 106,
-      cc_count: 76,
-      last_updated: "2026-03-21",
+      event_count: 112,
+      cc_count: 90,
+      last_updated: "2026-03-25",
       db_version: "1.2.0"
     };
 
@@ -8410,7 +8481,7 @@ function generateCCSection(eventId, showFullContent) {
       },
       tiebreaker: {
         title: 'Human Review Tiebreaker',
-        body: 'Secondary assessment for events scoring exactly 3/5 on PISA-5 (including F3). Five criteria (TB1-TB5) evaluate resource commitment, institutional permanence, stakeholder engagement, international influence, and governance innovation. ≥3/5 tiebreakers required to qualify.'
+        body: 'Secondary assessment for events scoring exactly 3/5 on PISA-5 (including F3). Five criteria evaluate resource commitment, institutional permanence, stakeholder engagement, international influence, and governance innovation. ≥3/5 tiebreakers required to qualify.'
       },
       piet: {
         title: 'PIET — Post-Implementation Evidence Track',
@@ -8764,11 +8835,19 @@ function generateCCSection(eventId, showFullContent) {
     function toggleVersionHistory(eventId) {
       var button = document.getElementById('version-history-btn-' + eventId);
       var panel = document.getElementById('version-history-panel-' + eventId);
-      
+
       if (!button || !panel) return;
-      
+
       var isExpanded = button.getAttribute('aria-expanded') === 'true';
-      
+
+      button.setAttribute('aria-expanded', !isExpanded);
+      panel.setAttribute('data-expanded', !isExpanded);
+    }
+
+    function toggleTiebreaker(button) {
+      var panel = button.nextElementSibling;
+      if (!panel) return;
+      var isExpanded = button.getAttribute('aria-expanded') === 'true';
       button.setAttribute('aria-expanded', !isExpanded);
       panel.setAttribute('data-expanded', !isExpanded);
     }
@@ -9061,9 +9140,22 @@ function generateCCSection(eventId, showFullContent) {
         const tiebreakerTooltip = generateTooltip('tiebreaker', 'left');
         let tbItems = '';
         event.tiebreaker.assessment.forEach(function(tb) {
-          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? '✓' : '✗') + '</span><span class="checkpoint-label">' + tb.criterion + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + tb.rationale + '</div>';
+          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? '✓' : '✗') + '</span><span class="checkpoint-label">' + tb.criterion.replace(/^TB\d+:\s*/, '') + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + tb.rationale + '</div>';
         });
-        tiebreakerHtml = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Human Review Assessment</span>' + tiebreakerTooltip + '</div><div class="section-content"><p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ' + event.tiebreaker.triggerReason + '</p><div class="checkpoint-list">' + tbItems + '</div><p style="margin-top:0.75rem;font-weight:600;">Result: ' + event.tiebreaker.result + '</p></div></div>';
+        tiebreakerHtml = '<div class="panel-section">' +
+          '<button class="tiebreaker-trigger" aria-expanded="false" onclick="toggleTiebreaker(this)">' +
+            '<span class="title-text">Human Review Assessment</span>' + tiebreakerTooltip +
+            '<span class="tiebreaker-result-badge">' + event.tiebreaker.result + '</span>' +
+            '<svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
+          '</button>' +
+          '<div class="tiebreaker-panel" data-expanded="false">' +
+            '<div class="tiebreaker-content">' +
+              '<p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ' + event.tiebreaker.triggerReason + '</p>' +
+              '<div class="checkpoint-list">' + tbItems + '</div>' +
+              '<p style="margin-top:0.75rem;font-weight:600;">Result: ' + event.tiebreaker.result + '</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
       }
       
       let routeBasedSection = '';
@@ -9707,6 +9799,7 @@ function generateCCSection(eventId, showFullContent) {
   window.toggleVersionHistory = toggleVersionHistory;
   window.toggleVersionEntry = toggleVersionEntry;
   window.toggleOriginalQualification = toggleOriginalQualification;
+  window.toggleTiebreaker = toggleTiebreaker;
   window.toggleMechanism = toggleMechanism;
   window.togglePrimaryName = togglePrimaryName;
   window.openAccessModal = openAccessModal;

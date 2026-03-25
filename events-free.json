@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 106,
-    "cc_count": 76,
-    "last_updated": "2026-03-22",
+    "event_count": 112,
+    "cc_count": 90,
+    "last_updated": "2026-03-25",
     "db_version": "1.2.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -136,17 +136,19 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": null,
       "tiebreaker": null,
       "piet": null,
       "oep": null,
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Energy & Power Infrastructure",
           "mechanism": "The EDWC plan mandates coordinated development of renewable energy infrastructure to power western data centre hubs."
         }
       ],
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0,
       "basel5_factors_met": 5
     },
@@ -325,12 +327,14 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": null,
       "tiebreaker": null,
       "piet": null,
       "oep": null,
-      "industry_primary": "AI Software & Platforms",
       "industry_secondary": [],
+      "industry_primary": "AI Software & Platforms",
       "cc_count": 1,
       "keohane_factors_met": 4
     },
@@ -506,11 +510,12 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": null,
       "tiebreaker": null,
       "piet": null,
       "oep": null,
-      "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": [
         {
           "tag": "Trade & Logistics",
@@ -521,6 +526,7 @@
           "mechanism": "Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit and $39B in direct subsidies."
         }
       ],
+      "industry_primary": "Semiconductors & Equipment",
       "cc_count": 9,
       "basel5_factors_met": 5
     },
@@ -719,7 +725,7 @@
       },
       "version": "1.2",
       "ai_connection_pathway": "piet",
-      "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. T2 classification established via Impact-Demonstrated Pathway: PIET Gate 3 confirmed multiple qualifying other-bloc government responses, demonstrating cross-bloc fragmentation impact.",
+      "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. Multiple other-bloc governments issued documented policy responses to the controls, demonstrating cross-bloc fragmentation impact.",
       "bloc_analysis": [
         {
           "bloc": "Western",
@@ -813,6 +819,8 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": null,
       "tiebreaker": null,
       "piet": {
@@ -998,7 +1006,6 @@
         ]
       },
       "oep": null,
-      "industry_primary": "Mining & Critical Minerals",
       "industry_secondary": [
         {
           "tag": "Semiconductors & Equipment",
@@ -1009,6 +1016,7 @@
           "mechanism": "MOFCOM establishes export licensing regime requiring provincial-level approval and end-user certifications."
         }
       ],
+      "industry_primary": "Mining & Critical Minerals",
       "cc_count": 0,
       "basel5_factors_met": 4
     },
@@ -1066,7 +1074,7 @@
       },
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 3
+      "cc_count": 5
     },
     {
       "id": "17",
@@ -1094,7 +1102,7 @@
       },
       "version": "1.0",
       "industry_primary": "Defence & Aerospace",
-      "cc_count": 2
+      "cc_count": 4
     },
     {
       "id": "18",
@@ -1369,11 +1377,12 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": null,
       "tiebreaker": null,
       "piet": null,
       "oep": null,
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Trade & Logistics",
@@ -1384,6 +1393,7 @@
           "mechanism": "IGAA governs $1.5B Microsoft equity investment with board seat and $1B AI developer fund."
         }
       ],
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0,
       "basel5_factors_met": 5
     },
@@ -1497,7 +1507,7 @@
       },
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "29",
@@ -1553,7 +1563,7 @@
       },
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 1
+      "cc_count": 2
     },
     {
       "id": "31",
@@ -1581,7 +1591,7 @@
       },
       "version": "1.1",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 0
+      "cc_count": 2
     },
     {
       "id": "32",
@@ -1721,7 +1731,7 @@
       },
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 0
+      "cc_count": 2
     },
     {
       "id": "40",
@@ -2001,7 +2011,7 @@
       },
       "version": "1.1",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "53",
@@ -2533,7 +2543,7 @@
       },
       "version": "1.2",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 0
+      "cc_count": 3
     },
     {
       "id": "80",
@@ -2645,7 +2655,7 @@
       },
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 1
+      "cc_count": 2
     },
     {
       "id": "86",
@@ -2874,7 +2884,7 @@
           "url": "https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
         }
       ],
-      "related_events": [],
+      "related_events": null,
       "basel5": [
         {
           "factor": "Size",
@@ -2911,17 +2921,19 @@
       "route_based": null,
       "qualification_pathway": null,
       "key_metrics": null,
+      "total_investment": null,
+      "status": null,
       "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
       "tiebreaker": null,
       "piet": null,
       "oep": null,
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Energy & Power Infrastructure",
           "mechanism": "Vattenfall supplies 100% renewable hydroelectric power; waste heat provides ~20% of city heating."
         }
       ],
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 4,
       "basel5_factors_met": 5
     },
@@ -3259,7 +3271,7 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 2
+      "cc_count": 0
     },
     {
       "id": "104",
@@ -3399,7 +3411,7 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 2
+      "cc_count": 0
     },
     {
       "id": "109",
@@ -3427,7 +3439,7 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 3
+      "cc_count": 2
     },
     {
       "id": "110",
@@ -3567,7 +3579,7 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "115",
@@ -3882,6 +3894,176 @@
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0
+    },
+    {
+      "id": "126",
+      "name": "Stargate AI Infrastructure Joint Venture",
+      "lat": 32.4487,
+      "lng": -99.7331,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "21 January 2025",
+      "location": "Abilene, Texas, United States (flagship); multi-site US",
+      "scope": "United States — 6+ sites across Texas, New Mexico, Ohio, Wisconsin, Michigan. Venture-wide scope under Stargate LLC with Abilene as primary documented location.",
+      "description": "Stargate LLC is a US AI infrastructure joint venture with $450B+ committed investment across 6+ sites, backed by equity from SoftBank, OpenAI, Oracle, and MGX. The Abilene, Texas flagship campus (1,100 acres, 1.2 GW power capacity) deploys NVIDIA GB200 racks and has been operational since September 2025. Additional sites span New Mexico, Ohio, Wisconsin, and Michigan, with 8+ GW total planned capacity.",
+      "investment": "$450B+ committed investment; initial equity: SoftBank $19B, OpenAI $19B, Oracle $7B, MGX $7B. Abilene campus park investment at GW-scale data centre buildout.",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 7,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "cc_count": 5
+    },
+    {
+      "id": "127",
+      "name": "Meta Llama 3 Open-Source Model Family Release",
+      "lat": 37.453,
+      "lng": -122.1817,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "18 April 2024",
+      "location": "Menlo Park, California, United States",
+      "scope": "Global — model weights publicly available on Hugging Face and 25+ cloud platforms. Llama 3.1 405B added July 2024 as rolling update within same model family.",
+      "description": "Meta released Llama 3 on 18 April 2024 with 8B and 70B parameter open-weight models trained on 15 trillion tokens. Released under the Meta Llama 3 Community License permitting commercial use with a 700 million MAU threshold. Llama 3.1 (July 2024) added the 405B parameter model. Over 1 billion total downloads reported by March 2025.",
+      "investment": "Training infrastructure: 16,000+ NVIDIA H100 GPUs, 30.84 million GPU-hours. Corporate R&D allocation — specific investment figure not publicly disclosed.",
+      "domain": "Technology",
+      "source_count_primary": 3,
+      "source_count_corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "cc_count": 1
+    },
+    {
+      "id": "128",
+      "name": "China Mobile Intelligent Computing Centre (Hohhot)",
+      "lat": 40.5826,
+      "lng": 111.6596,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "28 June 2024",
+      "location": "Horinger New Area, Hohhot, Inner Mongolia, China",
+      "scope": "China — national-scale AI training computing pool within East Data West Compute (东数西算) Inner Mongolia hub node. Single-facility scope under China Mobile operation.",
+      "description": "China Mobile Intelligent Computing Centre (Hohhot) is the largest single-body intelligent computing centre operated by a global telecoms operator. The facility deploys approximately 20,000 AI acceleration cards with 6.7 EFLOPS (FP16) intelligent computing power. AI chip localisation rate exceeds 85%, integrating 5 domestic chip architectures. Cold-plate liquid cooling achieves PUE of 1.15.",
+      "investment": "Smart computing project total investment 46.6 billion RMB (~$640M USD). Part of China Mobile Hohhot data centre campus with overall campus infrastructure investment ~400 billion RMB since 2012. Regional electricity cost 0.365 RMB/kWh. Green electricity share 69%.",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "OEP (Pathway C — Strong)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "ai_connection_pathway": "oep",
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "cc_count": 1
+    },
+    {
+      "id": "129",
+      "name": "Google Gemini 1.5 Pro Model Release",
+      "lat": 37.3861,
+      "lng": -122.0839,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "23 May 2024",
+      "location": "Mountain View, California, USA",
+      "scope": "Global (200+ countries via API and consumer interface)",
+      "description": "Google released Gemini 1.5 Pro, a Mixture-of-Experts architecture AI model with a 1 million token context window and native multimodal capability across text, image, audio, and video. Generally available via API from 23 May 2024, with Workspace integration from June 2024.",
+      "investment": "350M monthly active users (March 2025); 200+ countries and territories; MoE architecture with 1M token context window; multimodal (text, image, audio, video, code); Workspace enterprise integration",
+      "domain": "Technology",
+      "source_count_primary": 3,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "cc_count": 2
+    },
+    {
+      "id": "130",
+      "name": "European AI Office — Operational Launch",
+      "lat": 50.8503,
+      "lng": 4.3517,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "16 June 2024",
+      "location": "Brussels, Belgium",
+      "scope": "Supranational — 27 EU Member States",
+      "description": "The European Commission established the European AI Office within DG CONNECT via Commission Decision C(2024) 390, becoming operational on 16 June 2024. The Office enforces rules for general-purpose AI models under the EU AI Act, with investigation, evaluation, and penalty powers.",
+      "investment": "Funded through Digital Europe Programme (Specific Objective 2 — Artificial Intelligence); 140+ staff target; enforcement powers including fines up to 3% of worldwide turnover or €15 million",
+      "domain": "Technology",
+      "source_count_primary": 3,
+      "source_count_corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "cc_count": 4
+    },
+    {
+      "id": "131",
+      "name": "Canadian AI Safety Institute (CAISI)",
+      "lat": 45.4215,
+      "lng": -75.6972,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "12 November 2024",
+      "location": "Ottawa, Canada",
+      "scope": "National (leveraging Amii, Mila, Vector Institute)",
+      "description": "The Government of Canada launched the Canadian Artificial Intelligence Safety Institute on 12 November 2024, with CAD $50 million over five years. CAISI operates a dual-track structure: Stream 1 through CIFAR for investigator-led research and Stream 2 through NRC for government-directed research.",
+      "investment": "CAD $50M over 5 years (from Budget 2024 $2.4B AI package); dual-track: $27M CIFAR contribution (Stream 1) + NRC government-directed research (Stream 2); INAISI founding member",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "cc_count": 4
     }
   ]
 }
