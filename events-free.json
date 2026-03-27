@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 112,
-    "cc_count": 90,
-    "last_updated": "2026-03-25",
+    "event_count": 117,
+    "cc_count": 98,
+    "last_updated": "2026-03-27",
     "db_version": "1.2.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -33,6 +33,33 @@
         "current": true
       },
       "version": "1.0",
+      "basel5": [
+        {
+          "factor": "Size",
+          "pass": true,
+          "rationale": "$6.1B direct/$27B total investment far exceeds $500M threshold"
+        },
+        {
+          "factor": "Interconnectedness",
+          "pass": true,
+          "rationale": "Creates national computing backbone enabling AI model training at scale; reduces dependency on foreign cloud providers"
+        },
+        {
+          "factor": "Substitutability",
+          "pass": true,
+          "rationale": "Unique national-scale intelligent computing network; no comparable domestic alternative"
+        },
+        {
+          "factor": "Complexity",
+          "pass": true,
+          "rationale": "Multi-year construction (2022-2025+) with cutting-edge AI infrastructure across 8 hubs"
+        },
+        {
+          "factor": "Cross-jurisdictional",
+          "pass": true,
+          "rationale": "Strengthens Eastern Bloc AI capability concentration; affects global AI compute distribution"
+        }
+      ],
       "tier_rationale": "Tier 3: Intra-Bloc Coordination (Eastern). Official Chinese government documentation frames the initiative as domestic economic development, digital economy support, and regional resource optimisation. Policy documents do not explicitly name the United States or Western entities as targets for dependency reduction. National infrastructure programme channeling computing resources from eastern to western China across eight national computing hubs and ten data centre clusters.",
       "bloc_analysis": [
         {
@@ -100,57 +127,34 @@
           "relationship": "Policy framework for EDWC expansion"
         }
       ],
-      "basel5": [
-        {
-          "factor": "Size",
-          "pass": true,
-          "rationale": "$6.1B direct/$27B total investment far exceeds $500M threshold"
-        },
-        {
-          "factor": "Interconnectedness",
-          "pass": true,
-          "rationale": "Creates national computing backbone enabling AI model training at scale; reduces dependency on foreign cloud providers"
-        },
-        {
-          "factor": "Substitutability",
-          "pass": true,
-          "rationale": "Unique national-scale intelligent computing network; no comparable domestic alternative"
-        },
-        {
-          "factor": "Complexity",
-          "pass": true,
-          "rationale": "Multi-year construction (2022-2025+) with cutting-edge AI infrastructure across 8 hubs"
-        },
-        {
-          "factor": "Cross-jurisdictional",
-          "pass": true,
-          "rationale": "Strengthens Eastern Bloc AI capability concentration; affects global AI compute distribution"
-        }
-      ],
-      "version_date": null,
-      "genesis_date": null,
-      "genesis": null,
-      "rolling_updates": null,
-      "keohane": null,
-      "pisa5": null,
-      "route_based": null,
-      "qualification_pathway": null,
-      "key_metrics": null,
-      "total_investment": null,
-      "status": null,
-      "f1_annotation": null,
-      "tiebreaker": null,
-      "piet": null,
-      "oep": null,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Energy & Power Infrastructure",
           "mechanism": "The EDWC plan mandates coordinated development of renewable energy infrastructure to power western data centre hubs."
         }
       ],
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0,
-      "basel5_factors_met": 5
+      "basel5_factors_met": 5,
+      "status": null,
+      "route_based_factors_met": null,
+      "keohane_factors_met": null,
+      "total_investment": null,
+      "piet": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "version_date": null,
+      "pisa5": null,
+      "ai_connection_pathway": null,
+      "genesis_date": null,
+      "genesis": null,
+      "keohane": null,
+      "route_based": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "rolling_updates": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "02",
@@ -233,6 +237,28 @@
         "current": true
       },
       "version": "1.2",
+      "keohane": [
+        {
+          "factor": "Type",
+          "pass": true,
+          "rationale": "Keohane Type 2 — Institutional Consensus Standard"
+        },
+        {
+          "factor": "Coordination Evidence",
+          "pass": true,
+          "rationale": "IEEE SA individual-participation process; 850+ global experts including US, EU, China, India, Japan, Korea; ISO-adopted via SC 7 (40 P-members)"
+        },
+        {
+          "factor": "Implementation",
+          "pass": true,
+          "rationale": "IEEE SA originated; ISO/IEC/IEEE 24748-7000:2022 adopted via SC 7 fast-track; 167 CertifAIEd assessors across 28 countries"
+        },
+        {
+          "factor": "Cross-Bloc Participation",
+          "pass": true,
+          "rationale": "Genuine cross-bloc technical coordination — both Western and Eastern blocs participated in creating the standard"
+        }
+      ],
       "tier_rationale": "Tier 1: Cross-Bloc Coordination. IEEE P7000 series standards for ethical AI system design including P7000 (Model Process), P7001 (Transparency), P7002 (Data Privacy), and P7003 (Algorithmic Bias) developed through IEEE SA's individual-participation process. Participation includes Western Bloc experts (US, UK, Germany, France, Japan), Eastern Bloc experts (China, Russia), and Non-Aligned participants (India, Brazil). The individual-participation model — open to any qualified expert regardless of national affiliation — enables genuine cross-bloc technical coordination, creating binding technical specifications adopted internationally via ISO/IEC/IEEE 24748-7000:2022.",
       "bloc_analysis": [
         {
@@ -296,47 +322,29 @@
           "relationship": "Related ISO/IEC AI management standard"
         }
       ],
-      "basel5": null,
       "version_date": "2026-03-04",
+      "industry_primary": "AI Software & Platforms",
+      "industry_secondary": [],
+      "cc_count": 1,
+      "keohane_factors_met": 4,
+      "status": null,
+      "route_based_factors_met": null,
+      "total_investment": null,
+      "piet": null,
+      "basel5": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "pisa5": null,
+      "ai_connection_pathway": null,
       "genesis_date": null,
       "genesis": null,
-      "rolling_updates": null,
-      "keohane": [
-        {
-          "factor": "Type",
-          "pass": true,
-          "rationale": "Keohane Type 2 — Institutional Consensus Standard"
-        },
-        {
-          "factor": "Coordination Evidence",
-          "pass": true,
-          "rationale": "IEEE SA individual-participation process; 850+ global experts including US, EU, China, India, Japan, Korea; ISO-adopted via SC 7 (40 P-members)"
-        },
-        {
-          "factor": "Implementation",
-          "pass": true,
-          "rationale": "IEEE SA originated; ISO/IEC/IEEE 24748-7000:2022 adopted via SC 7 fast-track; 167 CertifAIEd assessors across 28 countries"
-        },
-        {
-          "factor": "Cross-Bloc Participation",
-          "pass": true,
-          "rationale": "Genuine cross-bloc technical coordination — both Western and Eastern blocs participated in creating the standard"
-        }
-      ],
-      "pisa5": null,
+      "basel5_factors_met": null,
       "route_based": null,
-      "qualification_pathway": null,
       "key_metrics": null,
-      "total_investment": null,
-      "status": null,
       "f1_annotation": null,
-      "tiebreaker": null,
-      "piet": null,
-      "oep": null,
-      "industry_secondary": [],
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 1,
-      "keohane_factors_met": 4
+      "rolling_updates": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "05",
@@ -391,6 +399,33 @@
         "current": true
       },
       "version": "1.1",
+      "basel5": [
+        {
+          "factor": "Size",
+          "pass": true,
+          "rationale": "$280B authorized ($52.7B direct CHIPS funding) far exceeds $500M threshold"
+        },
+        {
+          "factor": "Interconnectedness",
+          "pass": true,
+          "rationale": "Restructures global semiconductor supply chains; attracts TSMC, Samsung, Intel expansion"
+        },
+        {
+          "factor": "Substitutability",
+          "pass": true,
+          "rationale": "Creates alternative to Asia-concentrated manufacturing; only US programme at this scale"
+        },
+        {
+          "factor": "Complexity",
+          "pass": true,
+          "rationale": "Multi-year implementation (FY2023-2027); cutting-edge process nodes"
+        },
+        {
+          "factor": "Cross-jurisdictional",
+          "pass": true,
+          "rationale": "Affects manufacturing decisions by TSMC, Samsung, Intel globally; restricts China expansion"
+        }
+      ],
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Section 103 guardrails explicitly prohibit funded entities from China expansion, creating binding cross-bloc operating restrictions. Meets multiple Tier 2 criteria with explicit China targeting: dependency reduction language referencing Taiwan/China risk; national security and China co-mention in White House Fact Sheet; supply chain resilience framed around China concerns. Funding conditions create between-bloc fragmentation through explicit prohibitions on recipient operations in countries of concern.",
       "bloc_analysis": [
         {
@@ -474,48 +509,8 @@
           "relationship": "Coordinated export control strategy"
         }
       ],
-      "basel5": [
-        {
-          "factor": "Size",
-          "pass": true,
-          "rationale": "$280B authorized ($52.7B direct CHIPS funding) far exceeds $500M threshold"
-        },
-        {
-          "factor": "Interconnectedness",
-          "pass": true,
-          "rationale": "Restructures global semiconductor supply chains; attracts TSMC, Samsung, Intel expansion"
-        },
-        {
-          "factor": "Substitutability",
-          "pass": true,
-          "rationale": "Creates alternative to Asia-concentrated manufacturing; only US programme at this scale"
-        },
-        {
-          "factor": "Complexity",
-          "pass": true,
-          "rationale": "Multi-year implementation (FY2023-2027); cutting-edge process nodes"
-        },
-        {
-          "factor": "Cross-jurisdictional",
-          "pass": true,
-          "rationale": "Affects manufacturing decisions by TSMC, Samsung, Intel globally; restricts China expansion"
-        }
-      ],
       "version_date": "2026-03-04",
-      "genesis_date": null,
-      "genesis": null,
-      "rolling_updates": null,
-      "keohane": null,
-      "pisa5": null,
-      "route_based": null,
-      "qualification_pathway": null,
-      "key_metrics": null,
-      "total_investment": null,
-      "status": null,
-      "f1_annotation": null,
-      "tiebreaker": null,
-      "piet": null,
-      "oep": null,
+      "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": [
         {
           "tag": "Trade & Logistics",
@@ -526,9 +521,26 @@
           "mechanism": "Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit and $39B in direct subsidies."
         }
       ],
-      "industry_primary": "Semiconductors & Equipment",
       "cc_count": 9,
-      "basel5_factors_met": 5
+      "basel5_factors_met": 5,
+      "status": null,
+      "route_based_factors_met": null,
+      "keohane_factors_met": null,
+      "total_investment": null,
+      "piet": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "pisa5": null,
+      "ai_connection_pathway": null,
+      "genesis_date": null,
+      "genesis": null,
+      "keohane": null,
+      "route_based": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "rolling_updates": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "07",
@@ -724,7 +736,33 @@
         "aiDetail": "PIET (4/4 gates — Trade-Impact Confirmed)"
       },
       "version": "1.2",
-      "ai_connection_pathway": "piet",
+      "basel5": [
+        {
+          "factor": "Size",
+          "pass": true,
+          "rationale": ">90% global gallium; ~60% germanium — market concentration qualifies ($3B+ est. trade impact)"
+        },
+        {
+          "factor": "Interconnectedness",
+          "pass": true,
+          "rationale": "Creates critical cross-border dependencies; restricts Western AI chip manufacturing inputs"
+        },
+        {
+          "factor": "Substitutability",
+          "pass": true,
+          "rationale": "Highly concentrated supply (90%+ gallium); few alternatives exist"
+        },
+        {
+          "factor": "Complexity",
+          "pass": false,
+          "rationale": "Policy instrument, not infrastructure"
+        },
+        {
+          "factor": "Cross-jurisdictional",
+          "pass": true,
+          "rationale": "Affects AI chip supply chains across multiple Western nations"
+        }
+      ],
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. Multiple other-bloc governments issued documented policy responses to the controls, demonstrating cross-bloc fragmentation impact.",
       "bloc_analysis": [
         {
@@ -783,53 +821,15 @@
           "relationship": "Part of China Export Control Sequence"
         }
       ],
-      "basel5": [
-        {
-          "factor": "Size",
-          "pass": true,
-          "rationale": ">90% global gallium; ~60% germanium — market concentration qualifies ($3B+ est. trade impact)"
-        },
-        {
-          "factor": "Interconnectedness",
-          "pass": true,
-          "rationale": "Creates critical cross-border dependencies; restricts Western AI chip manufacturing inputs"
-        },
-        {
-          "factor": "Substitutability",
-          "pass": true,
-          "rationale": "Highly concentrated supply (90%+ gallium); few alternatives exist"
-        },
-        {
-          "factor": "Complexity",
-          "pass": false,
-          "rationale": "Policy instrument, not infrastructure"
-        },
-        {
-          "factor": "Cross-jurisdictional",
-          "pass": true,
-          "rationale": "Affects AI chip supply chains across multiple Western nations"
-        }
-      ],
       "version_date": "2026-03-11",
-      "genesis_date": null,
-      "genesis": null,
-      "rolling_updates": null,
-      "keohane": null,
-      "pisa5": null,
-      "route_based": null,
-      "qualification_pathway": null,
-      "key_metrics": null,
-      "total_investment": null,
-      "status": null,
-      "f1_annotation": null,
-      "tiebreaker": null,
+      "ai_connection_pathway": "piet",
       "piet": {
         "implementationDate": "2023-08-01",
         "assessmentDate": "2025-02-01",
         "gatesPassed": 4,
         "gatesRequired": 3,
         "confidence": "Trade-Impact Confirmed",
-        "result": "PASS (4/4 gates)",
+        "result": "4/4 gates",
         "t2ImpactDemonstrated": true,
         "t2Basis": "Gate 3 cleared — 6 qualifying other-bloc government responses across 3 jurisdictions (EU, Japan, Canada)",
         "gates": [
@@ -1005,7 +1005,7 @@
           }
         ]
       },
-      "oep": null,
+      "industry_primary": "Mining & Critical Minerals",
       "industry_secondary": [
         {
           "tag": "Semiconductors & Equipment",
@@ -1016,9 +1016,24 @@
           "mechanism": "MOFCOM establishes export licensing regime requiring provincial-level approval and end-user certifications."
         }
       ],
-      "industry_primary": "Mining & Critical Minerals",
       "cc_count": 0,
-      "basel5_factors_met": 4
+      "basel5_factors_met": 4,
+      "status": null,
+      "route_based_factors_met": null,
+      "keohane_factors_met": null,
+      "total_investment": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "pisa5": null,
+      "genesis_date": null,
+      "genesis": null,
+      "keohane": null,
+      "route_based": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "rolling_updates": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "15",
@@ -1241,6 +1256,74 @@
         "current": true
       },
       "version": "1.3",
+      "version_date": "2026-03-04",
+      "genesis_date": "2024-04-16",
+      "genesis": {
+        "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
+        "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
+      },
+      "rolling_updates": [
+        {
+          "id": "PU-22-001",
+          "version": "1.1",
+          "date": "2024-06-24",
+          "description": "Investment conditions completed: G42 Chinese divestment finalised (February 2024, $10B+ including ByteDance stake); Huawei equipment removal from data centres confirmed by White House.",
+          "changedFields": [
+            "investmentStatus"
+          ],
+          "sources": [
+            {
+              "desc": "Fortune - White House Confirms Divestment",
+              "url": "https://fortune.com/asia/2024/06/25/white-house-explains-microsoft-investment-uae-ai-champion-g42-pushed-out-huawei/",
+              "date": "2024-06-24",
+              "type": "PRIMARY"
+            },
+            {
+              "desc": "Reuters - Microsoft-G42 Deal Huawei Ties Cut",
+              "url": "https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/",
+              "date": "2024-06-24",
+              "type": "CORROBORATING"
+            },
+            {
+              "desc": "CSIS Analysis - UAE AI Ambitions (G42 Divestment Details)",
+              "url": "https://www.csis.org/analysis/united-arab-emirates-ai-ambitions",
+              "date": "2025-01-27",
+              "type": "CORROBORATING"
+            }
+          ],
+          "previousValues": {
+            "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
+            "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
+          }
+        }
+      ],
+      "basel5": [
+        {
+          "factor": "Size",
+          "pass": true,
+          "rationale": "$1.5B Microsoft equity; 81,900 GPUs (both independently qualify; $15.2B UAE national AI programme context)"
+        },
+        {
+          "factor": "Interconnectedness",
+          "pass": true,
+          "rationale": "Creates US-UAE cross-border dependencies; Azure integration"
+        },
+        {
+          "factor": "Substitutability",
+          "pass": true,
+          "rationale": "G42 is UAE's leading AI company; dominant regional position"
+        },
+        {
+          "factor": "Complexity",
+          "pass": true,
+          "rationale": "Multi-year data centre buildout; IGAA governance framework"
+        },
+        {
+          "factor": "Cross-jurisdictional",
+          "pass": true,
+          "rationale": "Affects UAE, US, and expansion regions; blocks \"countries of concern\""
+        }
+      ],
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Microsoft's $1.5B equity investment in UAE's G42 with binding Intergovernmental Assurance Agreement co-developed by US and UAE governments. Meets Tier 2 Buildout Criterion 3 (Operating Restrictions): IGAA explicitly prohibits expansion into \"countries of concern\" and required G42's divestment of Chinese technology holdings including Huawei partnerships. Creates parallel AI infrastructure in Non-Aligned UAE (200MW datacenter expansion, 81,900 GPUs) with explicit operating restrictions preventing integration with China. Friend-shoring infrastructure maintaining Western technology dependency while located in Non-Aligned geography.",
       "bloc_analysis": [
         {
@@ -1304,85 +1387,7 @@
           "relationship": "GAIIP"
         }
       ],
-      "basel5": [
-        {
-          "factor": "Size",
-          "pass": true,
-          "rationale": "$1.5B Microsoft equity; 81,900 GPUs (both independently qualify; $15.2B UAE national AI programme context)"
-        },
-        {
-          "factor": "Interconnectedness",
-          "pass": true,
-          "rationale": "Creates US-UAE cross-border dependencies; Azure integration"
-        },
-        {
-          "factor": "Substitutability",
-          "pass": true,
-          "rationale": "G42 is UAE's leading AI company; dominant regional position"
-        },
-        {
-          "factor": "Complexity",
-          "pass": true,
-          "rationale": "Multi-year data centre buildout; IGAA governance framework"
-        },
-        {
-          "factor": "Cross-jurisdictional",
-          "pass": true,
-          "rationale": "Affects UAE, US, and expansion regions; blocks \"countries of concern\""
-        }
-      ],
-      "version_date": "2026-03-04",
-      "genesis_date": "2024-04-16",
-      "genesis": {
-        "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
-        "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
-      },
-      "rolling_updates": [
-        {
-          "id": "PU-22-001",
-          "version": "1.1",
-          "date": "2024-06-24",
-          "description": "Investment conditions completed: G42 Chinese divestment finalised (February 2024, $10B+ including ByteDance stake); Huawei equipment removal from data centres confirmed by White House.",
-          "changedFields": [
-            "investmentStatus"
-          ],
-          "sources": [
-            {
-              "desc": "Fortune - White House Confirms Divestment",
-              "url": "https://fortune.com/asia/2024/06/25/white-house-explains-microsoft-investment-uae-ai-champion-g42-pushed-out-huawei/",
-              "date": "2024-06-24",
-              "type": "PRIMARY"
-            },
-            {
-              "desc": "Reuters - Microsoft-G42 Deal Huawei Ties Cut",
-              "url": "https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/",
-              "date": "2024-06-24",
-              "type": "CORROBORATING"
-            },
-            {
-              "desc": "CSIS Analysis - UAE AI Ambitions (G42 Divestment Details)",
-              "url": "https://www.csis.org/analysis/united-arab-emirates-ai-ambitions",
-              "date": "2025-01-27",
-              "type": "CORROBORATING"
-            }
-          ],
-          "previousValues": {
-            "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
-            "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
-          }
-        }
-      ],
-      "keohane": null,
-      "pisa5": null,
-      "route_based": null,
-      "qualification_pathway": null,
-      "key_metrics": null,
-      "total_investment": null,
-      "status": null,
-      "f1_annotation": null,
-      "tiebreaker": null,
-      "piet": null,
-      "oep": null,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Trade & Logistics",
@@ -1393,9 +1398,23 @@
           "mechanism": "IGAA governs $1.5B Microsoft equity investment with board seat and $1B AI developer fund."
         }
       ],
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0,
-      "basel5_factors_met": 5
+      "basel5_factors_met": 5,
+      "status": null,
+      "route_based_factors_met": null,
+      "keohane_factors_met": null,
+      "total_investment": null,
+      "piet": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "pisa5": null,
+      "ai_connection_pathway": null,
+      "keohane": null,
+      "route_based": null,
+      "key_metrics": null,
+      "f1_annotation": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "24",
@@ -2487,7 +2506,7 @@
       },
       "version": "1.1",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "78",
@@ -2515,7 +2534,7 @@
       },
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "79",
@@ -2822,6 +2841,34 @@
         "current": true
       },
       "version": "1.0",
+      "basel5": [
+        {
+          "factor": "Size",
+          "pass": true,
+          "rationale": "Top500 #3 at implementation (November 2022); supercomputer ranking establishes significance"
+        },
+        {
+          "factor": "Interconnectedness",
+          "pass": true,
+          "rationale": "11-country consortium; serves pan-European AI research ecosystem"
+        },
+        {
+          "factor": "Substitutability",
+          "pass": true,
+          "rationale": "Unique pre-exascale capacity in Northern Europe; no comparable alternative"
+        },
+        {
+          "factor": "Complexity",
+          "pass": true,
+          "rationale": "Pre-exascale architecture; AMD MI250X GPUs; 379.70 PFlops"
+        },
+        {
+          "factor": "Cross-jurisdictional",
+          "pass": true,
+          "rationale": "11-country consortium under EU regulatory framework (Council Regulation 2021/1173)"
+        }
+      ],
+      "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
       "tier_rationale": "Tier 3: Intra-Bloc Coordination (Western). EuroHPC Joint Undertaking pre-exascale supercomputer established under Council Regulation (EU) 2021/1173 with 11-country consortium including Finland (host), Belgium, Czech Republic, Denmark, Estonia, Iceland, Netherlands, Norway, Poland, Sweden, and Switzerland. Official EuroHPC JU documentation frames LUMI as supporting European digital sovereignty, AI ecosystem development, and scientific competitiveness. All consortium members are Western-aligned (EU/EEA members or Switzerland participating in EU institutional frameworks). No cross-bloc restrictions or explicit Eastern Bloc references in governing documentation.",
       "bloc_analysis": [
         {
@@ -2884,58 +2931,34 @@
           "url": "https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
         }
       ],
-      "related_events": null,
-      "basel5": [
-        {
-          "factor": "Size",
-          "pass": true,
-          "rationale": "Top500 #3 at implementation (November 2022) qualifies via supercomputer pathway"
-        },
-        {
-          "factor": "Interconnectedness",
-          "pass": true,
-          "rationale": "11-country consortium; serves pan-European AI research ecosystem"
-        },
-        {
-          "factor": "Substitutability",
-          "pass": true,
-          "rationale": "Unique pre-exascale capacity in Northern Europe; no comparable alternative"
-        },
-        {
-          "factor": "Complexity",
-          "pass": true,
-          "rationale": "Pre-exascale architecture; AMD MI250X GPUs; 379.70 PFlops"
-        },
-        {
-          "factor": "Cross-jurisdictional",
-          "pass": true,
-          "rationale": "11-country consortium under EU regulatory framework (Council Regulation 2021/1173)"
-        }
-      ],
-      "version_date": null,
-      "genesis_date": null,
-      "genesis": null,
-      "rolling_updates": null,
-      "keohane": null,
-      "pisa5": null,
-      "route_based": null,
-      "qualification_pathway": null,
-      "key_metrics": null,
-      "total_investment": null,
-      "status": null,
-      "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
-      "tiebreaker": null,
-      "piet": null,
-      "oep": null,
+      "related_events": [],
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
         {
           "tag": "Energy & Power Infrastructure",
           "mechanism": "Vattenfall supplies 100% renewable hydroelectric power; waste heat provides ~20% of city heating."
         }
       ],
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 4,
-      "basel5_factors_met": 5
+      "cc_count": 5,
+      "basel5_factors_met": 5,
+      "status": null,
+      "route_based_factors_met": null,
+      "keohane_factors_met": null,
+      "total_investment": null,
+      "piet": null,
+      "tiebreaker": null,
+      "pisa5_factors_met": null,
+      "version_date": null,
+      "pisa5": null,
+      "ai_connection_pathway": null,
+      "genesis_date": null,
+      "genesis": null,
+      "keohane": null,
+      "route_based": null,
+      "key_metrics": null,
+      "rolling_updates": null,
+      "qualification_pathway": null,
+      "oep": null
     },
     {
       "id": "92",
@@ -2970,19 +2993,19 @@
       "name": "China Administrative Provisions on Algorithm Recommendation",
       "lat": 39.9042,
       "lng": 116.4074,
-      "bloc": "Eastern",
-      "tier": 3,
-      "type": "Policy",
       "sample": false,
       "date": "2022-03-01",
       "location": "Beijing, China",
-      "scope": "People's Republic of China (Mainland)",
-      "description": "World's first comprehensive binding regulatory framework for recommendation algorithms. Establishes mandatory algorithm filing system, transparency requirements, and user control mechanisms for AI-powered content curation. Regulates generation/synthesis, personalized recommendation, ranking/selection, retrieval/filtering, and dispatching/decision-making algorithm technologies. Creates foundational regulatory infrastructure that subsequent AI regulations (Deep Synthesis, Generative AI Interim Measures) operationalise via explicit statutory cross-references. Joint issuance by CAC, MIIT, MPS, and SAMR.",
-      "investment": "Regulatory Framework (Penalties ¥10,000-100,000; 30+ algorithms filed August 2022)",
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
       "domain": "Technology",
+      "scope": "People's Republic of China (Mainland)",
+      "investment": "Regulatory Framework (Penalties ¥10,000-100,000; 30+ algorithms filed August 2022)",
       "source_count_primary": 3,
       "source_count_corroborating": 2,
       "confidence": "A",
+      "description": "World's first comprehensive binding regulatory framework for recommendation algorithms. Establishes mandatory algorithm filing system, transparency requirements, and user control mechanisms for AI-powered content curation. Regulates generation/synthesis, personalized recommendation, ranking/selection, retrieval/filtering, and dispatching/decision-making algorithm technologies. Creates foundational regulatory infrastructure that subsequent AI regulations (Deep Synthesis, Generative AI Interim Measures) operationalise via explicit statutory cross-references. Joint issuance by CAC, MIIT, MPS, and SAMR.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -2998,19 +3021,19 @@
       "name": "China Administrative Provisions on Deep Synthesis",
       "lat": 39.9042,
       "lng": 116.4074,
-      "bloc": "Eastern",
-      "tier": 3,
-      "type": "Policy",
       "sample": false,
       "date": "2023-01-10",
       "location": "Beijing, China",
-      "scope": "People's Republic of China (Mainland)",
-      "description": "Comprehensive regulation targeting AI-generated synthetic media including deepfakes. Article 23 provides detailed legal definitions covering six AI technology categories: text generation, speech synthesis, audio generation, biometric editing (face-swap, voice cloning), image/video generation, and virtual scene generation. Establishes mandatory content labelling requirements, consent frameworks for biometric data, and algorithm filing procedures. Article 19 explicitly requires compliance with Algorithm Recommendation Provisions' filing system. Joint issuance by CAC, MIIT, and MPS.",
-      "investment": "Regulatory Framework (2,800+ algorithms filed as of 2024; enforcement via Data Security Law/PIPL)",
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
       "domain": "Technology",
+      "scope": "People's Republic of China (Mainland)",
+      "investment": "Regulatory Framework (2,800+ algorithms filed as of 2024; enforcement via Data Security Law/PIPL)",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
       "confidence": "A",
+      "description": "Comprehensive regulation targeting AI-generated synthetic media including deepfakes. Article 23 provides detailed legal definitions covering six AI technology categories: text generation, speech synthesis, audio generation, biometric editing (face-swap, voice cloning), image/video generation, and virtual scene generation. Establishes mandatory content labelling requirements, consent frameworks for biometric data, and algorithm filing procedures. Article 19 explicitly requires compliance with Algorithm Recommendation Provisions' filing system. Joint issuance by CAC, MIIT, and MPS.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3026,19 +3049,19 @@
       "name": "Doubao AI Assistant Platform (ByteDance)",
       "lat": 39.9847,
       "lng": 116.3046,
-      "bloc": "Eastern",
-      "tier": 3,
-      "type": "Corporate",
       "sample": false,
       "date": "2023-08-15",
       "location": "Beijing, China (ByteDance HQ)",
-      "scope": "People's Republic of China (Mainland)",
-      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on August 31, 2023.",
-      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); China's #1 AIGC platform by user base",
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
       "domain": "Technology",
+      "scope": "People's Republic of China (Mainland)",
+      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); China's #1 AIGC platform by user base",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
       "confidence": "A",
+      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on August 31, 2023.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3159,7 +3182,7 @@
       },
       "version": "1.1",
       "industry_primary": "Energy & Power Infrastructure",
-      "cc_count": 0
+      "cc_count": 2
     },
     {
       "id": "100",
@@ -3187,7 +3210,7 @@
       },
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "101",
@@ -3355,7 +3378,7 @@
       },
       "version": "1.0",
       "industry_primary": "Defence & Aerospace",
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "107",
@@ -3762,13 +3785,10 @@
       "sample": false,
       "date": "01 December 2023",
       "location": "Beijing, China",
-      "scope": "Mainland China (global export impact)",
-      "description": "Export licensing controls on specified graphite materials and products per MOFCOM/GAC Joint Announcement No. 39/2023. Controls capture high-purity synthetic graphite, natural flake graphite, spherical graphite, and expanded graphite defined by HS code specifications. China produces approximately 77% of global natural graphite.",
-      "investment": "N/A (regulatory instrument). Trade disruption: flake graphite exports declined 93.93% MoM December 2023; fine flake graphite prices decreased 20% through first 10 months of 2024",
       "domain": "Trade",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "confidence": "A",
+      "version": "1.0",
+      "ai_connection_pathway": "piet",
       "checkpoints": {
         "ai": true,
         "aiDetail": "PIET (3/4 gates — Trade-Impact Confirmed)",
@@ -3776,8 +3796,11 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
-      "ai_connection_pathway": "piet",
+      "description": "Export licensing controls on specified graphite materials and products per MOFCOM/GAC Joint Announcement No. 39/2023. Controls capture high-purity synthetic graphite, natural flake graphite, spherical graphite, and expanded graphite defined by HS code specifications. China produces approximately 77% of global natural graphite.",
+      "investment": "N/A (regulatory instrument). Trade disruption: flake graphite exports declined 93.93% MoM December 2023; fine flake graphite prices decreased 20% through first 10 months of 2024",
+      "scope": "Mainland China (global export impact)",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Mining & Critical Minerals",
       "cc_count": 0
     },
@@ -3792,13 +3815,10 @@
       "sample": false,
       "date": "03 December 2024",
       "location": "Beijing, China",
-      "scope": "National (China) targeting the United States",
-      "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
-      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to $59,750/t; US imports of germanium, bismuth, and molybdenum fell to zero",
       "domain": "Security",
-      "source_count_primary": 2,
-      "source_count_corroborating": 3,
       "confidence": "A",
+      "version": "1.0",
+      "ai_connection_pathway": "piet",
       "checkpoints": {
         "ai": true,
         "aiDetail": "PIET (3/4 gates — Trade-Impact Confirmed)",
@@ -3806,8 +3826,11 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
-      "ai_connection_pathway": "piet",
+      "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
+      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to $59,750/t; US imports of germanium, bismuth, and molybdenum fell to zero",
+      "scope": "National (China) targeting the United States",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
       "industry_primary": "Mining & Critical Minerals",
       "cc_count": 0
     },
@@ -3822,20 +3845,20 @@
       "sample": false,
       "date": "19 December 2024",
       "location": "West Lafayette, Indiana, United States",
-      "scope": "United States (global AI hardware supply chain)",
-      "description": "US Department of Commerce CHIPS and Science Act incentives award to SK Hynix for high-bandwidth memory advanced packaging fabrication facility in West Lafayette, Indiana. World's leading HBM producer building first US-based advanced packaging facility. Mass production expected second half of 2028.",
-      "investment": "$3.87B total investment ($458M direct federal funding + $500M loans under CHIPS Incentives Program)",
       "domain": "Energy/Infrastructure",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "confidence": "A",
+      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "description": "US Department of Commerce CHIPS and Science Act incentives award to SK Hynix for high-bandwidth memory advanced packaging fabrication facility in West Lafayette, Indiana. World's leading HBM producer building first US-based advanced packaging facility. Mass production expected second half of 2028.",
+      "investment": "$3.87B total investment ($458M direct federal funding + $500M loans under CHIPS Incentives Program)",
+      "scope": "United States (global AI hardware supply chain)",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "cc_count": 8
     },
@@ -3850,20 +3873,20 @@
       "sample": false,
       "date": "28 May 2025",
       "location": "Geneva, Switzerland",
-      "scope": "International (ISO/IEC member nations)",
-      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies from both blocs. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
-      "investment": "Stage 60.60 (Published); full International Standard status with normative authority; 48 P-member national bodies",
       "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "confidence": "A",
+      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies from both blocs. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
+      "investment": "Stage 60.60 (Published); full International Standard status with normative authority; 48 P-member national bodies",
+      "scope": "International (ISO/IEC member nations)",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "AI Software & Platforms",
       "cc_count": 2
     },
@@ -3878,20 +3901,20 @@
       "sample": false,
       "date": "17 July 2025",
       "location": "Bristol, United Kingdom",
-      "scope": "United Kingdom (national AI research resource)",
-      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
-      "investment": "£225M (~$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
       "domain": "Energy/Infrastructure",
-      "source_count_primary": 3,
-      "source_count_corroborating": 1,
       "confidence": "A",
+      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
+      "investment": "£225M (~$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
+      "scope": "United Kingdom (national AI research resource)",
+      "source_count_primary": 3,
+      "source_count_corroborating": 1,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 0
     },
@@ -4063,6 +4086,146 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
+      "cc_count": 4
+    },
+    {
+      "id": "132",
+      "name": "Microsoft-Constellation Crane Clean Energy Center Nuclear PPA",
+      "lat": 40.1532,
+      "lng": -76.7247,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "September 20, 2024",
+      "location": "Londonderry Township, Pennsylvania, USA",
+      "domain": "Energy/Infrastructure",
+      "industry_primary": "Energy & Power Infrastructure",
+      "description": "Microsoft's 20-year power purchase agreement with Constellation Energy to restart Three Mile Island Unit 1, rebranded Crane Clean Energy Center, providing 835 MW of carbon-free nuclear baseload power for data centre operations in the PJM Interconnection grid. Target operational date 2028.",
+      "investment": "$1.6B capital expenditure; 835 MW capacity; 20-year PPA term; PJM Interconnection (13 states + DC); licence extension to 2054",
+      "scope": "United States (PJM Interconnection region)",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
+      "confidence": "A",
+      "cc_count": 2
+    },
+    {
+      "id": "133",
+      "name": "Amazon-X-energy Xe-100 SMR Investment",
+      "lat": 39.084,
+      "lng": -77.1528,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "October 16, 2024",
+      "location": "Rockville, Maryland, USA",
+      "domain": "Energy/Infrastructure",
+      "industry_primary": "Energy & Power Infrastructure",
+      "description": "Amazon's approximately $500M anchor investment in X-energy's Series C-1 financing round to develop Xe-100 advanced small modular reactors and TRISO-X fuel for AI data centre power. Initial 320 MW deployment planned with Energy Northwest at Columbia Generating Station site, Washington state.",
+      "investment": "~$500M Series C-1 (upsized to $700M by Feb 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
+      "scope": "United States (Washington state initial; national deployment target)",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 1,
+      "confidence": "A",
+      "cc_count": 2
+    },
+    {
+      "id": "134",
+      "name": "US DoD Replicator Initiative (Tranche 1)",
+      "lat": 38.8719,
+      "lng": -77.0563,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "May 6, 2024",
+      "location": "United States (DoD-wide)",
+      "domain": "Security",
+      "industry_primary": "Defence & Aerospace",
+      "description": "US Department of Defense programme to field all-domain attritable autonomous systems at scale, led by the Defense Innovation Unit. Tranche 1 selected systems include AeroVironment Switchblade-600, Anduril Altius-600 and Ghost-X, and Performance Drone Works C-100, acquired through Commercial Solutions Openings. CDAO provides enterprise policy and software architecture enablement.",
+      "investment": "~$500M FY2024 ($300M reprogramming + $200M existing authorities); ~$1B total FY2024–25; target multiple thousands of autonomous systems",
+      "scope": "United States Department of Defense (all-domain)",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "cc_count": 1
+    },
+    {
+      "id": "135",
+      "name": "AUKUS Pillar II TORVICE AI Trial",
+      "lat": -31.6,
+      "lng": 137.0,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "October 2023",
+      "location": "Cultana Training Area, South Australia",
+      "domain": "Security",
+      "industry_primary": "Defence & Aerospace",
+      "description": "AUKUS Pillar II trilateral AI-enabled electronic warfare trial at Cultana Training Area, South Australia. UK and US robotic ground vehicles tested as autonomous Multi-Domain Launchers and UGVs under electronic warfare, electro-optical, and PNT attacks by Australian defence scientists. Part of the RAAIT programme.",
+      "investment": "Trilateral military trial: 3 nations; UK + US robotic vehicles; Australian EW red-team capability; RAAIT Project Agreement signed November 2023",
+      "scope": "International — AUKUS nations (Australia, United Kingdom, United States)",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 3,
+      "source_count_corroborating": 1,
+      "confidence": "A",
+      "cc_count": 0
+    },
+    {
+      "id": "136",
+      "name": "Destination Earth (DestinE) Phase 1",
+      "lat": 50.8505,
+      "lng": 4.3488,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "June 10, 2024",
+      "location": "Distributed: Finland (LUMI), Spain (MareNostrum 5), Italy (Leonardo), Luxembourg (MeluXina)",
+      "domain": "Technology",
+      "industry_primary": "AI Software & Platforms",
+      "description": "EU programme creating high-resolution Earth system digital twins using dedicated EuroHPC supercomputer infrastructure and machine learning. European Commission leads, with ECMWF (Digital Twin Engine), ESA (Core Service Platform), and EUMETSAT (Data Lake) as entrusted entities. EuroHPC JU Governing Board Decision 30/2022 allocates dedicated compute resources.",
+      "investment": "€150M Phase 1 funding; 5% of EuroHPC JU compute time on LUMI, Leonardo, MareNostrum 5; 3,500+ registered users; up to 1 PB/day output",
+      "scope": "EU member states (distributed across EuroHPC infrastructure)",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 4,
+      "source_count_corroborating": 3,
+      "confidence": "A",
       "cc_count": 4
     }
   ]
