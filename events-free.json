@@ -1,9 +1,9 @@
 {
   "meta": {
-    "event_count": 121,
-    "cc_count": 105,
-    "last_updated": "2026-03-28",
-    "db_version": "1.2.0",
+    "event_count": 114,
+    "cc_count": 96,
+    "last_updated": "2026-03-30",
+    "db_version": "1.3.0",
     "schema_version": "1.0",
     "tier": "free"
   },
@@ -135,26 +135,7 @@
         }
       ],
       "cc_count": 0,
-      "basel5_factors_met": 5,
-      "tiebreaker": null,
-      "f1_annotation": null,
-      "keohane_factors_met": null,
-      "qualification_pathway": null,
-      "status": null,
-      "genesis": null,
-      "ai_connection_pathway": null,
-      "oep": null,
-      "version_date": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "genesis_date": null,
-      "key_metrics": null,
-      "route_based": null,
-      "piet": null,
-      "pisa5": null,
-      "rolling_updates": null,
-      "pisa5_factors_met": null,
-      "keohane": null
+      "basel5_factors_met": 5
     },
     {
       "id": "02",
@@ -217,8 +198,8 @@
       "name": "IEEE P7000 Series AI Ethics Standards",
       "lat": 40.7128,
       "lng": -74.006,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
+      "bloc": "Western",
+      "tier": 3,
       "type": "Coordination",
       "sample": true,
       "date": "2021-2023",
@@ -251,7 +232,7 @@
         {
           "factor": "Implementation",
           "pass": true,
-          "rationale": "IEEE SA originated; ISO/IEC/IEEE 24748-7000:2022 adopted via SC 7 fast-track; 167 CertifAIEd assessors across 28 countries"
+          "rationale": "CertifAIEd operational with 167 assessors across 28 countries; Wiener Stadtwerke pilot completed; ISO/IEC/IEEE 24748-7000 adopted"
         },
         {
           "factor": "Cross-Bloc Participation",
@@ -259,22 +240,22 @@
           "rationale": "Genuine cross-bloc technical coordination — both Western and Eastern blocs participated in creating the standard"
         }
       ],
-      "tier_rationale": "Tier 1: Cross-Bloc Coordination. IEEE P7000 series standards for ethical AI system design including P7000 (Model Process), P7001 (Transparency), P7002 (Data Privacy), and P7003 (Algorithmic Bias) developed through IEEE SA's individual-participation process. Participation includes Western Bloc experts (US, UK, Germany, France, Japan), Eastern Bloc experts (China, Russia), and Non-Aligned participants (India, Brazil). The individual-participation model — open to any qualified expert regardless of national affiliation — enables genuine cross-bloc technical coordination, creating binding technical specifications adopted internationally via ISO/IEC/IEEE 24748-7000:2022.",
+      "tier_rationale": "Tier 3: Intra-Bloc Coordination (Western). Developed through IEEE SA’s individual-participation process with cross-bloc expert engagement including Western and Eastern Bloc participants. CertifAIEd conformity assessment programme operational with 167 authorised assessors across 28 countries, with completed pilot assessment at Wiener Stadtwerke. ISO adoption extends normative reach through ISO/IEC/IEEE 24748-7000:2022 via JTC 1/SC 7 fast-track. Operational assessment activity and training infrastructure concentrated within Western-aligned jurisdictions including Germany, the United States, and the United Kingdom.",
       "bloc_analysis": [
         {
           "bloc": "Western",
           "involvement": "Yes",
-          "role": "US, UK, Germany, France, Japan participating via IEEE SA individual-participation process"
+          "role": "US, UK, Germany, France, Japan (IEEE SA participants)"
         },
         {
           "bloc": "Eastern",
           "involvement": "Yes",
-          "role": "China, Russia participating via IEEE SA individual-participation process"
+          "role": "China, Russia (IEEE SA participants)"
         },
         {
           "bloc": "Non-Aligned",
           "involvement": "Yes",
-          "role": "India, Brazil participating via IEEE SA individual-participation process"
+          "role": "India, Brazil (IEEE SA participants)"
         }
       ],
       "sources_primary": [
@@ -326,25 +307,7 @@
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": [],
       "cc_count": 1,
-      "keohane_factors_met": 4,
-      "tiebreaker": null,
-      "f1_annotation": null,
-      "qualification_pathway": null,
-      "status": null,
-      "genesis": null,
-      "ai_connection_pathway": null,
-      "oep": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "genesis_date": null,
-      "key_metrics": null,
-      "route_based": null,
-      "piet": null,
-      "pisa5": null,
-      "basel5_factors_met": null,
-      "basel5": null,
-      "rolling_updates": null,
-      "pisa5_factors_met": null
+      "keohane_factors_met": 4
     },
     {
       "id": "05",
@@ -522,25 +485,7 @@
         }
       ],
       "cc_count": 10,
-      "basel5_factors_met": 5,
-      "tiebreaker": null,
-      "f1_annotation": null,
-      "keohane_factors_met": null,
-      "qualification_pathway": null,
-      "status": null,
-      "genesis": null,
-      "ai_connection_pathway": null,
-      "oep": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "genesis_date": null,
-      "key_metrics": null,
-      "route_based": null,
-      "piet": null,
-      "pisa5": null,
-      "rolling_updates": null,
-      "pisa5_factors_met": null,
-      "keohane": null
+      "basel5_factors_met": 5
     },
     {
       "id": "07",
@@ -595,34 +540,6 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 1
-    },
-    {
-      "id": "09",
-      "name": "ISO/IEC 23894:2023 AI Risk Management Standard",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "2023-02-05",
-      "location": "Geneva, Switzerland",
-      "scope": "Global (ISO/IEC member nations)",
-      "description": "International standard providing guidance for AI risk management throughout the AI system lifecycle, integrated with organisational processes. Referenced by regulators and industry globally.",
-      "investment": "N/A (Standards framework, not monetary programme)",
-      "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 3,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
       "industry_primary": "AI Software & Platforms",
       "cc_count": 1
     },
@@ -1017,23 +934,7 @@
         }
       ],
       "cc_count": 0,
-      "basel5_factors_met": 4,
-      "tiebreaker": null,
-      "f1_annotation": null,
-      "keohane_factors_met": null,
-      "qualification_pathway": null,
-      "status": null,
-      "genesis": null,
-      "oep": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "genesis_date": null,
-      "key_metrics": null,
-      "route_based": null,
-      "pisa5": null,
-      "rolling_updates": null,
-      "pisa5_factors_met": null,
-      "keohane": null
+      "basel5_factors_met": 4
     },
     {
       "id": "15",
@@ -1174,34 +1075,6 @@
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
       "cc_count": 3
-    },
-    {
-      "id": "20",
-      "name": "ISO/IEC 5338:2023 AI System Life Cycle Processes",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "2023-12-20",
-      "location": "Geneva, Switzerland",
-      "scope": "International (39+ P-member nations via ISO/IEC JTC 1/SC 42)",
-      "description": "International standard defining processes for AI system lifecycle based on machine learning and heuristic systems. Extends ISO/IEC/IEEE 15288 and 12207 with AI-specific processes.",
-      "investment": "39 P-member countries; 39-page standard; ISO/IEC JTC 1/SC 42 governance",
-      "domain": "Technology",
-      "source_count_primary": 3,
-      "source_count_corroborating": 5,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 2
     },
     {
       "id": "21",
@@ -1399,22 +1272,7 @@
         }
       ],
       "cc_count": 0,
-      "basel5_factors_met": 5,
-      "tiebreaker": null,
-      "f1_annotation": null,
-      "keohane_factors_met": null,
-      "qualification_pathway": null,
-      "status": null,
-      "ai_connection_pathway": null,
-      "oep": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "key_metrics": null,
-      "route_based": null,
-      "piet": null,
-      "pisa5": null,
-      "pisa5_factors_met": null,
-      "keohane": null
+      "basel5_factors_met": 5
     },
     {
       "id": "24",
@@ -2940,25 +2798,7 @@
         }
       ],
       "cc_count": 5,
-      "basel5_factors_met": 5,
-      "tiebreaker": null,
-      "keohane_factors_met": null,
-      "qualification_pathway": null,
-      "status": null,
-      "genesis": null,
-      "ai_connection_pathway": null,
-      "oep": null,
-      "version_date": null,
-      "total_investment": null,
-      "route_based_factors_met": null,
-      "genesis_date": null,
-      "key_metrics": null,
-      "route_based": null,
-      "piet": null,
-      "pisa5": null,
-      "rolling_updates": null,
-      "pisa5_factors_met": null,
-      "keohane": null
+      "basel5_factors_met": 5
     },
     {
       "id": "92",
@@ -3077,8 +2917,8 @@
       "name": "UNIDO AIM Global Centre of Excellence (Shanghai)",
       "lat": 31.16,
       "lng": 121.35,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
+      "bloc": "Eastern",
+      "tier": 3,
       "type": "Coordination",
       "sample": false,
       "date": "2024-07-04",
@@ -3089,34 +2929,6 @@
       "domain": "Technology",
       "source_count_primary": 4,
       "source_count_corroborating": 2,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 1
-    },
-    {
-      "id": "98",
-      "name": "ISO/IEC 8183:2023 AI Data Life Cycle Framework",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "2023-07",
-      "location": "Geneva, Switzerland",
-      "scope": "International (39 P-member nations via ISO/IEC JTC 1/SC 42)",
-      "description": "International Standard defining stages and actions for data processing throughout the AI system life cycle, including acquisition, creation, development, deployment, maintenance, and decommissioning. Establishes 10-stage data lifecycle framework complementing ISO/IEC 5338 system lifecycle processes.",
-      "investment": "Stage 60.60 (Published); full International Standard status with normative authority",
-      "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 0,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3189,14 +3001,14 @@
       "name": "ISO/IEC 42006:2025 Requirements for AI Management System Certification Bodies",
       "lat": 46.2044,
       "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
+      "bloc": "Western",
+      "tier": 3,
       "type": "Coordination",
       "sample": false,
       "date": "July 2025",
       "location": "Geneva, Switzerland",
       "scope": "Global (ISO 169 member nations; IEC 89 member nations)",
-      "description": "International standard establishing requirements for bodies providing audit and certification of AI Management Systems (AIMS) per ISO/IEC 42001:2023. Published by ISO/IEC JTC 1/SC 42 with 39 participating member nations including both Western and Eastern Bloc representation.",
+      "description": "International standard establishing requirements for bodies providing audit and certification of AI Management Systems (AIMS) per ISO/IEC 42001:2023. Published by ISO/IEC JTC 1/SC 42 with 39 participating member nations.",
       "investment": "N/A — International technical standard (certification framework)",
       "domain": "Technology",
       "source_count_primary": 3,
@@ -3357,8 +3169,8 @@
       "name": "ISO/IEC 22989:2022 — AI Concepts and Terminology",
       "lat": 46.2044,
       "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
+      "bloc": "Western",
+      "tier": 3,
       "type": "Coordination",
       "sample": false,
       "date": "July 2022",
@@ -3378,7 +3190,7 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
-      "cc_count": 10
+      "cc_count": 3
     },
     {
       "id": "108",
@@ -3422,90 +3234,6 @@
       "scope": "Global (170+ countries via Google Bard and API)",
       "description": "Google released Gemini 1.0, a frontier multimodal AI model family (Ultra, Pro, Nano) available in 170+ countries, integrated into Google Bard and enterprise platforms, establishing Google's leading position in multimodal AI capability.",
       "investment": "Gemini Ultra/Pro/Nano model family; 170+ country availability; multimodal capability (text, image, audio, video, code); Gemini Ultra claimed to exceed human expert performance on MMLU; integrated into Google Bard, Vertex AI, Google Workspace",
-      "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 2
-    },
-    {
-      "id": "110",
-      "name": "ISO/IEC 38507:2022 — AI Governance for Organizations",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "April 2022",
-      "location": "Geneva, Switzerland",
-      "scope": "International (ISO/IEC JTC 1/SC 40 and SC 42 — 39+ P-member nations)",
-      "description": "International standard providing governance guidance for organisations on the implications of using artificial intelligence, developed jointly by ISO/IEC SC 40 (IT Governance) and SC 42 (AI) through multi-nation consensus process with 39+ participating member nations.",
-      "investment": "SC 42: 39 P-member nations; jointly developed by SC 40 (IT Governance) and SC 42 (AI); extends ISO/IEC 38500 IT governance framework for AI-specific considerations",
-      "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 1
-    },
-    {
-      "id": "111",
-      "name": "ISO/IEC 23053:2022 — AI/ML Systems Framework",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "June 20, 2022",
-      "location": "Geneva, Switzerland",
-      "scope": "International (ISO/IEC JTC 1/SC 42 — 39 P-member nations)",
-      "description": "International standard establishing a framework for describing artificial intelligence systems that use machine learning, defining common terminology, pipeline architecture, and component relationships for ML-based AI systems across 39 participating member nations.",
-      "investment": "SC 42: 39 P-member nations; amendment in progress (DAmd 1 for Generative AI) indicating active continued development; cross-references ISO/IEC 22989 terminology standard",
-      "domain": "Technology",
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "cc_count": 3
-    },
-    {
-      "id": "112",
-      "name": "ISO/IEC 25059:2023 — AI Quality Model",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "June 28, 2023",
-      "location": "Geneva, Switzerland",
-      "scope": "International (ISO/IEC JTC 1/SC 42 — 39 P-member nations)",
-      "description": "International standard extending the SQuaRE software quality evaluation framework (ISO/IEC 25000 series) specifically for AI systems, defining quality characteristics and evaluation criteria for AI system assessment across 39 participating member nations.",
-      "investment": "SC 42: 39 P-member nations; extends established ISO/IEC 25000 SQuaRE series with existing adoption and conformity assessment infrastructure; 15-page standard",
       "domain": "Technology",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
@@ -3839,8 +3567,8 @@
       "name": "ISO/IEC 42005:2025 AI System Impact Assessment",
       "lat": 46.2044,
       "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
+      "bloc": "Western",
+      "tier": 3,
       "type": "Coordination",
       "sample": false,
       "date": "28 May 2025",
@@ -3854,8 +3582,8 @@
         "implemented": true,
         "current": true
       },
-      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies from both blocs. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
-      "investment": "Stage 60.60 (Published); full International Standard status with normative authority; 48 P-member national bodies",
+      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
+      "investment": "Full International Standard status; 48 P-member national bodies",
       "scope": "International (ISO/IEC member nations)",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
@@ -4201,34 +3929,6 @@
       "cc_count": 4
     },
     {
-      "id": "137",
-      "name": "ISO/IEC 5339:2024 — Guidance for AI Applications",
-      "lat": 46.2044,
-      "lng": 6.1432,
-      "bloc": "Cross-Bloc",
-      "tier": 1,
-      "type": "Coordination",
-      "sample": false,
-      "date": "January 2024",
-      "location": "Geneva, Switzerland",
-      "scope": "International (ISO/IEC JTC 1/SC 42 — 39 P-member nations)",
-      "description": "International standard providing guidance for artificial intelligence applications, covering AI system lifecycle processes, stakeholder roles, and application characteristics. Developed through JTC 1/SC 42 multi-nation consensus process with cross-bloc participation. Normatively references ISO/IEC 22989:2022 for foundational AI terminology.",
-      "investment": "N/A",
-      "domain": "Technology",
-      "confidence": "A",
-      "industry_primary": "AI Software & Platforms",
-      "source_count_primary": 1,
-      "source_count_corroborating": 2,
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "cc_count": 1
-    },
-    {
       "id": "138",
       "name": "Brazil PBIA 2024–2028 (National AI Plan)",
       "lat": -15.7801,
@@ -4324,7 +4024,7 @@
       "date": "29 August 2023",
       "location": "Shanghai, China (SMIC fab); Shenzhen, China (HiSilicon design)",
       "scope": "China (SMIC: Shanghai; Huawei HiSilicon: Shenzhen)",
-      "description": "SMIC's achievement of 7nm-class semiconductor manufacturing using its N+2 process node, demonstrated via Huawei's Kirin 9000s system-on-chip deployed in the Mate 60 Pro smartphone. First non-Western foundry to demonstrate 7nm-class production capability using DUV lithography without access to EUV equipment. AI connection established via chip decapsulation confirming AI-relevant SoC architecture.",
+      "description": "SMIC’s achievement of 7nm-class semiconductor manufacturing using its N+2 process node, demonstrated via Huawei’s Kirin 9000s system-on-chip deployed in the Mate 60 Pro smartphone. First non-Western foundry to demonstrate 7nm-class production capability using DUV lithography without access to EUV equipment.",
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
@@ -4336,7 +4036,8 @@
         "ai": true,
         "threshold": true,
         "implemented": true,
-        "current": true
+        "current": true,
+        "aiDetail": "OEP (Pathway A — Strong)"
       },
       "version": "1.0",
       "cc_count": 0
