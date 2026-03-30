@@ -9202,7 +9202,7 @@ function generateCCSection(eventId, showFullContent) {
             var color = ei.implemented ? '#2DD4BF' : '#64748B';
             return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + ei.ecosystem + '</span>';
           }).join('') + '</div>';
-        ecoImplPanelHtml = '<div style="margin-top:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">' +
+        ecoImplPanelHtml = '<div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">' +
           '<div style="font-size:0.75rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>' +
           event.ecosystemImplementation.map(function(ei) {
             var icon = ei.implemented ? '✅' : '✗';

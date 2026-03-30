@@ -4660,7 +4660,7 @@ const openModal = (id) => {
         let ecoImplHtml = '';
         if (full.ecosystem_implementation && full.ecosystem_implementation.length > 0) {
             ecoImplHtml = `
-                <div style="margin-top:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">
+                <div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">
                     <div style="font-size:0.75rem;font-weight:600;color:var(--weo-text-muted,#94A3B8);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>
                     ${full.ecosystem_implementation.map(function(ei) {
                         const icon = ei.implemented ? '✅' : '✗';
