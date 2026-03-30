@@ -306,6 +306,18 @@
       "version_date": "2026-03-04",
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": [],
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": true,
+          "evidence": "CertifAIEd operational with assessors in US, UK, Germany; ISO/IEC/IEEE 24748-7000 adopted through JTC 1"
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": false,
+          "evidence": "IEEE SA development participation; no Chinese national adoption or conformity assessment activity verified"
+        }
+      ],
       "cc_count": 1,
       "keohane_factors_met": 4
     },
@@ -1074,6 +1086,16 @@
       },
       "version": "1.1",
       "industry_primary": "AI Software & Platforms",
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": true
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": true
+        }
+      ],
       "cc_count": 3
     },
     {
@@ -2938,6 +2960,16 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": false
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": true
+        }
+      ],
       "cc_count": 1
     },
     {
@@ -3022,6 +3054,16 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": true
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": false
+        }
+      ],
       "cc_count": 3
     },
     {
@@ -3190,6 +3232,16 @@
       },
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": true
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": false
+        }
+      ],
       "cc_count": 3
     },
     {
@@ -3588,6 +3640,16 @@
       "source_count_primary": 2,
       "source_count_corroborating": 2,
       "industry_primary": "AI Software & Platforms",
+      "ecosystem_implementation": [
+        {
+          "ecosystem": "US-centred",
+          "implemented": true
+        },
+        {
+          "ecosystem": "China-centred",
+          "implemented": false
+        }
+      ],
       "cc_count": 2
     },
     {
