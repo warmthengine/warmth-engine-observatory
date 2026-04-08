@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
+    <meta name="weo-version" content="1.0.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -1086,5 +1087,17 @@
     </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script>
+(function(){
+  var v = document.querySelector('meta[name="weo-version"]');
+  if (!v) return;
+  var ver = v.getAttribute('content');
+  console.log('WEO v' + ver);
+  var el = document.createElement('div');
+  el.textContent = 'WEO v' + ver;
+  el.style.cssText = 'position:fixed;bottom:4px;right:8px;font-size:11px;opacity:0.4;font-family:monospace;pointer-events:none;z-index:9999';
+  document.body.appendChild(el);
+})();
+</script>
 </body>
 </html>
