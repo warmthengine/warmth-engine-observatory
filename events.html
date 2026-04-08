@@ -3123,7 +3123,7 @@ function mapApiConnectionToEventsFormat(c) {
 // Load all data from API with static fallback
 async function loadWEOData(password) {
   const API_BASE = 'https://warmthengine.com/api';
-  const FALLBACK_EVENTS = '/data/events-free.json';
+  const FALLBACK_EVENTS = '/events-free.json';
   const headers = password ? { 'X-WEO-Password': password } : {};
 
   let apiEvents = null;
