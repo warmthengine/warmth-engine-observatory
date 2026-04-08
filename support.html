@@ -1059,6 +1059,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
+            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links" style="margin-top: 0.5rem;">
                 <a href="legal.html" style="color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--weo-duration-fast) var(--weo-ease-out);">Privacy Policy & Terms of Service</a>
@@ -1090,13 +1091,7 @@
 <script>
 (function(){
   var v = document.querySelector('meta[name="weo-version"]');
-  if (!v) return;
-  var ver = v.getAttribute('content');
-  console.log('WEO v' + ver);
-  var el = document.createElement('div');
-  el.textContent = 'WEO v' + ver;
-  el.style.cssText = 'position:fixed;bottom:4px;right:8px;font-size:11px;opacity:0.4;font-family:monospace;pointer-events:none;z-index:9999';
-  document.body.appendChild(el);
+  if (v) console.log('WEO v' + v.getAttribute('content'));
 })();
 </script>
 </body>

@@ -5045,7 +5045,6 @@
       <span class="stat-number" id="total-connections-count">—</span> Connections
     </div>
     <div class="weo-status-updated" id="weo-status-updated"></div>
-    <div class="weo-status-updated" id="weo-version-display"></div>
 
     <!-- Navigation Menu Toggle -->
     <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu">
@@ -9870,11 +9869,7 @@ function generateCCSection(eventId, showFullContent) {
 <script>
 (function(){
   var v = document.querySelector('meta[name="weo-version"]');
-  if (!v) return;
-  var ver = v.getAttribute('content');
-  console.log('WEO v' + ver);
-  var el = document.getElementById('weo-version-display');
-  if (el) el.textContent = 'WEO v' + ver;
+  if (v) console.log('WEO v' + v.getAttribute('content'));
 })();
 </script>
 </body>
