@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
+    <meta name="weo-version" content="1.0.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -1058,6 +1059,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
+            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links" style="margin-top: 0.5rem;">
                 <a href="legal.html" style="color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--weo-duration-fast) var(--weo-ease-out);">Privacy Policy & Terms of Service</a>
@@ -1086,5 +1088,11 @@
     </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script>
+(function(){
+  var v = document.querySelector('meta[name="weo-version"]');
+  if (v) console.log('WEO v' + v.getAttribute('content'));
+})();
+</script>
 </body>
 </html>
