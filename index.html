@@ -9866,10 +9866,14 @@ function generateCCSection(eventId, showFullContent) {
 
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<div id="weo-map-version" style="position:fixed;bottom:8px;left:24px;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:10px;color:#64748B;opacity:0.4;pointer-events:none;z-index:449;display:none;">Methodology V1.3 · WEO v1.0.0</div>
 <script>
 (function(){
   var v = document.querySelector('meta[name="weo-version"]');
   if (v) console.log('WEO v' + v.getAttribute('content'));
+  // Show version only on desktop/tablet (>767px)
+  var el = document.getElementById('weo-map-version');
+  if (el && window.innerWidth > 767) el.style.display = 'block';
 })();
 </script>
 </body>
