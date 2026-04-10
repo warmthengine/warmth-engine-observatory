@@ -1,0 +1,9 @@
+# Claude Code configuration (personal, not shared)
+.claude/
+agent_docs/
+CLAUDE.md
+BUDGETS.md
+.mcp.json
+
+# Local working directory (not deployed)
+weo-ent/
