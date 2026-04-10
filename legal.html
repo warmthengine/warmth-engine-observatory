@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.0.0">
+    <meta name="weo-version" content="1.1.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -25,7 +25,7 @@
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     
     <style>
         /* =================================================================
@@ -47,7 +47,7 @@
             --weo-text-primary: #E2E8F0;
             --weo-text-secondary: #CBD5E1;
             --weo-text-tertiary: #94A3B8;
-            --weo-text-muted: #64748B;
+            --weo-text-muted: #94A3B8;
             
             /* Accent */
             --weo-accent-primary: #3B82F6;
@@ -57,8 +57,8 @@
             --weo-bloc-cross: #2DD4BF;
             
             /* Typography */
-            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
             --weo-space-xs: 0.25rem;
@@ -328,7 +328,7 @@
         }
         
         .section-title {
-            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
+            font-family: var(--weo-font-mono, 'Geist Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--weo-text-primary);
@@ -439,6 +439,7 @@
             color: var(--weo-text-muted);
             line-height: 1.6;
         }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
         
         .footer-text a {
             color: var(--weo-text-tertiary);
@@ -480,7 +481,44 @@
         .weo-value--western { color: var(--weo-bloc-western); }
         .weo-value--eastern { color: var(--weo-bloc-eastern); }
         .weo-value--cross   { color: var(--weo-bloc-cross); }
-    </style>
+    
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+    /* ==========================================================
+       GEIST DARK-MODE WEIGHT COMPENSATION
+       Variable font weights adjusted for light-on-dark halation.
+       Standard 400 body → 380, standard 600 heading → 580.
+       ========================================================== */
+
+    /* Body text */
+    body { font-weight: 380; }
+    .prose { font-weight: 380; }
+
+    /* Headings and titles */
+    .page-title,
+    .page-subtitle,
+    .section-title { font-weight: 580; }
+
+    /* Badges and labels */
+    .contact-label { font-weight: 580; letter-spacing: 0.04em; }
+
+    /* Monospace data values */
+    .weo-value,
+    .contact-email { font-weight: 480; }
+
+    /* Tabular number alignment for all numeric displays */
+    .weo-value {
+        font-variant-numeric: tabular-nums slashed-zero;
+    }
+
+</style>
 </head>
 <body>
     <div class="container">
@@ -606,7 +644,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
+            <p class="footer-version">Methodology V1.3 · WEO v1.1.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
         </footer>
         

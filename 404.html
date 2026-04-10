@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.0.0">
+    <meta name="weo-version" content="1.1.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -11,7 +11,7 @@
     <title>Page Not Found | Warmth Engine Observatory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     <style>
         :root {
             --weo-surface-base: #0F172A;
@@ -29,7 +29,7 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--weo-surface-base);
             color: var(--weo-text-primary);
             min-height: 100vh;
@@ -45,7 +45,7 @@
         }
         
         .error-code {
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
             font-size: 8rem;
             font-weight: 700;
             line-height: 1;
@@ -95,7 +95,7 @@
         }
         
         .observatory-badge span {
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
             font-size: 0.875rem;
             color: var(--weo-text-secondary);
             letter-spacing: 0.08em;
@@ -107,6 +107,22 @@
             color: var(--weo-text-secondary);
             opacity: 0.6;
         }
+
+        /* ==========================================================
+           GEIST DARK-MODE WEIGHT COMPENSATION
+           Variable font weights adjusted for light-on-dark halation.
+           Standard 400 body → 380, standard 600 heading → 580.
+           ========================================================== */
+
+        /* Body text */
+        body { font-weight: 380; }
+
+        /* Headings and titles */
+        .error-title { font-weight: 580; }
+
+        /* Monospace data values */
+        .error-code { font-weight: 480; }
+
     </style>
 </head>
 <body>
@@ -120,7 +136,7 @@
         <a href="/" class="home-link">Return to Observatory</a>
         <div class="observatory-badge">
             <span>WARMTH ENGINE OBSERVATORY</span>
-            <p style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;color:#64748B;margin-bottom:8px;">Methodology V1.3 · WEO v1.0.0</p>
+            <p style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;color:#94A3B8;margin-bottom:8px;">Methodology V1.3 · WEO v1.1.0</p>
             <p class="copyright">© 2026 Warmth Engine Observatory</p>
         </div>
     </div>

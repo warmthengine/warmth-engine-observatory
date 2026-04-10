@@ -2,7 +2,6 @@
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="weo-version" content="1.0.0">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -17,7 +16,7 @@
   <meta name="twitter:title" content="Warmth Engine Observatory">
   <meta name="twitter:description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped Coordination Connections.">
   <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped coordination connections.">
   <meta name="keywords" content="Warmth Engine Observatory, WEO, AI infrastructure, coordination dynamics, geopolitical blocs, verified events, Coordination Connections, tier classification, Western Bloc, Eastern Bloc, Cross-Bloc, Between-Bloc, Intra-Bloc">
   <title>Warmth Engine Observatory</title>
@@ -89,10 +88,12 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <!-- Leaflet Heat -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-primary: #0F172A;
@@ -136,6 +137,43 @@
       --weo-radius-sm: 4px;
       --weo-radius-md: 8px;
       --weo-radius-lg: 12px;
+      
+      /* Environmental Nexus Tag Colours (Palette D — Muted Earth Greens) */
+      --weo-ent-1: #D4CC78;
+      --weo-ent-2: #A8C686;
+      --weo-ent-3: #7BB89A;
+      --weo-ent-4: #68B0AD;
+      --weo-ent-5: #7CA8C4;
+      
+      /* Warmth Engine Ratio */
+      --weo-wer-amber: #FCD34D;
+
+      /* ENT Palette D — muted earth greens */
+      --ent-1-color: #D4CC78;
+      --ent-2-color: #A8C686;
+      --ent-3-color: #7BB89A;
+      --ent-4-color: #68B0AD;
+      --ent-5-color: #7CA8C4;
+      --ent-generic-color: #A8C686;
+
+      /* Namespace aliases — align with events.html and subpages */
+      --weo-surface-base: var(--surface-base);
+      --weo-surface-raised: var(--surface-raised);
+      --weo-surface-overlay: var(--surface-overlay);
+      --weo-text-primary: #E2E8F0;
+      --weo-text-secondary: rgba(226, 232, 240, 0.7);
+      --weo-text-muted: #94A3B8;
+      --weo-text-label: rgba(226, 232, 240, 0.6);
+      --weo-border-primary: #334155;
+      --weo-duration-instant: var(--duration-instant);
+      --weo-duration-fast: var(--duration-fast);
+      --weo-duration-normal: var(--duration-normal);
+      --weo-duration-slow: var(--duration-slow);
+      --weo-ease-out: var(--ease-out);
+      --weo-ease-in: var(--ease-in);
+      --weo-ease-standard: var(--ease-standard);
+      --weo-hover-overlay: var(--hover-overlay);
+      --weo-focus-ring: var(--focus-ring);
     }
 
     * {
@@ -384,7 +422,7 @@
       z-index: 1000;
       opacity: 0;
       transition: opacity var(--duration-fast) var(--ease-out);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .map-tooltip.visible {
@@ -425,7 +463,7 @@
 
     /* Tier badges - standard rounded */
     .badge-t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .badge-t2 { background: rgba(239, 68, 68, 0.15); color: #EF4444; border-radius: var(--weo-radius-sm); }
+    .badge-t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .badge-t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
 
     /* Bloc badges - pill shape with subtle outline */
@@ -448,13 +486,92 @@
 
     /* Domain badges - squared with left accent bar */
     .badge-domain-tech { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .badge-domain-security { background: rgba(239, 68, 68, 0.12); color: #EF4444; border-radius: var(--weo-radius-sm); border-left: 2px solid #EF4444; }
+    .badge-domain-security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .badge-domain-trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .badge-domain-energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
 
+    /* ==========================================================
+       CVD SHAPE ICON PREFIXES
+       CSS-rendered shapes for non-colour badge disambiguation.
+       All shapes target ~6-7px for consistent visual weight.
+       ========================================================== */
+    .cvd-icon {
+        display: inline-block;
+        margin-right: 5px;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    /* T1: Diamond — rotated square */
+    .cvd-icon.t1 {
+        width: 7px; height: 7px;
+        background: currentColor;
+        transform: rotate(45deg);
+    }
+
+    /* T2: Split bars — fragmentation */
+    .cvd-icon.t2 {
+        width: 9px; height: 7px;
+        background: transparent;
+    }
+    .cvd-icon.t2::before,
+    .cvd-icon.t2::after {
+        content: '';
+        position: absolute;
+        width: 2.5px;
+        height: 9px;
+        background: currentColor;
+        border-radius: 1px;
+        transform: rotate(20deg);
+    }
+    .cvd-icon.t2::before { left: 0px; top: -1px; }
+    .cvd-icon.t2::after { left: 5px; top: -1px; }
+
+    /* T3: Stacked double bars — internal equilibrium, contained */
+    .cvd-icon.t3 {
+        width: 8px; height: 7px;
+        background: transparent;
+        position: relative;
+    }
+    .cvd-icon.t3::before,
+    .cvd-icon.t3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 8px;
+        height: 2.5px;
+        background: currentColor;
+        border-radius: 1px;
+    }
+    .cvd-icon.t3::before { top: 0; }
+    .cvd-icon.t3::after { bottom: 0; }
+
+    /* Western: Circle — alliance, unity */
+    .cvd-icon.western {
+        width: 7px; height: 7px;
+        background: currentColor;
+        border-radius: 50%;
+    }
+
+    /* Eastern: Square — sovereign, state-structured */
+    .cvd-icon.eastern {
+        width: 6px; height: 6px;
+        background: currentColor;
+        border-radius: 1px;
+    }
+
+    /* Cross-Bloc: Upward triangle — bridging */
+    .cvd-icon.cross-bloc {
+        width: 0; height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 7px solid currentColor;
+        background: transparent;
+    }
+
     .tooltip-hint {
       font-size: 11px;
-      color: #64748B;
+      color: #94A3B8;
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px solid #334155;
@@ -470,7 +587,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-weight: 600;
       color: #F1F5F9;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
@@ -547,7 +664,7 @@
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(8px);
       z-index: 449;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out), visibility var(--duration-slow) var(--ease-out);
     }
     
@@ -592,17 +709,83 @@
     }
     
     .weo-status-stats .separator {
-      color: #64748B;
+      color: #94A3B8;
       margin: 0 6px;
     }
     
     .weo-status-updated {
       font-size: 11px;
       font-weight: 400;
-      color: #64748B;
+      color: #94A3B8;
       margin-top: 6px;
     }
     
+    /* WER Row */
+    .weo-status-wer {
+      margin-top: 8px;
+    }
+    .weo-status-wer-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--weo-wer-amber);
+      opacity: 0.75;
+      cursor: help;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+    .weo-status-wer-label.weo-info-trigger {
+      width: auto;
+      height: auto;
+      background: transparent;
+      border-radius: 0;
+      min-width: unset;
+      min-height: unset;
+      display: block;
+      font-size: 11px;
+      color: var(--weo-wer-amber);
+      justify-content: flex-start;
+      margin-left: 0;
+    }
+    .weo-status-wer-label.weo-info-trigger::before {
+      display: none;
+    }
+    .weo-status-wer-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .weo-status-wer-value {
+      font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--weo-wer-amber);
+      animation: wer-glow 3s ease-in-out infinite;
+    }
+    @keyframes wer-glow {
+      0%, 100% { text-shadow: 0 0 6px rgba(252, 211, 77, 0.20); }
+      50% { text-shadow: 0 0 10px rgba(252, 211, 77, 0.35); }
+    }
+    .weo-status-wer-backfill {
+      font-size: 11px;
+      color: #94A3B8;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 2px;
+      cursor: help;
+    }
+    .weo-status-wer-backfill.weo-info-trigger {
+      width: auto;
+      height: auto;
+      background: transparent;
+      border-radius: 0;
+      min-width: unset;
+      min-height: unset;
+      margin-left: 6px;
+    }
+    .weo-status-wer-backfill.weo-info-trigger::before {
+      display: none;
+    }
+
     /* Mobile positioning */
     @media (max-width: 767px) {
       .weo-status-panel {
@@ -762,7 +945,7 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(12px);
       z-index: 480;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       opacity: 0;
       visibility: hidden;
       transition: opacity var(--duration-slow) var(--ease-out), visibility var(--duration-slow) var(--ease-out);
@@ -902,7 +1085,7 @@
       align-items: center;
       gap: 8px;
       font-size: 11px;
-      color: #64748B;
+      color: #94A3B8;
       cursor: pointer;
     }
 
@@ -949,7 +1132,7 @@
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(8px);
       z-index: 450;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .legend-header {
@@ -1006,7 +1189,7 @@
     .legend-section-title {
       font-size: 11px;
       font-weight: 500;
-      color: #64748B;
+      color: #94A3B8;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -1044,7 +1227,7 @@
     .legend-marker.western { border-color: #60A5FA; }
     .legend-marker.eastern { border-color: #FB923C; }
     .legend-marker.cross-bloc { border-color: #2DD4BF; }
-    .legend-marker.t2 { border-color: #EF4444; }
+    .legend-marker.t2 { border-color: #F87171; }
     .legend-marker.dashed { border-style: dashed; }
     .legend-marker.sample {
       animation: sample-glow-pulse 3s ease-in-out infinite;
@@ -1117,7 +1300,7 @@
       transition: transform 0.25s ease-out, height 0.3s ease-out;
       z-index: 500;
       overflow-y: auto;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .detail-panel.open {
@@ -1415,11 +1598,10 @@
       margin-bottom: 12px;
     }
 
-    .panel-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    /* === ZONE 2 ROWS === */
+    .z2-rows { display: flex; flex-direction: column; gap: 5px; }
+    .z2-row { display: grid; grid-template-columns: 88px 1fr; gap: 6px; align-items: start; }
+    .z2-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 
     .panel-badge {
       display: inline-flex;
@@ -1460,7 +1642,7 @@
 
     /* Tier badges - standard rounded */
     .panel-badge.t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .panel-badge.t2 { background: rgba(239, 68, 68, 0.15); color: #EF4444; border-radius: var(--weo-radius-sm); }
+    .panel-badge.t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .panel-badge.t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
     
     /* Bloc badges - pill shape with subtle outline */
@@ -1474,7 +1656,7 @@
 
     /* Domain badges - squared with left accent bar */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .panel-badge.security { background: rgba(239, 68, 68, 0.12); color: #EF4444; border-radius: var(--weo-radius-sm); border-left: 2px solid #EF4444; }
+    .panel-badge.security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
     
@@ -1508,10 +1690,20 @@
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
       padding: 8px 24px;
       display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0;
     }
+    /* === SHELF ROWS === */
+    .shelf-row { display: grid; grid-template-columns: 88px 1fr; gap: 6px; align-items: start; }
+    .shelf-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .shelf-label-ent { color: rgba(252, 211, 77, 0.75); }
+
+    /* ENT amber glow on selected marker */
+    .marker-wrapper.weo-ent-glow {
+        filter: drop-shadow(0 0 6px rgba(252, 211, 77, 0.4)) drop-shadow(0 0 14px rgba(252, 211, 77, 0.2));
+        transition: filter 0.4s ease;
+    }
+    .shelf-row + .shelf-row { margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.04); }
 
     /* Tag base — shared by primary and secondary */
     .ind-tag {
@@ -1683,10 +1875,160 @@
     }
     .ind-mechanism-popover.visible { display: block; }
 
+    /* ========================================
+       ENRICHMENT SHELF — shared zone for industry + ENT rows
+       ======================================== */
+    /* === UNIFIED LABELS (Zone 2 + Enrichment Shelf) === */
+    .z2-label,
+    .shelf-label {
+      font-family: var(--weo-font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.55);
+      white-space: nowrap;
+      cursor: help;
+      transition: color 0.15s ease;
+      padding-top: 3px;
+    }
+    .z2-label:hover,
+    .shelf-label:hover {
+      color: rgba(255,255,255,0.85);
+    }
+    /* Labels as tooltip triggers — override circle styling */
+    .z2-label.weo-info-trigger,
+    .shelf-label.weo-info-trigger {
+      width: auto;
+      height: auto;
+      background: none;
+      border-radius: 0;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      justify-content: flex-start;
+      margin-left: 0;
+    }
+    .z2-label.weo-info-trigger:hover,
+    .shelf-label.weo-info-trigger:hover {
+      background: none;
+      transform: none;
+      color: rgba(255,255,255,0.85);
+    }
+    .z2-label.weo-info-trigger::before,
+    .shelf-label.weo-info-trigger::before {
+      display: none;
+    }
+
+    /* ========================================
+       ENT BADGE STYLES — outline treatment
+       ======================================== */
+    .ent-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      border-radius: var(--weo-radius-sm);
+      padding: 2px 8px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+    .ent-tag:active { transform: scale(0.97); }
+    .ent-tag.ent-1 { color: rgba(212, 204, 120, 0.7); border: 1px solid rgba(212, 204, 120, 0.35); }
+    .ent-tag.ent-1:hover { background: rgba(212, 204, 120, 0.1); border-color: rgba(212, 204, 120, 0.55); color: rgba(212, 204, 120, 0.9); }
+    .ent-tag.ent-2 { color: rgba(168, 198, 134, 0.7); border: 1px solid rgba(168, 198, 134, 0.35); }
+    .ent-tag.ent-2:hover { background: rgba(168, 198, 134, 0.1); border-color: rgba(168, 198, 134, 0.55); color: rgba(168, 198, 134, 0.9); }
+    .ent-tag.ent-3 { color: rgba(123, 184, 154, 0.7); border: 1px solid rgba(123, 184, 154, 0.35); }
+    .ent-tag.ent-3:hover { background: rgba(123, 184, 154, 0.1); border-color: rgba(123, 184, 154, 0.55); color: rgba(123, 184, 154, 0.9); }
+    .ent-tag.ent-4 { color: rgba(104, 176, 173, 0.7); border: 1px solid rgba(104, 176, 173, 0.35); }
+    .ent-tag.ent-4:hover { background: rgba(104, 176, 173, 0.1); border-color: rgba(104, 176, 173, 0.55); color: rgba(104, 176, 173, 0.9); }
+    .ent-tag.ent-5 { color: rgba(124, 168, 196, 0.7); border: 1px solid rgba(124, 168, 196, 0.35); }
+    .ent-tag.ent-5:hover { background: rgba(124, 168, 196, 0.1); border-color: rgba(124, 168, 196, 0.55); color: rgba(124, 168, 196, 0.9); }
+
+    /* ENT mechanism popover — matches industry tag popover */
+    .ent-mechanism-popover {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #252B36;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--weo-radius-sm);
+      padding: 10px 12px;
+      font-size: 0.6875rem;
+      line-height: 1.5;
+      color: #CBD5E1;
+      width: max-content;
+      max-width: 280px;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+    .ent-mechanism-popover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+    .ent-mechanism-popover::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-bottom-color: #252B36;
+    }
+    .ent-mechanism-popover .ent-popover-title {
+      font-family: 'Geist Mono', 'Fira Code', monospace;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .ent-mechanism-popover .ent-popover-title.ent-1 { color: var(--ent-1-color); }
+    .ent-mechanism-popover .ent-popover-title.ent-2 { color: var(--ent-2-color); }
+    .ent-mechanism-popover .ent-popover-title.ent-3 { color: var(--ent-3-color); }
+    .ent-mechanism-popover .ent-popover-title.ent-4 { color: var(--ent-4-color); }
+    .ent-mechanism-popover .ent-popover-title.ent-5 { color: var(--ent-5-color); }
+    .ent-mechanism-popover .ent-popover-mechanism {
+      color: rgba(255, 255, 255, 0.87);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .ent-mechanism-popover .ent-popover-meta {
+      font-size: 0.625rem;
+      color: #94A3B8;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .ent-mechanism-popover .ent-evidence-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94A3B8;
+    }
+    .ent-mechanism-popover.visible { display: block; }
+
     /* Peek mode: hide shelf tooltips and popovers */
     .detail-panel.peek-mode .industry-shelf .weo-info-trigger { display: none; }
     .detail-panel.peek-mode .industry-shelf .ind-mechanism-popover { display: none !important; }
     .detail-panel.peek-mode .industry-shelf .ind-primary-popover { display: none !important; }
+    .detail-panel.peek-mode .industry-shelf .ent-mechanism-popover { display: none !important; }
     /* Panel Body */
     .panel-body {
       padding: 0 0 40px 0;
@@ -1719,7 +2061,7 @@
     }
 
     .section-title {
-      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -1767,8 +2109,10 @@
 
     /* Data Row */
     .data-row {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
+      align-items: start;
       padding: 8px 0;
       border-bottom: 1px solid #334155;
     }
@@ -1789,7 +2133,20 @@
       font-size: 0.875rem;
       color: var(--text-primary);
       font-weight: 600;
-      text-align: right;
+      text-align: left;
+      word-wrap: break-word;
+    }
+
+    .data-row.data-row-stacked {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .data-row.data-row-stacked .data-value {
+      text-align: left;
+      font-size: 0.875rem;
+      line-height: 1.5;
     }
 
     /* Verification Checkpoints */
@@ -1967,6 +2324,61 @@
         transform: translateY(0);
       }
 
+      /* Three-state bottom sheet */
+      .detail-panel.state-peek {
+          transform: translateY(calc(100% - 160px)) !important;
+      }
+
+      .detail-panel.state-half {
+          transform: translateY(50%) !important;
+      }
+
+      .detail-panel.state-full {
+          transform: translateY(0) !important;
+      }
+
+      .detail-panel.state-peek,
+      .detail-panel.state-half,
+      .detail-panel.state-full {
+          transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1);
+      }
+
+      /* Peek: hide body, show only header */
+      .detail-panel.state-peek .panel-body {
+          visibility: hidden;
+          height: 0;
+          overflow: hidden;
+      }
+
+      .detail-panel.state-peek .industry-shelf {
+          display: none;
+      }
+
+      /* Half: limit visible content */
+      .detail-panel.state-half .panel-body {
+          max-height: calc(50vh - 160px);
+          overflow-y: auto;
+      }
+
+      /* Swipe hint */
+      .peek-swipe-hint {
+          display: none;
+          text-align: center;
+          padding: 6px 0 2px;
+          font-size: 11px;
+          color: #94A3B8;
+          letter-spacing: 0.05em;
+      }
+
+      .detail-panel.state-peek .peek-swipe-hint,
+      .detail-panel.state-half .peek-swipe-hint {
+          display: block;
+      }
+
+      .detail-panel.state-full .peek-swipe-hint {
+          display: none;
+      }
+
       .drag-handle {
         width: 40px;
         height: 4px;
@@ -1990,6 +2402,10 @@
       .upgrade-cta {
         margin: 16px 20px;
       }
+    }
+
+    @media (min-width: 768px) {
+        .peek-swipe-hint { display: none !important; }
     }
 
     /* Overlay for closing panel */
@@ -2248,6 +2664,9 @@
       .data-value {
         font-size: 12px;
       }
+      .data-row {
+        grid-template-columns: 120px 1fr;
+      }
     }
 
     /* Landscape mobile - reduce panel height */
@@ -2321,7 +2740,7 @@
 
     /* PHASE 6B: ADDITIONAL STYLES */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
-    .panel-badge.security { background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+    .panel-badge.security { background: rgba(239, 68, 68, 0.15); color: #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.15); color: #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
     .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
@@ -2417,7 +2836,7 @@
     .source-item { display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.4); }
     .source-item:last-child { border-bottom: none; padding-bottom: 0; }
     .source-item:first-child { padding-top: 0; }
-    .source-id { color: #64748B; font-family: monospace; font-size: 11px; flex-shrink: 0; }
+    .source-id { color: #94A3B8; font-family: monospace; font-size: 11px; flex-shrink: 0; }
     .source-item a { 
       color: #60A5FA; 
       text-decoration: none; 
@@ -2446,7 +2865,7 @@
     .related-id { color: #60A5FA; font-weight: 500; font-size: 13px; }
     .related-relationship { color: #94A3B8; font-size: 12px; }
     .checkpoint-label strong { color: #F1F5F9; }
-    .checkpoint-icon.fail { color: #EF4444; }
+    .checkpoint-icon.fail { color: #F87171; }
 
     /* ========================================
        COORDINATION CONNECTIONS STYLES
@@ -2497,7 +2916,7 @@
     .cc-group-label {
       font-size: 11px;
       font-weight: 500;
-      color: #64748B;
+      color: #94A3B8;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 8px;
@@ -2645,7 +3064,7 @@
     
     /* CC Evidence Tooltip */
     .cc-evidence-trigger {
-      color: #64748B;
+      color: #94A3B8;
       cursor: help;
       font-size: 11px;
       position: relative;
@@ -2847,7 +3266,7 @@
     
     .cc-evidence-verified {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
       margin-left: auto;
     }
     
@@ -2932,7 +3351,7 @@
     .cc-criterion-expand {
       margin-left: auto;
       font-size: 11px;  /* Larger (was 9px) */
-      color: #94A3B8;  /* Lighter grey (was #64748B) */
+      color: #94A3B8;  /* Lighter grey (was #94A3B8) */
       transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
     }
     
@@ -2977,7 +3396,7 @@
     
     .cc-criteria-score-label {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
       margin-left: 4px;
     }
     
@@ -2999,7 +3418,7 @@
     .cc-funding-label {
       font-size: 10px;
       font-weight: 600;
-      color: #64748B;
+      color: #94A3B8;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 4px;  /* Increased from 2px */
@@ -3124,7 +3543,7 @@
     
     .cc-vh-toggle {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
       margin-left: auto;
       transition: transform var(--duration-normal) var(--ease-out);
     }
@@ -3147,7 +3566,7 @@
       border-radius: var(--weo-radius-sm);
       padding: 10px 12px;
       margin-bottom: 8px;
-      border-left: 2px solid #64748B;
+      border-left: 2px solid #94A3B8;
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
     }
@@ -3185,7 +3604,7 @@
     
     .cc-vh-date {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
     }
     
     .cc-vh-badge {
@@ -3215,7 +3634,7 @@
     
     .cc-vh-entry-expand {
       font-size: 9px;
-      color: #64748B;
+      color: #94A3B8;
       margin-left: auto;
       transition: transform var(--duration-normal) var(--ease-out);
     }
@@ -3253,7 +3672,7 @@
     }
     
     .cc-vh-metric-label {
-      color: #64748B;
+      color: #94A3B8;
       margin-right: 4px;
     }
     
@@ -3295,14 +3714,14 @@
     /* CC Direction Arrow */
     .cc-direction {
       font-size: 12px;
-      color: #64748B;
+      color: #94A3B8;
       flex-shrink: 0;
     }
     
     /* Empty State */
     .cc-empty {
       font-size: 13px;
-      color: #64748B;
+      color: #94A3B8;
       font-style: italic;
       padding: 8px 0;
     }
@@ -3330,7 +3749,7 @@
     }
     
     .cc-stat-label {
-      color: #64748B;
+      color: #94A3B8;
     }
     
     /* Tooltip for temporal framing */
@@ -3410,7 +3829,7 @@
       border-radius: 50%;
       font-size: 9px;
       font-weight: 600;
-      color: #64748B;
+      color: #94A3B8;
       cursor: help;
       transition: all var(--duration-fast) var(--ease-out),
                   transform var(--duration-instant) var(--ease-out);
@@ -3652,6 +4071,23 @@
         position: relative;
         padding-right: 36px; /* Room for expand indicator */
       }
+
+      /* Scale down CVD icons on small mobile */
+      .cvd-icon.t1 { width: 6px; height: 6px; }
+      .cvd-icon.t2 { width: 7px; height: 6px; }
+      .cvd-icon.t2::before,
+      .cvd-icon.t2::after { width: 2px; height: 7px; }
+      .cvd-icon.t2::after { left: 4px; }
+      .cvd-icon.t3 { width: 7px; height: 6px; }
+      .cvd-icon.t3::before,
+      .cvd-icon.t3::after { width: 7px; height: 2px; }
+      .cvd-icon.western { width: 6px; height: 6px; }
+      .cvd-icon.eastern { width: 5px; height: 5px; }
+      .cvd-icon.cross-bloc {
+          border-left-width: 3px;
+          border-right-width: 3px;
+          border-bottom-width: 6px;
+      }
     }
 
     /* Narrow detail panel: When panel is 380px (≤1024px breakpoint), CC items need wrapping */
@@ -3771,7 +4207,7 @@
       background: rgba(17, 24, 39, 0.92);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: var(--weo-radius-md);
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Geist', -apple-system, sans-serif;
       font-size: 11px;
       color: rgba(255, 255, 255, 0.9);
       white-space: nowrap;
@@ -4021,7 +4457,7 @@
     
     .legend-cc-toggle {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
       transition: transform var(--duration-normal) var(--ease-out), color var(--duration-normal) var(--ease-out);
     }
     
@@ -4165,7 +4601,7 @@
     
     .legend-cc-confidence-title {
       font-size: 10px;
-      color: #64748B;
+      color: #94A3B8;
       margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -4187,18 +4623,18 @@
     }
     
     .legend-cc-line.solid-demo {
-      background: #64748B;
+      background: #94A3B8;
     }
     
     .legend-cc-line.solid-demo::before {
-      background: #64748B;
+      background: #94A3B8;
     }
     
     .legend-cc-line.dashed-demo {
       background: repeating-linear-gradient(
         90deg,
-        #64748B 0px,
-        #64748B 6px,
+        #94A3B8 0px,
+        #94A3B8 6px,
         transparent 6px,
         transparent 10px
       );
@@ -4346,8 +4782,8 @@
       font-size: 0.9375rem; font-family: monospace;
     }
     .access-input:focus { outline: none; border-color: #F59E0B; }
-    .access-input.error { border-color: #EF4444; }
-    .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #EF4444; }
+    .access-input.error { border-color: #F87171; }
+    .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #F87171; }
     .access-error.visible { display: flex; }
     .access-submit {
       width: 100%; padding: 0.75rem 1rem;
@@ -4358,7 +4794,7 @@
     .access-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
     .access-modal-footer {
       padding: 1rem 1.25rem; border-top: 1px solid #334155;
-      text-align: center; font-size: 0.8125rem; color: #64748B;
+      text-align: center; font-size: 0.8125rem; color: #94A3B8;
     }
     .access-modal-footer a { color: #F59E0B; text-decoration: none; }
     .access-modal-authenticated { text-align: center; padding: 2rem 1.25rem; }
@@ -4370,7 +4806,7 @@
       border: 1px solid #334155; border-radius: var(--weo-radius-md);
       color: #94A3B8; font-size: 0.8125rem; cursor: pointer;
     }
-    .access-logout:hover { border-color: #EF4444; color: #EF4444; }
+    .access-logout:hover { border-color: #F87171; color: #F87171; }
 
     /* ========================================
        VERSION HISTORY SECTION
@@ -4480,7 +4916,7 @@
 
     .tiebreaker-trigger .title-text {
       color: #94A3B8;
-      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.05em;
@@ -4815,7 +5251,7 @@
     }
     
     .genesis-label {
-      color: #64748B;
+      color: #94A3B8;
       font-weight: 500;
     }
     
@@ -5007,9 +5443,122 @@
     }
     .piet-source-gate-label:first-child { padding-top: 0; }
 
+    /* ==========================================================
+       GEIST DARK-MODE WEIGHT COMPENSATION
+       Variable font weights adjusted for light-on-dark halation.
+       Standard 400 body → 380, standard 600 heading → 580.
+       ========================================================== */
+
+    /* Body text */
+    body { font-weight: 380; }
+    .section-content,
+    .panel-body,
+    .orientation-content p,
+    .events-intro p { font-weight: 380; }
+
+    /* Headings and titles */
+    .panel-title,
+    .page-title,
+    .weo-status-title,
+    .section-title,
+    .orientation-title,
+    .legend-title { font-weight: 580; }
+
+    /* Badges and labels */
+    .panel-badge,
+    .cc-type-badge,
+    .ind-tag.ind-primary,
+    .tooltip-badge { font-weight: 580; letter-spacing: 0.04em; }
+
+    /* Monospace data values */
+    .weo-status-wer-value,
+    .stat-value,
+    .cc-funding-value,
+    .data-value { font-weight: 480; }
+
+    /* Tabular number alignment for all numeric displays */
+    .stat-number, .stat-value, .cc-stat-count, .cc-funding-value,
+    .weo-status-wer-value, .cc-count, .data-value {
+        font-variant-numeric: tabular-nums slashed-zero;
+    }
+
+    /* ==========================================================
+       SKELETON LOADING STATES
+       Animated placeholders shown while API data loads.
+       ========================================================== */
+    .skeleton {
+        background: linear-gradient(90deg,
+            rgba(30, 41, 59, 0.6) 25%,
+            rgba(51, 65, 85, 0.4) 50%,
+            rgba(30, 41, 59, 0.6) 75%);
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 1.5s ease-in-out infinite;
+        border-radius: var(--weo-radius-sm, 4px);
+    }
+
+    @keyframes skeleton-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .skeleton-text {
+        height: 14px;
+        margin-bottom: 8px;
+    }
+
+    .skeleton-text.wide { width: 80%; }
+    .skeleton-text.medium { width: 60%; }
+    .skeleton-text.narrow { width: 40%; }
+    .skeleton-text.tiny { width: 25%; }
+
+    .skeleton-badge {
+        display: inline-block;
+        height: 22px;
+        width: 70px;
+        border-radius: var(--weo-radius-sm, 4px);
+        margin-right: 6px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .skeleton {
+            animation: none;
+            background: rgba(51, 65, 85, 0.4);
+        }
+    }
+
+    /* Empty state — shown when filters return zero results */
+    .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--weo-text-muted, #94A3B8);
+    }
+
+    .empty-state-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+        opacity: 0.4;
+    }
+
+    .empty-state-title {
+        font-size: 15px;
+        font-weight: 580;
+        color: var(--weo-text-secondary, #CBD5E1);
+        margin-bottom: 8px;
+    }
+
+    .empty-state-hint {
+        font-size: 13px;
+    }
+
   </style>
 </head>
 <body>
+  <a href="#panelContent" class="sr-only" id="skip-link"
+     style="position:absolute;top:-100px;left:0;padding:8px 16px;background:#0F172A;color:#60A5FA;z-index:99999;font-size:14px;text-decoration:none;border:2px solid #60A5FA;border-radius:4px;"
+     onfocus="this.style.top='8px';this.style.left='8px'"
+     onblur="this.style.top='-100px'">
+     Skip past map
+  </a>
   <!-- Global Tooltip Overlay - rendered outside panel to avoid clipping -->
   <div id="weo-tooltip-overlay">
     <div class="weo-tooltip-title"></div>
@@ -5023,7 +5572,8 @@
   <div class="detail-panel" id="detailPanel">
     <!-- Mobile drag handle -->
     <div class="drag-handle"></div>
-    
+    <div class="peek-swipe-hint">Swipe up for more</div>
+
     <!-- Panel content will be injected here by JavaScript -->
     <div id="panelContent"></div>
     
@@ -5044,8 +5594,15 @@
       <span class="separator">·</span>
       <span class="stat-number" id="total-connections-count">—</span> Connections
     </div>
+    <div class="weo-status-wer" id="weo-status-wer" style="display:none;">
+      <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database.</div></span></div>
+      <div class="weo-status-wer-row">
+        <span class="weo-status-wer-value" id="weo-wer-value">—</span>
+        <span class="weo-status-wer-backfill weo-info-trigger" id="weo-wer-backfill-trigger">backfill<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Backfill Phase</div><div class="weo-tooltip-body">Ratio reflects the observable landscape across the verified event database. Database in backfill phase.</div></span></span>
+      </div>
+    </div>
     <div class="weo-status-updated" id="weo-status-updated"></div>
-
+    
     <!-- Navigation Menu Toggle -->
     <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu">
       <span></span>
@@ -5353,7 +5910,7 @@
     </symbol>
   </svg>
 
-  <div id="map"></div>
+  <div id="map" role="application" aria-label="Interactive map showing AI infrastructure coordination events worldwide"></div>
   
   <!-- Edge indicators - shown when user hits map bounds -->
   <div class="edge-indicator left" id="edgeLeft">
@@ -5487,7 +6044,7 @@ let connectionData = { metadata: {}, connections: [] };
 let map;
 let markers;
 
-// Map API snake_case event fields to internal camelCase used by UI code
+// Map event fields to internal format — handles both API snake_case and canonical camelCase
 function mapApiEventToInternal(e) {
   const mapped = {
     id: e.id,
@@ -5504,13 +6061,13 @@ function mapApiEventToInternal(e) {
     description: e.description,
     investment: e.investment,
     domain: e.domain,
-    sources: e.source_count_primary,
-    corroborating: e.source_count_corroborating,
+    sources: e.source_count_primary ?? e.sources,
+    corroborating: e.source_count_corroborating ?? e.corroborating,
     confidence: e.confidence,
     version: e.version
   };
 
-  // Checkpoints: API returns short names {ai, threshold, implemented, current, aiDetail}
+  // Checkpoints: handle both API short names and canonical format
   if (e.checkpoints) {
     mapped.checkpoints = {
       ai: e.checkpoints.ai_connection ?? e.checkpoints.ai,
@@ -5521,42 +6078,48 @@ function mapApiEventToInternal(e) {
     };
   }
 
-  // Premium fields: snake_case → camelCase
-  if (e.tier_rationale !== undefined && e.tier_rationale !== null) mapped.tierRationale = e.tier_rationale;
-  if (e.bloc_analysis !== undefined && e.bloc_analysis !== null) mapped.blocAnalysis = e.bloc_analysis;
-  if (e.sources_primary !== undefined && e.sources_primary !== null) mapped.primarySources = e.sources_primary;
-  if (e.sources_corroborating !== undefined && e.sources_corroborating !== null) mapped.corroboratingSources = e.sources_corroborating;
-  if (e.related_events !== undefined && e.related_events !== null) {
-    mapped.relatedEvents = e.related_events.map(function(r) {
+  // Premium fields: accept both snake_case (API) and camelCase (canonical/fallback)
+  mapped.tierRationale = e.tier_rationale ?? e.tierRationale ?? undefined;
+  mapped.blocAnalysis = e.bloc_analysis ?? e.blocAnalysis ?? undefined;
+  mapped.primarySources = e.sources_primary ?? e.primarySources ?? undefined;
+  mapped.corroboratingSources = e.sources_corroborating ?? e.corroboratingSources ?? undefined;
+  mapped.aiConnectionPathway = e.ai_connection_pathway ?? e.aiConnectionPathway ?? undefined;
+  mapped.rollingUpdates = e.rolling_updates ?? e.rollingUpdates ?? undefined;
+  mapped.genesisDate = e.genesis_date ?? e.genesisDate ?? undefined;
+  mapped.versionDate = e.version_date ?? e.versionDate ?? undefined;
+  mapped.qualificationPathway = e.qualification_pathway ?? e.qualificationPathway ?? undefined;
+  mapped.keyMetrics = e.key_metrics ?? e.keyMetrics ?? undefined;
+  mapped.totalInvestment = e.total_investment ?? e.totalInvestment ?? undefined;
+  if (e.status !== undefined) mapped.status = e.status;
+
+  // Related events: accept both formats
+  var relEvts = e.related_events ?? e.relatedEvents;
+  if (relEvts) {
+    mapped.relatedEvents = relEvts.map(function(r) {
       return { id: r.event_id || r.id, relationship: r.relationship };
     });
   }
-  if (e.ai_connection_pathway !== undefined) mapped.aiConnectionPathway = e.ai_connection_pathway;
-  if (e.rolling_updates !== undefined && e.rolling_updates !== null) mapped.rollingUpdates = e.rolling_updates;
-  if (e.genesis_date !== undefined && e.genesis_date !== null) mapped.genesisDate = e.genesis_date;
-  if (e.version_date !== undefined && e.version_date !== null) mapped.versionDate = e.version_date;
-  if (e.qualification_pathway !== undefined && e.qualification_pathway !== null) mapped.qualificationPathway = e.qualification_pathway;
-  if (e.key_metrics !== undefined && e.key_metrics !== null) mapped.keyMetrics = e.key_metrics;
-  if (e.total_investment !== undefined && e.total_investment !== null) mapped.totalInvestment = e.total_investment;
-  if (e.status !== undefined) mapped.status = e.status;
 
-  // Fields that pass through unchanged (already camelCase or same name)
-  if (e.basel5 !== undefined && e.basel5 !== null) mapped.basel5 = e.basel5;
-  if (e.genesis !== undefined && e.genesis !== null) mapped.genesis = e.genesis;
-  if (e.keohane !== undefined && e.keohane !== null) mapped.keohane = e.keohane;
-  if (e.pisa5 !== undefined && e.pisa5 !== null) mapped.pisa5 = e.pisa5;
-  if (e.route_based !== undefined && e.route_based !== null) mapped.routeBased = e.route_based;
-  if (e.tiebreaker !== undefined && e.tiebreaker !== null) mapped.tiebreaker = e.tiebreaker;
-  if (e.piet !== undefined && e.piet !== null) mapped.piet = e.piet;
-  if (e.oep !== undefined && e.oep !== null) mapped.oep = e.oep;
+  // Assessment frameworks: accept both formats
+  if (e.basel5 != null) mapped.basel5 = e.basel5;
+  if (e.genesis != null) mapped.genesis = e.genesis;
+  if (e.keohane != null) mapped.keohane = e.keohane;
+  if (e.pisa5 != null) mapped.pisa5 = e.pisa5;
+  mapped.routeBased = e.route_based ?? e.routeBased ?? undefined;
+  if (e.tiebreaker != null) mapped.tiebreaker = e.tiebreaker;
+  if (e.piet != null) mapped.piet = e.piet;
+  if (e.oep != null) mapped.oep = e.oep;
   if (e.f1_annotation !== undefined) mapped.f1_annotation = e.f1_annotation;
-  if (e.ecosystem_implementation !== undefined && e.ecosystem_implementation !== null) mapped.ecosystemImplementation = e.ecosystem_implementation;
+  mapped.ecosystemImplementation = e.ecosystem_implementation ?? e.ecosystemImplementation ?? undefined;
 
-  // Industry tags (used by industryTagsData but also present on events in API)
-  if (e.industry_primary !== undefined) mapped.industryPrimary = e.industry_primary;
-  if (e.industry_secondary !== undefined) mapped.industrySecondary = e.industry_secondary;
-  if (e.cc_count !== undefined) mapped.ccCount = e.cc_count;
+  // Industry tags: accept both formats
+  mapped.industryPrimary = e.industry_primary ?? e.industryPrimary ?? undefined;
+  mapped.industrySecondary = e.industry_secondary ?? e.industrySecondary ?? undefined;
+  mapped.ccCount = e.cc_count ?? e.ccCount ?? undefined;
+  mapped.environmentalNexusTags = e.environmental_nexus_tags ?? e.environmentalNexusTags ?? undefined;
 
+  // Strip undefined fields
+  Object.keys(mapped).forEach(function(k) { if (mapped[k] === undefined) delete mapped[k]; });
   return mapped;
 }
 
@@ -5573,8 +6136,8 @@ function mapApiConnectionToInternal(c) {
 
 // Load data from API with static fallback
 async function loadWEOData(password) {
-  const API_BASE = 'https://warmthengine.com/api';
-  const FALLBACK_EVENTS = '/events-free.json';
+  const API_BASE = 'http://localhost:0/api'; // DEV: force fallback to local JSON (restore to https://warmthengine.com/api before deploy)
+  const FALLBACK_EVENTS = '/data/events-free.json';
   const headers = password ? { 'X-WEO-Password': password } : {};
 
   let eventsLoaded = false;
@@ -5607,7 +6170,7 @@ async function loadWEOData(password) {
     console.warn('[WEO] API fetch failed, trying fallback:', err.message);
   }
 
-  // Fallback to static file if API failed
+  // Fallback to static files if API failed
   if (!eventsLoaded) {
     try {
       const fallbackRes = await fetch(FALLBACK_EVENTS);
@@ -5619,6 +6182,23 @@ async function loadWEOData(password) {
       }
     } catch (err) {
       console.error('[WEO] Fallback fetch also failed:', err.message);
+    }
+  }
+  // Fallback connections if not loaded from API
+  if (!connectionsLoaded) {
+    try {
+      const connRes = await fetch('/data/connections.json');
+      if (connRes.ok) {
+        const connJson = await connRes.json();
+        connectionData = {
+          metadata: connJson.metadata || {},
+          connections: (connJson.connections || []).map(mapApiConnectionToInternal)
+        };
+        connectionsLoaded = true;
+        console.log('[WEO] Connections loaded from fallback:', connectionData.connections.length);
+      }
+    } catch (err) {
+      console.warn('[WEO] Connections fallback also failed:', err.message);
     }
   }
 
@@ -5640,8 +6220,14 @@ async function loadWEOData(password) {
     mapEl.style.display = 'flex';
     mapEl.style.alignItems = 'center';
     mapEl.style.justifyContent = 'center';
-    mapEl.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-family: Inter, system-ui, sans-serif; text-align: center;"><div style="margin-bottom: 12px; font-size: 1.5rem;">◉</div><div style="font-size: 0.875rem; letter-spacing: 0.05em;">Loading WEO data\u2026</div></div>';
+    mapEl.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-family: Geist, system-ui, sans-serif; text-align: center;"><div style="margin-bottom: 12px; font-size: 1.5rem;">◉</div><div style="font-size: 0.875rem; letter-spacing: 0.05em;">Loading WEO data\u2026</div></div>';
   }
+
+  // Show skeleton placeholders while data loads
+  var eventsCountEl = document.getElementById('total-events-count');
+  var connectionsCountEl = document.getElementById('total-connections-count');
+  if (eventsCountEl) eventsCountEl.innerHTML = '<span class="skeleton skeleton-text tiny" style="height:18px;display:inline-block;width:30px;vertical-align:middle"></span>';
+  if (connectionsCountEl) connectionsCountEl.innerHTML = '<span class="skeleton skeleton-text tiny" style="height:18px;display:inline-block;width:30px;vertical-align:middle"></span>';
 
   try {
     // Check if user already has stored auth — if so, load with password
@@ -5650,7 +6236,7 @@ async function loadWEOData(password) {
   } catch (err) {
     console.error('[WEO] Fatal: could not load data', err);
     if (mapEl) {
-      mapEl.innerHTML = '<div style="color: #F87171; font-family: Inter, system-ui, sans-serif; text-align: center; padding: 2rem;"><div style="font-size: 1.25rem; margin-bottom: 8px;">Data Unavailable</div><div style="font-size: 0.8125rem; color: rgba(255,255,255,0.5);">WEO event data could not be loaded. Please try refreshing.</div></div>';
+      mapEl.innerHTML = '<div style="color: #F87171; font-family: Geist, system-ui, sans-serif; text-align: center; padding: 2rem;"><div style="font-size: 1.25rem; margin-bottom: 8px;">Data Unavailable</div><div style="font-size: 0.8125rem; color: rgba(255,255,255,0.5);">WEO event data could not be loaded. Please try refreshing.</div></div>';
     }
     return;
   }
@@ -5663,8 +6249,27 @@ async function loadWEOData(password) {
     mapEl.style.justifyContent = '';
   }
 
-  // Build industry tags lookup from loaded event data
-  buildIndustryTagsData();
+  // Rebuild ccCount + industry/ENT tags after any data reload
+  function rebuildEventMetadata() {
+    if (connectionData.connections.length > 0) {
+      var ccCounts = {};
+      connectionData.connections.forEach(function(c) {
+        var src = String(c.source_event_id || c.sourceEventId || '');
+        var tgt = String(c.target_event_id || c.targetEventId || '');
+        if (src) ccCounts[src] = (ccCounts[src] || 0) + 1;
+        if (tgt) ccCounts[tgt] = (ccCounts[tgt] || 0) + 1;
+      });
+      events.forEach(function(e) {
+        var count = ccCounts[String(e.id)];
+        if (count) e.ccCount = count;
+      });
+    }
+    buildIndustryTagsData();
+  }
+
+  // Build industry tags and compute ccCounts
+  rebuildEventMetadata();
+
 
 
 
@@ -5695,7 +6300,7 @@ function getConnectionTypeInfo(typeNum) {
     6: { name: "Framework Family", color: "#EC4899", icon: "≡" },
     7: { name: "Parallel Policy", color: "#94A3B8", icon: "∥" }
   };
-  return types[typeNum] || { name: "Unknown", color: "#64748B", icon: "?" };
+  return types[typeNum] || { name: "Unknown", color: "#94A3B8", icon: "?" };
 }
 
 // Get confidence level styling
@@ -7001,12 +7606,35 @@ function renderPanel(event) {
   
   panelContent.innerHTML = showFullContent ? generateSampleContent(event, isAuthenticated) : generateFreeTierContent(event);
   detailPanel.classList.add('open');
+  if (typeof setPanelState === 'function' && window.innerWidth <= 767) { setPanelState('peek'); }
   panelOverlay.classList.add('visible');
-  
+
+  // Move focus to panel for keyboard users
+  setTimeout(function() {
+      var title = document.querySelector('.panel-title');
+      if (title) {
+          title.setAttribute('tabindex', '-1');
+          title.focus();
+      }
+  }, 300);
+
   // Hide supporter button when panel is open
   const supporterBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
   if (supporterBtn) supporterBtn.classList.add('panel-open');
-  
+
+  // Add amber ENT glow to selected marker if it has ENTs
+  document.querySelectorAll('.weo-ent-glow').forEach(function(el) { el.classList.remove('weo-ent-glow'); });
+  var entCount = Array.isArray(event.environmentalNexusTags) ? event.environmentalNexusTags.length : 0;
+  if (entCount > 0) {
+      var eventId = event.id;
+      // Delay to allow zoom/spiderfy to complete and marker to appear in DOM
+      setTimeout(function() {
+          var mel = document.querySelector('.marker[data-event-id="' + eventId + '"]');
+          var mw = mel ? mel.closest('.marker-wrapper') : null;
+          if (mw) mw.classList.add('weo-ent-glow');
+      }, 1200);
+  }
+
   // Initialize tooltip listeners
   initTooltips();
 }
@@ -7405,9 +8033,9 @@ function generateCCItem(conn, displayEventId, displayEventName) {
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence_level, 'below');
   
   let html = '<div class="cc-item-wrapper" data-type="' + conn.connection_type + '" data-connection-id="' + conn.connection_id + '">';
-  
+
   // Main CC item row
-  html += '<div class="cc-item' + (hasDetail ? ' expandable' : '') + '" data-navigate-to="' + displayEventId + '">';
+  html += '<div class="cc-item' + (hasDetail ? ' expandable" role="button" tabindex="0" aria-expanded="false' : '') + '" data-navigate-to="' + displayEventId + '">';
   
   if (hasDetail) {
     // Wrap navigable content in a container
@@ -7834,7 +8462,7 @@ function generateCCSection(eventId, showFullContent) {
         return L.divIcon({
           html: '<div class="marker-cluster-svg' + sampleClusterClass + '" style="position: relative; width: ' + dimensions + 'px; height: ' + dimensions + 'px;">' +
             svg +
-            '<span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; font-size: ' + (size === 'large' ? '16' : size === 'medium' ? '15' : '14') + 'px; color: #F1F5F9;">' + count + '</span>' +
+            '<span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; font-size: ' + (size === 'large' ? '16' : size === 'medium' ? '15' : '14') + 'px; color: #F1F5F9;">' + count + '</span>' +
             '</div>',
           className: 'custom-cluster-svg',
           iconSize: L.point(dimensions, dimensions)
@@ -7882,7 +8510,16 @@ function generateCCSection(eventId, showFullContent) {
       });
       
       marker.on('mouseover', (e) => {
-        tooltip.innerHTML = '<div class="tooltip-title">' + event.name + '</div><div class="tooltip-meta"><span>' + event.type + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + event.bloc + '</span></div><div class="tooltip-hint">Click for details</div>';
+        var domainClass = '';
+        if (event.domain) {
+          var dl = event.domain.toLowerCase();
+          if (dl.indexOf('tech') >= 0) domainClass = 'badge-domain-tech';
+          else if (dl.indexOf('secur') >= 0) domainClass = 'badge-domain-security';
+          else if (dl.indexOf('trade') >= 0) domainClass = 'badge-domain-trade';
+          else if (dl.indexOf('energy') >= 0) domainClass = 'badge-domain-energy';
+        }
+        var domainBadge = domainClass ? '<span class="tooltip-badge ' + domainClass + '">' + event.domain + '</span>' : '';
+        tooltip.innerHTML = '<div class="tooltip-title">' + event.name + '</div><div class="tooltip-meta"><span>' + event.type + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">' + tierIcon(event.tier) + 'T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + blocIcon(event.bloc) + event.bloc + '</span>' + domainBadge + '</div><div class="tooltip-hint">Click for details</div>';
         tooltip.classList.add('visible');
         const point = map.latLngToContainerPoint(e.latlng);
         tooltip.style.left = (point.x + 20) + 'px';
@@ -7894,11 +8531,73 @@ function generateCCSection(eventId, showFullContent) {
         tooltip.style.left = (point.x + 20) + 'px';
         tooltip.style.top = (point.y - 20) + 'px';
       });
-      marker.on('click', () => { tooltip.classList.remove('visible'); openPanel(event); });
+      marker.on('click', () => {
+        tooltip.classList.remove('visible');
+        // Capture marker wrapper NOW while it's in the DOM (before any zoom)
+        var _mel = document.querySelector('.marker[data-event-id="' + event.id + '"]');
+        window._weoClickedMarkerWrapper = _mel ? _mel.closest('.marker-wrapper') : null;
+        openPanel(event);
+      });
       markers.addLayer(marker);
     });
     map.addLayer(markers);
-    
+
+    // ========================================
+    // AMBIENT ENT HEATMAP
+    // Static heat at each ENT-tagged event's coordinates.
+    // ========================================
+    (function() {
+        try {
+            if (typeof L.heatLayer !== 'function') return;
+
+            var heatPoints = [];
+            events.forEach(function(e) {
+                var entCount = Array.isArray(e.environmentalNexusTags) ? e.environmentalNexusTags.length : 0;
+                if (entCount === 0) return;
+                var lat = e.lat || e.latitude;
+                var lng = e.lng || e.longitude || e.lon;
+                if (lat && lng) {
+                    var weight = Math.min(1.0, entCount * 0.35);
+                    heatPoints.push([parseFloat(lat), parseFloat(lng), weight]);
+                }
+            });
+
+            if (heatPoints.length === 0) return;
+
+            var weoHeatLayer = L.heatLayer(heatPoints, {
+                radius: 40,
+                blur: 35,
+                maxZoom: 10,
+                max: 1.0,
+                gradient: {
+                    0.0: 'rgba(252, 211, 77, 0)',
+                    0.3: 'rgba(252, 211, 77, 0.04)',
+                    0.6: 'rgba(252, 211, 77, 0.08)',
+                    1.0: 'rgba(252, 211, 77, 0.12)'
+                }
+            }).addTo(map);
+
+            // Smooth zoom transitions
+            map.on('zoomstart', function() {
+                if (weoHeatLayer && weoHeatLayer._canvas) {
+                    weoHeatLayer._canvas.style.transition = 'opacity 150ms ease';
+                    weoHeatLayer._canvas.style.opacity = '0';
+                }
+            });
+
+            map.on('zoomend', function() {
+                setTimeout(function() {
+                    if (weoHeatLayer && weoHeatLayer._canvas) {
+                        weoHeatLayer._canvas.style.transition = 'opacity 400ms ease';
+                        weoHeatLayer._canvas.style.opacity = '1';
+                    }
+                }, 100);
+            });
+        } catch(err) {
+            console.warn('Heatmap layer skipped:', err);
+        }
+    })();
+
     // Smart cluster click handler (replaces default zoomToBoundsOnClick)
     // Strategy:
     // - Small clusters at reasonable zoom: spiderfy in place
@@ -8159,6 +8858,8 @@ function generateCCSection(eventId, showFullContent) {
           e.preventDefault();
           e.stopPropagation();
           tooltip.classList.remove('visible');
+          // Capture marker wrapper for ENT glow
+          window._weoClickedMarkerWrapper = target.closest('.marker-wrapper') || null;
           openPanel(event);
         }
       }
@@ -8229,10 +8930,21 @@ function generateCCSection(eventId, showFullContent) {
     }
 
     function closePanel() {
+      // Reset bottom sheet state
+      if (typeof setPanelState === 'function') { window.setPanelState('closed'); }
+      var p = document.getElementById('detailPanel');
+      if (p) p.classList.remove('state-peek', 'state-half', 'state-full');
+      // Clear ENT glow
+      document.querySelectorAll('.weo-ent-glow').forEach(function(el) { el.classList.remove('weo-ent-glow'); });
       detailPanel.classList.remove('open');
       detailPanel.classList.remove('peek-mode'); // Remove peek mode when closing
       panelOverlay.classList.remove('visible');
       hideTooltipImmediate();
+      // Return focus to map for keyboard users
+      setTimeout(function() {
+          var mapEl = document.getElementById('map');
+          if (mapEl) mapEl.focus();
+      }, 100);
       // DON'T clear CC visualisation here - the line should persist on the map
       // so the user can close the panel to see the full CC line.
       // CC vis is cleared when: a new marker is clicked (openPanel), or back nav (goBackInPanel)
@@ -8271,15 +8983,29 @@ function generateCCSection(eventId, showFullContent) {
       const map = { 'Technology': 'technology', 'Security': 'security', 'Trade': 'trade', 'Energy/Infrastructure': 'energy' };
       return map[domain] || 'technology';
     }
+
+    function tierIcon(tier) {
+      return '<span class="cvd-icon t' + tier + '"></span>';
+    }
+    function blocIcon(bloc) {
+      var b = bloc.toLowerCase().replace('-led', '');
+      if (b === 'western') return '<span class="cvd-icon western"></span>';
+      if (b === 'eastern') return '<span class="cvd-icon eastern"></span>';
+      if (b === 'cross-bloc') return '<span class="cvd-icon cross-bloc"></span>';
+      return '';
+    }
     // Industry Tags Data (11-category taxonomy) — built dynamically from loaded events
     var industryTagsData = {};
+    var entTagsData = {};
     function buildIndustryTagsData() {
       industryTagsData = {};
+      entTagsData = {};
       events.forEach(function(e) {
         industryTagsData[e.id] = {
           primary: e.industryPrimary || 'AI Software & Platforms',
           secondary: e.industrySecondary || []
         };
+        entTagsData[e.id] = e.environmentalNexusTags || [];
       });
     }
     var indClassMap = {"Semiconductors & Equipment":"badge-ind-semi","Cloud, Data Centres & Connectivity Infrastructure":"badge-ind-cloud","AI Software & Platforms":"badge-ind-ai","Defence & Aerospace":"badge-ind-defence","Energy & Power Infrastructure":"badge-ind-energy","Financial Services & Investment":"badge-ind-finance","Mining & Critical Minerals":"badge-ind-mining","Trade & Logistics":"badge-ind-trade","Automotive & Manufacturing":"badge-ind-auto","Quantum Computing Infrastructure":"badge-ind-quantum","Telecoms":"badge-ind-telecoms"};
@@ -8310,15 +9036,41 @@ function generateCCSection(eventId, showFullContent) {
       return dateStr;
     }
     function getIndTags(eventId) { return industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]}; }
+    function getEntTags(eventId) { return entTagsData[eventId] || []; }
+    var entTypeClass = {'ENT-1':'ent-1','ENT-2':'ent-2','ENT-3':'ent-3','ENT-4':'ent-4','ENT-5':'ent-5'};
+    function buildEntBadgeHtml(tag) {
+      var cls = entTypeClass[tag.type] || 'ent-2';
+      var qualifiers = '';
+      if (tag.vector) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Vector: ' + tag.vector + '</div>';
+      if (tag.dependencyType) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Dependency: ' + tag.dependencyType + '</div>';
+      if (tag.riskIndex) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Risk: ' + tag.riskIndex + '</div>';
+      if (tag.pathway) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Pathway: ' + tag.pathway + '</div>';
+      if (tag.activationStatus) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Status: ' + tag.activationStatus + '</div>';
+      return '<span class="ind-tag-wrap"><span class="ent-tag ' + cls + '" onclick="toggleEntMechanism(this)">' + tag.name + '</span><div class="ent-mechanism-popover"><div class="ent-popover-title ' + cls + '">' + tag.name + '</div><div class="ent-popover-mechanism">' + tag.mechanism + '</div>' + qualifiers + '<div class="ent-popover-meta"><span class="ent-evidence-badge">' + (tag.evidenceBasis || 'Documented') + '</span></div></div></span>';
+    }
     function buildIndustryShelfHtml(eventId) {
       var tags = getIndTags(eventId);
+      var entTags = getEntTags(eventId);
       var html = '<div class="industry-shelf">';
-      // Primary tag — filled, clickable to reveal full name, with "?" methodology tooltip
-      html += '<span class="badge-with-tooltip"><span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span><span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span></span>';
-      // Secondary tags — outlined, operational (click for mechanism popover), with "?" category tooltip
+      // INDUSTRY row — grid layout
+      html += '<div class="shelf-row">';
+      html += '<span class="shelf-label weo-info-trigger">Industry<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span>';
+      html += '<div class="shelf-badges">';
+      html += '<span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span>';
       for (var i = 0; i < tags.secondary.length; i++) {
         var s = tags.secondary[i];
         html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + s.tag + '</div>' + s.mechanism + '</div></span>';
+      }
+      html += '</div></div>';
+      // ENVIRONMENT row — conditional, only when ENT tags exist
+      if (entTags.length > 0) {
+        html += '<div class="shelf-row" style="margin-left:-24px;padding-left:22px;border-left:3px solid rgba(252,211,77,0.55);box-shadow:-4px 0 8px -2px rgba(252,211,77,0.15)">';
+        html += '<span class="shelf-label weo-info-trigger" style="color:rgba(252,211,77,0.55);-webkit-text-stroke:0.5px rgba(252,211,77,0.8)">Environment<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Environmental Nexus Tags</div><div class="weo-tooltip-body">Analytical enrichment identifying where AI infrastructure coordination intersects with environmental systems. Tags describe resource demand, enablement, consequence, dependency, and governance coordination.</div></span></span>';
+        html += '<div class="shelf-badges">';
+        for (var j = 0; j < entTags.length; j++) {
+          html += buildEntBadgeHtml(entTags[j]);
+        }
+        html += '</div></div>';
       }
       html += '</div>';
       return html;
@@ -8354,6 +9106,36 @@ function generateCCSection(eventId, showFullContent) {
             popover.style.left = 'calc(50% - ' + shift + 'px)';
           } else if (rect.left < leftEdge) {
             // Overflows left — shift right
+            var shift = leftEdge - rect.left;
+            popover.style.left = 'calc(50% + ' + shift + 'px)';
+          }
+        });
+      }
+    }
+
+    function toggleEntMechanism(tagEl) {
+      var wrap = tagEl.closest('.ind-tag-wrap');
+      var popover = wrap.querySelector('.ent-mechanism-popover');
+      var wasVisible = popover.classList.contains('visible');
+      document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) {
+        p.classList.remove('visible');
+        p.style.left = '';
+        p.style.transform = '';
+      });
+      if (!wasVisible) {
+        popover.style.left = '50%';
+        popover.style.transform = 'translateX(-50%)';
+        popover.classList.add('visible');
+        requestAnimationFrame(function() {
+          var rect = popover.getBoundingClientRect();
+          var panel = document.getElementById('detailPanel');
+          var panelRect = panel ? panel.getBoundingClientRect() : { left: 0, right: window.innerWidth };
+          var rightEdge = panelRect.right - 8;
+          var leftEdge = panelRect.left + 8;
+          if (rect.right > rightEdge) {
+            var shift = rect.right - rightEdge;
+            popover.style.left = 'calc(50% - ' + shift + 'px)';
+          } else if (rect.left < leftEdge) {
             var shift = leftEdge - rect.left;
             popover.style.left = 'calc(50% + ' + shift + 'px)';
           }
@@ -8428,13 +9210,13 @@ function generateCCSection(eventId, showFullContent) {
     // Close mechanism/primary/T2 popovers on outside click
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.ind-tag-wrap') && !e.target.closest('.piet-t2-wrap')) {
-        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
+        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
       }
     });
     // Close on Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
-        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
+        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) { p.classList.remove('visible'); });
       }
     });
 
@@ -8613,6 +9395,12 @@ function generateCCSection(eventId, showFullContent) {
       const posClass = position ? ' tooltip-' + position : '';
       return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
     }
+    function generateFieldLabel(labelText, tooltipKey, position) {
+      const t = weoTooltips[tooltipKey];
+      if (!t) return '<span class="z2-label">' + labelText + '</span>';
+      const posClass = position ? ' tooltip-' + position : '';
+      return '<span class="z2-label weo-info-trigger">' + labelText + '<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+    }
     
     // Generate tooltip for CC connection types (1-7)
     function generateCCTypeTooltip(typeNum, position) {
@@ -8654,6 +9442,18 @@ function generateCCSection(eventId, showFullContent) {
       const domainTooltip = generateTooltip('domain', 'below');
       const scaleTooltip = generateTooltip('scale', 'left');
       
+      // Zone 2 — grid rows
+      const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
+      const blocLabel = generateFieldLabel('Bloc', 'bloc', 'below');
+      const domainLabel = generateFieldLabel('Domain', 'domain', 'below');
+      const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
+      const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
+        '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + blocBadgeText + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + event.domain + '</span></div></div>' +
+        connRow +
+        '</div>';
+
       // Calculate cumulative source counts
       let totalPrimarySources = event.sources || 0;
       let totalCorroboratingSources = event.corroborating || 0;
@@ -8677,7 +9477,7 @@ function generateCCSection(eventId, showFullContent) {
       const freeAiCheckpointHtml = freeIsPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection</span></div>';
       const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : 'OEP')) + '</span></div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + '</div></div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #64748B;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -8974,7 +9774,23 @@ function generateCCSection(eventId, showFullContent) {
       const blocTooltip = generateTooltip('bloc', 'below');
       const domainTooltip = generateTooltip('domain', 'below');
       const scaleTooltip = generateTooltip('scale', 'left');
-      
+
+      // Header version badge (must be declared before badgesHtml)
+      const lastUpdateText = event.versionDate ? new Date(event.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
+      const headerVersionBadge = event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + event.version + (lastUpdateText ? ' • Updated ' + lastUpdateText : '') + '</span>' : '';
+
+      // Zone 2 — grid rows
+      const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
+      const blocLabel = generateFieldLabel('Bloc', 'bloc', 'below');
+      const domainLabel = generateFieldLabel('Domain', 'domain', 'below');
+      const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
+      const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
+        '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + blocBadgeText + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + event.domain + '</span></div></div>' +
+        connRow + headerVersionBadge +
+        '</div>';
+
       let basel5Html = '';
       if (event.basel5 && event.basel5.length > 0) {
         basel5Html = event.basel5.map(function(f) {
@@ -9122,7 +9938,7 @@ function generateCCSection(eventId, showFullContent) {
       let basel5Section = '';
       if (event.basel5 && event.basel5.length > 0 && event.basel5.some(function(f) { return f.rationale; })) {
         const basel5Met = event.basel5.filter(function(f) { return f.pass; }).length;
-        basel5Section = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Basel 5-Factor Assessment</span>' + basel5Tooltip + ' <span style="font-weight:400;color:#64748B;font-size:12px;">(' + basel5Met + '/5 factors met)</span></div><div class="checkpoint-list" style="margin-top: 8px;">' + basel5Html + '</div></div>';
+        basel5Section = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Basel 5-Factor Assessment</span>' + basel5Tooltip + ' <span style="font-weight:400;color:#94A3B8;font-size:12px;">(' + basel5Met + '/5 factors met)</span></div><div class="checkpoint-list" style="margin-top: 8px;">' + basel5Html + '</div></div>';
       }
       
       let keohaneSection = '';
@@ -9133,7 +9949,7 @@ function generateCCSection(eventId, showFullContent) {
       let pisa5Section = '';
       if (event.pisa5 && event.pisa5.length > 0 && event.pisa5.some(function(f) { return f.rationale; })) {
         const pisa5Met = event.pisa5.filter(function(f) { return f.pass; }).length;
-        pisa5Section = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">PISA-5 Assessment</span>' + pisa5Tooltip + ' <span style="font-weight:400;color:#64748B;font-size:12px;">(' + pisa5Met + '/5 factors met)</span></div><div class="keohane-subtitle" style="font-size: 12px; color: #2DD4BF; margin-top: 4px; margin-bottom: 8px;">(Part C — Policy/Institutional)</div><div class="checkpoint-list">' + pisa5Html + '</div></div>';
+        pisa5Section = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">PISA-5 Assessment</span>' + pisa5Tooltip + ' <span style="font-weight:400;color:#94A3B8;font-size:12px;">(' + pisa5Met + '/5 factors met)</span></div><div class="keohane-subtitle" style="font-size: 12px; color: #2DD4BF; margin-top: 4px; margin-bottom: 8px;">(Part C — Policy/Institutional)</div><div class="checkpoint-list">' + pisa5Html + '</div></div>';
       }
       
       // Human Review Tiebreaker Section (renders only if tiebreaker.triggered is true)
@@ -9176,7 +9992,7 @@ function generateCCSection(eventId, showFullContent) {
         const routeBasedMet = event.routeBased.filter(function(f) { return f.pass; }).length;
         const routeBasedTotal = event.routeBased.length;
         const pathwayText = '(Part B — ' + pathwayDisplayName + ')';
-        routeBasedSection = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Route-Based Assessment</span>' + pathwayTooltipHtml + ' <span style="font-weight:400;color:#64748B;font-size:12px;">(' + routeBasedMet + '/' + routeBasedTotal + ' routes met)</span></div><div class="keohane-subtitle" style="font-size: 12px; color: #2DD4BF; margin-top: 4px; margin-bottom: 8px;">' + pathwayText + '</div><div class="checkpoint-list">' + routeBasedHtml + '</div></div>';
+        routeBasedSection = '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Route-Based Assessment</span>' + pathwayTooltipHtml + ' <span style="font-weight:400;color:#94A3B8;font-size:12px;">(' + routeBasedMet + '/' + routeBasedTotal + ' routes met)</span></div><div class="keohane-subtitle" style="font-size: 12px; color: #2DD4BF; margin-top: 4px; margin-bottom: 8px;">' + pathwayText + '</div><div class="checkpoint-list">' + routeBasedHtml + '</div></div>';
       }
       
       // Generate Original Qualification Data section (only for events with rolling updates)
@@ -9187,27 +10003,22 @@ function generateCCSection(eventId, showFullContent) {
       // Generate VERSION HISTORY section (only shows if event has rolling updates)
       const versionHistoryHtml = generateVersionHistorySection(event);
       
-      // Generate header version badge if event has been updated
-      // Generate last updated indicator for events with rolling updates
-      const lastUpdateText = event.versionDate ? new Date(event.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
-      const headerVersionBadge = event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + event.version + (lastUpdateText ? ' • Updated ' + lastUpdateText : '') + '</span>' : '';
-      
       // Ecosystem Implementation badges + premium panel
       let ecoImplBadgesHtml = '';
       let ecoImplPanelHtml = '';
       if (event.ecosystemImplementation && event.ecosystemImplementation.length > 0) {
         ecoImplBadgesHtml = '<div style="margin-top:6px;display:flex;align-items:center;gap:2px;padding:0 12px 4px;">' +
-          '<span style="font-size:0.65rem;color:#64748B;margin-right:0.5rem;text-transform:uppercase;letter-spacing:0.04em;">Ecosystem</span>' +
+          '<span style="font-size:0.65rem;color:#94A3B8;margin-right:0.5rem;text-transform:uppercase;letter-spacing:0.04em;">Ecosystem</span>' +
           event.ecosystemImplementation.map(function(ei) {
             var icon = ei.implemented ? '✅' : '✗';
-            var color = ei.implemented ? '#2DD4BF' : '#64748B';
+            var color = ei.implemented ? '#2DD4BF' : '#94A3B8';
             return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + ei.ecosystem + '</span>';
           }).join('') + '</div>';
         ecoImplPanelHtml = '<div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">' +
           '<div style="font-size:0.75rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>' +
           event.ecosystemImplementation.map(function(ei) {
             var icon = ei.implemented ? '✅' : '✗';
-            var nameColor = ei.implemented ? '#2DD4BF' : '#64748B';
+            var nameColor = ei.implemented ? '#2DD4BF' : '#94A3B8';
             return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:#CBD5E1;">' + (ei.evidence || '') + '</span></div>';
           }).join('') + '</div>';
       }
@@ -9217,7 +10028,7 @@ function generateCCSection(eventId, showFullContent) {
       const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '\u2713' : '\u2717') + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div><div class="panel-badges"><span class="badge-with-tooltip"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(\x27Tier Classification\x27)">Tier ' + event.tier + '</span>' + tierTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(\x27bloc-table\x27)">' + blocBadgeText + '</span>' + blocTooltip + '</span><span class="badge-with-tooltip"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(\x27overview\x27)">' + event.domain + '</span>' + domainTooltip + '</span>' + highlyConnectedBadge + headerVersionBadge + '</div>' + ecoImplBadgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
@@ -9245,12 +10056,21 @@ function generateCCSection(eventId, showFullContent) {
       
       panelContent.innerHTML = showFullContent ? generateSampleContent(event, isAuthenticated) : generateFreeTierContent(event);
       detailPanel.classList.add('open');
+      if (typeof setPanelState === 'function' && window.innerWidth <= 767) { setPanelState('peek'); }
       panelOverlay.classList.add('visible');
       
       // Hide supporter button when panel is open
       const supporterBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
       if (supporterBtn) supporterBtn.classList.add('panel-open');
-      
+
+      // Add amber ENT glow to selected marker if it has ENTs
+      document.querySelectorAll('.weo-ent-glow').forEach(function(el) { el.classList.remove('weo-ent-glow'); });
+      var _entCount = Array.isArray(event.environmentalNexusTags) ? event.environmentalNexusTags.length : 0;
+      if (_entCount > 0 && window._weoClickedMarkerWrapper) {
+          window._weoClickedMarkerWrapper.classList.add('weo-ent-glow');
+      }
+      window._weoClickedMarkerWrapper = null;
+
       // Initialize tooltip listeners
       initTooltips();
     }
@@ -9393,6 +10213,8 @@ function generateCCSection(eventId, showFullContent) {
             
             // Toggle this panel
             ccItemWrapper.classList.toggle('expanded');
+            var ccItemEl = ccItemWrapper.querySelector('.cc-item.expandable');
+            if (ccItemEl) ccItemEl.setAttribute('aria-expanded', ccItemWrapper.classList.contains('expanded') ? 'true' : 'false');
           }
           return;
         }
@@ -9644,7 +10466,7 @@ function generateCCSection(eventId, showFullContent) {
       // Re-fetch with password, then refresh open panel
       const password = localStorage.getItem(WEO_PASSWORD_KEY);
       loadWEOData(password).then(function() {
-        buildIndustryTagsData();
+        rebuildEventMetadata();
         console.log('[WEO] Full-tier data loaded after authentication');
         if (currentEventId) {
           var ev = getEventById(currentEventId);
@@ -9657,7 +10479,7 @@ function generateCCSection(eventId, showFullContent) {
       updateModalState(false);
       // Re-fetch free-tier data, then refresh open panel
       loadWEOData().then(function() {
-        buildIndustryTagsData();
+        rebuildEventMetadata();
         console.log('[WEO] Free-tier data loaded after logout');
         if (currentEventId) {
           var ev = getEventById(currentEventId);
@@ -9799,7 +10621,25 @@ function generateCCSection(eventId, showFullContent) {
       if (connectionsEl) connectionsEl.textContent = totalConnections;
       if (updatedEl && WEO_DB.last_updated) {
         const d = new Date(WEO_DB.last_updated + 'T00:00:00');
-        updatedEl.textContent = 'Updated ' + d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        updatedEl.textContent = 'Updated ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+      
+      // WER computation
+      var ent1Count = 0, ent5Count = 0;
+      events.forEach(function(e) {
+        var tags = e.environmentalNexusTags || [];
+        tags.forEach(function(t) {
+          if (t.type === 'ENT-1') ent1Count++;
+          if (t.type === 'ENT-5') ent5Count++;
+        });
+      });
+      var werEl = document.getElementById('weo-status-wer');
+      var werValEl = document.getElementById('weo-wer-value');
+      if (werEl && werValEl && ent5Count >= 1) {
+        var wer = (ent1Count / ent5Count);
+        var werDisplay = wer % 1 === 0 ? wer.toFixed(0) : wer.toFixed(2).replace(/0+$/, '');
+        werValEl.textContent = werDisplay + ' : 1';
+        werEl.style.display = '';
       }
     }
     // Stats populated directly (DOMContentLoaded already fired)
@@ -9807,6 +10647,25 @@ function generateCCSection(eventId, showFullContent) {
 
   // Ensure stats are populated (DOMContentLoaded may have already fired)
   if (typeof populateMapStats === 'function') populateMapStats();
+
+  // Status panel tooltip handler (WER tooltips — outside detail panel)
+  (function() {
+    var statusPanel = document.querySelector('.weo-status-panel');
+    if (!statusPanel) return;
+    statusPanel.addEventListener('click', function(e) {
+      var trigger = e.target.closest('.weo-info-trigger');
+      if (trigger) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (activeTooltipTrigger === trigger && tooltipOverlay.classList.contains('visible')) {
+          hideTooltipImmediate();
+        } else {
+          showTooltip(trigger);
+          activeTooltipTrigger = trigger;
+        }
+      }
+    });
+  })();
 
   // Expose functions to global scope for inline onclick handlers
   window.closePanel = closePanel;
@@ -9823,6 +10682,7 @@ function generateCCSection(eventId, showFullContent) {
   window.toggleTiebreaker = toggleTiebreaker;
   window.toggleMechanism = toggleMechanism;
   window.togglePrimaryName = togglePrimaryName;
+  window.toggleEntMechanism = toggleEntMechanism;
   window.openAccessModal = openAccessModal;
   window.closeAccessModal = closeAccessModal;
   window.checkAccess = checkAccess;
@@ -9864,17 +10724,92 @@ function generateCCSection(eventId, showFullContent) {
     </div>
   </div>
 
-<script data-goatcounter="https://warmthengine.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-<div id="weo-map-version" style="position:fixed;bottom:8px;left:24px;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:10px;color:#64748B;opacity:0.4;pointer-events:none;z-index:449;display:none;">Methodology V1.3 · WEO v1.0.0</div>
+<!-- Version stamp -->
+<div style="position:fixed;bottom:8px;left:24px;z-index:1;font-family:'Geist Mono','Fira Code',monospace;font-size:10px;opacity:0.35;color:#94A3B8;pointer-events:none;">Methodology V1.3 · WEO v1.1.0</div>
+
 <script>
-(function(){
-  var v = document.querySelector('meta[name="weo-version"]');
-  if (v) console.log('WEO v' + v.getAttribute('content'));
-  // Show version only on desktop/tablet (>767px)
-  var el = document.getElementById('weo-map-version');
-  if (el && window.innerWidth > 767) el.style.display = 'block';
+// ========================================
+// THREE-STATE MOBILE BOTTOM SHEET
+// Completely self-contained. Does not modify existing functions.
+// Only activates on mobile viewports (<= 767px).
+// ========================================
+(function() {
+    'use strict';
+
+    var panelState = 'closed';
+    var touchStartY = 0;
+    var touchStartTime = 0;
+
+    function isMobile() {
+        return window.innerWidth <= 767;
+    }
+
+    function getPanel() {
+        return document.getElementById('detailPanel');
+    }
+
+    window.setPanelState = function(newState) {
+        if (!isMobile()) return;
+        var panel = getPanel();
+        if (!panel) return;
+
+        panel.classList.remove('state-peek', 'state-half', 'state-full');
+
+        if (newState === 'closed') {
+            panelState = 'closed';
+            return;
+        }
+
+        panel.classList.add('state-' + newState);
+        panelState = newState;
+    };
+
+    window.getPanelState = function() {
+        return panelState;
+    };
+
+    var panel = getPanel();
+    if (panel) {
+        panel.addEventListener('touchstart', function(e) {
+            if (!isMobile()) return;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }, { passive: true });
+
+        panel.addEventListener('touchend', function(e) {
+            if (!isMobile()) return;
+            if (panelState === 'closed') return;
+
+            var deltaY = touchStartY - e.changedTouches[0].clientY;
+            var elapsed = Date.now() - touchStartTime;
+            var velocity = Math.abs(deltaY) / elapsed;
+
+            var isFlick = velocity > 0.5 && Math.abs(deltaY) > 20;
+            var isSwipe = Math.abs(deltaY) > 50;
+
+            if ((isSwipe || isFlick) && deltaY > 0) {
+                if (panelState === 'peek') window.setPanelState('half');
+                else if (panelState === 'half') window.setPanelState('full');
+            } else if ((isSwipe || isFlick) && deltaY < 0) {
+                if (panelState === 'full') window.setPanelState('half');
+                else if (panelState === 'half') window.setPanelState('peek');
+                else if (panelState === 'peek') {
+                    window.setPanelState('closed');
+                    if (typeof closePanel === 'function') closePanel();
+                }
+            }
+        }, { passive: true });
+
+        panel.addEventListener('click', function() {
+            if (!isMobile()) return;
+            if (panelState === 'peek') {
+                window.setPanelState('half');
+            }
+        });
+    }
 })();
 </script>
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
