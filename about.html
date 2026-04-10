@@ -2,7 +2,6 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.0.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -53,7 +52,7 @@
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     
     <style>
         /* =================================================================
@@ -94,7 +93,7 @@
             --weo-text-primary: #E2E8F0;
             --weo-text-secondary: #CBD5E1;
             --weo-text-tertiary: #94A3B8;
-            --weo-text-muted: #64748B;
+            --weo-text-muted: #94A3B8;
             
             /* Accent */
             --weo-accent-primary: #3B82F6;
@@ -108,12 +107,12 @@
             /* Status */
             --weo-status-positive: #22C55E;
             --weo-status-positive-bg: rgba(34, 197, 94, 0.12);
-            --weo-status-negative: #EF4444;
+            --weo-status-negative: #F87171;
             --weo-status-negative-bg: rgba(239, 68, 68, 0.12);
             
             /* Typography */
-            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
             --weo-space-xs: 0.25rem;
@@ -381,7 +380,7 @@
         }
         
         .section-title {
-            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
+            font-family: var(--weo-font-mono, 'Geist Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 0.75rem;
             font-weight: 600;
             color: var(--weo-text-muted);
@@ -815,6 +814,10 @@
             color: var(--weo-text-muted);
             line-height: 1.6;
         }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #3B82F6; }
         
         .footer-text a {
             color: var(--weo-text-tertiary);
@@ -871,7 +874,43 @@
                 text-align: center;
             }
         }
-    </style>
+    
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+    /* ==========================================================
+       GEIST DARK-MODE WEIGHT COMPENSATION
+       Variable font weights adjusted for light-on-dark halation.
+       Standard 400 body → 380, standard 600 heading → 580.
+       ========================================================== */
+
+    /* Body text */
+    body { font-weight: 380; }
+    .prose { font-weight: 380; }
+
+    /* Headings and titles */
+    .page-title,
+    .page-subtitle,
+    .section-title { font-weight: 580; }
+
+    /* Badges and labels */
+    .stats-label { font-weight: 580; letter-spacing: 0.04em; }
+
+    /* Monospace data values */
+    .stat-value { font-weight: 480; }
+
+    /* Tabular number alignment for all numeric displays */
+    .stat-value {
+        font-variant-numeric: tabular-nums slashed-zero;
+    }
+
+</style>
 </head>
 <body>
     <div class="container">
@@ -915,18 +954,18 @@
             <div class="card">
                 <div class="prose">
                     <p>The Warmth Engine Observatory (WEO) produces Coordination Intelligence on AI infrastructure dynamics across geopolitical blocs through verified events and mapped coordination connections.</p>
-                    <p>The platform applies institutional-grade methodology adapted from Basel Committee frameworks, intelligence community standards, and academic evidence grading. Events are classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc), domain, and event type, and tagged by industry sector (<span class="weo-value">11-category</span> taxonomy). The <span class="weo-value">7-type</span> Coordination Connections taxonomy tracks how events influence, enable, or respond to one another — the first systematic framework for mapping these relationships.</p>
+                    <p>The platform applies institutional-grade methodology adapted from Basel Committee frameworks, intelligence community standards, and academic evidence grading. Events are classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc), domain, and event type, and tagged by industry sector (<span class="weo-value">11-category</span> taxonomy) and environmental intersection (<span class="weo-value">5-type</span> Environmental Nexus Tag taxonomy). The Warmth Engine Ratio (WER) is the ratio of environmental resource demand to environmental governance coordination across the event database. The <span class="weo-value">7-type</span> Coordination Connections taxonomy tracks how events influence, enable, or respond to one another — the first systematic framework for mapping these relationships.</p>
                 </div>
                 
                 <div class="stats-section">
                     <div class="stats-label">Current Database</div>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-value" id="weo-event-count">109</div>
+                            <div class="stat-value" id="weo-event-count">114</div>
                             <div class="stat-label">Verified Events</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="weo-cc-count">81</div>
+                            <div class="stat-value" id="weo-cc-count">96</div>
                             <div class="stat-label">Coordination Connections</div>
                         </div>
                     </div>
@@ -1199,8 +1238,9 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
+            <p class="footer-version">Methodology V1.3 · WEO v1.1.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
         
     </div>
@@ -1244,11 +1284,5 @@
     </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-<script>
-(function(){
-  var v = document.querySelector('meta[name="weo-version"]');
-  if (v) console.log('WEO v' + v.getAttribute('content'));
-})();
-</script>
 </body>
 </html>

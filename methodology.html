@@ -2,14 +2,13 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.0.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Methodology — Warmth Engine Observatory</title>
-    <meta name="description" content="WEO V1.2 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, and coordination connections.">
-    <meta name="keywords" content="Warmth Engine Observatory, WEO methodology, event verification, significance assessment, tier classification, domain classification, Coordination Connections, Basel 5-Factor, PISA-5, Keohane Pre-Filter, gold standard verification">
+    <meta name="description" content="WEO V1.3 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, Environmental Nexus Tags, the Warmth Engine Ratio, and coordination connections.">
+    <meta name="keywords" content="Warmth Engine Observatory, WEO methodology, event verification, significance assessment, tier classification, domain classification, Coordination Connections, Environmental Nexus Tags, Warmth Engine Ratio, Basel 5-Factor, PISA-5, Keohane Pre-Filter, gold standard verification">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Methodology — Warmth Engine Observatory">
@@ -65,28 +64,29 @@
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     
     <style>
         /* =================================================================
-           METHODOLOGY PAGE R7 — Public-Facing Methodology Summary
+           METHODOLOGY PAGE R8 — Public-Facing Methodology Summary
            Observatory Palette (Slate-Blue) — Platform Documentation
            
-           Aligned with WEO Methodology Manual V1.2 (8-chapter structure)
+           Aligned with WEO Methodology Manual V1.3 (9-chapter structure)
            Gauge scoring and spillover mechanics deferred to V2.2+
            
            Style: Systems Analyst | UK English | Institutional Audience
            
-           Changes in R7:
-           - Aligned to Methodology Manual V1.2 (March 2026)
-           - Updated T2 classification to acknowledge Impact-Demonstrated pathway
-           - Updated meta description to V1.2
+           Changes in R8:
+           - Aligned to Methodology Manual V1.3 (April 2026)
+           - Added Environmental Nexus Tags section (5-type taxonomy)
+           - Added Warmth Engine Ratio (WER) reference
+           - Added ENT to Processing Sequence
+           - Updated meta description and chapter count to V1.3
            
            Previous versions:
+           - R7: Aligned to V1.2, T2 Impact-Demonstrated pathway
            - R6: Fixed domain grid, connection types layout, Zenodo links
            - R5: Fixed Event Types/Domain descriptions
-           - R4: Removed principle box, added Event Types, CC colours
-           - R3: Removed gauge calculation content, aligned to 5-stage sequence
            ================================================================= */
         
         :root {
@@ -101,7 +101,7 @@
             --weo-text-primary: #E2E8F0;
             --weo-text-secondary: #CBD5E1;
             --weo-text-tertiary: #94A3B8;
-            --weo-text-muted: #64748B;
+            --weo-text-muted: #94A3B8;
             
             /* Accent */
             --weo-accent-primary: #3B82F6;
@@ -109,7 +109,7 @@
             
             /* Tier Colours */
             --weo-tier-t1: #2DD4BF;
-            --weo-tier-t2: #EF4444;
+            --weo-tier-t2: #F87171;
             --weo-tier-t3: #94A3B8;
             
             /* Bloc Colours */
@@ -118,7 +118,7 @@
             
             /* Domain Colours */
             --weo-domain-tech: #3B82F6;
-            --weo-domain-security: #EF4444;
+            --weo-domain-security: #F87171;
             --weo-domain-trade: #10B981;
             --weo-domain-energy: #F59E0B;
             
@@ -131,12 +131,22 @@
             --weo-cc-framework-family: #06B6D4;
             --weo-cc-parallel-policy: #94A3B8;
             
+            /* Environmental Nexus Tag Colours (Palette D — Muted Earth Greens) */
+            --weo-ent-1: #D4CC78;
+            --weo-ent-2: #A8C686;
+            --weo-ent-3: #7BB89A;
+            --weo-ent-4: #68B0AD;
+            --weo-ent-5: #7CA8C4;
+            
+            /* WER */
+            --weo-wer-amber: #FCD34D;
+            
             /* Status */
             --weo-status-positive: #22C55E;
             
             /* Typography */
-            --weo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --weo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
             
             /* Spacing */
             --weo-space-xs: 0.25rem;
@@ -404,7 +414,7 @@
         }
         
         .section-title {
-            font-family: var(--weo-font-mono, 'JetBrains Mono', 'Fira Code', 'Consolas', monospace);
+            font-family: var(--weo-font-mono, 'Geist Mono', 'Fira Code', 'Consolas', monospace);
             font-size: 0.75rem;
             font-weight: 600;
             color: var(--weo-text-muted);
@@ -669,6 +679,78 @@
         .industry-item.ind-auto { border-color: rgb(118,201,2); }
         .industry-item.ind-quantum { border-color: rgb(194,174,255); }
         .industry-item.ind-telecoms { border-color: rgb(189,186,184); }
+        
+        /* Environmental Nexus Tags */
+        .ent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-lg) 0;
+        }
+        
+        .ent-item {
+            padding: var(--weo-space-sm) var(--weo-space-md);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border-left: 3px solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 3rem;
+        }
+        
+        .ent-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--weo-text-primary);
+        }
+        
+        .ent-direction {
+            font-size: 0.625rem;
+            color: var(--weo-text-muted);
+            font-style: italic;
+            margin-top: 2px;
+        }
+        
+        .ent-item.ent-1 { border-color: var(--weo-ent-1); }
+        .ent-item.ent-2 { border-color: var(--weo-ent-2); }
+        .ent-item.ent-3 { border-color: var(--weo-ent-3); }
+        .ent-item.ent-4 { border-color: var(--weo-ent-4); }
+        .ent-item.ent-5 { border-color: var(--weo-ent-5); }
+        
+        .wer-display {
+            display: flex;
+            align-items: baseline;
+            gap: var(--weo-space-sm);
+            margin: var(--weo-space-md) 0;
+            padding: var(--weo-space-md) var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border-left: 3px solid var(--weo-wer-amber);
+        }
+        
+        .wer-label {
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--weo-wer-amber);
+            opacity: 0.85;
+        }
+        
+        .wer-value {
+            font-family: var(--weo-font-mono);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--weo-wer-amber);
+        }
+        
+        .wer-formula {
+            font-size: 0.625rem;
+            color: var(--weo-text-muted);
+            font-family: var(--weo-font-mono);
+        }
         
         /* Processing Sequence */
         .sequence-list {
@@ -1056,6 +1138,10 @@
             color: var(--weo-text-muted);
             line-height: 1.6;
         }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #3B82F6; }
         
         .footer-text a {
             color: var(--weo-text-tertiary);
@@ -1118,6 +1204,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
+            .ent-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .connection-types {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1134,7 +1224,48 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
+    
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+    /* ==========================================================
+       GEIST DARK-MODE WEIGHT COMPENSATION
+       Variable font weights adjusted for light-on-dark halation.
+       Standard 400 body → 380, standard 600 heading → 580.
+       ========================================================== */
+
+    /* Body text */
+    body { font-weight: 380; }
+    .prose { font-weight: 380; }
+
+    /* Headings and titles */
+    .page-title,
+    .page-subtitle,
+    .section-title { font-weight: 580; }
+
+    /* Badges and labels */
+    .tier-badge,
+    .domain-badge,
+    .cc-badge,
+    .ent-badge,
+    .verification-badge,
+    .meta-label { font-weight: 580; letter-spacing: 0.04em; }
+
+    /* Monospace data values */
+    .weo-value { font-weight: 480; }
+
+    /* Tabular number alignment for all numeric displays */
+    .weo-value {
+        font-variant-numeric: tabular-nums slashed-zero;
+    }
+
+</style>
 </head>
 <body>
     <div class="container">
@@ -1186,6 +1317,10 @@
                 <div class="quick-start-item">
                     <span class="qs-label">What we tag:</span>
                     <span class="qs-value">11 categories identifying which industries each event's documented provisions address</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">What we assess:</span>
+                    <span class="qs-value">Environmental intersections across <span class="weo-value">5</span> tag types, producing the Warmth Engine Ratio (WER)</span>
                 </div>
                 <div class="quick-start-item">
                     <span class="qs-label">How we connect:</span>
@@ -1265,6 +1400,13 @@
                         <div class="sequence-content">
                             <div class="sequence-name">Industry Tags</div>
                             <div class="sequence-desc">11 categories identifying which industries each event's documented provisions address</div>
+                        </div>
+                    </div>
+                    <div class="sequence-interstitial">
+                        <span class="sequence-interstitial-marker">◈</span>
+                        <div class="sequence-content">
+                            <div class="sequence-name">Environmental Nexus Tags</div>
+                            <div class="sequence-desc">5 types identifying documented environmental intersections; produces the Warmth Engine Ratio (WER)</div>
                         </div>
                     </div>
                     <div class="sequence-item">
@@ -1354,8 +1496,8 @@
                             <span class="tier-badge t1">T1</span>
                         </div>
                         <div class="tier-name">Cross-Bloc Coordination</div>
-                        <div class="tier-desc">Coordination involving participation from both Western and Eastern Blocs with binding commitments and material integration.</div>
-                        <div class="tier-detail"><strong>Test:</strong> Cross-bloc participation + binding/implemented + material integration</div>
+                        <div class="tier-desc">Coordination with verified adoption or implementation by the principal AI actor from at least two distinct ecosystems, with binding commitments and material integration.</div>
+                        <div class="tier-detail"><strong>Test:</strong> Principal AI actor verification + binding/implemented + material integration</div>
                     </div>
                     <div class="tier-item">
                         <div class="tier-header">
@@ -1457,6 +1599,52 @@
                 
                 <div class="prose" style="margin-top: var(--weo-space-lg);">
                     <p><strong>Primary/secondary structure:</strong> Each event receives one primary tag. Up to two secondary tags document specific pathways to other industries via mechanism statements.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Environmental Nexus Tags -->
+        <section class="section">
+            <h2 class="section-title">Environmental Nexus Tags</h2>
+            <div class="card">
+                <div class="prose" style="margin-bottom: var(--weo-space-lg);">
+                    <p>Each qualified event is assessed for environmental intersections across five tag types. Environmental Nexus Tags (ENTs) are an analytical enrichment layer parallel to industry tags — they identify documented relationships between events and environmental systems, not intrinsic properties of the event itself. A tag is applied when the event meets the qualifying threshold for that type.</p>
+                </div>
+                
+                <div class="ent-grid">
+                    <div class="ent-item ent-1">
+                        <div class="ent-name">Resource Demand</div>
+                        <div class="ent-direction">Event → Environment</div>
+                    </div>
+                    <div class="ent-item ent-2">
+                        <div class="ent-name">Environmental Enablement</div>
+                        <div class="ent-direction">Governance → Event</div>
+                    </div>
+                    <div class="ent-item ent-3">
+                        <div class="ent-name">Environmental Consequence</div>
+                        <div class="ent-direction">Event → Environment</div>
+                    </div>
+                    <div class="ent-item ent-4">
+                        <div class="ent-name">Environmental Dependency</div>
+                        <div class="ent-direction">Environment → Event</div>
+                    </div>
+                    <div class="ent-item ent-5">
+                        <div class="ent-name">Environmental Coordination</div>
+                        <div class="ent-direction">Governance ↔ Environment</div>
+                    </div>
+                </div>
+                
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
+                    <p>Each applied tag carries a <strong>mechanism statement</strong> — a one-sentence document-verifiable description of how the environmental intersection manifests. Events carry 0–5 tags. Tags use a binary qualification model with evidence classified as <span class="weo-value">Documented</span> or <span class="weo-value">Assessed</span>.</p>
+                </div>
+                
+                <div class="wer-display">
+                    <span class="wer-label">Warmth Engine Ratio (WER)</span>
+                    <span class="wer-formula">ENT-1 ÷ ENT-5</span>
+                </div>
+                
+                <div class="prose">
+                    <p>The <strong>Warmth Engine Ratio</strong> is the ratio of environmental resource demand to environmental governance coordination across the event database. A declining ratio indicates governance converging with demand; a rising ratio indicates demand outpacing governance response.</p>
                 </div>
             </div>
         </section>
@@ -1565,7 +1753,7 @@
             <h2 class="section-title">Full Documentation</h2>
             <div class="download-section">
                 <div class="download-title">WEO Methodology Manual</div>
-                <div class="download-desc">Complete technical specification covering all 8 chapters</div>
+                <div class="download-desc">Complete technical specification covering all 9 chapters</div>
                 <a href="https://zenodo.org/records/18427565" class="download-button" target="_blank" rel="noopener noreferrer">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
@@ -1587,15 +1775,13 @@
                 <div class="download-meta">DOI: 10.5281/zenodo.18427582</div>
             </div>
             
-            <div class="prose" style="margin-top: var(--weo-space-lg); font-size: 0.8125rem; color: var(--weo-text-muted);">
-                <p>Methodology V1.3 is in development. Updates will be published via Zenodo with DOI registration.</p>
-            </div>
         </section>
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
+            <p class="footer-version">Methodology V1.3 · WEO v1.1.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
         
     </div>
@@ -1620,11 +1806,5 @@
     </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-<script>
-(function(){
-  var v = document.querySelector('meta[name="weo-version"]');
-  if (v) console.log('WEO v' + v.getAttribute('content'));
-})();
-</script>
 </body>
 </html>

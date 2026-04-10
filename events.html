@@ -2,7 +2,6 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.0.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -19,7 +18,7 @@
     <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Database — Warmth Engine Observatory</title>
-    <meta name="description" content="WEO event database — 87 verified AI infrastructure coordination events classified by tier, domain, and bloc with industry tags. Filter, search, and explore coordination dynamics.">
+    <meta name="description" content="WEO event database — verified AI infrastructure coordination events classified by tier, domain, and bloc with industry and environmental nexus tags. Filter, search, and explore coordination dynamics.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO events, AI infrastructure events, coordination database, Event Type, tier classification, domain classification, industry tags, verified events, geopolitical coordination, Coordination Connections">
     <!-- Structured Data — Dataset Identity -->
     <script type="application/ld+json">
@@ -56,18 +55,18 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
     <style>
         :root {
             --weo-surface-base: #0F172A; --weo-surface-raised: #1E293B; --weo-surface-overlay: #334155;
             --weo-border-primary: #334155; --weo-text-primary: #E2E8F0; --weo-text-secondary: #CBD5E1;
-            --weo-text-tertiary: #94A3B8; --weo-text-muted: #64748B; --weo-accent-primary: #3B82F6;
-            --weo-accent-hover: #60A5FA; --weo-tier-t1: #2DD4BF; --weo-tier-t2: #EF4444; --weo-tier-t3: #94A3B8;
+            --weo-text-tertiary: #94A3B8; --weo-text-muted: #94A3B8; --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA; --weo-tier-t1: #2DD4BF; --weo-tier-t2: #F87171; --weo-tier-t3: #94A3B8;
             --weo-bloc-western: #60A5FA; --weo-bloc-eastern: #FB923C; --weo-bloc-cross: #2DD4BF;
             --weo-sample-gold: #F59E0B; --weo-sample-glow: rgba(245,158,11,0.3);
-            --weo-status-positive: #22C55E; --weo-domain-tech: #3B82F6; --weo-domain-security: #EF4444;
+            --weo-status-positive: #22C55E; --weo-domain-tech: #3B82F6; --weo-domain-security: #F87171;
             --weo-domain-trade: #10B981; --weo-domain-energy: #F59E0B;
-            --weo-font-sans: 'Inter', sans-serif; --weo-font-mono: 'JetBrains Mono', monospace;
+            --weo-font-sans: 'Geist', -apple-system, sans-serif; --weo-font-mono: 'Geist Mono', 'Fira Code', monospace;
             --weo-space-xs: 0.25rem; --weo-space-sm: 0.5rem; --weo-space-md: 1rem; --weo-space-lg: 1.5rem;
             --weo-space-xl: 2rem; --weo-space-2xl: 3rem; --weo-radius-sm: 4px; --weo-radius-md: 8px; --weo-radius-lg: 12px;
             
@@ -378,6 +377,86 @@
         .badge-trade { background: rgba(16,185,129,0.12); color: var(--weo-domain-trade); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-trade); }
         .badge-energy { background: rgba(245,158,11,0.12); color: var(--weo-domain-energy); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-energy); }
         .badge-sample { background: rgba(245,158,11,0.2); color: var(--weo-sample-gold); }
+
+        /* ==========================================================
+           CVD SHAPE ICON PREFIXES
+           CSS-rendered shapes for non-colour badge disambiguation.
+           All shapes target ~6-7px for consistent visual weight.
+           ========================================================== */
+        .cvd-icon {
+            display: inline-block;
+            margin-right: 5px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        /* T1: Diamond — rotated square */
+        .cvd-icon.t1 {
+            width: 7px; height: 7px;
+            background: currentColor;
+            transform: rotate(45deg);
+        }
+
+        /* T2: Split bars — fragmentation */
+        .cvd-icon.t2 {
+            width: 9px; height: 7px;
+            background: transparent;
+        }
+        .cvd-icon.t2::before,
+        .cvd-icon.t2::after {
+            content: '';
+            position: absolute;
+            width: 2.5px;
+            height: 9px;
+            background: currentColor;
+            border-radius: 1px;
+            transform: rotate(20deg);
+        }
+        .cvd-icon.t2::before { left: 0px; top: -1px; }
+        .cvd-icon.t2::after { left: 5px; top: -1px; }
+
+        /* T3: Stacked double bars — internal equilibrium, contained */
+        .cvd-icon.t3 {
+            width: 8px; height: 7px;
+            background: transparent;
+            position: relative;
+        }
+        .cvd-icon.t3::before,
+        .cvd-icon.t3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 8px;
+            height: 2.5px;
+            background: currentColor;
+            border-radius: 1px;
+        }
+        .cvd-icon.t3::before { top: 0; }
+        .cvd-icon.t3::after { bottom: 0; }
+
+        /* Western: Circle — alliance, unity */
+        .cvd-icon.western {
+            width: 7px; height: 7px;
+            background: currentColor;
+            border-radius: 50%;
+        }
+
+        /* Eastern: Square — sovereign, state-structured */
+        .cvd-icon.eastern {
+            width: 6px; height: 6px;
+            background: currentColor;
+            border-radius: 1px;
+        }
+
+        /* Cross-Bloc: Upward triangle — bridging */
+        .cvd-icon.cross-bloc {
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 7px solid currentColor;
+            background: transparent;
+        }
+
         .cc-count { font-family: var(--weo-font-mono); font-size: 0.75rem; font-weight: 600; display: inline-block; min-width: 1.5rem; text-align: center; }
         .cc-count.has-cc { color: #2DD4BF; text-shadow: 0 0 6px rgba(45, 212, 191, 0.4); }
         .cc-count.highly-connected { color: #2DD4BF; text-shadow: 0 0 8px rgba(45, 212, 191, 0.6), 0 0 12px rgba(45, 212, 191, 0.3); }
@@ -392,13 +471,17 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
             padding: 8px 24px;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0;
             position: relative;
             z-index: 5;
             margin: 12px -24px -24px -24px;
         }
+        /* === SHELF ROWS === */
+        .shelf-row { display: grid; grid-template-columns: 88px 1fr; gap: 6px; align-items: start; }
+        .shelf-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        .shelf-label-ent { color: rgba(252, 211, 77, 0.75); }
+        .shelf-row + .shelf-row { margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.04); }
         .ind-tag {
             display: inline-flex;
             align-items: center;
@@ -505,6 +588,42 @@
         .ind-mechanism-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:#252B36; }
         .ind-mechanism-popover .mechanism-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--weo-text-muted); margin-bottom:4px; }
         .ind-mechanism-popover.visible { display: block; }
+
+        /* === UNIFIED LABELS (Zone 2 + Enrichment Shelf) === */
+        .z2-label, .shelf-label { font-family: var(--weo-font-mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: rgba(255,255,255,0.55); white-space: nowrap; cursor: help; transition: color 0.15s ease; padding-top: 3px; }
+        .z2-label:hover, .shelf-label:hover { color: rgba(255,255,255,0.85); }
+        .z2-label.weo-info-trigger, .shelf-label.weo-info-trigger { width: auto; height: auto; background: none; border-radius: 0; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55); justify-content: flex-start; margin-left: 0; }
+        .z2-label.weo-info-trigger:hover, .shelf-label.weo-info-trigger:hover { background: none; transform: none; color: rgba(255,255,255,0.85); }
+        .z2-label.weo-info-trigger::before, .shelf-label.weo-info-trigger::before { display: none; }
+
+        /* ENT badge styles */
+        .ent-tag { display: inline-flex; align-items: center; font-size: 0.6875rem; font-weight: 400; letter-spacing: 0.02em; white-space: nowrap; border-radius: var(--weo-radius-sm); padding: 2px 8px; background: transparent; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease; -webkit-tap-highlight-color: transparent; position: relative; }
+        .ent-tag:active { transform: scale(0.97); }
+        .ent-tag.ent-1 { color: rgba(212,204,120,0.7); border: 1px solid rgba(212,204,120,0.35); }
+        .ent-tag.ent-1:hover { background: rgba(212,204,120,0.1); border-color: rgba(212,204,120,0.55); color: rgba(212,204,120,0.9); }
+        .ent-tag.ent-2 { color: rgba(168,198,134,0.7); border: 1px solid rgba(168,198,134,0.35); }
+        .ent-tag.ent-2:hover { background: rgba(168,198,134,0.1); border-color: rgba(168,198,134,0.55); color: rgba(168,198,134,0.9); }
+        .ent-tag.ent-3 { color: rgba(123,184,154,0.7); border: 1px solid rgba(123,184,154,0.35); }
+        .ent-tag.ent-3:hover { background: rgba(123,184,154,0.1); border-color: rgba(123,184,154,0.55); color: rgba(123,184,154,0.9); }
+        .ent-tag.ent-4 { color: rgba(104,176,173,0.7); border: 1px solid rgba(104,176,173,0.35); }
+        .ent-tag.ent-4:hover { background: rgba(104,176,173,0.1); border-color: rgba(104,176,173,0.55); color: rgba(104,176,173,0.9); }
+        .ent-tag.ent-5 { color: rgba(124,168,196,0.7); border: 1px solid rgba(124,168,196,0.35); }
+        .ent-tag.ent-5:hover { background: rgba(124,168,196,0.1); border-color: rgba(124,168,196,0.55); color: rgba(124,168,196,0.9); }
+
+        /* ENT mechanism popover */
+        .ent-mechanism-popover { display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #252B36; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm); padding: 10px 12px; font-size: 0.6875rem; line-height: 1.5; color: #CBD5E1; width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+        .ent-mechanism-popover::before { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-bottom-color: rgba(255,255,255,0.08); }
+        .ent-mechanism-popover::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-bottom-color: #252B36; }
+        .ent-mechanism-popover .ent-popover-title { font-family: var(--weo-font-mono); font-size: 0.6875rem; font-weight: 600; margin-bottom: 4px; }
+        .ent-mechanism-popover .ent-popover-title.ent-1 { color: #D4CC78; }
+        .ent-mechanism-popover .ent-popover-title.ent-2 { color: #A8C686; }
+        .ent-mechanism-popover .ent-popover-title.ent-3 { color: #7BB89A; }
+        .ent-mechanism-popover .ent-popover-title.ent-4 { color: #68B0AD; }
+        .ent-mechanism-popover .ent-popover-title.ent-5 { color: #7CA8C4; }
+        .ent-mechanism-popover .ent-popover-mechanism { color: rgba(255,255,255,0.87); font-size: 0.8125rem; line-height: 1.5; margin-bottom: 6px; }
+        .ent-mechanism-popover .ent-popover-meta { font-size: 0.625rem; color: #94A3B8; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .ent-mechanism-popover .ent-evidence-badge { display: inline-block; padding: 1px 6px; border: 1px solid rgba(255,255,255,0.12); border-radius: 3px; font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.04em; color: #94A3B8; }
+        .ent-mechanism-popover.visible { display: block; }
         /* Industry multi-select filter */
         .industry-filter-wrap { position: relative; }
         .industry-filter-btn { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); color: var(--weo-text-secondary); font-size: 0.8125rem; padding: var(--weo-space-xs) var(--weo-space-sm); cursor: pointer; display: flex; align-items: center; gap: 6px; min-width: 120px; justify-content: space-between; }
@@ -602,6 +721,23 @@
                 margin: 0;
                 padding: 8px 12px;
                 border-radius: 0 var(--weo-radius-md) 0 0;
+            }
+
+            /* Scale down CVD icons on small mobile */
+            .cvd-icon.t1 { width: 6px; height: 6px; }
+            .cvd-icon.t2 { width: 7px; height: 6px; }
+            .cvd-icon.t2::before,
+            .cvd-icon.t2::after { width: 2px; height: 7px; }
+            .cvd-icon.t2::after { left: 4px; }
+            .cvd-icon.t3 { width: 7px; height: 6px; }
+            .cvd-icon.t3::before,
+            .cvd-icon.t3::after { width: 7px; height: 2px; }
+            .cvd-icon.western { width: 6px; height: 6px; }
+            .cvd-icon.eastern { width: 5px; height: 5px; }
+            .cvd-icon.cross-bloc {
+                border-left-width: 3px;
+                border-right-width: 3px;
+                border-bottom-width: 6px;
             }
         }
         
@@ -727,7 +863,7 @@
         }
         .cc-evidence-verified {
             font-size: 10px;
-            color: #64748B;
+            color: #94A3B8;
             margin-left: auto;
         }
         
@@ -820,7 +956,7 @@
         }
         .cc-criteria-score-label {
             font-size: 10px;
-            color: #64748B;
+            color: #94A3B8;
             margin-left: 4px;
         }
         
@@ -840,7 +976,7 @@
         .cc-funding-label {
             font-size: 10px;
             font-weight: 600;
-            color: #64748B;
+            color: #94A3B8;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 4px;
@@ -954,7 +1090,7 @@
         }
         .cc-vh-toggle {
             font-size: 10px;
-            color: #64748B;
+            color: #94A3B8;
             margin-left: auto;
             transition: transform var(--weo-duration-normal) var(--weo-ease-out);
         }
@@ -973,7 +1109,7 @@
             border-radius: var(--weo-radius-sm);
             padding: 10px 12px;
             margin-bottom: 8px;
-            border-left: 2px solid #64748B;
+            border-left: 2px solid #94A3B8;
             cursor: pointer;
             transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
@@ -1004,7 +1140,7 @@
         }
         .cc-vh-date {
             font-size: 10px;
-            color: #64748B;
+            color: #94A3B8;
         }
         .cc-vh-badge {
             font-size: 9px;
@@ -1029,7 +1165,7 @@
         }
         .cc-vh-entry-expand {
             font-size: 9px;
-            color: #64748B;
+            color: #94A3B8;
             margin-left: auto;
             transition: transform var(--weo-duration-normal) var(--weo-ease-out);
         }
@@ -1060,7 +1196,7 @@
             font-size: 10px;
         }
         .cc-vh-metric-label {
-            color: #64748B;
+            color: #94A3B8;
             margin-right: 4px;
         }
         .cc-vh-metric-value {
@@ -1170,7 +1306,11 @@
         .modal-title:hover { opacity: 0.8; }
         .modal-title:active { opacity: 0.65; }
         .modal-subtitle { font-size: 0.8125rem; color: var(--weo-text-secondary); margin-bottom: var(--weo-space-sm); }
-        .modal-meta { display: flex; gap: var(--weo-space-sm); flex-wrap: wrap; }
+        .modal-meta { display: flex; flex-direction: column; gap: 0; }
+        /* === ZONE 2 ROWS === */
+        .z2-rows { display: flex; flex-direction: column; gap: 5px; }
+        .z2-row { display: grid; grid-template-columns: 88px 1fr; gap: 6px; align-items: start; }
+        .z2-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
         .modal-body { padding: var(--weo-space-lg); }
         .detail-section { 
             margin-bottom: var(--weo-space-lg);
@@ -1370,6 +1510,10 @@
         }
         .page-footer { margin-top: var(--weo-space-2xl); padding-top: var(--weo-space-lg); border-top: 1px solid var(--weo-border-primary); }
         .footer-text { font-size: 0.75rem; color: var(--weo-text-muted); }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #3B82F6; }
         
         /* Context Banner - shown in modal when arriving from map */
         .modal-context-banner { 
@@ -1416,7 +1560,7 @@
         
         @media (max-width: 767px) { 
             .detail-grid { grid-template-columns: 1fr; } 
-            .filters { flex-direction: column; align-items: stretch; } 
+            .filters { flex-direction: column; align-items: stretch; }
             .sample-legend { margin-left: 0; } 
             .modal-context-banner { 
                 margin: 0 var(--weo-space-md) var(--weo-space-sm) var(--weo-space-md);
@@ -1453,6 +1597,21 @@
       color: var(--weo-text-muted);
       margin-left: 3px;
       font-family: var(--weo-font-mono);
+    }
+    .ent-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: var(--weo-radius-sm);
+      font-size: 0.625rem;
+      font-weight: 600;
+      font-family: var(--weo-font-mono);
+      color: #A8C686;
+      background: rgba(168, 198, 134, 0.12);
+      border: 1px solid rgba(168, 198, 134, 0.25);
     }
     /* Original Qualification Data Section */
     .original-qualification-section {
@@ -1492,7 +1651,7 @@
       margin-bottom: 6px;
     }
     .genesis-item:last-child { margin-bottom: 0; }
-    .genesis-label { color: #64748B; font-weight: 500; }
+    .genesis-label { color: #94A3B8; font-weight: 500; }
     .genesis-description {
       margin-top: 8px;
       padding-top: 8px;
@@ -1585,8 +1744,8 @@
       font-size: 0.9375rem; font-family: var(--weo-font-mono);
     }
     .access-input:focus { outline: none; border-color: #F59E0B; }
-    .access-input.error { border-color: #EF4444; }
-    .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #EF4444; }
+    .access-input.error { border-color: #F87171; }
+    .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #F87171; }
     .access-error.visible { display: flex; }
     .access-submit {
       width: 100%; padding: 0.75rem 1rem;
@@ -1597,7 +1756,7 @@
     .access-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
     .access-modal-footer {
       padding: 1rem 1.25rem; border-top: 1px solid #334155;
-      text-align: center; font-size: 0.8125rem; color: #64748B;
+      text-align: center; font-size: 0.8125rem; color: #94A3B8;
     }
     .access-modal-footer a { color: #F59E0B; text-decoration: none; }
     .access-modal-authenticated { text-align: center; padding: 2rem 1.25rem; }
@@ -1609,7 +1768,7 @@
       border: 1px solid #334155; border-radius: var(--weo-radius-md);
       color: #94A3B8; font-size: 0.8125rem; cursor: pointer;
     }
-    .access-logout:hover { border-color: #EF4444; color: #EF4444; }
+    .access-logout:hover { border-color: #F87171; color: #F87171; }
 
     /* ========================================
        WEO CONTEXTUAL HELP TOOLTIP SYSTEM
@@ -1625,7 +1784,7 @@
       border-radius: 50%;
       font-size: 9px;
       font-weight: 600;
-      color: #64748B;
+      color: #94A3B8;
       cursor: pointer;
       transition: all var(--weo-duration-fast) var(--weo-ease-out);
       flex-shrink: 0;
@@ -1773,7 +1932,7 @@
       width: 20px;
       height: 20px;
       margin-left: auto;
-      color: #64748B;
+      color: #94A3B8;
       transition: transform var(--weo-duration-normal) var(--weo-ease-out);
     }
     
@@ -1832,7 +1991,7 @@
       width: 20px;
       height: 20px;
       margin-left: auto;
-      color: #64748B;
+      color: #94A3B8;
       transition: transform var(--weo-duration-normal) var(--weo-ease-out);
     }
 
@@ -1913,7 +2072,7 @@
     
     .version-entry-header .version-date {
       font-size: 0.75rem;
-      color: #64748B;
+      color: #94A3B8;
       min-width: 85px;
     }
     
@@ -1929,7 +2088,7 @@
     .version-entry-header .chevron-small {
       width: 16px;
       height: 16px;
-      color: #64748B;
+      color: #94A3B8;
       flex-shrink: 0;
       transition: transform var(--weo-duration-fast) var(--weo-ease-out);
     }
@@ -1976,7 +2135,7 @@
     
     .version-changed-fields .changed-label {
       font-size: 0.6875rem;
-      color: #64748B;
+      color: #94A3B8;
       text-transform: uppercase;
     }
     
@@ -2740,7 +2899,120 @@
         padding-top: 0;
     }
 
-  </style>
+  
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+    /* ==========================================================
+       GEIST DARK-MODE WEIGHT COMPENSATION
+       Variable font weights adjusted for light-on-dark halation.
+       Standard 400 body → 380, standard 600 heading → 580.
+       ========================================================== */
+
+    /* Body text */
+    body { font-weight: 380; }
+
+    /* Headings and titles */
+    .page-title,
+    .modal-title,
+    .cc-section-title,
+    .detail-section-title,
+    .question-label { font-weight: 580; }
+
+    /* Badges and labels */
+    .badge,
+    .cc-type-badge,
+    .cc-confidence-badge,
+    .ind-tag.ind-primary { font-weight: 580; letter-spacing: 0.04em; }
+
+    /* Monospace data values */
+    .stat-value,
+    .cc-stat-count,
+    .cc-count,
+    .confidence,
+    .source-count { font-weight: 480; }
+
+    /* Tabular number alignment for all numeric displays */
+    .stat-value, .cc-stat-count, .cc-count,
+    .confidence, .source-count, .source-id {
+        font-variant-numeric: tabular-nums slashed-zero;
+    }
+
+    /* ==========================================================
+       SKELETON LOADING STATES
+       Animated placeholders shown while API data loads.
+       ========================================================== */
+    .skeleton {
+        background: linear-gradient(90deg,
+            rgba(30, 41, 59, 0.6) 25%,
+            rgba(51, 65, 85, 0.4) 50%,
+            rgba(30, 41, 59, 0.6) 75%);
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 1.5s ease-in-out infinite;
+        border-radius: var(--weo-radius-sm, 4px);
+    }
+
+    @keyframes skeleton-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .skeleton-text {
+        height: 14px;
+        margin-bottom: 8px;
+    }
+
+    .skeleton-text.wide { width: 80%; }
+    .skeleton-text.medium { width: 60%; }
+    .skeleton-text.narrow { width: 40%; }
+    .skeleton-text.tiny { width: 25%; }
+
+    .skeleton-badge {
+        display: inline-block;
+        height: 22px;
+        width: 70px;
+        border-radius: var(--weo-radius-sm, 4px);
+        margin-right: 6px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .skeleton {
+            animation: none;
+            background: rgba(51, 65, 85, 0.4);
+        }
+    }
+
+    /* Empty state — shown when filters return zero results */
+    .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--weo-text-muted, #94A3B8);
+    }
+
+    .empty-state-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+        opacity: 0.4;
+    }
+
+    .empty-state-title {
+        font-size: 15px;
+        font-weight: 580;
+        color: var(--weo-text-secondary, #CBD5E1);
+        margin-bottom: 8px;
+    }
+
+    .empty-state-hint {
+        font-size: 13px;
+    }
+
+</style>
 </head>
 <body>
     <!-- SVG Icon Definitions -->
@@ -2904,7 +3176,7 @@
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
                     <div class="cov-grid-cell cov-count" id="cov-n-ei">32</div>
 
-                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #EF4444;"><span class="cov-domain-full">Security</span><span class="cov-domain-short">Security</span></div>
+                    <div class="cov-grid-cell cov-domain" style="border-left:2px solid #F87171;"><span class="cov-domain-full">Security</span><span class="cov-domain-short">Security</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
@@ -2954,6 +3226,18 @@
                     </div>
                 </div>
             </div>
+            <div class="filter-group"><span class="filter-label">ENT</span>
+                <select class="filter-select" id="filter-ent" style="min-width:100px;">
+                    <option value="all">All</option>
+                    <option value="any">Any ENT</option>
+                    <option value="none">No ENT</option>
+                    <option value="ENT-1">Resource Demand</option>
+                    <option value="ENT-2">Env. Enablement</option>
+                    <option value="ENT-3">Env. Consequence</option>
+                    <option value="ENT-4">Env. Dependency</option>
+                    <option value="ENT-5">Env. Coordination</option>
+                </select>
+            </div>
             <input type="text" class="search-input" id="search-input" placeholder="Search events...">
             <div class="sample-legend"><span class="sample-legend-icon">★</span><span>Sample events with full analysis</span></div>
         </div>
@@ -2973,6 +3257,7 @@
                     <th data-sort="bloc" class="th-with-tooltip">Bloc<span class="th-tooltip">Bloc Attribution: Western, Eastern, Cross-Bloc, or Western/Eastern-Led</span></th>
                     <th data-sort="domain" class="th-with-tooltip">Domain<span class="th-tooltip">Subject Matter: Energy/Infrastructure, Security, Technology, or Trade</span></th>
                     <th data-sort="industry" class="th-with-tooltip">Industry<span class="th-tooltip">Industry tag: which industry's operational landscape is most directly addressed</span></th>
+                    <th class="th-with-tooltip" data-sort="ent">ENT<span class="th-tooltip">Environmental Nexus Tags: where AI infrastructure coordination intersects with environmental systems</span></th>
                     <th data-sort="cc" class="th-with-tooltip">CC<span class="th-tooltip">Coordination Connections — verified relationships between events</span></th>
                     <th class="th-with-tooltip">Verif<span class="th-tooltip">Verification Checkpoints: AI Connection, Threshold, Implementation, Currency</span></th>
                     <th class="th-with-tooltip">Conf<span class="th-tooltip">Confidence Tier: A (High 90%+), B (Medium 70-90%), C (Moderate)</span></th>
@@ -2986,8 +3271,9 @@
         </div>
         <p class="table-note">Event IDs are permanent identifiers. Gaps in numbering reflect events removed during verification or due to subsequent resolution.</p>
         <footer class="page-footer">
-            <p class="footer-text" style="text-align:right;font-family:ui-monospace,'SF Mono','Consolas',monospace;font-size:11px;opacity:0.4;margin-bottom:12px;">Methodology V1.3 · WEO v1.0.0</p>
+            <p class="footer-version">Methodology V1.3 · WEO v1.1.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
     </div>
     <div class="modal-overlay" id="modal-overlay">
@@ -3044,8 +3330,8 @@ function mapApiEventToFree(e) {
     tier: e.tier,
     bloc: e.bloc,
     domain: e.domain,
-    source_count_primary: e.source_count_primary,
-    source_count_corroborating: e.source_count_corroborating,
+    source_count_primary: e.source_count_primary ?? e.sources,
+    source_count_corroborating: e.source_count_corroborating ?? e.corroborating,
     confidence_tier: e.confidence,
     verification_checkpoints: e.checkpoints ? {
       ai_connection: e.checkpoints.ai_connection ?? e.checkpoints.ai,
@@ -3061,18 +3347,22 @@ function mapApiEventToFree(e) {
   // V1.2 pathway field (used in checkpoint display)
   if (e.ai_connection_pathway) mapped.ai_connection_pathway = e.ai_connection_pathway;
   if (e.ecosystem_implementation) mapped.ecosystem_implementation = e.ecosystem_implementation;
+  // ENT passthrough
+  if (e.environmental_nexus_tags != null) mapped.environmental_nexus_tags = e.environmental_nexus_tags;
+  if (e.environmentalNexusTags != null) mapped.environmental_nexus_tags = e.environmentalNexusTags;
   return mapped;
 }
 
 // Map API event premium fields to sampleEventsFull format
 function mapApiEventToFull(e) {
-  if (!e.sample && !e.tier_rationale) return null; // Non-sample, no premium data
+  if (!e.sample && !e.tier_rationale && !e.tierRationale) return null; // Non-sample, no premium data
   const full = {};
-  if (e.tier_rationale != null) full.tier_rationale = e.tier_rationale;
-  if (e.sources_primary != null) full.sources_primary = e.sources_primary;
-  if (e.sources_corroborating != null) full.sources_corroborating = e.sources_corroborating;
-  if (e.bloc_analysis != null) full.bloc_analysis = e.bloc_analysis;
-  if (e.related_events != null) full.related_events = e.related_events.map(function(r) {
+  if ((e.tier_rationale ?? e.tierRationale) != null) full.tier_rationale = e.tier_rationale ?? e.tierRationale;
+  if ((e.sources_primary ?? e.primarySources) != null) full.sources_primary = e.sources_primary ?? e.primarySources;
+  if ((e.sources_corroborating ?? e.corroboratingSources) != null) full.sources_corroborating = e.sources_corroborating ?? e.corroboratingSources;
+  if ((e.bloc_analysis ?? e.blocAnalysis) != null) full.bloc_analysis = e.bloc_analysis ?? e.blocAnalysis;
+  var relEvts = e.related_events ?? e.relatedEvents;
+  if (relEvts != null) full.related_events = relEvts.map(function(r) {
     return { event_id: r.event_id || r.id, relationship: r.relationship };
   });
 
@@ -3080,15 +3370,15 @@ function mapApiEventToFull(e) {
   if (e.basel5 != null) { full.basel_factors = e.basel5; full.basel_factors_met = e.basel5_factors_met; }
   if (e.keohane != null) { full.keohane_factors = e.keohane; full.keohane_factors_met = e.keohane_factors_met; }
   if (e.pisa5 != null) { full.pisa5_factors = e.pisa5; full.pisa5_factors_met = e.pisa5_factors_met; }
-  if (e.route_based != null) { full.route_based_factors = e.route_based; full.route_based_factors_met = e.route_based_factors_met; }
+  if ((e.route_based ?? e.routeBased) != null) { full.route_based_factors = e.route_based ?? e.routeBased; }
 
-  // camelCase fields (same name in API and UI)
-  if (e.rolling_updates != null) full.rollingUpdates = e.rolling_updates;
-  if (e.qualification_pathway != null) full.qualificationPathway = e.qualification_pathway;
-  if (e.ai_connection_pathway != null) full.ai_connection_pathway = e.ai_connection_pathway;
-  if (e.genesis_date != null) full.genesisDate = e.genesis_date;
-  if (e.version_date != null) full.versionDate = e.version_date;
-  if (e.key_metrics != null) full.keyMetrics = e.key_metrics;
+  // camelCase fields (accept both formats)
+  if ((e.rolling_updates ?? e.rollingUpdates) != null) full.rollingUpdates = e.rolling_updates ?? e.rollingUpdates;
+  if ((e.qualification_pathway ?? e.qualificationPathway) != null) full.qualificationPathway = e.qualification_pathway ?? e.qualificationPathway;
+  if ((e.ai_connection_pathway ?? e.aiConnectionPathway) != null) full.ai_connection_pathway = e.ai_connection_pathway ?? e.aiConnectionPathway;
+  if ((e.genesis_date ?? e.genesisDate) != null) full.genesisDate = e.genesis_date ?? e.genesisDate;
+  if ((e.version_date ?? e.versionDate) != null) full.versionDate = e.version_date ?? e.versionDate;
+  if ((e.key_metrics ?? e.keyMetrics) != null) full.keyMetrics = e.key_metrics ?? e.keyMetrics;
   if (e.version != null) full.version = e.version;
 
   // Pass-through fields
@@ -3097,7 +3387,10 @@ function mapApiEventToFull(e) {
   if (e.piet != null) full.piet = e.piet;
   if (e.oep != null) full.oep = e.oep;
   if (e.f1_annotation != null) full.f1_annotation = e.f1_annotation;
-  if (e.ecosystem_implementation != null) full.ecosystem_implementation = e.ecosystem_implementation;
+  if ((e.ecosystem_implementation ?? e.ecosystemImplementation) != null) full.ecosystem_implementation = e.ecosystem_implementation ?? e.ecosystemImplementation;
+  // ENT passthrough
+  if (e.environmental_nexus_tags != null) full.environmental_nexus_tags = e.environmental_nexus_tags;
+  if (e.environmentalNexusTags != null) full.environmental_nexus_tags = e.environmentalNexusTags;
 
   // Only return if we have actual premium content
   if (Object.keys(full).length === 0) return null;
@@ -3122,8 +3415,8 @@ function mapApiConnectionToEventsFormat(c) {
 
 // Load all data from API with static fallback
 async function loadWEOData(password) {
-  const API_BASE = 'https://warmthengine.com/api';
-  const FALLBACK_EVENTS = '/events-free.json';
+  const API_BASE = 'http://localhost:0/api'; // DEV: force fallback to local JSON (restore to https://warmthengine.com/api before deploy)
+  const FALLBACK_EVENTS = '/data/events-free.json';
   const headers = password ? { 'X-WEO-Password': password } : {};
 
   let apiEvents = null;
@@ -3181,25 +3474,41 @@ async function loadWEOData(password) {
     if (e.location) eventLocations[e.id] = e.location;
   });
 
-  // Build industryTagsData lookup
+  // Build industryTagsData lookup (handle both snake_case API and camelCase fallback)
   industryTagsData = {};
+  entTagsData = {};
   apiEvents.forEach(function(e) {
     industryTagsData[e.id] = {
-      primary: e.industry_primary || 'AI Software & Platforms',
-      secondary: e.industry_secondary || []
+      primary: e.industry_primary || e.industryPrimary || 'AI Software & Platforms',
+      secondary: e.industry_secondary || e.industrySecondary || []
     };
-  });
-
-  // Build ccCounts lookup
-  ccCounts = {};
-  apiEvents.forEach(function(e) {
-    if (e.cc_count && e.cc_count > 0) ccCounts[e.id] = e.cc_count;
+    entTagsData[e.id] = e.environmental_nexus_tags || e.environmentalNexusTags || [];
   });
 
   // Build connectionData array
   if (apiConnections) {
     connectionData = apiConnections.map(mapApiConnectionToEventsFormat);
   }
+  // Fallback connections if API failed
+  if (connectionData.length === 0) {
+    try {
+      const connRes = await fetch('/data/connections.json');
+      if (connRes.ok) {
+        const connJson = await connRes.json();
+        connectionData = (connJson.connections || []).map(mapApiConnectionToEventsFormat);
+        console.log('[WEO] Connections loaded from fallback:', connectionData.length);
+      }
+    } catch (err) { /* connections fallback optional */ }
+  }
+
+  // Build ccCounts lookup from connections (mapped format uses .source/.target)
+  ccCounts = {};
+  connectionData.forEach(function(c) {
+    var src = String(c.source || c.source_event_id || '');
+    var tgt = String(c.target || c.target_event_id || '');
+    if (src) ccCounts[src] = (ccCounts[src] || 0) + 1;
+    if (tgt) ccCounts[tgt] = (ccCounts[tgt] || 0) + 1;
+  });
 
   // Update filteredEvents
   filteredEvents = [...freeEvents];
@@ -3216,22 +3525,51 @@ let eventLocations = {};
 // Industry Tags Data (11-category taxonomy)
 // Industry Tags Data (11-category taxonomy) — built dynamically from API data
 let industryTagsData = {};
+let entTagsData = {};
 const industryClassMap = {"Semiconductors & Equipment":"badge-ind-semi","Cloud, Data Centres & Connectivity Infrastructure":"badge-ind-cloud","AI Software & Platforms":"badge-ind-ai","Defence & Aerospace":"badge-ind-defence","Energy & Power Infrastructure":"badge-ind-energy","Financial Services & Investment":"badge-ind-finance","Mining & Critical Minerals":"badge-ind-mining","Trade & Logistics":"badge-ind-trade","Automotive & Manufacturing":"badge-ind-auto","Quantum Computing Infrastructure":"badge-ind-quantum","Telecoms":"badge-ind-telecoms"};
 const industryAbbrev = {"Semiconductors & Equipment":"Semi & Equip","Cloud, Data Centres & Connectivity Infrastructure":"Cloud & DC","AI Software & Platforms":"AI S&P","Defence & Aerospace":"Def & Aero","Energy & Power Infrastructure":"Energy & Power","Financial Services & Investment":"Fin & Invest","Mining & Critical Minerals":"Mining & Min","Trade & Logistics":"Trade & Log","Automotive & Manufacturing":"Auto & Mfg","Quantum Computing Infrastructure":"Quantum","Telecoms":"Telecoms"};
 const getIndBadgeClass = (tag) => industryClassMap[tag] || 'badge-ind-ai';
 const getIndAbbrev = (tag) => industryAbbrev[tag] || tag;
 const getIndTags = (eventId) => industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]};
 
-// Generate industry shelf HTML — sits between header and body
+const getEntTags = (eventId) => entTagsData[eventId] || [];
+const entTypeClass = {'ENT-1':'ent-1','ENT-2':'ent-2','ENT-3':'ent-3','ENT-4':'ent-4','ENT-5':'ent-5'};
+
+function buildEntBadgeHtml(tag) {
+    var cls = entTypeClass[tag.type] || 'ent-2';
+    var qualifiers = '';
+    if (tag.vector) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Vector: ' + tag.vector + '</div>';
+    if (tag.dependencyType) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Dependency: ' + tag.dependencyType + '</div>';
+    if (tag.riskIndex) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Risk: ' + tag.riskIndex + '</div>';
+    if (tag.pathway) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Pathway: ' + tag.pathway + '</div>';
+    if (tag.activationStatus) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Status: ' + tag.activationStatus + '</div>';
+    return '<span class="ind-tag-wrap"><span class="ent-tag ' + cls + '" onclick="toggleEntMechanism(this)">' + tag.name + '</span><div class="ent-mechanism-popover"><div class="ent-popover-title ' + cls + '">' + tag.name + '</div><div class="ent-popover-mechanism">' + tag.mechanism + '</div>' + qualifiers + '<div class="ent-popover-meta"><span class="ent-evidence-badge">' + (tag.evidenceBasis || 'Documented') + '</span></div></div></span>';
+}
+
+// Generate enrichment shelf HTML — shared zone for industry + ENT rows
 function generateIndustryShelfHtml(eventId) {
     const tags = getIndTags(eventId);
+    const entTags = getEntTags(eventId);
     let html = '<div class="industry-shelf">';
-    // Primary — filled, clickable to reveal full name, "?" for methodology
-    html += '<span class="badge-with-tooltip"><span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndBadgeClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span><span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span></span>';
-    // Secondary — outlined, operational (click for mechanism), "?" for methodology
+    // INDUSTRY row — grid layout
+    html += '<div class="shelf-row">';
+    html += '<span class="shelf-label weo-info-trigger">Industry<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span>';
+    html += '<div class="shelf-badges">';
+    html += '<span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndBadgeClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span>';
     for (let i = 0; i < tags.secondary.length; i++) {
         const s = tags.secondary[i];
         html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndBadgeClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + s.tag + '</div>' + s.mechanism + '</div></span>';
+    }
+    html += '</div></div>';
+    // ENVIRONMENT row — conditional
+    if (entTags.length > 0) {
+        html += '<div class="shelf-row" style="margin-left:-24px;padding-left:22px;border-left:3px solid rgba(252,211,77,0.55);box-shadow:-4px 0 8px -2px rgba(252,211,77,0.15)">';
+        html += '<span class="shelf-label weo-info-trigger" style="color:rgba(252,211,77,0.55);-webkit-text-stroke:0.5px rgba(252,211,77,0.8)">Environment<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Environmental Nexus Tags</div><div class="weo-tooltip-body">Analytical enrichment identifying where AI infrastructure coordination intersects with environmental systems. Tags describe resource demand, enablement, consequence, dependency, and governance coordination.</div></span></span>';
+        html += '<div class="shelf-badges">';
+        for (let j = 0; j < entTags.length; j++) {
+            html += buildEntBadgeHtml(entTags[j]);
+        }
+        html += '</div></div>';
     }
     html += '</div>';
     return html;
@@ -3242,7 +3580,7 @@ function toggleMechanism(tagEl) {
     const popover = wrap.querySelector('.ind-mechanism-popover');
     const wasVisible = popover.classList.contains('visible');
     // Close all open popovers first (both mechanism and primary)
-    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(function(p) {
+    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) {
         p.classList.remove('visible');
         p.style.left = '';
         p.style.transform = '';
@@ -3270,12 +3608,42 @@ function toggleMechanism(tagEl) {
     }
 }
 
+function toggleEntMechanism(tagEl) {
+    var wrap = tagEl.closest('.ind-tag-wrap');
+    var popover = wrap.querySelector('.ent-mechanism-popover');
+    var wasVisible = popover.classList.contains('visible');
+    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) {
+        p.classList.remove('visible');
+        p.style.left = '';
+        p.style.transform = '';
+    });
+    if (!wasVisible) {
+        popover.style.left = '50%';
+        popover.style.transform = 'translateX(-50%)';
+        popover.classList.add('visible');
+        requestAnimationFrame(function() {
+            var rect = popover.getBoundingClientRect();
+            var modal = document.getElementById('event-modal');
+            var modalRect = modal ? modal.getBoundingClientRect() : { left: 0, right: window.innerWidth };
+            var rightEdge = modalRect.right - 8;
+            var leftEdge = modalRect.left + 8;
+            if (rect.right > rightEdge) {
+                var shift = rect.right - rightEdge;
+                popover.style.left = 'calc(50% - ' + shift + 'px)';
+            } else if (rect.left < leftEdge) {
+                var shift = leftEdge - rect.left;
+                popover.style.left = 'calc(50% + ' + shift + 'px)';
+            }
+        });
+    }
+}
+
 function togglePrimaryName(tagEl) {
     var wrap = tagEl.closest('.ind-tag-wrap');
     var popover = wrap.querySelector('.ind-primary-popover');
     var wasVisible = popover.classList.contains('visible');
     // Close all open popovers first (mechanism, primary, and T2)
-    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(function(p) {
+    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) {
         p.classList.remove('visible');
         p.style.left = '';
         p.style.transform = '';
@@ -3306,7 +3674,7 @@ function toggleT2Popover(badgeEl) {
     var wrap = badgeEl.closest('.piet-t2-wrap');
     var popover = wrap.querySelector('.piet-t2-popover');
     var wasVisible = popover.classList.contains('visible');
-    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(function(p) {
+    document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(function(p) {
         p.classList.remove('visible');
         p.style.left = '';
         p.style.transform = '';
@@ -3332,7 +3700,7 @@ function toggleT2Popover(badgeEl) {
 
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.ind-tag-wrap') && !e.target.closest('.piet-t2-wrap')) {
-        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible').forEach(p => p.classList.remove('visible'));
+        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible').forEach(p => p.classList.remove('visible'));
     }
     if (!e.target.closest('.cov-panel-footer')) {
         document.querySelectorAll('.cov-info-popover.visible').forEach(p => p.classList.remove('visible'));
@@ -3340,7 +3708,7 @@ document.addEventListener('click', function(e) {
 });
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .cov-info-popover.visible').forEach(p => p.classList.remove('visible'));
+        document.querySelectorAll('.ind-mechanism-popover.visible, .ind-primary-popover.visible, .piet-t2-popover.visible, .ent-mechanism-popover.visible, .cov-info-popover.visible').forEach(p => p.classList.remove('visible'));
     }
 });
 
@@ -3565,6 +3933,12 @@ function generateTooltip(key, position) {
   if (!t) return '';
   const posClass = position ? ' tooltip-' + position : '';
   return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+}
+function generateFieldLabel(labelText, tooltipKey, position) {
+  const t = weoTooltips[tooltipKey];
+  if (!t) return '<span class="z2-label">' + labelText + '</span>';
+  const posClass = position ? ' tooltip-' + position : '';
+  return '<span class="z2-label weo-info-trigger">' + labelText + '<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
 }
 
 // Generate tooltip for CC connection types (1-7)
@@ -3811,6 +4185,15 @@ const getTypeIcon = t => {
 const getTierBadgeClass = (tier) => tier===1?'badge-t1':tier===2?'badge-t2':'badge-t3';
 const getBlocBadgeClass = b => ({'Western':'badge-western','Eastern':'badge-eastern','Cross-Bloc':'badge-cross','Western-Led':'badge-western-led','Eastern-Led':'badge-eastern-led'}[b]||'badge-cross');
 const getDomainBadgeClass = d => ({Technology:'badge-tech',Security:'badge-security',Trade:'badge-trade','Energy/Infrastructure':'badge-energy'}[d]||'badge-tech');
+
+const tierIcon = (tier) => `<span class="cvd-icon t${tier}"></span>`;
+const blocIcon = (bloc) => {
+    const b = bloc.toLowerCase().replace('-led', '');
+    if (b === 'western') return '<span class="cvd-icon western"></span>';
+    if (b === 'eastern') return '<span class="cvd-icon eastern"></span>';
+    if (b === 'cross-bloc') return '<span class="cvd-icon cross-bloc"></span>';
+    return '';
+};
 
 // Coordination Connections count per event (V4.6 - 58 connections)
 // CC counts per event — built dynamically from API data
@@ -4165,9 +4548,9 @@ function generateCCItem(conn, displayEventId, displayEventName, currentEventId) 
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence, 'below');
   
   let html = '<div class="cc-item-wrapper" data-type="' + conn.type + '" data-connection-id="' + conn.id + '">';
-  
+
   // Main CC item row
-  html += '<div class="cc-item">';
+  html += '<div class="cc-item' + (hasDetail ? ' expandable" role="button" tabindex="0" aria-expanded="false' : '') + '">';
   html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + conn.typeName + '</span>' + typeTooltip + '</span>';
   
   // Event name is clickable to navigate to that event
@@ -4177,7 +4560,7 @@ function generateCCItem(conn, displayEventId, displayEventName, currentEventId) 
   
   if (hasDetail) {
     // Expand indicator toggles evidence panel
-    html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); this.closest(\'.cc-item-wrapper\').classList.toggle(\'expanded\')" title="Show/hide evidence">▼</span>';
+    html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); var w=this.closest(\'.cc-item-wrapper\'); w.classList.toggle(\'expanded\'); var ci=w.querySelector(\'.cc-item.expandable\'); if(ci) ci.setAttribute(\'aria-expanded\', w.classList.contains(\'expanded\'))" title="Show/hide evidence">▼</span>';
   }
   
   html += '</div>';
@@ -4294,7 +4677,7 @@ const updateStats = () => {
     const t2 = freeEvents.filter(e=>e.tier===2).length;
     const t3 = freeEvents.filter(e=>e.tier===3).length;
     const totalCC = Object.values(ccCounts).reduce((sum, c) => sum + c, 0) / 2; // Divide by 2 since each connection counts twice
-    const updatedText = WEO_DB.last_updated ? (() => { const d = new Date(WEO_DB.last_updated + 'T00:00:00'); return 'Updated ' + d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); })() : '';
+    const updatedText = WEO_DB.last_updated ? (() => { const d = new Date(WEO_DB.last_updated + 'T00:00:00'); return 'Updated ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); })() : '';
     document.getElementById('stats-bar').innerHTML = `
         <div class="stat-item"><span class="stat-value">${freeEvents.length}</span><span class="stat-label">Events</span></div>
         <div class="stat-item"><span class="stat-value">${t1}</span><span class="stat-label">T1 Cross-Bloc</span></div>
@@ -4315,10 +4698,11 @@ const renderTable = () => {
             <td><div class="event-name-cell"><span class="event-name">${e.event_name}</span>${e.is_sample_event?'<span class="sample-star">★</span>':''}</div></td>
             <td><div class="type-icon-cell" title="${e.event_type}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
-            <td><span class="badge ${getTierBadgeClass(e.tier)}">T${e.tier}</span></td>
-            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${e.bloc}</span></td>
+            <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${e.tier}</span></td>
+            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${e.bloc}</span></td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':e.domain}</span></td>
             <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + getIndTags(e.event_id).secondary.map(s => s.tag).join(', ') + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
+            <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + ents.map(function(t){return t.name||t.type}).join(', ') + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
             <td><span class="cc-count ${ccClass}">${cc}</span></td>
             <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">✓</span>`).join('')}</div></td>
             <td><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span></td>
@@ -4338,6 +4722,7 @@ const applyFilters = () => {
     const domain = document.getElementById('filter-domain').value;
     const type = document.getElementById('filter-type').value;
     const search = document.getElementById('search-input').value.toLowerCase();
+    const entFilter = document.getElementById('filter-ent').value;
     filteredEvents = freeEvents.filter(e => {
         if (bloc!=='all' && e.bloc!==bloc) return false;
         if (domain!=='all' && e.domain!==domain) return false;
@@ -4348,9 +4733,34 @@ const applyFilters = () => {
             const allTags = [tags.primary, ...tags.secondary.map(s => s.tag)];
             if (!selectedIndustries.some(si => allTags.includes(si))) return false;
         }
+        if (entFilter !== 'all') {
+            const ents = getEntTags(e.event_id);
+            if (entFilter === 'any' && ents.length === 0) return false;
+            if (entFilter === 'none' && ents.length > 0) return false;
+            if (entFilter.startsWith('ENT-') && !ents.some(t => t.type === entFilter)) return false;
+        }
         return true;
     });
     sortEvents(); renderTable();
+
+    // Show empty state if no results
+    var emptyState = document.getElementById('empty-state');
+    if (filteredEvents.length === 0) {
+        if (!emptyState) {
+            var el = document.createElement('div');
+            el.id = 'empty-state';
+            el.className = 'empty-state';
+            el.innerHTML = '<div class="empty-state-icon">\u2205</div>' +
+                '<div class="empty-state-title">No events match these filters</div>' +
+                '<div class="empty-state-hint">Try adjusting your tier, domain, or bloc filters</div>';
+            var tableScroll = document.querySelector('.events-table-scroll') || document.querySelector('.table-scroll-container');
+            if (tableScroll) tableScroll.parentNode.insertBefore(el, tableScroll.nextSibling);
+            emptyState = el;
+        }
+        if (emptyState) emptyState.style.display = 'block';
+    } else {
+        if (emptyState) emptyState.style.display = 'none';
+    }
 };
 
 const MONTH_NAMES_UK = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -4414,6 +4824,7 @@ const sortEvents = () => {
             case 'type': av=a.event_type;bv=b.event_type;break;
             case 'date': av=parseDateForSort(a.implementation_date);bv=parseDateForSort(b.implementation_date);break;
             case 'cc': av=getCCCount(a.event_id);bv=getCCCount(b.event_id);break;
+            case 'ent': av=getEntTags(a.event_id).length;bv=getEntTags(b.event_id).length;break;
             default: av=parseInt(a.event_id);bv=parseInt(b.event_id);
         }
         return av<bv?-m:av>bv?m:0;
@@ -4454,32 +4865,22 @@ const openModal = (id) => {
     const eventLocation = eventLocations[id] || '';
     document.getElementById('modal-subtitle').textContent = e.event_type + ' • ' + formatDateUK(e.implementation_date) + (eventLocation ? ' • ' + eventLocation : '');
     
-    // Generate tooltips for header badges
-    const tierTooltip = generateTooltip('tier', 'below');
-    const blocTooltip = generateTooltip('bloc', 'below');
-    const domainTooltip = generateTooltip('domain', 'below');
-    const highlyConnectedTooltip = generateTooltip('highlyConnected', 'below');
-    
-    const highlyConnBadge = isHighlyConnected(id) ? `<span class="badge-with-tooltip"><span class="badge badge-highly-connected" onclick="scrollToModalSection('cc')">🔗 Highly Connected</span>${highlyConnectedTooltip}</span>` : '';
+    // Zone 2 — grid rows
+    const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
+    const blocLabel = generateFieldLabel('Bloc', 'bloc', 'below');
+    const domainLabel = generateFieldLabel('Domain', 'domain', 'below');
+    const connRow = isHighlyConnected(id) ? `<div class="z2-row">${generateFieldLabel('Connections', 'highlyConnected', 'below')}<div class="z2-badges"><span class="badge badge-highly-connected" onclick="scrollToModalSection('cc')">🔗 Highly Connected</span></div></div>` : '';
     const lastUpdateText = full && full.versionDate ? new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
     const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${full.version}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
     document.getElementById('modal-meta').innerHTML = `
-        <span class="badge-with-tooltip"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">T${e.tier}</span>${tierTooltip}</span>
-        <span class="badge-with-tooltip"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${e.bloc}</span>${blocTooltip}</span>
-        <span class="badge-with-tooltip"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${e.domain}</span>${domainTooltip}</span>
-        ${highlyConnBadge}
-        ${headerVersionBadge}
+        <div class="z2-rows" role="group" aria-label="Event classification">
+          <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${e.tier}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${e.bloc}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Domain">${domainLabel}<div class="z2-badges"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${e.domain}</span></div></div>
+          ${connRow}
+          ${headerVersionBadge}
+        </div>
     `;
-    // Ecosystem Implementation compact badges (free tier — no evidence)
-    const ecoImpl = e.ecosystem_implementation || (full && full.ecosystem_implementation) || null;
-    if (ecoImpl && ecoImpl.length > 0) {
-      const ecoRow = ecoImpl.map(function(ei) {
-        const icon = ei.implemented ? '✅' : '✗';
-        const color = ei.implemented ? '#2DD4BF' : 'var(--weo-text-muted, #64748B)';
-        return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + ei.ecosystem + '</span>';
-      }).join('');
-      document.getElementById('modal-meta').innerHTML += '<div style="margin-top:6px;display:flex;align-items:center;gap:2px;" title="Cross-Ecosystem Implementation"><span style="font-size:0.65rem;color:var(--weo-text-muted,#64748B);margin-right:0.5rem;text-transform:uppercase;letter-spacing:0.04em;">Ecosystem</span>' + ecoRow + '</div>';
-    }
     document.getElementById('modal-industry-shelf').innerHTML = generateIndustryShelfHtml(id);
     
     // Title click scrolls to top of modal
@@ -4666,7 +5067,7 @@ const openModal = (id) => {
                     <div style="font-size:0.75rem;font-weight:600;color:var(--weo-text-muted,#94A3B8);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>
                     ${full.ecosystem_implementation.map(function(ei) {
                         const icon = ei.implemented ? '✅' : '✗';
-                        const nameColor = ei.implemented ? '#2DD4BF' : 'var(--weo-text-muted,#64748B)';
+                        const nameColor = ei.implemented ? '#2DD4BF' : 'var(--weo-text-muted,#94A3B8)';
                         const evidenceColor = 'var(--weo-text-secondary,#CBD5E1)';
                         return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:' + evidenceColor + ';">' + (ei.evidence || '') + '</span></div>';
                     }).join('')}
@@ -5047,6 +5448,24 @@ const closeModal = () => {
     document.body.style.overflow = ''; 
 };
 
+// Show skeleton table rows while data loads
+(function showTableSkeleton() {
+    var tbody = document.getElementById('events-tbody');
+    if (!tbody) return;
+    var rows = '';
+    for (var i = 0; i < 6; i++) {
+        rows += '<tr>' +
+            '<td><span class="skeleton skeleton-text narrow" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-text wide" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-text medium" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-text narrow" style="height:12px"></span></td>' +
+            '</tr>';
+    }
+    tbody.innerHTML = rows;
+})();
+
 // Load data then initialise UI
 (async function() {
   try {
@@ -5096,7 +5515,7 @@ const closeModal = () => {
         setTimeout(updateTableScrollIndicators, 150);
     }
     
-    ['filter-bloc','filter-domain','filter-type'].forEach(id => 
+    ['filter-bloc','filter-domain','filter-type','filter-ent'].forEach(id => 
         document.getElementById(id).addEventListener('change', applyFilters)
     );
     document.getElementById('search-input').addEventListener('input', applyFilters);
@@ -5573,11 +5992,5 @@ if (navToggle && navLinks) {
 
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-<script>
-(function(){
-  var v = document.querySelector('meta[name="weo-version"]');
-  if (v) console.log('WEO v' + v.getAttribute('content'));
-})();
-</script>
 </body>
 </html>
