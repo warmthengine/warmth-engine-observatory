@@ -5601,7 +5601,7 @@
       <span class="stat-number" id="total-connections-count">—</span> Connections
     </div>
     <div class="weo-status-wer" id="weo-status-wer" style="display:none;">
-      <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database.</div></span></div>
+      <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database. Calculated as Resource Demand tags ÷ Environmental Coordination tags.</div></span></div>
       <div class="weo-status-wer-row">
         <span class="weo-status-wer-value" id="weo-wer-value">—</span>
         <span class="weo-status-wer-backfill weo-info-trigger" id="weo-wer-backfill-trigger">backfill<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Backfill Phase</div><div class="weo-tooltip-body">Ratio reflects the observable landscape across the verified event database. Database in backfill phase.</div></span></span>
@@ -6226,7 +6226,7 @@ async function loadWEOData(password) {
     mapEl.style.display = 'flex';
     mapEl.style.alignItems = 'center';
     mapEl.style.justifyContent = 'center';
-    mapEl.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-family: Geist, system-ui, sans-serif; text-align: center;"><div style="margin-bottom: 12px; font-size: 1.5rem;">◉</div><div style="font-size: 0.875rem; letter-spacing: 0.05em;">Loading WEO data\u2026</div></div>';
+    mapEl.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;"><div class="skeleton" style="position:absolute;inset:0;opacity:0.3;border-radius:0;"></div><div style="position:relative;color:rgba(255,255,255,0.6);font-family:Geist,system-ui,sans-serif;text-align:center;"><div style="margin-bottom:12px;font-size:1.5rem;">◉</div><div style="font-size:0.875rem;letter-spacing:0.05em;">Loading WEO data\u2026</div></div></div>';
   }
 
   // Show skeleton placeholders while data loads
