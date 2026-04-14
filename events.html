@@ -3374,7 +3374,7 @@ function mapApiEventToFull(e) {
   if (e.basel5 != null) { full.basel_factors = e.basel5; full.basel_factors_met = e.basel5_factors_met; }
   if (e.keohane != null) { full.keohane_factors = e.keohane; full.keohane_factors_met = e.keohane_factors_met; }
   if (e.pisa5 != null) { full.pisa5_factors = e.pisa5; full.pisa5_factors_met = e.pisa5_factors_met; }
-  if ((e.route_based ?? e.routeBased) != null) { full.route_based_factors = e.route_based ?? e.routeBased; }
+  if ((e.route_based ?? e.routeBased) != null) { full.route_based_factors = e.route_based ?? e.routeBased; full.route_based_factors_met = e.route_based_factors_met ?? (full.route_based_factors ? full.route_based_factors.filter(function(f) { return f.pass; }).length : undefined); }
 
   // camelCase fields (accept both formats)
   if ((e.rolling_updates ?? e.rollingUpdates) != null) full.rollingUpdates = e.rolling_updates ?? e.rollingUpdates;
@@ -3430,7 +3430,7 @@ async function loadWEOData(password) {
   try {
     const [eventsRes, connectionsRes] = await Promise.all([
       fetch(API_BASE + '/events', { headers, cache: password ? 'no-store' : 'default' }),
-      fetch(API_BASE + '/connections')
+      fetch(API_BASE + '/connections', { headers, cache: password ? 'no-store' : 'default' })
     ]);
     if (eventsRes.ok) {
       const eventsJson = await eventsRes.json();
