@@ -1,9 +1,9 @@
 {
   "meta": {
-    "event_count": 117,
-    "cc_count": 101,
-    "last_updated": "2026-04-14",
-    "db_version": "1.4.0",
+    "event_count": 119,
+    "cc_count": 103,
+    "last_updated": "2026-04-15",
+    "db_version": "1.5.0",
     "schema_version": "1.0",
     "tier": "free"
   },
@@ -4899,7 +4899,7 @@
       ],
       "source_count_primary": 2,
       "source_count_corroborating": 2,
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "144",
@@ -4929,7 +4929,7 @@
         {
           "type": "ENT-4",
           "name": "Environmental Dependency",
-          "mechanism": "Livermore, California faces documented extreme drought and wildfire risk; El Capitan's evaporative cooling towers require 5–9 million gallons of water daily, creating acute operational dependency on regional hydrological stability.",
+          "mechanism": "Livermore, California faces documented extreme drought risk (Alameda County Vulnerability Score 3, historical D4 exceptional drought classification) and wildfire risk; El Capitan’s evaporative cooling system circulates 5–9 million gallons of water daily through cooling towers, creating operational dependency on regional hydrological stability.",
           "evidenceBasis": "Assessed",
           "sources": [
             {
@@ -4952,7 +4952,125 @@
       ],
       "source_count_primary": 2,
       "source_count_corroborating": 1,
-      "cc_count": 3
+      "cc_count": 4
+    },
+    {
+      "id": "145",
+      "name": "Aurora Supercomputer (Argonne National Laboratory)",
+      "lat": 41.7148,
+      "lng": -87.9801,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "28 January 2025",
+      "location": "Lemont, Illinois, United States",
+      "scope": "United States (DOE open science programme)",
+      "description": "US Department of Energy exascale supercomputer deployed at Argonne National Laboratory, achieving exascale performance using 63,744 Intel Data Center GPU Max 1550 accelerators across 10,624 blades. Third US exascale system under the DOE Exascale Computing Project, released to the open science research community.",
+      "investment": "~$500M; 63,744 Intel GPU Max 1550s; 60MW facility electrical capacity; 166 racks",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Aurora's 60MW exascale computing facility creates documented demand on grid infrastructure (requiring dedicated 138kV transmission line construction with NEPA review), water resources (56.7 million gallons/year canal water), and land (tree-clearing for transmission infrastructure).",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "DOE NEPA Categorical Exclusion — 138kV transmission line construction for Argonne",
+              "type": "primary",
+              "url": "https://www.energy.gov/sites/default/files/2019/01/f58/CX-019252.pdf"
+            },
+            {
+              "citation": "Argonne Site Sustainability Plan — HPC facilities energy and water use data",
+              "type": "primary",
+              "url": "https://www.anl.gov/sites/www/files/2020-06/Argonne_Site_Sustainability_Plan.pdf"
+            }
+          ]
+        },
+        {
+          "type": "ENT-2",
+          "name": "Environmental Enablement",
+          "mechanism": "DOE Order 436.1 establishes binding PUE efficiency targets (1.2–1.4 for new data centres) and sustainable acquisition requirements as operative conditions governing Aurora's facility operations at Argonne National Laboratory.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Argonne Sustainability Plan FY2017 — DOE Order 436.1 mandate and PUE targets",
+              "type": "primary",
+              "url": "https://www.anl.gov/sites/www/files/2018-02/anl_site_sustainability_plan_20170101.pdf"
+            },
+            {
+              "citation": "Argonne Sustainability Plan FY2018 — prime contract sustainability clauses",
+              "type": "primary",
+              "url": "https://www.anl.gov/sites/www/files/2018-02/Argonne_SiteSustainabilityPlan_FY2018_0.pdf"
+            }
+          ]
+        },
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "Argonne National Laboratory is located in the Des Plaines Basin (WRI Aqueduct: High water stress, 40–80%) and requires water-based cooling consuming 56.7 million gallons/year, while Northern Illinois faces documented climate risks to grid infrastructure from heatwaves and flooding.",
+          "evidenceBasis": "Assessed",
+          "sources": [
+            {
+              "citation": "WRI Aqueduct classification via CDP disclosure — Des Plaines Basin (High, 40–80%)",
+              "type": "primary",
+              "url": "https://www.bms.com/assets/bms/us/en-us/pdf/bms-cdp-questions-questionnaire.pdf"
+            },
+            {
+              "citation": "Argonne climate risk publication — grid infrastructure vulnerability",
+              "type": "primary",
+              "url": "https://publications.anl.gov/anlpubs/2022/12/180058.pdf"
+            },
+            {
+              "citation": "CMAP regional risk assessment — flooding and infrastructure impacts",
+              "type": "primary",
+              "url": "https://cmap.illinois.gov/wp-content/uploads/dlm_uploads/Risk-based-Vulnerability-Assessment.pdf"
+            }
+          ]
+        }
+      ],
+      "source_count_primary": 2,
+      "source_count_corroborating": 0,
+      "cc_count": 2
+    },
+    {
+      "id": "146",
+      "name": "China MIIT/SAMR Intelligent Connected Vehicle Notice",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "25 February 2025",
+      "location": "Beijing, China",
+      "scope": "People's Republic of China (Mainland)",
+      "description": "Joint MIIT and SAMR notice establishing mandatory product admission, recall, and over-the-air software update management requirements for intelligent connected vehicles. Requires enterprises to submit technical parameters and verification materials for autonomous driving and AI-equipped vehicle features with a compliance deadline of 1 June 2025.",
+      "investment": "Regulatory Framework (mandatory compliance; product admission denial for non-compliance)",
+      "domain": "Technology",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Automotive & Manufacturing",
+      "environmentalNexusTags": [],
+      "source_count_primary": 1,
+      "source_count_corroborating": 2,
+      "cc_count": 0
     }
   ]
 }
