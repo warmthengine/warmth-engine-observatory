@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 119,
-    "cc_count": 103,
-    "last_updated": "2026-04-15",
+    "event_count": 122,
+    "cc_count": 107,
+    "last_updated": "2026-04-16",
     "db_version": "1.5.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -58,6 +58,7 @@
           "rationale": "Strengthens Eastern Bloc AI capability concentration; affects global AI compute distribution"
         }
       ],
+      "basel5_factors_met": 5,
       "tier_rationale": "Tier 3: Intra-Bloc Coordination (Eastern). Official Chinese government documentation frames the initiative as domestic economic development, digital economy support, and regional resource optimisation. Policy documents do not explicitly name the United States or Western entities as targets for dependency reduction. National infrastructure programme channeling computing resources from eastern to western China across eight national computing hubs and ten data centre clusters.",
       "bloc_analysis": [
         {
@@ -115,6 +116,8 @@
           "url": "https://www.china-briefing.com/news/china-data-centers-new-cross-regional-plan-to-boost-computing-power-across-regions/"
         }
       ],
+      "source_count_primary": 3,
+      "source_count_corroborating": 4,
       "related_events": [
         {
           "id": "03",
@@ -171,10 +174,7 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 4,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "02",
@@ -199,6 +199,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 4,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -216,8 +218,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 4,
       "cc_count": 0
     },
     {
@@ -243,9 +243,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -271,28 +272,6 @@
         "current": true
       },
       "version": "1.2",
-      "keohane": [
-        {
-          "factor": "Type",
-          "pass": true,
-          "rationale": "Keohane Type 2 — Institutional Consensus Standard"
-        },
-        {
-          "factor": "Coordination Evidence",
-          "pass": true,
-          "rationale": "IEEE SA individual-participation process; 850+ global experts including US, EU, China, India, Japan, Korea; ISO-adopted via SC 7 (40 P-members)"
-        },
-        {
-          "factor": "Implementation",
-          "pass": true,
-          "rationale": "CertifAIEd operational with 167 assessors across 28 countries; Wiener Stadtwerke pilot completed; ISO/IEC/IEEE 24748-7000 adopted"
-        },
-        {
-          "factor": "Cross-Bloc Participation",
-          "pass": true,
-          "rationale": "Genuine cross-bloc technical coordination — both Western and Eastern blocs participated in creating the standard"
-        }
-      ],
       "tier_rationale": "Tier 3: Intra-Bloc Coordination (Western). Developed through IEEE SA’s individual-participation process with cross-bloc expert engagement from both Western and Eastern Bloc participants. CertifAIEd conformity assessment programme establishes operational reach, with ISO/IEC/IEEE 24748-7000:2022 fast-track adoption through JTC 1/SC 7 extending normative coverage. Cross-bloc development participation verified through the individual-participation model; operational conformity assessment activity, professional training infrastructure, and documented organisational adoption concentrated within Western-aligned jurisdictions including Germany, the United States, and the United Kingdom.",
       "bloc_analysis": [
         {
@@ -350,31 +329,19 @@
           "url": "https://vbe.academy/insights/post/austrian-standards-launches-first-european-certification-for-ethical-ai/"
         }
       ],
+      "source_count_primary": 4,
+      "source_count_corroborating": 3,
       "related_events": [
         {
           "id": "19",
           "relationship": "Related ISO/IEC AI management standard"
         }
       ],
-      "version_date": "2026-03-04",
       "industry_primary": "AI Software & Platforms",
       "industry_secondary": [],
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "CertifAIEd operational with assessors in US, UK, Germany; ISO/IEC/IEEE 24748-7000 adopted through JTC 1"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "IEEE SA development participation; no Chinese national adoption or conformity assessment activity verified"
-        }
-      ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 3,
-      "cc_count": 1,
-      "keohane_factors_met": 4
+      "version_date": "2026-03-04",
+      "environmentalNexusTags": [],
+      "cc_count": 1
     },
     {
       "id": "05",
@@ -399,9 +366,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -454,6 +422,7 @@
           "rationale": "Affects manufacturing decisions by TSMC, Samsung, Intel globally; restricts China expansion"
         }
       ],
+      "basel5_factors_met": 5,
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Section 103 guardrails explicitly prohibit funded entities from China expansion, creating binding cross-bloc operating restrictions. Meets multiple Tier 2 criteria with explicit China targeting: dependency reduction language referencing Taiwan/China risk; national security and China co-mention in White House Fact Sheet; supply chain resilience framed around China concerns. Funding conditions create between-bloc fragmentation through explicit prohibitions on recipient operations in countries of concern.",
       "bloc_analysis": [
         {
@@ -531,13 +500,14 @@
           "url": "https://www.datacenterdynamics.com/en/news/sk-hynix-secures-458m-in-chips-act-funding/"
         }
       ],
+      "source_count_primary": 7,
+      "source_count_corroborating": 4,
       "related_events": [
         {
           "id": "10",
           "relationship": "Coordinated export control strategy"
         }
       ],
-      "version_date": "2026-03-04",
       "industry_primary": "Semiconductors & Equipment",
       "industry_secondary": [
         {
@@ -549,10 +519,9 @@
           "mechanism": "Section 48D provides a 25% Advanced Manufacturing Investment Tax Credit and $39B in direct subsidies."
         }
       ],
-      "source_count_primary": 7,
-      "source_count_corroborating": 4,
-      "cc_count": 10,
-      "basel5_factors_met": 5
+      "version_date": "2026-03-04",
+      "environmentalNexusTags": [],
+      "cc_count": 10
     },
     {
       "id": "07",
@@ -577,9 +546,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 5
     },
     {
@@ -605,9 +575,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 5,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -633,9 +604,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 3,
       "source_count_corroborating": 5,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -661,6 +633,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -693,8 +667,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 2,
       "cc_count": 5
     },
     {
@@ -720,6 +692,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 3,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -736,8 +710,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 3,
       "cc_count": 1
     },
     {
@@ -791,6 +763,7 @@
           "rationale": "Affects AI chip supply chains across multiple Western nations"
         }
       ],
+      "basel5_factors_met": 4,
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. Multiple other-bloc governments issued documented policy responses to the controls, demonstrating cross-bloc fragmentation impact.",
       "bloc_analysis": [
         {
@@ -843,196 +816,14 @@
           "url": "https://www.clarkhill.com/news-events/news/china-hits-pause-on-rare-earth-export-controls-and-what-it-means-for-supply-chains/"
         }
       ],
+      "source_count_primary": 2,
+      "source_count_corroborating": 4,
       "related_events": [
         {
           "id": "42",
           "relationship": "Part of China Export Control Sequence"
         }
       ],
-      "version_date": "2026-03-11",
-      "ai_connection_pathway": "piet",
-      "piet": {
-        "implementationDate": "2023-08-01",
-        "assessmentDate": "2025-02-01",
-        "gatesPassed": 4,
-        "gatesRequired": 3,
-        "confidence": "Trade-Impact Confirmed",
-        "result": "4/4 gates",
-        "t2ImpactDemonstrated": true,
-        "t2Basis": "Gate 3 cleared — 6 qualifying other-bloc government responses across 3 jurisdictions (EU, Japan, Canada)",
-        "gates": [
-          {
-            "factor": "Trade Flow Disruption",
-            "pass": true,
-            "rationale": "China GAC data (via USGS MCS 2025): gallium/germanium exports fell to zero Aug–Sep 2023; >50% global decline sustained 18+ months. US bilateral exports declined >97%. No suspension or reversal; regime tightened Dec 2024.",
-            "sources": [
-              {
-                "id": "PIET-G1-1",
-                "desc": "USGS Mineral Commodity Summaries 2025 — Gallium",
-                "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G1-2",
-                "desc": "USGS Mineral Commodity Summaries 2025 — Germanium",
-                "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
-                "type": "PRIMARY"
-              }
-            ],
-            "summary": ">50% global decline sustained 18+ months; US bilateral exports declined >97%",
-            "evidence": [
-              {
-                "label": "Source",
-                "value": "China GAC data via USGS Mineral Commodity Summaries 2025"
-              },
-              {
-                "label": "Metric",
-                "value": "Gallium/germanium exports fell to zero Aug–Sep 2023"
-              },
-              {
-                "label": "Duration",
-                "value": ">50% global decline sustained 18+ months"
-              },
-              {
-                "label": "Status",
-                "value": "No suspension or reversal; regime tightened Dec 2024"
-              }
-            ]
-          },
-          {
-            "factor": "Commodity Price Movement",
-            "pass": true,
-            "rationale": "Fastmarkets Rotterdam 99.99% gallium: +60–114% within 5 months, sustained 18+ months. Germanium: +56–114% by mid-2024, sustained 12+ months. Both Tier B non-exchange-traded minor metals; USGS MCS 2025 confirms 2024 annual average gallium import unit value +33%.",
-            "sources": [
-              {
-                "id": "PIET-G2-1",
-                "desc": "USGS MCS 2025 — Gallium (Argus Media annual average data)",
-                "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G2-2",
-                "desc": "USGS MCS 2025 — Germanium (Argus Media annual average data)",
-                "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
-                "type": "PRIMARY"
-              }
-            ],
-            "summary": "Gallium +60–114%, germanium +56–114%, sustained 12–18+ months",
-            "evidence": [
-              {
-                "label": "Source",
-                "value": "Fastmarkets Rotterdam / USGS MCS 2025 (Argus Media data)"
-              },
-              {
-                "label": "Gallium",
-                "value": "99.99% grade: +60–114% within 5 months, sustained 18+ months"
-              },
-              {
-                "label": "Germanium",
-                "value": "+56–114% by mid-2024, sustained 12+ months"
-              },
-              {
-                "label": "Classification",
-                "value": "Tier B non-exchange-traded minor metals"
-              }
-            ]
-          },
-          {
-            "factor": "Government Policy Response",
-            "pass": true,
-            "rationale": "6 qualifying responses across 3 governments within 18 months. EU Commission White Paper COM(2024) 25 (Jan 2024) citing ‘3 July 2023…controls covering products containing gallium and germanium’; EU Council ST-6622-2024-INIT (Feb 2024); Japan METI Minister Nishimura strategy announcement (Aug 2023); Japan METI 2024 WTO Compliance Report (Jun 2024); Canada Global Affairs parliamentary briefing (Jun 2024); Canada Minister Wilkinson Wilson Center remarks (Jan 2025).",
-            "sources": [
-              {
-                "id": "PIET-G3-1",
-                "desc": "European Commission White Paper on Export Controls — COM(2024) 25 final",
-                "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52024DC0025",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G3-2",
-                "desc": "Council of the EU — ST-6622-2024-INIT",
-                "url": "https://data.consilium.europa.eu/doc/document/ST-6622-2024-INIT/en/pdf",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G3-3",
-                "desc": "Japan METI Minister Nishimura press conference — 1 August 2023",
-                "url": "https://www.meti.go.jp/english/speeches/press_conferences/2023/0801001.html",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G3-4",
-                "desc": "Japan METI 2024 Report on WTO Compliance",
-                "url": "https://www.meti.go.jp/english/report/data/2024WTO/pdf/2024_2.pdf",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G3-5",
-                "desc": "Global Affairs Canada — Parliamentary briefing on China export controls",
-                "url": "https://international.canada.ca/en/global-affairs/corporate/transparency/briefing-documents/parliamentary-committee/2024-06-17-cacn",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "PIET-G3-6",
-                "desc": "NRCan Minister Wilkinson — Woodrow Wilson Center remarks",
-                "url": "https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html",
-                "type": "PRIMARY"
-              }
-            ],
-            "summary": "6 qualifying responses across 3 governments (EU, Japan, Canada) within 18 months",
-            "evidence": [
-              {
-                "label": "Count",
-                "value": "6 qualifying responses, 3 jurisdictions, 18-month window"
-              },
-              {
-                "label": "EU",
-                "value": "COM(2024) 25 White Paper (Jan 2024); Council ST-6622-2024-INIT (Feb 2024)"
-              },
-              {
-                "label": "Japan",
-                "value": "METI Minister strategy announcement (Aug 2023); METI WTO Compliance Report (Jun 2024)"
-              },
-              {
-                "label": "Canada",
-                "value": "Global Affairs parliamentary briefing (Jun 2024); Minister Wilkinson Wilson Center remarks (Jan 2025)"
-              }
-            ]
-          },
-          {
-            "factor": "Named Entity Commercial Disclosure",
-            "pass": true,
-            "rationale": "AXT Inc. (NASDAQ: AXTI) — 4 SEC filings (10-Q Q3 2023, 10-Q Q2 2023, 10-K FY2023, 10-Q Q3 2024) naming MOFCOM July 3 2023 controls, August 1 2023 effective date, export permit requirements for subsidiary Tongmei, and operational impact on business, financial condition, and results of operations.",
-            "sources": [
-              {
-                "id": "PIET-G4-1",
-                "desc": "AXT Inc. Form 10-Q — Quarter ending September 30, 2023 (SEC EDGAR)",
-                "url": "https://www.sec.gov/Archives/edgar/data/0001051627/000155837023018573/axti-20230930x10q.htm",
-                "type": "PRIMARY"
-              }
-            ],
-            "summary": "AXT Inc. (AXTI, NASDAQ) 10-K filings: names restriction as material risk, 50%+ revenue impact",
-            "evidence": [
-              {
-                "label": "Entity",
-                "value": "AXT Inc. (AXTI, NASDAQ)"
-              },
-              {
-                "label": "Filing",
-                "value": "10-K Annual Reports FY2023–2024 (SEC)"
-              },
-              {
-                "label": "Disclosure",
-                "value": "Names ‘China’s export restrictions on gallium and germanium’ as material risk"
-              },
-              {
-                "label": "Impact",
-                "value": "50%+ revenue impact; facility restructuring (Beijing subsidiary closure, Liaoning JV)"
-              }
-            ]
-          }
-        ]
-      },
       "industry_primary": "Mining & Critical Minerals",
       "industry_secondary": [
         {
@@ -1044,10 +835,9 @@
           "mechanism": "MOFCOM establishes export licensing regime requiring provincial-level approval and end-user certifications."
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 4,
-      "cc_count": 0,
-      "basel5_factors_met": 4
+      "version_date": "2026-03-11",
+      "environmentalNexusTags": [],
+      "cc_count": 0
     },
     {
       "id": "15",
@@ -1072,9 +862,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 6,
       "source_count_corroborating": 6,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1100,9 +891,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 5
     },
     {
@@ -1128,9 +920,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 4
     },
     {
@@ -1156,6 +949,8 @@
         "current": true
       },
       "version": "1.3",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -1188,8 +983,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 3,
       "cc_count": 5
     },
     {
@@ -1215,21 +1008,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Certification operational — AWS, Anthropic, Google Cloud, Microsoft, Darktrace through ANAB/UKAS-accredited bodies"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "Adopted as GB/T 45081-2024; certification through SGS China, BSI China, Amtivo, TÜV Rheinland"
-        }
-      ],
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -1255,9 +1037,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 3,
       "source_count_corroborating": 5,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1283,47 +1066,6 @@
         "current": true
       },
       "version": "1.3",
-      "version_date": "2026-03-04",
-      "genesis_date": "2024-04-16",
-      "genesis": {
-        "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
-        "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
-      },
-      "rolling_updates": [
-        {
-          "id": "PU-22-001",
-          "version": "1.1",
-          "date": "2024-06-24",
-          "description": "Investment conditions completed: G42 Chinese divestment finalised (February 2024, $10B+ including ByteDance stake); Huawei equipment removal from data centres confirmed by White House.",
-          "changedFields": [
-            "investmentStatus"
-          ],
-          "sources": [
-            {
-              "desc": "Fortune - White House Confirms Divestment",
-              "url": "https://fortune.com/asia/2024/06/25/white-house-explains-microsoft-investment-uae-ai-champion-g42-pushed-out-huawei/",
-              "date": "2024-06-24",
-              "type": "PRIMARY"
-            },
-            {
-              "desc": "Reuters - Microsoft-G42 Deal Huawei Ties Cut",
-              "url": "https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/",
-              "date": "2024-06-24",
-              "type": "CORROBORATING"
-            },
-            {
-              "desc": "CSIS Analysis - UAE AI Ambitions (G42 Divestment Details)",
-              "url": "https://www.csis.org/analysis/united-arab-emirates-ai-ambitions",
-              "date": "2025-01-27",
-              "type": "CORROBORATING"
-            }
-          ],
-          "previousValues": {
-            "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
-            "investment": "$1.5B equity (2024); $15.2B total UAE investment (2023-2029); 200MW datacenter expansion; 81,900 GPUs"
-          }
-        }
-      ],
       "basel5": [
         {
           "factor": "Size",
@@ -1351,6 +1093,7 @@
           "rationale": "Affects UAE, US, and expansion regions; blocks \"countries of concern\""
         }
       ],
+      "basel5_factors_met": 5,
       "tier_rationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Microsoft's $1.5B equity investment in UAE's G42 with binding Intergovernmental Assurance Agreement co-developed by US and UAE governments. Meets Tier 2 Buildout Criterion 3 (Operating Restrictions): IGAA explicitly prohibits expansion into \"countries of concern\" and required G42's divestment of Chinese technology holdings including Huawei partnerships. Creates parallel AI infrastructure in Non-Aligned UAE (200MW datacenter expansion, 81,900 GPUs) with explicit operating restrictions preventing integration with China. Friend-shoring infrastructure maintaining Western technology dependency while located in Non-Aligned geography.",
       "bloc_analysis": [
         {
@@ -1408,6 +1151,8 @@
           "url": "https://techinformed.com/microsoft-g42-announce-200-megawatt-uae-data-center-expansion/"
         }
       ],
+      "source_count_primary": 3,
+      "source_count_corroborating": 5,
       "related_events": [
         {
           "id": "52",
@@ -1425,6 +1170,7 @@
           "mechanism": "IGAA governs $1.5B Microsoft equity investment with board seat and $1B AI developer fund."
         }
       ],
+      "version_date": "2026-03-04",
       "environmentalNexusTags": [
         {
           "type": "ENT-1",
@@ -1456,10 +1202,7 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 5,
-      "cc_count": 0,
-      "basel5_factors_met": 5
+      "cc_count": 0
     },
     {
       "id": "24",
@@ -1484,9 +1227,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -1512,9 +1256,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 4,
       "source_count_corroborating": 2,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1540,6 +1285,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 4,
+      "source_count_corroborating": 5,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -1572,8 +1319,6 @@
           ]
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 5,
       "cc_count": 0
     },
     {
@@ -1599,9 +1344,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -1627,9 +1373,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 5,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1655,6 +1402,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 4,
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -1685,9 +1434,7 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 4,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "31",
@@ -1712,6 +1459,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 4,
+      "source_count_corroborating": 5,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -1743,8 +1492,6 @@
           ]
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 5,
       "cc_count": 2
     },
     {
@@ -1770,9 +1517,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1798,9 +1546,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1826,9 +1575,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 5,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -1854,9 +1604,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 4,
       "source_count_corroborating": 6,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -1882,6 +1633,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 5,
+      "source_count_corroborating": 3,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -1898,8 +1651,6 @@
           ]
         }
       ],
-      "source_count_primary": 5,
-      "source_count_corroborating": 3,
       "cc_count": 2
     },
     {
@@ -1925,9 +1676,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Financial Services & Investment",
       "source_count_primary": 3,
       "source_count_corroborating": 3,
+      "industry_primary": "Financial Services & Investment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -1953,6 +1705,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 3,
+      "source_count_corroborating": 6,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -1983,8 +1737,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 6,
       "cc_count": 0
     },
     {
@@ -2010,9 +1762,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Mining & Critical Minerals",
       "source_count_primary": 3,
       "source_count_corroborating": 6,
+      "industry_primary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2038,6 +1791,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 4,
+      "source_count_corroborating": 7,
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -2054,8 +1809,6 @@
           ]
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 7,
       "cc_count": 2
     },
     {
@@ -2081,9 +1834,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 1,
       "source_count_corroborating": 4,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2109,9 +1863,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Financial Services & Investment",
       "source_count_primary": 3,
       "source_count_corroborating": 3,
+      "industry_primary": "Financial Services & Investment",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -2137,9 +1892,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 2,
       "source_count_corroborating": 6,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2165,9 +1921,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 5,
       "source_count_corroborating": 3,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2193,6 +1950,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -2225,8 +1984,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 0
     },
     {
@@ -2252,9 +2009,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -2280,9 +2038,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2308,9 +2067,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2336,9 +2096,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 6,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2364,9 +2125,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2392,9 +2154,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2420,9 +2183,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2448,9 +2212,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2476,9 +2241,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2504,9 +2270,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2532,9 +2299,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 5,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2560,9 +2328,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -2588,9 +2357,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -2616,6 +2386,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 1,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -2633,8 +2405,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 1,
       "cc_count": 5
     },
     {
@@ -2660,6 +2430,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2691,8 +2463,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 0
     },
     {
@@ -2718,9 +2488,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2746,9 +2517,10 @@
         "current": true
       },
       "version": "1.2",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2774,9 +2546,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 5
     },
     {
@@ -2802,9 +2575,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 5
     },
     {
@@ -2830,6 +2604,8 @@
         "current": true
       },
       "version": "1.2",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2865,8 +2641,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 3
     },
     {
@@ -2892,9 +2666,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -2920,6 +2695,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 3,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -2952,8 +2729,6 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 2,
       "cc_count": 5
     },
     {
@@ -2979,9 +2754,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3007,9 +2783,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -3035,9 +2812,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 1,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3063,9 +2841,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 4,
       "source_count_corroborating": 0,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3091,6 +2870,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -3108,8 +2889,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 4
     },
     {
@@ -3135,6 +2914,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -3153,8 +2934,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 2
     },
     {
@@ -3180,6 +2959,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -3202,8 +2983,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 3
     },
     {
@@ -3256,7 +3035,7 @@
           "rationale": "11-country consortium under EU regulatory framework (Council Regulation 2021/1173)"
         }
       ],
-      "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
+      "basel5_factors_met": 5,
       "tier_rationale": "Tier 3: Intra-Bloc Coordination (Western). EuroHPC Joint Undertaking pre-exascale supercomputer established under Council Regulation (EU) 2021/1173 with 11-country consortium including Finland (host), Belgium, Czech Republic, Denmark, Estonia, Iceland, Netherlands, Norway, Poland, Sweden, and Switzerland. Official EuroHPC JU documentation frames LUMI as supporting European digital sovereignty, AI ecosystem development, and scientific competitiveness. All consortium members are Western-aligned (EU/EEA members or Switzerland participating in EU institutional frameworks). No cross-bloc restrictions or explicit Eastern Bloc references in governing documentation.",
       "bloc_analysis": [
         {
@@ -3319,6 +3098,8 @@
           "url": "https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
         }
       ],
+      "source_count_primary": 4,
+      "source_count_corroborating": 4,
       "related_events": [],
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industry_secondary": [
@@ -3327,10 +3108,8 @@
           "mechanism": "Vattenfall supplies 100% renewable hydroelectric power; waste heat provides ~20% of city heating."
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 4,
-      "cc_count": 5,
-      "basel5_factors_met": 5
+      "environmentalNexusTags": [],
+      "cc_count": 5
     },
     {
       "id": "92",
@@ -3355,9 +3134,10 @@
         "current": true
       },
       "version": "1.1",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 4,
       "source_count_corroborating": 3,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 4
     },
     {
@@ -3365,18 +3145,17 @@
       "name": "China Administrative Provisions on Algorithm Recommendation",
       "lat": 39.9042,
       "lng": 116.4074,
-      "sample": false,
-      "date": "2022-03-01",
-      "location": "Beijing, China",
       "bloc": "Eastern",
       "tier": 3,
       "type": "Policy",
-      "eventType": "Policy",
-      "domain": "Technology",
+      "sample": false,
+      "date": "2022-03-01",
+      "location": "Beijing, China",
       "scope": "People's Republic of China (Mainland)",
-      "investment": "Regulatory Framework (Penalties ¥10,000-100,000; 30+ algorithms filed August 2022)",
-      "confidence": "A",
       "description": "World's first comprehensive binding regulatory framework for recommendation algorithms. Establishes mandatory algorithm filing system, transparency requirements, and user control mechanisms for AI-powered content curation. Regulates generation/synthesis, personalized recommendation, ranking/selection, retrieval/filtering, and dispatching/decision-making algorithm technologies. Creates foundational regulatory infrastructure that subsequent AI regulations (Deep Synthesis, Generative AI Interim Measures) operationalise via explicit statutory cross-references. Joint issuance by CAC, MIIT, MPS, and SAMR.",
+      "investment": "Regulatory Framework (Penalties ¥10,000-100,000; 30+ algorithms filed August 2022)",
+      "domain": "Technology",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3384,16 +3163,10 @@
         "current": true
       },
       "version": "1.0",
-      "verificationCheckpoints": {
-        "aiConnection": true,
-        "quantitativeThreshold": true,
-        "implementationStatus": true,
-        "currencyWindow": true
-      },
-      "confidenceTier": "A",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -3401,18 +3174,17 @@
       "name": "China Administrative Provisions on Deep Synthesis",
       "lat": 39.9042,
       "lng": 116.4074,
-      "sample": false,
-      "date": "2023-01-10",
-      "location": "Beijing, China",
       "bloc": "Eastern",
       "tier": 3,
       "type": "Policy",
-      "eventType": "Policy",
-      "domain": "Technology",
+      "sample": false,
+      "date": "2023-01-10",
+      "location": "Beijing, China",
       "scope": "People's Republic of China (Mainland)",
-      "investment": "Regulatory Framework (2,800+ algorithms filed as of 2024; enforcement via Data Security Law/PIPL)",
-      "confidence": "A",
       "description": "Comprehensive regulation targeting AI-generated synthetic media including deepfakes. Article 23 provides detailed legal definitions covering six AI technology categories: text generation, speech synthesis, audio generation, biometric editing (face-swap, voice cloning), image/video generation, and virtual scene generation. Establishes mandatory content labelling requirements, consent frameworks for biometric data, and algorithm filing procedures. Article 19 explicitly requires compliance with Algorithm Recommendation Provisions' filing system. Joint issuance by CAC, MIIT, and MPS.",
+      "investment": "Regulatory Framework (2,800+ algorithms filed as of 2024; enforcement via Data Security Law/PIPL)",
+      "domain": "Technology",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3420,16 +3192,10 @@
         "current": true
       },
       "version": "1.0",
-      "verificationCheckpoints": {
-        "aiConnection": true,
-        "quantitativeThreshold": true,
-        "implementationStatus": true,
-        "currencyWindow": true
-      },
-      "confidenceTier": "A",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -3437,18 +3203,17 @@
       "name": "Doubao AI Assistant Platform (ByteDance)",
       "lat": 39.9847,
       "lng": 116.3046,
-      "sample": false,
-      "date": "2023-08-15",
-      "location": "Beijing, China (ByteDance HQ)",
       "bloc": "Eastern",
       "tier": 3,
       "type": "Corporate",
-      "eventType": "Corporate",
-      "domain": "Technology",
+      "sample": false,
+      "date": "2023-08-15",
+      "location": "Beijing, China (ByteDance HQ)",
       "scope": "People's Republic of China (Mainland)",
-      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); China's #1 AIGC platform by user base",
-      "confidence": "A",
       "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on August 31, 2023.",
+      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); China's #1 AIGC platform by user base",
+      "domain": "Technology",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3456,16 +3221,10 @@
         "current": true
       },
       "version": "1.0",
-      "verificationCheckpoints": {
-        "aiConnection": true,
-        "quantitativeThreshold": true,
-        "implementationStatus": true,
-        "currencyWindow": true
-      },
-      "confidenceTier": "A",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -3491,21 +3250,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": false,
-          "evidence": "Western-aligned UNIDO members participate through institutional membership; no US-centred ecosystem operational engagement"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "MIIT bilateral partnership with institutional hosting at SAIRI; ministerial-level governance operational"
-        }
-      ],
       "source_count_primary": 4,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -3531,6 +3279,8 @@
         "current": true
       },
       "version": "1.1",
+      "source_count_primary": 3,
+      "source_count_corroborating": 3,
       "industry_primary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3548,9 +3298,7 @@
           ]
         }
       ],
-      "source_count_primary": 3,
-      "source_count_corroborating": 3,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "100",
@@ -3575,9 +3323,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "source_count_primary": 2,
       "source_count_corroborating": 4,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 7
     },
     {
@@ -3603,21 +3352,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "ANAB accredited 9 US certification bodies; UKAS and RvA accreditation operational in UK and Netherlands"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese accreditation or certification body activity verified"
-        }
-      ],
       "source_count_primary": 3,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -3643,9 +3381,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 4,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3671,9 +3410,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3699,9 +3439,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -3727,9 +3468,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3755,9 +3497,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -3783,21 +3526,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Normative dependency via 42001 certification ecosystem; ANSI, BSI, DIN national catalogue adoption"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese national standard adoption verified"
-        }
-      ],
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -3823,9 +3555,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3851,9 +3584,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -3879,9 +3613,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Defence & Aerospace",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3907,9 +3642,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -3936,10 +3672,10 @@
         "aiDetail": "PIET (4/4 gates — Trade-Impact Confirmed)"
       },
       "version": "1.0",
-      "ai_connection_pathway": "piet",
-      "industry_primary": "Mining & Critical Minerals",
       "source_count_primary": 1,
       "source_count_corroborating": 2,
+      "industry_primary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -3965,6 +3701,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 1,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3986,8 +3724,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 1,
       "cc_count": 0
     },
     {
@@ -4013,9 +3749,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4041,9 +3778,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -4069,9 +3807,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4097,9 +3836,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Semiconductors & Equipment",
       "source_count_primary": 2,
       "source_count_corroborating": 0,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4113,10 +3853,11 @@
       "sample": false,
       "date": "01 December 2023",
       "location": "Beijing, China",
+      "scope": "Mainland China (global export impact)",
+      "description": "Export licensing controls on specified graphite materials and products per MOFCOM/GAC Joint Announcement No. 39/2023. Controls capture high-purity synthetic graphite, natural flake graphite, spherical graphite, and expanded graphite defined by HS code specifications. China produces approximately 77% of global natural graphite.",
+      "investment": "N/A (regulatory instrument). Trade disruption: flake graphite exports declined 93.93% MoM December 2023; fine flake graphite prices decreased 20% through first 10 months of 2024",
       "domain": "Trade",
       "confidence": "A",
-      "version": "1.0",
-      "ai_connection_pathway": "piet",
       "checkpoints": {
         "ai": true,
         "aiDetail": "PIET (3/4 gates — Trade-Impact Confirmed)",
@@ -4124,12 +3865,11 @@
         "implemented": true,
         "current": true
       },
-      "description": "Export licensing controls on specified graphite materials and products per MOFCOM/GAC Joint Announcement No. 39/2023. Controls capture high-purity synthetic graphite, natural flake graphite, spherical graphite, and expanded graphite defined by HS code specifications. China produces approximately 77% of global natural graphite.",
-      "investment": "N/A (regulatory instrument). Trade disruption: flake graphite exports declined 93.93% MoM December 2023; fine flake graphite prices decreased 20% through first 10 months of 2024",
-      "scope": "Mainland China (global export impact)",
-      "industry_primary": "Mining & Critical Minerals",
+      "version": "1.0",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -4143,10 +3883,11 @@
       "sample": false,
       "date": "03 December 2024",
       "location": "Beijing, China",
+      "scope": "National (China) targeting the United States",
+      "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
+      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to $59,750/t; US imports of germanium, bismuth, and molybdenum fell to zero",
       "domain": "Security",
       "confidence": "A",
-      "version": "1.0",
-      "ai_connection_pathway": "piet",
       "checkpoints": {
         "ai": true,
         "aiDetail": "PIET (3/4 gates — Trade-Impact Confirmed)",
@@ -4154,12 +3895,11 @@
         "implemented": true,
         "current": true
       },
-      "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
-      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to $59,750/t; US imports of germanium, bismuth, and molybdenum fell to zero",
-      "scope": "National (China) targeting the United States",
-      "industry_primary": "Mining & Critical Minerals",
+      "version": "1.0",
       "source_count_primary": 2,
       "source_count_corroborating": 3,
+      "industry_primary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -4173,18 +3913,20 @@
       "sample": false,
       "date": "19 December 2024",
       "location": "West Lafayette, Indiana, United States",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "US Department of Commerce CHIPS and Science Act incentives award to SK Hynix for high-bandwidth memory advanced packaging fabrication facility in West Lafayette, Indiana. World's leading HBM producer building first US-based advanced packaging facility. Mass production expected second half of 2028.",
+      "investment": "$3.87B total investment ($458M direct federal funding + $500M loans under CHIPS Incentives Program)",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
-      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "description": "US Department of Commerce CHIPS and Science Act incentives award to SK Hynix for high-bandwidth memory advanced packaging fabrication facility in West Lafayette, Indiana. World's leading HBM producer building first US-based advanced packaging facility. Mass production expected second half of 2028.",
-      "investment": "$3.87B total investment ($458M direct federal funding + $500M loans under CHIPS Incentives Program)",
-      "scope": "United States (global AI hardware supply chain)",
+      "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -4202,8 +3944,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 8
     },
     {
@@ -4217,33 +3957,22 @@
       "sample": false,
       "date": "28 May 2025",
       "location": "Geneva, Switzerland",
+      "scope": "International (ISO/IEC member nations)",
+      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
+      "investment": "Full International Standard status; 48 P-member national bodies",
       "domain": "Technology",
       "confidence": "A",
-      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "description": "International standard providing guidance for AI system impact assessments covering intended and unintended consequences across the AI lifecycle. Published by ISO/IEC JTC 1/SC 42 with 48 participating national member bodies. Includes informative annexes mapping to ISO/IEC 42001 and ISO/IEC 23894.",
-      "investment": "Full International Standard status; 48 P-member national bodies",
-      "scope": "International (ISO/IEC member nations)",
-      "industry_primary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Emerging adoption — AvISO use during 42001 certification, Intertek Academy training, ITCERTS assessor examination"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese adoption or operational use verified"
-        }
-      ],
+      "version": "1.0",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4257,21 +3986,22 @@
       "sample": false,
       "date": "17 July 2025",
       "location": "Bristol, United Kingdom",
+      "scope": "United Kingdom (national AI research resource)",
+      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
+      "investment": "£225M (~$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
-      "version": "1.0",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
-      "investment": "£225M (~$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
-      "scope": "United Kingdom (national AI research resource)",
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "version": "1.0",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4297,6 +4027,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 7,
+      "source_count_corroborating": 2,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -4313,8 +4045,6 @@
           ]
         }
       ],
-      "source_count_primary": 7,
-      "source_count_corroborating": 2,
       "cc_count": 5
     },
     {
@@ -4340,9 +4070,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -4369,7 +4100,8 @@
         "current": true
       },
       "version": "1.0",
-      "ai_connection_pathway": "oep",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -4400,8 +4132,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 3,
       "cc_count": 1
     },
     {
@@ -4427,9 +4157,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 2
     },
     {
@@ -4455,9 +4186,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 3,
       "source_count_corroborating": 0,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 4
     },
     {
@@ -4483,9 +4215,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 4
     },
     {
@@ -4499,11 +4232,11 @@
       "sample": false,
       "date": "September 20, 2024",
       "location": "Londonderry Township, Pennsylvania, USA",
-      "domain": "Energy/Infrastructure",
-      "industry_primary": "Energy & Power Infrastructure",
+      "scope": "United States (PJM Interconnection region)",
       "description": "Microsoft's 20-year power purchase agreement with Constellation Energy to restart Three Mile Island Unit 1, rebranded Crane Clean Energy Center, providing 835 MW of carbon-free nuclear baseload power for data centre operations in the PJM Interconnection grid. Target operational date 2028.",
       "investment": "$1.6B capital expenditure; 835 MW capacity; 20-year PPA term; PJM Interconnection (13 states + DC); licence extension to 2054",
-      "scope": "United States (PJM Interconnection region)",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4511,7 +4244,9 @@
         "current": true
       },
       "version": "1.0",
-      "confidence": "A",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
+      "industry_primary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
           "type": "ENT-1",
@@ -4528,9 +4263,7 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 3,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "133",
@@ -4543,11 +4276,11 @@
       "sample": false,
       "date": "October 16, 2024",
       "location": "Rockville, Maryland, USA",
-      "domain": "Energy/Infrastructure",
-      "industry_primary": "Energy & Power Infrastructure",
+      "scope": "United States (Washington state initial; national deployment target)",
       "description": "Amazon's approximately $500M anchor investment in X-energy's Series C-1 financing round to develop Xe-100 advanced small modular reactors and TRISO-X fuel for AI data centre power. Initial 320 MW deployment planned with Energy Northwest at Columbia Generating Station site, Washington state.",
       "investment": "~$500M Series C-1 (upsized to $700M by Feb 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
-      "scope": "United States (Washington state initial; national deployment target)",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4555,7 +4288,9 @@
         "current": true
       },
       "version": "1.0",
-      "confidence": "A",
+      "source_count_primary": 2,
+      "source_count_corroborating": 1,
+      "industry_primary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
           "type": "ENT-1",
@@ -4572,9 +4307,7 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 1,
-      "cc_count": 2
+      "cc_count": 3
     },
     {
       "id": "134",
@@ -4587,11 +4320,11 @@
       "sample": false,
       "date": "May 6, 2024",
       "location": "United States (DoD-wide)",
-      "domain": "Security",
-      "industry_primary": "Defence & Aerospace",
+      "scope": "United States Department of Defense (all-domain)",
       "description": "US Department of Defense programme to field all-domain attritable autonomous systems at scale, led by the Defense Innovation Unit. Tranche 1 selected systems include AeroVironment Switchblade-600, Anduril Altius-600 and Ghost-X, and Performance Drone Works C-100, acquired through Commercial Solutions Openings. CDAO provides enterprise policy and software architecture enablement.",
       "investment": "~$500M FY2024 ($300M reprogramming + $200M existing authorities); ~$1B total FY2024–25; target multiple thousands of autonomous systems",
-      "scope": "United States Department of Defense (all-domain)",
+      "domain": "Security",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4599,9 +4332,10 @@
         "current": true
       },
       "version": "1.0",
-      "confidence": "A",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 1
     },
     {
@@ -4615,11 +4349,11 @@
       "sample": false,
       "date": "October 2023",
       "location": "Cultana Training Area, South Australia",
-      "domain": "Security",
-      "industry_primary": "Defence & Aerospace",
+      "scope": "International — AUKUS nations (Australia, United Kingdom, United States)",
       "description": "AUKUS Pillar II trilateral AI-enabled electronic warfare trial at Cultana Training Area, South Australia. UK and US robotic ground vehicles tested as autonomous Multi-Domain Launchers and UGVs under electronic warfare, electro-optical, and PNT attacks by Australian defence scientists. Part of the RAAIT programme.",
       "investment": "Trilateral military trial: 3 nations; UK + US robotic vehicles; Australian EW red-team capability; RAAIT Project Agreement signed November 2023",
-      "scope": "International — AUKUS nations (Australia, United Kingdom, United States)",
+      "domain": "Security",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4627,9 +4361,10 @@
         "current": true
       },
       "version": "1.0",
-      "confidence": "A",
       "source_count_primary": 3,
       "source_count_corroborating": 1,
+      "industry_primary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -4643,11 +4378,11 @@
       "sample": false,
       "date": "June 10, 2024",
       "location": "Distributed: Finland (LUMI), Spain (MareNostrum 5), Italy (Leonardo), Luxembourg (MeluXina)",
-      "domain": "Technology",
-      "industry_primary": "AI Software & Platforms",
+      "scope": "EU member states (distributed across EuroHPC infrastructure)",
       "description": "EU programme creating high-resolution Earth system digital twins using dedicated EuroHPC supercomputer infrastructure and machine learning. European Commission leads, with ECMWF (Digital Twin Engine), ESA (Core Service Platform), and EUMETSAT (Data Lake) as entrusted entities. EuroHPC JU Governing Board Decision 30/2022 allocates dedicated compute resources.",
       "investment": "€150M Phase 1 funding; 5% of EuroHPC JU compute time on LUMI, Leonardo, MareNostrum 5; 3,500+ registered users; up to 1 PB/day output",
-      "scope": "EU member states (distributed across EuroHPC infrastructure)",
+      "domain": "Technology",
+      "confidence": "A",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4655,7 +4390,9 @@
         "current": true
       },
       "version": "1.0",
-      "confidence": "A",
+      "source_count_primary": 4,
+      "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
           "type": "ENT-5",
@@ -4672,8 +4409,6 @@
           ]
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 3,
       "cc_count": 4
     },
     {
@@ -4692,7 +4427,6 @@
       "investment": "BRL 23.03 billion (~$3.9B USD) over 4 years; Enterprise Innovation: BRL 13.79B; Infrastructure: BRL 5.79B; Public Services: BRL 1.76B; Training: BRL 1.15B",
       "domain": "Technology",
       "confidence": "B",
-      "industry_primary": "AI Software & Platforms",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4700,6 +4434,9 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
           "type": "ENT-2",
@@ -4715,8 +4452,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 3
     },
     {
@@ -4735,7 +4470,6 @@
       "investment": "¥60.06 billion (~$8.2B USD)",
       "domain": "Trade",
       "confidence": "A",
-      "industry_primary": "Financial Services & Investment",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4745,6 +4479,8 @@
       "version": "1.0",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Financial Services & Investment",
+      "environmentalNexusTags": [],
       "cc_count": 3
     },
     {
@@ -4763,7 +4499,6 @@
       "investment": "€8.1B public funding + €13.7B private investment (~€21.8B total); STM Crolles: €7.5B (€2.9B French aid); Infineon Dresden: €5B (€1B aid)",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
-      "industry_primary": "Semiconductors & Equipment",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4771,6 +4506,9 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 4,
+      "source_count_corroborating": 1,
+      "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
           "type": "ENT-1",
@@ -4790,8 +4528,6 @@
           ]
         }
       ],
-      "source_count_primary": 4,
-      "source_count_corroborating": 1,
       "cc_count": 1
     },
     {
@@ -4810,8 +4546,6 @@
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
-      "ai_connection_pathway": "oep",
-      "industry_primary": "Semiconductors & Equipment",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4822,6 +4556,8 @@
       "version": "1.0",
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -4847,10 +4583,10 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "AI Software & Platforms",
-      "environmentalNexusTags": [],
       "source_count_primary": 2,
       "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
       "cc_count": 0
     },
     {
@@ -4876,6 +4612,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -4897,8 +4635,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 2,
       "cc_count": 4
     },
     {
@@ -4924,6 +4660,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 1,
       "industry_primary": "Defence & Aerospace",
       "environmentalNexusTags": [
         {
@@ -4950,8 +4688,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 1,
       "cc_count": 4
     },
     {
@@ -4977,6 +4713,8 @@
         "current": true
       },
       "version": "1.0",
+      "source_count_primary": 2,
+      "source_count_corroborating": 0,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -5039,8 +4777,6 @@
           ]
         }
       ],
-      "source_count_primary": 2,
-      "source_count_corroborating": 0,
       "cc_count": 2
     },
     {
@@ -5066,11 +4802,138 @@
         "current": true
       },
       "version": "1.0",
-      "industry_primary": "Automotive & Manufacturing",
-      "environmentalNexusTags": [],
       "source_count_primary": 1,
       "source_count_corroborating": 2,
+      "industry_primary": "Automotive & Manufacturing",
+      "environmentalNexusTags": [],
       "cc_count": 0
+    },
+    {
+      "id": "147",
+      "name": "China AI Content Labelling Measures",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "1 September 2025",
+      "location": "Beijing, China",
+      "scope": "People's Republic of China (Mainland)",
+      "description": "Mandatory AI content labelling regulation (人工智能生成合成内容标识办法) jointly issued by CAC, MIIT, MPS, and NRTA requiring explicit and implicit labelling of all AI-generated synthetic content across text, image, audio, and video modalities. Accompanied by mandatory national technical standard GB 45438-2025 specifying labelling implementation requirements.",
+      "investment": "Regulatory framework (penalties via CAC/MPS enforcement authority); companion mandatory national standard GB 45438-2025",
+      "domain": "Technology",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 1,
+      "source_count_corroborating": 3,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "cc_count": 0
+    },
+    {
+      "id": "148",
+      "name": "Italy National AI Law (Law 132/2025)",
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "10 October 2025",
+      "location": "Rome, Italy",
+      "scope": "Italy (EU AI Act national implementation)",
+      "description": "Italy's first comprehensive national AI legislation (Law 132/2025), the first EU member state standalone implementation of the EU AI Act. Twenty-eight articles across six sections establishing AI governance framework with criminal penalties of 1–5 years and AgID/ACN enforcement authorities.",
+      "investment": "Regulatory framework (criminal penalties 1–5 years; administrative penalties under AgID and ACN oversight)",
+      "domain": "Technology",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 1,
+      "source_count_corroborating": 2,
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "cc_count": 1
+    },
+    {
+      "id": "149",
+      "name": "Google-Kairos Power SMR Agreement",
+      "lat": 35.9311,
+      "lng": -84.31,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "14 October 2024",
+      "location": "Oak Ridge, Tennessee, United States",
+      "scope": "United States (national SMR fleet; first deployment Tennessee via TVA)",
+      "description": "Master Plant Development Agreement between Google and Kairos Power for a fleet of advanced small modular reactors (KP-FHR), totalling 500MW by 2035 to supply Google AI data centres. First corporate multi-site SMR deployment agreement in the United States; first reactor via TVA by 2030.",
+      "investment": "500MW total fleet capacity (6–7 reactors); first deployment 50MW (Hermes 2, Oak Ridge) by 2030; investment figure not publicly disclosed",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "source_count_primary": 1,
+      "source_count_corroborating": 2,
+      "industry_primary": "Energy & Power Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Master Plant Development Agreement specifies 500MW total nuclear power capacity by 2035 dedicated to Google AI data centre operations.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Kairos Power press release — 500 MW clean electricity generation partnership with Google",
+              "type": "primary",
+              "url": "https://kairospower.com/external_updates/google-and-kairos-power-partner-to-deploy-500-mw-of-clean-electricity-generation/"
+            }
+          ]
+        },
+        {
+          "type": "ENT-2",
+          "name": "Environmental Enablement",
+          "mechanism": "Master Plant Development Agreement allocates environmental attributes to Google under binding PPAs in support of Google's 24/7 carbon-free energy and net zero goals for AI data centre operations.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Kairos Power press release — environmental attributes and 24/7 carbon-free commitments",
+              "type": "primary",
+              "url": "https://kairospower.com/external_updates/google-and-kairos-power-partner-to-deploy-500-mw-of-clean-electricity-generation/"
+            }
+          ]
+        },
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "NRC Environmental Report for Hermes 2 documents site-specific water consumption requirements (service water, potable water, decay heat removal, power generation makeup) totalling ~117 gpm for reactor operations in East Tennessee.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "NRC Environmental Report for Hermes 2 — Section 2.4 water use (Hermes 2 only; not fleet-wide)",
+              "type": "primary",
+              "url": "https://www.nrc.gov/docs/ML2319/ML23195A125.pdf"
+            }
+          ]
+        }
+      ],
+      "cc_count": 3
     }
   ]
 }
