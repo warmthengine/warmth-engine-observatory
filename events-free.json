@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 122,
-    "cc_count": 107,
-    "last_updated": "2026-04-16",
+    "event_count": 127,
+    "cc_count": 114,
+    "last_updated": "2026-04-19",
     "db_version": "1.5.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -3298,7 +3298,7 @@
           ]
         }
       ],
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "100",
@@ -3356,7 +3356,7 @@
       "source_count_corroborating": 3,
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [],
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "102",
@@ -3530,7 +3530,7 @@
       "source_count_corroborating": 2,
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [],
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "108",
@@ -4045,7 +4045,7 @@
           ]
         }
       ],
-      "cc_count": 5
+      "cc_count": 6
     },
     {
       "id": "127",
@@ -4263,7 +4263,7 @@
           ]
         }
       ],
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "133",
@@ -4307,7 +4307,7 @@
           ]
         }
       ],
-      "cc_count": 3
+      "cc_count": 4
     },
     {
       "id": "134",
@@ -4933,7 +4933,208 @@
           ]
         }
       ],
-      "cc_count": 3
+      "cc_count": 4
+    },
+    {
+      "id": "150",
+      "name": "Amazon–Anthropic $4B Strategic Investment",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "2024-03-27",
+      "location": "San Francisco, California, USA",
+      "scope": "United States (global Claude distribution via AWS Bedrock)",
+      "description": "Amazon's $4 billion strategic equity investment in Anthropic, completed 27 March 2024, commercially coupled with Amazon's designation as Anthropic's primary cloud provider for training and inference workloads and integration of Claude models into Amazon Bedrock as a managed cloud AI service.",
+      "investment": "$4 billion total equity; first tranche Q3 2023; completed 27 March 2024",
+      "domain": "Technology",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "cc_count": 1
+    },
+    {
+      "id": "151",
+      "name": "Meta–Constellation Clinton Nuclear 20-Year PPA",
+      "lat": 40.1722,
+      "lng": -88.8339,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "2025-06-03",
+      "location": "Clinton, Illinois, United States",
+      "scope": "United States (PJM Interconnection region)",
+      "description": "Meta's 20-year PPA with Constellation Energy for 1,121 MW of nuclear output from the Clinton Clean Energy Center in Illinois, structured as a virtual PPA retiring clean-energy attributes aligned with Meta's distributed US data centre AI operations. Power delivery commences June 2027.",
+      "investment": "$1B+ category commitment; 1,121 MW post-uprate; 20-year term; 30 MW uprate capacity through 2029; delivery from June 2027",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 2,
+      "source_count_corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Energy & Power Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Twenty-year PPA commits 1,121 MW of Clinton Clean Energy Center nuclear output to Meta AI infrastructure operations, with 30 MW of committed capacity uprates through 2029.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Constellation Energy — Meta 20-year PPA announcement",
+              "type": "primary",
+              "url": "https://www.constellationenergy.com/news/2025/constellation-meta-sign-20-year-deal-for-clean-reliable-nuclear-energy-in-illinois.html"
+            },
+            {
+              "citation": "NRC Clinton 2024 Annual Radiological Environmental Operating Report",
+              "type": "primary",
+              "url": "https://www.nrc.gov/docs/ML2512/ML25122A164.pdf"
+            }
+          ]
+        }
+      ],
+      "cc_count": 4
+    },
+    {
+      "id": "152",
+      "name": "ISO/IEC 5259 Data Quality for ML Standards Series",
+      "lat": 46.2276,
+      "lng": 6.1434,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "2024-12-01",
+      "location": "Geneva, Switzerland",
+      "scope": "Global (ISO 169 member nations; IEC 89 member nations)",
+      "description": "International multi-part standard establishing data quality requirements for machine learning, published through ISO/IEC JTC 1/SC 42. Parts 1, 2, and 4 published as full International Standards in 2024; Part 3 published separately with first third-party certification issued December 2025 against data quality management process requirements.",
+      "investment": "Multi-part International Standard (Parts 1, 2, 3, 4); SC 42 portfolio; first certification December 2025",
+      "domain": "Technology",
+      "source_count_primary": 3,
+      "source_count_corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "cc_count": 2
+    },
+    {
+      "id": "153",
+      "name": "China Telecom Hunan Mid-South Intelligent Computing Centre",
+      "lat": 28.1133,
+      "lng": 112.9983,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "2023-10-28",
+      "location": "Changsha, Hunan Province, China",
+      "scope": "Mainland China (Mid-South regional compute provision)",
+      "description": "China Telecom's regionally designated intelligent computing facility in Changsha, Hunan, carrying the 智算 (intelligent computing) designation within China's national compute infrastructure taxonomy. Operational architecture dedicated to AI-workload hosting and training/inference services as a Mid-South regional node within central-government 东数西算 infrastructure programming.",
+      "investment": "Tier-1 state-owned carrier regional intelligent-compute facility; 智算 designation; integrated into 天翼云 cloud backbone; Mid-South regional node",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "cc_count": 0
+    },
+    {
+      "id": "154",
+      "name": "ABCI 3.0 Japan AI Supercomputer (AIST Kashiwa)",
+      "lat": 35.8957,
+      "lng": 139.9476,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "2025-04-15",
+      "location": "Kashiwa, Chiba Prefecture, Japan",
+      "scope": "Japan (national AI research resource)",
+      "description": "AIST's national AI supercomputer at the Kashiwa site in Chiba, Japan, delivering 6.22 exaflops of half-precision peak AI compute across 6,128 NVIDIA H200 GPUs. Operated as AI Bridging Cloud Infrastructure for Japanese academic and industrial AI research under METI's compute-sovereignty strategy.",
+      "investment": "6,128 NVIDIA H200 GPUs; 6.22 exaflops half-precision; 144 racks; 6 MW electrical / 5.2 MW cooling; PUE <1.15",
+      "domain": "Energy/Infrastructure",
+      "source_count_primary": 2,
+      "source_count_corroborating": 3,
+      "confidence": "B",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "ABCI 3.0 commissions 6 MW electrical capacity and 5.2 MW cooling capacity across 144 racks operating 6,128 NVIDIA H200 GPUs, with measured PUE below 1.15 achieved through 32°C warm-water direct liquid cooling.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Huang et al. — ABCI 3.0 architecture paper",
+              "type": "primary",
+              "url": "https://arxiv.org/html/2411.09134v1"
+            },
+            {
+              "citation": "AIST G-QuAT SC25 panel — ABCI 3.0 operational overview",
+              "type": "primary",
+              "url": "https://unit.aist.go.jp/g-quat/en/events/img/SC25/panels/04_ABCI3.pdf"
+            }
+          ]
+        },
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "Facility operational continuity at the Kashiwa site depends on Chiba Prefecture electrical transmission infrastructure with documented vulnerability to typhoon-induced tower collapse, evidenced by prolonged Chiba Prefecture blackouts following Typhoon Faxai (No. 15) in 2019; J-SHIS seismic hazard framework applies to site-specific assessment.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "World Bank — Strengthening Japan's Power System Resilience",
+              "type": "primary",
+              "url": "https://thedocs.worldbank.org/en/doc/eb847365035f52d6e3b2a8ef00aae974-0450022025/original/Strengthening-Japans-Power-System-Resilience.pdf"
+            },
+            {
+              "citation": "J-SHIS — Japan seismic hazard portal",
+              "type": "corroborating",
+              "url": "https://www.j-shis.bosai.go.jp/en/shm"
+            }
+          ]
+        }
+      ],
+      "cc_count": 0
     }
   ]
 }
