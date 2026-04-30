@@ -876,8 +876,9 @@
           "id": "P2",
           "desc": "MOFCOM Regulatory Text — Announcement No. 23 of 2023",
           "url": "https://aqygzj.mofcom.gov.cn/qdml/art/2023/art_c2ae3d2061e14e97ba608de1ed565f78.html",
-          "accessDate": "2026-04-29",
-          "captureStatus": "no_capture"
+          "accessDate": "2026-04-30",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260430095949/https://aqygzj.mofcom.gov.cn/favicon.ico"
         }
       ],
       "sources_corroborating": [
@@ -955,13 +956,19 @@
                 "id": "PIET-G1-1",
                 "desc": "USGS Mineral Commodity Summaries 2025 — Gallium",
                 "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430102702/https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"
               },
               {
                 "id": "PIET-G1-2",
                 "desc": "USGS Mineral Commodity Summaries 2025 — Germanium",
                 "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430102737/https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"
               }
             ],
             "summary": ">50% global decline sustained 18+ months; US bilateral exports declined >97%",
@@ -993,13 +1000,19 @@
                 "id": "PIET-G2-1",
                 "desc": "USGS MCS 2025 — Gallium (Argus Media annual average data)",
                 "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430102702/https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"
               },
               {
                 "id": "PIET-G2-2",
                 "desc": "USGS MCS 2025 — Germanium (Argus Media annual average data)",
                 "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430102737/https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"
               }
             ],
             "summary": "Gallium +60–114%, germanium +56–114%, sustained 12–18+ months",
@@ -1031,37 +1044,55 @@
                 "id": "PIET-G3-1",
                 "desc": "European Commission White Paper on Export Controls — COM(2024) 25 final",
                 "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52024DC0025",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430101206/https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52024DC0025"
               },
               {
                 "id": "PIET-G3-2",
                 "desc": "Council of the EU — ST-6622-2024-INIT",
                 "url": "https://data.consilium.europa.eu/doc/document/ST-6622-2024-INIT/en/pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430100650/https://data.consilium.europa.eu/doc/document/ST-6622-2024-INIT/en/pdf"
               },
               {
                 "id": "PIET-G3-3",
                 "desc": "Japan METI Minister Nishimura press conference — 1 August 2023",
                 "url": "https://www.meti.go.jp/english/speeches/press_conferences/2023/0801001.html",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430112726/https://www.meti.go.jp/english/speeches/press_conferences/2023/0801001.html"
               },
               {
                 "id": "PIET-G3-4",
                 "desc": "Japan METI 2024 Report on WTO Compliance",
                 "url": "https://www.meti.go.jp/english/report/data/2024WTO/pdf/2024_2.pdf",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430112711/https://www.meti.go.jp/english/report/data/2024WTO/pdf/2024_2.pdf"
               },
               {
                 "id": "PIET-G3-5",
                 "desc": "Global Affairs Canada — Parliamentary briefing on China export controls",
                 "url": "https://international.canada.ca/en/global-affairs/corporate/transparency/briefing-documents/parliamentary-committee/2024-06-17-cacn",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430102021/https://international.canada.ca/en/global-affairs/corporate/transparency/briefing-documents/parliamentary-committee/2024-06-17-cacn"
               },
               {
                 "id": "PIET-G3-6",
                 "desc": "NRCan Minister Wilkinson — Woodrow Wilson Center remarks",
                 "url": "https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430105051/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html"
               }
             ],
             "summary": "6 qualifying responses across 3 governments (EU, Japan, Canada) within 18 months",
@@ -1093,7 +1124,10 @@
                 "id": "PIET-G4-1",
                 "desc": "AXT Inc. Form 10-Q — Quarter ending September 30, 2023 (SEC EDGAR)",
                 "url": "https://www.sec.gov/Archives/edgar/data/0001051627/000155837023018573/axti-20230930x10q.htm",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "accessDate": "2026-04-30",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260430114246/https://www.sec.gov/Archives/edgar/data/1051627/000155837023018573/axti-20230930x10q.htm"
               }
             ],
             "summary": "AXT Inc. (AXTI, NASDAQ) 10-K filings: names restriction as material risk, 50%+ revenue impact",
@@ -1404,8 +1438,9 @@
           "id": "C1",
           "desc": "Reuters — Microsoft to invest $1.5 bln in Emirati AI firm G42",
           "url": "https://www.reuters.com/markets/deals/microsoft-invest-15-bln-emirati-ai-firm-g42-new-york-times-reports-2024-04-16/",
-          "accessDate": "2026-04-29",
-          "captureStatus": "no_capture"
+          "accessDate": "2026-04-30",
+          "captureStatus": "existing",
+          "snapshotUrl": "http://web.archive.org/web/20241102084409/https://www.reuters.com/markets/deals/microsoft-invest-15-bln-emirati-ai-firm-g42-new-york-times-reports-2024-04-16/"
         },
         {
           "id": "C2",
@@ -1517,19 +1552,28 @@
               "desc": "Fortune - White House Confirms Divestment",
               "url": "https://fortune.com/asia/2024/06/25/white-house-explains-microsoft-investment-uae-ai-champion-g42-pushed-out-huawei/",
               "date": "2024-06-24",
-              "type": "PRIMARY"
+              "type": "PRIMARY",
+              "accessDate": "2026-04-30",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260430101335/https://fortune.com/asia/2024/06/25/white-house-explains-microsoft-investment-uae-ai-champion-g42-pushed-out-huawei/"
             },
             {
               "desc": "Reuters - Microsoft-G42 Deal Huawei Ties Cut",
               "url": "https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/",
               "date": "2024-06-24",
-              "type": "CORROBORATING"
+              "type": "CORROBORATING",
+              "accessDate": "2026-04-30",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260430114034/https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/"
             },
             {
               "desc": "CSIS Analysis - UAE AI Ambitions (G42 Divestment Details)",
               "url": "https://www.csis.org/analysis/united-arab-emirates-ai-ambitions",
               "date": "2025-01-27",
-              "type": "CORROBORATING"
+              "type": "CORROBORATING",
+              "accessDate": "2026-04-30",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260430105854/https://www.csis.org/analysis/united-arab-emirates-ai-ambitions"
             }
           ],
           "previousValues": {
