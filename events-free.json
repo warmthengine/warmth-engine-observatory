@@ -1,7 +1,7 @@
 {
   "meta": {
-    "event_count": 132,
-    "cc_count": 111,
+    "event_count": 130,
+    "cc_count": 107,
     "last_updated": "2026-05-04",
     "db_version": "1.5.0",
     "schema_version": "1.0",
@@ -1639,7 +1639,7 @@
       "source_count_corroborating": 2,
       "industry_primary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "cc_count": 1
+      "cc_count": 0
     },
     {
       "id": "26",
@@ -5029,7 +5029,7 @@
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [],
-      "cc_count": 2
+      "cc_count": 1
     },
     {
       "id": "151",
@@ -5123,7 +5123,7 @@
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [],
-      "cc_count": 1
+      "cc_count": 0
     },
     {
       "id": "154",
@@ -5194,68 +5194,10 @@
       "source_count_primary": 1,
       "source_count_corroborating": 3,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 2
-    },
-    {
-      "id": "156",
-      "name": "Changsha Ascend AI Innovation Centre",
-      "lat": 28.2282,
-      "lng": 112.9388,
-      "bloc": "Eastern",
-      "tier": 3,
-      "type": "Infrastructure",
-      "sample": false,
-      "date": "2023",
-      "location": "Hunan Xiangjiang New Area, Changsha, China",
-      "scope": "Hunan Province, China (regional AI public computing provision)",
-      "description": "Hunan Province commissioned the Changsha Ascend AI Innovation Centre (长沙昇腾人工智能创新中心) in Hunan Xiangjiang New Area, deploying 200P of computing power using the Zhaohan CA9900 AI cluster based on Huawei Ascend 910 processors — full-stack domestically produced hardware. The centre provides public computing services and regional AI innovation clustering within Hunan's Digital New Infrastructure initiative.",
-      "investment": "¥750 million (~$100M); 200P Phase 1 computing power; 1024 PFLOPS FP16 peak capacity; Huawei Ascend full-stack domestic hardware",
-      "domain": "Energy/Infrastructure",
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "environmentalNexusTags": [],
-      "source_count_primary": 2,
-      "source_count_corroborating": 1,
-      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 2
-    },
-    {
-      "id": "157",
-      "name": "China-Russia Joint AI Declaration (August 2024)",
-      "lat": 55.7558,
-      "lng": 37.6173,
-      "bloc": "Eastern",
-      "tier": 3,
-      "type": "Coordination",
-      "sample": false,
-      "date": "2024-08-22",
-      "location": "Moscow, Russia",
-      "scope": "Bilateral — China and Russia",
-      "description": "China and Russia issued a Joint Declaration on AI cooperation at the 29th regular prime ministerial meeting in Moscow, establishing a dedicated bilateral working group for the regulation and industrial application of artificial intelligence. This AI-specific institutional mechanism is distinct from the May 2024 Comprehensive Strategic Partnership, which contained no dedicated AI machinery.",
-      "investment": "Non-binding coordination framework — bilateral AI working group mechanism with documented operationalisation via Kremlin presidential instruction",
-      "domain": "Technology",
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.0",
-      "environmentalNexusTags": [],
-      "source_count_primary": 2,
-      "source_count_corroborating": 4,
-      "industry_primary": "AI Software & Platforms",
       "cc_count": 1
     },
     {
-      "id": "158",
+      "id": "156",
       "name": "METI Beyond 2nm Project — Rapidus IIM-1 Pilot Line (2nm Semiconductor)",
       "lat": 42.8167,
       "lng": 141.65,
@@ -5268,7 +5210,7 @@
       "scope": "Japan (global advanced semiconductor supply chain)",
       "description": "Rapidus Corporation activated the IIM-1 (Innovative Integration for Manufacturing) pilot line in Chitose, Hokkaido, beginning test production of 2-nanometre gate-all-around nanosheet logic semiconductors under the METI/NEDO Beyond 2nm Project. Over 200 pieces of leading-edge equipment installed including an ASML EUV lithography system, with process technology based on IBM's nanosheet transistor structure.",
       "investment": "¥1.72 trillion (~$12B) government subsidy from METI/NEDO; estimated ¥5 trillion (~$35B) total programme; ASML EUV system >$300M",
-      "domain": "Technology",
+      "domain": "Energy/Infrastructure",
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -5284,7 +5226,7 @@
       "cc_count": 1
     },
     {
-      "id": "159",
+      "id": "157",
       "name": "Project Rainier AI Supercomputing Cluster",
       "lat": 41.6764,
       "lng": -86.252,
@@ -5324,7 +5266,7 @@
       "source_count_primary": 4,
       "source_count_corroborating": 3,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "cc_count": 3
+      "cc_count": 2
     }
   ]
 }
