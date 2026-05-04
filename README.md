@@ -21,6 +21,7 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 - **Event Database** — Verified AI infrastructure coordination events classified by tier (Cross-Bloc, Between-Bloc, Intra-Bloc) and domain (Energy/Infrastructure, Security, Technology, Trade), tagged by industry sector (11-category GICS-anchored taxonomy) and assessed for environmental intersections via Environmental Nexus Tags (5-type ENT taxonomy with Warmth Engine Ratio)
 - **Coordination Connections** — Documented relationships between events revealing structural patterns across the database (Policy Cascade, Joint Issuance, Funding Flow, Regulatory Enablement, Response, Framework Family, Parallel Policy)
 - **Interactive Map** — Geographic visualisation of global AI infrastructure deployment
+- **Interactive Atlas** — Network, timeline, and connectedness analytical surface for exploring coordination topology and event relationships via Cytoscape.js
 - **Evidence-Based Verification** — Every event verified through primary and corroborating sources with gold standard evidentiary requirements
 
 ---
@@ -63,6 +64,7 @@ The WEO methodology is documented across four publications, all available on Zen
 ```
 warmth-engine-observatory/
 ├── index.html                  # Main platform (interactive map)
+├── atlas.html                  # Interactive atlas (network/timeline/connectedness)
 ├── events.html                 # Events database
 ├── methodology.html            # Methodology overview
 ├── blocs.html                  # Bloc analysis
