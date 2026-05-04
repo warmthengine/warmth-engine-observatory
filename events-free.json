@@ -5237,8 +5237,8 @@
       "date": "2025-10-29",
       "location": "St. Joseph County, Indiana, United States",
       "scope": "United States (multi-site deployment; primary campus in Indiana)",
-      "description": "Amazon Web Services activated Project Rainier, deploying approximately 500,000 Trainium2 custom ASICs designed by Annapurna Labs as an EC2 UltraCluster of UltraServers. Primary campus in St. Joseph County, Indiana with $11 billion committed. Entirely non-GPU architecture dedicated exclusively to training and serving Anthropic's Claude AI models. NIPSCO GenCo established as ring-fenced power generation entity.",
-      "investment": "$11B (AWS Indiana campus commitment); ~500,000 Trainium2 custom ASICs; 2.2 GW designed IT load at full buildout; 2.4 GW NIPSCO GenCo ring-fenced power capacity",
+      "description": "Amazon Web Services activated Project Rainier, deploying approximately 500,000 Trainium2 custom ASICs designed by Annapurna Labs as an EC2 UltraCluster of UltraServers. Primary campus in St. Joseph County, Indiana with $11 billion committed. Entirely non-GPU architecture dedicated exclusively to training and serving Anthropic's Claude AI models.",
+      "investment": "$11B (AWS Indiana campus commitment); ~500,000 Trainium2 custom ASICs; 2.2 GW designed IT load at full buildout",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
       "checkpoints": {
@@ -5252,19 +5252,13 @@
         {
           "type": "ENT-1",
           "name": "Resource Demand",
-          "mechanism": "The Rainier campus operates at 0.15 L/kWh water usage efficiency and implements seasonal cooling requiring no water use October–March, documenting measurable resource demand at the intersection of AI infrastructure and water systems.",
+          "mechanism": "The Rainier campus documents specific water consumption requirements for AI compute cooling at 0.15 L/kWh, with seasonal cooling water use April–September quantified in primary facility documentation.",
           "evidenceBasis": "Documented",
           "vector": "Water"
-        },
-        {
-          "type": "ENT-4",
-          "name": "Environmental Dependency",
-          "mechanism": "The Rainier campus in St. Joseph County, Indiana is confirmed outside FEMA and Indiana DNR flood hazard areas, within a jurisdiction ranked 17th globally on the ND-GAIN climate resilience index, documenting environmental dependency considerations in AI infrastructure siting.",
-          "evidenceBasis": "Assessed"
         }
       ],
       "source_count_primary": 4,
-      "source_count_corroborating": 3,
+      "source_count_corroborating": 0,
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "cc_count": 2
     }
