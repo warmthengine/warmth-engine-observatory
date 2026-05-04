@@ -1,8 +1,8 @@
 {
   "meta": {
-    "event_count": 127,
-    "cc_count": 103,
-    "last_updated": "2026-04-19",
+    "event_count": 132,
+    "cc_count": 111,
+    "last_updated": "2026-05-04",
     "db_version": "1.5.0",
     "schema_version": "1.0",
     "tier": "free"
@@ -1639,7 +1639,7 @@
       "source_count_corroborating": 2,
       "industry_primary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "26",
@@ -1888,7 +1888,7 @@
       "source_count_corroborating": 2,
       "industry_primary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "34",
@@ -4254,7 +4254,7 @@
           "vector": "Energy"
         }
       ],
-      "cc_count": 6
+      "cc_count": 7
     },
     {
       "id": "127",
@@ -4328,7 +4328,7 @@
           "riskIndex": "WRI Aqueduct"
         }
       ],
-      "cc_count": 1
+      "cc_count": 2
     },
     {
       "id": "129",
@@ -4452,7 +4452,7 @@
           "vector": "Energy-PPA"
         }
       ],
-      "cc_count": 4
+      "cc_count": 5
     },
     {
       "id": "133",
@@ -5029,7 +5029,7 @@
       "version": "1.0",
       "industry_primary": "AI Software & Platforms",
       "environmentalNexusTags": [],
-      "cc_count": 1
+      "cc_count": 2
     },
     {
       "id": "151",
@@ -5123,7 +5123,7 @@
       "version": "1.0",
       "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [],
-      "cc_count": 0
+      "cc_count": 1
     },
     {
       "id": "154",
@@ -5166,6 +5166,165 @@
         }
       ],
       "cc_count": 0
+    },
+    {
+      "id": "155",
+      "name": "China Mobile Harbin Intelligent Computing Centre",
+      "lat": 45.8038,
+      "lng": 126.535,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "2024-08-30",
+      "location": "Harbin, Heilongjiang Province, China",
+      "scope": "Mainland China (national intelligent computing programme node)",
+      "description": "China Mobile Heilongjiang Company activated an ultra-large-scale intelligent computing centre in Harbin, deploying 18,000 AI acceleration cards in a single homogeneous cluster with 6.9 EFLOPS of intelligent computing power using entirely domestically produced hardware and networking equipment. Designated under SASAC's Strategic Emerging Industries Hundred Major Projects.",
+      "investment": "SASAC Strategic Emerging Industries Hundred Major Projects; 18,000 AI acceleration cards; 6.9 EFLOPS; GSE 1.0 lossless networking; second node in China Mobile 13-node programme",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "environmentalNexusTags": [],
+      "source_count_primary": 1,
+      "source_count_corroborating": 3,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "cc_count": 2
+    },
+    {
+      "id": "156",
+      "name": "Changsha Ascend AI Innovation Centre",
+      "lat": 28.2282,
+      "lng": 112.9388,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "2023",
+      "location": "Hunan Xiangjiang New Area, Changsha, China",
+      "scope": "Hunan Province, China (regional AI public computing provision)",
+      "description": "Hunan Province commissioned the Changsha Ascend AI Innovation Centre (长沙昇腾人工智能创新中心) in Hunan Xiangjiang New Area, deploying 200P of computing power using the Zhaohan CA9900 AI cluster based on Huawei Ascend 910 processors — full-stack domestically produced hardware. The centre provides public computing services and regional AI innovation clustering within Hunan's Digital New Infrastructure initiative.",
+      "investment": "¥750 million (~$100M); 200P Phase 1 computing power; 1024 PFLOPS FP16 peak capacity; Huawei Ascend full-stack domestic hardware",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "environmentalNexusTags": [],
+      "source_count_primary": 2,
+      "source_count_corroborating": 1,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "cc_count": 2
+    },
+    {
+      "id": "157",
+      "name": "China-Russia Joint AI Declaration (August 2024)",
+      "lat": 55.7558,
+      "lng": 37.6173,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "2024-08-22",
+      "location": "Moscow, Russia",
+      "scope": "Bilateral — China and Russia",
+      "description": "China and Russia issued a Joint Declaration on AI cooperation at the 29th regular prime ministerial meeting in Moscow, establishing a dedicated bilateral working group for the regulation and industrial application of artificial intelligence. This AI-specific institutional mechanism is distinct from the May 2024 Comprehensive Strategic Partnership, which contained no dedicated AI machinery.",
+      "investment": "Non-binding coordination framework — bilateral AI working group mechanism with documented operationalisation via Kremlin presidential instruction",
+      "domain": "Technology",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "environmentalNexusTags": [],
+      "source_count_primary": 2,
+      "source_count_corroborating": 4,
+      "industry_primary": "AI Software & Platforms",
+      "cc_count": 1
+    },
+    {
+      "id": "158",
+      "name": "METI Beyond 2nm Project — Rapidus IIM-1 Pilot Line (2nm Semiconductor)",
+      "lat": 42.8167,
+      "lng": 141.65,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "2025-04",
+      "location": "Chitose City, Hokkaido, Japan",
+      "scope": "Japan (global advanced semiconductor supply chain)",
+      "description": "Rapidus Corporation activated the IIM-1 (Innovative Integration for Manufacturing) pilot line in Chitose, Hokkaido, beginning test production of 2-nanometre gate-all-around nanosheet logic semiconductors under the METI/NEDO Beyond 2nm Project. Over 200 pieces of leading-edge equipment installed including an ASML EUV lithography system, with process technology based on IBM's nanosheet transistor structure.",
+      "investment": "¥1.72 trillion (~$12B) government subsidy from METI/NEDO; estimated ¥5 trillion (~$35B) total programme; ASML EUV system >$300M",
+      "domain": "Technology",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "environmentalNexusTags": [],
+      "source_count_primary": 2,
+      "source_count_corroborating": 2,
+      "industry_primary": "Semiconductors & Equipment",
+      "cc_count": 1
+    },
+    {
+      "id": "159",
+      "name": "Project Rainier AI Supercomputing Cluster",
+      "lat": 41.6764,
+      "lng": -86.252,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "2025-10-29",
+      "location": "St. Joseph County, Indiana, United States",
+      "scope": "United States (multi-site deployment; primary campus in Indiana)",
+      "description": "Amazon Web Services activated Project Rainier, deploying approximately 500,000 Trainium2 custom ASICs designed by Annapurna Labs as an EC2 UltraCluster of UltraServers. Primary campus in St. Joseph County, Indiana with $11 billion committed. Entirely non-GPU architecture dedicated exclusively to training and serving Anthropic's Claude AI models. NIPSCO GenCo established as ring-fenced power generation entity.",
+      "investment": "$11B (AWS Indiana campus commitment); ~500,000 Trainium2 custom ASICs; 2.2 GW designed IT load at full buildout; 2.4 GW NIPSCO GenCo ring-fenced power capacity",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "The Rainier campus operates at 0.15 L/kWh water usage efficiency and implements seasonal cooling requiring no water use October–March, documenting measurable resource demand at the intersection of AI infrastructure and water systems.",
+          "evidenceBasis": "Documented",
+          "vector": "Water"
+        },
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "The Rainier campus in St. Joseph County, Indiana is confirmed outside FEMA and Indiana DNR flood hazard areas, within a jurisdiction ranked 17th globally on the ND-GAIN climate resilience index, documenting environmental dependency considerations in AI infrastructure siting.",
+          "evidenceBasis": "Assessed"
+        }
+      ],
+      "source_count_primary": 4,
+      "source_count_corroborating": 3,
+      "industry_primary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "cc_count": 3
     }
   ]
 }

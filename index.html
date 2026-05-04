@@ -2730,17 +2730,10 @@
 
     /* Reduce motion for users who prefer it */
     @media (prefers-reduced-motion: reduce) {
-      .marker,
-      .marker-cluster,
-      .detail-panel,
-      .map-tooltip,
-      .map-legend {
-        transition: none;
-      }
-      
-      .leaflet-cluster-anim .leaflet-marker-icon,
-      .leaflet-cluster-anim .leaflet-marker-shadow {
-        transition: none;
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
 
@@ -3227,7 +3220,53 @@
     .cc-item-wrapper.expanded .cc-evidence-panel {
       display: block;
     }
-    
+
+    /* Brief 4 — locked-state evidence panel for free-tier non-sample.
+       Same toggle pattern as the paid evidence panel but visually distinct
+       (amber accent rather than teal) so users see they've reached an
+       unlock boundary, not data they should be able to see. */
+    .cc-evidence-panel-locked {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-left: 3px solid #F59E0B;
+      padding: 16px 18px;
+    }
+    .cc-evidence-locked-msg {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.55;
+    }
+    .cc-evidence-locked-msg a {
+      color: #F59E0B;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .cc-evidence-locked-msg a:hover {
+      text-decoration: underline;
+    }
+
+    /* Brief 4 — section-level locked state used for Methodology and
+       Significance Assessment in the free-tier panel. Mirrors the
+       cc-evidence-panel-locked treatment but renders inside a panel
+       section box rather than below a CC row. */
+    .panel-section-locked {
+      padding: 14px 16px;
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.20);
+      border-radius: var(--weo-radius-sm, 4px);
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.55;
+    }
+    .panel-section-locked a {
+      color: #F59E0B;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .panel-section-locked a:hover {
+      text-decoration: underline;
+    }
+
     @keyframes slideDown {
       from {
         opacity: 0;
@@ -5563,7 +5602,7 @@
      style="position:absolute;top:-100px;left:0;padding:8px 16px;background:#0F172A;color:#60A5FA;z-index:99999;font-size:14px;text-decoration:none;border:2px solid #60A5FA;border-radius:4px;"
      onfocus="this.style.top='8px';this.style.left='8px'"
      onblur="this.style.top='-100px'">
-     Skip past map
+     Skip to main content
   </a>
   <!-- Global Tooltip Overlay - rendered outside panel to avoid clipping -->
   <div id="weo-tooltip-overlay">
@@ -5629,6 +5668,10 @@
     <a href="/" class="active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       Map
+    </a>
+    <a href="atlas.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 7.07 2.93M12 2a10 10 0 0 0-7.07 2.93M12 22a10 10 0 0 0 7.07-2.93M12 22a10 10 0 0 1-7.07-2.93"/><line x1="12" y1="9" x2="18" y2="3"/><line x1="12" y1="9" x2="6" y2="3"/><line x1="12" y1="15" x2="18" y2="21"/><line x1="12" y1="15" x2="6" y2="21"/></svg>
+      Atlas
     </a>
     <a href="events.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -5814,7 +5857,7 @@
   <div class="orientation-panel" id="orientationPanel">
     <div class="orientation-header">
       <span class="orientation-title">What You're Seeing</span>
-      <button class="orientation-close" id="orientationClose">×</button>
+      <button class="orientation-close" id="orientationClose" aria-label="Close">×</button>
     </div>
     <div class="orientation-content">
       <p>Verified AI infrastructure coordination events, mapped by location.</p>
@@ -5938,9 +5981,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 127,
-      cc_count: 103,
-      last_updated: "2026-04-19",
+      event_count: 132,
+      cc_count: 111,
+      last_updated: "2026-05-04",
       db_version: "1.5.0"
     };
 
@@ -7660,58 +7703,110 @@ function generateBackButton() {
   return '<button class="panel-back" onclick="goBackInPanel()">← Back to ' + truncatedName + '</button>';
 }
 
-// Generate CC preview for free tier (non-sample events)
-// Shows stats and type distribution but gates specific connection details
+// Generate CC preview for free tier (non-sample events) — Brief 4 §3.2
+// Position B platform consolidation. Free users see the same structural
+// rows as paid users (target ID, name, type, direction, confidence
+// badge with tooltip); evidence content is the only thing locked.
+// Replaces the previous counts-and-type-badges-only preview.
 function generateCCPreview(eventId) {
   const upstream = getUpstreamConnections(eventId);
   const downstream = getDownstreamConnections(eventId);
   const bidirectional = getBidirectionalConnections(eventId);
-  
+
   const totalConnections = upstream.length + downstream.length + bidirectional.length;
-  
-  if (totalConnections === 0) {
-    return ''; // No connections, don't show section
-  }
-  
-  // Reuse existing tooltip
+
+  // Reuse existing intro tooltip
   const ccTooltip = '<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Coordination Connections</div><div class="weo-tooltip-body">Documented relationships between verified WEO events, capturing how events influence, enable, or respond to one another. Each connection requires documentary evidence and is classified by type and confidence level.</div></span></span>';
-  
+
   let html = '<div class="panel-section cc-section cc-preview">';
   html += '<div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Coordination Connections</span>' + ccTooltip + '</div>';
-  
-  // Stats summary (same as full version)
+
+  // Brief 4 §3.6 — empty CC state. Was previously empty string (no
+  // section rendered at all); now matches Atlas/Events.
+  if (totalConnections === 0) {
+    html += '<div class="cc-empty-state" style="font-style:italic;color:#94A3B8;font-size:0.875rem;padding:8px 0;">This event has no Coordination Connections recorded in the current database.</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // Stats summary (entry-tier per RC-06)
   const allConns = [...upstream, ...downstream, ...bidirectional];
   const ccV = allConns.filter(c => c.confidence_level === 'CC-V').length;
   const ccE = allConns.filter(c => c.confidence_level === 'CC-E').length;
   const ccA = allConns.filter(c => c.confidence_level === 'CC-A').length;
-  
+
   html += '<div class="cc-stats">';
   html += '<div class="cc-stat"><span class="cc-stat-count">' + totalConnections + '</span><span class="cc-stat-label">connections</span></div>';
   if (ccV > 0) html += '<div class="cc-stat"><span class="cc-stat-count cc-confidence cc-v">' + ccV + '</span><span class="cc-stat-label">verified</span></div>';
   if (ccE > 0) html += '<div class="cc-stat"><span class="cc-stat-count cc-confidence cc-e">' + ccE + '</span><span class="cc-stat-label">established</span></div>';
   if (ccA > 0) html += '<div class="cc-stat"><span class="cc-stat-count cc-confidence cc-a">' + ccA + '</span><span class="cc-stat-label">analytical</span></div>';
   html += '</div>';
-  
-  // Type distribution (shows which types exist without revealing specific connections)
-  const typeCounts = {};
-  allConns.forEach(function(conn) {
-    const typeInfo = getConnectionTypeInfo(conn.connection_type);
-    if (!typeCounts[conn.connection_type]) {
-      typeCounts[conn.connection_type] = { name: typeInfo.name, count: 0 };
-    }
-    typeCounts[conn.connection_type].count++;
-  });
-  
-  html += '<div class="cc-type-summary">';
-  Object.keys(typeCounts).forEach(function(typeKey) {
-    const t = typeCounts[typeKey];
-    html += '<span class="cc-type-badge type-' + typeKey + '">' + t.name + ' (' + t.count + ')</span>';
-  });
+
+  // Brief 4 §3.2 — per-CC structural rows, grouped by direction. Same
+  // direction labels as the paid generateCCSection; per-row evidence
+  // expander opens to a locked-state placeholder rather than the full
+  // evidence panel.
+  if (upstream.length > 0) {
+    html += '<div class="cc-group" data-direction="upstream">';
+    html += '<div class="cc-group-label">← Enabled By / Responds To</div>';
+    upstream.forEach(function(conn) {
+      const sourceEventName = getEventNameById(conn.source_event_id);
+      if (!sourceEventName) return;
+      html += generateCCItemFreeTier(conn, conn.source_event_id, sourceEventName);
+    });
+    html += '</div>';
+  }
+  if (downstream.length > 0) {
+    html += '<div class="cc-group" data-direction="downstream">';
+    html += '<div class="cc-group-label">→ Enables / Triggers</div>';
+    downstream.forEach(function(conn) {
+      const targetEventName = getEventNameById(conn.target_event_id);
+      if (!targetEventName) return;
+      html += generateCCItemFreeTier(conn, conn.target_event_id, targetEventName);
+    });
+    html += '</div>';
+  }
+  if (bidirectional.length > 0) {
+    html += '<div class="cc-group" data-direction="bidirectional">';
+    html += '<div class="cc-group-label">⟷ Related Framework / Parallel</div>';
+    bidirectional.forEach(function(conn) {
+      const otherEventId = conn.source_event_id === eventId ? conn.target_event_id : conn.source_event_id;
+      const otherEventName = getEventNameById(otherEventId);
+      if (!otherEventName) return;
+      html += generateCCItemFreeTier(conn, otherEventId, otherEventName);
+    });
+    html += '</div>';
+  }
+
   html += '</div>';
-  
-  // Subtle inline gating hint (not a full CTA)
-  html += '<div class="cc-gated-hint"><span class="cc-gated-icon">🔒</span> <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color:#F59E0B;">Subscribe</a> for connection details</div>';
-  
+  return html;
+}
+
+// Brief 4 §3.2 — free-tier CC row. Same structural exposure as the paid
+// generateCCItem (target ID, name, type, direction, confidence) with
+// the evidence panel replaced by a locked-state placeholder per RC-07.
+// data-navigate-to drives the existing click-to-target navigation.
+function generateCCItemFreeTier(conn, displayEventId, displayEventName) {
+  const typeInfo = getConnectionTypeInfo(conn.connection_type);
+  const confStyle = getConfidenceStyle(conn.confidence_level);
+  const typeTooltip = generateCCTypeTooltip(conn.connection_type, 'below');
+  const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence_level, 'below');
+
+  let html = '<div class="cc-item-wrapper" data-type="' + conn.connection_type + '" data-connection-id="' + conn.connection_id + '">';
+  html += '<div class="cc-item expandable" role="button" tabindex="0" aria-expanded="false" data-navigate-to="' + displayEventId + '" data-locked-evidence="true">';
+  html += '<div class="cc-navigate-area">';
+  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.connection_type + '">' + typeInfo.name + '</span>' + typeTooltip + '</span>';
+  html += '<span class="cc-target" data-tooltip="Event ' + displayEventId + ': ' + displayEventName.replace(/"/g, '&quot;') + '"><span class="cc-target-id">Event ' + displayEventId + ':</span> ' + displayEventName + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + conn.confidence_level + '</span>' + confidenceTooltip + '</span>';
+  html += '</div>';
+  html += '<span class="cc-action-separator"></span>';
+  html += '<span class="cc-expand-indicator" title="Evidence available with Analyst access">🔒</span>';
+  html += '</div>';
+  // Locked evidence panel, sibling to .cc-item — same toggle pattern as
+  // the paid generateEvidencePanel, but the body is the upgrade
+  // affordance (manual §9.3.3 field names: Evidence Sources, Citation
+  // Text, Analyst Notes).
+  html += '<div class="cc-evidence-panel cc-evidence-panel-locked"><div class="cc-evidence-locked-msg">Evidence sources, citation text, and analyst notes available with Analyst access.<br><a href="support.html" onclick="event.stopPropagation();">Subscribe →</a></div></div>';
   html += '</div>';
   return html;
 }
@@ -9235,7 +9330,7 @@ function generateCCSection(eventId, showFullContent) {
     const weoTooltips = {
       tier: {
         title: 'Tier Classification',
-        body: '<strong>T1 (Cross-Bloc):</strong> Events involving both Western and Eastern Blocs with binding implementation and material integration. <strong>T2 (Between-Bloc):</strong> Fragmentation events creating separation between blocs through buildout or restriction. <strong>T3 (Intra-Bloc):</strong> Events within a single bloc strengthening internal coordination.'
+        body: '<strong>T1 (Cross-Bloc):</strong> Coordination with verified cross-bloc adoption or implementation by the principal AI actor from at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
       },
       confidence: {
         title: 'Source Confidence Rating',
@@ -9332,7 +9427,7 @@ function generateCCSection(eventId, showFullContent) {
       },
       bloc: {
         title: 'Bloc Classification',
-        body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Involves nations from both blocs. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
+        body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Verified adoption or implementation by the principal AI actor from at least two distinct ecosystems. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
       },
       domain: {
         title: 'Domain Classification',
@@ -9377,7 +9472,8 @@ function generateCCSection(eventId, showFullContent) {
           body: 'Similar events occur in different jurisdictions without formal coordination. <strong>Direction:</strong> Varies. <strong>Evidence:</strong> Substantive similarity in policy design, scope, or targets + temporal proximity. <strong>Min. Confidence:</strong> CC-A (analyst assessment).'
         }
       },
-      // CC Confidence Level Tooltips
+      // CC Confidence Level Tooltips — full methodology text, consistent
+      // across all three surfaces (atlas, map, events).
       ccConfidence: {
         'CC-V': {
           title: 'CC-V: Verified',
@@ -9429,6 +9525,30 @@ function generateCCSection(eventId, showFullContent) {
       const cp = event.checkpoints || { ai: true, threshold: true, implemented: true, current: true };
       const ccSectionHtml = generateCCSection(event.id, false);
       const backButtonHtml = generateBackButton();
+
+      // Brief 4 §3.7 — Significance Assessment locked-state for free
+      // non-sample. The public API strips basel5/keohane/pisa5/routeBased
+      // for non-sample events, so the structural-exposure branch can't
+      // render. RC-07 named-field-labels-with-named-upgrade-path applies.
+      const significanceLockedHtml =
+        '<div class="panel-section">' +
+        '<div class="section-title">Significance Assessment</div>' +
+        '<div class="panel-section-locked">' +
+        'Framework name, factor breakdown, and rationale for each factor available with Analyst access.<br>' +
+        '<a href="support.html">Subscribe →</a>' +
+        '</div></div>';
+
+      // Brief 4 §3.8 — Methodology locked-state for free non-sample.
+      // Significance Assessment is now a sibling section, so this covers
+      // tier rationale + bloc analysis only (Basel-5 reference removed
+      // from the placeholder copy).
+      const methodologyLockedHtml =
+        '<div class="panel-section">' +
+        '<div class="section-title">Methodology</div>' +
+        '<div class="panel-section-locked">' +
+        'Tier rationale and bloc analysis details available with Analyst access.<br>' +
+        '<a href="support.html">Subscribe →</a>' +
+        '</div></div>';
       
       // For T2 events, the bloc class already includes -led styling (western-led, eastern-led)
       const blocBadgeClass = blocClass;
@@ -9483,7 +9603,7 @@ function generateCCSection(eventId, showFullContent) {
       const freeAiCheckpointHtml = freeIsPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection</span></div>';
       const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : 'OEP')) + '</span></div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -9902,7 +10022,7 @@ function generateCCSection(eventId, showFullContent) {
         var pietSrcIdx = 1;
         event.piet.gates.forEach(function(g) { if(g.sources && g.sources.length > 0) { var gateSrcs = []; g.sources.forEach(function(s) { gateSrcs.push({id:s.id,desc:s.desc,url:s.url,type:s.type,num:pietSrcIdx++}); }); groupedPietSources.push({gate:g.factor,sources:gateSrcs}); } });
         var totalPietSources = pietSrcIdx - 1;
-        var t2Badge = event.piet.t2ImpactDemonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through PIET Gate 3 evidence \u2014 qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
+        var t2Badge = event.piet.t2ImpactDemonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through post-implementation evidence pathway \u2014 qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
         var pietGatesDetailHtml = '';
         event.piet.gates.forEach(function(g) {
           var summaryText = g.summary || (g.rationale.length > 80 ? g.rationale.substring(0, 80) + '\u2026' : g.rationale);
@@ -9917,7 +10037,7 @@ function generateCCSection(eventId, showFullContent) {
           groupedPietSources.forEach(function(grp) { srcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>'; grp.sources.forEach(function(s) { srcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span><a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' \u2197</a></div>'; }); });
           pietSourcesHtml = '<div class="piet-sources-footer"><span class="piet-sources-toggle" onclick="var l=this.nextElementSibling; l.classList.toggle(\'visible\'); this.textContent=l.classList.contains(\'visible\')?\'Sources (' + totalPietSources + ') \u25BE\':\'Sources (' + totalPietSources + ') \u25B8\';">Sources (' + totalPietSources + ') \u25B8</span><div class="piet-sources-list">' + srcItems + '</div></div>';
         }
-        pietVerificationHtml = '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> \u00B7 ' + event.piet.gatesPassed + '/' + event.piet.gates.length + ' gates \u00B7 ' + event.piet.confidence + generateTooltip('piet', 'left') + t2Badge + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel">' + pietGatesDetailHtml + pietSourcesHtml + '</div></div>';
+        pietVerificationHtml = '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> \u00B7 ' + event.piet.gatesPassed + ' of ' + event.piet.gates.length + ' evidence pathways \u00B7 ' + event.piet.confidence + generateTooltip('piet', 'left') + t2Badge + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel">' + pietGatesDetailHtml + pietSourcesHtml + '</div></div>';
       }
       if (event.oep && event.oep.pathways && event.oep.pathways.length > 0) {
         var groupedOepSources = [];
@@ -10034,7 +10154,7 @@ function generateCCSection(eventId, showFullContent) {
       const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '\u2713' : '\u2717') + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
@@ -10611,6 +10731,42 @@ function generateCCSection(eventId, showFullContent) {
 
     (function() { var overlay = document.getElementById('accessModalOverlay'); if (overlay) overlay.addEventListener('click', function(e) { if (e.target === this) closeAccessModal(); }); })();
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAccessModal(); });
+
+    // Deep-link: open a specific event if ?event=XX or #event=XX is in the URL.
+    // Supports arrivals from atlas.html and events.html ("View on Map →").
+    (function handleMapDeepLink() {
+        var eventId = null;
+
+        // Check query parameters first (?event=XX&from=atlas)
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('event')) {
+            eventId = urlParams.get('event');
+        }
+
+        // Check hash as fallback (#event=XX)
+        if (!eventId && window.location.hash) {
+            var hashMatch = window.location.hash.match(/event=(\d+)/);
+            if (hashMatch) eventId = hashMatch[1];
+        }
+
+        if (!eventId) return;
+
+        // Pad to 2 digits to match API ID format ('01', '06', etc.)
+        var paddedId = eventId.padStart(2, '0');
+        var targetEvent = getEventById(paddedId);
+        // Fallback: try unpadded
+        if (!targetEvent) targetEvent = getEventById(eventId);
+        if (!targetEvent) return;
+
+        // Centre map on the event and open its panel
+        setTimeout(function() {
+            map.flyTo([targetEvent.lat, targetEvent.lng], 6, { duration: 0.8 });
+            setTimeout(function() {
+                openPanel(targetEvent);
+            }, 400);
+        }, 300);
+    })();
+
     // Access modal setup — run directly (DOMContentLoaded already fired)
     (function() { var overlay = document.getElementById('accessModalOverlay'); if (overlay) overlay.addEventListener('click', function(e) { if (e.target === this) closeAccessModal(); }); initWEOAccess(); })();
 
@@ -10703,7 +10859,7 @@ function generateCCSection(eventId, showFullContent) {
       <div id="accessLoginState">
         <div class="access-modal-header">
           <div class="access-modal-title"><span>🔑</span>Supporter Access</div>
-          <button class="access-modal-close" onclick="closeAccessModal()">×</button>
+          <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
           <div class="access-input-group">
@@ -10718,7 +10874,7 @@ function generateCCSection(eventId, showFullContent) {
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
           <div class="access-modal-title"><span>✓</span>Supporter Access</div>
-          <button class="access-modal-close" onclick="closeAccessModal()">×</button>
+          <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
           <div class="status-icon">✓</div>
@@ -10730,8 +10886,11 @@ function generateCCSection(eventId, showFullContent) {
     </div>
   </div>
 
-<!-- Version stamp -->
-<div style="position:fixed;bottom:8px;left:24px;z-index:1;font-family:'Geist Mono','Fira Code',monospace;font-size:10px;opacity:0.35;color:#94A3B8;pointer-events:none;">Methodology V1.3 · WEO v1.1.0</div>
+<!-- Version stamp / footer -->
+<footer class="atlas-footer" style="position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 24px;font-size:11px;color:#94A3B8;background:rgba(15,23,42,0.9);border-top:1px solid #334155;z-index:200;pointer-events:auto;">
+    <span>Methodology V1.3 · WEO v1.2.0</span>
+    <span><a href="legal.html" style="color:#94A3B8;text-decoration:none;">Privacy &amp; Terms</a> · © 2026 Warmth Engine Observatory</span>
+</footer>
 
 <script>
 // ========================================

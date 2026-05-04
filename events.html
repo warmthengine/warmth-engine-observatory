@@ -302,7 +302,7 @@
         .sample-legend-icon { color: var(--weo-sample-gold); }
         .table-scroll-container { position: relative; }
         .events-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .events-table-wrapper { overflow: hidden; border-radius: var(--weo-radius-lg); border: 1px solid var(--weo-border-primary); display: inline-block; }
+        .events-table-wrapper { overflow: hidden; border-radius: var(--weo-radius-lg); border: 1px solid var(--weo-border-primary); display: inline-block; min-width: 100%; }
         .events-table-inner { }
         .events-table { border-collapse: separate; border-spacing: 0; font-size: 0.8125rem; background: var(--weo-surface-raised); }
         /* Scroll indicators - inside container, positioned at edges */
@@ -837,6 +837,45 @@
             from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Brief 4 — locked-state evidence panel for free-tier non-sample.
+           Same toggle pattern as the paid evidence panel; amber accent
+           so users see they've reached an unlock boundary. */
+        .cc-evidence-panel-locked {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-left: 3px solid #F59E0B;
+            padding: 16px 18px;
+        }
+        .cc-evidence-locked-msg {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.55;
+        }
+        .cc-evidence-locked-msg a {
+            color: #F59E0B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .cc-evidence-locked-msg a:hover { text-decoration: underline; }
+
+        /* Brief 4 — section-level locked state used for Methodology and
+           Significance Assessment in the free-tier modal. */
+        .panel-section-locked {
+            padding: 14px 16px;
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.20);
+            border-radius: var(--weo-radius-sm, 4px);
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.55;
+        }
+        .panel-section-locked a {
+            color: #F59E0B;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .panel-section-locked a:hover { text-decoration: underline; }
         
         /* Evidence Panel Header */
         .cc-evidence-header {
@@ -3019,6 +3058,11 @@
 </style>
 </head>
 <body>
+<a href="#stats-bar" class="sr-only" id="skip-link"
+   onfocus="this.style.cssText='position:fixed;top:0;left:0;z-index:9999;padding:12px 24px;background:var(--weo-surface-raised);color:var(--weo-text-primary);text-decoration:none;font-size:14px;border-radius:0 0 8px 0;clip:auto;width:auto;height:auto;'"
+   onblur="this.style.cssText=''">
+   Skip to main content
+</a>
     <!-- SVG Icon Definitions -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <!-- Infrastructure: server -->
@@ -3070,6 +3114,7 @@
           </button>
           <div class="weo-nav-links" id="navLinks">
             <a href="/">Map</a>
+            <a href="atlas.html">Atlas</a>
             <a href="events.html" class="active">Events</a>
             <a href="methodology.html">Methodology</a>
             <a href="blocs.html">Blocs</a>
@@ -3242,7 +3287,7 @@
                     <option value="ENT-5">Env. Coordination</option>
                 </select>
             </div>
-            <input type="text" class="search-input" id="search-input" placeholder="Search events...">
+            <input type="text" class="search-input" id="search-input" placeholder="Search events..." autocomplete="off">
             <div class="sample-legend"><span class="sample-legend-icon">★</span><span>Sample events with full analysis</span></div>
         </div>
         <div class="table-scroll-container">
@@ -3275,7 +3320,7 @@
         </div>
         <p class="table-note">Event IDs are permanent identifiers. Gaps in numbering reflect events removed during verification or due to subsequent resolution.</p>
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.1.0</p>
+            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
@@ -3309,9 +3354,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 127,
-      cc_count: 103,
-      last_updated: "2026-04-19",
+      event_count: 132,
+      cc_count: 111,
+      last_updated: "2026-05-04",
       db_version: "1.5.0"
     };
 
@@ -3730,7 +3775,7 @@ let sampleEventsFull = {};
 const weoTooltips = {
   tier: {
     title: 'Tier Classification',
-    body: '<strong>T1 (Cross-Bloc):</strong> Events involving both Western and Eastern Blocs with binding implementation and material integration. <strong>T2 (Between-Bloc):</strong> Fragmentation events creating separation between blocs through buildout or restriction. <strong>T3 (Intra-Bloc):</strong> Events within a single bloc strengthening internal coordination.'
+    body: '<strong>T1 (Cross-Bloc):</strong> Coordination with verified cross-bloc adoption or implementation by the principal AI actor from at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
   },
   confidence: {
     title: 'Source Confidence Rating',
@@ -3827,7 +3872,7 @@ const weoTooltips = {
   },
   bloc: {
     title: 'Bloc Classification',
-    body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Involves nations from both blocs. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
+    body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Verified adoption or implementation by the principal AI actor from at least two distinct ecosystems. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
   },
   domain: {
     title: 'Domain Classification',
@@ -3872,7 +3917,8 @@ const weoTooltips = {
       body: 'Similar events occur in different jurisdictions without formal coordination. <strong>Direction:</strong> Varies. <strong>Evidence:</strong> Substantive similarity in policy design, scope, or targets + temporal proximity. <strong>Min. Confidence:</strong> CC-A (analyst assessment).'
     }
   },
-  // CC Confidence Level Tooltips
+  // CC Confidence Level Tooltips — full methodology text, consistent
+  // across all three surfaces (atlas, map, events).
   ccConfidence: {
     'CC-V': {
       title: 'CC-V: Verified',
@@ -4611,22 +4657,28 @@ function navigateToRelatedEvent(targetEventId, sourceEventId) {
 
 function generateCCSection(eventId, showFullContent) {
   const connections = getConnectionsForEvent(eventId);
-  if (connections.length === 0) return '';
-  
+
+  let html = '<div class="cc-section">';
+  const ccTooltip = generateTooltip('cc', '');
+  html += '<div class="cc-section-title">🔗 Coordination Connections ' + ccTooltip + '</div>';
+
+  // Brief 4 §3.6 — empty CC state line. Was previously empty string.
+  if (connections.length === 0) {
+    html += '<div class="cc-empty-state" style="font-style:italic;color:rgba(255,255,255,0.55);font-size:0.875rem;padding:8px 0;">This event has no Coordination Connections recorded in the current database.</div>';
+    html += '</div>';
+    return html;
+  }
+
   // Categorize connections
   const upstream = connections.filter(c => c.target === eventId && c.direction === 'source_to_target');
   const downstream = connections.filter(c => c.source === eventId && c.direction === 'source_to_target');
   const bidirectional = connections.filter(c => c.direction === 'bidirectional');
-  
+
   // Stats
   const ccV = connections.filter(c => c.confidence === 'CC-V').length;
   const ccE = connections.filter(c => c.confidence === 'CC-E').length;
   const ccA = connections.filter(c => c.confidence === 'CC-A').length;
-  
-  let html = '<div class="cc-section">';
-  const ccTooltip = generateTooltip('cc', '');
-  html += '<div class="cc-section-title">🔗 Coordination Connections ' + ccTooltip + '</div>';
-  
+
   // Stats row
   html += '<div class="cc-stats">';
   html += `<div class="cc-stat"><span class="cc-stat-count">${connections.length}</span><span class="cc-stat-label">${connections.length === 1 ? 'connection' : 'connections'}</span></div>`;
@@ -4634,41 +4686,67 @@ function generateCCSection(eventId, showFullContent) {
   if (ccE > 0) html += `<div class="cc-stat"><span class="cc-stat-count cc-confidence cc-e">${ccE}</span><span class="cc-stat-label">established</span></div>`;
   if (ccA > 0) html += `<div class="cc-stat"><span class="cc-stat-count cc-confidence cc-a">${ccA}</span><span class="cc-stat-label">analytical</span></div>`;
   html += '</div>';
-  
-  if (!showFullContent) {
-    // Preview for non-authenticated, non-sample events
-    html += '<div class="cc-preview">Subscribe to view connection details</div>';
-  } else {
-    // Full details with expandable evidence panels
-    if (upstream.length > 0) {
-      html += '<div class="cc-group"><div class="cc-group-label">← Enabled By / Responds To</div>';
-      upstream.forEach(c => {
-        const name = getEventNameById(c.source);
-        if (name) html += generateCCItem(c, c.source, name, eventId);
-      });
-      html += '</div>';
-    }
-    
-    if (downstream.length > 0) {
-      html += '<div class="cc-group"><div class="cc-group-label">→ Enables / Triggers</div>';
-      downstream.forEach(c => {
-        const name = getEventNameById(c.target);
-        if (name) html += generateCCItem(c, c.target, name, eventId);
-      });
-      html += '</div>';
-    }
-    
-    if (bidirectional.length > 0) {
-      html += '<div class="cc-group"><div class="cc-group-label">⟷ Related Framework / Parallel</div>';
-      bidirectional.forEach(c => {
-        const otherId = c.source === eventId ? c.target : c.source;
-        const name = getEventNameById(otherId);
-        if (name) html += generateCCItem(c, otherId, name, eventId);
-      });
-      html += '</div>';
-    }
+
+  // Brief 4 §3.2 — same direction-grouped structure for free and paid;
+  // the only difference is which generateCC*Item function renders each
+  // row. Free version uses generateCCItemFreeTier, which exposes the
+  // structural row identically and replaces the evidence panel with
+  // a locked-state placeholder per RC-07.
+  const renderItem = showFullContent ? generateCCItem : generateCCItemFreeTier;
+
+  if (upstream.length > 0) {
+    html += '<div class="cc-group"><div class="cc-group-label">← Enabled By / Responds To</div>';
+    upstream.forEach(c => {
+      const name = getEventNameById(c.source);
+      if (name) html += renderItem(c, c.source, name, eventId);
+    });
+    html += '</div>';
   }
-  
+
+  if (downstream.length > 0) {
+    html += '<div class="cc-group"><div class="cc-group-label">→ Enables / Triggers</div>';
+    downstream.forEach(c => {
+      const name = getEventNameById(c.target);
+      if (name) html += renderItem(c, c.target, name, eventId);
+    });
+    html += '</div>';
+  }
+
+  if (bidirectional.length > 0) {
+    html += '<div class="cc-group"><div class="cc-group-label">⟷ Related Framework / Parallel</div>';
+    bidirectional.forEach(c => {
+      const otherId = c.source === eventId ? c.target : c.source;
+      const name = getEventNameById(otherId);
+      if (name) html += renderItem(c, otherId, name, eventId);
+    });
+    html += '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+// Brief 4 §3.2 — free-tier CC row for events.html. Same structural row
+// as generateCCItem (target ID, name, type badge, confidence badge with
+// tooltip) with the evidence panel replaced by a locked-state placeholder
+// per RC-07. Click on cc-event-name still navigates via the existing
+// navigateToEventFromCC handler.
+function generateCCItemFreeTier(conn, displayEventId, displayEventName, currentEventId) {
+  const confidenceClass = conn.confidence.toLowerCase().replace('-', '-');
+  const typeTooltip = generateCCTypeTooltip(conn.type, 'below');
+  const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence, 'below');
+
+  let html = '<div class="cc-item-wrapper" data-type="' + conn.type + '" data-connection-id="' + conn.id + '">';
+  html += '<div class="cc-item expandable" role="button" tabindex="0" aria-expanded="false">';
+  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + conn.typeName + '</span>' + typeTooltip + '</span>';
+  html += '<span class="cc-event-name clickable" onclick="event.stopPropagation(); navigateToEventFromCC(\'' + displayEventId + '\', \'' + currentEventId + '\')" title="Click to view this event">Event ' + displayEventId + ': ' + displayEventName + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + conn.confidence + '</span>' + confidenceTooltip + '</span>';
+  // Locked expand indicator — same toggle pattern as the paid version,
+  // different glyph and target panel.
+  html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); var w=this.closest(\'.cc-item-wrapper\'); w.classList.toggle(\'expanded\'); var ci=w.querySelector(\'.cc-item.expandable\'); if(ci) ci.setAttribute(\'aria-expanded\', w.classList.contains(\'expanded\'))" title="Evidence available with Analyst access">🔒</span>';
+  html += '</div>';
+  // Locked evidence panel (manual §9.3.3 field names verbatim).
+  html += '<div class="cc-evidence-panel cc-evidence-panel-locked"><div class="cc-evidence-locked-msg">Evidence sources, citation text, and analyst notes available with Analyst access.<br><a href="support.html" onclick="event.stopPropagation();">Subscribe →</a></div></div>';
   html += '</div>';
   return html;
 }
@@ -5138,12 +5216,12 @@ const openModal = (id) => {
                             } 
                         });
                         const totalSources = srcIdx - 1;
-                        const t2Badge = p.t2ImpactDemonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through PIET Gate 3 evidence — qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
+                        const t2Badge = p.t2ImpactDemonstrated ? '<span class="piet-t2-wrap"><span class="piet-t2-badge" onclick="event.stopPropagation(); toggleT2Popover(this);">T2 Impact-Demonstrated</span><div class="piet-t2-popover"><div class="t2-popover-title">T2 Impact-Demonstrated Pathway</div>Tier 2 (Between-Bloc Fragmentation) classification established through post-implementation evidence pathway — qualifying other-bloc government policy responses confirmed cross-bloc fragmentation impact, without requiring explicit targeting language in the original restriction.</div></span>' : '';
                         return `
                         <div style="margin-top:1rem;margin-bottom:0.5rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div>
                         <div class="piet-verification-subsection">
                             <div class="piet-expand-trigger" onclick="this.classList.toggle('expanded'); this.parentElement.querySelector('.piet-detail-panel').classList.toggle('visible');">
-                                <span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> · ${p.gatesPassed}/${p.gates.length} gates · ${p.confidence}${generateTooltip('piet', 'left')}${t2Badge}</span>
+                                <span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> · ${p.gatesPassed} of ${p.gates.length} evidence pathways · ${p.confidence}${generateTooltip('piet', 'left')}${t2Badge}</span>
                                 <span class="piet-expand-chevron">▸</span>
                             </div>
                             <div class="piet-detail-panel">
@@ -5394,7 +5472,36 @@ const openModal = (id) => {
                 </div>
             </div>
         `;
-        
+
+        // Brief 4 §3.7 — Significance Assessment locked-state for free
+        // non-sample events. The public API strips basel5/keohane/pisa5/
+        // routeBased for non-sample on free, so the structural-exposure
+        // branch can't render. RC-07 named-field-labels-with-named-
+        // upgrade-path applies. Mirrors the index.html / Atlas locked
+        // copy verbatim.
+        html += `
+            <div class="detail-section">
+                <div class="detail-section-title">Significance Assessment</div>
+                <div class="panel-section-locked">
+                    Framework name, factor breakdown, and rationale for each factor available with Analyst access.<br>
+                    <a href="support.html">Subscribe →</a>
+                </div>
+            </div>
+        `;
+
+        // Brief 4 §3.8 — Methodology locked-state. Significance
+        // Assessment is now a sibling section (above), so this covers
+        // tier rationale + bloc analysis only.
+        html += `
+            <div class="detail-section">
+                <div class="detail-section-title">Methodology</div>
+                <div class="panel-section-locked">
+                    Tier rationale and bloc analysis details available with Analyst access.<br>
+                    <a href="support.html">Subscribe →</a>
+                </div>
+            </div>
+        `;
+
         // Coordination Connections preview (for non-sample events with connections)
         const ccSectionHtml = generateCCSection(id, false);
         if (ccSectionHtml) {
@@ -5427,7 +5534,17 @@ const openModal = (id) => {
             `;
         }
     }
-    
+
+    // Cross-surface navigation — links from the Events modal to the
+    // Atlas (relational view) and the Map (spatial view) for the
+    // same event id. Mirrors the action-footer pattern on atlas.html.
+    // Uses `id` (the modal parameter) since freeEvents records key
+    // off `event_id` rather than `id`.
+    html += '<div class="modal-cross-links" style="display:flex;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(51,65,85,0.5);">';
+    html += '<a href="atlas.html#event=' + id + '" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View in Atlas →</a>';
+    html += '<a href="index.html?event=' + id + '&from=events" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View on Map →</a>';
+    html += '</div>';
+
     document.getElementById('modal-body').innerHTML = html;
     document.getElementById('modal-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -5459,11 +5576,18 @@ const closeModal = () => {
     var rows = '';
     for (var i = 0; i < 6; i++) {
         rows += '<tr>' +
-            '<td><span class="skeleton skeleton-text narrow" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-text tiny" style="height:12px"></span></td>' +
             '<td><span class="skeleton skeleton-text wide" style="height:12px"></span></td>' +
             '<td><span class="skeleton skeleton-badge"></span></td>' +
-            '<td><span class="skeleton skeleton-badge"></span></td>' +
             '<td><span class="skeleton skeleton-text medium" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-badge"></span></td>' +
+            '<td><span class="skeleton skeleton-badge" style="width:30px"></span></td>' +
+            '<td><span class="skeleton skeleton-badge" style="width:30px"></span></td>' +
+            '<td><span class="skeleton skeleton-text narrow" style="height:12px"></span></td>' +
+            '<td><span class="skeleton skeleton-badge" style="width:24px"></span></td>' +
             '<td><span class="skeleton skeleton-text narrow" style="height:12px"></span></td>' +
             '</tr>';
     }
@@ -5967,7 +6091,7 @@ if (navToggle && navLinks) {
       <div id="accessLoginState">
         <div class="access-modal-header">
           <div class="access-modal-title"><span>🔑</span>Supporter Access</div>
-          <button class="access-modal-close" onclick="closeAccessModal()">×</button>
+          <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
           <div class="access-input-group">
@@ -5982,7 +6106,7 @@ if (navToggle && navLinks) {
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
           <div class="access-modal-title"><span>✓</span>Supporter Access</div>
-          <button class="access-modal-close" onclick="closeAccessModal()">×</button>
+          <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
           <div class="status-icon">✓</div>
