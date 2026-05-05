@@ -3547,8 +3547,14 @@
             }
             .atlas-panel-v2.state-full {
                 transform: translateY(0) !important;
-                padding-top: env(safe-area-inset-top, 0px);
                 border-radius: 0;
+            }
+            /* In state-full, the sticky header must stick below the iOS
+               safe area (Dynamic Island / status bar), not at y=0.
+               viewport-fit=cover (added in v4) makes env() return the
+               correct value in Safari. */
+            .atlas-panel-v2.state-full .atlas-panel-header {
+                top: env(safe-area-inset-top, 0px);
             }
             .atlas-panel-v2.state-peek,
             .atlas-panel-v2.state-half,
@@ -3581,9 +3587,11 @@
                 text-align: center;
                 padding: 4px 0 2px;
                 font-size: 11px;
-                color: #94A3B8;
+                color: #CBD5E1;
                 letter-spacing: 0.05em;
                 flex: 0 0 auto;
+                text-shadow: 0 0 10px rgba(96, 165, 250, 0.45),
+                             0 0 20px rgba(96, 165, 250, 0.15);
             }
             .atlas-panel-v2.state-peek .atlas-panel-swipe-hint,
             .atlas-panel-v2.state-half .atlas-panel-swipe-hint {
@@ -4662,7 +4670,7 @@
                 container: document.getElementById('atlas-network'),
                 elements: { nodes, edges },
                 minZoom: 0.4,
-                maxZoom: 3,
+                maxZoom: 2,
                 // Phase 2 P0 (Batch 1) — canonical Cytoscape performance
                 // settings. Suppresses labels/edges + uses texture cache
                 // during pan/zoom so the canvas stays smooth at 127
@@ -6594,8 +6602,13 @@
                     sheetState = 'closed';
                     return;
                 }
-                panel.classList.add('state-' + newState);
-                sheetState = newState;
+                // Defer class add by one frame so scroll resets settle
+                // before the CSS transition begins — prevents grey ghost.
+                var _newState = newState;
+                requestAnimationFrame(function() {
+                    panel.classList.add('state-' + _newState);
+                    sheetState = _newState;
+                });
             };
 
             window.getSheetState = function() { return sheetState; };
