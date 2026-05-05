@@ -10827,6 +10827,23 @@ function generateCCSection(eventId, showFullContent) {
         }
       }
     });
+    // Dismiss tooltip when cursor leaves the status panel — mirrors the
+    // detail panel's mouseleave behaviour so the tooltip doesn't persist
+    // over the map when the user moves away.
+    statusPanel.addEventListener('mouseleave', function() {
+      if (tooltipOverlay && !tooltipOverlay.matches(':hover')) {
+        hideTooltipImmediate();
+      }
+    });
+    // Also dismiss when cursor leaves the tooltip overlay itself
+    // (handles the case where cursor moves from panel → tooltip → elsewhere).
+    if (tooltipOverlay) {
+      tooltipOverlay.addEventListener('mouseleave', function() {
+        if (!statusPanel.matches(':hover')) {
+          hideTooltipImmediate();
+        }
+      });
+    }
   })();
 
   // Expose functions to global scope for inline onclick handlers
