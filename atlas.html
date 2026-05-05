@@ -1103,10 +1103,14 @@
             text-align: right;
         }
 
+        .topo-relayout-btn {
+            box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.22), 0 0 10px rgba(45, 212, 191, 0.06);
+        }
         .topo-relayout-btn:hover {
             background: rgba(45, 212, 191, 0.10);
             color: #2DD4BF;
             border-color: rgba(45, 212, 191, 0.4);
+            box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.4), 0 0 14px rgba(45, 212, 191, 0.12);
         }
         .topo-relayout-btn:active {
             background: rgba(45, 212, 191, 0.18);
@@ -3437,10 +3441,14 @@
                 cursor: pointer;
                 transition: background 150ms ease, color 150ms ease;
             }
+            .atlas-mobile-relayout-btn {
+                box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.22), 0 0 10px rgba(45, 212, 191, 0.06);
+            }
             .atlas-mobile-relayout-btn:hover,
             .atlas-mobile-relayout-btn:active {
                 background: rgba(59, 130, 246, 0.2);
                 color: var(--text-primary);
+                box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.4), 0 0 14px rgba(45, 212, 191, 0.12);
             }
             .atlas-mobile-relayout-btn.visible {
                 display: flex;
@@ -3532,6 +3540,7 @@
             }
             .atlas-panel-v2.state-peek {
                 transform: translateY(calc(100% - 160px)) !important;
+                overflow-y: hidden;
             }
             .atlas-panel-v2.state-half {
                 transform: translateY(50%) !important;
@@ -3627,6 +3636,10 @@
             }
             .filter-option {
                 padding: 10px 12px;
+            }
+            /* Prevent iOS Safari auto-zoom on input focus (triggered by font-size < 16px) */
+            .filter-search {
+                font-size: 16px;
             }
             /* §4 — caption text */
             .atlas-caption {
@@ -3819,7 +3832,7 @@
                 </div>
 
                 <div class="topo-section">
-                    <div class="topo-section-label">CC breakdown</div>
+                    <div class="topo-section-label">CC Type</div>
                     <div id="topo-cc-breakdown"></div>
                 </div>
 
@@ -4458,7 +4471,18 @@
 
             if (eventsPayload && eventsPayload.last_updated) {
                 const el = document.getElementById('weo-last-updated');
-                if (el) el.textContent = eventsPayload.last_updated;
+                if (el) {
+                    let dateStr = eventsPayload.last_updated;
+                    try {
+                        const d = new Date(dateStr + 'T00:00:00Z');
+                        if (!isNaN(d)) {
+                            dateStr = d.toLocaleDateString('en-GB', {
+                                day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+                            });
+                        }
+                    } catch (_) {}
+                    el.textContent = dateStr;
+                }
             }
         }
 
@@ -6155,16 +6179,6 @@
                 // Hide sample overlays during empty state.
                 sampleOverlays.forEach(({ el }) => { el.style.opacity = '0'; });
             }
-            // DEF-040 V2 §4c — surface a landscape hint on mobile
-            // portrait so the user knows the timeline is wider than the
-            // viewport. 5s auto-dismiss; CSS hides it on landscape.
-            if (window.innerWidth <= 767 && window.matchMedia('(orientation: portrait)').matches) {
-                var hint = document.getElementById('atlas-landscape-hint');
-                if (hint) {
-                    hint.style.display = 'block';
-                    setTimeout(function() { hint.style.display = 'none'; }, 5000);
-                }
-            }
             // DEF-046 — self-correcting watchdog. The empty-state hide
             // is brittle — multiple boot/reveal/transition code paths
             // can lift event opacity back to baseOpacity within ~200ms
@@ -6571,6 +6585,7 @@
                 var panel = document.getElementById('atlas-panel-v2');
                 if (!panel) return;
                 panel.classList.remove('state-peek', 'state-half', 'state-full');
+                panel.scrollTop = 0;
                 if (newState === 'closed') {
                     sheetState = 'closed';
                     return;
@@ -6583,6 +6598,15 @@
 
             var panel = document.getElementById('atlas-panel-v2');
             if (!panel) return;
+
+            // Prevent inner scroll while dragging the handle —
+            // non-passive so e.preventDefault() is honoured by the browser.
+            var dragHandle = panel.querySelector('.atlas-panel-drag-handle');
+            if (dragHandle) {
+                dragHandle.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, { passive: false });
+            }
 
             panel.addEventListener('touchstart', function(e) {
                 if (!isMobile()) return;
@@ -7369,9 +7393,11 @@
                 const panelOpen = document.querySelector('.atlas-main.has-panel-open');
                 if (panelOpen) targetX = (cw - 420) / 2;
             }
-            // Mobile (≤767): bottom sheet offset (skip in Timeline mode
-            // to prevent events shifting out of domain bands)
-            if (window.innerWidth <= 767 && atlasState.layoutMode !== 'timeline') {
+            // Mobile (≤767): bottom sheet offset. Applied in all modes
+            // including Timeline — the 80px peek offset is small relative
+            // to domain band heights and keeps the selected node centred
+            // in the visible area above the peek panel.
+            if (window.innerWidth <= 767) {
                 const state = window.getSheetState ? window.getSheetState() : 'closed';
                 if (state === 'peek') targetY -= 80;
                 else if (state === 'half') targetY -= Math.round(window.innerHeight * 0.25);
@@ -10384,6 +10410,7 @@
                             const r = pill.getBoundingClientRect();
                             const popWidth = parseInt(getComputedStyle(pop).minWidth) || 240;
                             pop.style.position = 'fixed';
+                            pop.style.zIndex = '1000';
                             pop.style.top = (r.bottom + 4) + 'px';
                             pop.style.left = Math.max(8, Math.min(r.left, window.innerWidth - popWidth - 8)) + 'px';
                             pop.style.right = 'auto';
@@ -10791,11 +10818,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- DEF-040 V2 §4b — Timeline landscape hint. Shown for 5s on
-         mobile portrait when the user enters Timeline mode. -->
-    <div class="atlas-landscape-hint" id="atlas-landscape-hint">
-        <span class="rotate-icon">↻</span> Rotate for timeline
     </div>
 </body>
 </html>
