@@ -3547,6 +3547,8 @@
             }
             .atlas-panel-v2.state-full {
                 transform: translateY(0) !important;
+                top: env(safe-area-inset-top, 0px) !important;
+                border-radius: 0;
             }
             .atlas-panel-v2.state-peek,
             .atlas-panel-v2.state-half,
@@ -3556,6 +3558,9 @@
             .atlas-panel-v2.state-peek #atlas-panel-content > .atlas-panel-section {
                 visibility: hidden;
                 height: 0;
+                overflow: hidden;
+            }
+            .atlas-panel-v2.state-peek #atlas-panel-content {
                 overflow: hidden;
             }
             .atlas-panel-v2.state-peek .atlas-panel-action-footer {
@@ -6586,6 +6591,8 @@
                 if (!panel) return;
                 panel.classList.remove('state-peek', 'state-half', 'state-full');
                 panel.scrollTop = 0;
+                var panelContent = document.getElementById('atlas-panel-content');
+                if (panelContent) panelContent.scrollTop = 0;
                 if (newState === 'closed') {
                     sheetState = 'closed';
                     return;
