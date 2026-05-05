@@ -3444,6 +3444,35 @@
             .atlas-mobile-relayout-btn {
                 box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.22), 0 0 10px rgba(45, 212, 191, 0.06);
             }
+            /* Persistent reset-view button — position: fixed keeps it
+               accessible even when browser zoom locks the user into the
+               canvas with no other escape route. */
+            .atlas-mobile-reset-btn {
+                position: fixed;
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+                right: 16px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(15, 23, 42, 0.85);
+                border: 1px solid rgba(45, 212, 191, 0.3);
+                color: #94A3B8;
+                font-size: 18px;
+                line-height: 1;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 9000;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.18),
+                            0 0 10px rgba(45, 212, 191, 0.06);
+                touch-action: manipulation;
+            }
+            .atlas-mobile-reset-btn.visible {
+                display: flex;
+            }
             .atlas-mobile-relayout-btn:hover,
             .atlas-mobile-relayout-btn:active {
                 background: rgba(59, 130, 246, 0.2);
@@ -3548,13 +3577,6 @@
             .atlas-panel-v2.state-full {
                 transform: translateY(0) !important;
                 border-radius: 0;
-            }
-            /* In state-full, the sticky header must stick below the iOS
-               safe area (Dynamic Island / status bar), not at y=0.
-               viewport-fit=cover (added in v4) makes env() return the
-               correct value in Safari. */
-            .atlas-panel-v2.state-full .atlas-panel-header {
-                top: env(safe-area-inset-top, 0px);
             }
             .atlas-panel-v2.state-peek,
             .atlas-panel-v2.state-half,
@@ -3782,6 +3804,7 @@
              both this and the desktop toggle. -->
         <div class="atlas-mobile-mode-strip">
             <button class="atlas-mobile-relayout-btn" id="atlas-mobile-relayout-btn" title="Re-layout network" aria-label="Re-layout network">⟳</button>
+            <button class="atlas-mobile-reset-btn" id="atlas-mobile-reset-btn" title="Reset view" aria-label="Reset view">⊙</button>
             <div class="atlas-mode-toggle atlas-mode-toggle-mobile" id="atlas-mode-toggle-mobile" role="tablist" aria-label="Atlas layout mode (mobile)">
                 <button class="atlas-mode-btn active" type="button" data-mode="network" role="tab">Network</button>
                 <button class="atlas-mode-btn" type="button" data-mode="timeline" role="tab">Timeline</button>
@@ -6590,6 +6613,30 @@
 
             function isMobile() { return window.innerWidth <= 767; }
 
+            // Read safe-area-inset-top reliably via a test element.
+            // Returns a number (px). Falls back to 0 if env() unsupported.
+            function getSafeAreaTop() {
+                var el = document.createElement('div');
+                el.style.cssText = 'position:fixed;top:env(safe-area-inset-top,0px);' +
+                                   'left:0;width:0;height:0;pointer-events:none;visibility:hidden;';
+                document.body.appendChild(el);
+                var val = parseFloat(getComputedStyle(el).top) || 0;
+                document.body.removeChild(el);
+                return val;
+            }
+
+            // Apply / remove safe-area offset on the sticky panel header.
+            function applyHeaderSafeArea(isFullState) {
+                var header = document.querySelector('#atlas-panel-v2 .atlas-panel-header');
+                if (!header) return;
+                if (isFullState) {
+                    var inset = getSafeAreaTop();
+                    header.style.top = (inset > 0 ? inset : 0) + 'px';
+                } else {
+                    header.style.top = '';
+                }
+            }
+
             window.setSheetState = function(newState) {
                 if (!isMobile()) return;
                 var panel = document.getElementById('atlas-panel-v2');
@@ -6598,20 +6645,58 @@
                 panel.scrollTop = 0;
                 var panelContent = document.getElementById('atlas-panel-content');
                 if (panelContent) panelContent.scrollTop = 0;
+                // Remove safe-area offset whenever leaving full state.
+                applyHeaderSafeArea(false);
                 if (newState === 'closed') {
                     sheetState = 'closed';
                     return;
                 }
-                // Defer class add by one frame so scroll resets settle
-                // before the CSS transition begins — prevents grey ghost.
                 var _newState = newState;
                 requestAnimationFrame(function() {
-                    panel.classList.add('state-' + _newState);
-                    sheetState = _newState;
+                    setTimeout(function() {
+                        panel.classList.add('state-' + _newState);
+                        sheetState = _newState;
+                        // Apply safe-area offset after transition class is set.
+                        if (_newState === 'full') {
+                            applyHeaderSafeArea(true);
+                        }
+                    }, 20);
                 });
             };
 
             window.getSheetState = function() { return sheetState; };
+
+            // Reset-view button: resets both Cytoscape viewport and
+            // browser-level visual viewport zoom. The button is shown
+            // as soon as a Cytoscape canvas interaction occurs and
+            // dismissed automatically after a successful fit.
+            (function() {
+                var resetBtn = document.getElementById('atlas-mobile-reset-btn');
+                if (!resetBtn || !isMobile()) return;
+
+                // Show the button after any canvas interaction.
+                document.getElementById('atlas-network') &&
+                    document.getElementById('atlas-network').addEventListener('touchstart', function() {
+                        resetBtn.classList.add('visible');
+                    }, { passive: true });
+
+                resetBtn.addEventListener('click', function() {
+                    // 1. Reset Cytoscape zoom/pan.
+                    if (window.cy) {
+                        window.cy.fit(undefined, 40);
+                    }
+                    // 2. Reset browser visual viewport zoom (iOS Safari trick).
+                    var meta = document.querySelector('meta[name="viewport"]');
+                    if (meta) {
+                        var content = meta.getAttribute('content');
+                        meta.setAttribute('content', content + ', maximum-scale=1');
+                        setTimeout(function() {
+                            meta.setAttribute('content', content);
+                        }, 300);
+                    }
+                    resetBtn.classList.remove('visible');
+                });
+            })();
 
             var panel = document.getElementById('atlas-panel-v2');
             if (!panel) return;
