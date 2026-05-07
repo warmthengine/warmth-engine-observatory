@@ -3540,6 +3540,7 @@
                 transform: translateY(100%);
                 will-change: transform;
                 display: flex !important;
+                height: 100vh;
             }
             .atlas-main.has-panel-open .atlas-panel-v2 {
                 width: 100% !important;
@@ -3747,6 +3748,12 @@
             opacity: 1;
             pointer-events: auto;
         }
+        /* Hide when panel is open — the button is for canvas escape,
+           not needed while interacting with the panel. */
+        .atlas-main.has-panel-open ~ .atlas-reset-view-btn {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
         .atlas-reset-view-btn:hover,
         .atlas-reset-view-btn:active {
             background: rgba(59, 130, 246, 0.25);
@@ -3754,10 +3761,10 @@
             border-color: rgba(96, 165, 250, 0.4);
         }
         @media (max-width: 767px) {
-            /* On mobile, position at bottom-left above the bottom
-               sheet peek height to avoid overlapping panel content. */
+            /* On mobile, bottom-left. Hides automatically when panel
+               is open via the .has-panel-open sibling rule. */
             .atlas-reset-view-btn {
-                bottom: 172px;
+                bottom: 24px;
                 right: auto;
                 left: 16px;
                 width: 40px;
@@ -6713,24 +6720,42 @@
             var sheetState = 'closed';
             var touchStartY = 0;
             var touchStartTime = 0;
-            var currentTranslateY = window.innerHeight; // start off-screen
+            var currentTranslateY = 0; // updated by applyTransform
             var isDragging = false;
+            var dragStartTranslateY = 0; // visual position at touchstart
             var TRANSITION = 'transform 300ms cubic-bezier(0.33, 1, 0.68, 1)';
 
             function isMobile() { return window.innerWidth <= 767; }
 
-            // Snap positions in px from the top of the viewport.
-            // The panel is position:fixed bottom:0, max-height:100vh,
-            // so translateY(N) moves the panel N px down from its
-            // natural top (which is at y=0 when the panel is 100vh tall).
+            // Snap positions use panel.offsetHeight (matches CSS 100%)
+            // rather than window.innerHeight (which differs from 100vh
+            // on iOS Safari due to the dynamic toolbar). This gives
+            // exact parity with the original CSS translateY(calc(100% - 160px)).
             function getSnapPositions() {
-                var vh = window.innerHeight;
+                var panel = document.getElementById('atlas-panel-v2');
+                var h = panel ? panel.offsetHeight : window.innerHeight;
                 return {
                     full: 0,
-                    half: Math.round(vh * 0.5),
-                    peek: vh - 160,
-                    closed: vh
+                    half: Math.round(h * 0.5),
+                    peek: h - 160,
+                    closed: h
                 };
+            }
+
+            // Read the panel's current visual translateY from computed
+            // style. Needed when a new touch interrupts a running
+            // animation — the panel may be mid-transition between
+            // snap positions.
+            function getVisualTranslateY(el) {
+                var style = getComputedStyle(el);
+                var transform = style.transform;
+                if (!transform || transform === 'none') return 0;
+                var match = transform.match(/matrix.*\((.+)\)/);
+                if (match) {
+                    var values = match[1].split(', ');
+                    return parseFloat(values[5]) || 0;
+                }
+                return 0;
             }
 
             function applyTransform(panel, y, animate) {
@@ -6842,8 +6867,12 @@
                 touchStartY = e.touches[0].clientY;
                 touchStartTime = Date.now();
                 isDragging = false;
-                // Kill any running transition so dragging starts instantly
+                // Capture where the panel actually IS visually (may be
+                // mid-animation) and freeze it there.
+                dragStartTranslateY = getVisualTranslateY(panel);
                 panel.style.transition = 'none';
+                panel.style.transform = 'translateY(' + dragStartTranslateY + 'px)';
+                currentTranslateY = dragStartTranslateY;
             }, { passive: true });
 
             panel.addEventListener('touchmove', function(e) {
@@ -6873,9 +6902,11 @@
 
                 isDragging = true;
 
+                // Use the captured visual position as the drag origin
+                // (not the snap position) so interrupting animations
+                // feels seamless.
                 var snaps = getSnapPositions();
-                var originY = snaps[sheetState] !== undefined ? snaps[sheetState] : snaps.closed;
-                var newY = originY + deltaY;
+                var newY = dragStartTranslateY + deltaY;
 
                 // Clamp: don't allow dragging above full (0) or below
                 // closed (vh), with rubber-band feel at top.
