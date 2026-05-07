@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Interactive Atlas — Warmth Engine Observatory</title>
     <meta name="description" content="Interactive coordination atlas — network view of verified AI infrastructure events and their Coordination Connections. Brief 1: CHIPS Act family.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO atlas, interactive network, coordination connections, CHIPS Act, event network, geopolitical coordination">
@@ -3514,6 +3514,53 @@
             }
         }
         @media (max-width: 767px) {
+            /* Fixed-viewport app layout — prevents page scroll so header
+               and canvas chrome are always accessible. JS repositionMobileChrome()
+               corrects the px offsets to exact measured heights on load/resize. */
+            body {
+                overflow: hidden !important;
+                position: fixed !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+            nav.weo-nav {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 700 !important;
+            }
+            .atlas-caption {
+                position: fixed !important;
+                top: 52px !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 700 !important;
+            }
+            .atlas-mobile-mode-strip {
+                position: fixed !important;
+                top: 86px !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 700 !important;
+            }
+            .atlas-filter-bar-wrapper {
+                position: fixed !important;
+                top: 135px !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 700 !important;
+            }
+            #atlas-network {
+                position: fixed !important;
+                top: 184px !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            .atlas-footer {
+                display: none !important;
+            }
             /* V2 §3b — tighter nav gap on phone */
             .weo-nav {
                 gap: 8px;
@@ -3759,9 +3806,12 @@
             border-color: rgba(96, 165, 250, 0.4);
         }
         @media (max-width: 767px) {
-            /* On mobile, JS repositionResetBtn() via visualViewport
-               controls placement. Only override size here. */
+            /* On mobile, bottom-left. With browser zoom disabled (Edit 1),
+               position:fixed reliably stays on-screen. */
             .atlas-reset-view-btn {
+                bottom: 16px;
+                left: 16px;
+                right: auto;
                 width: 40px;
                 height: 40px;
                 font-size: 16px;
@@ -5191,6 +5241,7 @@
             wirePlaybackControls();
             wireResetViewButton();
             wirePanBounds();
+            repositionMobileChrome();
         }
 
         // Brief 3b §5 — zoom-driven label reveal. When zoom passes
@@ -6639,24 +6690,10 @@
 
             btn.addEventListener('click', function() {
                 if (!cy) return;
-                // 1. Reset Cytoscape viewport
-                cy.stop(); // cancel any running animation
+                cy.stop();
                 cy.fit(undefined, 40);
 
-                // 2. Reset browser-level pinch-zoom by temporarily
-                //    constraining maximum-scale then restoring.
-                var vpMeta = document.querySelector('meta[name="viewport"]');
-                if (vpMeta) {
-                    var original = vpMeta.getAttribute('content');
-                    vpMeta.setAttribute('content',
-                        'width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover');
-                    // Restore after the viewport snaps back
-                    setTimeout(function() {
-                        vpMeta.setAttribute('content', original);
-                    }, 100);
-                }
-
-                // 3. Pulse the button for feedback
+                // Pulse the button for feedback
                 btn.style.color = 'var(--text-primary)';
                 btn.style.borderColor = 'rgba(96, 165, 250, 0.5)';
                 setTimeout(function() {
@@ -6664,26 +6701,30 @@
                     btn.style.borderColor = '';
                 }, 400);
             });
-
-            // Track the visual viewport so the button stays visible
-            // even when the user pinch-zooms the browser.
-            if (window.visualViewport) {
-                function repositionResetBtn() {
-                    var vv = window.visualViewport;
-                    btn.style.position = 'fixed';
-                    btn.style.top = '0';
-                    btn.style.left = '0';
-                    btn.style.bottom = 'auto';
-                    btn.style.right = 'auto';
-                    btn.style.transform = 'translate(' +
-                        vv.offsetLeft + 'px, ' +
-                        (vv.offsetTop + vv.height - 60) + 'px)';
-                }
-                window.visualViewport.addEventListener('resize', repositionResetBtn);
-                window.visualViewport.addEventListener('scroll', repositionResetBtn);
-                repositionResetBtn();
-            }
         }
+
+        // Measures chrome element heights after render and corrects
+        // the CSS top offsets so fixed-positioned elements stack exactly.
+        // Called once at init and on resize.
+        function repositionMobileChrome() {
+            if (window.innerWidth > 767) return;
+            var nav = document.querySelector('nav.weo-nav');
+            var caption = document.querySelector('.atlas-caption');
+            var modeStrip = document.querySelector('.atlas-mobile-mode-strip');
+            var filterWrapper = document.querySelector('.atlas-filter-bar-wrapper');
+            var network = document.getElementById('atlas-network');
+            if (!nav || !network) return;
+            var navH = nav.offsetHeight;
+            var capH = caption ? caption.offsetHeight : 0;
+            var modeH = modeStrip ? modeStrip.offsetHeight : 0;
+            var filterH = filterWrapper ? filterWrapper.offsetHeight : 0;
+            if (caption) caption.style.top = navH + 'px';
+            if (modeStrip) modeStrip.style.top = (navH + capH) + 'px';
+            if (filterWrapper) filterWrapper.style.top = (navH + capH + modeH) + 'px';
+            network.style.top = (navH + capH + modeH + filterH) + 'px';
+            if (cy) cy.resize();
+        }
+        window.addEventListener('resize', repositionMobileChrome);
 
         // OI-1 — Pan boundary clamping. Prevents the user from
         // panning so far from the graph that only empty canvas is
@@ -6692,7 +6733,7 @@
         function wirePanBounds() {
             if (!cy) return;
 
-            cy.on('pan', function() {
+            function clampPan() {
                 var eles = cy.elements().filter(function(ele) {
                     return ele.data('event');
                 });
@@ -6718,12 +6759,12 @@
                 var clampedY = Math.max(minPanY, Math.min(maxPanY, pan.y));
 
                 if (clampedX !== pan.x || clampedY !== pan.y) {
-                    // Temporarily remove listener to avoid recursion
-                    cy.removeListener('pan', arguments.callee);
+                    cy.removeListener('pan', clampPan);
                     cy.pan({ x: clampedX, y: clampedY });
-                    cy.on('pan', arguments.callee);
+                    cy.on('pan', clampPan);
                 }
-            });
+            }
+            cy.on('pan', clampPan);
         }
 
         // DEF-040 V2 §1c — Mobile bottom-sheet panel.
