@@ -3723,8 +3723,6 @@
            the nav dropdown (1000). */
         .atlas-reset-view-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -3761,12 +3759,9 @@
             border-color: rgba(96, 165, 250, 0.4);
         }
         @media (max-width: 767px) {
-            /* On mobile, bottom-left. Hides automatically when panel
-               is open via the .has-panel-open sibling rule. */
+            /* On mobile, JS repositionResetBtn() via visualViewport
+               controls placement. Only override size here. */
             .atlas-reset-view-btn {
-                bottom: 24px;
-                right: auto;
-                left: 16px;
                 width: 40px;
                 height: 40px;
                 font-size: 16px;
@@ -6669,6 +6664,25 @@
                     btn.style.borderColor = '';
                 }, 400);
             });
+
+            // Track the visual viewport so the button stays visible
+            // even when the user pinch-zooms the browser.
+            if (window.visualViewport) {
+                function repositionResetBtn() {
+                    var vv = window.visualViewport;
+                    btn.style.position = 'fixed';
+                    btn.style.top = '0';
+                    btn.style.left = '0';
+                    btn.style.bottom = 'auto';
+                    btn.style.right = 'auto';
+                    btn.style.transform = 'translate(' +
+                        vv.offsetLeft + 'px, ' +
+                        (vv.offsetTop + vv.height - 60) + 'px)';
+                }
+                window.visualViewport.addEventListener('resize', repositionResetBtn);
+                window.visualViewport.addEventListener('scroll', repositionResetBtn);
+                repositionResetBtn();
+            }
         }
 
         // OI-1 — Pan boundary clamping. Prevents the user from
@@ -6736,7 +6750,6 @@
                 var h = panel ? panel.offsetHeight : window.innerHeight;
                 return {
                     full: 0,
-                    half: Math.round(h * 0.5),
                     peek: h - 160,
                     closed: h
                 };
@@ -6770,32 +6783,41 @@
 
             // OI-2: In state-full, switch header from sticky to fixed
             // so env(safe-area-inset-top) is respected in Safari.
+            // Inline styles bypass any CSS specificity issues with the
+            // class-based approach.
             function applyHeaderMode(state) {
                 var header = document.querySelector('#atlas-panel-v2 .atlas-panel-header, #atlas-panel-v2 #atlas-section-header');
                 var content = document.getElementById('atlas-panel-content');
                 if (!header) return;
 
                 if (state === 'full') {
-                    header.classList.add('atlas-panel-header-fixed');
-                    // Add padding-top to content so it doesn't slide
-                    // under the now-fixed header.
+                    header.style.position = 'fixed';
+                    header.style.top = 'env(safe-area-inset-top, 0px)';
+                    header.style.left = '0';
+                    header.style.right = '0';
+                    header.style.width = '100%';
+                    header.style.zIndex = '200';
+                    header.style.background = 'var(--surface-raised)';
+                    header.style.borderBottom = '1px solid var(--border-default)';
+                    header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
                     if (content) {
                         var headerH = header.offsetHeight || 80;
-                        // Read safe-area-inset-top via computed style on a
-                        // test element, falling back to 0.
-                        var safeTop = parseInt(
-                            getComputedStyle(document.documentElement)
-                                .getPropertyValue('--sat-fallback') || '0', 10
-                        );
-                        // More reliable: parse the header's computed top
-                        // which already includes env().
+                        var safeTop = 0;
                         try {
                             safeTop = parseInt(getComputedStyle(header).top, 10) || 0;
                         } catch(e) { safeTop = 0; }
                         content.style.paddingTop = (headerH + Math.max(safeTop, 0)) + 'px';
                     }
                 } else {
-                    header.classList.remove('atlas-panel-header-fixed');
+                    header.style.position = '';
+                    header.style.top = '';
+                    header.style.left = '';
+                    header.style.right = '';
+                    header.style.width = '';
+                    header.style.zIndex = '';
+                    header.style.background = '';
+                    header.style.borderBottom = '';
+                    header.style.boxShadow = '';
                     if (content) content.style.paddingTop = '';
                 }
             }
@@ -6826,7 +6848,7 @@
 
                 // FC-5: After first successful upward swipe, disable
                 // the bounce animation so it doesn't loop forever.
-                if (newState === 'half' || newState === 'full') {
+                if (newState === 'full') {
                     var hint = panel.querySelector('.atlas-panel-swipe-hint');
                     if (hint && !hint.classList.contains('hint-discovered')) {
                         hint.classList.add('hint-discovered');
@@ -6873,6 +6895,11 @@
                 panel.style.transition = 'none';
                 panel.style.transform = 'translateY(' + dragStartTranslateY + 'px)';
                 currentTranslateY = dragStartTranslateY;
+                // If dragging from full state, immediately restore header to
+                // sticky so it moves with the panel (prevents grey gap).
+                if (sheetState === 'full') {
+                    applyHeaderMode('peek');
+                }
             }, { passive: true });
 
             panel.addEventListener('touchmove', function(e) {
@@ -6934,14 +6961,11 @@
                     var targetState;
 
                     if ((isSwipe || isFlick) && deltaY > 0) {
-                        // Swiped/flicked upward
-                        if (sheetState === 'peek') targetState = 'half';
-                        else if (sheetState === 'half') targetState = 'full';
-                        else targetState = 'full';
+                        // Swiped/flicked upward — go directly to full
+                        targetState = 'full';
                     } else if ((isSwipe || isFlick) && deltaY < 0) {
-                        // Swiped/flicked downward
-                        if (sheetState === 'full') targetState = 'half';
-                        else if (sheetState === 'half') targetState = 'peek';
+                        // Swiped/flicked downward — full→peek directly
+                        if (sheetState === 'full') targetState = 'peek';
                         else {
                             targetState = 'closed';
                             var closeBtn = document.getElementById('atlas-panel-close');
@@ -6949,10 +6973,9 @@
                             return;
                         }
                     } else {
-                        // No significant swipe — snap to nearest
+                        // No significant swipe — snap to nearest (full or peek only)
                         var snapEntries = [
                             { state: 'full', y: snaps.full },
-                            { state: 'half', y: snaps.half },
                             { state: 'peek', y: snaps.peek }
                         ];
                         var nearest = snapEntries[0];
@@ -6968,11 +6991,9 @@
                 } else {
                     // Not a drag — treat as legacy tap/swipe logic
                     if ((isSwipe || isFlick) && deltaY > 0) {
-                        if (sheetState === 'peek') window.setSheetState('half');
-                        else if (sheetState === 'half') window.setSheetState('full');
+                        window.setSheetState('full');
                     } else if ((isSwipe || isFlick) && deltaY < 0) {
-                        if (sheetState === 'full') window.setSheetState('half');
-                        else if (sheetState === 'half') window.setSheetState('peek');
+                        if (sheetState === 'full') window.setSheetState('peek');
                         else if (sheetState === 'peek') {
                             window.setSheetState('closed');
                             var closeBtn = document.getElementById('atlas-panel-close');
@@ -6982,14 +7003,14 @@
                 }
             }, { passive: true });
 
-            // Tap on the peek lip → expand to half. Restricted to the
+            // Tap on the peek lip → expand to full. Restricted to the
             // header strip so taps inside fully-revealed body content
             // (links, chips) keep their normal behaviour.
             panel.addEventListener('click', function(e) {
                 if (!isMobile()) return;
                 if (sheetState !== 'peek') return;
                 if (e.target.closest('.atlas-panel-close')) return;
-                window.setSheetState('half');
+                window.setSheetState('full');
             });
 
             // On orientation/resize, recalculate current position
