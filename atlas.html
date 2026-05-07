@@ -3532,34 +3532,69 @@
             }
             .atlas-caption {
                 position: fixed !important;
-                top: 52px !important;
                 left: 0 !important;
                 right: 0 !important;
                 z-index: 700 !important;
             }
             .atlas-mobile-mode-strip {
                 position: fixed !important;
-                top: 86px !important;
                 left: 0 !important;
                 right: 0 !important;
                 z-index: 700 !important;
             }
             .atlas-filter-bar-wrapper {
                 position: fixed !important;
-                top: 135px !important;
                 left: 0 !important;
                 right: 0 !important;
                 z-index: 700 !important;
             }
             #atlas-network {
                 position: fixed !important;
-                top: 184px !important;
                 bottom: 0 !important;
                 left: 0 !important;
                 right: 0 !important;
             }
             .atlas-footer {
                 display: none !important;
+            }
+            /* OI-1 — Reset view escape hatch. Mobile-only: renders on
+               phones where the fixed-viewport layout is active. */
+            .atlas-reset-view-btn {
+                position: fixed;
+                bottom: 16px;
+                left: 16px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 1px solid var(--border-primary);
+                background: rgba(30, 41, 59, 0.92);
+                color: var(--text-muted);
+                font-size: 16px;
+                cursor: pointer;
+                z-index: 800;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 300ms ease, background 150ms ease, color 150ms ease;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+            }
+            .atlas-reset-view-btn.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .atlas-main.has-panel-open ~ .atlas-reset-view-btn {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+            .atlas-reset-view-btn:hover,
+            .atlas-reset-view-btn:active {
+                background: rgba(59, 130, 246, 0.25);
+                color: var(--text-primary);
+                border-color: rgba(96, 165, 250, 0.4);
             }
             /* V2 §3b — tighter nav gap on phone */
             .weo-nav {
@@ -3597,21 +3632,8 @@
             }
             .atlas-panel-v2.state-full {
                 border-radius: 0;
-            }
-            /* OI-2 fix: In state-full the header switches to
-               position:fixed via JS so env(safe-area-inset-top)
-               is respected reliably in Safari. This class is
-               added/removed by setSheetState. */
-            .atlas-panel-header-fixed {
-                position: fixed !important;
-                top: env(safe-area-inset-top, 0px) !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                z-index: 200;
-                background: var(--surface-raised);
-                border-bottom: 1px solid var(--border-default);
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                z-index: 800 !important;
+                padding-top: env(safe-area-inset-top, 0px);
             }
             .atlas-panel-v2.state-peek #atlas-panel-content > .atlas-panel-section {
                 visibility: hidden;
@@ -3764,59 +3786,6 @@
             }
         }
 
-        /* OI-1 — Reset view escape hatch. position:fixed survives
-           browser-level pinch-zoom so the user always has an exit.
-           z-index 800 sits above the bottom sheet (600) and below
-           the nav dropdown (1000). */
-        .atlas-reset-view-btn {
-            position: fixed;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid var(--border-primary);
-            background: rgba(30, 41, 59, 0.92);
-            color: var(--text-muted);
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 300ms ease, background 150ms ease, color 150ms ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-        }
-        .atlas-reset-view-btn.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        /* Hide when panel is open — the button is for canvas escape,
-           not needed while interacting with the panel. */
-        .atlas-main.has-panel-open ~ .atlas-reset-view-btn {
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-        .atlas-reset-view-btn:hover,
-        .atlas-reset-view-btn:active {
-            background: rgba(59, 130, 246, 0.25);
-            color: var(--text-primary);
-            border-color: rgba(96, 165, 250, 0.4);
-        }
-        @media (max-width: 767px) {
-            /* On mobile, bottom-left. With browser zoom disabled (Edit 1),
-               position:fixed reliably stays on-screen. */
-            .atlas-reset-view-btn {
-                bottom: 16px;
-                left: 16px;
-                right: auto;
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -4760,7 +4729,7 @@
             cy = window.cytoscape({
                 container: document.getElementById('atlas-network'),
                 elements: { nodes, edges },
-                minZoom: 0.4,
+                minZoom: 0.3,
                 maxZoom: 2,
                 // Phase 2 P0 (Batch 1) — canonical Cytoscape performance
                 // settings. Suppresses labels/edges + uses texture cache
@@ -6703,27 +6672,22 @@
             });
         }
 
-        // Measures chrome element heights after render and corrects
-        // the CSS top offsets so fixed-positioned elements stack exactly.
-        // Called once at init and on resize.
         function repositionMobileChrome() {
             if (window.innerWidth > 767) return;
             var nav = document.querySelector('nav.weo-nav');
             var caption = document.querySelector('.atlas-caption');
             var modeStrip = document.querySelector('.atlas-mobile-mode-strip');
-            var filterWrapper = document.querySelector('.atlas-filter-bar-wrapper');
-            var network = document.getElementById('atlas-network');
-            if (!nav || !network) return;
-            var navH = nav.offsetHeight;
-            var capH = caption ? caption.offsetHeight : 0;
-            var modeH = modeStrip ? modeStrip.offsetHeight : 0;
-            var filterH = filterWrapper ? filterWrapper.offsetHeight : 0;
-            if (caption) caption.style.top = navH + 'px';
-            if (modeStrip) modeStrip.style.top = (navH + capH) + 'px';
-            if (filterWrapper) filterWrapper.style.top = (navH + capH + modeH) + 'px';
-            network.style.top = (navH + capH + modeH + filterH) + 'px';
-            if (cy) cy.resize();
+            var filterBar = document.querySelector('.atlas-filter-bar-wrapper');
+            var canvas = document.getElementById('atlas-network');
+            if (!nav) return;
+            var y = 0;
+            y += nav.offsetHeight;
+            if (caption) { caption.style.top = y + 'px'; y += caption.offsetHeight; }
+            if (modeStrip) { modeStrip.style.top = y + 'px'; y += modeStrip.offsetHeight; }
+            if (filterBar) { filterBar.style.top = y + 'px'; y += filterBar.offsetHeight; }
+            if (canvas) { canvas.style.top = y + 'px'; }
         }
+        repositionMobileChrome();
         window.addEventListener('resize', repositionMobileChrome);
 
         // OI-1 — Pan boundary clamping. Prevents the user from
@@ -6768,9 +6732,9 @@
         }
 
         // DEF-040 V2 §1c — Mobile bottom-sheet panel.
-        // PR2 rewrite: JS-driven transforms eliminate the grey ghost
-        // (OI-3), enable finger tracking (OI-4), and allow the header
-        // to switch to position:fixed in state-full (OI-2).
+        // JS-driven transforms eliminate the grey ghost (OI-3) and
+        // enable finger tracking (OI-4). Safe-area handled via CSS
+        // padding-top: env(safe-area-inset-top) on .state-full.
         (function wireBottomSheet() {
             var sheetState = 'closed';
             var touchStartY = 0;
@@ -6822,47 +6786,6 @@
                 currentTranslateY = y;
             }
 
-            // OI-2: In state-full, switch header from sticky to fixed
-            // so env(safe-area-inset-top) is respected in Safari.
-            // Inline styles bypass any CSS specificity issues with the
-            // class-based approach.
-            function applyHeaderMode(state) {
-                var header = document.querySelector('#atlas-panel-v2 .atlas-panel-header, #atlas-panel-v2 #atlas-section-header');
-                var content = document.getElementById('atlas-panel-content');
-                if (!header) return;
-
-                if (state === 'full') {
-                    header.style.position = 'fixed';
-                    header.style.top = 'env(safe-area-inset-top, 0px)';
-                    header.style.left = '0';
-                    header.style.right = '0';
-                    header.style.width = '100%';
-                    header.style.zIndex = '200';
-                    header.style.background = 'var(--surface-raised)';
-                    header.style.borderBottom = '1px solid var(--border-default)';
-                    header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
-                    if (content) {
-                        var headerH = header.offsetHeight || 80;
-                        var safeTop = 0;
-                        try {
-                            safeTop = parseInt(getComputedStyle(header).top, 10) || 0;
-                        } catch(e) { safeTop = 0; }
-                        content.style.paddingTop = (headerH + Math.max(safeTop, 0)) + 'px';
-                    }
-                } else {
-                    header.style.position = '';
-                    header.style.top = '';
-                    header.style.left = '';
-                    header.style.right = '';
-                    header.style.width = '';
-                    header.style.zIndex = '';
-                    header.style.background = '';
-                    header.style.borderBottom = '';
-                    header.style.boxShadow = '';
-                    if (content) content.style.paddingTop = '';
-                }
-            }
-
             window.setSheetState = function(newState) {
                 if (!isMobile()) return;
                 var panel = document.getElementById('atlas-panel-v2');
@@ -6883,9 +6806,6 @@
                 if (newState !== 'closed') {
                     panel.classList.add('state-' + newState);
                 }
-
-                // Apply header mode for OI-2
-                applyHeaderMode(newState);
 
                 // FC-5: After first successful upward swipe, disable
                 // the bounce animation so it doesn't loop forever.
@@ -6936,11 +6856,6 @@
                 panel.style.transition = 'none';
                 panel.style.transform = 'translateY(' + dragStartTranslateY + 'px)';
                 currentTranslateY = dragStartTranslateY;
-                // If dragging from full state, immediately restore header to
-                // sticky so it moves with the panel (prevents grey gap).
-                if (sheetState === 'full') {
-                    applyHeaderMode('peek');
-                }
             }, { passive: true });
 
             panel.addEventListener('touchmove', function(e) {
