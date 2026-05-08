@@ -3576,6 +3576,7 @@
                 will-change: transform;
                 display: flex !important;
                 height: 100vh;
+                padding-top: env(safe-area-inset-top, 0px);
             }
             .atlas-main.has-panel-open .atlas-panel-v2 {
                 width: 100% !important;
@@ -3586,13 +3587,13 @@
             .atlas-panel-v2.state-full {
                 border-radius: 0;
                 z-index: 800 !important;
-                padding-top: env(safe-area-inset-top, 0px);
             }
-            /* Content div needs flex:1 to fill the panel and scroll */
+            /* Content fills remaining panel space and scrolls */
             #atlas-panel-content {
                 flex: 1 1 auto;
                 overflow-y: auto;
                 min-height: 0;
+                background: var(--bg-card);
             }
             .atlas-panel-v2.state-peek #atlas-panel-content > .atlas-panel-section {
                 visibility: hidden;
@@ -6733,11 +6734,11 @@
                 var zoom = cy.zoom();
                 var cw = cy.width(), ch = cy.height();
 
-                // Generous padding: 1.5× the viewport dimension around
-                // the bounding box, so the graph can be partially
-                // scrolled off-screen but never fully lost.
-                var padX = cw * 1.5;
-                var padY = ch * 1.5;
+                // Bounded padding: 0.3× the viewport dimension. Tight
+                // enough to prevent infinite scrolling into void, loose
+                // enough for comfortable exploration.
+                var padX = cw * 0.3;
+                var padY = ch * 0.3;
 
                 var pan = cy.pan();
                 var minPanX = cw - (bb.x2 * zoom) - padX;
@@ -6772,13 +6773,12 @@
 
             function isMobile() { return window.innerWidth <= 767; }
 
-            // Snap positions use panel.offsetHeight (matches CSS 100%)
-            // rather than window.innerHeight (which differs from 100vh
-            // on iOS Safari due to the dynamic toolbar). This gives
-            // exact parity with the original CSS translateY(calc(100% - 160px)).
             function getSnapPositions() {
-                var panel = document.getElementById('atlas-panel-v2');
-                var h = panel ? panel.offsetHeight : window.innerHeight;
+                // Use visualViewport.height for accurate iOS measurement.
+                // The panel is position:fixed bottom:0, so viewport height
+                // determines how much panel is visible at each snap.
+                var h = window.visualViewport ? window.visualViewport.height
+                      : document.documentElement.clientHeight;
                 return {
                     full: 0,
                     peek: h - 160,
