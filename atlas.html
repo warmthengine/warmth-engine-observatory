@@ -762,6 +762,12 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            transition: border-color 250ms ease, box-shadow 250ms ease;
+        }
+        /* E4 — teal accent border when any filter is active */
+        #atlas-topology.filters-active {
+            border-left: 2px solid rgba(45, 212, 191, 0.5);
+            box-shadow: inset 3px 0 12px rgba(45, 212, 191, 0.06);
         }
         .topo-title {
             font-family: var(--font-sans);
@@ -831,6 +837,22 @@
         }
         .topo-kv-label { color: var(--text-secondary); }
         .topo-kv-value { color: var(--text-primary); font-weight: 500; }
+        /* E3 — clear-all text link inside the active-filter tally */
+        .topo-clear-link {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-top: 4px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            align-self: flex-start;
+            transition: color 150ms ease;
+        }
+        .topo-clear-link:hover { color: var(--text-primary); }
         .topo-expand-btn {
             /* Patch §3 — hidden until the "expand to full network"
                feature is implemented. Kept in DOM (not deleted) so
@@ -3894,6 +3916,10 @@
             <aside id="atlas-topology" aria-label="Coordination topology">
                 <h2 class="topo-title"><span class="topo-title-dot" aria-hidden="true"></span>Coordination topology</h2>
                 <div class="topo-summary" id="topo-summary">— events · — CCs</div>
+
+                <!-- E3 — active filter tally; populated and shown/hidden by
+                     renderActiveFilterTally() inside renderTopology(). -->
+                <div id="topo-active-filters" class="topo-section" style="display:none" aria-live="polite"></div>
 
                 <!-- Brief 3e §2 — Layout mode toggle (relocated from below
                      the Re-layout button per patch §2 so it stays above
@@ -7482,6 +7508,63 @@
         // when filter changes are applied. Brief 2 §3.4 success criterion:
         // "Topology strip stats update on filter change to reflect visible
         // elements only".
+
+        // E3 — populates the active-filter tally in the topology panel.
+        // Called from renderTopology so it updates on every state change.
+        // FILTER_DIMENSIONS / CC_TYPE_NAME / ENT_LABELS are referenced at
+        // call-time (not definition-time) so the forward-reference is safe.
+        function renderActiveFilterTally(filters) {
+            const el = document.getElementById('topo-active-filters');
+            if (!el) return;
+            const topoEl = document.getElementById('atlas-topology');
+            const active = hasAnyActiveFilter(filters);
+
+            // E4 — accent border
+            if (topoEl) topoEl.classList.toggle('filters-active', active);
+
+            if (!active) { el.style.display = 'none'; return; }
+
+            const lines = [];
+            if (filters.tier.length)
+                lines.push({ label: 'Tier',       value: filters.tier.map(v => 'T' + v).join(', ') });
+            if (filters.bloc.length)
+                lines.push({ label: 'Bloc',       value: filters.bloc.join(', ') });
+            if (filters.domain.length)
+                lines.push({ label: 'Domain',     value: filters.domain.join(', ') });
+            if (filters.eventType.length)
+                lines.push({ label: 'Type',       value: filters.eventType.join(', ') });
+            if (filters.industry.length)
+                lines.push({ label: 'Industry',   value: filters.industry.join(', ') });
+            if (filters.ent.length)
+                lines.push({ label: 'ENT',        value: filters.ent.map(v => ENT_LABELS[v] || v).join(', ') });
+            if (filters.ccType.length)
+                lines.push({ label: 'CC Type',    value: filters.ccType.map(v => CC_TYPE_NAME[Number(v)] || v).join(', ') });
+            if (filters.confidence.length)
+                lines.push({ label: 'Confidence', value: filters.confidence.join(', ') });
+            if (filters.timeRange && (filters.timeRange.start || filters.timeRange.end)) {
+                const from = filters.timeRange.start
+                    ? formatMonthYear(new Date(filters.timeRange.start + 'T00:00:00')) : '—';
+                const to = filters.timeRange.end
+                    ? formatMonthYear(new Date(filters.timeRange.end + 'T00:00:00')) : '—';
+                lines.push({ label: 'Time', value: from + ' → ' + to });
+            }
+            if (filters.search && filters.search.trim())
+                lines.push({ label: 'Search', value: '“' + filters.search.trim() + '”' });
+
+            let html = '<div class="topo-section-label">Active Filters</div>';
+            lines.forEach(({ label, value }) => {
+                html += `<div class="topo-kv-row">` +
+                    `<span class="topo-kv-label">${escapeHtml(label)}</span>` +
+                    `<span class="topo-kv-value">${escapeHtml(value)}</span>` +
+                    `</div>`;
+            });
+            html += '<button type="button" class="topo-clear-link">Clear all filters</button>';
+            el.innerHTML = html;
+            el.style.display = '';
+            const clearBtn = el.querySelector('.topo-clear-link');
+            if (clearBtn) clearBtn.addEventListener('click', clearAllFilters);
+        }
+
         function renderTopology(events, connections) {
             const totalEvents = events.length;
             const totalCCs = connections.length;
@@ -7584,6 +7667,10 @@
             rangeEl.innerHTML = `
                 <span class="topo-kv-label">First → Last</span>
                 <span class="topo-kv-value">${escapeHtml(first)} → ${escapeHtml(last)}</span>`;
+
+            // E3/E4 — active filter tally + accent border
+            const filtersForTally = typeof atlasState !== 'undefined' ? atlasState.filters : null;
+            if (filtersForTally) renderActiveFilterTally(filtersForTally);
         }
 
         // -----------------------------------------------------------------
