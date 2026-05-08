@@ -4479,10 +4479,10 @@
             const degVals = Object.values(globalDegree);
             maxDegree = degVals.length ? Math.max.apply(null, degVals) : 0;
 
-            if (eventsPayload && eventsPayload.last_updated) {
+            if (eventsPayload && eventsPayload.meta && eventsPayload.meta.last_updated) {
                 const el = document.getElementById('weo-last-updated');
                 if (el) {
-                    let dateStr = eventsPayload.last_updated;
+                    let dateStr = eventsPayload.meta.last_updated;
                     try {
                         const d = new Date(dateStr + 'T00:00:00Z');
                         if (!isNaN(d)) {
