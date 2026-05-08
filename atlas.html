@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Interactive Atlas — Warmth Engine Observatory</title>
     <meta name="description" content="Interactive coordination atlas — network view of verified AI infrastructure events and their Coordination Connections. Brief 1: CHIPS Act family.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO atlas, interactive network, coordination connections, CHIPS Act, event network, geopolitical coordination">
@@ -260,11 +260,13 @@
         .atlas-shell {
             display: flex;
             flex-direction: column;
-            /* DEF-040 §3a — 100dvh accounts for mobile browser chrome
-               (URL bar collapse) so the shell never leaves dead space
-               at the bottom. 100vh is the fallback for older browsers. */
+            /* Two-declaration cascade: old browsers without dvh support use
+               100vh; modern browsers override with 100dvh (dynamic viewport,
+               adjusts with iOS toolbar). min-height: 100vh was removed —
+               on iOS Safari 100vh > 100dvh (large vs dynamic viewport),
+               so min-height won the cascade and pushed the footer off-screen. */
+            height: 100vh;
             height: 100dvh;
-            min-height: 100vh;
             width: 100%;
         }
 
@@ -1552,6 +1554,11 @@
             color: var(--text-primary);
         }
         .atlas-main.has-panel-open .atlas-panel-v2 { display: flex; }
+
+        /* Mobile escape / reset-view button — hidden on desktop */
+        #atlas-escape-btn {
+            display: none;
+        }
 
         /* --- Free/paid gating (Atlas-prefixed; uses existing
            body.weo-authenticated class set elsewhere in the platform).
@@ -3539,23 +3546,20 @@
                 width: 100% !important;
             }
             .atlas-panel-v2.state-peek {
-                transform: translateY(calc(100% - 160px)) !important;
+                transform: translateY(calc(100% - 160px));
                 overflow-y: hidden;
             }
             .atlas-panel-v2.state-half {
-                transform: translateY(50%) !important;
+                transform: translateY(50%);
             }
             .atlas-panel-v2.state-full {
-                transform: translateY(0) !important;
+                transform: translateY(0);
                 border-radius: 0;
             }
-            /* In state-full, the sticky header must stick below the iOS
-               safe area (Dynamic Island / status bar), not at y=0.
-               viewport-fit=cover (added in v4) makes env() return the
-               correct value in Safari. */
-            .atlas-panel-v2.state-full .atlas-panel-header {
-                top: env(safe-area-inset-top, 0px);
-            }
+            /* No env() offset needed: JS pins the panel height to
+               window.innerHeight, putting the panel top at y=0 (the visual
+               viewport top = bottom edge of the status bar). Sticky top:0
+               is therefore already correct. */
             .atlas-panel-v2.state-peek,
             .atlas-panel-v2.state-half,
             .atlas-panel-v2.state-full {
@@ -3596,10 +3600,51 @@
             .atlas-panel-v2.state-peek .atlas-panel-swipe-hint,
             .atlas-panel-v2.state-half .atlas-panel-swipe-hint {
                 display: block;
+                animation: atlas-swipe-hint-bounce 2s ease-in-out infinite;
+            }
+            /* Stop animation after first successful swipe — one-shot via JS */
+            .atlas-panel-v2.swipe-hint-used .atlas-panel-swipe-hint {
+                animation: none;
             }
             .atlas-panel-v2.state-full .atlas-panel-swipe-hint {
                 display: none;
             }
+            /* Escape / reset-view button — always accessible on mobile,
+               even when the graph has been panned into empty space. */
+            #atlas-escape-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                bottom: 24px;
+                right: 16px;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: rgba(15, 23, 42, 0.92);
+                border: 1.5px solid #60a5fa;
+                color: #60a5fa;
+                box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.15),
+                            0 0 16px rgba(96, 165, 250, 0.35);
+                z-index: 650;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                touch-action: manipulation;
+                cursor: pointer;
+                padding: 0;
+                transition: background 150ms, color 150ms, box-shadow 150ms, bottom 200ms;
+            }
+            #atlas-escape-btn svg {
+                width: 22px;
+                height: 22px;
+            }
+            #atlas-escape-btn:active {
+                background: rgba(37, 99, 235, 0.5);
+                color: #bfdbfe;
+                box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.3),
+                            0 0 24px rgba(96, 165, 250, 0.5);
+            }
+
             /* V2 §3c — header chrome sized so the "A" confidence pill and
                "X" close button don't collide with the title text. */
             .atlas-panel-close {
@@ -3726,6 +3771,10 @@
             from { opacity: 0; transform: translate(-50%, 10px); }
             to { opacity: 1; transform: translate(-50%, 0); }
         }
+        @keyframes atlas-swipe-hint-bounce {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(-4px); }
+        }
         @media (min-width: 768px) {
             .atlas-landscape-hint { display: none !important; }
         }
@@ -3819,6 +3868,20 @@
                 </div>
             </div>
 
+            <!-- Mobile escape button — position:fixed so it survives
+                 Cytoscape pan-into-empty-space ("limbo land"). Calls
+                 cy.fit() to recentre the graph. Hidden on desktop. -->
+            <button id="atlas-escape-btn" type="button" aria-label="Reset graph view" title="Reset view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="7"/>
+                    <line x1="12" y1="2" x2="12" y2="5"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                    <line x1="2" y1="12" x2="5" y2="12"/>
+                    <line x1="19" y1="12" x2="22" y2="12"/>
+                </svg>
+            </button>
+
             <!-- Brief 3a — Atlas-specific detail panel. Sits in-grid between
                  the network and the topology strip; the network reflows
                  around it via .atlas-main.has-panel-open. -->
@@ -3908,7 +3971,7 @@
        Brief 1/1b/1c shipped the rendering foundation (Cytoscape + fcose,
        node encoding, topology strip, lossy detail panel).
        ========================================================================= */
-    (function () {
+(function () {
         'use strict';
 
         // -----------------------------------------------------------------
@@ -4479,10 +4542,10 @@
             const degVals = Object.values(globalDegree);
             maxDegree = degVals.length ? Math.max.apply(null, degVals) : 0;
 
-            if (eventsPayload && eventsPayload.meta && eventsPayload.meta.last_updated) {
+            if (eventsPayload && eventsPayload.last_updated) {
                 const el = document.getElementById('weo-last-updated');
                 if (el) {
-                    let dateStr = eventsPayload.meta.last_updated;
+                    let dateStr = eventsPayload.last_updated;
                     try {
                         const d = new Date(dateStr + 'T00:00:00Z');
                         if (!isNaN(d)) {
@@ -5109,6 +5172,39 @@
             // when not in Timeline mode so it's free in other modes.
             cy.on('render pan zoom resize', syncDomainLabelsToBands);
             window.addEventListener('resize', syncDomainLabelsToBands);
+
+            // Issue 1 — pan boundary clamping. Prevents users panning
+            // more than 30% of the canvas beyond the node bounding box.
+            let _panClamping = false;
+            cy.on('pan', () => {
+                if (_panClamping) return;
+                const els = cy.elements();
+                if (!els.length) return;
+                const bb = els.boundingBox();
+                if (!isFinite(bb.w) || !isFinite(bb.h)) return;
+                const zoom = cy.zoom();
+                const container = cy.container();
+                const W = container.clientWidth;
+                const H = container.clientHeight;
+                const padX = W * 0.3;
+                const padY = H * 0.3;
+                const pan = cy.pan();
+                let nx = pan.x;
+                let ny = pan.y;
+                const bbRight  = bb.x2 * zoom + pan.x;
+                const bbLeft   = bb.x1 * zoom + pan.x;
+                const bbBottom = bb.y2 * zoom + pan.y;
+                const bbTop    = bb.y1 * zoom + pan.y;
+                if (bbRight  < -padX)    nx = -padX    - bb.x2 * zoom;
+                if (bbLeft   >  W + padX) nx =  W + padX - bb.x1 * zoom;
+                if (bbBottom < -padY)    ny = -padY    - bb.y2 * zoom;
+                if (bbTop    >  H + padY) ny =  H + padY - bb.y1 * zoom;
+                if (nx !== pan.x || ny !== pan.y) {
+                    _panClamping = true;
+                    cy.pan({ x: nx, y: ny });
+                    _panClamping = false;
+                }
+            });
 
             // Brief 3c §8 — debounced window resize. Refit the existing
             // layout to the new canvas dimensions; do NOT auto-relayout
@@ -6562,6 +6658,23 @@
             }
         }
 
+        // Prevent browser-level pinch zoom on mobile.
+        // iOS ignores user-scalable=no since iOS 10 for accessibility.
+        // Using capture:true (top-down phase) means our handler fires
+        // BEFORE any child element (including Cytoscape's canvas) can
+        // call stopPropagation() — so preventDefault() always reaches
+        // the browser's gesture handler. Cytoscape still receives the
+        // touch events and processes its own canvas zoom normally.
+        if ('ontouchstart' in window) {
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) e.preventDefault();
+            }, { passive: false, capture: true });
+            // gesturestart is Safari's dedicated pinch API — prevent it too.
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            }, { passive: false, capture: true });
+        }
+
         // DEF-040 §1 — Mobile nav toggle (ported from events.html).
         (function wireNavToggle() {
             const navToggle = document.getElementById('navToggle');
@@ -6578,36 +6691,106 @@
             }
         })();
 
-        // DEF-040 V2 §1c — Mobile bottom-sheet panel (ported from
-        // index.html). Three states peek/half/full driven by touch
-        // gestures. Desktop is unaffected (isMobile() guards every
-        // hook). setSheetState is exposed on window so openPanel /
-        // openCCPanel / closePanel can drive it.
+        // DEF-040 V2 §1c — Mobile bottom-sheet panel. Two states on mobile
+        // (peek / full — half skipped as per Issue 5). Desktop unaffected.
+        // setSheetState exposed on window so openPanel / openCCPanel /
+        // closePanel can drive it.
         (function wireBottomSheet() {
             var sheetState = 'closed';
             var touchStartY = 0;
             var touchStartTime = 0;
+            var dragActive = false;
+            var dragStartTranslate = 0;
+            var EASING = 'transform 300ms cubic-bezier(0.33, 1, 0.68, 1)';
 
             function isMobile() { return window.innerWidth <= 767; }
 
+            // Target translateY (px) for each state, relative to window.innerHeight.
+            function translateForState(state) {
+                var h = window.innerHeight;
+                if (state === 'full') return 0;
+                if (state === 'peek') return h - 160;
+                return h; // off-screen / closed
+            }
+
+            // Anchors the escape button to the bottom-right of the *visual*
+            // viewport. iOS Safari position:fixed tracks the layout viewport,
+            // so when the user browser-pinch-zooms/pans, fixed elements scroll
+            // off-screen. We recalculate position on every visualViewport event.
+            // Dimensions are scaled inversely with zoom so the button stays the
+            // same physical size regardless of how far the user has zoomed in.
+            function updateEscBtn() {
+                var btn = document.getElementById('atlas-escape-btn');
+                if (!btn || !isMobile()) return;
+                if (sheetState === 'full') {
+                    btn.style.display = 'none';
+                    return;
+                }
+                btn.style.display = 'flex';
+                var vv = window.visualViewport;
+                if (!vv) return; // CSS bottom/right fallback for non-supporting browsers
+                var s = vv.scale || 1;
+                // Scale button size inversely so it appears constant in physical pixels.
+                var size = 48 / s;
+                var iconSize = 22 / s;
+                var marginR = 16 / s;
+                var marginB = ((sheetState === 'peek') ? 172 : 24) / s;
+                btn.style.width  = size + 'px';
+                btn.style.height = size + 'px';
+                var svg = btn.querySelector('svg');
+                if (svg) { svg.style.width = iconSize + 'px'; svg.style.height = iconSize + 'px'; }
+                // Convert to layout-viewport CSS px so position:fixed renders correctly.
+                btn.style.top    = (vv.offsetTop  + vv.height - marginB - size) + 'px';
+                btn.style.left   = (vv.offsetLeft + vv.width  - marginR - size) + 'px';
+                btn.style.bottom = 'auto';
+                btn.style.right  = 'auto';
+            }
+            // Re-export so cy init (later in the file) can call it post-load.
+            window._updateEscBtn = updateEscBtn;
+
+            // Drives all state transitions on mobile. Uses inline transform so
+            // CSS !important rules can't fight the live drag position.
             window.setSheetState = function(newState) {
                 if (!isMobile()) return;
                 var panel = document.getElementById('atlas-panel-v2');
                 if (!panel) return;
-                panel.classList.remove('state-peek', 'state-half', 'state-full');
-                panel.scrollTop = 0;
                 var panelContent = document.getElementById('atlas-panel-content');
+
+                // Reset content scroll immediately — prevents grey gap
+                // (panel background showing through scrolled content area).
                 if (panelContent) panelContent.scrollTop = 0;
+                panel.scrollTop = 0;
+
+                // Swap CSS state class (drives content visibility, border-radius,
+                // overflow — NOT transform; transform is managed via inline style).
+                panel.classList.remove('state-peek', 'state-half', 'state-full');
+
                 if (newState === 'closed') {
+                    panel.style.transition = EASING;
+                    panel.style.transform = 'translateY(' + window.innerHeight + 'px)';
+                    panel.style.height = '';
                     sheetState = 'closed';
+                    updateEscBtn();
                     return;
                 }
-                // Defer class add by one frame so scroll resets settle
-                // before the CSS transition begins — prevents grey ghost.
-                var _newState = newState;
+
+                // Pin height to window.innerHeight — iOS Safari 100vh with
+                // viewport-fit=cover exceeds window.innerHeight and would push
+                // the panel top behind the status bar.
+                panel.style.height = window.innerHeight + 'px';
+                panel.classList.add('state-' + newState);
+                // First time the user reaches full state, stop the bounce
+                // animation — they've learned how to interact with the panel.
+                if (newState === 'full') panel.classList.add('swipe-hint-used');
+
+                // rAF ensures the height is committed before we trigger the
+                // transition (avoids a jump when opening from off-screen).
+                var target = translateForState(newState);
                 requestAnimationFrame(function() {
-                    panel.classList.add('state-' + _newState);
-                    sheetState = _newState;
+                    panel.style.transition = EASING;
+                    panel.style.transform = 'translateY(' + target + 'px)';
+                    sheetState = newState;
+                    updateEscBtn();
                 });
             };
 
@@ -6616,52 +6799,94 @@
             var panel = document.getElementById('atlas-panel-v2');
             if (!panel) return;
 
-            // Prevent inner scroll while dragging the handle —
-            // non-passive so e.preventDefault() is honoured by the browser.
-            var dragHandle = panel.querySelector('.atlas-panel-drag-handle');
-            if (dragHandle) {
-                dragHandle.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                }, { passive: false });
-            }
-
             panel.addEventListener('touchstart', function(e) {
                 if (!isMobile()) return;
                 touchStartY = e.touches[0].clientY;
                 touchStartTime = Date.now();
+                dragActive = false;
             }, { passive: true });
 
-            panel.addEventListener('touchend', function(e) {
-                if (!isMobile()) return;
-                if (sheetState === 'closed') return;
-                var deltaY = touchStartY - e.changedTouches[0].clientY;
+            // Non-passive so e.preventDefault() blocks page scroll during drag.
+            panel.addEventListener('touchmove', function(e) {
+                if (!isMobile() || sheetState === 'closed') return;
+                var deltaY = e.touches[0].clientY - touchStartY;
+                var panelContent = document.getElementById('atlas-panel-content');
+                var contentScrolled = panelContent && panelContent.scrollTop > 0;
+
+                // In full state: upward swipes and any swipe while content is
+                // scrolled should scroll the content, not drag the panel.
+                if (sheetState === 'full' && (deltaY < 0 || contentScrolled)) return;
+
+                if (!dragActive) {
+                    if (Math.abs(deltaY) < 8) return; // dead zone
+                    dragActive = true;
+                    dragStartTranslate = translateForState(sheetState);
+                    // Reset content scroll at drag start so the header is always
+                    // visible (no grey gap from previously-scrolled content).
+                    if (panelContent) panelContent.scrollTop = 0;
+                    panel.style.transition = 'none';
+                }
+
+                var t = Math.max(0, dragStartTranslate + deltaY);
+                panel.style.transform = 'translateY(' + t + 'px)';
+                e.preventDefault();
+            }, { passive: false });
+
+            function finishDrag(e) {
+                if (!isMobile() || !dragActive) return;
+                dragActive = false;
+
+                var deltaY = touchStartY - e.changedTouches[0].clientY; // + = up
                 var elapsed = Date.now() - touchStartTime;
-                var velocity = Math.abs(deltaY) / elapsed;
-                var isFlick = velocity > 0.5 && Math.abs(deltaY) > 20;
-                var isSwipe = Math.abs(deltaY) > 50;
-                if ((isSwipe || isFlick) && deltaY > 0) {
-                    if (sheetState === 'peek') window.setSheetState('half');
-                    else if (sheetState === 'half') window.setSheetState('full');
-                } else if ((isSwipe || isFlick) && deltaY < 0) {
-                    if (sheetState === 'full') window.setSheetState('half');
-                    else if (sheetState === 'half') window.setSheetState('peek');
-                    else if (sheetState === 'peek') {
-                        window.setSheetState('closed');
-                        var closeBtn = document.getElementById('atlas-panel-close');
-                        if (closeBtn) closeBtn.click();
-                    }
+                var vel = elapsed > 0 ? Math.abs(deltaY) / elapsed : 0;
+                var isGesture = Math.abs(deltaY) > 50 || (vel > 0.5 && Math.abs(deltaY) > 20);
+
+                var targetState;
+                if (isGesture && deltaY > 0) {
+                    targetState = 'full';
+                } else if (isGesture && deltaY < 0) {
+                    targetState = sheetState === 'full' ? 'peek' : 'closed';
+                } else {
+                    targetState = sheetState; // snap back
+                }
+
+                // Do NOT clear panel.style.transform here — setSheetState
+                // animates from the current inline position to the target.
+                window.setSheetState(targetState);
+
+                if (targetState === 'closed') {
+                    var closeBtn = document.getElementById('atlas-panel-close') ||
+                                   document.getElementById('atlas-cc-panel-close');
+                    if (closeBtn) closeBtn.click();
+                }
+            }
+
+            panel.addEventListener('touchend', finishDrag, { passive: true });
+
+            panel.addEventListener('touchcancel', function() {
+                if (!isMobile()) return;
+                if (dragActive) {
+                    dragActive = false;
+                    window.setSheetState(sheetState); // snap back
                 }
             }, { passive: true });
 
-            // Tap on the peek lip → expand to half. Restricted to the
-            // header strip so taps inside fully-revealed body content
-            // (links, chips) keep their normal behaviour.
+            // Tap on the peek strip → full (half state skipped on mobile).
             panel.addEventListener('click', function(e) {
                 if (!isMobile()) return;
                 if (sheetState !== 'peek') return;
                 if (e.target.closest('.atlas-panel-close')) return;
-                window.setSheetState('half');
+                window.setSheetState('full');
             });
+
+            // Re-anchor escape button on every visual viewport move/resize
+            // (browser pinch-zoom / keyboard appearance / orientation change).
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', updateEscBtn);
+                window.visualViewport.addEventListener('scroll', updateEscBtn);
+            }
+            // Initial position on page load.
+            updateEscBtn();
         })();
 
         function applyLabelFlip() {
@@ -7142,10 +7367,55 @@
                 elEdgeTooltip.setAttribute('aria-hidden', 'true');
             });
 
+            // Multi-touch guard — prevents node/edge tap handlers from
+            // firing mid-pinch. When two or more fingers are down,
+            // _cyMultitouch is true; it clears 300ms after all fingers lift.
+            // This stops Cytoscape registering a node/edge "tap" on whichever
+            // element happens to be under a finger during a zoom gesture.
+            var _cyMultitouch = false;
+            var _cyMultitouchTimer = null;
+            const cyContainer = document.getElementById('atlas-network');
+            if (cyContainer) {
+                cyContainer.addEventListener('touchstart', function(e) {
+                    if (e.touches.length >= 2) {
+                        _cyMultitouch = true;
+                        clearTimeout(_cyMultitouchTimer);
+                    }
+                }, { passive: true });
+                cyContainer.addEventListener('touchend', function(e) {
+                    if (e.touches.length === 0) {
+                        clearTimeout(_cyMultitouchTimer);
+                        _cyMultitouchTimer = setTimeout(function() {
+                            _cyMultitouch = false;
+                        }, 300);
+                    }
+                }, { passive: true });
+            }
+
+            // Escape / reset-view button — restores full default page load state.
+            // Browser zoom is prevented by user-scalable=no in the viewport meta,
+            // so this only needs to reset Cytoscape + page scroll + close panels.
+            const escBtn = document.getElementById('atlas-escape-btn');
+            if (escBtn) {
+                escBtn.addEventListener('click', function() {
+                    // Close any open panel.
+                    if (typeof setAtlasState === 'function') {
+                        setAtlasState({ selectedEventId: null, selectedConnectionId: null });
+                    }
+                    // Re-fit the graph to show all nodes.
+                    if (cy) cy.fit(undefined, 40);
+                    // Scroll page to top so nav/header are visible.
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                });
+            }
+
             // Click node → open event panel (clears CC panel if open).
             // State-driven so URL deep-linking (#event=06) reuses the
             // same code path.
             cy.on('tap', 'node', (evt) => {
+                if (_cyMultitouch) return;
                 const ev = evt.target.data('event');
                 if (ev) setAtlasState({ selectedEventId: String(ev.id), selectedConnectionId: null });
             });
@@ -7153,6 +7423,7 @@
             // Brief 3d — click edge → open CC inspection panel. Mutually
             // exclusive with the event panel: opening one closes the other.
             cy.on('tap', 'edge', (evt) => {
+                if (_cyMultitouch) return;
                 const d = evt.target.data();
                 if (!d || !d.id) return;
                 setAtlasState({ selectedConnectionId: d.id, selectedEventId: null });
@@ -7189,9 +7460,9 @@
             // events that haven't been temporally revealed yet.
             // Binding mouseleave to the cy container catches that exit
             // and rolls back to scrubber state.
-            const cyContainer = document.getElementById('atlas-network');
-            if (cyContainer) {
-                cyContainer.addEventListener('mouseleave', () => {
+            const cyNetworkEl = document.getElementById('atlas-network');
+            if (cyNetworkEl) {
+                cyNetworkEl.addEventListener('mouseleave', () => {
                     if (atlasState.layoutMode !== 'timeline') return;
                     if (timelineFirstEntry) return;
                     const scrubber = document.getElementById('atlas-playback-scrubber');
@@ -10364,6 +10635,19 @@
                 clearTimeout(searchTimer);
                 const v = e.target.value;
                 searchTimer = setTimeout(() => setAtlasFilter('search', v), 150);
+            });
+            // Issue 8 — restore Cytoscape viewport after iOS keyboard dismisses.
+            // Store zoom/pan on focus; restore 300ms after blur (enough time for
+            // the keyboard to fully dismiss and the visual viewport to settle).
+            let _searchVp = null;
+            search.addEventListener('focus', () => {
+                if (cy) _searchVp = { zoom: cy.zoom(), pan: { x: cy.pan().x, y: cy.pan().y } };
+            });
+            search.addEventListener('blur', () => {
+                if (cy && _searchVp) {
+                    const saved = _searchVp;
+                    setTimeout(() => cy.viewport(saved), 300);
+                }
             });
             bar.appendChild(search);
 
