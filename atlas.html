@@ -3514,87 +3514,40 @@
             }
         }
         @media (max-width: 767px) {
-            /* Fixed-viewport app layout — prevents page scroll so header
-               and canvas chrome are always accessible. JS repositionMobileChrome()
-               corrects the px offsets to exact measured heights on load/resize. */
-            body {
-                overflow: hidden !important;
-                position: fixed !important;
-                width: 100% !important;
-                height: 100% !important;
-            }
-            nav.weo-nav {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 700 !important;
-            }
-            .atlas-caption {
-                position: fixed !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 700 !important;
-            }
-            .atlas-mobile-mode-strip {
-                position: fixed !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 700 !important;
-            }
-            .atlas-filter-bar-wrapper {
-                position: fixed !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 700 !important;
-            }
+            /* Mobile: page scrolls normally. The canvas has a fixed
+               height and uses touch-action:pan-y so single-finger
+               vertical swipes scroll the page. Two-finger gestures
+               control the graph. This prevents the "infinite limbo"
+               trap — the user can always scroll to reach the nav
+               and footer. */
             #atlas-network {
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
+                height: 55vh;
+                min-height: 300px;
+            }
+            /* Two-finger hint shown on single-touch of the canvas */
+            .atlas-two-finger-hint {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(15, 23, 42, 0.85);
+                color: #CBD5E1;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 13px;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 300ms ease;
+                z-index: 10;
+                text-align: center;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+            }
+            .atlas-two-finger-hint.visible {
+                opacity: 1;
             }
             .atlas-footer {
                 display: none !important;
-            }
-            /* OI-1 — Reset view escape hatch. Mobile-only: renders on
-               phones where the fixed-viewport layout is active. */
-            .atlas-reset-view-btn {
-                position: fixed;
-                bottom: 16px;
-                left: 16px;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                border: 1px solid var(--border-primary);
-                background: rgba(30, 41, 59, 0.92);
-                color: var(--text-muted);
-                font-size: 16px;
-                cursor: pointer;
-                z-index: 800;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 300ms ease, background 150ms ease, color 150ms ease;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-            }
-            .atlas-reset-view-btn.visible {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            .atlas-main.has-panel-open ~ .atlas-reset-view-btn {
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-            .atlas-reset-view-btn:hover,
-            .atlas-reset-view-btn:active {
-                background: rgba(59, 130, 246, 0.25);
-                color: var(--text-primary);
-                border-color: rgba(96, 165, 250, 0.4);
             }
             /* V2 §3b — tighter nav gap on phone */
             .weo-nav {
@@ -3634,6 +3587,12 @@
                 border-radius: 0;
                 z-index: 800 !important;
                 padding-top: env(safe-area-inset-top, 0px);
+            }
+            /* Content div needs flex:1 to fill the panel and scroll */
+            #atlas-panel-content {
+                flex: 1 1 auto;
+                overflow-y: auto;
+                min-height: 0;
             }
             .atlas-panel-v2.state-peek #atlas-panel-content > .atlas-panel-section {
                 visibility: hidden;
@@ -3784,7 +3743,43 @@
                 padding: 12px 16px;
                 font-size: 13px;
             }
+            /* Reset view button — mobile only */
+            .atlas-reset-view-btn {
+                position: fixed;
+                bottom: 16px;
+                left: 16px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 1px solid var(--border-primary);
+                background: rgba(30, 41, 59, 0.92);
+                color: var(--text-muted);
+                font-size: 16px;
+                cursor: pointer;
+                z-index: 800;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 300ms ease;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+            }
+            .atlas-reset-view-btn.visible {
+                display: flex;
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .atlas-main.has-panel-open ~ .atlas-reset-view-btn {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
         }
+
+        /* Reset button: hidden on desktop, shown on mobile via media query */
+        .atlas-reset-view-btn { display: none; }
 
     </style>
 </head>
@@ -3856,6 +3851,7 @@
         <main class="atlas-main" id="atlas-main">
             <div id="atlas-network">
                 <div class="atlas-loading" id="atlas-loading">Loading coordination data…</div>
+                <div class="atlas-two-finger-hint" id="atlas-two-finger-hint">Use two fingers to explore the network</div>
                 <div class="atlas-empty-state" id="atlas-empty-state" role="status" aria-live="polite">
                     <div class="atlas-empty-state-msg">No events match the current filters.</div>
                     <button class="atlas-empty-state-clear" type="button" id="atlas-empty-state-clear">Clear filters</button>
@@ -4729,7 +4725,7 @@
             cy = window.cytoscape({
                 container: document.getElementById('atlas-network'),
                 elements: { nodes, edges },
-                minZoom: 0.3,
+                minZoom: 0.4,
                 maxZoom: 2,
                 // Phase 2 P0 (Batch 1) — canonical Cytoscape performance
                 // settings. Suppresses labels/edges + uses texture cache
@@ -5210,7 +5206,7 @@
             wirePlaybackControls();
             wireResetViewButton();
             wirePanBounds();
-            repositionMobileChrome();
+            wireCanvasGuardrails();
         }
 
         // Brief 3b §5 — zoom-driven label reveal. When zoom passes
@@ -6659,8 +6655,12 @@
 
             btn.addEventListener('click', function() {
                 if (!cy) return;
+                // 1. Fit graph back into view
                 cy.stop();
                 cy.fit(undefined, 40);
+
+                // 2. Scroll page to top so nav/filters are visible
+                window.scrollTo({ top: 0, behavior: 'smooth' });
 
                 // Pulse the button for feedback
                 btn.style.color = 'var(--text-primary)';
@@ -6672,23 +6672,49 @@
             });
         }
 
-        function repositionMobileChrome() {
-            if (window.innerWidth > 767) return;
-            var nav = document.querySelector('nav.weo-nav');
-            var caption = document.querySelector('.atlas-caption');
-            var modeStrip = document.querySelector('.atlas-mobile-mode-strip');
-            var filterBar = document.querySelector('.atlas-filter-bar-wrapper');
-            var canvas = document.getElementById('atlas-network');
-            if (!nav) return;
-            var y = 0;
-            y += nav.offsetHeight;
-            if (caption) { caption.style.top = y + 'px'; y += caption.offsetHeight; }
-            if (modeStrip) { modeStrip.style.top = y + 'px'; y += modeStrip.offsetHeight; }
-            if (filterBar) { filterBar.style.top = y + 'px'; y += filterBar.offsetHeight; }
-            if (canvas) { canvas.style.top = y + 'px'; }
+        // Canvas guardrails: on mobile, override Cytoscape's touch-action
+        // so single-finger vertical swipes scroll the page. Two-finger
+        // gestures control the graph. This prevents the "infinite limbo" trap.
+        function wireCanvasGuardrails() {
+            if (window.innerWidth > 767 || !cy) return;
+
+            // Override Cytoscape's touch-action on the canvas element
+            var canvasEl = document.querySelector('#atlas-network canvas');
+            if (canvasEl) canvasEl.style.touchAction = 'pan-y';
+
+            // Disable single-finger panning — page scrolls instead
+            cy.userPanningEnabled(false);
+
+            var hintEl = document.getElementById('atlas-two-finger-hint');
+            var hintTimer = null;
+
+            // Show hint on single-finger touch
+            var networkEl = document.getElementById('atlas-network');
+            if (networkEl && hintEl) {
+                networkEl.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 1) {
+                        hintEl.classList.add('visible');
+                        clearTimeout(hintTimer);
+                        hintTimer = setTimeout(function() {
+                            hintEl.classList.remove('visible');
+                        }, 1500);
+                    }
+                    if (e.touches.length >= 2) {
+                        // Enable panning for two-finger gesture
+                        cy.userPanningEnabled(true);
+                        hintEl.classList.remove('visible');
+                        clearTimeout(hintTimer);
+                    }
+                }, { passive: true });
+
+                networkEl.addEventListener('touchend', function(e) {
+                    if (e.touches.length < 2) {
+                        // Disable panning when back to single finger
+                        cy.userPanningEnabled(false);
+                    }
+                }, { passive: true });
+            }
         }
-        repositionMobileChrome();
-        window.addEventListener('resize', repositionMobileChrome);
 
         // OI-1 — Pan boundary clamping. Prevents the user from
         // panning so far from the graph that only empty canvas is
@@ -6732,9 +6758,9 @@
         }
 
         // DEF-040 V2 §1c — Mobile bottom-sheet panel.
-        // JS-driven transforms eliminate the grey ghost (OI-3) and
-        // enable finger tracking (OI-4). Safe-area handled via CSS
-        // padding-top: env(safe-area-inset-top) on .state-full.
+        // PR2 rewrite: JS-driven transforms eliminate the grey ghost
+        // (OI-3), enable finger tracking (OI-4), and allow the header
+        // to switch to position:fixed in state-full (OI-2).
         (function wireBottomSheet() {
             var sheetState = 'closed';
             var touchStartY = 0;
