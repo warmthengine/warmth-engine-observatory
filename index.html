@@ -9538,15 +9538,19 @@ function generateCCSection(eventId, showFullContent) {
         '<a href="support.html">Subscribe →</a>' +
         '</div></div>';
 
-      // Brief 4 §3.8 — Methodology locked-state for free non-sample.
-      // Significance Assessment is now a sibling section, so this covers
-      // tier rationale + bloc analysis only (Basel-5 reference removed
-      // from the placeholder copy).
+      // Brief 4 §3.8 — Tier Classification and Bloc Analysis locked-state
+      // for free non-sample. Each section is separate to match atlas.html.
       const methodologyLockedHtml =
         '<div class="panel-section">' +
-        '<div class="section-title">Methodology</div>' +
+        '<div class="section-title">Tier Classification</div>' +
         '<div class="panel-section-locked">' +
-        'Tier rationale and bloc analysis details available with Analyst access.<br>' +
+        'Tier Classification available with Analyst access.<br>' +
+        '<a href="support.html">Subscribe →</a>' +
+        '</div></div>' +
+        '<div class="panel-section">' +
+        '<div class="section-title">Bloc Analysis</div>' +
+        '<div class="panel-section-locked">' +
+        'Bloc Analysis available with Analyst access.<br>' +
         '<a href="support.html">Subscribe →</a>' +
         '</div></div>';
       
