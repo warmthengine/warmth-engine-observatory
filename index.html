@@ -2334,15 +2334,15 @@
 
       /* Three-state bottom sheet */
       .detail-panel.state-peek {
-          transform: translateY(calc(100% - 160px)) !important;
+          transform: translateY(calc(100% - 160px));
       }
 
       .detail-panel.state-half {
-          transform: translateY(50%) !important;
+          transform: translateY(50%);
       }
 
       .detail-panel.state-full {
-          transform: translateY(0) !important;
+          transform: translateY(0);
       }
 
       .detail-panel.state-peek,
@@ -2374,17 +2374,28 @@
           text-align: center;
           padding: 6px 0 2px;
           font-size: 11px;
-          color: #94A3B8;
+          color: #CBD5E1;
           letter-spacing: 0.05em;
+          text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
       }
 
       .detail-panel.state-peek .peek-swipe-hint,
       .detail-panel.state-half .peek-swipe-hint {
           display: block;
+          animation: scp-swipe-hint-bounce 2s ease-in-out infinite;
       }
 
       .detail-panel.state-full .peek-swipe-hint {
           display: none;
+      }
+
+      .detail-panel.swipe-hint-used .peek-swipe-hint {
+          animation: none;
+      }
+
+      @keyframes scp-swipe-hint-bounce {
+          0%, 100% { transform: translateY(0); opacity: 1; }
+          50%       { transform: translateY(-4px); opacity: 0.7; }
       }
 
       .drag-handle {
@@ -10477,14 +10488,6 @@ function generateCCSection(eventId, showFullContent) {
       if (e.target.closest('.marker') || e.target.closest('.marker-cluster')) e.preventDefault();
     }, { passive: false });
 
-    let touchStartY = 0, touchEndY = 0;
-    detailPanel.addEventListener('touchstart', (e) => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
-    detailPanel.addEventListener('touchend', (e) => {
-      touchEndY = e.changedTouches[0].screenY;
-      if (touchEndY - touchStartY > 100 && detailPanel.scrollTop < 10) closePanel();
-    }, { passive: true });
-    detailPanel.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
-
     // Navigation menu toggle
     const navMenuToggle = document.getElementById('navMenuToggle');
     const navDropdown = document.getElementById('navDropdown');
@@ -10928,8 +10931,6 @@ function generateCCSection(eventId, showFullContent) {
     'use strict';
 
     var panelState = 'closed';
-    var touchStartY = 0;
-    var touchStartTime = 0;
 
     function isMobile() {
         return window.innerWidth <= 767;
@@ -10939,20 +10940,47 @@ function generateCCSection(eventId, showFullContent) {
         return document.getElementById('detailPanel');
     }
 
+    function translateForState(state) {
+        var h = window.innerHeight;
+        if (state === 'full')  return 0;
+        if (state === 'half')  return h * 0.5;
+        if (state === 'peek')  return h - 160;
+        return h; // closed
+    }
+
     window.setPanelState = function(newState) {
         if (!isMobile()) return;
         var panel = getPanel();
         if (!panel) return;
+        var content = document.getElementById('panelContent');
+
+        panel.scrollTop = 0;
+        if (content) content.scrollTop = 0;
 
         panel.classList.remove('state-peek', 'state-half', 'state-full');
+        panel.style.transition = '';
 
         if (newState === 'closed') {
             panelState = 'closed';
+            var h = window.innerHeight;
+            panel.style.transform = 'translateY(' + h + 'px)';
+            panel.style.height = '';
+            panel.style.maxHeight = '';
             return;
         }
 
+        panel.style.height    = window.innerHeight + 'px';
+        panel.style.maxHeight = 'none';
         panel.classList.add('state-' + newState);
         panelState = newState;
+
+        if (newState === 'full') {
+            panel.classList.add('swipe-hint-used');
+        }
+
+        requestAnimationFrame(function() {
+            panel.style.transform = 'translateY(' + translateForState(newState) + 'px)';
+        });
     };
 
     window.getPanelState = function() {
@@ -10960,44 +10988,94 @@ function generateCCSection(eventId, showFullContent) {
     };
 
     var panel = getPanel();
-    if (panel) {
-        panel.addEventListener('touchstart', function(e) {
-            if (!isMobile()) return;
-            touchStartY = e.touches[0].clientY;
-            touchStartTime = Date.now();
-        }, { passive: true });
+    if (!panel) return;
 
-        panel.addEventListener('touchend', function(e) {
-            if (!isMobile()) return;
-            if (panelState === 'closed') return;
+    var _dragStartY     = 0;
+    var _dragStartTime  = 0;
+    var _dragging       = false;
+    var _startTranslate = 0;
 
-            var deltaY = touchStartY - e.changedTouches[0].clientY;
-            var elapsed = Date.now() - touchStartTime;
-            var velocity = Math.abs(deltaY) / elapsed;
+    panel.addEventListener('touchstart', function(e) {
+        if (!isMobile()) return;
+        if (panelState === 'closed') return;
+        _dragStartY    = e.touches[0].clientY;
+        _dragStartTime = Date.now();
+        _dragging      = false;
+    }, { passive: true });
 
-            var isFlick = velocity > 0.5 && Math.abs(deltaY) > 20;
-            var isSwipe = Math.abs(deltaY) > 50;
+    panel.addEventListener('touchmove', function(e) {
+        if (!isMobile()) return;
+        e.stopPropagation();
+        if (panelState === 'closed') return;
 
-            if ((isSwipe || isFlick) && deltaY > 0) {
-                if (panelState === 'peek') window.setPanelState('half');
-                else if (panelState === 'half') window.setPanelState('full');
-            } else if ((isSwipe || isFlick) && deltaY < 0) {
-                if (panelState === 'full') window.setPanelState('half');
-                else if (panelState === 'half') window.setPanelState('peek');
-                else if (panelState === 'peek') {
-                    window.setPanelState('closed');
-                    if (typeof closePanel === 'function') closePanel();
-                }
-            }
-        }, { passive: true });
+        var deltaY = e.touches[0].clientY - _dragStartY;
 
-        panel.addEventListener('click', function() {
-            if (!isMobile()) return;
-            if (panelState === 'peek') {
-                window.setPanelState('half');
-            }
-        });
+        // Let native scroll handle upward motion when content is scrolled
+        if (panel.scrollTop > 0 && deltaY < 0) return;
+
+        // Dead-zone — ignore micro-movements
+        if (!_dragging && Math.abs(deltaY) < 10) return;
+
+        if (!_dragging) {
+            _dragging       = true;
+            _startTranslate = translateForState(panelState);
+            // Remove state classes so .state-peek .panel-body { height:0 } doesn't clip during drag
+            panel.classList.remove('state-peek', 'state-half', 'state-full');
+            panel.style.transition = 'none';
+            panel.style.height     = window.innerHeight + 'px';
+            panel.style.maxHeight  = 'none';
+            panel.scrollTop        = 0;
+        }
+
+        var newTranslate = Math.max(0, _startTranslate + deltaY);
+        panel.style.transform = 'translateY(' + newTranslate + 'px)';
+        e.preventDefault();
+    }, { passive: false });
+
+    panel.addEventListener('touchend', function(e) {
+        if (!isMobile()) return;
+        if (!_dragging) { _dragging = false; return; }
+        _dragging = false;
+        finishDrag(e.changedTouches[0].clientY);
+    }, { passive: true });
+
+    panel.addEventListener('touchcancel', function() {
+        if (!_dragging) return;
+        _dragging = false;
+        window.setPanelState(panelState);
+    }, { passive: true });
+
+    function finishDrag(endY) {
+        var deltaY   = endY - _dragStartY;
+        var elapsed  = Date.now() - _dragStartTime;
+        var velocity = Math.abs(deltaY) / Math.max(1, elapsed);
+
+        var isFlick = velocity > 0.5 && Math.abs(deltaY) > 20;
+        var isSwipe = Math.abs(deltaY) > 60;
+
+        var targetState = panelState;
+
+        if ((isSwipe || isFlick) && deltaY < 0) {
+            if (panelState === 'peek')      targetState = 'half';
+            else if (panelState === 'half') targetState = 'full';
+        } else if ((isSwipe || isFlick) && deltaY > 0) {
+            if (panelState === 'full')      targetState = 'half';
+            else if (panelState === 'half') targetState = 'peek';
+            else if (panelState === 'peek') targetState = 'closed';
+        }
+
+        if (targetState === 'closed') {
+            window.setPanelState('closed');
+            if (typeof closePanel === 'function') closePanel();
+        } else {
+            window.setPanelState(targetState);
+        }
     }
+
+    panel.addEventListener('click', function() {
+        if (!isMobile()) return;
+        if (panelState === 'peek') window.setPanelState('half');
+    });
 })();
 </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
