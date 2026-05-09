@@ -273,9 +273,11 @@
           
           .weo-nav-toggle {
             display: flex;
+            min-width: 44px;
+            min-height: 44px;
           }
         }
-        
+
         .page-header { margin-bottom: var(--weo-space-xl); padding-bottom: var(--weo-space-lg); border-bottom: 1px solid var(--weo-border-primary); }
         .page-title { font-size: 1.75rem; font-weight: 700; margin-bottom: var(--weo-space-xs); }
         
@@ -1332,15 +1334,20 @@
             z-index: 50;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
-        .modal-close { 
-            position: absolute; 
-            top: var(--weo-space-md); 
-            right: var(--weo-space-md); 
-            background: none; 
-            border: none; 
-            color: var(--weo-text-muted); 
-            cursor: pointer; 
+        .modal-close {
+            position: absolute;
+            top: var(--weo-space-md);
+            right: var(--weo-space-md);
+            background: none;
+            border: none;
+            color: var(--weo-text-muted);
+            cursor: pointer;
             font-size: 1.25rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: color var(--weo-duration-fast) var(--weo-ease-out),
                         transform var(--weo-duration-instant) var(--weo-ease-out);
         }
@@ -1602,13 +1609,17 @@
             font-style: italic; 
         }
         
-        @media (max-width: 767px) { 
-            .detail-grid { grid-template-columns: 1fr; } 
+        @media (max-width: 767px) {
+            .detail-grid { grid-template-columns: 1fr; }
             .filters { flex-direction: column; align-items: stretch; }
-            .sample-legend { margin-left: 0; } 
-            .modal-context-banner { 
+            .sample-legend { margin-left: 0; }
+            .modal-context-banner {
                 margin: 0 var(--weo-space-md) var(--weo-space-sm) var(--weo-space-md);
             }
+            /* F-007: remove min-width constraint so search input stretches full width */
+            .search-input { min-width: 0; width: 100%; }
+            /* F-009: prevent iOS Safari auto-zoom on filter select focus */
+            .filter-select { font-size: 16px; }
         }
     
     /* ========================================
@@ -1773,6 +1784,8 @@
     .access-modal-close {
       background: transparent; border: none;
       color: #94A3B8; font-size: 1.5rem; cursor: pointer;
+      min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
     }
     .access-modal-close:hover { color: #F1F5F9; }
     .access-modal-body { padding: 1.5rem 1.25rem; }

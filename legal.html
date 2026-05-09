@@ -262,8 +262,10 @@
           
           .weo-nav-toggle {
             display: flex;
+            min-width: 44px;
+            min-height: 44px;
           }
-          
+
           .weo-nav-links {
             position: absolute;
             top: 100%;
@@ -528,7 +530,7 @@
             <span class="weo-nav-logo">WEO</span>
             <span>Warmth Engine Observatory</span>
           </a>
-          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -660,8 +662,10 @@
       if (navToggle && navLinks) {
         navToggle.addEventListener('click', function() {
           navLinks.classList.toggle('open');
+          const isOpen = navLinks.classList.contains('open');
+          navToggle.setAttribute('aria-expanded', isOpen);
         });
-        
+
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
           if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
