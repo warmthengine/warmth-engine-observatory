@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <!-- user-scalable=no: intentional exception for Cytoscape canvas interaction. iOS pinch-zoom is prevented at the gesture level instead. env(safe-area-inset-*) is read via window.innerHeight in JS (not CSS) to compensate. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Interactive Atlas — Warmth Engine Observatory</title>
     <meta name="description" content="Interactive coordination atlas — network view of verified AI infrastructure events and their Coordination Connections. Brief 1: CHIPS Act family.">
@@ -134,7 +135,7 @@
             --bloc-western: #60A5FA;
             --bloc-eastern: #FB923C;
             --bloc-cross: #2DD4BF;
-            --bloc-led-ring: rgba(239, 68, 68, 0.6);
+            --bloc-led-ring: rgba(248, 113, 113, 0.6);
             /* T2 red border — brief 1b §6.3. Same value as --bloc-led-ring
                but fully opaque; all T2 events (regardless of bloc) use this
                as their node border colour. */
@@ -298,7 +299,7 @@
             border-radius: 6px;
             display: flex; align-items: center; justify-content: center;
             font-family: var(--font-mono);
-            font-size: 8px;
+            font-size: 10px;
             font-weight: 700;
             color: #2DD4BF;
             letter-spacing: 0.5px;
@@ -306,7 +307,7 @@
         .weo-nav-title-sub {
             font-weight: 500;
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 12px;
             margin-left: 14px;
             padding-left: 14px;
             border-left: 1px solid var(--border-primary);
@@ -320,7 +321,7 @@
             padding: 6px 10px;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             border-radius: var(--radius-sm);
             transition: all var(--duration-fast) var(--ease-out);
@@ -574,8 +575,13 @@
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
-        .filter-time-row input {
-            padding: 6px 8px;
+        .filter-time-selects {
+            display: flex;
+            gap: 4px;
+        }
+        .filter-time-selects select {
+            flex: 1;
+            padding: 5px 6px;
             background: var(--bg-primary);
             border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
@@ -583,6 +589,18 @@
             font-family: var(--font-mono);
             font-size: 12px;
             color-scheme: dark;
+            cursor: pointer;
+            appearance: auto;
+        }
+        .filter-time-selects select:focus {
+            outline: none;
+            border-color: var(--teal, #2dd4bf);
+        }
+        .filter-time-hint {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            padding-top: 2px;
         }
         .filter-search {
             /* Phase 2 P1 (Batch 2b+) — push to the far right now that
@@ -656,7 +674,7 @@
         .atlas-empty-state.visible { display: flex; }
         .atlas-empty-state-msg {
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 12px;
         }
         .atlas-empty-state-clear {
             padding: 6px 14px;
@@ -763,6 +781,12 @@
             flex-direction: column;
             gap: 16px;
         }
+        /* E4 — title dot shifts to teal when any filter is active */
+        #atlas-topology.filters-active .topo-title-dot {
+            background: #2dd4bf;
+            box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25);
+            transition: background 250ms ease, box-shadow 250ms ease;
+        }
         .topo-title {
             font-family: var(--font-sans);
             font-size: 15px;
@@ -777,7 +801,7 @@
             width: 8px; height: 8px;
             border-radius: 50%;
             background: var(--bloc-western);
-            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.6);
         }
         .topo-summary {
             font-family: var(--font-mono);
@@ -806,7 +830,7 @@
             font-size: 12px;
         }
         .topo-bar-wrap { display: flex; flex-direction: column; gap: 4px; }
-        .topo-bar-label { color: var(--text-secondary); font-size: 11.5px; }
+        .topo-bar-label { color: var(--text-secondary); font-size: 11px; }
         .topo-bar-track {
             background: rgba(148, 163, 184, 0.08);
             border-radius: 2px;
@@ -1228,7 +1252,7 @@
             padding-right: 40px;
         }
         .panel-subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #94A3B8;
             margin: 0 0 12px 0;
             font-family: var(--font-mono);
@@ -1256,15 +1280,15 @@
             position: relative;
         }
         .panel-badge.t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-        .panel-badge.t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
+        .panel-badge.t2 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
         .panel-badge.t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
         .panel-badge.western { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(96, 165, 250, 0.35); }
         .panel-badge.eastern { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(251, 146, 60, 0.35); }
         .panel-badge.cross-bloc { background: rgba(45, 212, 191, 0.1); color: #2DD4BF; border-radius: var(--weo-radius-lg); border: 1px solid rgba(45, 212, 191, 0.35); }
-        .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
-        .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
+        .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
+        .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
         .panel-badge.technology { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-        .panel-badge.security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
+        .panel-badge.security { background: rgba(248, 113, 113, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
         .panel-badge.trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
         .panel-badge.energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
         .panel-badge.cc-count {
@@ -1374,7 +1398,7 @@
         .ent-popover-line {
             display: block;
             margin-top: 4px;
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--text-secondary);
             line-height: 1.5;
             max-width: 66ch;
@@ -1483,7 +1507,7 @@
         @media (max-width: 767px) {
           #weo-tooltip-overlay {
             width: 310px;
-            font-size: 13px;
+            font-size: 12px;
             padding: 14px 16px;
           }
         }
@@ -1558,6 +1582,44 @@
         /* Mobile escape / reset-view button — hidden on desktop */
         #atlas-escape-btn {
             display: none;
+        }
+        #atlas-fit-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid #334155;
+            color: #64748b;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+            z-index: 200;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            touch-action: manipulation;
+            cursor: pointer;
+            padding: 0;
+            transition: background 150ms, color 150ms, border-color 150ms;
+        }
+        #atlas-fit-btn.atlas-fit-btn--visible {
+            display: flex;
+        }
+        #atlas-fit-btn:hover {
+            background: rgba(30, 41, 59, 0.92);
+            border-color: #60a5fa;
+            color: #60a5fa;
+        }
+        #atlas-fit-btn:active {
+            background: rgba(37, 99, 235, 0.3);
+            color: #bfdbfe;
+        }
+        #atlas-fit-btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         /* --- Free/paid gating (Atlas-prefixed; uses existing
@@ -1678,7 +1740,7 @@
             line-height: 1.4;
         }
         .atlas-chip-tier-1 { background: rgba(45, 212, 191, 0.18); color: #2DD4BF; }
-        .atlas-chip-tier-2 { background: rgba(239, 68, 68, 0.18); color: #F87171; }
+        .atlas-chip-tier-2 { background: rgba(248, 113, 113, 0.18); color: #F87171; }
         .atlas-chip-tier-3 { background: rgba(100, 116, 139, 0.18); color: #94A3B8; }
         .atlas-chip-confidence {
             background: transparent;
@@ -1770,7 +1832,7 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.4;
         }
         .atlas-checkpoint-icon {
@@ -1827,7 +1889,7 @@
             grid-template-columns: 130px 1fr;
             gap: 12px;
             align-items: baseline;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
         }
         .atlas-data-row .atlas-data-label {
@@ -1856,7 +1918,7 @@
             background: rgba(15, 23, 42, 0.4);
             border-left: 3px solid #2DD4BF;
             border-radius: var(--radius-sm);
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
             color: var(--text-secondary);
             margin-bottom: 4px;
@@ -1960,11 +2022,11 @@
             top: calc(100% + 8px);
             left: 50%;
             transform: translateX(-50%);
-            background: #252B36;
+            background: var(--surface-elevated, #334155);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-sm);
             padding: 10px 12px;
-            font-size: 11.5px;
+            font-size: 11px;
             line-height: 1.5;
             color: #CBD5E1;
             width: max-content;
@@ -1989,7 +2051,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 4px solid transparent;
-            border-bottom-color: #252B36;
+            border-bottom-color: var(--surface-elevated, #334155);
         }
         .atlas-ind-mechanism-popover .mechanism-title {
             font-size: 10px;
@@ -2069,8 +2131,8 @@
         .atlas-chip-bloc-western { background: rgba(96, 165, 250, 0.10); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.35); border-radius: var(--radius-lg); }
         .atlas-chip-bloc-eastern { background: rgba(251, 146, 60, 0.10); color: #FB923C; border: 1px solid rgba(251, 146, 60, 0.35); border-radius: var(--radius-lg); }
         .atlas-chip-bloc-cross-bloc { background: rgba(45, 212, 191, 0.10); color: #2DD4BF; border: 1px solid rgba(45, 212, 191, 0.35); border-radius: var(--radius-lg); }
-        .atlas-chip-bloc-western-led { background: rgba(96, 165, 250, 0.10); color: #60A5FA; border: 1px solid rgba(239, 68, 68, 0.6); border-radius: var(--radius-lg); }
-        .atlas-chip-bloc-eastern-led { background: rgba(251, 146, 60, 0.10); color: #FB923C; border: 1px solid rgba(239, 68, 68, 0.6); border-radius: var(--radius-lg); }
+        .atlas-chip-bloc-western-led { background: rgba(96, 165, 250, 0.10); color: #60A5FA; border: 1px solid rgba(248, 113, 113, 0.6); border-radius: var(--radius-lg); }
+        .atlas-chip-bloc-eastern-led { background: rgba(251, 146, 60, 0.10); color: #FB923C; border: 1px solid rgba(248, 113, 113, 0.6); border-radius: var(--radius-lg); }
         .atlas-chip-bloc-non-aligned { background: rgba(148, 163, 184, 0.10); color: #94A3B8; border: 1px solid rgba(148, 163, 184, 0.35); border-radius: var(--radius-lg); }
         .atlas-ent-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
         .atlas-ent-chip {
@@ -2131,7 +2193,7 @@
         .atlas-cc-direction-arrow {
             color: var(--text-muted);
             font-family: var(--font-mono);
-            font-size: 13px;
+            font-size: 12px;
         }
         .atlas-cc-target {
             display: inline-flex;
@@ -2255,7 +2317,7 @@
             line-height: 1.3;
         }
         .atlas-cc-endpoint-meta {
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--text-secondary);
             font-family: var(--font-mono);
         }
@@ -2272,7 +2334,7 @@
         .atlas-cc-navigate-btn:hover { text-decoration: underline; }
         .atlas-cc-direction-divider {
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             padding: 6px 0;
             font-family: var(--font-mono);
@@ -2292,7 +2354,7 @@
             padding: 8px 12px;
             background: rgba(15, 23, 42, 0.4);
             border-radius: var(--radius-sm);
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--text-secondary);
             line-height: 1.5;
             display: none;
@@ -2369,7 +2431,7 @@
             margin-left: auto;
         }
         .cc-evidence-content {
-            font-size: 13px;
+            font-size: 12px;
             color: #CBD5E1;
             line-height: 1.6;
         }
@@ -2488,7 +2550,7 @@
             padding: 12px 16px;
             margin: 16px 0;
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
             font-style: italic;
             color: #E2E8F0;
@@ -2802,7 +2864,7 @@
         }
         .atlas-basel5-detail {
             margin-top: 6px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-family: var(--font-mono);
             color: var(--text-secondary);
             display: none;
@@ -2831,7 +2893,7 @@
             align-items: baseline;
             /* Patch — match the density of other panel content; was
                inheriting the 16px body size and reading too large. */
-            font-size: 13px;
+            font-size: 12px;
         }
         .atlas-basel5-factor-row > span:nth-child(2) {
             /* The factor-name column. word-break removed in 3b.1 — the
@@ -2856,7 +2918,7 @@
         .atlas-section-locked-cta {
             color: #2DD4BF;
             text-decoration: none;
-            font-size: 11.5px;
+            font-size: 11px;
             font-family: var(--font-mono);
         }
         .atlas-section-locked-cta:hover { text-decoration: underline; }
@@ -2901,7 +2963,7 @@
         .atlas-sources-cta-row {
             display: flex;
             gap: 14px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-family: var(--font-mono);
         }
         .atlas-sources-cta-row a {
@@ -3076,7 +3138,7 @@
             margin: 0 0 16px 0;
         }
         .atlas-upgrade-cta-list li {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             padding: 4px 0 4px 20px;
             position: relative;
@@ -3151,7 +3213,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-family: var(--font-mono);
             color: var(--text-secondary);
         }
@@ -3223,6 +3285,23 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border: 0;
+        }
+        .sr-only:focus {
+            position: fixed;
+            top: 8px;
+            left: 8px;
+            width: auto;
+            height: auto;
+            padding: 8px 16px;
+            clip: auto;
+            clip-path: none;
+            white-space: normal;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--focus-ring, #60A5FA);
+            border-radius: 4px;
+            z-index: 9999;
+            font-size: 14px;
         }
 
         /* Focus management — pointer interactions don't ring; keyboard
@@ -3333,7 +3412,7 @@
             font-size: 0.9375rem; font-family: var(--font-mono, 'Geist Mono', monospace);
             box-sizing: border-box;
         }
-        .access-input:focus { outline: none; border-color: #F59E0B; }
+        .access-input:focus { outline: 2px solid #F59E0B; outline-offset: 2px; border-color: #F59E0B; }
         .access-input.error { border-color: #F87171; }
         .access-error {
             display: none; align-items: center; gap: 0.375rem;
@@ -3489,6 +3568,8 @@
             .weo-nav-toggle {
                 display: flex;
                 margin-left: 12px;
+                min-width: 44px;
+                min-height: 44px;
             }
             .weo-nav-links {
                 display: none;
@@ -3535,6 +3616,7 @@
                 right: 0 !important;
                 width: 100% !important;
                 max-height: 100vh;
+                max-height: 100dvh;
                 border-radius: 16px 16px 0 0;
                 box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
                 z-index: 600;
@@ -3644,6 +3726,9 @@
                 box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.3),
                             0 0 24px rgba(96, 165, 250, 0.5);
             }
+            #atlas-fit-btn {
+                display: none !important;
+            }
 
             /* V2 §3c — header chrome sized so the "A" confidence pill and
                "X" close button don't collide with the title text. */
@@ -3678,6 +3763,7 @@
                 font-size: 12px;
                 padding: 6px 10px;
                 min-height: 36px;
+                touch-action: manipulation;
             }
             .filter-popover {
                 min-width: 200px;
@@ -3696,6 +3782,14 @@
             .filter-search {
                 font-size: 16px;
             }
+            /* F-008: prevent iOS Safari auto-zoom on year/month select focus */
+            .filter-time-selects select {
+                font-size: 16px;
+            }
+            /* F-028: minimum canvas height for short landscape viewports */
+            #atlas-network {
+                min-height: 300px;
+            }
             /* §4 — caption text */
             .atlas-caption {
                 font-size: 12px;
@@ -3707,6 +3801,7 @@
                 min-height: 36px;
                 padding: 8px 12px;
                 font-size: 11px;
+                touch-action: manipulation;
             }
             /* V2 §5 — CC inspection panel becomes a bottom sheet too. */
             .atlas-cc-panel {
@@ -3740,7 +3835,7 @@
                 width: 100%;
                 justify-content: center;
                 padding: 12px 16px;
-                font-size: 13px;
+                font-size: 12px;
             }
         }
         /* V2 §4a — Timeline landscape hint (mobile portrait only). */
@@ -3784,11 +3879,7 @@
     </style>
 </head>
 <body>
-    <a href="#atlas-network" class="sr-only" id="skip-link"
-       onfocus="this.style.cssText='position:fixed;top:0;left:0;z-index:9999;padding:12px 24px;background:var(--bg-card);color:var(--text-primary);text-decoration:none;font-size:14px;border-radius:0 0 8px 0;clip:auto;width:auto;height:auto;'"
-       onblur="this.style.cssText=''">
-       Skip to main content
-    </a>
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
     <div class="atlas-shell">
 
         <!-- Navigation -->
@@ -3866,6 +3957,17 @@
                            min="0" max="1000" value="0" step="1" aria-label="Timeline progress" />
                     <span class="atlas-playback-date" id="atlas-playback-date">—</span>
                 </div>
+                <!-- Fit-to-view button — desktop only. Appears after user zooms/pans
+                     the graph; calls cy.fit() to restore the full overview. -->
+                <button id="atlas-fit-btn" type="button" aria-label="Fit graph to view" title="Fit graph to view">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="15 3 21 3 21 9"/>
+                        <polyline points="9 21 3 21 3 15"/>
+                        <line x1="21" y1="3" x2="14" y2="10"/>
+                        <line x1="3" y1="21" x2="10" y2="14"/>
+                    </svg>
+                </button>
             </div>
 
             <!-- Mobile escape button — position:fixed so it survives
@@ -6219,6 +6321,7 @@
             // events present (defensive).
             const fitTargets = cy.nodes().filter(n => n.data('event'));
             cy.fit(fitTargets.length > 0 ? fitTargets : undefined, 40);
+            if (typeof window._atlasFitReset === 'function') window._atlasFitReset();
             syncSampleOverlays();
             // V3 fix R4 (DEF-047) — explicit sync after fit.
             // cy.fit fires viewport events but timing relative to
@@ -7411,6 +7514,55 @@
                 });
             }
 
+            // Fit-to-view button — desktop only. Shows whenever the user has
+            // zoomed or panned the canvas; hides on click or after programmatic
+            // cy.fit() calls (e.g. filter changes).
+            (function wireFitBtn() {
+                var fitBtn = document.getElementById('atlas-fit-btn');
+                if (!fitBtn) return;
+
+                var _vpTimer = null;
+
+                function showFitBtn() {
+                    fitBtn.classList.add('atlas-fit-btn--visible');
+                }
+                function hideFitBtn() {
+                    clearTimeout(_vpTimer);
+                    fitBtn.classList.remove('atlas-fit-btn--visible');
+                }
+
+                // Detect user-initiated pan (mouse drag on canvas).
+                var _pointerDown = false;
+                var cyCanvas = document.querySelector('#atlas-network canvas');
+                if (cyCanvas) {
+                    cyCanvas.addEventListener('pointerdown', function() { _pointerDown = true; }, { passive: true });
+                    document.addEventListener('pointerup', function() {
+                        setTimeout(function() { _pointerDown = false; }, 60);
+                    }, { passive: true });
+                    document.addEventListener('pointercancel', function() { _pointerDown = false; }, { passive: true });
+
+                    // Scroll-wheel zoom — no pointerdown fires for this.
+                    cyCanvas.addEventListener('wheel', function() {
+                        clearTimeout(_vpTimer);
+                        _vpTimer = setTimeout(showFitBtn, 250);
+                    }, { passive: true });
+                }
+
+                cy.on('viewport', function() {
+                    if (!_pointerDown) return;
+                    clearTimeout(_vpTimer);
+                    _vpTimer = setTimeout(showFitBtn, 80);
+                });
+
+                fitBtn.addEventListener('click', function() {
+                    cy.fit(undefined, 40);
+                    hideFitBtn();
+                });
+
+                // Expose so filter-change cy.fit() calls can also dismiss.
+                window._atlasFitReset = hideFitBtn;
+            })();
+
             // Click node → open event panel (clears CC panel if open).
             // State-driven so URL deep-linking (#event=06) reuses the
             // same code path.
@@ -7431,7 +7583,10 @@
 
             // Double-click empty canvas → re-fit
             cy.on('dbltap', (evt) => {
-                if (evt.target === cy) cy.fit(undefined, 40);
+                if (evt.target === cy) {
+                    cy.fit(undefined, 40);
+                    if (typeof window._atlasFitReset === 'function') window._atlasFitReset();
+                }
             });
 
             // Single click on empty canvas closes whichever panel is open.
@@ -7444,11 +7599,7 @@
 
             // Close filter popovers when tapping anywhere on the canvas.
             cy.on('tap', function(e) {
-                document.querySelectorAll('.filter-pill.open').forEach(p => {
-                    p.classList.remove('open');
-                    const pop = p.querySelector('.filter-popover, .filter-time-popover');
-                    if (pop) { pop.style.position = ''; pop.style.top = ''; pop.style.left = ''; pop.style.right = ''; }
-                });
+                closeAllFilterPills();
             });
 
             // DEF-NEXT — canvas-level mouseleave for Timeline scrubber
@@ -7482,6 +7633,7 @@
         // when filter changes are applied. Brief 2 §3.4 success criterion:
         // "Topology strip stats update on filter change to reflect visible
         // elements only".
+
         function renderTopology(events, connections) {
             const totalEvents = events.length;
             const totalCCs = connections.length;
@@ -7538,7 +7690,7 @@
             const maxConf = Math.max(1, ...Object.values(confCounts));
             const confEl = document.getElementById('topo-confidence');
             confEl.innerHTML = '';
-            const CONF_COLOUR = { 'CC-V': '#2DD4BF', 'CC-E': '#94A3B8', 'CC-A': '#64748B' };
+            const CONF_COLOUR = { 'CC-V': '#2DD4BF', 'CC-E': '#94A3B8', 'CC-A': '#94A3B8' };
             Object.entries(confCounts)
                 .sort((a, b) => b[1] - a[1])
                 .forEach(([lvl, n]) => {
@@ -7584,6 +7736,11 @@
             rangeEl.innerHTML = `
                 <span class="topo-kv-label">First → Last</span>
                 <span class="topo-kv-value">${escapeHtml(first)} → ${escapeHtml(last)}</span>`;
+
+            // E4 — teal dot when any filter is active
+            const topoEl = document.getElementById('atlas-topology');
+            if (topoEl && typeof atlasState !== 'undefined')
+                topoEl.classList.toggle('filters-active', hasAnyActiveFilter(atlasState.filters));
         }
 
         // -----------------------------------------------------------------
@@ -10558,15 +10715,37 @@
                 popover.className = 'filter-popover';
                 if (dim.kind === 'time') {
                     popover.classList.add('filter-time-popover');
+                    // Build year options from actual event data range.
+                    const _evtYears = allEvents.map(e => {
+                        const d = parseEventDate(e.date);
+                        return d ? new Date(d).getFullYear() : null;
+                    }).filter(Boolean);
+                    const _minY = _evtYears.length ? Math.min(..._evtYears) : 2020;
+                    const _maxY = _evtYears.length ? Math.max(..._evtYears) : new Date().getFullYear();
+                    let _yearOpts = '<option value="">Year</option>';
+                    for (let y = _minY; y <= _maxY; y++)
+                        _yearOpts += `<option value="${y}">${y}</option>`;
+                    const _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                    let _moOpts = '<option value="">Month</option>';
+                    _MONTHS.forEach((m, i) =>
+                        _moOpts += `<option value="${String(i + 1).padStart(2, '0')}">${m}</option>`);
+                    const _hint = `${_MONTHS[new Date(Math.min(..._evtYears.map(y => new Date(y,0,1)))).getMonth()]} ${_minY} – ${_MONTHS[11]} ${_maxY}`;
                     popover.innerHTML = `
                         <div class="filter-time-row">
-                            <label for="filter-time-start-${dim.key}">Start</label>
-                            <input type="date" id="filter-time-start-${dim.key}" class="filter-time-start">
+                            <label>From</label>
+                            <div class="filter-time-selects">
+                                <select class="filter-time-start-month">${_moOpts}</select>
+                                <select class="filter-time-start-year">${_yearOpts}</select>
+                            </div>
                         </div>
                         <div class="filter-time-row">
-                            <label for="filter-time-end-${dim.key}">End</label>
-                            <input type="date" id="filter-time-end-${dim.key}" class="filter-time-end">
+                            <label>To</label>
+                            <div class="filter-time-selects">
+                                <select class="filter-time-end-month">${_moOpts}</select>
+                                <select class="filter-time-end-year">${_yearOpts}</select>
+                            </div>
                         </div>
+                        <div class="filter-time-hint">Data: ${escapeHtml(_hint)}</div>
                         <button type="button" class="filter-popover-clear">Clear</button>
                     `;
                 } else {
@@ -10656,13 +10835,13 @@
             if (emptyClear) emptyClear.addEventListener('click', clearAllFilters);
 
             // Outside-click closes any open popover.
+            // Also check for portaled popovers (in document.body) so clicks inside
+            // them don't incorrectly trigger a close.
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.filter-pill')) {
-                    document.querySelectorAll('.filter-pill.open').forEach(p => {
-                        p.classList.remove('open');
-                        const pop = p.querySelector('.filter-popover, .filter-time-popover');
-                        if (pop) { pop.style.position = ''; pop.style.top = ''; pop.style.left = ''; pop.style.right = ''; }
-                    });
+                if (!e.target.closest('.filter-pill') &&
+                    !e.target.closest('.filter-popover') &&
+                    !e.target.closest('.filter-time-popover')) {
+                    closeAllFilterPills();
                 }
             });
 
@@ -10692,30 +10871,46 @@
             }
         }
 
+        // Closes every open filter pill and returns any portaled popover to its pill.
+        // Must be called before p.querySelector('.filter-popover') since portaled
+        // popovers live in document.body and querySelector would miss them.
+        function closeAllFilterPills() {
+            document.querySelectorAll('.filter-pill.open').forEach(p => {
+                const pop = p._portaledPop || p.querySelector('.filter-popover, .filter-time-popover');
+                if (pop) {
+                    if (pop.parentElement === document.body) p.appendChild(pop);
+                    pop.style.cssText = '';
+                }
+                p._portaledPop = null;
+                p.classList.remove('open');
+                const b = p.querySelector('.filter-pill-btn');
+                if (b) b.setAttribute('aria-expanded', 'false');
+            });
+        }
+
         function wireFilterPill(pill, dim, popover) {
             const btn = pill.querySelector('.filter-pill-btn');
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const wasOpen = pill.classList.contains('open');
-                document.querySelectorAll('.filter-pill.open').forEach(p => {
-                    p.classList.remove('open');
-                    const pop = p.querySelector('.filter-popover, .filter-time-popover');
-                    if (pop) { pop.style.position = ''; pop.style.top = ''; pop.style.left = ''; pop.style.right = ''; }
-                });
+                closeAllFilterPills();
                 if (!wasOpen) {
                     pill.classList.add('open');
                     btn.setAttribute('aria-expanded', 'true');
                     if (window.innerWidth <= 1024) {
-                        const pop = pill.querySelector('.filter-popover, .filter-time-popover');
-                        if (pop) {
-                            const r = pill.getBoundingClientRect();
-                            const popWidth = parseInt(getComputedStyle(pop).minWidth) || 240;
-                            pop.style.position = 'fixed';
-                            pop.style.zIndex = '1000';
-                            pop.style.top = (r.bottom + 4) + 'px';
-                            pop.style.left = Math.max(8, Math.min(r.left, window.innerWidth - popWidth - 8)) + 'px';
-                            pop.style.right = 'auto';
-                        }
+                        // Portal popover to document.body so it escapes the
+                        // filter bar's overflow-x:auto / stacking context and
+                        // paints above the vis.js canvas on mobile.
+                        const r = btn.getBoundingClientRect();
+                        const popWidth = parseInt(getComputedStyle(popover).minWidth) || 240;
+                        document.body.appendChild(popover);
+                        pill._portaledPop = popover;
+                        popover.style.position = 'fixed';
+                        popover.style.zIndex = '9999';
+                        popover.style.display = 'block';
+                        popover.style.top = (r.bottom + 4) + 'px';
+                        popover.style.left = Math.max(8, Math.min(r.left, window.innerWidth - popWidth - 8)) + 'px';
+                        popover.style.right = 'auto';
                     }
                 } else {
                     btn.setAttribute('aria-expanded', 'false');
@@ -10723,19 +10918,28 @@
             });
 
             if (dim.kind === 'time') {
-                const start = popover.querySelector('.filter-time-start');
-                const end = popover.querySelector('.filter-time-end');
+                const startYearEl  = popover.querySelector('.filter-time-start-year');
+                const startMonthEl = popover.querySelector('.filter-time-start-month');
+                const endYearEl    = popover.querySelector('.filter-time-end-year');
+                const endMonthEl   = popover.querySelector('.filter-time-end-month');
                 const apply = () => {
-                    setAtlasFilter('timeRange', {
-                        start: start.value || null,
-                        end: end.value || null
-                    });
+                    const sy = startYearEl.value, sm = startMonthEl.value;
+                    const ey = endYearEl.value,   em = endMonthEl.value;
+                    // Year alone → Jan 1 / Dec 31. Year + month → first/last of that month.
+                    const startDate = sy ? `${sy}-${sm || '01'}-01` : null;
+                    const endDate = ey ? (() => {
+                        const mo = em || '12';
+                        const last = new Date(Number(ey), Number(mo), 0).getDate();
+                        return `${ey}-${mo}-${String(last).padStart(2, '0')}`;
+                    })() : null;
+                    setAtlasFilter('timeRange', (startDate || endDate)
+                        ? { start: startDate, end: endDate } : null);
                 };
-                start.addEventListener('change', apply);
-                end.addEventListener('change', apply);
+                [startYearEl, startMonthEl, endYearEl, endMonthEl]
+                    .forEach(el => el && el.addEventListener('change', apply));
                 popover.querySelector('.filter-popover-clear').addEventListener('click', () => {
-                    start.value = '';
-                    end.value = '';
+                    [startYearEl, startMonthEl, endYearEl, endMonthEl]
+                        .forEach(el => { if (el) el.value = ''; });
                     setAtlasFilter('timeRange', null);
                 });
             } else {
@@ -10765,10 +10969,14 @@
                 const countEl = pill.querySelector('.filter-pill-count');
                 if (dim.kind === 'time') {
                     const tr = state.filters.timeRange;
-                    const start = pill.querySelector('.filter-time-start');
-                    const end = pill.querySelector('.filter-time-end');
-                    if (start) start.value = (tr && tr.start) || '';
-                    if (end) end.value = (tr && tr.end) || '';
+                    const sy = pill.querySelector('.filter-time-start-year');
+                    const sm = pill.querySelector('.filter-time-start-month');
+                    const ey = pill.querySelector('.filter-time-end-year');
+                    const em = pill.querySelector('.filter-time-end-month');
+                    if (sy) sy.value = (tr && tr.start) ? tr.start.substring(0, 4) : '';
+                    if (sm) sm.value = (tr && tr.start) ? tr.start.substring(5, 7) : '';
+                    if (ey) ey.value = (tr && tr.end) ? tr.end.substring(0, 4) : '';
+                    if (em) em.value = (tr && tr.end) ? tr.end.substring(5, 7) : '';
                     const active = !!(tr && (tr.start || tr.end));
                     btn.classList.toggle('has-active', active);
                     countEl.hidden = !active;
@@ -11079,10 +11287,15 @@
         window.closeAccessModal = closeAccessModal;
     })();
 
-    // Console banner for parity with other pages (pattern from blocs.html).
+    // Console banner and version stamp — reads from meta[name="weo-version"].
     (function () {
         const v = document.querySelector('meta[name="weo-version"]');
-        if (v) console.log('WEO Atlas · v' + v.getAttribute('content'));
+        if (v) {
+            const ver = v.getAttribute('content');
+            console.log('WEO Atlas · v' + ver);
+            const stamp = document.getElementById('weo-version-stamp');
+            if (stamp) stamp.textContent = ver;
+        }
     })();
     </script>
 

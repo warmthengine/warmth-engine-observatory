@@ -332,9 +332,11 @@
           
           .weo-nav-toggle {
             display: flex;
+            min-width: 44px;
+            min-height: 44px;
           }
         }
-        
+
         /* Header */
         .page-header {
             margin-bottom: var(--weo-space-2xl);
@@ -1042,7 +1044,7 @@
             }
         }
         
-        @media (min-width: 769px) {
+        @media (min-width: 768px) {
             .table-scroll-indicator {
                 display: none !important;
             }
@@ -1119,15 +1121,16 @@
 </style>
 </head>
 <body>
-    <div class="container">
-        
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
+
         <!-- Navigation -->
         <nav class="weo-nav">
           <a href="/" class="weo-nav-brand">
             <span class="weo-nav-logo">WEO</span>
             <span>Warmth Engine Observatory</span>
           </a>
-          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -1233,7 +1236,7 @@
                             <span class="nation-tag">South Korea</span>
                             <span class="nation-tag">Taiwan</span>
                         </div>
-                        <button class="eu-toggle" id="eu-toggle" onclick="toggleEU()">
+                        <button class="eu-toggle" id="eu-toggle" onclick="toggleEU()" aria-expanded="false">
                             European Union (27 members)
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"/>
@@ -1716,8 +1719,10 @@
         function toggleEU() {
             const toggle = document.getElementById('eu-toggle');
             const members = document.getElementById('eu-members');
+            const isExpanded = toggle.classList.contains('expanded');
             toggle.classList.toggle('expanded');
             members.classList.toggle('visible');
+            toggle.setAttribute('aria-expanded', String(!isExpanded));
         }
         
         // Navigation toggle for mobile
@@ -1727,8 +1732,10 @@
         if (navToggle && navLinks) {
           navToggle.addEventListener('click', function() {
             navLinks.classList.toggle('open');
+            const isOpen = navLinks.classList.contains('open');
+            navToggle.setAttribute('aria-expanded', isOpen);
           });
-          
+
           // Close when clicking outside
           document.addEventListener('click', function(e) {
             if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {

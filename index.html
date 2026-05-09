@@ -17,6 +17,7 @@
   <meta name="twitter:description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped Coordination Connections.">
   <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="weo-version" content="1.2.0">
   <meta name="description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped coordination connections.">
   <meta name="keywords" content="Warmth Engine Observatory, WEO, AI infrastructure, coordination dynamics, geopolitical blocs, verified events, Coordination Connections, tier classification, Western Bloc, Eastern Bloc, Cross-Bloc, Between-Bloc, Intra-Bloc">
   <title>Warmth Engine Observatory</title>
@@ -130,8 +131,8 @@
       --surface-overlay: #334155;
       
       /* Text */
-      --text-secondary: rgba(226, 232, 240, 0.7);
-      --text-muted: rgba(226, 232, 240, 0.5);
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
       --text-label: rgba(226, 232, 240, 0.6);
       
       /* Interactive */
@@ -168,7 +169,7 @@
       --weo-surface-overlay: var(--surface-overlay);
       --weo-text-primary: #E2E8F0;
       --weo-text-secondary: rgba(226, 232, 240, 0.7);
-      --weo-text-muted: #94A3B8;
+      --weo-text-muted: var(--text-muted);
       --weo-text-label: rgba(226, 232, 240, 0.6);
       --weo-border-primary: #334155;
       --weo-duration-instant: var(--duration-instant);
@@ -352,7 +353,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 2px solid;
       cursor: pointer;
       box-sizing: border-box;
@@ -418,7 +419,7 @@
     /* Tooltip styles */
     .map-tooltip {
       position: absolute;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 1px solid #334155;
       border-radius: var(--weo-radius-md);
       padding: 12px 16px;
@@ -469,7 +470,7 @@
 
     /* Tier badges - standard rounded */
     .badge-t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .badge-t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
+    .badge-t2 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .badge-t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
 
     /* Bloc badges - pill shape with subtle outline */
@@ -481,18 +482,18 @@
       background: rgba(96, 165, 250, 0.1); 
       color: #60A5FA; 
       border-radius: var(--weo-radius-lg);
-      border: 1px solid rgba(239, 68, 68, 0.6);
+      border: 1px solid rgba(248, 113, 113, 0.6);
     }
     .badge-eastern-led { 
       background: rgba(251, 146, 60, 0.1); 
       color: #FB923C; 
       border-radius: var(--weo-radius-lg);
-      border: 1px solid rgba(239, 68, 68, 0.6);
+      border: 1px solid rgba(248, 113, 113, 0.6);
     }
 
     /* Domain badges - squared with left accent bar */
     .badge-domain-tech { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .badge-domain-security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
+    .badge-domain-security { background: rgba(248, 113, 113, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .badge-domain-trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .badge-domain-energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
 
@@ -627,7 +628,7 @@
     .marker-cluster-medium {
       width: 48px;
       height: 48px;
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .marker-cluster-large {
@@ -686,14 +687,14 @@
     }
     
     .weo-status-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: #F1F5F9;
       letter-spacing: 0.02em;
     }
     
     .weo-status-stats {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: #F1F5F9;
       letter-spacing: -0.01em;
@@ -762,7 +763,7 @@
     }
     .weo-status-wer-value {
       font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--weo-wer-amber);
       animation: wer-glow 3s ease-in-out infinite;
@@ -805,7 +806,7 @@
       }
       
       .weo-status-title {
-        font-size: 13px;
+        font-size: 12px;
       }
     }
 
@@ -904,7 +905,7 @@
       padding: 12px 16px;
       color: #CBD5E1;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       transition: all var(--duration-fast) var(--ease-out);
       border-bottom: 1px solid rgba(51, 65, 85, 0.5);
@@ -1003,7 +1004,7 @@
     }
 
     .orientation-content p {
-      font-size: 13px;
+      font-size: 12px;
       color: #CBD5E1;
       line-height: 1.6;
       margin-bottom: 12px;
@@ -1149,7 +1150,7 @@
     }
 
     .legend-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #F1F5F9;
       text-transform: uppercase;
@@ -1216,7 +1217,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 2px solid;
       display: flex;
       align-items: center;
@@ -1258,7 +1259,7 @@
       position: absolute;
       top: -3px;
       right: -3px;
-      font-size: 9px;
+      font-size: 10px;
       color: #FFD700;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
       z-index: 5;
@@ -1299,7 +1300,8 @@
       right: 0;
       width: 440px;
       height: 100vh;
-      background: #1E293B;
+      height: 100dvh;
+      background: var(--surface-raised);
       border-left: 1px solid #334155;
       box-shadow: -8px 0 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
       transform: translateX(100%);
@@ -1486,7 +1488,7 @@
     
     .peek-expand-prompt .peek-text {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #F59E0B;
       margin-top: 6px;
@@ -1555,8 +1557,8 @@
       position: absolute;
       top: 16px;
       right: 16px;
-      width: 32px;
-      height: 32px;
+      width: 44px;
+      height: 44px;
       background: transparent;
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
@@ -1599,7 +1601,7 @@
     .panel-title:active { opacity: 0.65; }
 
     .panel-subtitle {
-      font-size: 13px;
+      font-size: 12px;
       color: #94A3B8;
       margin-bottom: 12px;
     }
@@ -1648,7 +1650,7 @@
 
     /* Tier badges - standard rounded */
     .panel-badge.t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .panel-badge.t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
+    .panel-badge.t2 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .panel-badge.t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
     
     /* Bloc badges - pill shape with subtle outline */
@@ -1657,12 +1659,12 @@
     .panel-badge.cross-bloc { background: rgba(45, 212, 191, 0.1); color: #2DD4BF; border-radius: var(--weo-radius-lg); border: 1px solid rgba(45, 212, 191, 0.35); }
     
     /* T2 -Led bloc badges - pill with red outline for fragmentation signal */
-    .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
-    .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
+    .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
+    .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
 
     /* Domain badges - squared with left accent bar */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .panel-badge.security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
+    .panel-badge.security { background: rgba(248, 113, 113, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
     
@@ -1740,7 +1742,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: #252B36;
+      background: var(--surface-elevated, #334155);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 6px 10px;
@@ -1769,7 +1771,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: #252B36;
+      border-bottom-color: var(--surface-elevated, #334155);
     }
     .ind-primary-popover.visible { display: block; }
     .ind-tag.ind-primary.badge-ind-semi { background: rgba(173,180,255,0.18); color: rgba(173,180,255,0.9); border: 1px solid rgba(173,180,255,0.3); }
@@ -1841,7 +1843,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: #252B36;
+      background: var(--surface-elevated, #334155);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 10px 12px;
@@ -1869,7 +1871,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: #252B36;
+      border-bottom-color: var(--surface-elevated, #334155);
     }
     .ind-mechanism-popover .mechanism-title {
       font-size: 0.5625rem;
@@ -1963,7 +1965,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: #252B36;
+      background: var(--surface-elevated, #334155);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 10px 12px;
@@ -1991,7 +1993,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: #252B36;
+      border-bottom-color: var(--surface-elevated, #334155);
     }
     .ent-mechanism-popover .ent-popover-title {
       font-family: 'Geist Mono', 'Fira Code', monospace;
@@ -2170,7 +2172,7 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.4;
     }
 
@@ -2233,7 +2235,7 @@
     }
 
     .upgrade-cta-list li {
-      font-size: 13px;
+      font-size: 12px;
       color: #94A3B8;
       padding: 4px 0;
       padding-left: 20px;
@@ -2291,7 +2293,7 @@
       margin-top: 16px;
       padding-top: 16px;
       border-top: 1px solid #334155;
-      font-size: 13px;
+      font-size: 12px;
       color: #60A5FA;
       text-decoration: none;
       transition: color var(--duration-fast) var(--ease-out),
@@ -2495,7 +2497,7 @@
       .marker-cluster-small {
         width: 48px;
         height: 48px;
-        font-size: 15px;
+        font-size: 14px;
       }
       
       .marker-cluster-medium {
@@ -2590,8 +2592,8 @@
       .panel-close {
         top: 12px;
         right: 12px;
-        width: 28px;
-        height: 28px;
+        width: 44px;
+        height: 44px;
         font-size: 16px;
       }
       
@@ -2663,7 +2665,7 @@
       }
       
       .section-content {
-        font-size: 13px;
+        font-size: 12px;
       }
       
       .data-label,
@@ -2721,9 +2723,9 @@
     }
 
     /* Focus states for accessibility */
-    .panel-close:focus,
-    .legend-toggle:focus,
-    .upgrade-button:focus {
+    .panel-close:focus-visible,
+    .legend-toggle:focus-visible,
+    .upgrade-button:focus-visible {
       outline: 2px solid #60A5FA;
       outline-offset: 2px;
     }
@@ -2739,15 +2741,15 @@
 
     /* PHASE 6B: ADDITIONAL STYLES */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
-    .panel-badge.security { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+    .panel-badge.security { background: rgba(248, 113, 113, 0.15); color: #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.15); color: #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
-    .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
+    .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 12px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
     .bloc-table th, .bloc-table td { padding: 10px 12px; text-align: left; }
     .bloc-table th { color: #94A3B8; font-weight: 500; font-size: 11px; text-transform: uppercase; background: rgba(51, 65, 85, 0.3); border-bottom: 1px solid #334155; white-space: nowrap; }
     .bloc-table td { color: #CBD5E1; border-bottom: 1px solid rgba(51, 65, 85, 0.4); }
     .bloc-table tbody tr:last-child td { border-bottom: none; }
-    .scoring-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.6); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
+    .scoring-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; font-size: 12px; background: rgba(15, 23, 42, 0.6); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
     .scoring-table th, .scoring-table td { padding: 10px 12px; text-align: center; }
     .scoring-table th { color: #94A3B8; font-weight: 500; font-size: 11px; background: rgba(51, 65, 85, 0.4); border-bottom: 1px solid #334155; }
     .scoring-table td { color: #CBD5E1; font-family: monospace; }
@@ -2759,7 +2761,7 @@
     .scoring-table tbody tr:last-child .rationale-cell { border-bottom: none; }
     .scoring-summary { margin-top: 16px; padding: 12px 14px; background: rgba(30, 41, 59, 0.4); border-radius: var(--weo-radius-md); border: 1px solid #334155; }
     .scoring-summary .data-row { border-bottom: none; padding: 4px 0; }
-    .sources-section { font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); border: 1px solid rgba(51, 65, 85, 0.5); padding: 14px 16px; margin-top: 8px; }
+    .sources-section { font-size: 12px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); border: 1px solid rgba(51, 65, 85, 0.5); padding: 14px 16px; margin-top: 8px; }
     .sources-label { color: #F1F5F9; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 10px; }
     
     /* Current Data Sources styling (for events with rolling updates) */
@@ -2861,7 +2863,7 @@
     }
     .related-event:last-child { border-bottom: none; padding-bottom: 0; }
     .related-event:first-child { padding-top: 0; }
-    .related-id { color: #60A5FA; font-weight: 500; font-size: 13px; }
+    .related-id { color: #60A5FA; font-weight: 500; font-size: 12px; }
     .related-relationship { color: #94A3B8; font-size: 12px; }
     .checkpoint-label strong { color: #F1F5F9; }
     .checkpoint-icon.fail { color: #F87171; }
@@ -2978,7 +2980,7 @@
     /* CC Target Event Name */
     .cc-target {
       flex: 1;
-      font-size: 13px;
+      font-size: 12px;
       color: #CBD5E1;
       min-width: 80px;
       overflow: hidden;
@@ -2995,7 +2997,7 @@
     /* CC Target Tooltip (appended to body) */
     .cc-target-tooltip {
       position: fixed;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 8px 12px;
@@ -3083,7 +3085,7 @@
       position: absolute;
       bottom: 100%;
       right: 0;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 10px 12px;
@@ -3317,7 +3319,7 @@
     
     /* Evidence Content */
     .cc-evidence-content {
-      font-size: 13px;  /* Increased from 12px */
+      font-size: 12px;  /* Increased from 12px */
       color: #CBD5E1;
       line-height: 1.6;
     }
@@ -3483,7 +3485,7 @@
       padding: 12px 16px;  /* Increased from 10px 12px */
       margin: 16px 0;  /* Increased from 10px */
       border-radius: 0 var(--weo-radius-sm) var(--weo-radius-sm) 0;
-      font-size: 13px;  /* Increased from 11px */
+      font-size: 12px;  /* Increased from 11px */
       line-height: 1.5;
       font-style: italic;
       color: #E2E8F0;  /* Slightly brighter */
@@ -3765,7 +3767,7 @@
     
     /* Empty State */
     .cc-empty {
-      font-size: 13px;
+      font-size: 12px;
       color: #94A3B8;
       font-style: italic;
       padding: 8px 0;
@@ -3800,7 +3802,7 @@
     /* Tooltip for temporal framing */
     .cc-tooltip {
       position: absolute;
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 10px 14px;
@@ -3956,7 +3958,7 @@
     @media (max-width: 767px) {
       #weo-tooltip-overlay {
         width: 310px;
-        font-size: 13px;
+        font-size: 12px;
         padding: 14px 16px;
       }
     }
@@ -4793,7 +4795,7 @@
     }
     .access-modal-overlay.visible { opacity: 1; visibility: visible; }
     .access-modal {
-      background: #1E293B;
+      background: var(--surface-raised);
       border: 1px solid #334155;
       border-radius: var(--weo-radius-lg);
       width: 90%; max-width: 400px;
@@ -4812,6 +4814,8 @@
     .access-modal-close {
       background: transparent; border: none;
       color: #94A3B8; font-size: 1.5rem; cursor: pointer;
+      min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
     }
     .access-modal-close:hover { color: #F1F5F9; }
     .access-modal-body { padding: 1.5rem 1.25rem; }
@@ -4826,7 +4830,7 @@
       border-radius: var(--weo-radius-md); color: #F1F5F9;
       font-size: 0.9375rem; font-family: monospace;
     }
-    .access-input:focus { outline: none; border-color: #F59E0B; }
+    .access-input:focus { outline: 2px solid #F59E0B; outline-offset: 2px; border-color: #F59E0B; }
     .access-input.error { border-color: #F87171; }
     .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #F87171; }
     .access-error.visible { display: flex; }
@@ -5078,7 +5082,7 @@
 
     .version-headline {
       flex: 1;
-      font-size: 13px;
+      font-size: 12px;
       color: #CBD5E1;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -5124,7 +5128,7 @@
     }
 
     .version-description p {
-      font-size: 13px;
+      font-size: 12px;
       color: #CBD5E1;
       line-height: 1.5;
       margin: 0;
@@ -5426,12 +5430,12 @@
     .piet-t2-wrap { position: relative; display: inline; }
     .piet-t2-popover {
         display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-        background: #252B36; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm);
+        background: var(--surface-elevated, #334155); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm);
         padding: 10px 12px; font-size: 0.6875rem; line-height: 1.5; color: var(--text-secondary);
         width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
     .piet-t2-popover::before { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:rgba(255,255,255,0.08); }
-    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:#252B36; }
+    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--surface-elevated, #334155); }
     .piet-t2-popover .t2-popover-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:4px; }
     .piet-t2-popover.visible { display: block; }
     .piet-pathway-label {
@@ -5585,14 +5589,14 @@
     }
 
     .empty-state-title {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 580;
         color: var(--weo-text-secondary, #CBD5E1);
         margin-bottom: 8px;
     }
 
     .empty-state-hint {
-        font-size: 13px;
+        font-size: 12px;
     }
 
   </style>
@@ -5620,7 +5624,7 @@
     <div class="peek-swipe-hint">Swipe up for more</div>
 
     <!-- Panel content will be injected here by JavaScript -->
-    <div id="panelContent"></div>
+    <div id="panelContent" aria-live="polite" role="region" aria-label="Event details"></div>
     
     <!-- Peek mode expand prompt (shown when panel is collapsed for CC line visibility) -->
     <div class="peek-expand-prompt" id="peekExpandPrompt" onclick="expandFromPeek()">
@@ -5649,7 +5653,7 @@
     <div class="weo-status-updated" id="weo-status-updated"></div>
     
     <!-- Navigation Menu Toggle -->
-    <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu">
+    <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
@@ -8504,7 +8508,7 @@ function generateCCSection(eventId, showFullContent) {
         // Calculate arc segments - order matters for rendering
         const segments = [
           { count: t1Count, color: '#2DD4BF', name: 'Teal' },      // T1 - Teal
-          { count: t2Count, color: '#EF4444', name: 'Red' },      // T2 - Red
+          { count: t2Count, color: '#F87171', name: 'Red' },      // T2 - Red
           { count: t3WesternCount, color: '#60A5FA', name: 'Blue' }, // T3 Western - Blue
           { count: t3EasternCount, color: '#FB923C', name: 'Orange' }  // T3 Eastern - Orange
         ].filter(s => s.count > 0);
@@ -8575,7 +8579,7 @@ function generateCCSection(eventId, showFullContent) {
       // T2 events get red border (fragmentation), T1/T3 get bloc colours
       let borderColor;
       if (event.tier === 2) {
-        borderColor = '#EF4444'; // Red for all T2 fragmentation events
+        borderColor = '#F87171'; // Red for all T2 fragmentation events
       } else {
         borderColor = event.bloc === 'Western' ? '#60A5FA' : event.bloc === 'Eastern' ? '#FB923C' : '#2DD4BF';
       }
@@ -10507,6 +10511,7 @@ function generateCCSection(eventId, showFullContent) {
       
       navMenuToggle.classList.toggle('open');
       navDropdown.classList.toggle('open');
+      navMenuToggle.setAttribute('aria-expanded', navDropdown.classList.contains('open') ? 'true' : 'false');
     });
 
     // Close menu when clicking outside
@@ -10875,11 +10880,11 @@ function generateCCSection(eventId, showFullContent) {
   </script>
 
   <!-- WEO SUPPORTER ACCESS MODAL -->
-  <div class="access-modal-overlay" id="accessModalOverlay">
+  <div class="access-modal-overlay" id="accessModalOverlay" role="dialog" aria-modal="true" aria-labelledby="access-modal-title">
     <div class="access-modal">
       <div id="accessLoginState">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span>🔑</span>Supporter Access</div>
+          <div class="access-modal-title" id="access-modal-title"><span>🔑</span>Supporter Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
