@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found | Warmth Engine Observatory</title>
+    <title>Page Not Found — Warmth Engine Observatory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
@@ -20,6 +20,12 @@
             --weo-text-secondary: #CBD5E1;
             --weo-accent-hover: #60a5fa;
             --weo-western-glow: rgba(96, 165, 250, 0.15);
+            --weo-focus-ring: #60A5FA;
+            --weo-border-primary: #334155;
+            --weo-text-muted: #94A3B8;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
         }
         
         * {
@@ -27,7 +33,10 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-accent-hover); outline-offset: 2px; }
+
         body {
             font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--weo-surface-base);
@@ -123,10 +132,19 @@
         /* Monospace data values */
         .error-code { font-weight: 480; }
 
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
         <div class="error-code">404</div>
         <h1 class="error-title">Page Not Found</h1>
         <p class="error-message">

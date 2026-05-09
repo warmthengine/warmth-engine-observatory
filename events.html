@@ -17,6 +17,7 @@
     <meta name="twitter:description" content="Verified AI infrastructure coordination events classified by tier, domain, and bloc with industry tags.">
     <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="weo-version" content="1.2.0">
     <title>Events Database — Warmth Engine Observatory</title>
     <meta name="description" content="WEO event database — verified AI infrastructure coordination events classified by tier, domain, and bloc with industry and environmental nexus tags. Filter, search, and explore coordination dynamics.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO events, AI infrastructure events, coordination database, Event Type, tier classification, domain classification, industry tags, verified events, geopolitical coordination, Coordination Connections">
@@ -366,18 +367,18 @@
         }
         /* Tier badges - standard rounded */
         .badge-t1 { background: rgba(45,212,191,0.15); color: var(--weo-tier-t1); border-radius: var(--weo-radius-sm); }
-        .badge-t2 { background: rgba(239,68,68,0.15); color: var(--weo-tier-t2); border-radius: var(--weo-radius-sm); }
+        .badge-t2 { background: rgba(248,113,113,0.15); color: var(--weo-tier-t2); border-radius: var(--weo-radius-sm); }
         .badge-t3 { background: rgba(148,163,184,0.15); color: var(--weo-tier-t3); border-radius: var(--weo-radius-sm); }
         /* Bloc badges - pill shape with subtle outline */
         .badge-western { background: rgba(96,165,250,0.1); color: var(--weo-bloc-western); border-radius: var(--weo-radius-lg); border: 1px solid rgba(96,165,250,0.35); }
         .badge-eastern { background: rgba(251,146,60,0.1); color: var(--weo-bloc-eastern); border-radius: var(--weo-radius-lg); border: 1px solid rgba(251,146,60,0.35); }
         .badge-cross { background: rgba(45,212,191,0.1); color: var(--weo-bloc-cross); border-radius: var(--weo-radius-lg); border: 1px solid rgba(45,212,191,0.35); }
         /* T2 -Led bloc badges - pill with red outline for fragmentation signal */
-        .badge-western-led { background: rgba(96,165,250,0.1); color: var(--weo-bloc-western); border-radius: var(--weo-radius-lg); border: 1px solid rgba(239,68,68,0.6); }
-        .badge-eastern-led { background: rgba(251,146,60,0.1); color: var(--weo-bloc-eastern); border-radius: var(--weo-radius-lg); border: 1px solid rgba(239,68,68,0.6); }
+        .badge-western-led { background: rgba(96,165,250,0.1); color: var(--weo-bloc-western); border-radius: var(--weo-radius-lg); border: 1px solid rgba(248,113,113,0.6); }
+        .badge-eastern-led { background: rgba(251,146,60,0.1); color: var(--weo-bloc-eastern); border-radius: var(--weo-radius-lg); border: 1px solid rgba(248,113,113,0.6); }
         /* Domain badges - squared with left accent bar */
         .badge-tech { background: rgba(59,130,246,0.12); color: var(--weo-domain-tech); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-tech); }
-        .badge-security { background: rgba(239,68,68,0.12); color: var(--weo-domain-security); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-security); }
+        .badge-security { background: rgba(248,113,113,0.12); color: var(--weo-domain-security); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-security); }
         .badge-trade { background: rgba(16,185,129,0.12); color: var(--weo-domain-trade); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-trade); }
         .badge-energy { background: rgba(245,158,11,0.12); color: var(--weo-domain-energy); border-radius: var(--weo-radius-sm); border-left: 2px solid var(--weo-domain-energy); }
         .badge-sample { background: rgba(245,158,11,0.2); color: var(--weo-sample-gold); }
@@ -505,7 +506,7 @@
             top: calc(100% + 8px);
             left: 50%;
             transform: translateX(-50%);
-            background: #252B36;
+            background: var(--surface-elevated, #334155);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--weo-radius-sm);
             padding: 6px 10px;
@@ -519,7 +520,7 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         }
         .ind-primary-popover::before { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:rgba(255,255,255,0.08); }
-        .ind-primary-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:#252B36; }
+        .ind-primary-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:var(--surface-elevated, #334155); }
         .ind-primary-popover.visible { display: block; }
         .ind-tag.ind-primary.badge-ind-semi { background: rgba(173,180,255,0.18); color: rgba(173,180,255,0.9); border: 1px solid rgba(173,180,255,0.3); }
         .ind-tag.ind-primary.badge-ind-cloud { background: rgba(103,232,249,0.18); color: rgba(103,232,249,0.9); border: 1px solid rgba(103,232,249,0.3); }
@@ -576,7 +577,7 @@
             top: calc(100% + 8px);
             left: 50%;
             transform: translateX(-50%);
-            background: #252B36;
+            background: var(--surface-elevated, #334155);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--weo-radius-sm);
             padding: 10px 12px;
@@ -589,7 +590,7 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         }
         .ind-mechanism-popover::before { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:rgba(255,255,255,0.08); }
-        .ind-mechanism-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:#252B36; }
+        .ind-mechanism-popover::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-bottom-color:var(--surface-elevated, #334155); }
         .ind-mechanism-popover .mechanism-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--weo-text-muted); margin-bottom:4px; }
         .ind-mechanism-popover.visible { display: block; }
 
@@ -615,9 +616,9 @@
         .ent-tag.ent-5:hover { background: rgba(124,168,196,0.1); border-color: rgba(124,168,196,0.55); color: rgba(124,168,196,0.9); }
 
         /* ENT mechanism popover */
-        .ent-mechanism-popover { display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #252B36; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm); padding: 10px 12px; font-size: 0.6875rem; line-height: 1.5; color: #CBD5E1; width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+        .ent-mechanism-popover { display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface-elevated, #334155); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm); padding: 10px 12px; font-size: 0.6875rem; line-height: 1.5; color: #CBD5E1; width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
         .ent-mechanism-popover::before { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-bottom-color: rgba(255,255,255,0.08); }
-        .ent-mechanism-popover::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-bottom-color: #252B36; }
+        .ent-mechanism-popover::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-bottom-color: var(--surface-elevated, #334155); }
         .ent-mechanism-popover .ent-popover-title { font-family: var(--weo-font-mono); font-size: 0.6875rem; font-weight: 600; margin-bottom: 4px; }
         .ent-mechanism-popover .ent-popover-title.ent-1 { color: #D4CC78; }
         .ent-mechanism-popover .ent-popover-title.ent-2 { color: #A8C686; }
@@ -912,7 +913,7 @@
         
         /* Evidence Content */
         .cc-evidence-content {
-            font-size: 13px;
+            font-size: 12px;
             color: #CBD5E1;
             line-height: 1.6;
         }
@@ -1038,7 +1039,7 @@
             padding: 12px 16px;
             margin: 16px 0;
             border-radius: 0 var(--weo-radius-sm) var(--weo-radius-sm) 0;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
             font-style: italic;
             color: #E2E8F0;
@@ -1753,7 +1754,7 @@
     }
     .access-modal-overlay.visible { opacity: 1; visibility: visible; }
     .access-modal {
-      background: #1E293B;
+      background: var(--weo-surface-raised);
       border: 1px solid #334155;
       border-radius: var(--weo-radius-lg);
       width: 90%; max-width: 400px;
@@ -1786,7 +1787,7 @@
       border-radius: var(--weo-radius-md); color: #F1F5F9;
       font-size: 0.9375rem; font-family: var(--weo-font-mono);
     }
-    .access-input:focus { outline: none; border-color: #F59E0B; }
+    .access-input:focus { outline: 2px solid #F59E0B; outline-offset: 2px; border-color: #F59E0B; }
     .access-input.error { border-color: #F87171; }
     .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #F87171; }
     .access-error.visible { display: flex; }
@@ -1884,7 +1885,7 @@
     }
     
     #weo-tooltip-overlay .weo-tooltip-title {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -1906,7 +1907,7 @@
     @media (max-width: 767px) {
       #weo-tooltip-overlay {
         width: 310px;
-        font-size: 13px;
+        font-size: 12px;
         padding: 14px 16px;
       }
     }
@@ -2737,7 +2738,7 @@
         bottom: calc(100% + 8px);
         left: 50%;
         transform: translateX(-50%);
-        background: #252B36;
+        background: var(--surface-elevated, #334155);
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: var(--weo-radius-sm);
         padding: 10px 12px;
@@ -2750,7 +2751,7 @@
         box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
     .piet-t2-popover::before { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:rgba(255,255,255,0.08); }
-    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:#252B36; }
+    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--surface-elevated, #334155); }
     .piet-t2-popover .t2-popover-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--weo-text-muted); margin-bottom:4px; }
     .piet-t2-popover.visible { display: block; }
     .piet-expand-trigger .badge-with-tooltip {
@@ -3045,14 +3046,14 @@
     }
 
     .empty-state-title {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 580;
         color: var(--weo-text-secondary, #CBD5E1);
         margin-bottom: 8px;
     }
 
     .empty-state-hint {
-        font-size: 13px;
+        font-size: 12px;
     }
 
 </style>
@@ -3146,7 +3147,7 @@
             </div>
         </div>
         
-        <div class="stats-bar" id="stats-bar"></div>
+        <div class="stats-bar" id="stats-bar" aria-live="polite"></div>
         
         <!-- CC Summary Section -->
         <div class="cc-summary" id="cc-summary">
@@ -3325,10 +3326,10 @@
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
     </div>
-    <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Event details" aria-labelledby="modal-title">
         <div class="modal" id="event-modal">
             <div class="modal-header">
-                <button class="modal-close" id="modal-close">&times;</button>
+                <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
                 <h2 class="modal-title" id="modal-title"></h2>
                 <div class="modal-subtitle" id="modal-subtitle"></div>
                 <div class="modal-meta" id="modal-meta"></div>

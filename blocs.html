@@ -1119,8 +1119,9 @@
 </style>
 </head>
 <body>
-    <div class="container">
-        
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
+
         <!-- Navigation -->
         <nav class="weo-nav">
           <a href="/" class="weo-nav-brand">
@@ -1233,7 +1234,7 @@
                             <span class="nation-tag">South Korea</span>
                             <span class="nation-tag">Taiwan</span>
                         </div>
-                        <button class="eu-toggle" id="eu-toggle" onclick="toggleEU()">
+                        <button class="eu-toggle" id="eu-toggle" onclick="toggleEU()" aria-expanded="false">
                             European Union (27 members)
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"/>
@@ -1716,8 +1717,10 @@
         function toggleEU() {
             const toggle = document.getElementById('eu-toggle');
             const members = document.getElementById('eu-members');
+            const isExpanded = toggle.classList.contains('expanded');
             toggle.classList.toggle('expanded');
             members.classList.toggle('visible');
+            toggle.setAttribute('aria-expanded', String(!isExpanded));
         }
         
         // Navigation toggle for mobile
