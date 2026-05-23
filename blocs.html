@@ -1316,6 +1316,21 @@
             text-decoration: underline;
         }
 
+        /* Designation group header rows (rendered by JS) */
+        .scp-designation-row td {
+            padding: 10px 10px 3px;
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--weo-text-tertiary);
+            background: transparent;
+            border-bottom: none !important;
+        }
+        .scp-designation-row:hover {
+            background: transparent !important;
+        }
+
         /* Designation legend */
         .scp-legend {
             display: flex;
@@ -2236,181 +2251,12 @@
                                 <th scope="col" class="scp-col-score">Score</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>United States</span></td>
-                                <td><span class="scp-badge scp-badge-paa">PAA</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">7/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot eastern"></span>China</span></td>
-                                <td><span class="scp-badge scp-badge-paa">PAA</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">6/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Japan</span></td>
-                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">4/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>South Korea</span></td>
-                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">4/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>European Union</span></td>
-                                <td><span class="scp-badge scp-badge-acs">ACS</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">4/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Taiwan</span></td>
-                                <td><span class="scp-badge scp-badge-acs">ACS</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">3/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Netherlands</span></td>
-                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">3/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>France</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">2/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Germany</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-col-score">2/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>United Kingdom</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">1/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>India</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-col-score">1/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Israel</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-met">✓</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-col-score">1/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot eastern"></span>Russia</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-col-score">0/7</td>
-                            </tr>
-                            <tr>
-                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Canada</span></td>
-                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-group-start"><span class="scp-not">·</span></td>
-                                <td><span class="scp-not">·</span></td>
-                                <td class="scp-col-score">0/7</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="scp-table-body"></tbody>
                     </table>
                 </div>
 
                 <div class="scp-disclaimer">
-                    <span>Assessment date: May 2026 · Batch 1 (14 actors) · Methodology V1.4</span>
+                    <span id="scp-disclaimer-date">Assessment date: May 2026 · Batch 1 (14 actors) · Methodology V1.4</span>
                     <span>The interactive panel on the Map provides full dimension detail, qualification evidence, and source references for each actor. <a href="index.html">Explore on Map →</a></span>
                 </div>
             </div>
@@ -2573,6 +2419,169 @@
 (function(){
   var v = document.querySelector('meta[name="weo-version"]');
   if (v) console.log('WEO v' + v.getAttribute('content'));
+})();
+</script>
+
+<!-- SCP Heatmap — dynamic rendering from /api/actors with static fallback -->
+<script>
+(function () {
+  var SCP_BLOCS_FALLBACK = {
+    metadata: {
+      assessment_date: '2026-05-06',
+      batch: 1,
+      total_actors: 14,
+      methodology_version: '1.4'
+    },
+    actors: [
+      { id:'US', name:'United States',  designation:'PAA',         score:7, dims:[1,1,1,1,1,1,1] },
+      { id:'CN', name:'China',          designation:'PAA',         score:6, dims:[1,1,0,1,1,1,1] },
+      { id:'JP', name:'Japan',          designation:'AIK',         score:4, dims:[0,0,1,1,0,1,1] },
+      { id:'KR', name:'South Korea',    designation:'AIK',         score:4, dims:[0,1,1,0,0,1,1] },
+      { id:'EU', name:'European Union', designation:'ACS',         score:4, dims:[0,1,1,0,0,1,1] },
+      { id:'TW', name:'Taiwan',         designation:'ACS',         score:3, dims:[0,1,1,0,0,0,1] },
+      { id:'NL', name:'Netherlands',    designation:'AIK',         score:3, dims:[0,0,1,0,0,1,1] },
+      { id:'FR', name:'France',         designation:'Participant',  score:2, dims:[0,0,0,0,0,1,1] },
+      { id:'DE', name:'Germany',        designation:'Participant',  score:2, dims:[0,0,1,0,0,1,0] },
+      { id:'GB', name:'United Kingdom', designation:'Participant',  score:1, dims:[0,0,0,0,0,0,1] },
+      { id:'IN', name:'India',          designation:'Participant',  score:1, dims:[0,0,0,0,0,0,1] },
+      { id:'IL', name:'Israel',         designation:'Participant',  score:1, dims:[0,0,1,0,0,0,0] },
+      { id:'RU', name:'Russia',         designation:'Participant',  score:0, dims:[0,0,0,0,0,0,0] },
+      { id:'CA', name:'Canada',         designation:'Participant',  score:0, dims:[0,0,0,0,0,0,0] }
+    ]
+  };
+
+  var EASTERN_IDS = { CN: true, RU: true };
+  var DESIG_ORDER  = { PAA: 0, AIK: 1, ACS: 2, Participant: 3 };
+  var DESIG_LABELS = {
+    PAA:         'Principal AI Actors',
+    AIK:         'AI Infrastructure Keystones',
+    ACS:         'Advanced Capability States',
+    Participant: 'Participants'
+  };
+  var DESIG_BADGE_CLASS = {
+    PAA: 'scp-badge-paa', AIK: 'scp-badge-aik',
+    ACS: 'scp-badge-acs', Participant: 'scp-badge-part'
+  };
+  var DESIG_BADGE_LABEL = { PAA:'PAA', AIK:'AIK', ACS:'ACS', Participant:'PRT' };
+  /* dims array indices (0-based) that begin a column group */
+  var GROUP_START_DIMS = [0, 3, 5];
+
+  function normalizeActors(apiData) {
+    var DK = ['D1','D2','D3','D4','D5','D6','D7'];
+    return apiData.actors.map(function (actor) {
+      var dims = DK.map(function (k) {
+        return (actor.dimensions && actor.dimensions[k] && actor.dimensions[k].met) ? 1 : 0;
+      });
+      return {
+        id:          actor.id,
+        name:        actor.name,
+        designation: actor.designation,
+        score:       actor.score || 0,
+        dims:        dims
+      };
+    });
+  }
+
+  function sortActors(actors) {
+    return actors.slice().sort(function (a, b) {
+      var ra = DESIG_ORDER[a.designation] !== undefined ? DESIG_ORDER[a.designation] : 99;
+      var rb = DESIG_ORDER[b.designation] !== undefined ? DESIG_ORDER[b.designation] : 99;
+      if (ra !== rb) return ra - rb;
+      return b.score - a.score;
+    });
+  }
+
+  function formatDate(iso) {
+    var MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+    var p = iso.split('-');
+    if (p.length < 2) return iso;
+    var m = parseInt(p[1], 10) - 1;
+    return (MONTHS[m] || iso) + ' ' + p[0];
+  }
+
+  function buildDisclaimerText(meta) {
+    if (!meta) return null;
+    var parts = [];
+    if (meta.assessment_date) parts.push('Assessment date: ' + formatDate(meta.assessment_date));
+    if (meta.batch != null && meta.total_actors != null)
+      parts.push('Batch ' + meta.batch + ' (' + meta.total_actors + ' actors)');
+    else if (meta.batch != null)
+      parts.push('Batch ' + meta.batch);
+    if (meta.methodology_version) parts.push('Methodology V' + meta.methodology_version);
+    return parts.length ? parts.join(' · ') : null;
+  }
+
+  function buildRows(actors) {
+    var sorted = sortActors(actors);
+    var html = '';
+    var lastDesig = null;
+    for (var i = 0; i < sorted.length; i++) {
+      var actor = sorted[i];
+      var d = actor.designation;
+      if (d !== lastDesig) {
+        lastDesig = d;
+        html += '<tr class="scp-designation-row" aria-hidden="true"><td colspan="10">'
+              + (DESIG_LABELS[d] || d) + '</td></tr>';
+      }
+      var bloc     = EASTERN_IDS[actor.id] ? 'eastern' : 'western';
+      var badgeCls = DESIG_BADGE_CLASS[d] || 'scp-badge-part';
+      var badgeLbl = DESIG_BADGE_LABEL[d] || 'PRT';
+      var total    = actor.dims.length;
+
+      html += '<tr>';
+      html += '<td><span class="scp-actor-name"><span class="scp-bloc-dot ' + bloc + '"></span>'
+            + actor.name + '</span></td>';
+      html += '<td><span class="scp-badge ' + badgeCls + '">' + badgeLbl + '</span></td>';
+
+      for (var j = 0; j < actor.dims.length; j++) {
+        var gs  = GROUP_START_DIMS.indexOf(j) >= 0 ? ' class="scp-group-start"' : '';
+        var dot = actor.dims[j]
+          ? '<span class="scp-met">✓</span>'
+          : '<span class="scp-not">·</span>';
+        html += '<td' + gs + '>' + dot + '</td>';
+      }
+
+      html += '<td class="scp-col-score">' + actor.score + '/' + total + '</td>';
+      html += '</tr>';
+    }
+    return html;
+  }
+
+  function render(actors, metadata) {
+    var tbody = document.getElementById('scp-table-body');
+    if (!tbody) return;
+    tbody.innerHTML = buildRows(actors);
+
+    var text = buildDisclaimerText(metadata);
+    if (text) {
+      var el = document.getElementById('scp-disclaimer-date');
+      if (el) el.textContent = text;
+    }
+  }
+
+  /* Render immediately from fallback so the table is never empty */
+  render(SCP_BLOCS_FALLBACK.actors, SCP_BLOCS_FALLBACK.metadata);
+
+  /* Attempt to load live data from the API (unauthenticated — free tier only) */
+  var apiBase = window.location.hostname === 'localhost'
+    ? 'http://localhost:8787/api'
+    : 'https://warmthengine.com/api';
+
+  fetch(apiBase + '/actors')
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      if (!data.actors || !data.actors.length) throw new Error('empty response');
+      var actors = normalizeActors(data);
+      console.log('[WEO] blocs.html: SCP actors loaded from API (' + actors.length + ')');
+      render(actors, data.metadata || null);
+    })
+    .catch(function (err) {
+      console.warn('[WEO] blocs.html: actors API unavailable, using fallback:', err.message);
+    });
 })();
 </script>
 </body>
