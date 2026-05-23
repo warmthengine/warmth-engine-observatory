@@ -11477,7 +11477,7 @@ function generateCCSection(eventId, showFullContent) {
 
   function rowHTML(a, id) {
     var h = '<div class="scp-row" id="' + id + '">';
-    var namePrefix = a.sample ? '<span class="sample-star">' + WEO_ICON_STAR + '</span>' : '';
+    var namePrefix = a.sample ? '<span style="display:inline;vertical-align:-1px;margin-right:4px;">' + WEO_ICON_STAR + '</span>' : '';
     h += '<span class="scp-row-name" title="' + a.n + '">' + namePrefix + a.n + '</span>';
     h += '<div class="scp-row-bar">';
     a.dims.forEach(function(d, i) {
