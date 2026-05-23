@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
+  <meta name="weo-version" content="1.3.0">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -17,7 +18,6 @@
   <meta name="twitter:description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped Coordination Connections.">
   <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="weo-version" content="1.2.0">
   <meta name="description" content="Track AI infrastructure coordination dynamics across geopolitical blocs with verified events and mapped coordination connections.">
   <meta name="keywords" content="Warmth Engine Observatory, WEO, AI infrastructure, coordination dynamics, geopolitical blocs, verified events, Coordination Connections, tier classification, Western Bloc, Eastern Bloc, Cross-Bloc, Between-Bloc, Intra-Bloc">
   <title>Warmth Engine Observatory</title>
@@ -131,8 +131,8 @@
       --surface-overlay: #334155;
       
       /* Text */
-      --text-secondary: #CBD5E1;
-      --text-muted: #94A3B8;
+      --text-secondary: rgba(226, 232, 240, 0.7);
+      --text-muted: rgba(226, 232, 240, 0.5);
       --text-label: rgba(226, 232, 240, 0.6);
       
       /* Interactive */
@@ -169,7 +169,7 @@
       --weo-surface-overlay: var(--surface-overlay);
       --weo-text-primary: #E2E8F0;
       --weo-text-secondary: rgba(226, 232, 240, 0.7);
-      --weo-text-muted: var(--text-muted);
+      --weo-text-muted: #94A3B8;
       --weo-text-label: rgba(226, 232, 240, 0.6);
       --weo-border-primary: #334155;
       --weo-duration-instant: var(--duration-instant);
@@ -353,7 +353,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 2px solid;
       cursor: pointer;
       box-sizing: border-box;
@@ -419,7 +419,7 @@
     /* Tooltip styles */
     .map-tooltip {
       position: absolute;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 1px solid #334155;
       border-radius: var(--weo-radius-md);
       padding: 12px 16px;
@@ -470,7 +470,7 @@
 
     /* Tier badges - standard rounded */
     .badge-t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .badge-t2 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
+    .badge-t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .badge-t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
 
     /* Bloc badges - pill shape with subtle outline */
@@ -482,18 +482,18 @@
       background: rgba(96, 165, 250, 0.1); 
       color: #60A5FA; 
       border-radius: var(--weo-radius-lg);
-      border: 1px solid rgba(248, 113, 113, 0.6);
+      border: 1px solid rgba(239, 68, 68, 0.6);
     }
     .badge-eastern-led { 
       background: rgba(251, 146, 60, 0.1); 
       color: #FB923C; 
       border-radius: var(--weo-radius-lg);
-      border: 1px solid rgba(248, 113, 113, 0.6);
+      border: 1px solid rgba(239, 68, 68, 0.6);
     }
 
     /* Domain badges - squared with left accent bar */
     .badge-domain-tech { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .badge-domain-security { background: rgba(248, 113, 113, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
+    .badge-domain-security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .badge-domain-trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .badge-domain-energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
 
@@ -576,6 +576,20 @@
         background: transparent;
     }
 
+    .tooltip-designation {
+      font-size: var(--type-sm, 12px);
+      color: var(--weo-text-muted);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tooltip-desig-icon { font-size: 10px; opacity: 0.7; }
+    .tooltip-desig-paa  { color: var(--scp-paa, #F59E0B); font-weight: 500; }
+    .tooltip-desig-aik  { color: var(--scp-aik, #06B6D4); font-weight: 500; }
+    .tooltip-desig-acs  { color: var(--scp-acs, #A855F7); font-weight: 500; }
+    .tooltip-desig-part { color: var(--weo-text-muted, #94A3B8); }
+
     .tooltip-hint {
       font-size: 11px;
       color: #94A3B8;
@@ -628,7 +642,7 @@
     .marker-cluster-medium {
       width: 48px;
       height: 48px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .marker-cluster-large {
@@ -670,7 +684,7 @@
       width: 300px;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(8px);
-      z-index: 449;
+      z-index: 451;
       font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out), visibility var(--duration-slow) var(--ease-out);
     }
@@ -687,14 +701,14 @@
     }
     
     .weo-status-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: #F1F5F9;
       letter-spacing: 0.02em;
     }
     
     .weo-status-stats {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: #F1F5F9;
       letter-spacing: -0.01em;
@@ -763,7 +777,7 @@
     }
     .weo-status-wer-value {
       font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--weo-wer-amber);
       animation: wer-glow 3s ease-in-out infinite;
@@ -806,7 +820,7 @@
       }
       
       .weo-status-title {
-        font-size: 12px;
+        font-size: 13px;
       }
     }
 
@@ -865,7 +879,7 @@
 
     .nav-dropdown {
       position: fixed;
-      top: 180px; /* Below the status panel on desktop */
+      top: 260px; /* Below the status panel on desktop (includes Actor Profiles row) */
       left: 24px;
       background: rgba(15, 23, 42, 0.97);
       border: 1px solid rgba(96, 165, 250, 0.2);
@@ -905,7 +919,7 @@
       padding: 12px 16px;
       color: #CBD5E1;
       text-decoration: none;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       transition: all var(--duration-fast) var(--ease-out);
       border-bottom: 1px solid rgba(51, 65, 85, 0.5);
@@ -934,6 +948,8 @@
     .nav-dropdown a:hover svg {
       opacity: 1;
     }
+
+
 
     /* ========================================
        ORIENTATION PANEL
@@ -1004,7 +1020,7 @@
     }
 
     .orientation-content p {
-      font-size: 12px;
+      font-size: 13px;
       color: #CBD5E1;
       line-height: 1.6;
       margin-bottom: 12px;
@@ -1150,7 +1166,7 @@
     }
 
     .legend-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: #F1F5F9;
       text-transform: uppercase;
@@ -1217,7 +1233,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 2px solid;
       display: flex;
       align-items: center;
@@ -1259,7 +1275,7 @@
       position: absolute;
       top: -3px;
       right: -3px;
-      font-size: 10px;
+      font-size: 9px;
       color: #FFD700;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
       z-index: 5;
@@ -1300,8 +1316,7 @@
       right: 0;
       width: 440px;
       height: 100vh;
-      height: 100dvh;
-      background: var(--surface-raised);
+      background: #1E293B;
       border-left: 1px solid #334155;
       box-shadow: -8px 0 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
       transform: translateX(100%);
@@ -1488,7 +1503,7 @@
     
     .peek-expand-prompt .peek-text {
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: #F59E0B;
       margin-top: 6px;
@@ -1557,8 +1572,8 @@
       position: absolute;
       top: 16px;
       right: 16px;
-      width: 44px;
-      height: 44px;
+      width: 32px;
+      height: 32px;
       background: transparent;
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
@@ -1601,7 +1616,7 @@
     .panel-title:active { opacity: 0.65; }
 
     .panel-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: #94A3B8;
       margin-bottom: 12px;
     }
@@ -1650,7 +1665,7 @@
 
     /* Tier badges - standard rounded */
     .panel-badge.t1 { background: rgba(45, 212, 191, 0.15); color: #2DD4BF; border-radius: var(--weo-radius-sm); }
-    .panel-badge.t2 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
+    .panel-badge.t2 { background: rgba(239, 68, 68, 0.15); color: #F87171; border-radius: var(--weo-radius-sm); }
     .panel-badge.t3 { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border-radius: var(--weo-radius-sm); }
     
     /* Bloc badges - pill shape with subtle outline */
@@ -1659,12 +1674,12 @@
     .panel-badge.cross-bloc { background: rgba(45, 212, 191, 0.1); color: #2DD4BF; border-radius: var(--weo-radius-lg); border: 1px solid rgba(45, 212, 191, 0.35); }
     
     /* T2 -Led bloc badges - pill with red outline for fragmentation signal */
-    .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
-    .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(248, 113, 113, 0.6); }
+    .panel-badge.western-led { background: rgba(96, 165, 250, 0.1); color: #60A5FA; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
+    .panel-badge.eastern-led { background: rgba(251, 146, 60, 0.1); color: #FB923C; border-radius: var(--weo-radius-lg); border: 1px solid rgba(239, 68, 68, 0.6); }
 
     /* Domain badges - squared with left accent bar */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.12); color: #3B82F6; border-radius: var(--weo-radius-sm); border-left: 2px solid #3B82F6; }
-    .panel-badge.security { background: rgba(248, 113, 113, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
+    .panel-badge.security { background: rgba(239, 68, 68, 0.12); color: #F87171; border-radius: var(--weo-radius-sm); border-left: 2px solid #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.12); color: #10B981; border-radius: var(--weo-radius-sm); border-left: 2px solid #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-radius: var(--weo-radius-sm); border-left: 2px solid #F59E0B; }
     
@@ -1742,7 +1757,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: var(--surface-elevated, #334155);
+      background: #252B36;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 6px 10px;
@@ -1771,7 +1786,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: var(--surface-elevated, #334155);
+      border-bottom-color: #252B36;
     }
     .ind-primary-popover.visible { display: block; }
     .ind-tag.ind-primary.badge-ind-semi { background: rgba(173,180,255,0.18); color: rgba(173,180,255,0.9); border: 1px solid rgba(173,180,255,0.3); }
@@ -1843,7 +1858,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: var(--surface-elevated, #334155);
+      background: #252B36;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 10px 12px;
@@ -1871,7 +1886,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: var(--surface-elevated, #334155);
+      border-bottom-color: #252B36;
     }
     .ind-mechanism-popover .mechanism-title {
       font-size: 0.5625rem;
@@ -1965,7 +1980,7 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: var(--surface-elevated, #334155);
+      background: #252B36;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--weo-radius-sm);
       padding: 10px 12px;
@@ -1993,7 +2008,7 @@
       left: 50%;
       transform: translateX(-50%);
       border: 4px solid transparent;
-      border-bottom-color: var(--surface-elevated, #334155);
+      border-bottom-color: #252B36;
     }
     .ent-mechanism-popover .ent-popover-title {
       font-family: 'Geist Mono', 'Fira Code', monospace;
@@ -2172,7 +2187,7 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.4;
     }
 
@@ -2235,7 +2250,7 @@
     }
 
     .upgrade-cta-list li {
-      font-size: 12px;
+      font-size: 13px;
       color: #94A3B8;
       padding: 4px 0;
       padding-left: 20px;
@@ -2293,7 +2308,7 @@
       margin-top: 16px;
       padding-top: 16px;
       border-top: 1px solid #334155;
-      font-size: 12px;
+      font-size: 13px;
       color: #60A5FA;
       text-decoration: none;
       transition: color var(--duration-fast) var(--ease-out),
@@ -2496,7 +2511,7 @@
       .marker-cluster-small {
         width: 48px;
         height: 48px;
-        font-size: 14px;
+        font-size: 15px;
       }
       
       .marker-cluster-medium {
@@ -2591,8 +2606,8 @@
       .panel-close {
         top: 12px;
         right: 12px;
-        width: 44px;
-        height: 44px;
+        width: 28px;
+        height: 28px;
         font-size: 16px;
       }
       
@@ -2664,7 +2679,7 @@
       }
       
       .section-content {
-        font-size: 12px;
+        font-size: 13px;
       }
       
       .data-label,
@@ -2722,9 +2737,9 @@
     }
 
     /* Focus states for accessibility */
-    .panel-close:focus-visible,
-    .legend-toggle:focus-visible,
-    .upgrade-button:focus-visible {
+    .panel-close:focus,
+    .legend-toggle:focus,
+    .upgrade-button:focus {
       outline: 2px solid #60A5FA;
       outline-offset: 2px;
     }
@@ -2740,15 +2755,15 @@
 
     /* PHASE 6B: ADDITIONAL STYLES */
     .panel-badge.technology { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
-    .panel-badge.security { background: rgba(248, 113, 113, 0.15); color: #F87171; }
+    .panel-badge.security { background: rgba(239, 68, 68, 0.15); color: #F87171; }
     .panel-badge.trade { background: rgba(16, 185, 129, 0.15); color: #10B981; }
     .panel-badge.energy { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
-    .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 12px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
+    .bloc-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
     .bloc-table th, .bloc-table td { padding: 10px 12px; text-align: left; }
     .bloc-table th { color: #94A3B8; font-weight: 500; font-size: 11px; text-transform: uppercase; background: rgba(51, 65, 85, 0.3); border-bottom: 1px solid #334155; white-space: nowrap; }
     .bloc-table td { color: #CBD5E1; border-bottom: 1px solid rgba(51, 65, 85, 0.4); }
     .bloc-table tbody tr:last-child td { border-bottom: none; }
-    .scoring-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; font-size: 12px; background: rgba(15, 23, 42, 0.6); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
+    .scoring-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; font-size: 13px; background: rgba(15, 23, 42, 0.6); border-radius: var(--weo-radius-md); overflow: hidden; border: 1px solid #334155; }
     .scoring-table th, .scoring-table td { padding: 10px 12px; text-align: center; }
     .scoring-table th { color: #94A3B8; font-weight: 500; font-size: 11px; background: rgba(51, 65, 85, 0.4); border-bottom: 1px solid #334155; }
     .scoring-table td { color: #CBD5E1; font-family: monospace; }
@@ -2760,7 +2775,7 @@
     .scoring-table tbody tr:last-child .rationale-cell { border-bottom: none; }
     .scoring-summary { margin-top: 16px; padding: 12px 14px; background: rgba(30, 41, 59, 0.4); border-radius: var(--weo-radius-md); border: 1px solid #334155; }
     .scoring-summary .data-row { border-bottom: none; padding: 4px 0; }
-    .sources-section { font-size: 12px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); border: 1px solid rgba(51, 65, 85, 0.5); padding: 14px 16px; margin-top: 8px; }
+    .sources-section { font-size: 13px; background: rgba(15, 23, 42, 0.4); border-radius: var(--weo-radius-md); border: 1px solid rgba(51, 65, 85, 0.5); padding: 14px 16px; margin-top: 8px; }
     .sources-label { color: #F1F5F9; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 10px; }
     
     /* Current Data Sources styling (for events with rolling updates) */
@@ -2862,7 +2877,7 @@
     }
     .related-event:last-child { border-bottom: none; padding-bottom: 0; }
     .related-event:first-child { padding-top: 0; }
-    .related-id { color: #60A5FA; font-weight: 500; font-size: 12px; }
+    .related-id { color: #60A5FA; font-weight: 500; font-size: 13px; }
     .related-relationship { color: #94A3B8; font-size: 12px; }
     .checkpoint-label strong { color: #F1F5F9; }
     .checkpoint-icon.fail { color: #F87171; }
@@ -2979,7 +2994,7 @@
     /* CC Target Event Name */
     .cc-target {
       flex: 1;
-      font-size: 12px;
+      font-size: 13px;
       color: #CBD5E1;
       min-width: 80px;
       overflow: hidden;
@@ -2996,7 +3011,7 @@
     /* CC Target Tooltip (appended to body) */
     .cc-target-tooltip {
       position: fixed;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 8px 12px;
@@ -3084,7 +3099,7 @@
       position: absolute;
       bottom: 100%;
       right: 0;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 10px 12px;
@@ -3318,7 +3333,7 @@
     
     /* Evidence Content */
     .cc-evidence-content {
-      font-size: 12px;  /* Increased from 12px */
+      font-size: 13px;  /* Increased from 12px */
       color: #CBD5E1;
       line-height: 1.6;
     }
@@ -3484,7 +3499,7 @@
       padding: 12px 16px;  /* Increased from 10px 12px */
       margin: 16px 0;  /* Increased from 10px */
       border-radius: 0 var(--weo-radius-sm) var(--weo-radius-sm) 0;
-      font-size: 12px;  /* Increased from 11px */
+      font-size: 13px;  /* Increased from 11px */
       line-height: 1.5;
       font-style: italic;
       color: #E2E8F0;  /* Slightly brighter */
@@ -3766,7 +3781,7 @@
     
     /* Empty State */
     .cc-empty {
-      font-size: 12px;
+      font-size: 13px;
       color: #94A3B8;
       font-style: italic;
       padding: 8px 0;
@@ -3801,7 +3816,7 @@
     /* Tooltip for temporal framing */
     .cc-tooltip {
       position: absolute;
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 1px solid #475569;
       border-radius: var(--weo-radius-md);
       padding: 10px 14px;
@@ -3957,7 +3972,7 @@
     @media (max-width: 767px) {
       #weo-tooltip-overlay {
         width: 310px;
-        font-size: 12px;
+        font-size: 13px;
         padding: 14px 16px;
       }
     }
@@ -4794,7 +4809,7 @@
     }
     .access-modal-overlay.visible { opacity: 1; visibility: visible; }
     .access-modal {
-      background: var(--surface-raised);
+      background: #1E293B;
       border: 1px solid #334155;
       border-radius: var(--weo-radius-lg);
       width: 90%; max-width: 400px;
@@ -4813,8 +4828,6 @@
     .access-modal-close {
       background: transparent; border: none;
       color: #94A3B8; font-size: 1.5rem; cursor: pointer;
-      min-width: 44px; min-height: 44px;
-      display: flex; align-items: center; justify-content: center;
     }
     .access-modal-close:hover { color: #F1F5F9; }
     .access-modal-body { padding: 1.5rem 1.25rem; }
@@ -4829,7 +4842,7 @@
       border-radius: var(--weo-radius-md); color: #F1F5F9;
       font-size: 0.9375rem; font-family: monospace;
     }
-    .access-input:focus { outline: 2px solid #F59E0B; outline-offset: 2px; border-color: #F59E0B; }
+    .access-input:focus { outline: none; border-color: #F59E0B; }
     .access-input.error { border-color: #F87171; }
     .access-error { display: none; align-items: center; gap: 0.375rem; margin-top: 0.5rem; font-size: 0.8125rem; color: #F87171; }
     .access-error.visible { display: flex; }
@@ -5081,7 +5094,7 @@
 
     .version-headline {
       flex: 1;
-      font-size: 12px;
+      font-size: 13px;
       color: #CBD5E1;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -5127,7 +5140,7 @@
     }
 
     .version-description p {
-      font-size: 12px;
+      font-size: 13px;
       color: #CBD5E1;
       line-height: 1.5;
       margin: 0;
@@ -5429,12 +5442,12 @@
     .piet-t2-wrap { position: relative; display: inline; }
     .piet-t2-popover {
         display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-        background: var(--surface-elevated, #334155); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm);
+        background: #252B36; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--weo-radius-sm);
         padding: 10px 12px; font-size: 0.6875rem; line-height: 1.5; color: var(--text-secondary);
         width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
     .piet-t2-popover::before { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:rgba(255,255,255,0.08); }
-    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--surface-elevated, #334155); }
+    .piet-t2-popover::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:#252B36; }
     .piet-t2-popover .t2-popover-title { font-size:0.5625rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:4px; }
     .piet-t2-popover.visible { display: block; }
     .piet-pathway-label {
@@ -5588,14 +5601,330 @@
     }
 
     .empty-state-title {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 580;
         color: var(--weo-text-secondary, #CBD5E1);
         margin-bottom: 8px;
     }
 
     .empty-state-hint {
-        font-size: 12px;
+        font-size: 13px;
+    }
+
+    /* ========================================
+       SOVEREIGN CAPABILITY PROFILES — APPROACH C
+       Right-side panel with compact dimension bars,
+       designation grouping, expandable detail rows.
+       ======================================== */
+    :root {
+      --scp-hw: #60A5FA; --scp-plat: #A78BFA; --scp-gov: #2DD4BF;
+      --scp-paa: #F59E0B; --scp-aik: #06B6D4; --scp-acs: #A855F7; --scp-part: #64748B;
+    }
+
+    /* Activation button — below status panel */
+    .scp-btn {
+      position: fixed;
+      top: 210px;
+      left: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      background: rgba(30,41,59,0.95);
+      border: 1px solid #334155;
+      border-radius: var(--weo-radius-md);
+      color: #CBD5E1;
+      font-family: 'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      font-size: 12px;
+      font-weight: 480;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      z-index: 449;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+      backdrop-filter: blur(8px);
+      transition: all var(--duration-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+    .scp-btn:hover { background: rgba(51,65,85,0.95); color: #F1F5F9; border-color: #475569; }
+    .scp-btn:active { transform: scale(0.97); }
+    .scp-btn.active { border-color: var(--scp-aik); color: #F1F5F9; }
+    .scp-btn .scp-btn-icon { font-size: 11px; opacity: 0.6; }
+    .scp-btn .scp-btn-chevron { font-size: 9px; opacity: 0.4; margin-left: 2px; }
+    .scp-btn.hidden { opacity: 0; visibility: hidden; pointer-events: none;
+      transform: translateY(-10px); transition: opacity var(--duration-slow) var(--ease-out),
+      visibility var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out); }
+
+    /* Right-side panel — mirrors detail panel pattern */
+    .scp-panel {
+      position: fixed;
+      top: 0; right: 0;
+      width: 440px;
+      height: 100vh;
+      height: 100dvh;
+      background: #1E293B;
+      border-left: 1px solid #334155;
+      box-shadow: -8px 0 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+      transform: translateX(100%);
+      transition: transform 0.25s ease-out;
+      z-index: 500;
+      font-family: 'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    .scp-panel.open { transform: translateX(0); }
+
+    .scp-hdr {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 20px 24px 14px;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+      flex-shrink: 0;
+      position: sticky; top: 0; background: #1E293B; z-index: 5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .scp-title { font-size: 16px; font-weight: 580; color: #F1F5F9; letter-spacing: 0.01em; }
+    .scp-subtitle { font-size: 11px; color: #94A3B8; margin-top: 4px; font-weight: 380; }
+    .scp-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: var(--weo-radius-md);
+      border: 1px solid #475569;
+      background: transparent; color: #94A3B8;
+      font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--duration-fast) var(--ease-out);
+    }
+    .scp-close:hover { background: #334155; color: #F1F5F9; }
+
+    /* Dimension pills */
+    .scp-pills {
+      display: flex; gap: 4px; padding: 10px 24px;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+      flex-shrink: 0; flex-wrap: wrap;
+    }
+    .scp-pill {
+      font-size: 11px; padding: 3px 9px; border-radius: 10px;
+      border: 1px solid transparent; cursor: pointer;
+      transition: all 0.15s; user-select: none; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .scp-pill .scp-pill-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .scp-pill.hw { color: #7DB8F5; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.15); }
+    .scp-pill.hw .scp-pill-dot { background: var(--scp-hw); }
+    .scp-pill.pl { color: #B9A4F8; background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.15); }
+    .scp-pill.pl .scp-pill-dot { background: var(--scp-plat); }
+    .scp-pill.gv { color: #5EDBC9; background: rgba(45,212,191,0.06); border-color: rgba(45,212,191,0.15); }
+    .scp-pill.gv .scp-pill-dot { background: var(--scp-gov); }
+    .scp-pill:hover.hw { background: rgba(96,165,250,0.12); border-color: rgba(96,165,250,0.3); }
+    .scp-pill:hover.pl { background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.3); }
+    .scp-pill:hover.gv { background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); }
+    .scp-pill.active.hw { background: rgba(96,165,250,0.2); border-color: rgba(96,165,250,0.5); color: #93C5FD; }
+    .scp-pill.active.pl { background: rgba(167,139,250,0.2); border-color: rgba(167,139,250,0.5); color: #C4B5FD; }
+    .scp-pill.active.gv { background: rgba(45,212,191,0.2); border-color: rgba(45,212,191,0.5); color: #5EEAD4; }
+    .scp-pill.hover-lit.hw { background: rgba(96,165,250,0.14); border-color: rgba(96,165,250,0.3); }
+    .scp-pill.hover-lit.pl { background: rgba(167,139,250,0.14); border-color: rgba(167,139,250,0.3); }
+    .scp-pill.hover-lit.gv { background: rgba(45,212,191,0.14); border-color: rgba(45,212,191,0.3); }
+    .scp-pill-ct { font-family: 'Geist Mono','Fira Code',monospace; font-size: 9px; opacity: 0.5; }
+
+    /* Scrollable body */
+    .scp-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+    /* Designation group headers */
+    .scp-grp {
+      font-size: 10px; font-weight: 500; color: #64748B;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 12px 24px 4px;
+      display: flex; align-items: center; gap: 8px;
+      position: sticky; top: 0; background: #1E293B; z-index: 3;
+    }
+    .scp-grp-line { flex: 1; height: 1px; background: #334155; }
+
+    /* PAA fold */
+    .scp-paa-fold { margin: 4px 24px 0; border-bottom: 2px solid rgba(245,158,11,0.3); padding-bottom: 4px; }
+    .scp-paa-fold-label { font-size: 9px; color: rgba(245,158,11,0.5); text-align: right; letter-spacing: 0.03em; }
+
+    /* Actor rows */
+    .scp-row {
+      display: flex; align-items: center; padding: 8px 24px;
+      cursor: pointer; transition: background var(--duration-fast) var(--ease-out);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .scp-row:hover { background: rgba(255,255,255,0.03); }
+    .scp-row.expanded { background: rgba(51,65,85,0.15); }
+    .scp-row-name {
+      font-size: 13px; font-weight: 480; color: #E2E8F0;
+      width: 130px; flex-shrink: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .scp-row-bar { display: flex; gap: 2px; flex: 1; max-width: 120px; margin: 0 12px; }
+    .scp-row-seg {
+      flex: 1; height: 8px; border-radius: 2px;
+      background: rgba(255,255,255,0.06);
+      transition: all 0.15s; position: relative;
+    }
+    .scp-row-seg.hw-m { background: var(--scp-hw); }
+    .scp-row-seg.pl-m { background: var(--scp-plat); }
+    .scp-row-seg.gv-m { background: var(--scp-gov); }
+    .scp-row-seg.col-hl { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 1px; z-index: 1; }
+    .scp-row-seg.col-hl.hw-m { outline-color: rgba(96,165,250,0.8); }
+    .scp-row-seg.col-hl.pl-m { outline-color: rgba(167,139,250,0.8); }
+    .scp-row-seg.col-hl.gv-m { outline-color: rgba(45,212,191,0.8); }
+    .scp-row-seg.col-dim { opacity: 0.2; }
+    .scp-row-score {
+      font-family: 'Geist Mono','Fira Code',monospace;
+      font-size: 12px; font-weight: 480; color: #94A3B8;
+      width: 32px; text-align: right; flex-shrink: 0;
+    }
+    .scp-row-badge { margin-left: 10px; flex-shrink: 0; }
+    .scp-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .scp-badge-paa { background: rgba(245,158,11,0.15); color: var(--scp-paa); border: 1px solid rgba(245,158,11,0.35); }
+    .scp-badge-aik { background: rgba(6,182,212,0.12); color: #22D3EE; border: 1px solid rgba(6,182,212,0.3); }
+    .scp-badge-acs { background: rgba(168,85,247,0.12); color: #C084FC; border: 1px solid rgba(168,85,247,0.3); }
+    .scp-badge-part { background: rgba(100,116,139,0.12); color: var(--scp-part); border: 1px solid rgba(100,116,139,0.25); }
+    .scp-row-chev { font-size: 9px; color: #475569; margin-left: 8px; transition: transform var(--duration-normal) var(--ease-out); flex-shrink: 0; }
+    .scp-row.expanded .scp-row-chev { transform: rotate(180deg); color: #94A3B8; }
+
+    /* Expanded detail */
+    .scp-detail {
+      display: none; padding: 8px 24px 16px;
+      background: rgba(15,23,42,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .scp-detail.show { display: block; }
+    .scp-dim-row { display: flex; align-items: baseline; justify-content: space-between; padding: 4px 0; font-size: 12px; }
+    .scp-dim-name { color: #94A3B8; display: flex; align-items: center; gap: 6px; }
+    .scp-dim-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .scp-dim-dot.hw { background: var(--scp-hw); }
+    .scp-dim-dot.pl { background: var(--scp-plat); }
+    .scp-dim-dot.gv { background: var(--scp-gov); }
+    .scp-dim-st { font-weight: 500; }
+    .scp-dim-met { color: #22C55E; }
+    .scp-dim-not { color: #475569; }
+    .scp-dim-constraint { font-size: 11px; color: #64748B; padding: 1px 0 4px 11px; font-style: italic; line-height: 1.5; }
+    .scp-sev { font-size: 11px; color: #64748B; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
+    .scp-sev strong { color: #94A3B8; font-weight: 500; }
+
+    /* Source evidence (supporter tier) */
+    .scp-src-trigger { font-size: 10px; color: #475569; cursor: pointer; margin-left: 11px; padding: 2px 0; display: flex; align-items: center; gap: 4px; transition: color var(--duration-fast); }
+    .scp-src-trigger:hover { color: #94A3B8; }
+    .scp-src-trigger .scp-src-icon { font-size: 9px; }
+    .scp-src-block { display: none; margin: 4px 0 6px 11px; padding: 8px 12px; background: rgba(15,23,42,0.5); border-radius: var(--weo-radius-sm); border: 1px solid rgba(255,255,255,0.04); }
+    .scp-src-block.show { display: block; }
+    .scp-src-entry { font-size: 10px; color: #94A3B8; line-height: 1.6; margin-bottom: 6px; }
+    .scp-src-entry:last-child { margin-bottom: 0; }
+    .scp-src-label { font-weight: 500; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em; font-size: 9px; }
+    .scp-src-grade { font-family: 'Geist Mono',monospace; font-size: 9px; padding: 1px 5px; border-radius: 3px; margin-right: 4px; }
+    .scp-src-g1 { background: rgba(45,212,191,0.12); color: #5EEAD4; }
+    .scp-src-g2 { background: rgba(96,165,250,0.12); color: #93C5FD; }
+    .scp-src-g3 { background: rgba(148,163,184,0.12); color: #94A3B8; }
+    .scp-src-fact { color: #CBD5E1; }
+    .scp-src-link { color: var(--scp-aik); text-decoration: none; font-size: 9px; margin-left: 4px; }
+    .scp-src-link:hover { text-decoration: underline; }
+    .scp-src-lock { font-size: 10px; color: #475569; margin-left: 11px; padding: 2px 0; cursor: pointer; }
+    .scp-src-lock:hover { color: #94A3B8; }
+
+    /* Participant toggle */
+    .scp-part-toggle {
+      padding: 8px 24px; font-size: 11px; color: #94A3B8;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background var(--duration-fast); user-select: none;
+    }
+    .scp-part-toggle:hover { background: rgba(255,255,255,0.03); }
+    .scp-part-arr { font-size: 10px; transition: transform var(--duration-normal) var(--ease-out); display: inline-block; }
+    .scp-part-arr.open { transform: rotate(90deg); }
+    .scp-part-rows { display: none; }
+    .scp-part-rows.show { display: block; }
+
+    /* Footer */
+    .scp-footer {
+      padding: 12px 24px 16px;
+      border-top: 1px solid rgba(51,65,85,0.5);
+      flex-shrink: 0;
+    }
+    .scp-disclaimer { font-size: 10px; color: #94A3B8; line-height: 1.5; opacity: 0.7; font-style: italic; }
+    .scp-version { font-family: 'Geist Mono','Fira Code',monospace; font-size: 10px; color: #94A3B8; opacity: 0.5; margin-top: 6px; }
+
+    /* Nav dropdown Actor Profiles link */
+    .nav-scp-link { opacity: 0.7; }
+    .nav-scp-link:hover { opacity: 1; }
+
+    /* Actor Profiles embedded trigger — inside the status panel on desktop/tablet */
+    .weo-status-actor-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;                                          /* F-005 fix: 4px grid */
+      margin: 8px -20px -16px;
+      margin-right: -56px;
+      padding: 8px 20px;                                 /* F-004 fix: 4px grid */
+      border-top: 1px solid rgba(51, 65, 85, 0.6);
+      border-radius: 0 0 var(--weo-radius-lg) var(--weo-radius-lg);
+      color: var(--weo-text-muted);                      /* F-001 fix: use token */
+      font-size: 12px;
+      font-weight: 480;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+      user-select: none;
+    }
+    .weo-status-actor-row:hover { background: var(--hover-overlay); color: var(--text-primary); }  /* F-003 fix */
+    .weo-status-actor-row.active { color: var(--scp-aik); background: rgba(6, 182, 212, 0.06); border-top-color: rgba(6, 182, 212, 0.2); }  /* F-002 fix */
+    .weo-status-actor-row-icon { font-size: 11px; opacity: 0.6; }
+    .weo-status-actor-row-chev { font-size: 9px; opacity: 0.4; margin-left: auto; padding-right: 4px; }
+    .weo-status-actor-row.active .weo-status-actor-row-icon { opacity: 0.9; }
+    .weo-status-actor-row.active .weo-status-actor-row-chev { opacity: 0.6; }
+
+    /* Hide the floating scp-btn on desktop/tablet — it lives inside the status panel now */
+    @media (min-width: 768px) {
+      .scp-btn { display: none; }
+    }
+
+    /* Responsive — tablet */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .scp-panel { width: 380px; }
+      .scp-row-name { width: 110px; }
+      .scp-row-bar { max-width: 100px; }
+    }
+    /* Responsive — mobile: compact icon-only button, bottom-right */
+    @media (max-width: 767px) {
+      .scp-btn {
+        top: auto;
+        bottom: 72px;
+        left: auto;
+        right: 16px;
+        padding: 9px 11px;
+        font-size: 0;
+        gap: 0;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        justify-content: center;
+      }
+      .scp-btn .scp-btn-icon { font-size: 15px; opacity: 0.8; margin: 0; }
+      .scp-btn .scp-btn-text,
+      .scp-btn .scp-btn-chevron { display: none; }
+      .scp-btn.active { opacity: 0; pointer-events: none; }
+      .scp-panel {
+        top: auto; bottom: 0; left: 0; right: 0;
+        width: 100%; height: 85vh; max-height: 85vh;
+        border-left: none; border-top: 1px solid #334155;
+        border-radius: var(--weo-radius-lg) var(--weo-radius-lg) 0 0;
+        transform: translateY(100%);
+      }
+      .scp-hdr { padding: 16px 20px 12px; }
+      .scp-pills { padding: 8px 20px; gap: 3px; }
+      .scp-pill { font-size: 10px; padding: 3px 7px; }
+      .scp-row { padding: 8px 20px; }
+      .scp-row-name { width: 110px; font-size: 12px; }
+      .scp-row-bar { max-width: 90px; margin: 0 8px; }
+      .scp-detail { padding: 8px 20px 16px; }
+      .scp-grp { padding: 12px 20px 4px; }
+      .scp-paa-fold { margin: 4px 20px 0; }
+      .scp-part-toggle { padding: 8px 20px; }
+      .scp-footer { padding: 10px 20px 14px; }
+      .weo-status-actor-row { display: none; }
     }
 
   </style>
@@ -5623,7 +5952,7 @@
     <div class="peek-swipe-hint">Swipe up for more</div>
 
     <!-- Panel content will be injected here by JavaScript -->
-    <div id="panelContent" aria-live="polite" role="region" aria-label="Event details"></div>
+    <div id="panelContent"></div>
     
     <!-- Peek mode expand prompt (shown when panel is collapsed for CC line visibility) -->
     <div class="peek-expand-prompt" id="peekExpandPrompt" onclick="expandFromPeek()">
@@ -5651,8 +5980,15 @@
     </div>
     <div class="weo-status-updated" id="weo-status-updated"></div>
     
+    <!-- Actor Profiles embedded trigger (desktop/tablet) -->
+    <div class="weo-status-actor-row" id="statusActorRow" role="button" tabindex="0" aria-label="Open Actor Profiles" aria-expanded="false">
+      <span class="weo-status-actor-row-icon">◈</span>
+      <span> Actor Profiles</span>
+      <span class="weo-status-actor-row-chev">›</span>
+    </div>
+
     <!-- Navigation Menu Toggle -->
-    <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu" aria-expanded="false">
+    <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Navigation menu">
       <span></span>
       <span></span>
       <span></span>
@@ -5661,9 +5997,9 @@
 
   <!-- Supporter Access Button (Fixed Top Right) -->
   <button class="supporter-access-btn fixed-top-right" onclick="openAccessModal()">
-    <span class="icon">🔒</span>
+    <span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     <span class="text-locked">Supporter Access</span>
-    <span class="text-unlocked">✓ Full Access</span>
+    <span class="text-unlocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Full Access</span>
   </button>
 
   <!-- Navigation Dropdown (outside panel for fixed positioning) -->
@@ -5671,6 +6007,10 @@
     <a href="/" class="active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       Map
+    </a>
+    <a href="#" id="navScpToggle" onclick="event.preventDefault();" class="nav-scp-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Actor Profiles
     </a>
     <a href="atlas.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 7.07 2.93M12 2a10 10 0 0 0-7.07 2.93M12 22a10 10 0 0 0 7.07-2.93M12 22a10 10 0 0 1-7.07-2.93"/><line x1="12" y1="9" x2="18" y2="3"/><line x1="12" y1="9" x2="6" y2="3"/><line x1="12" y1="15" x2="18" y2="21"/><line x1="12" y1="15" x2="6" y2="21"/></svg>
@@ -5680,13 +6020,13 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Events
     </a>
-    <a href="methodology.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      Methodology
-    </a>
     <a href="blocs.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
       Blocs
+    </a>
+    <a href="methodology.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Methodology
     </a>
     <a href="research.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -5792,7 +6132,7 @@
         <div class="legend-items">
           <div class="legend-item">
             <div class="legend-marker-wrapper">
-              <span class="legend-sample-star">★</span>
+              <span class="legend-sample-star"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
               <div class="legend-marker western sample"></div>
             </div>
             <span class="legend-label">Full access preview</span>
@@ -5856,6 +6196,29 @@
     </div>
   </div>
 
+  <!-- Sovereign Capability Profiles — Activation Button -->
+  <button class="scp-btn" id="scpBtn" aria-label="Open Actor Profiles" aria-expanded="false">
+    <span class="scp-btn-icon">◈</span><span class="scp-btn-text"> Actor Profiles</span><span class="scp-btn-chevron"> ›</span>
+  </button>
+
+  <!-- Sovereign Capability Profiles — Right-Side Panel -->
+  <div class="scp-panel" id="scpPanel" role="dialog" aria-label="Sovereign Capability Profiles">
+    <div class="scp-hdr">
+      <div>
+        <div class="scp-title">Sovereign Capability Profiles</div>
+        <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">14</span> actors assessed</div>
+      </div>
+      <button class="scp-close" id="scpClose" aria-label="Close">×</button>
+    </div>
+    <div class="scp-pills" id="scpPills"></div>
+    <div class="scp-body" id="scpBody"></div>
+    <div class="scp-footer">
+      <div class="scp-disclaimer">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</div>
+      <div class="scp-version">SCP Register v1.0 · Assessment: May 2026 · Methodology V1.4</div>
+      <div style="margin-top: 8px; font-size: 10px; color: #94A3B8;"><a href="blocs.html" style="color: #94A3B8; text-decoration: none; opacity: 0.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">Full register and bloc alignment → Blocs</a></div>
+    </div>
+  </div>
+
   <!-- Orientation Panel -->
   <div class="orientation-panel" id="orientationPanel">
     <div class="orientation-header">
@@ -5872,7 +6235,7 @@
         <li><span class="legend-dot cross"></span> Cross-Bloc</li>
       </ul>
       
-      <p>Red dashed borders indicate fragmentation events (T2). Marker icons show event type — Infrastructure, Policy, Coordination, and Corporate. <span style="color: #FFD700;">★</span> marks sample events with full analysis.</p>
+      <p>Red dashed borders indicate fragmentation events (T2). Marker icons show event type — Infrastructure, Policy, Coordination, and Corporate. <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> marks sample events with full analysis.</p>
       
       <p>Click any marker for detailed classification, industry tags, and Coordination Connections.</p>
       
@@ -5931,7 +6294,7 @@
   <!-- Lucide Icon Sprite -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <!-- Infrastructure: server -->
-    <symbol id="icon-infrastructure" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="icon-infrastructure" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
       <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
       <line x1="6" x2="6.01" y1="6" y2="6"/>
@@ -5939,7 +6302,7 @@
     </symbol>
     
     <!-- Policy: scroll-text -->
-    <symbol id="icon-policy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="icon-policy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M15 12h-5"/>
       <path d="M15 8h-5"/>
       <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
@@ -5947,7 +6310,7 @@
     </symbol>
     
     <!-- Coordination: share-2 -->
-    <symbol id="icon-coordination" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="icon-coordination" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="18" cy="5" r="3"/>
       <circle cx="6" cy="12" r="3"/>
       <circle cx="18" cy="19" r="3"/>
@@ -5956,7 +6319,7 @@
     </symbol>
     
     <!-- Corporate: briefcase -->
-    <symbol id="icon-corporate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="icon-corporate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
       <rect width="20" height="14" x="2" y="6" rx="2"/>
     </symbol>
@@ -5984,9 +6347,9 @@
     // Single source of truth — update this block when the database changes
     // ========================================
     const WEO_DB = {
-      event_count: 134,
+      event_count: 130,
       cc_count: 107,
-      last_updated: "2026-05-08",
+      last_updated: "2026-05-23",
       db_version: "1.5.0"
     };
 
@@ -6091,6 +6454,13 @@
 // Replaces embedded data — single source of truth from Cloudflare KV
 // ============================================================
 
+const WEO_ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const WEO_ICON_CROSS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+const WEO_ICON_LOCK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+const WEO_ICON_KEY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>';
+const WEO_ICON_ALERT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+const WEO_ICON_STAR = '<svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
 let events = [];
 let connectionData = { metadata: {}, connections: [] };
 let map;
@@ -6188,7 +6558,9 @@ function mapApiConnectionToInternal(c) {
 
 // Load data from API with static fallback
 async function loadWEOData(password) {
-  const API_BASE = 'https://warmthengine.com/api';
+  const API_BASE = window.location.hostname === 'localhost'
+    ? 'http://localhost:8787/api'
+    : 'https://warmthengine.com/api';
   const FALLBACK_EVENTS = '/events-free.json';
   const headers = password ? { 'X-WEO-Password': password } : {};
 
@@ -6205,6 +6577,7 @@ async function loadWEOData(password) {
     if (eventsRes.ok) {
       const eventsJson = await eventsRes.json();
       events = (eventsJson.events || []).map(mapApiEventToInternal);
+      if (eventsJson.metadata && eventsJson.metadata.last_updated) WEO_DB.last_updated = eventsJson.metadata.last_updated;
       eventsLoaded = true;
       console.log('[WEO] Events loaded from API:', events.length);
     }
@@ -6229,6 +6602,7 @@ async function loadWEOData(password) {
       if (fallbackRes.ok) {
         const fallbackJson = await fallbackRes.json();
         events = (fallbackJson.events || []).map(mapApiEventToInternal);
+        if (fallbackJson.metadata && fallbackJson.metadata.last_updated) WEO_DB.last_updated = fallbackJson.metadata.last_updated;
         eventsLoaded = true;
         console.log('[WEO] Events loaded from fallback:', events.length);
       }
@@ -6726,11 +7100,17 @@ function toggleLegendCC() {
     toggle.classList.remove('expanded');
     // Show WEO panel when CC collapses
     if (weoPanel) weoPanel.classList.remove('hidden');
+    // Show SCP button when CC collapses
+    var scpBtnEl = document.getElementById('scpBtn');
+    if (scpBtnEl) scpBtnEl.classList.remove('hidden');
   } else {
     content.classList.add('expanded');
     toggle.classList.add('expanded');
     // Hide WEO panel when CC expands
     if (weoPanel) weoPanel.classList.add('hidden');
+    // Hide SCP button when CC expands
+    var scpBtnEl = document.getElementById('scpBtn');
+    if (scpBtnEl) scpBtnEl.classList.add('hidden');
   }
 }
 
@@ -7803,7 +8183,7 @@ function generateCCItemFreeTier(conn, displayEventId, displayEventName) {
   html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + conn.confidence_level + '</span>' + confidenceTooltip + '</span>';
   html += '</div>';
   html += '<span class="cc-action-separator"></span>';
-  html += '<span class="cc-expand-indicator" title="Evidence available with Analyst access">🔒</span>';
+  html += '<span class="cc-expand-indicator" title="Evidence available with Analyst access">' + WEO_ICON_LOCK + '</span>';
   html += '</div>';
   // Locked evidence panel, sibling to .cc-item — same toggle pattern as
   // the paid generateEvidencePanel, but the body is the upgrade
@@ -7889,7 +8269,7 @@ function generateEvidencePanel(conn) {
       if (ca[criterion]) {
         const c = ca[criterion];
         const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
-        const statusIcon = c.met === true ? '✓' : (c.met === 'partial' ? '◐' : '○');
+        const statusIcon = c.met === true ? WEO_ICON_CHECK : (c.met === 'partial' ? '◐' : '○');
         const hasEvidence = c.evidence && c.evidence.length > 0;
         
         html += '<div class="cc-criterion' + (hasEvidence ? ' has-evidence' : '') + '"' + (hasEvidence ? ' onclick="this.classList.toggle(\'expanded\')"' : '') + '>';
@@ -8507,7 +8887,7 @@ function generateCCSection(eventId, showFullContent) {
         // Calculate arc segments - order matters for rendering
         const segments = [
           { count: t1Count, color: '#2DD4BF', name: 'Teal' },      // T1 - Teal
-          { count: t2Count, color: '#F87171', name: 'Red' },      // T2 - Red
+          { count: t2Count, color: '#EF4444', name: 'Red' },      // T2 - Red
           { count: t3WesternCount, color: '#60A5FA', name: 'Blue' }, // T3 Western - Blue
           { count: t3EasternCount, color: '#FB923C', name: 'Orange' }  // T3 Eastern - Orange
         ].filter(s => s.count > 0);
@@ -8578,13 +8958,13 @@ function generateCCSection(eventId, showFullContent) {
       // T2 events get red border (fragmentation), T1/T3 get bloc colours
       let borderColor;
       if (event.tier === 2) {
-        borderColor = '#F87171'; // Red for all T2 fragmentation events
+        borderColor = '#EF4444'; // Red for all T2 fragmentation events
       } else {
         borderColor = event.bloc === 'Western' ? '#60A5FA' : event.bloc === 'Eastern' ? '#FB923C' : '#2DD4BF';
       }
       const borderStyle = event.tier === 2 ? 'dashed' : 'solid';
       const sampleClass = event.sample ? ' sample' : '';
-      const starBadge = event.sample ? '<span class="sample-star">★</span>' : '';
+      const starBadge = event.sample ? '<span class="sample-star">' + WEO_ICON_STAR + '</span>' : '';
       
       // Larger markers on mobile for easier tapping
       const markerSize = isMobileDevice ? 44 : 36;
@@ -8623,7 +9003,16 @@ function generateCCSection(eventId, showFullContent) {
           else if (dl.indexOf('energy') >= 0) domainClass = 'badge-domain-energy';
         }
         var domainBadge = domainClass ? '<span class="tooltip-badge ' + domainClass + '">' + event.domain + '</span>' : '';
-        tooltip.innerHTML = '<div class="tooltip-title">' + event.name + '</div><div class="tooltip-meta"><span>' + event.type + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">' + tierIcon(event.tier) + 'T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + blocIcon(event.bloc) + event.bloc + '</span>' + domainBadge + '</div><div class="tooltip-hint">Click for details</div>';
+        var desigHtml = '';
+        if (window._scpGetDesignation) {
+          var di = window._scpGetDesignation(event.location);
+          if (di) {
+            var desigLabel = di.d === 'Part' ? 'Participant' : di.d;
+            var desigCls = 'tooltip-desig-' + di.d.toLowerCase();
+            desigHtml = '<div class="tooltip-designation"><span class="tooltip-desig-icon">◈</span><span>Current designation: </span><span class="' + desigCls + '">' + desigLabel + '</span></div>';
+          }
+        }
+        tooltip.innerHTML = '<div class="tooltip-title">' + event.name + '</div><div class="tooltip-meta"><span>' + event.type + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">' + tierIcon(event.tier) + 'T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + blocIcon(event.bloc) + event.bloc + '</span>' + domainBadge + '</div>' + desigHtml + '<div class="tooltip-hint">Click for details</div>';
         tooltip.classList.add('visible');
         const point = map.latLngToContainerPoint(e.latlng);
         tooltip.style.left = (point.x + 20) + 'px';
@@ -9541,19 +9930,15 @@ function generateCCSection(eventId, showFullContent) {
         '<a href="support.html">Subscribe →</a>' +
         '</div></div>';
 
-      // Brief 4 §3.8 — Tier Classification and Bloc Analysis locked-state
-      // for free non-sample. Each section is separate to match atlas.html.
+      // Brief 4 §3.8 — Methodology locked-state for free non-sample.
+      // Significance Assessment is now a sibling section, so this covers
+      // tier rationale + bloc analysis only (Basel-5 reference removed
+      // from the placeholder copy).
       const methodologyLockedHtml =
         '<div class="panel-section">' +
-        '<div class="section-title">Tier Classification</div>' +
+        '<div class="section-title">Methodology</div>' +
         '<div class="panel-section-locked">' +
-        'Tier Classification available with Analyst access.<br>' +
-        '<a href="support.html">Subscribe →</a>' +
-        '</div></div>' +
-        '<div class="panel-section">' +
-        '<div class="section-title">Bloc Analysis</div>' +
-        '<div class="panel-section-locked">' +
-        'Bloc Analysis available with Analyst access.<br>' +
+        'Tier rationale and bloc analysis details available with Analyst access.<br>' +
         '<a href="support.html">Subscribe →</a>' +
         '</div></div>';
       
@@ -9607,10 +9992,10 @@ function generateCCSection(eventId, showFullContent) {
       }
       const sourceTallyText = totalPrimarySources + ' Primary, ' + totalCorroboratingSources + ' Corroborating' + (versionCount > 1 ? ' (across ' + versionCount + ' versions)' : '');
       const freeIsPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep';
-      const freeAiCheckpointHtml = freeIsPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '✓' : '✗') + '</span><span class="checkpoint-label">AI Connection</span></div>';
+      const freeAiCheckpointHtml = freeIsPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">AI Connection</span></div>';
       const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : 'OEP')) + '</span></div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>★</span> See full analysis on 6 sample events</div></div><a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div><a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -9883,7 +10268,7 @@ function generateCCSection(eventId, showFullContent) {
       const cp = event.checkpoints || { ai: true, threshold: true, implemented: true, current: true };
       
       // Badge text: show different text for sample vs authenticated
-      const accessBadgeText = event.sample ? '★ SAMPLE EVENT — Full Access' : '✓ ANALYST ACCESS — Full Access';
+      const accessBadgeText = event.sample ? WEO_ICON_STAR + ' SAMPLE EVENT — Full Access' : WEO_ICON_CHECK + ' ANALYST ACCESS — Full Access';
       const accessBadgeStyle = event.sample ? '' : 'background: rgba(45, 212, 191, 0.15); border-color: rgba(45, 212, 191, 0.3); color: #2DD4BF;';
       
       // For T2 events, the bloc class already includes -led styling (western-led, eastern-led)
@@ -9927,28 +10312,28 @@ function generateCCSection(eventId, showFullContent) {
       let basel5Html = '';
       if (event.basel5 && event.basel5.length > 0) {
         basel5Html = event.basel5.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? '✓' : '✗') + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
         }).join('');
       }
       
       let keohaneHtml = '';
       if (event.keohane && event.keohane.length > 0) {
         keohaneHtml = event.keohane.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? '✓' : '✗') + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
         }).join('');
       }
       
       let pisa5Html = '';
       if (event.pisa5 && event.pisa5.length > 0) {
         pisa5Html = event.pisa5.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? '✓' : '✗') + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
         }).join('');
       }
       
       let routeBasedHtml = '';
       if (event.routeBased && event.routeBased.length > 0) {
         routeBasedHtml = event.routeBased.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? '✓' : '✗') + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
         }).join('');
       }
       
@@ -10091,7 +10476,7 @@ function generateCCSection(eventId, showFullContent) {
         const tiebreakerTooltip = generateTooltip('tiebreaker', 'left');
         let tbItems = '';
         event.tiebreaker.assessment.forEach(function(tb) {
-          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? '✓' : '✗') + '</span><span class="checkpoint-label">' + tb.criterion.replace(/^TB\d+:\s*/, '') + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + tb.rationale + '</div>';
+          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">' + tb.criterion.replace(/^TB\d+:\s*/, '') + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + tb.rationale + '</div>';
         });
         tiebreakerHtml = '<div class="panel-section">' +
           '<button class="tiebreaker-trigger" aria-expanded="false" onclick="toggleTiebreaker(this)">' +
@@ -10143,14 +10528,14 @@ function generateCCSection(eventId, showFullContent) {
         ecoImplBadgesHtml = '<div style="margin-top:6px;display:flex;align-items:center;gap:2px;padding:0 12px 4px;">' +
           '<span style="font-size:0.65rem;color:#94A3B8;margin-right:0.5rem;text-transform:uppercase;letter-spacing:0.04em;">Ecosystem</span>' +
           event.ecosystemImplementation.map(function(ei) {
-            var icon = ei.implemented ? '✅' : '✗';
+            var icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
             var color = ei.implemented ? '#2DD4BF' : '#94A3B8';
             return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + ei.ecosystem + '</span>';
           }).join('') + '</div>';
         ecoImplPanelHtml = '<div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">' +
           '<div style="font-size:0.75rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>' +
           event.ecosystemImplementation.map(function(ei) {
-            var icon = ei.implemented ? '✅' : '✗';
+            var icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
             var nameColor = ei.implemented ? '#2DD4BF' : '#94A3B8';
             return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:#CBD5E1;">' + (ei.evidence || '') + '</span></div>';
           }).join('') + '</div>';
@@ -10158,13 +10543,15 @@ function generateCCSection(eventId, showFullContent) {
 
       // AI Connection checkpoint: for PIET/OEP events, don't render standard checkbox (PIET subsection IS the AI Connection evidence)
       const isPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep';
-      const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? '\u2713' : '\u2717') + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
+      const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? '✓' : '✗') + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? '✓' : '✗') + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? '✓' : '✗') + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
+      // Close SCP panel if open (one panel at a time)
+      if (typeof window.closeSCP === 'function') window.closeSCP();
       // Timestamp to prevent map click from immediately closing the panel we just opened
       _panelOpenedAt = Date.now();
       // Remove peek mode if active (e.g. user clicked a spiderfied marker)
@@ -10476,6 +10863,7 @@ function generateCCSection(eventId, showFullContent) {
       if (e.target.closest('.marker') || e.target.closest('.marker-cluster')) e.preventDefault();
     }, { passive: false });
 
+
     // Navigation menu toggle
     const navMenuToggle = document.getElementById('navMenuToggle');
     const navDropdown = document.getElementById('navDropdown');
@@ -10502,7 +10890,6 @@ function generateCCSection(eventId, showFullContent) {
       
       navMenuToggle.classList.toggle('open');
       navDropdown.classList.toggle('open');
-      navMenuToggle.setAttribute('aria-expanded', navDropdown.classList.contains('open') ? 'true' : 'false');
     });
 
     // Close menu when clicking outside
@@ -10572,7 +10959,8 @@ function generateCCSection(eventId, showFullContent) {
       const password = input.value.trim();
       if (!password) { input.classList.add('error'); error.classList.add('visible'); return; }
       try {
-        const res = await fetch('https://warmthengine.com/api/events', {
+        const apiBase = window.location.hostname === 'localhost' ? 'http://localhost:8787/api' : 'https://warmthengine.com/api';
+        const res = await fetch(apiBase + '/events', {
           headers: { 'X-WEO-Password': password },
           cache: 'no-store'
         });
@@ -10871,11 +11259,11 @@ function generateCCSection(eventId, showFullContent) {
   </script>
 
   <!-- WEO SUPPORTER ACCESS MODAL -->
-  <div class="access-modal-overlay" id="accessModalOverlay" role="dialog" aria-modal="true" aria-labelledby="access-modal-title">
+  <div class="access-modal-overlay" id="accessModalOverlay">
     <div class="access-modal">
       <div id="accessLoginState">
         <div class="access-modal-header">
-          <div class="access-modal-title" id="access-modal-title"><span>🔑</span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Supporter Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
@@ -10883,18 +11271,18 @@ function generateCCSection(eventId, showFullContent) {
             <label class="access-input-label">Access Code</label>
             <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access code" onkeydown="if(event.key==='Enter')checkAccess()">
           </div>
-          <div class="access-error" id="accessError"><span>⚠</span><span>Invalid access code.</span></div>
+          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access code.</span></div>
           <button class="access-submit" onclick="checkAccess()">Unlock Access</button>
         </div>
         <div class="access-modal-footer">Not a supporter? <a href="support.html">Subscribe here</a></div>
       </div>
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span>✓</span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Supporter Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
-          <div class="status-icon">✓</div>
+          <div class="status-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <div class="status-text">Full Access Active</div>
           <div class="status-detail">You have access to all event analysis.</div>
           <button class="access-logout" onclick="logoutAccess()">Sign Out</button>
@@ -10903,9 +11291,409 @@ function generateCCSection(eventId, showFullContent) {
     </div>
   </div>
 
+<!-- Sovereign Capability Profiles — self-contained module -->
+<script>
+(function() {
+  'use strict';
+
+  /* ========================================
+     ACTOR DATA — static fallback
+     Will load from KV API when deployed
+     ======================================== */
+  var ACTORS = [
+    {id:'US',n:'United States',s:7,d:'PAA',dims:[1,1,1,1,1,1,1],
+     con:[null,null,null,null,null,null,null],
+     svd:'Full-stack ecosystem anchor.',
+     src:[[2,'NVIDIA (SEC 10-Q)','2025-Q3','Data Centre compute revenue $43.0B, up 56%. Blackwell Ultra leading architecture.','https://investor.nvidia.com/files/doc_financials/2026/q3/13e6981b-95ed-4aac-a602-ebc5865d0590.pdf',2,'Amazon (SEC 8-K)','2025-Q4','Trainium2 fully subscribed, 1.4M chips. Combined run rate over $10B.','https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000002/amzn-20251231xex991.htm'],[2,'Intel (SEC 8-K)','2025-Q3','Fab 52 fully operational. Intel 18A — most advanced logic wafers produced in the US.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000169/q325earningsrelease.htm',2,'TSMC','2025-03','Arizona site in volume production since late 2024.','https://pr.tsmc.com/english/news/3210'],[3,'247 Wall St/SEMI','2026-05','KLA metrology and inspection share 73.8% in 2025.','https://247wallst.com/technology-3/2026/05/04/kla-is-gaining-share-as-ai-chip-complexity-drives-up-yield-costs/',2,'KLA Investor Day','2026-03','KLA indispensable to advanced process control.','https://ir.kla.com/news-events/press-releases/detail/512/kla-hosts-investor-day-announces-7-billion-share'],[2,'NVIDIA Newsroom','2026-01','xAI Colossus: 100K GPUs, expanded to 555K at 2 GW.','https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus',3,'Stanford HAI 2026','2026','Anthropic, xAI, Google, OpenAI all top tier on Arena Elo.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance'],[3,'Stanford HAI 2026','2026','Frontier models gained 30pp on Humanity\'s Last Exam.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance',3,'Artificial Analysis','2026-05','Multiple US models at global frontier across benchmarks.','https://artificialanalysis.ai'],[1,'US DOJ','2025-11','Prosecution for illegal GPU export to the PRC.','https://www.justice.gov/opa/pr/us-citizens-and-chinese-nationals-arrested-exporting-artificial-intelligence-technology',1,'US DOJ (Op. Gatekeeper)','2025-12','$160M in export-controlled GPUs seized. Guilty pleas.','https://www.justice.gov/opa/pr/us-authorities-shut-down-major-china-linked-ai-tech-smuggling-network'],[1,'Commerce Dept (CHIPS)','2025-01','CHIPS for America awarded over $33B of $36B proposed.','https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning',2,'Intel (SEC 8-K)','2025-08','Intel received $5.695B in CHIPS incentives.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000135/intc-20250827.htm']]},
+    {id:'CN',n:'China',s:6,d:'PAA',dims:[1,1,0,1,1,1,1],
+     con:[null,'DUV-only; no EUV access',null,'Ascend-based compute',null,null,null],
+     svd:'Equipment dependency does not collapse capability stack.',
+     src:[[3,'TechInsights','2024-10','Ascend 910B: DaVinci architecture, 32 AI cores, 256 TFLOPS FP16.','https://library.techinsights.com/hg-asset/23d95da6-7c04-4e9e-a82b-a6702a8757df',3,'SemiAnalysis','2025-04','384 Ascend 910C in all-to-all topology. Commercial deployment.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'TechInsights','2025-12','SMIC N+3 confirmed, scaled evolution of 7nm-class.','https://www.techinsights.com/blog/smic-n3-confirmed-kirin-9030-analysis-reveals-how-close-smic-5nm',3,"Tom's Hardware",'2024-11','SMIC N+1 fabrication, 7nm-class production node.','https://www.tomshardware.com/tech-industry/artificial-intelligence/huaweis-homegrown-ai-chip-examined-chinese-fab-smic-produced-ascend-910b-is-massively-different-from-the-tsmc-produced-ascend-910'],null,[2,'Alibaba (SEC 6-K)','2025-02','RMB 380B ($53B) in cloud/AI infrastructure over three years.','https://www.sec.gov/Archives/edgar/data/0001577552/000110465925016348/tm257405d1_6k.htm',3,'SemiAnalysis','2025-04','Frontier training demonstrated by DeepSeek V4-Pro, Kimi K2, Qwen3.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'Stanford HAI 2026','2026','Alibaba (1,449 Elo) and DeepSeek (1,424) in top tier.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance',3,'LMArena','2026-05','Multiple Chinese models competitive with global frontier.','https://lmarena.ai'],[3,'Hogan Lovells','2024-12','Article 49: extraterritorial scope on dual-use items.','https://www.hoganlovells.com/en/publications/china-issues-the-regulations-on-the-export-control-of-dual-use-items',3,'White & Case','2025-10','MOFCOM exercised extraterritorial jurisdiction on REE controls.','https://www.whitecase.com/insight-alert/china-imposes-extraterritorial-jurisdiction-and-50-rule-export-controls-rare-earth'],[1,'SCIO/Xinhua (MIIT)','2026-01','6,000+ AI enterprises; core industry to exceed 1.2T yuan.','http://english.scio.gov.cn/pressroom/2026-01/22/content_118293752.html',3,'Reuters','2024-05','Big Fund III: RMB 344B ($47.5B), 19 state-backed investors.','https://www.reuters.com/technology/china-raises-47-bln-semiconductor-fund-boost-chip-industry-2024-05-27/']]},
+    {id:'JP',n:'Japan',s:4,d:'AIK',dims:[0,0,1,1,0,1,1],
+     con:[null,null,null,'GPU procurement via US ecosystem',null,null,null],
+     svd:'D4 degrades under severance; not required for AIK.',
+     src:[null,null,[2,'TEL','2026','90% coater/developer share, ~100% for high-NA EUV.','https://www.tel.com/product/',2,'Lasertec','2026','World\'s first actinic EUV mask inspection. No competitor.','https://www.lasertec.co.jp/en/ir/individuals/creation.html'],[2,'SoftBank','2025-07','Exceeds 10,000 GPUs, delivering 13.7 ExaFLOPS.','https://www.softbank.jp/en/corp/news/press/sbkk/2025/20250723_01/',1,'METI','2025','Cloud Program under Economic Security Promotion Act.','https://www.meti.go.jp/english/policy/index_information_policy.html'],null,[3,'CSIS','2025-03','23 types of equipment added to FEFTA controls, July 2023.','https://www.csis.org/analysis/understanding-us-allies-current-legal-authority-implement-ai-and-semiconductor-export',3,'Chambers','2026','Catch-all Control strengthened. Effective October 2025.','https://chambers.com'],[3,'Japan Times','2025-12','AI budget quadrupled to ~\u00a51.23T ($7.9B).','https://www.japantimes.co.jp/business/2025/12/26/economy/ai-budget-support/',3,'Nikkei Asia','2026-04','Rapidus support: 2.35T yen total.','https://asia.nikkei.com/business/tech/semiconductors/japan-approves-additional-4bn-in-support-for-rapidus']]},
+    {id:'KR',n:'South Korea',s:4,d:'AIK',dims:[0,1,1,0,0,1,1],
+     con:[null,'Equipment dependency (ASML, TEL)',null,null,null,null,null],
+     svd:'D2 degrades but does not collapse.',
+     src:[null,[2,'Samsung Semiconductor','2026','3nm SF3 production, 2nm SF2 GAA on roadmap.','https://semiconductor.samsung.com/foundry/process-technology/',3,'TrendForce','2025-12','First 2nm GAA AP, mass production confirmed.','https://www.trendforce.com/news/2025/12/19/news-samsung-officially-unveils-exynos-2600-industry-first-2nm-gaa-ap-with-113-ai-performance-uplift/'],[3,'imec','2024-01','HPSP: world\'s first and only high-pressure annealing equipment.','https://www.imec-int.com/en/press/hpsp-expands-its-rd-capabilities-and-study-hpa-and-hpo',3,'TechInsights','2025','Hanmi 71.2% global TC bonder share.',null],null,null,[1,'CSET Georgetown','2026','AI Basic Act Art. 4(1): extraterritorial scope.','https://cset.georgetown.edu/wp-content/uploads/t0625_south_korea_ai_law_EN.pdf',3,'Cooley LLP','2026-01','Foreign providers above revenue/user thresholds must appoint domestic legal agent.','https://www.cooley.com/news/insight/2026/2026-01-27-south-koreas-ai-basic-act-overview-and-key-takeaways'],[1,'FSC','2025-09','AI Growth Fund expanded to 150T won.','https://fsc.go.kr/eng/pr010101/85267',1,'MOEF','2025-11','2026 AI budget: 10.1T won.','https://mpb.go.kr/web/main/file/download/uu/20251107224938_EABF4915-B9C5-4FA3-EDAA-C55AB77A7EA7']]},
+    {id:'NL',n:'Netherlands',s:3,d:'AIK',dims:[0,0,1,0,0,1,1],
+     con:[null,null,'Cymer subsidiary in San Diego',null,null,null,null],
+     svd:'Core ASML IP remains Dutch-controlled.',
+     src:[null,null,[2,'ASML (SEC 6-K)','2025-01','44 EUV systems, \u20ac28.3B net sales. Sole global supplier.','https://www.sec.gov/Archives/edgar/data/0000937966/000093796625000003/pressreleasequarterlyresul.htm',2,'Besi','2026-Q1','Hybrid bonding, 20 customers including TSMC.','https://www.besi.com/investors'],null,null,[1,'Staatsblad 2024, 261','2024','Strategic Goods Decree: semiconductor export controls.','https://zoek.officielebekendmakingen.nl/stb-2024-261.html',1,'Government.nl','2024-09','Expanded equipment export authorisation requirements.','https://www.government.nl/latest/news/2024/09/06/the-netherlands-expands-export-control-measure-advanced-semiconductor-manufacturing-equipment'],[1,'Government.nl','2024-03','Project Beethoven: \u20ac2.51B for Brainport Eindhoven.','https://www.government.nl/latest/news/2024/03/28/the-netherlands-to-invest-%E2%82%AC2.5-billion-to-strengthen-business-climate-for-chip-industry-in-brainport-eindhoven',1,'SURF','2025-10','AI Factory Groningen: \u20ac200M European funding.','https://www.surf.nl/en/news/netherlands-gets-ai-factory-european-funding-awarded']]},
+    {id:'EU',n:'European Union',s:4,d:'ACS',dims:[0,1,1,0,0,1,1],
+     con:[null,'Intel Fab 34 is US-owned','Cymer light source (US jurisdiction)',null,null,null,null],
+     svd:'D2 collapses on Intel withdrawal. US-ecosystem dependent.',
+     src:[null,[2,'Intel Newsroom','2023-09','First EUV HVM in Europe (Fab 34 Ireland).','https://newsroom.intel.com/manufacturing/new-fab-ireland-high-volume-production-intel-4-technology',2,'Intel (SEC 8-K)','2024-06','$18.4B invested in Fab 34.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086324000103/a06042024form8-kex991.htm'],[2,'ASML (SEC 6-K)','2025-01','44 EUV systems, \u20ac28.3B. Sole global EUV supplier.','https://www.sec.gov/Archives/edgar/data/0000937966/000093796625000003/pressreleasequarterlyresul.htm',2,'Zeiss SMT','2026','100% market share for high-end AI chip lithography optics.','https://www.zeiss.com/semiconductor-manufacturing-technology/about-us.html'],null,null,[1,'EU AI Act (2024/1689)','2024','Art. 2(1)(c): extraterritorial scope.','https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',1,'European Commission','2025','Apple DMA €500M + Meta DMA €200M (23 Apr, ip_25_1085); X DSA €120M first-ever DSA decision (5 Dec, ip_25_2934).','https://ec.europa.eu/commission/presscorner/detail/en/ip_25_1085'],[1,'Council of EU (Reg. 2026/150)','2026-01','€4.12B committed for AI Gigafactories: ≤€1.9B Digital Europe + ≤€900M Horizon Europe + ≤€200M CEF-Digital.','https://www.consilium.europa.eu/en/press/press-releases/2026/01/16/artificial-intelligence-council-paves-the-way-for-the-creation-of-ai-gigafactories/',1,'EuroHPC JU','2025-09','JUPITER exascale operational Sep 2025; AI Factory programme hub live.','https://www.eurohpc-ju.europa.eu/ai-factories_en']]},
+    {id:'TW',n:'Taiwan',s:3,d:'ACS',dims:[0,1,1,0,0,0,1],
+     con:[null,'US equipment and EDA dependency',null,null,null,null,'Budget at risk (opposition block)'],
+     svd:'All MET dimensions coupled to US ecosystem.',
+     src:[null,[2,'TSMC','2024','3nm volume production at Fab 18.','https://pr.tsmc.com/english/news/2986',2,'TSMC / Focus Taiwan','2025-Q4','N2 GAA in volume production at Fab 22, Kaohsiung since Q4 2025. First TSMC departure from FinFET.','https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_2nm'],[3,'Taipei Times','2023-04','World\'s largest EUV pod supplier, 80% global share. TSMC sole supplier of EUV pods.','https://www.taipeitimes.com/News/biz/archives/2023/04/01/2003797091',2,'Gudeng Shareholder Letter FY2024','2024','High-NA EUV POD passed ASML certification. EUV series photomask carrier demand at new peaks.','https://www.gudeng.com/Page?itemid=16&mid=79'],null,null,null,[1,'NSTC','2025','National AI strategy programme.','https://ostp.nstc.gov.tw/PolicyContent.aspx?id=12',1,'Taipei Times','2024-11','NT$30B annual AI allocation confirmed; NSTC Minister quoted; 480 petaflops compute target.','https://www.taipeitimes.com/News/front/archives/2024/11/22/2003827297']]},
+    {id:'FR',n:'France',s:2,d:'Part',dims:[0,0,0,0,0,1,1],con:[],svd:null,
+     src:[null,null,null,null,null,[1,'EU AI Act','2024','Art. 2 extraterritorial scope. France as member state.','https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',1,'CNIL','2022-10','\u20ac20M fine against Clearview AI. \u20ac5.2M penalty May 2023.','https://www.cnil.fr/en/facial-recognition-20-million-euros-penalty-against-clearview-ai'],[1,'France 2030','2021','54B investment envelope incl. AI and semiconductor.','https://www.gouvernement.fr/france-2030',1,'Cour des comptes','2025-11','SNIA audit: Phase 1 \u20ac1.3B + Phase 2 \u20ac1.1B = \u20ac2.4B.','https://www.ccomptes.fr/fr/publications/la-strategie-nationale-pour-lintelligence-artificielle-consolider-les-succes-de-la']]},
+    {id:'DE',n:'Germany',s:2,d:'Part',dims:[0,0,1,0,0,1,0],
+     con:[null,null,'Zeiss/TRUMPF: subsystems within ASML system',null,null,null,null],svd:null,
+     src:[null,null,[2,'Zeiss SMT','2026','100% market share for EUV lithography optics.','https://www.zeiss.com/semiconductor-manufacturing-technology/about-us.html',2,'TRUMPF','2026','Sole source for EUV drive laser system.','https://www.trumpf.com/en_INT/products/lasers/euv-drive-laser/'],null,null,[1,'Bundesgesetzblatt','2024-07','21st AWV: AI and semiconductor added to export list.','https://www.recht.bund.de/bgbl/1/2024/243/VO',3,'Noerr LLP','2024-07','AI systems (4D1901b3) added to export controls.','https://www.noerr.com/en/insights/germany-expands-export-controls-on-emerging-technologies'],null]},
+    {id:'GB',n:'United Kingdom',s:1,d:'Part',dims:[0,0,0,0,0,0,1],con:[],svd:null,
+     src:[null,null,null,null,null,null,[1,'UK Gov','2025-07','Compute Roadmap: up to \u00a32B.','https://www.gov.uk/government/publications/uk-compute-roadmap/uk-compute-roadmap',1,'Hansard','2025-07','Technology Secretary confirmed \u00a32B in public compute.','https://hansard.parliament.uk/Commons/2025-07-21/debates/2507216000020/UKComputeRoadmap']]},
+    {id:'IN',n:'India',s:1,d:'Part',dims:[0,0,0,0,0,0,1],
+     con:[null,null,null,null,null,null,'Compute on foreign rails'],svd:null,
+     src:[null,null,null,null,null,null,[1,'PIB','2024','IndiaAI Mission: Rs 10,371.92 crore.','https://www.pib.gov.in/PressReleasePage.aspx?PRID=2012355',1,'PIB','2025','7 pillars; 10,000 GPUs; 12 indigenous models.','https://www.pib.gov.in/PressReleasePage.aspx?PRID=2097709']]},
+    {id:'IL',n:'Israel',s:1,d:'Part',dims:[0,0,1,0,0,0,0],
+     con:[null,null,'Inspection/metrology only (Nova, Camtek)',null,null,null,null],svd:null,
+     src:[null,null,[2,'Camtek (SEC 6-K)','2025-Q3','Tools of reference for HBM4. Revenue $495M.','https://www.sec.gov/Archives/edgar/data/0001109138/000117891325003712/zk2533966.htm',2,'Nova','2026-02','Revenue $880.6M, +31%. Record GAA/DRAM/packaging sales.','https://www.novami.com/investors/press-releases/nova-reports-fourth-quarter-and-record-full-year-2025-results/'],null,null,null,null]},
+    {id:'RU',n:'Russia',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]},
+    {id:'CA',n:'Canada',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]}
+  ];
+
+  var DN = ['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var DS = ['Chip','Fab','Equip','Compute','Models','Reg','Invest'];
+  var DC = ['hw','hw','hw','pl','pl','gv','gv'];
+  var DF = [2,5,8,3,2,8,10];
+  var PC = {hw:'hw',pl:'pl',gv:'gv'};
+  var BC = {PAA:'scp-badge-paa',AIK:'scp-badge-aik',ACS:'scp-badge-acs',Part:'scp-badge-part'};
+  var BL = {PAA:'PAA',AIK:'AIK',ACS:'ACS',Part:'Part'};
+  var GN = {PAA:'Principal AI Actors',AIK:'AI Infrastructure Keystones',ACS:'Advanced Capability States'};
+  var GC = ['Grade 1','Grade 2','Grade 3'];
+  var GCLS = ['scp-src-g1','scp-src-g2','scp-src-g3'];
+
+  /* ---- Expose designation lookup for event tooltip enrichment ---- */
+  var _scpLocKeys = [
+    ['South Korea','KR'],['United States','US'],['United Kingdom','GB'],
+    ['European Union','EU'],['Netherlands','NL'],['Belgium','EU'],
+    ['China','CN'],['Japan','JP'],['Taiwan','TW'],
+    ['France','FR'],['Germany','DE'],
+    ['India','IN'],['Israel','IL'],['Russia','RU'],['Canada','CA'],
+    [', USA','US']
+  ];
+  window._scpGetDesignation = function(location) {
+    if (!location) return null;
+    for (var i = 0; i < _scpLocKeys.length; i++) {
+      if (location.indexOf(_scpLocKeys[i][0]) >= 0) {
+        var id = _scpLocKeys[i][1];
+        for (var j = 0; j < ACTORS.length; j++) {
+          if (ACTORS[j].id === id) return { d: ACTORS[j].d, n: ACTORS[j].n };
+        }
+      }
+    }
+    return null;
+  };
+
+  var panel = document.getElementById('scpPanel');
+  var btn = document.getElementById('scpBtn');
+  var closeBtn = document.getElementById('scpClose');
+  var pillsEl = document.getElementById('scpPills');
+  var bodyEl = document.getElementById('scpBody');
+  var statusActorRow = document.getElementById('statusActorRow');
+
+  var isOpen = false;
+  var partsExpanded = false;
+  var activeDim = -1;
+  var rendered = false;
+
+  /* ---- Grouping ---- */
+  var groups = {PAA:[],AIK:[],ACS:[],Part:[]};
+  ACTORS.forEach(function(a) { groups[a.d].push(a); });
+  var parts = groups.Part;
+
+  /* ---- Build pills ---- */
+  var ph = '';
+  DS.forEach(function(name, i) {
+    ph += '<span class="scp-pill ' + PC[DC[i]] + '" data-dim="' + i + '">';
+    ph += '<span class="scp-pill-dot"></span>' + name + ' <span class="scp-pill-ct">' + DF[i] + '</span></span>';
+  });
+  pillsEl.innerHTML = ph;
+
+  /* ---- Build body ---- */
+  function render() {
+    if (rendered) return;
+    rendered = true;
+    var h = '', idx = 0;
+
+    ['PAA','AIK','ACS'].forEach(function(gk) {
+      var list = groups[gk];
+      if (!list.length) return;
+      h += '<div class="scp-grp">' + GN[gk] + ' (' + list.length + ')<span class="scp-grp-line"></span></div>';
+      list.forEach(function(a) {
+        h += rowHTML(a, 'scp-r' + idx) + detailHTML(a, 'scp-r' + idx);
+        idx++;
+      });
+      if (gk === 'PAA') {
+        h += '<div class="scp-paa-fold"><div class="scp-paa-fold-label">Ecosystem anchors</div></div>';
+      }
+    });
+
+    h += '<div class="scp-part-toggle" id="scpPartToggle"><span class="scp-part-arr" id="scpPartArr">\u25B6</span> ' + parts.length + ' Participants</div>';
+    h += '<div class="scp-part-rows" id="scpPartRows">';
+    parts.forEach(function(a) {
+      h += rowHTML(a, 'scp-r' + idx) + detailHTML(a, 'scp-r' + idx);
+      idx++;
+    });
+    h += '</div>';
+
+    bodyEl.innerHTML = h;
+
+    /* Event delegation for row expand */
+    bodyEl.addEventListener('click', function(e) {
+      var row = e.target.closest('.scp-row');
+      if (row) {
+        var det = document.getElementById(row.id + '-d');
+        if (det) { row.classList.toggle('expanded'); det.classList.toggle('show'); }
+        return;
+      }
+      var srcTrig = e.target.closest('.scp-src-trigger');
+      if (srcTrig) {
+        var block = srcTrig.nextElementSibling;
+        if (block) block.classList.toggle('show');
+        return;
+      }
+      var lockEl = e.target.closest('.scp-src-lock');
+      if (lockEl) { if (typeof window.openAccessModal === 'function') window.openAccessModal(); }
+    });
+
+    /* Participant toggle */
+    var partToggle = document.getElementById('scpPartToggle');
+    var partArr = document.getElementById('scpPartArr');
+    var partRows = document.getElementById('scpPartRows');
+    if (partToggle) {
+      partToggle.addEventListener('click', function() {
+        partsExpanded = !partsExpanded;
+        partRows.classList.toggle('show', partsExpanded);
+        partArr.classList.toggle('open', partsExpanded);
+      });
+    }
+  }
+
+  function rowHTML(a, id) {
+    var h = '<div class="scp-row" id="' + id + '">';
+    h += '<span class="scp-row-name" title="' + a.n + '">' + a.n + '</span>';
+    h += '<div class="scp-row-bar">';
+    a.dims.forEach(function(d, i) {
+      h += '<div class="scp-row-seg' + (d ? ' ' + DC[i] + '-m' : '') + '" data-di="' + i + '"></div>';
+    });
+    h += '</div>';
+    h += '<span class="scp-row-score">' + a.s + '/7</span>';
+    h += '<span class="scp-row-badge"><span class="scp-badge ' + BC[a.d] + '">' + BL[a.d] + '</span></span>';
+    h += '<span class="scp-row-chev">\u25BC</span></div>';
+    return h;
+  }
+
+  function detailHTML(a, id) {
+    var isAuth = document.body.classList.contains('weo-authenticated');
+    var h = '<div class="scp-detail" id="' + id + '-d">';
+
+    a.dims.forEach(function(d, i) {
+      h += '<div class="scp-dim-row">';
+      h += '<span class="scp-dim-name"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i] + '</span>';
+      h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : '\u2014') + '</span>';
+      h += '</div>';
+      if (d && a.con && a.con[i]) {
+        h += '<div class="scp-dim-constraint">' + escH(a.con[i]) + '</div>';
+      }
+      /* Source evidence — supporter tier only */
+      if (d && a.src && a.src[i]) {
+        if (isAuth) {
+          var s = a.src[i]; /* [g1, pub1, date1, fact1, url1, g2, pub2, date2, fact2, url2] */
+          h += '<div class="scp-src-trigger"><span class="scp-src-icon">\u24D8</span> Sources</div>';
+          h += '<div class="scp-src-block">';
+          h += srcEntry('Primary', s[0], s[1], s[2], s[3], s[4]);
+          h += srcEntry('Corroborating', s[5], s[6], s[7], s[8], s[9]);
+          h += '</div>';
+        } else {
+          h += '<div class="scp-src-lock" title="Supporter access required"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Sources (supporter access)</div>';
+        }
+      }
+    });
+
+    if (a.svd) {
+      h += '<div class="scp-sev"><strong>Severance:</strong> ' + escH(a.svd) + '</div>';
+    }
+    h += '</div>';
+    return h;
+  }
+
+  function srcEntry(label, grade, pub, date, fact, url) {
+    if (!pub) return '';
+    var gIdx = (grade || 1) - 1;
+    var h = '<div class="scp-src-entry">';
+    h += '<span class="scp-src-label">' + label + '</span> ';
+    h += '<span class="scp-src-grade ' + GCLS[gIdx] + '">' + GC[gIdx] + '</span>';
+    h += escH(pub) + ' \u00b7 ' + escH(date || '');
+    if (url) h += ' <a href="' + url + '" target="_blank" rel="noopener" class="scp-src-link">\u2197</a>';
+    h += '<br><span class="scp-src-fact">' + escH(fact || '') + '</span>';
+    h += '</div>';
+    return h;
+  }
+
+  function escH(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  /* ---- Open / Close ---- */
+  function openSCP() {
+    if (isOpen) return;
+    isOpen = true;
+    render();
+    if (window.innerWidth <= 767) { panel.style.height = window.innerHeight + 'px'; }
+    /* Close event detail panel if open (one panel at a time) */
+    if (typeof window.closePanel === 'function') window.closePanel();
+    panel.classList.add('open');
+    btn.classList.add('active');
+    btn.setAttribute('aria-expanded', 'true');
+    if (statusActorRow) { statusActorRow.classList.add('active'); statusActorRow.setAttribute('aria-expanded', 'true'); }
+    /* Hide supporter access button (same pattern as event panel) */
+    var supBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
+    if (supBtn) supBtn.classList.add('panel-open');
+  }
+
+  function closeSCP() {
+    if (!isOpen) return;
+    isOpen = false;
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded', 'false');
+    if (statusActorRow) { statusActorRow.classList.remove('active'); statusActorRow.setAttribute('aria-expanded', 'false'); }
+    hideTooltipIfActive();
+    /* Show supporter access button again */
+    var supBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
+    if (supBtn) supBtn.classList.remove('panel-open');
+  }
+
+  /* Expose globally for openPanel hook */
+  window.closeSCP = closeSCP;
+
+  /* Auto-open SCP panel if URL contains ?panel=scp */
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('panel') === 'scp') openSCP();
+  })();
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isOpen) closeSCP(); else openSCP();
+  });
+  if (statusActorRow) {
+    statusActorRow.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (isOpen) closeSCP(); else openSCP();
+    });
+    statusActorRow.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (isOpen) closeSCP(); else openSCP(); }
+    });
+  }
+  closeBtn.addEventListener('click', closeSCP);
+
+  /* Nav dropdown entry — opens SCP panel and closes nav menu */
+  var navScpToggle = document.getElementById('navScpToggle');
+  if (navScpToggle) {
+    navScpToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      /* Close nav dropdown */
+      var navMenu = document.getElementById('navMenuToggle');
+      var navDrop = document.getElementById('navDropdown');
+      if (navMenu) navMenu.classList.remove('open');
+      if (navDrop) navDrop.classList.remove('open');
+      /* Restore legend state (same as nav close logic) */
+      var legend = document.getElementById('mapLegend');
+      var legContent = document.getElementById('legendContent');
+      var legToggle = document.getElementById('legendToggle');
+      if (legend && legContent && legToggle) {
+        legContent.classList.remove('collapsed');
+        legToggle.textContent = '\u2212';
+        legend.classList.remove('collapsed');
+        legend.classList.remove('mobile-collapsed');
+      }
+      /* Open SCP */
+      setTimeout(function() { openSCP(); }, 150);
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isOpen) closeSCP();
+  });
+
+  /* ---- Dimension column highlighting ---- */
+  function applyHL(di) {
+    var segs = bodyEl.querySelectorAll('.scp-row-seg');
+    for (var j = 0; j < segs.length; j++) {
+      var sd = parseInt(segs[j].getAttribute('data-di'), 10);
+      if (di === -1) { segs[j].classList.remove('col-hl', 'col-dim'); }
+      else if (sd === di) { segs[j].classList.add('col-hl'); segs[j].classList.remove('col-dim'); }
+      else { segs[j].classList.remove('col-hl'); segs[j].classList.add('col-dim'); }
+    }
+    var pills = pillsEl.querySelectorAll('.scp-pill');
+    for (var k = 0; k < pills.length; k++) {
+      var pd = parseInt(pills[k].getAttribute('data-dim'), 10);
+      if (activeDim !== -1) continue;
+      pills[k].classList.toggle('hover-lit', di !== -1 && pd === di);
+    }
+  }
+
+  /* Pill click = lock, pill hover = preview */
+  pillsEl.addEventListener('click', function(e) {
+    var pill = e.target.closest('.scp-pill');
+    if (!pill) return;
+    var di = parseInt(pill.getAttribute('data-dim'), 10);
+    if (activeDim === di) {
+      activeDim = -1;
+      pillsEl.querySelectorAll('.scp-pill').forEach(function(p) { p.classList.remove('active', 'hover-lit'); });
+      applyHL(-1);
+    } else {
+      activeDim = di;
+      pillsEl.querySelectorAll('.scp-pill').forEach(function(p) {
+        p.classList.toggle('active', parseInt(p.getAttribute('data-dim'), 10) === di);
+        p.classList.remove('hover-lit');
+      });
+      applyHL(di);
+    }
+  });
+  pillsEl.addEventListener('mouseover', function(e) {
+    var pill = e.target.closest('.scp-pill');
+    if (pill && activeDim === -1) applyHL(parseInt(pill.getAttribute('data-dim'), 10));
+  });
+  pillsEl.addEventListener('mouseout', function(e) {
+    if (e.target.closest('.scp-pill') && activeDim === -1) applyHL(-1);
+  });
+
+  /* Segment hover = highlight column + light up pill */
+  var hoverDim = -1;
+  bodyEl.addEventListener('mouseover', function(e) {
+    var seg = e.target.closest('.scp-row-seg');
+    if (seg && activeDim === -1) {
+      var di = parseInt(seg.getAttribute('data-di'), 10);
+      if (di !== hoverDim) { hoverDim = di; applyHL(di); }
+    }
+  });
+  bodyEl.addEventListener('mouseout', function(e) {
+    if (e.target.closest('.scp-row-seg') && activeDim === -1) { hoverDim = -1; applyHL(-1); }
+  });
+
+  /* ---- Tooltip for dimension segments ---- */
+  var tooltipOv = document.getElementById('weo-tooltip-overlay');
+  function hideTooltipIfActive() {
+    if (tooltipOv) tooltipOv.classList.remove('visible');
+  }
+  if (tooltipOv) {
+    bodyEl.addEventListener('scroll', hideTooltipIfActive);
+  }
+
+  /* ---- Button position adjustment ---- */
+  function adjustBtnPos() {
+    var sp = document.getElementById('weoStatusPanel');
+    if (!sp || window.innerWidth <= 767) { btn.style.top = ''; return; }
+    var rect = sp.getBoundingClientRect();
+    btn.style.top = (rect.bottom + 8) + 'px';
+  }
+  /* Adjust after data loads (WER may appear) */
+  setTimeout(adjustBtnPos, 1500);
+  setTimeout(adjustBtnPos, 3000);
+  window.addEventListener('resize', function() { setTimeout(adjustBtnPos, 100); });
+
+})();
+</script>
+
 <!-- Version stamp / footer -->
 <footer class="atlas-footer" style="position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 24px;font-size:11px;color:#94A3B8;background:rgba(15,23,42,0.9);border-top:1px solid #334155;z-index:200;pointer-events:auto;">
-    <span>Methodology V1.3 · WEO v1.2.0</span>
+    <span>Methodology V1.4 · WEO v1.3.0</span>
     <span><a href="legal.html" style="color:#94A3B8;text-decoration:none;">Privacy &amp; Terms</a> · © 2026 Warmth Engine Observatory</span>
 </footer>
 

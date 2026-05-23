@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -334,6 +334,7 @@
             color: #2DD4BF;
             background: rgba(45, 212, 191, 0.1);
         }
+
 
         /* DEF-040 §1 — Mobile hamburger (ported from events.html). */
         .weo-nav-toggle {
@@ -3898,16 +3899,16 @@
                 <a href="/">Map</a>
                 <a href="atlas.html" class="active">Atlas</a>
                 <a href="events.html">Events</a>
-                <a href="methodology.html">Methodology</a>
                 <a href="blocs.html">Blocs</a>
+                <a href="methodology.html">Methodology</a>
                 <a href="research.html">Research</a>
                 <a href="about.html">About</a>
                 <a href="support.html">Support</a>
             </div>
             <button class="supporter-access-btn" onclick="openAccessModal()">
-                <span class="icon">🔒</span>
+                <span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
                 <span class="text-locked">Supporter Access</span>
-                <span class="text-unlocked">✓ Full Access</span>
+                <span class="text-unlocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Full Access</span>
             </button>
         </nav>
 
@@ -4043,7 +4044,7 @@
 
         <!-- Footer -->
         <footer class="atlas-footer">
-            <span>Methodology V1.3 · WEO v<span id="weo-version-stamp">1.2.0</span></span>
+            <span>Methodology V1.4 · WEO v<span id="weo-version-stamp">1.3.0</span></span>
             <span>Updated <span id="weo-last-updated">—</span></span>
             <span><a href="legal.html">Privacy &amp; Terms</a> · © 2026 Warmth Engine Observatory</span>
         </footer>
@@ -4066,6 +4067,13 @@
          brief 3a `.atlas-panel-v2` (#atlas-panel) is the live panel. -->
 
     <script>
+    const WEO_ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    const WEO_ICON_CROSS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    const WEO_ICON_LOCK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+    const WEO_ICON_KEY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>';
+    const WEO_ICON_ALERT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    const WEO_ICON_STAR = '<svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
     /* =========================================================================
        WEO INTERACTIVE ATLAS — atlas.html application script
        Brief 2 — full database (127 events, 114 CCs) with state store,
@@ -8474,7 +8482,7 @@
                 html += `<span class="atlas-panel-confidence-pill atlas-panel-confidence-pill-${confSlug} atlas-chip-trigger" tabindex="0" aria-label="Source Confidence Rating: CC-${escapeHtml(conf)}">${escapeHtml(conf)}${confTip}</span>`;
             }
             if (sample) {
-                html += '<div class="atlas-panel-sample-badge">★ Sample event &middot; Full data</div>';
+                html += '<div class="atlas-panel-sample-badge">' + WEO_ICON_STAR + ' Sample event &middot; Full data</div>';
             }
             html += `<h2 class="atlas-panel-title" onclick="atlasScrollPanelToTop()" style="cursor:pointer">${escapeHtml(event.name || '')}</h2>`;
             const subtitleParts = [];
@@ -8519,7 +8527,7 @@
             //   - Industry secondary: click-toggle mechanism popover
             //     ported from index.html `.ind-mechanism-popover`
             // Phase 2 P1 (Batch 2b+) — split into three sections per
-            // Manual V1.3 §2.4–2.6: classification (domain) is one
+            // Manual V1.4 §2.4–2.6: classification (domain) is one
             // analytical layer; industry tags (§2.5) and ENTs (§2.6)
             // are explicitly separate layers, not classification.
             // Phase 2 P1 (Batch 2b++) — section renamed "Domain"
@@ -8535,7 +8543,7 @@
             html += '</div>';
             html += '</section>';
 
-            // Industry tags — primary + secondary (Manual V1.3 §2.5).
+            // Industry tags — primary + secondary (Manual V1.4 §2.5).
             // Click secondary chip → toggles mechanism popover.
             // Phase 2 P1 (Batch 2b++) — sub-header at --type-sm 500
             // muted so it reads as an enrichment layer, not a peer of
@@ -8559,7 +8567,7 @@
                 html += '</section>';
             }
 
-            // Environmental Nexus chips (Manual V1.3 §2.6). Click chip
+            // Environmental Nexus chips (Manual V1.4 §2.6). Click chip
             // → toggles popover with mechanism, evidence basis, and
             // optional pathway.
             const entTags = Array.isArray(event.environmentalNexusTags) ? event.environmentalNexusTags : [];
@@ -8742,7 +8750,7 @@
 
             // ENT chips render in their own #atlas-section-ent above
             // (Phase 2 Batch 2b+). They are a separate analytical layer
-            // per Manual V1.3 §2.6, not a sub-section of Classification.
+            // per Manual V1.4 §2.6, not a sub-section of Classification.
 
             // §8 — Sources (honest count + paid full list)
             html += '<section class="atlas-panel-section" id="atlas-section-sources">';
@@ -8854,7 +8862,7 @@
             // the CTA would be confusing.
             if (!sample) {
                 html += '<div class="atlas-supporter-locked atlas-upgrade-cta">';
-                html += '<div class="atlas-upgrade-cta-title"><span>🔒</span> Unlock Full Analysis</div>';
+                html += '<div class="atlas-upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div>';
                 html += '<ul class="atlas-upgrade-cta-list">';
                 html += '<li>Qualification &amp; Assessment Frameworks</li>';
                 html += '<li>Tier Classification Rationale &amp; Bloc Analysis</li>';
@@ -8867,7 +8875,7 @@
                 html += '</ul>';
                 html += '<a class="atlas-upgrade-button" href="support.html">Subscribe for Full Access<span>→</span></a>';
                 html += '<div class="atlas-upgrade-secondary">Already a subscriber? <a href="#" onclick="event.preventDefault(); if (typeof openAccessModal === \'function\') openAccessModal();">Enter access code</a></div>';
-                html += '<div class="atlas-upgrade-sample-hint"><span>★</span> See full analysis on 6 sample events</div>';
+                html += '<div class="atlas-upgrade-sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div>';
                 html += '</div>';
             }
 
@@ -9456,7 +9464,7 @@
                 factors.forEach(f => {
                     const passed = !!(f && f.pass);
                     h += '<div class="atlas-basel5-factor-row">';
-                    h += `<span class="atlas-checkpoint-status">${passed ? '✓' : '○'}</span>`;
+                    h += `<span class="atlas-checkpoint-status">${passed ? WEO_ICON_CHECK : '○'}</span>`;
                     h += `<span>${escapeHtml(f.factor || '?')}</span>`;
                     h += `<span style="color:var(--text-muted);">${escapeHtml(f.rationale || '')}</span>`;
                     h += '</div>';
@@ -9541,7 +9549,7 @@
                     if (!ca[k]) return;
                     const c = ca[k];
                     const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
-                    const statusIcon = c.met === true ? '✓' : (c.met === 'partial' ? '◐' : '○');
+                    const statusIcon = c.met === true ? WEO_ICON_CHECK : (c.met === 'partial' ? '◐' : '○');
                     const hasEvidence = c.evidence && c.evidence.length > 0;
                     const onClick = hasEvidence ? ' onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')"' : '';
                     h += '<div class="cc-criterion' + (hasEvidence ? ' has-evidence' : '') + '"' + onClick + '>';
@@ -9757,11 +9765,11 @@
             // below when an alternative pathway is set.
             h += '<div class="atlas-checkpoint-list">';
             if (!isAlt) {
-                h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.ai ? 'pass' : 'fail'}">${cp.ai ? '✓' : '✗'}</span><span class="atlas-checkpoint-label">AI Connection</span></div>`;
+                h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.ai ? 'pass' : 'fail'}">${cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">AI Connection</span></div>`;
             }
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.threshold ? 'pass' : 'fail'}">${cp.threshold ? '✓' : '✗'}</span><span class="atlas-checkpoint-label">Quantitative Threshold</span></div>`;
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.implemented ? 'pass' : 'fail'}">${cp.implemented ? '✓' : '✗'}</span><span class="atlas-checkpoint-label">Implementation Evidence</span></div>`;
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.current ? 'pass' : 'fail'}">${cp.current ? '✓' : '✗'}</span><span class="atlas-checkpoint-label">Active Status</span></div>`;
+            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.threshold ? 'pass' : 'fail'}">${cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Quantitative Threshold</span></div>`;
+            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.implemented ? 'pass' : 'fail'}">${cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Implementation Evidence</span></div>`;
+            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.current ? 'pass' : 'fail'}">${cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Active Status</span></div>`;
             h += '</div>';
 
             // Pathway note — minimal disclosure for now. The 4-layer
@@ -9849,7 +9857,7 @@
             factors.forEach(f => {
                 const passed = !!(f && f.pass);
                 h += '<div class="atlas-basel5-factor-row">';
-                h += `<span class="atlas-checkpoint-status">${passed ? '✓' : '✗'}</span>`;
+                h += `<span class="atlas-checkpoint-status">${passed ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>`;
                 h += `<span>${escapeHtml(f.factor || '?')}</span>`;
                 if (f.rationale) {
                     h += `<span style="color:var(--text-muted);">${escapeHtml(f.rationale)}</span>`;
@@ -9921,7 +9929,7 @@
             html += '<button class="panel-close" type="button" aria-label="Close event details">×</button>';
 
             if (sample) {
-                html += '<div class="panel-sample-badge">★ Sample event · Full data</div>';
+                html += '<div class="panel-sample-badge">' + WEO_ICON_STAR + ' Sample event · Full data</div>';
             }
 
             html += `<h2 class="panel-title">${escapeHtml(event.name || `Event ${id}`)}</h2>`;
@@ -11304,7 +11312,7 @@
         <div class="access-modal">
             <div id="accessLoginState">
                 <div class="access-modal-header">
-                    <div class="access-modal-title"><span>🔑</span>Supporter Access</div>
+                    <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Supporter Access</div>
                     <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
                 </div>
                 <div class="access-modal-body">
@@ -11314,18 +11322,18 @@
                                placeholder="Enter your access code"
                                onkeydown="if(event.key==='Enter')checkAccessAtlas()">
                     </div>
-                    <div class="access-error" id="accessError"><span>⚠</span><span>Invalid access code.</span></div>
+                    <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access code.</span></div>
                     <button class="access-submit" onclick="checkAccessAtlas()">Unlock Access</button>
                 </div>
                 <div class="access-modal-footer">Not a supporter? <a href="support.html">Subscribe here</a></div>
             </div>
             <div id="accessAuthState" style="display:none;">
                 <div class="access-modal-header">
-                    <div class="access-modal-title"><span>✓</span>Supporter Access</div>
+                    <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Supporter Access</div>
                     <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
                 </div>
                 <div class="access-modal-body access-modal-authenticated">
-                    <div class="status-icon">✓</div>
+                    <div class="status-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <div class="status-text">Full Access Active</div>
                     <div class="status-detail">You have access to all event analysis.</div>
                     <button class="access-logout" onclick="logoutAccessAtlas()">Sign Out</button>
