@@ -541,9 +541,29 @@
         }
         
         .bloc-header:hover {
-            background: var(--weo-border-primary);
+            background: rgba(148, 163, 184, 0.08);
         }
-        
+
+        /* Expanded-state semantic tints — atlas .has-active pattern */
+        .bloc-section.expanded[data-bloc="western"] > .bloc-header {
+            background: rgba(96, 165, 250, 0.06);
+        }
+        .bloc-section.expanded[data-bloc="eastern"] > .bloc-header {
+            background: rgba(251, 146, 60, 0.06);
+        }
+        .bloc-section.expanded[data-bloc="cross"] > .bloc-header {
+            background: rgba(45, 212, 191, 0.06);
+        }
+        .bloc-section.expanded[data-bloc="western"] > .bloc-header:hover {
+            background: rgba(96, 165, 250, 0.10);
+        }
+        .bloc-section.expanded[data-bloc="eastern"] > .bloc-header:hover {
+            background: rgba(251, 146, 60, 0.10);
+        }
+        .bloc-section.expanded[data-bloc="cross"] > .bloc-header:hover {
+            background: rgba(45, 212, 191, 0.10);
+        }
+
         .bloc-header-left {
             display: flex;
             align-items: center;
@@ -816,9 +836,10 @@
             font-size: 0.8125rem;
             color: var(--weo-text-secondary);
             cursor: pointer;
-            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            transition: border-color var(--weo-duration-fast) var(--weo-ease-out),
+                        color var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
+
         .eu-toggle:hover {
             border-color: var(--weo-accent-primary);
             color: var(--weo-text-primary);

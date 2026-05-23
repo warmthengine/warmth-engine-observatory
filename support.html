@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -250,6 +250,7 @@
           background: rgba(45, 212, 191, 0.1);
         }
 
+
         /* Mobile hamburger */
         .weo-nav-toggle {
           display: none;
@@ -321,6 +322,7 @@
             min-width: 44px;
             min-height: 44px;
           }
+
         }
 
         /* Header */
@@ -442,11 +444,23 @@
             border-radius: var(--weo-radius-md);
             padding: var(--weo-space-lg);
             position: relative;
+            transition: background var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
+
+        .tier-card:hover {
+            background: var(--weo-surface-raised);
+            border-color: rgba(148, 163, 184, 0.3);
+        }
+
         .tier-card.featured {
             border-color: var(--weo-sample-gold);
             background: linear-gradient(135deg, var(--weo-sample-bg) 0%, var(--weo-surface-base) 100%);
+        }
+
+        .tier-card.featured:hover {
+            border-color: var(--weo-sample-gold);
+            background: linear-gradient(135deg, rgba(252, 211, 77, 0.10) 0%, var(--weo-surface-base) 100%);
         }
         
         .tier-badge {
@@ -631,9 +645,10 @@
             font-weight: 600;
             padding: var(--weo-space-sm) var(--weo-space-lg);
             border-radius: var(--weo-radius-md);
-            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out),
+                        transform var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
+
         .kofi-button:hover {
             background: #E54542;
             transform: translateY(-1px);
@@ -646,7 +661,7 @@
         }
         
         .kofi-button.secondary:hover {
-            background: var(--weo-border-primary);
+            background: rgba(148, 163, 184, 0.08);
             color: var(--weo-text-primary);
         }
         
@@ -909,8 +924,8 @@
             <a href="/">Map</a>
             <a href="atlas.html">Atlas</a>
             <a href="events.html">Events</a>
-            <a href="methodology.html">Methodology</a>
             <a href="blocs.html">Blocs</a>
+            <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
             <a href="support.html" class="active">Support</a>
@@ -1118,7 +1133,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
