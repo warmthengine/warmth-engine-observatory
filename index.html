@@ -10967,7 +10967,7 @@ function generateCCSection(eventId, showFullContent) {
           cache: 'no-store'
         });
         const data = await res.json();
-        if (data.meta && data.meta.tier === 'full') {
+        if (data.metadata && data.metadata.tier === 'full') {
           localStorage.setItem(WEO_AUTH_KEY, 'true');
           localStorage.setItem(WEO_PASSWORD_KEY, password);
           grantAccess(); closeAccessModal();
