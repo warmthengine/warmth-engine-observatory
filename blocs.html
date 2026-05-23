@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -264,6 +264,7 @@
           background: rgba(45, 212, 191, 0.1);
         }
 
+
         /* Mobile hamburger */
         .weo-nav-toggle {
           display: none;
@@ -335,6 +336,7 @@
             min-width: 44px;
             min-height: 44px;
           }
+
         }
 
         /* Header */
@@ -1080,6 +1082,255 @@
         .weo-value--eastern { color: var(--weo-bloc-eastern); }
         .weo-value--cross   { color: var(--weo-bloc-cross); }
     
+        /* =================================================================
+           ACTOR CAPABILITY PROFILES — SCP Reference Table
+           Static heatmap table for the Actor Designation Framework.
+           Colour tokens match the SCP panel on index.html.
+           ================================================================= */
+
+        /* SCP Designation Colours */
+        .scp-section {
+            --scp-hw: #60A5FA;
+            --scp-plat: #A78BFA;
+            --scp-gov: #2DD4BF;
+            --scp-paa: #F59E0B;
+            --scp-aik: #06B6D4;
+            --scp-acs: #A855F7;
+            --scp-part: #64748B;
+        }
+
+        .scp-intro {
+            font-size: 0.875rem;
+            color: var(--weo-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--weo-space-lg);
+        }
+
+        .scp-table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 calc(-1 * var(--weo-space-xl));
+            padding: 0 var(--weo-space-xl);
+        }
+
+        .scp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8125rem;
+            min-width: 680px;
+        }
+
+        .scp-table thead th {
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--weo-text-tertiary);
+            padding: var(--weo-space-sm) var(--weo-space-sm);
+            text-align: center;
+            border-bottom: 1px solid var(--weo-border-primary);
+            white-space: nowrap;
+        }
+
+        .scp-table thead th:first-child,
+        .scp-table thead th:nth-child(2) {
+            text-align: left;
+        }
+
+        .scp-table thead th.scp-col-hw { color: var(--scp-hw); }
+        .scp-table thead th.scp-col-pl { color: var(--scp-plat); }
+        .scp-table thead th.scp-col-gv { color: var(--scp-gov); }
+
+        .scp-table thead th.scp-col-score {
+            text-align: right;
+            padding-right: var(--weo-space-md);
+        }
+
+        .scp-table tbody tr {
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out);
+        }
+
+        .scp-table tbody tr:hover {
+            background: var(--weo-hover-overlay);
+        }
+
+        .scp-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .scp-table td {
+            padding: 10px var(--weo-space-sm);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .scp-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--weo-text-primary);
+            white-space: nowrap;
+        }
+
+        .scp-table td:nth-child(2) {
+            text-align: left;
+        }
+
+        .scp-table td.scp-col-score {
+            text-align: right;
+            padding-right: var(--weo-space-md);
+            font-family: var(--weo-font-mono);
+            font-weight: 500;
+            color: var(--weo-text-secondary);
+        }
+
+        /* Designation badges */
+        .scp-badge {
+            display: inline-block;
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: var(--weo-radius-sm);
+            letter-spacing: 0.04em;
+        }
+
+        .scp-badge-paa {
+            color: var(--scp-paa);
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .scp-badge-aik {
+            color: var(--scp-aik);
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+        }
+
+        .scp-badge-acs {
+            color: var(--scp-acs);
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+        }
+
+        .scp-badge-part {
+            color: var(--scp-part);
+            background: rgba(100, 116, 139, 0.12);
+            border: 1px solid rgba(100, 116, 139, 0.25);
+        }
+
+        /* Bloc alignment dots */
+        .scp-bloc-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .scp-bloc-dot.western { background: var(--weo-bloc-western); }
+        .scp-bloc-dot.eastern { background: var(--weo-bloc-eastern); }
+
+        .scp-actor-name {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Dimension key */
+        .scp-dim-key {
+            font-size: 0.75rem;
+            color: var(--weo-text-tertiary);
+            line-height: 1.6;
+            margin-bottom: var(--weo-space-md);
+        }
+
+        .scp-dim-key .scp-dim-hw { color: var(--scp-hw); }
+        .scp-dim-key .scp-dim-pl { color: var(--scp-plat); }
+        .scp-dim-key .scp-dim-gv { color: var(--scp-gov); }
+
+        /* Dimension cells */
+        .scp-met {
+            color: var(--weo-status-positive);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .scp-not {
+            color: var(--weo-border-subtle);
+            font-size: 0.75rem;
+        }
+
+        /* Category group borders in header */
+        .scp-table thead th.scp-group-start {
+            border-left: 1px solid var(--weo-border-primary);
+        }
+
+        .scp-table tbody td.scp-group-start {
+            border-left: 1px solid rgba(51, 65, 85, 0.3);
+        }
+
+        /* Temporal disclaimer */
+        .scp-disclaimer {
+            margin-top: var(--weo-space-lg);
+            padding-top: var(--weo-space-md);
+            border-top: 1px solid var(--weo-border-primary);
+            font-size: 0.75rem;
+            color: var(--weo-text-tertiary);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: var(--weo-space-sm);
+        }
+
+        .scp-disclaimer a {
+            color: var(--weo-accent-hover);
+            text-decoration: none;
+        }
+
+        .scp-disclaimer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Designation legend */
+        .scp-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--weo-space-lg);
+            margin-bottom: var(--weo-space-lg);
+            padding: var(--weo-space-md) var(--weo-space-lg);
+            background: var(--weo-surface-base);
+            border-radius: var(--weo-radius-md);
+            border: 1px solid var(--weo-border-primary);
+        }
+
+        .scp-legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-sm);
+            font-size: 0.75rem;
+            color: var(--weo-text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .scp-table-wrap {
+                margin: 0 calc(-1 * var(--weo-space-lg));
+                padding: 0 var(--weo-space-sm);
+            }
+
+            .scp-legend {
+                gap: var(--weo-space-sm);
+            }
+
+            .scp-disclaimer {
+                flex-direction: column;
+            }
+        }
+
 /* Accessibility: Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1118,6 +1369,183 @@
         font-variant-numeric: tabular-nums slashed-zero;
     }
 
+    /* ============================================
+       CHANGELOG CARD — Snapshot delta component
+       Positioned between Summary and Bloc Classifications.
+       ============================================ */
+    .changelog-card {
+        background: var(--weo-surface-raised);
+        border: 1px solid var(--weo-border-primary);
+        border-radius: var(--weo-radius-lg);
+        overflow: hidden;
+        margin-bottom: var(--weo-space-2xl);
+    }
+
+    .changelog-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.875rem 1.25rem;
+        border-bottom: 1px solid var(--weo-border-primary);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .changelog-title {
+        font-size: 0.8125rem;
+        font-weight: 520;
+        color: var(--weo-text-secondary);
+        letter-spacing: 0.02em;
+    }
+
+    .changelog-meta {
+        font-family: var(--weo-font-mono);
+        font-size: 0.6875rem;
+        color: var(--weo-text-muted);
+        font-weight: 420;
+    }
+
+    .changelog-body {
+        padding: 0.5rem 0;
+    }
+
+    .change-row {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        align-items: center;
+        padding: 0.5rem 1.25rem;
+        gap: 0;
+        transition: background var(--weo-duration-normal) var(--weo-ease-out);
+    }
+
+    .change-row:hover {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .change-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    /* Filled circle — classification change (coloured by destination bloc) */
+    .change-indicator.western {
+        background: var(--weo-bloc-western);
+        box-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
+    }
+
+    .change-indicator.eastern {
+        background: var(--weo-bloc-eastern);
+        box-shadow: 0 0 6px rgba(251, 146, 60, 0.4);
+    }
+
+    /* Hollow circle — reinforcement (no category change) */
+    .change-indicator.reinforced {
+        background: transparent;
+        border: 1.5px solid var(--weo-text-muted);
+        opacity: 0.6;
+    }
+
+    .change-indicator.reinforced.western-r {
+        border-color: var(--weo-bloc-western);
+        opacity: 0.5;
+    }
+
+    .change-indicator.reinforced.eastern-r {
+        border-color: var(--weo-bloc-eastern);
+        opacity: 0.5;
+    }
+
+    .change-content {
+        display: flex;
+        align-items: baseline;
+        gap: 0.625rem;
+        min-width: 0;
+    }
+
+    .change-nation {
+        font-size: 0.8125rem;
+        font-weight: 480;
+        color: var(--weo-text-primary);
+        white-space: nowrap;
+        min-width: 100px;
+    }
+
+    .change-desc {
+        font-size: 0.75rem;
+        color: var(--weo-text-tertiary);
+        font-weight: 380;
+    }
+
+    .change-from {
+        color: var(--weo-text-muted);
+        opacity: 0.7;
+    }
+
+    .change-arrow {
+        color: var(--weo-text-muted);
+        font-size: 0.6875rem;
+        margin: 0 0.125rem;
+        opacity: 0.5;
+    }
+
+    .change-to {
+        font-weight: 440;
+    }
+
+    .change-to.to-western {
+        color: var(--weo-bloc-western);
+    }
+
+    .change-to.to-eastern {
+        color: var(--weo-bloc-eastern);
+    }
+
+    .changelog-footer {
+        padding: 0.625rem 1.25rem;
+        border-top: 1px solid var(--weo-border-primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .changelog-count {
+        font-family: var(--weo-font-mono);
+        font-size: 0.6875rem;
+        color: var(--weo-text-muted);
+        font-weight: 420;
+    }
+
+    .changelog-snapshot {
+        font-family: var(--weo-font-mono);
+        font-size: 0.6875rem;
+        color: var(--weo-text-muted);
+        font-weight: 420;
+    }
+
+    .snapshot-archive-link {
+        color: var(--weo-text-muted);
+        text-decoration: none;
+        font-size: 0.6875rem;
+        font-family: var(--weo-font-mono);
+        margin-left: var(--weo-space-sm);
+        opacity: 0.6;
+        transition: opacity var(--weo-duration-fast) var(--weo-ease-out), color var(--weo-duration-fast) var(--weo-ease-out);
+    }
+    .snapshot-archive-link:hover {
+        color: var(--weo-accent-hover);
+        opacity: 1;
+    }
+
+    .snapshot-separator {
+        padding: var(--weo-space-md);
+        font-size: 0.75rem;
+        color: var(--weo-text-muted);
+        font-style: italic;
+        border-top: 1px dashed var(--weo-border-primary);
+        margin-top: var(--weo-space-xs);
+    }
+
 </style>
 </head>
 <body>
@@ -1139,8 +1567,8 @@
             <a href="/">Map</a>
             <a href="atlas.html">Atlas</a>
             <a href="events.html">Events</a>
-            <a href="methodology.html">Methodology</a>
             <a href="blocs.html" class="active">Blocs</a>
+            <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
@@ -1156,6 +1584,7 @@
         <!-- Blocs Intro -->
         <div class="blocs-intro">
             <p>WEO identifies two AI infrastructure ecosystems, each anchored by a principal actor with full-stack capability. Every nation is classified by which ecosystem its AI infrastructure primarily operates within. Classification reflects demonstrated infrastructure alignment — hardware dependencies, compute partnerships, and regulatory coordination — not political rhetoric.</p>
+            <p style="margin-top: var(--weo-space-md);">The two ecosystems are defined by their respective Principal AI Actors — nations demonstrating sovereign capability across the full AI infrastructure stack. Each actor's ecosystem comprises the infrastructure dimensions through which other nations' AI capabilities are developed, deployed, and governed.</p>
         </div>
         
         <!-- Register Status Banner -->
@@ -1163,11 +1592,11 @@
             <div class="register-meta">
                 <div class="register-meta-item">
                     <span class="register-meta-label">Last Verified</span>
-                    <span class="register-meta-value">14 December 2025</span>
+                    <span class="register-meta-value">23 May 2026</span>
                 </div>
                 <div class="register-meta-item">
                     <span class="register-meta-label">Register Version</span>
-                    <span class="register-meta-value version">2025.12.14-001</span>
+                    <span class="register-meta-value version">2026.05.23-001</span>
                 </div>
                 <div class="register-meta-item">
                     <span class="register-meta-label">Document ID</span>
@@ -1185,20 +1614,111 @@
             <h2 class="section-title">Current Register Summary</h2>
             <div class="summary-grid">
                 <div class="summary-item western">
-                    <div class="summary-value western">37</div>
+                    <div class="summary-value western">42</div>
                     <div class="summary-label">Western Bloc</div>
                 </div>
                 <div class="summary-item eastern">
-                    <div class="summary-value eastern">10</div>
+                    <div class="summary-value eastern">11</div>
                     <div class="summary-label">Eastern Bloc</div>
                 </div>
                 <div class="summary-item non-aligned">
-                    <div class="summary-value non-aligned">12</div>
+                    <div class="summary-value non-aligned">9</div>
                     <div class="summary-label">Non-Aligned</div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- Changelog Card -->
+        <div class="changelog-card">
+            <div class="changelog-header">
+                <span class="changelog-title">Changes since Version 2025.12.14-001</span>
+                <span class="changelog-meta">23 May 2026</span>
+            </div>
+            <div class="changelog-body">
+                <div class="change-row">
+                    <div class="change-indicator western"></div>
+                    <div class="change-content">
+                        <span class="change-nation">India</span>
+                        <span class="change-desc">
+                            <span class="change-from">Non-Aligned</span>
+                            <span class="change-arrow">→</span>
+                            <span class="change-to to-western">Western (Engaged)</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator western"></div>
+                    <div class="change-content">
+                        <span class="change-nation">Qatar</span>
+                        <span class="change-desc">
+                            <span class="change-from">Unclassified</span>
+                            <span class="change-arrow">→</span>
+                            <span class="change-to to-western">Western (Integrated)</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator western"></div>
+                    <div class="change-content">
+                        <span class="change-nation">Philippines</span>
+                        <span class="change-desc">
+                            <span class="change-from">Non-Aligned</span>
+                            <span class="change-arrow">→</span>
+                            <span class="change-to to-western">Western (Engaged)</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator reinforced western-r"></div>
+                    <div class="change-content">
+                        <span class="change-nation">UAE</span>
+                        <span class="change-desc">
+                            <span class="change-from">Western (Integrated)</span>
+                            <span class="change-arrow">—</span>
+                            <span class="change-to" style="color: var(--weo-text-tertiary);">reinforced</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator reinforced western-r"></div>
+                    <div class="change-content">
+                        <span class="change-nation">Saudi Arabia</span>
+                        <span class="change-desc">
+                            <span class="change-from">Western (Integrated)</span>
+                            <span class="change-arrow">—</span>
+                            <span class="change-to" style="color: var(--weo-text-tertiary);">reinforced</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator reinforced western-r"></div>
+                    <div class="change-content">
+                        <span class="change-nation">Israel</span>
+                        <span class="change-desc">
+                            <span class="change-from">Western (Integrated)</span>
+                            <span class="change-arrow">—</span>
+                            <span class="change-to" style="color: var(--weo-text-tertiary);">reinforced</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="change-row">
+                    <div class="change-indicator reinforced eastern-r"></div>
+                    <div class="change-content">
+                        <span class="change-nation">Brazil</span>
+                        <span class="change-desc">
+                            <span class="change-from">Eastern (Peripheral)</span>
+                            <span class="change-arrow">—</span>
+                            <span class="change-to" style="color: var(--weo-text-tertiary);">reinforced</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="changelog-footer">
+                <span class="changelog-count">3 reclassifications · 4 reinforced</span>
+                <span class="changelog-snapshot">23 May 2026</span>
+            </div>
+        </div>
+
         <!-- Western Bloc Section -->
         <section class="section">
             <h2 class="section-title">Bloc Classifications</h2>
@@ -1210,22 +1730,22 @@
                         <span class="bloc-title">Western Bloc</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
-                        <span class="bloc-count western">37</span>
+                        <span class="bloc-count western">42</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </div>
                 </div>
                 <div class="bloc-content">
-                    
-                    <!-- Core Members -->
+
+                    <!-- Core -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Core Members</span>
+                            <span class="subcategory-title">Core</span>
                             <span class="subcategory-count">(34)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations with systematic, long-standing alignment on export controls, AI safety standards, and semiconductor supply chains. Classification is stable and does not require event-by-event reassessment.</p>
+                            <p>Structural, long-standing alignment across supply chain, governance, and policy. Removal would require fundamental reorientation of AI infrastructure dependencies.</p>
                         </div>
                         <div class="nation-list" style="margin-bottom: var(--weo-space-md);">
                             <span class="nation-tag">United States</span>
@@ -1246,21 +1766,21 @@
                             Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden
                         </div>
                     </div>
-                    
-                    <!-- Conditional Members -->
+
+                    <!-- Integrated -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Conditional Members</span>
-                            <span class="subcategory-count">(3)</span>
+                            <span class="subcategory-title">Integrated</span>
+                            <span class="subcategory-count">(4)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations that have moved into Western regulatory/technology orbit through specific agreements, partnerships, or conditional technology access. Status is contingent on continued compliance with conditions.</p>
+                            <p>Active participation through formal agreements or bilateral partnerships with compliance conditions.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
                                 <tr>
                                     <th>Nation</th>
-                                    <th>Date of Shift</th>
+                                    <th>Key Date</th>
                                     <th>Key Evidence</th>
                                     <th>Sources</th>
                                 </tr>
@@ -1269,47 +1789,60 @@
                                 <tr>
                                     <td class="nation-name">UAE</td>
                                     <td class="date-cell">Nov 2025</td>
-                                    <td>G42 divested Huawei; US approved 35,000 NVIDIA Blackwell chips; Microsoft $1.5B investment with IGAA conditions</td>
+                                    <td>G42 divested Huawei; US approved 35,000 NVIDIA Blackwell chips; Microsoft $1.5B investment with IGAA conditions; Pax Silica signatory (January 2026)</td>
                                     <td>
                                         <a href="https://www.cnbc.com/2025/11/20/us-approves-ai-chip-exports-to-gulf-after-saudi-crown-prince-visit.html" class="evidence-link" target="_blank" rel="noopener">[1]</a>
                                         <a href="https://www.thenationalnews.com/future/technology/2025/11/20/uae-ai-nvidia-chips-us/" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                        <a href="https://sciencebusiness.net/news/international-news/us-creates-tech-alliance-secure-ai-supply-chain-without-eu" class="evidence-link" target="_blank" rel="noopener">[3]</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="nation-name">Saudi Arabia</td>
                                     <td class="date-cell">Nov 2025</td>
-                                    <td>US approved chip exports to Humain/PIF entities; NVIDIA strategic partnership; SDAIA using IBM watsonx.ai</td>
+                                    <td>US approved chip exports to HUMAIN/PIF entities; NVIDIA strategic partnership; HUMAIN data centres Q2 2026 go-live (Riyadh, Dammam, 100MW each); not a Pax Silica signatory</td>
                                     <td>
                                         <a href="https://www.cnbc.com/2025/11/20/us-approves-ai-chip-exports-to-gulf-after-saudi-crown-prince-visit.html" class="evidence-link" target="_blank" rel="noopener">[1]</a>
                                         <a href="https://nvidianews.nvidia.com/news/saudi-arabia-and-nvidia-to-build-ai-factories-to-power-next-wave-of-intelligence-for-the-age-of-reasoning" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                        <a href="https://www.datacenterdynamics.com/en/news/humain-breaks-ground-two-data-centers-with-first-facilities-expected-to-go-live-in-q2-2026/" class="evidence-link" target="_blank" rel="noopener">[3]</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="nation-name">Israel</td>
                                     <td class="date-cell">Jul 2025</td>
-                                    <td>US-Israel AI & Energy MOU</td>
+                                    <td>US-Israel AI &amp; Energy MOU; Pax Silica signatory (January 2026); Fort Foundry One MOU — 4,000-acre US-Israeli AI/semiconductor technology park</td>
                                     <td>
                                         <a href="https://www.energy.gov/articles/us-and-israel-pledge-work-together-unleash-ai-innovation-new-memorandum-understanding" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://sciencebusiness.net/news/international-news/us-creates-tech-alliance-secure-ai-supply-chain-without-eu" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                        <a href="https://en.globes.co.il/en/article-us-tech-park-in-negev-may-have-nuclear-power-plant-1001533004" class="evidence-link" target="_blank" rel="noopener">[3]</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Qatar</td>
+                                    <td class="date-cell">Jan 2026</td>
+                                    <td>Pax Silica signatory (12 January 2026); Country Group D:4 conditional export review</td>
+                                    <td>
+                                        <a href="https://www.state.gov/releases/office-of-the-spokesperson/2026/01/the-united-states-welcomes-qatars-signing-of-pax-silica-declaration" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://sciencebusiness.net/news/international-news/us-creates-tech-alliance-secure-ai-supply-chain-without-eu" class="evidence-link" target="_blank" rel="noopener">[2]</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table></div></div>
                     </div>
-                    
-                    <!-- Functional Members -->
+
+                    <!-- Engaged -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Functional Members</span>
-                            <span class="subcategory-count">(1)</span>
+                            <span class="subcategory-title">Engaged</span>
+                            <span class="subcategory-count">(3)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations with de facto alignment through governance participation and technology choices, without formal conditional access agreements.</p>
+                            <p>De facto participation through technology choices and governance activities, without formal bilateral conditions.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
                                 <tr>
                                     <th>Nation</th>
-                                    <th>Date of Shift</th>
+                                    <th>Key Date</th>
                                     <th>Key Evidence</th>
                                     <th>Sources</th>
                                 </tr>
@@ -1318,29 +1851,47 @@
                                 <tr>
                                     <td class="nation-name">Singapore</td>
                                     <td class="date-cell">Nov 2024</td>
-                                    <td>AI Safety Institute Network founding member; NVIDIA/Google/Microsoft infrastructure dominance</td>
+                                    <td>AI Safety Institute Network founding member; Pax Silica founding signatory; NVIDIA/Google/Microsoft infrastructure dominance</td>
                                     <td>
                                         <a href="https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/digital-trust-centre" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">India</td>
+                                    <td class="date-cell">Feb 2026</td>
+                                    <td>Pax Silica signatory (20 February 2026); Micron Sanand ATMP facility in commercial production</td>
+                                    <td>
+                                        <a href="https://www.state.gov/releases/office-of-the-spokesperson/2026/02/united-states-and-india-sign-pax-silica-declaration" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://www.computerweekly.com/news/366639653/Micron-opens-275bn-chip-assembly-plant-in-India" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Philippines</td>
+                                    <td class="date-cell">Apr 2026</td>
+                                    <td>Pax Silica signatory (16 April 2026); 4,000-acre Economic Security Zone designated at New Clark City</td>
+                                    <td>
+                                        <a href="https://www.state.gov/releases/office-of-the-spokesperson/2026/04/the-united-states-and-the-philippines-launch-plans-for-4000-acre-economic-security-zone" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://bcda.gov.ph/news/new-clark-city-serve-ai-hub-under-us-led-pax-silica-initiative" class="evidence-link" target="_blank" rel="noopener">[2]</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table></div></div>
                     </div>
-                    
-                    <!-- Governance Members -->
+
+                    <!-- Peripheral -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Governance Members</span>
+                            <span class="subcategory-title">Peripheral</span>
                             <span class="subcategory-count">(1)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations participating in Western-led governance frameworks without significant technology infrastructure alignment.</p>
+                            <p>Limited, recent, or single-vector connection to the bloc's ecosystem.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
                                 <tr>
                                     <th>Nation</th>
-                                    <th>Date of Shift</th>
+                                    <th>Key Date</th>
                                     <th>Key Evidence</th>
                                     <th>Sources</th>
                                 </tr>
@@ -1357,10 +1908,10 @@
                             </tbody>
                         </table></div></div>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
             <!-- Eastern Bloc Section -->
             <div class="bloc-section" id="eastern-bloc" data-bloc="eastern">
                 <div class="bloc-header" onclick="toggleBloc('eastern-bloc')">
@@ -1369,22 +1920,22 @@
                         <span class="bloc-title">Eastern Bloc</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
-                        <span class="bloc-count eastern">10</span>
+                        <span class="bloc-count eastern">11</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </div>
                 </div>
                 <div class="bloc-content">
-                    
-                    <!-- Core Members -->
+
+                    <!-- Core -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Core Members</span>
+                            <span class="subcategory-title">Core</span>
                             <span class="subcategory-count">(2)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations forming the core of the alternative technology governance and supply chain ecosystem.</p>
+                            <p>Structural, long-standing alignment across supply chain, governance, and policy. Removal would require fundamental reorientation of AI infrastructure dependencies.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
@@ -1405,52 +1956,44 @@
                             </tbody>
                         </table></div></div>
                     </div>
-                    
-                    <!-- Aligned Members -->
+
+                    <!-- Integrated -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Aligned Members</span>
-                            <span class="subcategory-count">(3)</span>
+                            <span class="subcategory-title">Integrated</span>
+                            <span class="subcategory-count">(2)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations with formal political/military alignment to Eastern Bloc core members.</p>
+                            <p>Active participation through formal agreements or bilateral partnerships with compliance conditions.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
                                 <tr>
                                     <th>Nation</th>
-                                    <th>Category</th>
                                     <th>Key Evidence</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="nation-name">Belarus</td>
-                                    <td>Aligned</td>
                                     <td>Russia-aligned; Union State integration</td>
                                 </tr>
                                 <tr>
-                                    <td class="nation-name">North Korea</td>
-                                    <td>Aligned (Sanctioned)</td>
-                                    <td>Fully dependent on Chinese/Russian tech transfers; sanctions bypass</td>
-                                </tr>
-                                <tr>
                                     <td class="nation-name">Iran</td>
-                                    <td>Aligned (Sanctioned)</td>
                                     <td>Defence tech transfers; sanctions bypass cooperation</td>
                                 </tr>
                             </tbody>
                         </table></div></div>
                     </div>
-                    
-                    <!-- Dependent Members -->
+
+                    <!-- Engaged -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Dependent Members</span>
-                            <span class="subcategory-count">(5)</span>
+                            <span class="subcategory-title">Engaged</span>
+                            <span class="subcategory-count">(3)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations with deep Huawei/ZTE or Chinese infrastructure dependency creating high switching costs, even without formal political alignment.</p>
+                            <p>De facto participation through technology choices and governance activities, without formal bilateral conditions.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
@@ -1472,52 +2015,59 @@
                                     <td class="nation-name">Pakistan</td>
                                     <td>CPEC; Huawei/ZTE infrastructure lock-in</td>
                                 </tr>
-                                <tr>
-                                    <td class="nation-name">Egypt</td>
-                                    <td>Smart city/surveillance tech; Digital Silk Road MoUs</td>
-                                </tr>
-                                <tr>
-                                    <td class="nation-name">Ethiopia</td>
-                                    <td>Huawei/ZTE telecom infrastructure</td>
-                                </tr>
                             </tbody>
                         </table></div></div>
                     </div>
-                    
-                    <!-- Leaning Members -->
+
+                    <!-- Peripheral -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Leaning Members</span>
-                            <span class="subcategory-count">(1)</span>
+                            <span class="subcategory-title">Peripheral</span>
+                            <span class="subcategory-count">(4)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
-                            <p>Nations that have made significant moves toward Eastern Bloc technology alignment but have not fully committed.</p>
+                            <p>Limited, recent, or single-vector connection to the bloc's ecosystem.</p>
                         </div>
                         <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div><div class="table-scroll-wrapper"><table class="nation-table">
                             <thead>
                                 <tr>
                                     <th>Nation</th>
-                                    <th>Date of Shift</th>
                                     <th>Key Evidence</th>
                                     <th>Sources</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td class="nation-name">North Korea</td>
+                                    <td>Fully dependent on Chinese/Russian tech transfers; sanctions bypass</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Egypt</td>
+                                    <td>Smart city/surveillance tech; Digital Silk Road MoUs</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="nation-name">Ethiopia</td>
+                                    <td>Huawei/ZTE telecom infrastructure</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td class="nation-name">Brazil</td>
-                                    <td class="date-cell">Jul 2025</td>
-                                    <td>BRICS Rio de Janeiro Declaration</td>
+                                    <td>BRICS Rio de Janeiro Declaration; Serpro-iFlytek AI cooperation protocol (April 2026); Anatel authorised SpaceSail (Chinese LEO constellation) for commercial services (February 2026)</td>
                                     <td>
                                         <a href="https://www.mea.gov.in/bilateral-documents.htm?dtl%2F39770" class="evidence-link" target="_blank" rel="noopener">[1]</a>
+                                        <a href="https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias/2026/04/mcti-firma-parceria-com-serpro-e-empresa-chinesa-para-desenvolvimento-de-inteligencia-artificial-no-brasil" class="evidence-link" target="_blank" rel="noopener">[2]</a>
+                                        <a href="https://www.chinadaily.com.cn/a/202602/28/WS69a2e2c9a310d6866eb3adef.html" class="evidence-link" target="_blank" rel="noopener">[3]</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table></div></div>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
             <!-- Non-Aligned Section -->
             <div class="bloc-section" id="non-aligned" data-bloc="cross">
                 <div class="bloc-header" onclick="toggleBloc('non-aligned')">
@@ -1526,7 +2076,7 @@
                         <span class="bloc-title">Non-Aligned</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
-                        <span class="bloc-count non-aligned">12</span>
+                        <span class="bloc-count non-aligned">9</span>
                         <svg class="bloc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
@@ -1546,11 +2096,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="nation-name">India</td>
-                                <td>Western-leaning (Hardware)</td>
-                                <td>Micron/Tata chip production; iCET partnership; BUT BRICS member</td>
-                            </tr>
                             <tr>
                                 <td class="nation-name">Indonesia</td>
                                 <td>True Hedging</td>
@@ -1596,16 +2141,6 @@
                                 <td>Undetermined</td>
                                 <td>Largest African economy; mixed infrastructure</td>
                             </tr>
-                            <tr>
-                                <td class="nation-name">Philippines</td>
-                                <td>Western-leaning</td>
-                                <td>US alliance strengthening</td>
-                            </tr>
-                            <tr>
-                                <td class="nation-name">New Zealand</td>
-                                <td>Western-leaning</td>
-                                <td>Five Eyes member; AISI Network participant</td>
-                            </tr>
                         </tbody>
                     </table></div></div>
                 </div>
@@ -1641,31 +2176,257 @@
             </div>
         </section>
         
+        <!-- Actor Capability Profiles -->
+        <section class="section scp-section">
+            <h2 class="section-title">Actor Capability Profiles</h2>
+            <div class="card">
+                <p class="scp-intro">The actor capability framework assesses sovereign control across seven dimensions of the AI infrastructure stack. Two actors qualify as principal actors — anchoring the Western and Eastern ecosystems respectively. The remaining actors are classified by the depth and independence of their capabilities within those ecosystems.</p>
+
+                <div class="scp-legend" role="list" aria-label="Designation categories">
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-paa">PAA</span> Principal Actor</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-aik">AIK</span> Critical Node</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-acs">ACS</span> Ecosystem-Coupled</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-part">PRT</span> Participant</div>
+                </div>
+
+                <div class="scp-dim-key" style="display: flex; flex-wrap: wrap; gap: 4px 16px;">
+                    <span><span class="scp-dim-hw">D1</span> Chip Design</span>
+                    <span><span class="scp-dim-hw">D2</span> Fabrication</span>
+                    <span><span class="scp-dim-hw">D3</span> Equipment</span>
+                    <span><span class="scp-dim-pl">D4</span> Compute</span>
+                    <span><span class="scp-dim-pl">D5</span> Models</span>
+                    <span><span class="scp-dim-gv">D6</span> Regulation</span>
+                    <span><span class="scp-dim-gv">D7</span> Investment</span>
+                </div>
+
+                <div class="scp-table-wrap" tabindex="0" role="region" aria-label="Actor capability heatmap">
+                    <table class="scp-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Actor</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col" class="scp-col-hw scp-group-start" title="AI Chip Design">D1</th>
+                                <th scope="col" class="scp-col-hw" title="Advanced Fabrication">D2</th>
+                                <th scope="col" class="scp-col-hw" title="Critical Equipment">D3</th>
+                                <th scope="col" class="scp-col-pl scp-group-start" title="Cloud AI Compute">D4</th>
+                                <th scope="col" class="scp-col-pl" title="Frontier Models">D5</th>
+                                <th scope="col" class="scp-col-gv scp-group-start" title="AI Regulation">D6</th>
+                                <th scope="col" class="scp-col-gv" title="Sovereign Investment">D7</th>
+                                <th scope="col" class="scp-col-score">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>United States</span></td>
+                                <td><span class="scp-badge scp-badge-paa">PAA</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">7/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot eastern"></span>China</span></td>
+                                <td><span class="scp-badge scp-badge-paa">PAA</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">6/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Japan</span></td>
+                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">4/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>South Korea</span></td>
+                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">4/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>European Union</span></td>
+                                <td><span class="scp-badge scp-badge-acs">ACS</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">4/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Taiwan</span></td>
+                                <td><span class="scp-badge scp-badge-acs">ACS</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">3/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Netherlands</span></td>
+                                <td><span class="scp-badge scp-badge-aik">AIK</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">3/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>France</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">2/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Germany</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-met">✓</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-col-score">2/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>United Kingdom</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">1/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>India</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-col-score">1/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Israel</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-met">✓</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-col-score">1/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot eastern"></span>Russia</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-col-score">0/7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="scp-actor-name"><span class="scp-bloc-dot western"></span>Canada</span></td>
+                                <td><span class="scp-badge scp-badge-part">PRT</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-group-start"><span class="scp-not">·</span></td>
+                                <td><span class="scp-not">·</span></td>
+                                <td class="scp-col-score">0/7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="scp-disclaimer">
+                    <span>Assessment date: May 2026 · Batch 1 (14 actors) · Methodology V1.4</span>
+                    <span>The interactive panel on the Map provides full dimension detail, qualification evidence, and source references for each actor. <a href="index.html">Explore on Map →</a></span>
+                </div>
+            </div>
+        </section>
+
         <!-- Snapshot History -->
         <section class="section">
             <h2 class="section-title">Snapshot History</h2>
             <div class="card">
                 <div class="snapshot-list">
                     <div class="snapshot-item current">
-                        <span class="snapshot-date">14 Dec 2025</span>
-                        <span class="snapshot-label current">Current Register (Version 2025.12.14-001)</span>
+                        <span class="snapshot-date">23 May 2026</span>
+                        <span class="snapshot-label current">Current Register (2026.05.23-001)</span>
                         <span class="snapshot-badge">Active</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">14 Dec 2025</span>
+                        <span class="snapshot-label">Version 2025.12.14-001 — Verification snapshot (no classification changes) <a href="https://web.archive.org/web/20260510101058/https://www.warmthengine.com/blocs.html" class="snapshot-archive-link" target="_blank" rel="noopener">[Archive]</a></span>
                     </div>
                     <div class="snapshot-item">
                         <span class="snapshot-date">30 Nov 2025</span>
                         <span class="snapshot-label">Version 2025.11.30-001 — Initial register creation</span>
                     </div>
-                    <div class="snapshot-item">
-                        <span class="snapshot-date">20 Nov 2025</span>
-                        <span class="snapshot-label">UAE, Saudi Arabia → Western Bloc (Conditional)</span>
+                    <div class="snapshot-separator">
+                        The following classification decisions predate the formal register and were incorporated into the initial register state on 30 November 2025.
                     </div>
                     <div class="snapshot-item">
-                        <span class="snapshot-date">Nov 2024</span>
-                        <span class="snapshot-label">Singapore → Western Bloc (Functional); Kenya → Western Bloc (Governance)</span>
+                        <span class="snapshot-date">20 Nov 2025</span>
+                        <span class="snapshot-label">UAE, Saudi Arabia → Western Bloc (Integrated)</span>
                     </div>
                     <div class="snapshot-item">
                         <span class="snapshot-date">Jul 2025</span>
-                        <span class="snapshot-label">Brazil → Eastern Bloc (Leaning); Israel → Western Bloc (Conditional)</span>
+                        <span class="snapshot-label">Brazil → Eastern Bloc (Peripheral); Israel → Western Bloc (Integrated)</span>
+                    </div>
+                    <div class="snapshot-item">
+                        <span class="snapshot-date">Nov 2024</span>
+                        <span class="snapshot-label">Singapore → Western Bloc (Engaged); Kenya → Western Bloc (Peripheral)</span>
                     </div>
                 </div>
                 
@@ -1703,7 +2464,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>

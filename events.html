@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Verified AI infrastructure coordination events classified by tier, domain, and bloc with industry tags.">
     <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <title>Events Database — Warmth Engine Observatory</title>
     <meta name="description" content="WEO event database — verified AI infrastructure coordination events classified by tier, domain, and bloc with industry and environmental nexus tags. Filter, search, and explore coordination dynamics.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO events, AI infrastructure events, coordination database, Event Type, tier classification, domain classification, industry tags, verified events, geopolitical coordination, Coordination Connections">
@@ -205,6 +205,7 @@
           background: rgba(45, 212, 191, 0.1);
         }
 
+
         /* Mobile hamburger */
         .weo-nav-toggle {
           display: none;
@@ -276,6 +277,7 @@
             min-width: 44px;
             min-height: 44px;
           }
+
         }
 
         .page-header { margin-bottom: var(--weo-space-xl); padding-bottom: var(--weo-space-lg); border-bottom: 1px solid var(--weo-border-primary); }
@@ -3080,21 +3082,21 @@
     <!-- SVG Icon Definitions -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <!-- Infrastructure: server -->
-        <symbol id="icon-infrastructure" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <symbol id="icon-infrastructure" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
             <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
             <line x1="6" x2="6.01" y1="6" y2="6"/>
             <line x1="6" x2="6.01" y1="18" y2="18"/>
         </symbol>
         <!-- Policy: scroll-text -->
-        <symbol id="icon-policy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <symbol id="icon-policy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M15 12h-5"/>
             <path d="M15 8h-5"/>
             <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
             <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>
         </symbol>
         <!-- Coordination: share-2 -->
-        <symbol id="icon-coordination" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <symbol id="icon-coordination" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="18" cy="5" r="3"/>
             <circle cx="6" cy="12" r="3"/>
             <circle cx="18" cy="19" r="3"/>
@@ -3102,7 +3104,7 @@
             <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>
         </symbol>
         <!-- Corporate: briefcase -->
-        <symbol id="icon-corporate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <symbol id="icon-corporate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
             <rect width="20" height="14" x="2" y="6" rx="2"/>
         </symbol>
@@ -3130,16 +3132,16 @@
             <a href="/">Map</a>
             <a href="atlas.html">Atlas</a>
             <a href="events.html" class="active">Events</a>
-            <a href="methodology.html">Methodology</a>
             <a href="blocs.html">Blocs</a>
+            <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
           </div>
         <button class="supporter-access-btn" onclick="openAccessModal()">
-            <span class="icon">🔒</span>
+            <span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
             <span class="text-locked">Supporter Access</span>
-            <span class="text-unlocked">✓ Full Access</span>
+            <span class="text-unlocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Full Access</span>
           </button>
           </nav>
         <header class="page-header">
@@ -3166,7 +3168,7 @@
         <div class="cc-summary" id="cc-summary">
             <div class="cc-summary-header" onclick="toggleCCSummary()" aria-expanded="false" aria-controls="cc-summary-content">
                 <div class="cc-summary-left">
-                    <svg class="cc-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="cc-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="18" cy="5" r="3"/>
                         <circle cx="6" cy="12" r="3"/>
                         <circle cx="18" cy="19" r="3"/>
@@ -3175,7 +3177,7 @@
                     </svg>
                     <div class="cc-summary-title"><span id="cc-total-count"></span> Coordination Connections mapped</div>
                 </div>
-                <svg class="cc-summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="cc-summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </div>
@@ -3204,7 +3206,7 @@
         <div class="cov-panel" id="cov-panel">
             <div class="cov-panel-header" onclick="toggleCovPanel()" aria-expanded="false" aria-controls="cov-panel-content">
                 <div class="cov-panel-left">
-                    <svg class="cov-panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="cov-panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
@@ -3215,7 +3217,7 @@
                         <span class="cov-panel-dot" style="background:#94A3B8;"></span>
                     </div>
                 </div>
-                <svg class="cov-panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="cov-panel-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </div>
@@ -3235,7 +3237,7 @@
 
                     <div class="cov-grid-cell cov-domain" style="border-left:2px solid #F59E0B;"><span class="cov-domain-full">Energy / Infrastructure</span><span class="cov-domain-short">Energy / Infra</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
-                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
+                    <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
                     <div class="cov-grid-cell cov-count" id="cov-n-ei">32</div>
 
@@ -3252,12 +3254,19 @@
                     <div class="cov-grid-cell cov-count" id="cov-n-trade">5</div>
                 </div>
                 <div class="cov-panel-footer">
-                    <div class="cov-info-popover" id="cov-info-popover">WEO's documentation-based verification applies consistently across all blocs and domains. Coverage varies because documentation accessibility varies — some regulatory landscapes produce denser public records than others, and classified activity is excluded from scope across all blocs. Event counts in less-documented areas represent conservative lower bounds, not the full extent of AI infrastructure activity.</div>
+                    <div class="cov-info-popover" id="cov-info-popover">WEO's documentation-based verification standard applies consistently across all blocs. Coverage distribution reflects structural properties of the global AI documentation landscape: multilateral coordination frameworks, regulatory disclosure conventions, and infrastructure documentation practices vary across jurisdictions and institutional cultures. Cross-language verification workflows extend source reach beyond English-language documentation, but event counts in any bloc or domain represent conservative lower bounds on AI infrastructure coordination activity, bounded by documentation accessibility rather than event occurrence.</div>
                     Coverage confidence reflects WEO's assessment of documentation accessibility per domain and bloc, based on methodology analysis and observed discovery patterns. Event counts update with the database; confidence designations are reviewed at methodology milestones. <span class="cov-info-trigger" onclick="document.getElementById('cov-info-popover').classList.toggle('visible')">Why does coverage vary?</span>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Data Currency Statement -->
+        <div style="margin: 20px 0 24px 0; padding: 16px 20px; font-size: 13.5px; line-height: 1.65; color: #CBD5E1; border-left: 2px solid #334155;">
+            <div style="font-size: 12px; font-weight: 580; color: #94A3B8; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px;">Data Currency and Corrections</div>
+            <p style="margin: 0 0 10px 0;">Event data is verified against primary and corroborating sources at the time of entry and during periodic corpus-wide audits. Source authorities may revise published figures after initial release, and operational metrics — capacity, participation, investment — evolve after implementation. Where corrections are identified through internal audit, source revision, or external reporting, events are updated with documented correction histories.</p>
+            <p style="margin: 0; font-size: 12.5px; color: #94A3B8;">Users identifying potential inaccuracies are invited to contact <a href="mailto:warmthengine@proton.me" style="color: #60A5FA; text-decoration: none;">warmthengine@proton.me</a> with the event ID and supporting evidence.</p>
+        </div>
+
         <div class="filters">
             <div class="filter-group"><span class="filter-label">Bloc</span>
                 <select class="filter-select" id="filter-bloc"><option value="all">All Blocs</option><option value="Western">Western</option><option value="Eastern">Eastern</option><option value="Cross-Bloc">Cross-Bloc</option><option value="Western-Led">Western-Led</option><option value="Eastern-Led">Eastern-Led</option></select>
@@ -3302,7 +3311,7 @@
                 </select>
             </div>
             <input type="text" class="search-input" id="search-input" placeholder="Search events..." autocomplete="off">
-            <div class="sample-legend"><span class="sample-legend-icon">★</span><span>Sample events with full analysis</span></div>
+            <div class="sample-legend"><span class="sample-legend-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span>Sample events with full analysis</span></div>
         </div>
         <div class="table-scroll-container">
             <div class="table-scroll-indicator left" id="table-scroll-left"><span class="table-scroll-chevrons">‹‹‹</span></div>
@@ -3334,7 +3343,7 @@
         </div>
         <p class="table-note">Event IDs are permanent identifiers. Gaps in numbering reflect events removed during verification or due to subsequent resolution.</p>
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
@@ -3358,6 +3367,13 @@
         </div>
     </div>
 <script>
+    const WEO_ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    const WEO_ICON_CROSS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    const WEO_ICON_LOCK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+    const WEO_ICON_KEY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>';
+    const WEO_ICON_ALERT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    const WEO_ICON_STAR = '<svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
     // Tooltip state — declared early to avoid reference errors in openModal click handlers
     let tooltipTimeout = null;
     let activeTooltipTrigger = null;
@@ -3370,7 +3386,7 @@
     const WEO_DB = {
       event_count: 134,
       cc_count: 107,
-      last_updated: "2026-05-08",
+      last_updated: "2026-05-23",
       db_version: "1.5.0"
     };
 
@@ -3494,6 +3510,7 @@ async function loadWEOData(password) {
     if (eventsRes.ok) {
       const eventsJson = await eventsRes.json();
       apiEvents = eventsJson.events || [];
+      if (eventsJson.metadata && eventsJson.metadata.last_updated) WEO_DB.last_updated = eventsJson.metadata.last_updated;
       console.log('[WEO] Events loaded from API:', apiEvents.length);
     }
     if (connectionsRes.ok) {
@@ -3512,6 +3529,7 @@ async function loadWEOData(password) {
       if (fallbackRes.ok) {
         const fallbackJson = await fallbackRes.json();
         apiEvents = fallbackJson.events || [];
+        if (fallbackJson.metadata && fallbackJson.metadata.last_updated) WEO_DB.last_updated = fallbackJson.metadata.last_updated;
         console.log('[WEO] Events loaded from fallback:', apiEvents.length);
       }
     } catch (err) {
@@ -4365,7 +4383,7 @@ function generateEvidencePanel(conn) {
       if (ca[criterion]) {
         const c = ca[criterion];
         const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
-        const statusIcon = c.met === true ? '✓' : (c.met === 'partial' ? '◐' : '○');
+        const statusIcon = c.met === true ? WEO_ICON_CHECK : (c.met === 'partial' ? '◐' : '○');
         const hasEvidence = c.evidence && c.evidence.length > 0;
         
         html += '<div class="cc-criterion' + (hasEvidence ? ' has-evidence' : '') + '"' + (hasEvidence ? ' onclick="this.classList.toggle(\'expanded\')"' : '') + '>';
@@ -4757,7 +4775,7 @@ function generateCCItemFreeTier(conn, displayEventId, displayEventName, currentE
   html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + conn.confidence + '</span>' + confidenceTooltip + '</span>';
   // Locked expand indicator — same toggle pattern as the paid version,
   // different glyph and target panel.
-  html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); var w=this.closest(\'.cc-item-wrapper\'); w.classList.toggle(\'expanded\'); var ci=w.querySelector(\'.cc-item.expandable\'); if(ci) ci.setAttribute(\'aria-expanded\', w.classList.contains(\'expanded\'))" title="Evidence available with Analyst access">🔒</span>';
+  html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); var w=this.closest(\'.cc-item-wrapper\'); w.classList.toggle(\'expanded\'); var ci=w.querySelector(\'.cc-item.expandable\'); if(ci) ci.setAttribute(\'aria-expanded\', w.classList.contains(\'expanded\'))" title="Evidence available with Analyst access">' + WEO_ICON_LOCK + '</span>';
   html += '</div>';
   // Locked evidence panel (manual §9.3.3 field names verbatim).
   html += '<div class="cc-evidence-panel cc-evidence-panel-locked"><div class="cc-evidence-locked-msg">Evidence sources, citation text, and analyst notes available with Analyst access.<br><a href="support.html" onclick="event.stopPropagation();">Subscribe →</a></div></div>';
@@ -4791,7 +4809,7 @@ const renderTable = () => {
         return `
         <tr class="${e.is_sample_event?'sample-event':''}" data-id="${e.event_id}">
             <td style="font-family:var(--weo-font-mono);color:var(--weo-text-muted);">${e.event_id}</td>
-            <td><div class="event-name-cell"><span class="event-name">${e.event_name}</span>${e.is_sample_event?'<span class="sample-star">★</span>':''}</div></td>
+            <td><div class="event-name-cell"><span class="event-name">${e.event_name}</span>${e.is_sample_event?'<span class="sample-star">'+WEO_ICON_STAR+'</span>':''}</div></td>
             <td><div class="type-icon-cell" title="${e.event_type}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
             <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${e.tier}</span></td>
@@ -4800,7 +4818,7 @@ const renderTable = () => {
             <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + getIndTags(e.event_id).secondary.map(s => s.tag).join(', ') + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
             <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + ents.map(function(t){return t.name||t.type}).join(', ') + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
             <td><span class="cc-count ${ccClass}">${cc}</span></td>
-            <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">✓</span>`).join('')}</div></td>
+            <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">${WEO_ICON_CHECK}</span>`).join('')}</div></td>
             <td><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span></td>
             <td class="source-count">${e.source_count_primary}P+${e.source_count_corroborating}C</td>
         </tr>`;
@@ -5002,9 +5020,9 @@ const openModal = (id) => {
     }
     
     if (isSample) {
-        html += '<div class="sample-notice"><span>★</span><span>Sample event with full analysis available to all users</span></div>';
+        html += '<div class="sample-notice"><span>' + WEO_ICON_STAR + '</span><span>Sample event with full analysis available to all users</span></div>';
     } else if (isAuthenticated) {
-        html += '<div class="sample-notice" style="background:rgba(45,212,191,0.1);border-color:rgba(45,212,191,0.3);"><span style="color:#2DD4BF;">✓</span><span>Full Analyst access</span></div>';
+        html += '<div class="sample-notice" style="background:rgba(45,212,191,0.1);border-color:rgba(45,212,191,0.3);"><span>' + WEO_ICON_CHECK + '</span><span>Full Analyst access</span></div>';
     }
     
     // Overview Section (FREE) - Description first, then data rows (harmonised with index.html)
@@ -5031,7 +5049,7 @@ const openModal = (id) => {
                     <div class="basel-grid">
                         ${full.basel_factors.map(f=>`
                             <div class="basel-factor">
-                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
+                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
                                 <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
@@ -5050,7 +5068,7 @@ const openModal = (id) => {
                     <div class="basel-grid">
                         ${full.keohane_factors.map(f=>`
                             <div class="basel-factor">
-                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
+                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
                                 <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
@@ -5068,7 +5086,7 @@ const openModal = (id) => {
                     <div class="basel-grid">
                         ${full.pisa5_factors.map(f=>`
                             <div class="basel-factor">
-                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
+                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
                                 <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
@@ -5093,7 +5111,7 @@ const openModal = (id) => {
                             <div class="basel-grid">
                                 ${full.tiebreaker.assessment.map(tb=>`
                                     <div class="basel-factor">
-                                        <span class="basel-status ${tb.pass?'pass':'fail'}">${tb.pass?'✅':'❌'}</span>
+                                        <span class="basel-status ${tb.pass?'pass':'fail'}">${tb.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
                                         <div><span class="basel-factor-name">${tb.criterion.replace(/^TB\d+:\s*/, '')}:</span> <span class="basel-rationale">${tb.rationale}</span></div>
                                     </div>
                                 `).join('')}
@@ -5122,7 +5140,7 @@ const openModal = (id) => {
                     <div class="basel-grid">
                         ${full.route_based_factors.map(f=>`
                             <div class="basel-factor">
-                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?'✅':'❌'}</span>
+                                <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
                                 <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
                             </div>
                         `).join('')}
@@ -5162,7 +5180,7 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">
                     <div style="font-size:0.75rem;font-weight:600;color:var(--weo-text-muted,#94A3B8);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>
                     ${full.ecosystem_implementation.map(function(ei) {
-                        const icon = ei.implemented ? '✅' : '✗';
+                        const icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
                         const nameColor = ei.implemented ? '#2DD4BF' : 'var(--weo-text-muted,#94A3B8)';
                         const evidenceColor = 'var(--weo-text-secondary,#CBD5E1)';
                         return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:' + evidenceColor + ';">' + (ei.evidence || '') + '</span></div>';
@@ -5215,10 +5233,10 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(full && (full.ai_connection_pathway === 'piet' || full.ai_connection_pathway === 'oep')) ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?'✅':'❌'} AI Connection Verified</span>` : ''}
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?'✅':'❌'} Quantitative Threshold Met</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?'✅':'❌'} Implementation Evidence Confirmed</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?'✅':'❌'} Active Status Confirmed</span>
+                        ${!(full && (full.ai_connection_pathway === 'piet' || full.ai_connection_pathway === 'oep')) ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>` : ''}
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold Met</span>
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence Confirmed</span>
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status Confirmed</span>
                     </div>
                     ${full && full.piet ? (() => {
                         const p = full.piet;
@@ -5241,7 +5259,7 @@ const openModal = (id) => {
                             <div class="piet-detail-panel">
                                 ${p.gates.map((g, gi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
-                                        <span class="${g.pass ? 'gate-pass' : 'gate-fail'}">${g.pass ? '✓' : '✗'}</span>
+                                        <span class="${g.pass ? 'gate-pass' : 'gate-fail'}">${g.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>
                                         <span><span class="gate-name">${g.factor}:</span> <span class="gate-metric">${g.summary || g.rationale.substring(0, 80) + '…'}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
@@ -5294,7 +5312,7 @@ const openModal = (id) => {
                             <div class="piet-detail-panel">
                                 ${o.pathways.map((pw, pi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
-                                        <span class="${pw.pass ? 'gate-pass' : 'gate-fail'}">${pw.pass ? '✓' : '✗'}</span>
+                                        <span class="${pw.pass ? 'gate-pass' : 'gate-fail'}">${pw.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>
                                         <span><span class="gate-name">${pw.factor}:</span> <span class="gate-metric">${pw.summary || pw.rationale.substring(0, 80) + '…'}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
@@ -5477,10 +5495,10 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep') ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?'✅':'❌'} AI Connection</span>` : ''}
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?'✅':'❌'} Quantitative Threshold</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?'✅':'❌'} Implementation Evidence</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?'✅':'❌'} Active Status</span>
+                        ${!(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep') ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>` : ''}
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold</span>
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence</span>
+                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status</span>
                     </div>
                     ${(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep') ? `<div style="margin-top:1rem;margin-bottom:0.25rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div><span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.ai_detail || (e.ai_connection_pathway === 'piet' ? 'PIET' : 'OEP')}</span>` : ''}
                 </div>
@@ -5551,7 +5569,7 @@ const openModal = (id) => {
                         Already a subscriber? <a href="#" onclick="event.preventDefault(); closeModal(); openAccessModal();" style="color:#F59E0B;">Enter access code</a>
                     </div>
                     <div style="margin-top:0.5rem;font-size:0.75rem;color:var(--weo-text-muted);">
-                        ★ See full analysis on sample events: 01, 04, 06, 14, 22, 91
+                        ${WEO_ICON_STAR} See full analysis on sample events: 01, 04, 06, 14, 22, 91
                     </div>
                 </div>
             `;
@@ -6113,7 +6131,7 @@ if (navToggle && navLinks) {
     <div class="access-modal">
       <div id="accessLoginState">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span>🔑</span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Supporter Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
@@ -6121,18 +6139,18 @@ if (navToggle && navLinks) {
             <label class="access-input-label">Access Code</label>
             <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access code" onkeydown="if(event.key==='Enter')checkAccess()">
           </div>
-          <div class="access-error" id="accessError"><span>⚠</span><span>Invalid access code.</span></div>
+          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access code.</span></div>
           <button class="access-submit" onclick="checkAccess()">Unlock Access</button>
         </div>
         <div class="access-modal-footer">Not a supporter? <a href="support.html">Subscribe here</a></div>
       </div>
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span>✓</span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Supporter Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
-          <div class="status-icon">✓</div>
+          <div class="status-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <div class="status-text">Full Access Active</div>
           <div class="status-detail">You have access to all event analysis.</div>
           <button class="access-logout" onclick="logoutAccess()">Sign Out</button>

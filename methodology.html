@@ -6,9 +6,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <title>Methodology — Warmth Engine Observatory</title>
-    <meta name="description" content="WEO V1.3 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, Environmental Nexus Tags, the Warmth Engine Ratio, and coordination connections.">
+    <meta name="description" content="WEO V1.4 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, Environmental Nexus Tags, the Warmth Engine Ratio, and coordination connections.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO methodology, event verification, significance assessment, tier classification, domain classification, Coordination Connections, Environmental Nexus Tags, Warmth Engine Ratio, Basel 5-Factor, PISA-5, Keohane Pre-Filter, gold standard verification">
     
     <!-- Open Graph -->
@@ -79,17 +79,17 @@
            METHODOLOGY PAGE R8 — Public-Facing Methodology Summary
            Observatory Palette (Slate-Blue) — Platform Documentation
            
-           Aligned with WEO Methodology Manual V1.3 (9-chapter structure)
+           Aligned with WEO Methodology Manual V1.4 (9-chapter structure)
            Gauge scoring and spillover mechanics deferred to V2.2+
            
            Style: Systems Analyst | UK English | Institutional Audience
            
            Changes in R8:
-           - Aligned to Methodology Manual V1.3 (April 2026)
+           - Aligned to Methodology Manual V1.4 (May 2026)
            - Added Environmental Nexus Tags section (5-type taxonomy)
            - Added Warmth Engine Ratio (WER) reference
            - Added ENT to Processing Sequence
-           - Updated meta description and chapter count to V1.3
+           - Updated meta description and chapter count to V1.4
            
            Previous versions:
            - R7: Aligned to V1.2, T2 Impact-Demonstrated pathway
@@ -324,6 +324,7 @@
           background: rgba(45, 212, 191, 0.1);
         }
 
+
         /* Mobile hamburger */
         .weo-nav-toggle {
           display: none;
@@ -395,6 +396,7 @@
             min-width: 44px;
             min-height: 44px;
           }
+
         }
 
         /* Header */
@@ -1236,6 +1238,35 @@
         }
     
 /* Accessibility: Respect reduced motion preference */
+        /* =================================================================
+           ACTOR CAPABILITY PROFILES — SCP Dimension Pills
+           Colour tokens match the SCP system on index.html and blocs.html.
+           Three category groups: Hardware (blue), Platform (purple), Governance (teal).
+           ================================================================= */
+        .scp-dim-pill {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin: 3px 2px;
+        }
+        .scp-dim-pill.hw {
+            color: #93C5FD;
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+        }
+        .scp-dim-pill.pl {
+            color: #C4B5FD;
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+        }
+        .scp-dim-pill.gv {
+            color: #5EEAD4;
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+        }
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -1296,8 +1327,8 @@
             <a href="/">Map</a>
             <a href="atlas.html">Atlas</a>
             <a href="events.html">Events</a>
-            <a href="methodology.html" class="active">Methodology</a>
             <a href="blocs.html">Blocs</a>
+            <a href="methodology.html" class="active">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
             <a href="support.html">Support</a>
@@ -1307,7 +1338,7 @@
         <!-- Header -->
         <header class="page-header">
             <h1 class="page-title">Methodology</h1>
-            <p class="page-subtitle">How WEO tracks verified events and the connections between them</p>
+            <p class="page-subtitle">How WEO tracks verified events, the connections between them, and the actors behind them</p>
         </header>
         
         <!-- Quick Start -->
@@ -1337,6 +1368,10 @@
                 <div class="quick-start-item">
                     <span class="qs-label">How we connect:</span>
                     <span class="qs-value"><span class="weo-value">Seven</span> Coordination Connection types with confidence levels (<span class="weo-value">CC-V</span>, <span class="weo-value">CC-E</span>, <span class="weo-value">CC-A</span>)</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">How we profile:</span>
+                    <span class="qs-value"><span class="weo-value">7</span> capability dimensions assess sovereign control across the AI infrastructure stack — identifying which actors anchor each ecosystem</span>
                 </div>
             </div>
             <div class="quick-start-footer">Full methodology below. Manual available for download.</div>
@@ -1691,6 +1726,36 @@
             </div>
         </section>
         
+        <!-- Actor Capability Profiles -->
+        <section class="section">
+            <h2 class="section-title">Actor Capability Profiles</h2>
+            <div class="card">
+                <div class="feature-highlight">
+                    <div class="feature-header">
+                        <span class="feature-badge">Novel Framework</span>
+                        <span class="feature-title">Sovereign Capability Assessment</span>
+                    </div>
+                    <div class="prose">
+                        <p>Actor Capability Profiles assess sovereign control across seven dimensions of the AI infrastructure stack. Each dimension tests whether an actor holds independent, domestically controlled capability at the leading edge. The framework identifies which actors anchor global AI ecosystems and which operate within them — providing the structural basis for WEO's bloc classification system.</p>
+                    </div>
+                    <div class="connection-types">
+                        <span class="scp-dim-pill hw">Chip Design</span>
+                        <span class="scp-dim-pill hw">Fabrication</span>
+                        <span class="scp-dim-pill hw">Equipment</span>
+                        <span class="scp-dim-pill pl" style="margin-left: 8px;">Compute</span>
+                        <span class="scp-dim-pill pl">Models</span>
+                        <span class="scp-dim-pill gv" style="margin-left: 8px;">Regulation</span>
+                        <span class="scp-dim-pill gv">Investment</span>
+                    </div>
+                </div>
+
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
+                    <p><strong>Four designations</strong> classify actors by their structural role. <strong>Principal AI Actors</strong> (PAA) hold full-stack or near-full-stack capability and anchor an ecosystem — each defines a WEO bloc. <strong>AI Infrastructure Keystones</strong> (AIK) control chokepoint capabilities that both ecosystems depend on. <strong>Aligned Critical Suppliers</strong> (ACS) hold significant capability that collapses without their principal ecosystem. <strong>Participants</strong> operate within an ecosystem without independent structural leverage.</p>
+                    <p>Actor capability profiles and bloc alignment data are available on the <a href="blocs.html">Bloc Membership Register</a>. The interactive capability panel on the <a href="index.html?panel=scp">Map</a> provides full dimension detail and source evidence for each actor.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Verification Standards -->
         <section class="section">
             <h2 class="section-title">Verification Standards</h2>
@@ -1791,7 +1856,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
