@@ -10989,6 +10989,7 @@ function generateCCSection(eventId, showFullContent) {
           if (ev) openPanel(ev);
         }
       }).catch(function(err) { console.error('[WEO] Re-fetch failed:', err); });
+      if (typeof window._scpReloadActors === 'function') window._scpReloadActors();
     }
     function revokeAccess() {
       document.body.classList.remove('weo-authenticated');
@@ -11002,6 +11003,7 @@ function generateCCSection(eventId, showFullContent) {
           if (ev) openPanel(ev);
         }
       }).catch(function(err) { console.error('[WEO] Re-fetch failed:', err); });
+      if (typeof window._scpReloadActors === 'function') window._scpReloadActors();
     }
     function logoutAccess() { localStorage.removeItem(WEO_AUTH_KEY); localStorage.removeItem(WEO_PASSWORD_KEY); revokeAccess(); closeAccessModal(); }
 
@@ -11300,9 +11302,8 @@ function generateCCSection(eventId, showFullContent) {
 
   /* ========================================
      ACTOR DATA — static fallback
-     Will load from KV API when deployed
      ======================================== */
-  var ACTORS = [
+  var SCP_FALLBACK_DATA = [
     {id:'US',n:'United States',s:7,d:'PAA',dims:[1,1,1,1,1,1,1],
      con:[null,null,null,null,null,null,null],
      svd:'Full-stack ecosystem anchor.',
@@ -11347,8 +11348,9 @@ function generateCCSection(eventId, showFullContent) {
     {id:'RU',n:'Russia',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]},
     {id:'CA',n:'Canada',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]}
   ];
+  var ACTORS = SCP_FALLBACK_DATA;
 
-  var DN = ['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var DN =['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
   var DS = ['Chip','Fab','Equip','Compute','Models','Reg','Invest'];
   var DC = ['hw','hw','hw','pl','pl','gv','gv'];
   var DF = [2,5,8,3,2,8,10];
@@ -11392,11 +11394,7 @@ function generateCCSection(eventId, showFullContent) {
   var partsExpanded = false;
   var activeDim = -1;
   var rendered = false;
-
-  /* ---- Grouping ---- */
-  var groups = {PAA:[],AIK:[],ACS:[],Part:[]};
-  ACTORS.forEach(function(a) { groups[a.d].push(a); });
-  var parts = groups.Part;
+  var listenersAttached = false;
 
   /* ---- Build pills ---- */
   var ph = '';
@@ -11410,6 +11408,12 @@ function generateCCSection(eventId, showFullContent) {
   function render() {
     if (rendered) return;
     rendered = true;
+
+    /* Rebuild groups from current ACTORS (refreshed on API load) */
+    var groups = {PAA:[],AIK:[],ACS:[],Part:[]};
+    ACTORS.forEach(function(a) { groups[a.d].push(a); });
+    var parts = groups.Part;
+
     var h = '', idx = 0;
 
     ['PAA','AIK','ACS'].forEach(function(gk) {
@@ -11435,40 +11439,46 @@ function generateCCSection(eventId, showFullContent) {
 
     bodyEl.innerHTML = h;
 
-    /* Event delegation for row expand */
-    bodyEl.addEventListener('click', function(e) {
-      var row = e.target.closest('.scp-row');
-      if (row) {
-        var det = document.getElementById(row.id + '-d');
-        if (det) { row.classList.toggle('expanded'); det.classList.toggle('show'); }
-        return;
-      }
-      var srcTrig = e.target.closest('.scp-src-trigger');
-      if (srcTrig) {
-        var block = srcTrig.nextElementSibling;
-        if (block) block.classList.toggle('show');
-        return;
-      }
-      var lockEl = e.target.closest('.scp-src-lock');
-      if (lockEl) { if (typeof window.openAccessModal === 'function') window.openAccessModal(); }
-    });
+    /* Restore participant section state after re-render */
+    var partRowsEl = document.getElementById('scpPartRows');
+    var partArrEl = document.getElementById('scpPartArr');
+    if (partRowsEl) partRowsEl.classList.toggle('show', partsExpanded);
+    if (partArrEl) partArrEl.classList.toggle('open', partsExpanded);
 
-    /* Participant toggle */
-    var partToggle = document.getElementById('scpPartToggle');
-    var partArr = document.getElementById('scpPartArr');
-    var partRows = document.getElementById('scpPartRows');
-    if (partToggle) {
-      partToggle.addEventListener('click', function() {
-        partsExpanded = !partsExpanded;
-        partRows.classList.toggle('show', partsExpanded);
-        partArr.classList.toggle('open', partsExpanded);
+    /* Event delegation \u2014 attached once, survives re-renders */
+    if (!listenersAttached) {
+      listenersAttached = true;
+      bodyEl.addEventListener('click', function(e) {
+        if (e.target.closest('#scpPartToggle')) {
+          partsExpanded = !partsExpanded;
+          var pr = document.getElementById('scpPartRows');
+          var pa = document.getElementById('scpPartArr');
+          if (pr) pr.classList.toggle('show', partsExpanded);
+          if (pa) pa.classList.toggle('open', partsExpanded);
+          return;
+        }
+        var row = e.target.closest('.scp-row');
+        if (row) {
+          var det = document.getElementById(row.id + '-d');
+          if (det) { row.classList.toggle('expanded'); det.classList.toggle('show'); }
+          return;
+        }
+        var srcTrig = e.target.closest('.scp-src-trigger');
+        if (srcTrig) {
+          var block = srcTrig.nextElementSibling;
+          if (block) block.classList.toggle('show');
+          return;
+        }
+        var lockEl = e.target.closest('.scp-src-lock');
+        if (lockEl) { if (typeof window.openAccessModal === 'function') window.openAccessModal(); }
       });
     }
   }
 
   function rowHTML(a, id) {
     var h = '<div class="scp-row" id="' + id + '">';
-    h += '<span class="scp-row-name" title="' + a.n + '">' + a.n + '</span>';
+    var namePrefix = a.sample ? '<span class="sample-star">' + WEO_ICON_STAR + '</span>' : '';
+    h += '<span class="scp-row-name" title="' + a.n + '">' + namePrefix + a.n + '</span>';
     h += '<div class="scp-row-bar">';
     a.dims.forEach(function(d, i) {
       h += '<div class="scp-row-seg' + (d ? ' ' + DC[i] + '-m' : '') + '" data-di="' + i + '"></div>';
@@ -11481,34 +11491,35 @@ function generateCCSection(eventId, showFullContent) {
   }
 
   function detailHTML(a, id) {
-    var isAuth = document.body.classList.contains('weo-authenticated');
     var h = '<div class="scp-detail" id="' + id + '-d">';
 
     a.dims.forEach(function(d, i) {
       h += '<div class="scp-dim-row">';
       h += '<span class="scp-dim-name"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i] + '</span>';
-      h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : '\u2014') + '</span>';
+      h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : '—') + '</span>';
       h += '</div>';
       if (d && a.con && a.con[i]) {
         h += '<div class="scp-dim-constraint">' + escH(a.con[i]) + '</div>';
       }
-      /* Source evidence — supporter tier only */
-      if (d && a.src && a.src[i]) {
-        if (isAuth) {
+      /* Sources present in data -> show; absent -> lock (free-tier strip) */
+      if (d) {
+        if (a.src && a.src[i]) {
           var s = a.src[i]; /* [g1, pub1, date1, fact1, url1, g2, pub2, date2, fact2, url2] */
-          h += '<div class="scp-src-trigger"><span class="scp-src-icon">\u24D8</span> Sources</div>';
+          h += '<div class="scp-src-trigger"><span class="scp-src-icon">ⓘ</span> Sources</div>';
           h += '<div class="scp-src-block">';
           h += srcEntry('Primary', s[0], s[1], s[2], s[3], s[4]);
           h += srcEntry('Corroborating', s[5], s[6], s[7], s[8], s[9]);
           h += '</div>';
         } else {
-          h += '<div class="scp-src-lock" title="Supporter access required"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Sources (supporter access)</div>';
+          h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Sources (supporter access)</div>';
         }
       }
     });
 
     if (a.svd) {
       h += '<div class="scp-sev"><strong>Severance:</strong> ' + escH(a.svd) + '</div>';
+    } else if (a.d === 'PAA' || a.d === 'AIK' || a.d === 'ACS') {
+      h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Severance analysis (supporter access)</div>';
     }
     h += '</div>';
     return h;
@@ -11528,6 +11539,55 @@ function generateCCSection(eventId, showFullContent) {
   }
 
   function escH(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  /* ---- Normalise canonical API response to compact actor format ---- */
+  function normalizeAPIActors(apiData) {
+    var DK = ['D1','D2','D3','D4','D5','D6','D7'];
+    return apiData.actors.map(function(actor) {
+      var dims = DK.map(function(k) { return actor.dimensions[k] && actor.dimensions[k].met ? 1 : 0; });
+      var con  = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.constraint || null; });
+      var src  = DK.map(function(k) {
+        var dim = actor.dimensions[k] || {};
+        if (!dim.sources) return null;
+        var p = dim.sources.primary || {}, c = dim.sources.corroborating || {};
+        if (!p.publisher) return null;
+        return [p.grade||null, p.publisher||null, p.date||null, p.qualifying_fact||null, p.url||null,
+                c.grade||null, c.publisher||null, c.date||null, c.qualifying_fact||null, c.url||null];
+      });
+      return {
+        id: actor.id,
+        n: actor.name,
+        s: actor.score || 0,
+        d: actor.designation === 'Participant' ? 'Part' : (actor.designation || 'Part'),
+        dims: dims, con: con, svd: actor.severance_detail || null, src: src,
+        sample: actor.sample || false
+      };
+    });
+  }
+
+  /* ---- Fetch actors from /api/actors, fall back to SCP_FALLBACK_DATA on error ---- */
+  function loadActorsData() {
+    var apiBase = window.location.hostname === 'localhost'
+      ? 'http://localhost:8787/api'
+      : 'https://warmthengine.com/api';
+    var pw = localStorage.getItem('weo-supporter-password') || null;
+    var headers = pw ? { 'X-WEO-Password': pw } : {};
+    fetch(apiBase + '/actors', { headers: headers, cache: pw ? 'no-store' : 'default' })
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        if (!data.actors || !data.actors.length) throw new Error('empty response');
+        ACTORS = normalizeAPIActors(data);
+        console.log('[WEO] Actors loaded from API:', ACTORS.length, pw ? '(authenticated)' : '(public)');
+        rendered = false;
+        if (isOpen) render();
+      })
+      .catch(function(err) {
+        console.warn('[WEO] Actors API failed, using static fallback:', err.message);
+      });
+  }
 
   /* ---- Open / Close ---- */
   function openSCP() {
@@ -11689,6 +11749,12 @@ function generateCCSection(eventId, showFullContent) {
   setTimeout(adjustBtnPos, 1500);
   setTimeout(adjustBtnPos, 3000);
   window.addEventListener('resize', function() { setTimeout(adjustBtnPos, 100); });
+
+  /* ---- Expose reload hook for auth state changes ---- */
+  window._scpReloadActors = loadActorsData;
+
+  /* ---- Initial actor data load from API ---- */
+  loadActorsData();
 
 })();
 </script>
