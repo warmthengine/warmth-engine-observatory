@@ -1317,22 +1317,8 @@
         }
 
         /* Designation group header rows (rendered by JS) */
-        .scp-designation-row td {
-            padding: 16px 10px 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: #94A3B8;
-            background: transparent;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.4) !important;
-        }
-        .scp-designation-row:first-child td {
-            padding-top: 8px;
-        }
-        .scp-designation-row:hover {
-            background: transparent !important;
-        }
+        .scp-designation-row td { background: transparent; }
+        .scp-designation-row:hover { background: transparent !important; }
 
         /* Designation legend */
         .scp-legend {
@@ -2519,12 +2505,19 @@
     var sorted = sortActors(actors);
     var html = '';
     var lastDesig = null;
+    var firstGroup = true;
     for (var i = 0; i < sorted.length; i++) {
       var actor = sorted[i];
       var d = actor.designation;
       if (d !== lastDesig) {
         lastDesig = d;
-        html += '<tr class="scp-designation-row" aria-hidden="true"><td colspan="10">'
+        var topPad = firstGroup ? '8px' : '20px';
+        firstGroup = false;
+        var hStyle = 'padding:' + topPad + ' 0 8px 0;font-size:0.7rem;font-weight:600;'
+          + 'letter-spacing:0.06em;text-transform:uppercase;color:#94A3B8;'
+          + 'border-bottom:1px solid rgba(51,65,85,0.4);';
+        html += '<tr class="scp-designation-row" aria-hidden="true">'
+              + '<td colspan="10" style="' + hStyle + '">'
               + (DESIG_LABELS[d] || d) + '</td></tr>';
       }
       var bloc     = EASTERN_IDS[actor.id] ? 'eastern' : 'western';
