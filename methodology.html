@@ -504,7 +504,15 @@
             text-align: center;
             padding: var(--weo-space-lg);
             background: var(--weo-surface-base);
+            border: 1px solid transparent;
             border-radius: var(--weo-radius-md);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+
+        .dynamic-item:hover {
+            background: var(--weo-surface-raised);
+            border-color: var(--weo-border-primary);
         }
         
         .dynamic-icon {
@@ -536,8 +544,16 @@
         .event-type-item {
             padding: var(--weo-space-md);
             background: var(--weo-surface-base);
+            border: 1px solid transparent;
             border-radius: var(--weo-radius-md);
             text-align: center;
+            transition: background var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+
+        .event-type-item:hover {
+            background: var(--weo-surface-raised);
+            border-color: var(--weo-border-primary);
         }
         
         .event-type-name {
@@ -564,7 +580,15 @@
         .tier-item {
             padding: var(--weo-space-lg);
             background: var(--weo-surface-base);
+            border: 1px solid transparent;
             border-radius: var(--weo-radius-md);
+            transition: background var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+
+        .tier-item:hover {
+            background: var(--weo-surface-raised);
+            border-color: var(--weo-border-primary);
         }
         
         .tier-header {

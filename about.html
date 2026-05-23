@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://www.warmthengine.com/about.html">
     <meta property="og:url" content="https://www.warmthengine.com/about.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.2.0">
+    <meta name="weo-version" content="1.3.0">
     <title>About — Warmth Engine Observatory</title>
     <meta name="description" content="About the Warmth Engine Observatory — Coordination Intelligence on AI infrastructure dynamics across geopolitical blocs.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO, AI infrastructure coordination, geopolitical analysis, evidence-based observation, institutional-grade methodology, Basel framework, Keohane coordination">
@@ -282,6 +282,7 @@
           background: rgba(45, 212, 191, 0.1);
         }
 
+
         /* Mobile hamburger */
         .weo-nav-toggle {
           display: none;
@@ -353,6 +354,7 @@
             min-width: 44px;
             min-height: 44px;
           }
+
         }
 
         /* Header */
@@ -652,13 +654,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--weo-space-md) 0;
+            padding: var(--weo-space-md) var(--weo-space-sm);
+            border-radius: var(--weo-radius-sm);
             cursor: pointer;
-            transition: color var(--weo-duration-fast) var(--weo-ease-out);
+            transition: color var(--weo-duration-fast) var(--weo-ease-out),
+                        background var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
+
         .faq-question:hover {
             color: var(--weo-accent-primary);
+            background: rgba(45, 212, 191, 0.04);
         }
         
         .faq-question-text {
@@ -933,8 +938,8 @@
             <a href="/">Map</a>
             <a href="atlas.html">Atlas</a>
             <a href="events.html">Events</a>
-            <a href="methodology.html">Methodology</a>
             <a href="blocs.html">Blocs</a>
+            <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html" class="active">About</a>
             <a href="support.html">Support</a>
@@ -1242,7 +1247,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.3 · WEO v1.2.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
