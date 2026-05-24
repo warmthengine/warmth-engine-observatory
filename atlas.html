@@ -7459,9 +7459,7 @@
                 const truncate = (s, n) => (s && s.length > n) ? s.slice(0, n) + '…' : (s || '?');
                 const srcName = conn && eventById[String(conn.source_event_id)] ? eventById[String(conn.source_event_id)].name : '?';
                 const tgtName = conn && eventById[String(conn.target_event_id)] ? eventById[String(conn.target_event_id)].name : '?';
-                const dirArrow = (conn && conn.direction === 'inbound') ? '←'
-                              : (conn && conn.direction === 'undirected') ? '↔'
-                              : '→';
+                const dirArrow = (conn && conn.direction === 'bidirectional') ? '↔' : '→';
                 elEdgeTooltip.innerHTML = `<strong>${escapeHtml(d.ccTypeName || '')}</strong> · ${escapeHtml(d.confidence || '')}<br>${escapeHtml(truncate(srcName, 30))} ${dirArrow} ${escapeHtml(truncate(tgtName, 30))}`;
                 elEdgeTooltip.classList.add('visible');
                 elEdgeTooltip.setAttribute('aria-hidden', 'false');
@@ -8754,8 +8752,8 @@
 
             // §8 — Sources (honest count + paid full list)
             html += '<section class="atlas-panel-section" id="atlas-section-sources">';
-            const srcPrim = event.source_count_primary ?? (Array.isArray(event.sources_primary) ? event.sources_primary.length : 0);
-            const srcCorr = event.source_count_corroborating ?? (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : 0);
+            const srcPrim = event.source_count_primary ?? event.sources ?? (Array.isArray(event.sources_primary) ? event.sources_primary.length : (Array.isArray(event.primarySources) ? event.primarySources.length : 0));
+            const srcCorr = event.source_count_corroborating ?? event.corroborating ?? (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources.length : 0));
             const srcTotal = srcPrim + srcCorr;
             // Phase 2 P1 (Batch 2b+) — count line moves to its own row
             // beneath the section title so the parenthetical metadata
@@ -9362,8 +9360,10 @@
                 String(cc.source_event_id) === eventId ||
                 String(cc.target_event_id) === eventId
             );
-            const outbound = incident.filter(cc => String(cc.source_event_id) === eventId);
-            const inbound = incident.filter(cc => String(cc.target_event_id) === eventId);
+            const directed = incident.filter(cc => cc.direction === 'source_to_target');
+            const bidirectional = incident.filter(cc => cc.direction === 'bidirectional');
+            const outbound = directed.filter(cc => String(cc.source_event_id) === eventId);
+            const inbound = directed.filter(cc => String(cc.target_event_id) === eventId);
             const total = incident.length;
 
             if (total === 0) {
@@ -9372,9 +9372,11 @@
 
             const role = total >= 6 ? 'Hub' : (total >= 3 ? 'Connected node' : 'Peripheral node');
 
-            const direction = (outbound.length > 0 && inbound.length > 0)
-                ? `${outbound.length} outbound and ${inbound.length} inbound`
-                : (outbound.length > 0 ? `${outbound.length} outbound` : `${inbound.length} inbound`);
+            const parts = [];
+            if (outbound.length > 0) parts.push(`${outbound.length} outbound`);
+            if (inbound.length > 0) parts.push(`${inbound.length} inbound`);
+            if (bidirectional.length > 0) parts.push(`${bidirectional.length} bidirectional`);
+            const direction = parts.join(' · ') || 'none';
 
             const byType = {};
             incident.forEach(cc => {
@@ -9712,9 +9714,11 @@
             // Sources — prefer the precomputed totals, fall back to array
             // lengths if the API only sent the arrays.
             let primary = (event.source_count_primary != null) ? event.source_count_primary
-                        : (Array.isArray(event.sources_primary) ? event.sources_primary.length : 0);
+                        : (event.sources != null) ? event.sources
+                        : (Array.isArray(event.sources_primary) ? event.sources_primary.length : (Array.isArray(event.primarySources) ? event.primarySources.length : 0));
             let corroborating = (event.source_count_corroborating != null) ? event.source_count_corroborating
-                              : (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : 0);
+                              : (event.corroborating != null) ? event.corroborating
+                              : (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources.length : 0));
             let versionCount = 1;
             if (Array.isArray(event.rollingUpdates) && event.rollingUpdates.length > 0) {
                 versionCount = event.rollingUpdates.length + 1;
@@ -9917,8 +9921,8 @@
             const sourcesPrimary = Array.isArray(event.sources_primary) ? event.sources_primary : [];
             const sourcesCorr = Array.isArray(event.sources_corroborating) ? event.sources_corroborating : [];
             const hasFullSources = sourcesPrimary.length > 0 || sourcesCorr.length > 0;
-            const srcCountPrimary = event.source_count_primary ?? sourcesPrimary.length;
-            const srcCountCorr = event.source_count_corroborating ?? sourcesCorr.length;
+            const srcCountPrimary = event.source_count_primary ?? event.sources ?? (Array.isArray(event.sources_primary) ? event.sources_primary.length : (Array.isArray(event.primarySources) ? event.primarySources.length : 0));
+            const srcCountCorr = event.source_count_corroborating ?? event.corroborating ?? (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources.length : 0));
 
             const ents = Array.isArray(event.environmentalNexusTags) ? event.environmentalNexusTags : [];
             const ccCount = typeof event.cc_count === 'number' ? event.cc_count : null;
