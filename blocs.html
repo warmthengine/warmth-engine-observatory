@@ -1130,8 +1130,6 @@
         .scp-table-wrap {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin: 0 calc(-1 * var(--weo-space-xl));
-            padding: 0 var(--weo-space-xl);
         }
 
         .scp-table {
@@ -1293,10 +1291,8 @@
             border-left: 1px solid rgba(51, 65, 85, 0.3);
         }
 
-        /* Narrow scroll gradient for SCP table — the scp-table-wrap negative
-           margin cancels its own padding, leaving table content at x=0 of the
-           scroll container. 16px keeps the hint subtle; extra first-column
-           padding ensures actor names sit clear of the gradient. */
+        /* SCP scroll gradient: narrower than nation tables so it stays subtle;
+           first-column padding keeps actor names clear of the 16px gradient. */
         .scp-section .table-scroll-indicator { width: 16px; }
         .scp-table thead th:first-child,
         .scp-table td:first-child { padding-left: 20px; }
@@ -1350,11 +1346,6 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .scp-table-wrap {
-                margin: 0 calc(-1 * var(--weo-space-lg));
-                padding: 0 var(--weo-space-sm);
-            }
-
             .scp-legend {
                 gap: var(--weo-space-sm);
             }
