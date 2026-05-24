@@ -970,11 +970,11 @@
                     <div class="stats-label">Current Database</div>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-value" id="weo-event-count">134</div>
+                            <div class="stat-value" id="weo-event-count">157</div>
                             <div class="stat-label">Verified Events</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="weo-cc-count">107</div>
+                            <div class="stat-value" id="weo-cc-count">138</div>
                             <div class="stat-label">Coordination Connections</div>
                         </div>
                     </div>
@@ -1284,11 +1284,11 @@
       fetch('https://warmthengine.com/api/events')
         .then(function(r) { return r.json(); })
         .then(function(d) {
-          if (d && d.meta) {
+          if (d && d.metadata) {
             var evEl = document.getElementById('weo-event-count');
             var ccEl = document.getElementById('weo-cc-count');
-            if (evEl && d.meta.event_count) evEl.textContent = d.meta.event_count;
-            if (ccEl && d.meta.cc_count) ccEl.textContent = d.meta.cc_count;
+            if (evEl && d.metadata.event_count) evEl.textContent = d.metadata.event_count;
+            if (ccEl && d.metadata.cc_count) ccEl.textContent = d.metadata.cc_count;
           }
         })
         .catch(function() { /* fallback values already in HTML */ });
