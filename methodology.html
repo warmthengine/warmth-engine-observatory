@@ -1030,30 +1030,42 @@
         .download-desc {
             font-size: 0.875rem;
             color: var(--weo-text-tertiary);
-            margin-bottom: var(--weo-space-lg);
+            margin-bottom: var(--weo-space-md);
         }
         
         .download-button {
             display: inline-flex;
             align-items: center;
+            vertical-align: middle;
             gap: var(--weo-space-sm);
             background: var(--weo-accent-primary);
             color: white;
             font-size: 0.875rem;
             font-weight: 600;
-            padding: var(--weo-space-sm) var(--weo-space-lg);
+            line-height: 1;
+            padding: 0.5rem 1.25rem;
+            border: 1px solid transparent;
             border-radius: var(--weo-radius-md);
             text-decoration: none;
             transition: background var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
+
         .download-button:hover {
             background: var(--weo-accent-hover);
         }
-        
+
         .download-button svg {
-            width: 16px;
-            height: 16px;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+
+        .download-button-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: var(--weo-space-lg);
         }
         
         .download-button--secondary {
@@ -1831,24 +1843,30 @@
             <div class="download-section">
                 <div class="download-title">WEO Methodology Manual</div>
                 <div class="download-desc">Complete technical specification covering all 9 chapters</div>
-                <a href="https://zenodo.org/records/18427565" class="download-button" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                    </svg>
-                    View on Zenodo
-                </a>
+                <div class="download-button-group">
+                    <a href="/research/methodology/manual/" class="download-button">Read on WEO →</a>
+                    <a href="https://zenodo.org/records/18427565" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                        View on Zenodo
+                    </a>
+                </div>
                 <div class="download-meta">DOI: 10.5281/zenodo.18427565</div>
             </div>
             
             <div class="download-section" style="margin-top: var(--weo-space-lg);">
                 <div class="download-title">WEO Methodology Rationale</div>
                 <div class="download-desc">Empirical derivation and calibration justification for all methodology components</div>
-                <a href="https://zenodo.org/records/18427582" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                    </svg>
-                    View on Zenodo
-                </a>
+                <div class="download-button-group">
+                    <a href="/research/methodology/rationale/" class="download-button">Read on WEO →</a>
+                    <a href="https://zenodo.org/records/18427582" class="download-button download-button--secondary" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                        View on Zenodo
+                    </a>
+                </div>
                 <div class="download-meta">DOI: 10.5281/zenodo.18427582</div>
             </div>
             
