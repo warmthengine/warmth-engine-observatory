@@ -621,7 +621,7 @@
             z-index: 100;
             touch-action: manipulation;
         }
-        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top.visible { opacity: 1; }
         .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
     </style>
 </head>
@@ -11465,29 +11465,45 @@ via the contact information provided on the WEO platform.</p>
     <script>
     (function() {
         var btn = document.getElementById('backToTop');
-        var ticking = false;
         var pointerTimer = null;
+
         window.addEventListener('scroll', function() {
-            if (!ticking) {
-                ticking = true;
-                requestAnimationFrame(function() {
-                    var shouldShow = window.scrollY > 500;
-                    var isVisible = btn.classList.contains('visible');
-                    if (shouldShow && !isVisible) {
-                        btn.classList.add('visible');
-                        // Defer pointer-events to prevent iOS ghost-tap on newly appeared button
-                        btn.style.pointerEvents = 'none';
-                        clearTimeout(pointerTimer);
-                        pointerTimer = setTimeout(function() { btn.style.pointerEvents = ''; }, 350);
-                    } else if (!shouldShow && isVisible) {
-                        btn.classList.remove('visible');
-                        clearTimeout(pointerTimer);
-                        btn.style.pointerEvents = '';
-                    }
-                    ticking = false;
-                });
+            var shouldShow = window.scrollY > 500;
+            if (shouldShow) {
+                if (!btn.classList.contains('visible')) {
+                    btn.classList.add('visible');
+                    clearTimeout(pointerTimer);
+                    pointerTimer = setTimeout(function() {
+                        btn.style.pointerEvents = 'auto';
+                    }, 600);
+                }
+            } else {
+                btn.classList.remove('visible');
+                clearTimeout(pointerTimer);
+                btn.style.pointerEvents = '';
             }
         }, { passive: true });
+
+        var touchStartTime = 0;
+        var touchStartX = 0;
+        var touchStartY = 0;
+
+        btn.addEventListener('touchstart', function(e) {
+            touchStartTime = Date.now();
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        btn.addEventListener('touchend', function(e) {
+            var duration = Date.now() - touchStartTime;
+            var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+            var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+            if (duration < 300 && dx < 10 && dy < 10) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
         btn.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
