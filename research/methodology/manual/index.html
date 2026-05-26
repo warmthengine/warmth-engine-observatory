@@ -627,19 +627,14 @@
             #backToTop { display: none !important; }
         }
         .weo-mobile-top-link {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .weo-mobile-top-link {
-                display: block;
-                text-align: center;
-                padding: 1rem;
-                color: #94A3B8;
-                font-size: 0.875rem;
-                text-decoration: none;
-                border-top: 1px solid var(--weo-border-primary);
-                margin-top: 2rem;
-            }
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            color: #94A3B8;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border-top: 1px solid var(--weo-border-primary);
+            margin-top: 2rem;
         }
         @media (max-width: 768px) {
             .weo-back-to-top,
@@ -14979,6 +14974,7 @@ References indicate document and section.</p>
         btn.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        if (window.innerWidth <= 768) document.getElementById('backToTop')?.remove();
     })();
     </script>
     <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
