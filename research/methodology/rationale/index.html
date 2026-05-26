@@ -11502,18 +11502,19 @@ via the contact information provided on the WEO platform.</p>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
     </button>
     <script>
-    (function() {
-        var btn = document.getElementById('backToTop');
-        if (window.matchMedia('(min-width: 769px)').matches) {
-            window.addEventListener('scroll', function() {
-                btn.classList.toggle('visible', window.scrollY > 500);
-            }, { passive: true });
-        }
-        btn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        if (window.innerWidth <= 768) document.getElementById('backToTop')?.remove();
-    })();
+    if (window.innerWidth > 768) {
+        (function() {
+            var btn = document.getElementById('backToTop');
+            if (window.matchMedia('(min-width: 769px)').matches) {
+                window.addEventListener('scroll', function() {
+                    btn.classList.toggle('visible', window.scrollY > 500);
+                }, { passive: true });
+            }
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    }
     </script>
     <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
