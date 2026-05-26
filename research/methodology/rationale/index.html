@@ -621,16 +621,29 @@
             z-index: 100;
             touch-action: manipulation;
         }
-        .weo-back-to-top.visible { opacity: 1; }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
         .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
         @media (max-width: 768px) {
-            .weo-back-to-top { opacity: 0.4; pointer-events: auto; }
-            .weo-back-to-top:hover,
-            .weo-back-to-top:active { opacity: 1; }
+            #backToTop { display: none !important; }
+        }
+        .weo-mobile-top-link {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .weo-mobile-top-link {
+                display: block;
+                text-align: center;
+                padding: 1rem;
+                color: #94A3B8;
+                font-size: 0.875rem;
+                text-decoration: none;
+                border-top: 1px solid var(--weo-border-primary);
+                margin-top: 2rem;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
     <div class="container pub-container" id="main-content">
 
@@ -937,6 +950,7 @@ Sustainability</td>
 </tbody>
 </table>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-1">Section 1: Introduction &amp; Document Purpose</h1>
 <h2 id="rationale-1-1">1.1 Purpose</h2>
 <p>This document provides the empirical derivation, theoretical
@@ -1022,6 +1036,7 @@ methodological transparency.</p>
 </tbody>
 </table>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-2">Section 2: Methodology Balance Statement</h1>
 <h2 id="rationale-2-1">2.1 Overall Balance</h2>
 <p>WEO methodology components distribute approximately <strong>~32%
@@ -1196,6 +1211,7 @@ validation commitments. Category Creator elements are flagged for
 priority review as the evidence base matures. Version history and
 material changes are documented in methodology version notes.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-3">Section 3: Event Verification Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-3" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 3</em></p>
@@ -3882,6 +3898,7 @@ extends; and (3) evolution of intelligence community or journalism
 source-assessment frameworks that may provide refined models for
 accommodated-source confidence calibration.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-4">Section 4: Significance Assessment Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-4" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 4</em></p>
@@ -4480,6 +4497,7 @@ language</p>
 (explicit China naming); Banque de France geopolitical trade
 fragmentation analysis; EU Chips Act implementation criteria.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-5">Section 5: Tier Classification Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-5" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 5</em></p>
@@ -6686,6 +6704,7 @@ Track whether any dimension qualification is subsequently challenged on
 evidence grounds. Review source descriptor implementation for
 consistency across assessors.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-6">Section 6: Domain Classification Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-6" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 6</em></p>
@@ -6925,6 +6944,7 @@ Technologies, Increasing Returns, and Lock-In by Historical Events.”
 “Clio and the Economics of QWERTY.” <em>American Economic Review</em>,
 75(2), 332-337.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-7">Section 7: Industry Tags Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-7" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 7</em></p>
@@ -7633,6 +7653,7 @@ event, override rates, and inter-analyst agreement. No special
 validation required — this is process design, not analytical
 methodology.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-8">Section 8: Environmental Nexus Tags Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-8" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 8</em></p>
@@ -8595,6 +8616,7 @@ governance provisions.</p>
 EDWC hub provinces as coverage expands. Track whether market-mechanism
 pathway expands as green electricity trading markets mature.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-9">Section 9: Coordination Connections Rationale</h1>
 <p><a href="/research/methodology/manual/#chapter-9" class="weo-rationale-link">← View Manual chapter</a></p>
 <p><em>Manual Reference: Chapter 9</em></p>
@@ -10325,6 +10347,7 @@ relationship taxonomy found. Coordination Connections (CC) represents
 genuine novel contribution. The 7-type taxonomy qualifies as
 copyrightable “creative selection and arrangement.”</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-10">Section 10: Category Creator Documentation</h1>
 <h2 id="rationale-10-1">10.1 Purpose</h2>
 <p>This section explicitly documents all methodology components where
@@ -10733,6 +10756,7 @@ evidence emerges</td>
 <li><strong>Academic peer review</strong> as methodology matures</li>
 </ol>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-appendix-a">Appendix A: Glossary of Key Terms</h1>
 <table>
 <colgroup>
@@ -10912,6 +10936,7 @@ governance</td>
 </tbody>
 </table>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-appendix-b">Appendix B: Cross-Reference
 Verification</h1>
 <p>All Manual cross-references verified against WEO Methodology
@@ -11359,6 +11384,7 @@ Classification</td>
 </tbody>
 </table>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="rationale-appendix-c">Appendix C: Note on Source Accuracy</h1>
 <p>This methodology draws on extensive research across academic
 literature, regulatory frameworks, and institutional documentation.
@@ -11379,6 +11405,7 @@ Users identifying potential inaccuracies are encouraged to report them
 via the contact information provided on the WEO platform.</p>
 <hr />
 <p><strong>End of Methodology Rationale</strong></p>
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <p><em>Warmth Engine Observatory | January 2026 (v1.4, May
 2026)</em></p>
 
