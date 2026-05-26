@@ -35,7 +35,7 @@
     <meta name="citation_volume" content="1">
     <meta name="citation_issue" content="4">
     <meta name="citation_language" content="en">
-    <meta name="citation_doi" content="10.5281/zenodo.20326755">
+    <meta name="citation_doi" content="10.5281/zenodo.18427582">
     <meta name="citation_pdf_url" content="https://www.warmthengine.com/research/methodology/rationale/weo-methodology-rationale-v1-4.pdf">
     <meta name="citation_fulltext_html_url" content="https://www.warmthengine.com/research/methodology/rationale/">
     <meta name="citation_keywords" content="AI infrastructure; methodology rationale; design decisions; corpus calibration; geopolitical coordination">
@@ -44,7 +44,7 @@
     <meta name="DC.title" content="Warmth Engine Observatory Methodology Rationale">
     <meta name="DC.creator" content="Warmth Engine">
     <meta name="DC.issued" content="2026-05-23">
-    <meta name="DC.identifier" content="doi:10.5281/zenodo.20326755">
+    <meta name="DC.identifier" content="doi:10.5281/zenodo.18427582">
     <meta name="DC.type" content="Text">
     <meta name="DC.format" content="text/html">
 
@@ -649,7 +649,7 @@
             </div>
             <div class="weo-doi-badge">
                 <span class="doi-label">DOI</span>
-                <a href="https://doi.org/10.5281/zenodo.20326755" target="_blank" rel="noopener">10.5281/zenodo.20326755</a>
+                <a href="https://doi.org/10.5281/zenodo.18427582" target="_blank" rel="noopener">10.5281/zenodo.18427582</a>
                 <span class="doi-note">Concept DOI — cite all versions</span>
             </div>
             <div class="weo-version-history">
@@ -11476,6 +11476,7 @@ via the contact information provided on the WEO platform.</p>
                 if (entry.isIntersecting) {
                     tocBody.querySelectorAll('a.active').forEach(function(el) { el.classList.remove('active'); });
                     link.classList.add('active');
+                    link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             });
         }, { rootMargin: '-10% 0px -80% 0px' });
