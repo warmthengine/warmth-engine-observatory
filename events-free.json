@@ -4,7 +4,7 @@
     "total_events": 157,
     "sample_events": 6,
     "standard_events": 151,
-    "last_updated": "2026-05-23",
+    "last_updated": "2026-05-26",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -56,8 +56,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-05-23",
-    "lastAudit": "2026-05-23",
+    "versionDate": "2026-05-26",
+    "lastAudit": "2026-05-26",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 157,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
