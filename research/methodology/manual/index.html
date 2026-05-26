@@ -619,6 +619,7 @@
             pointer-events: none;
             transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
             z-index: 100;
+            touch-action: manipulation;
         }
         .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
         .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
@@ -14929,8 +14930,28 @@ References indicate document and section.</p>
     <script>
     (function() {
         var btn = document.getElementById('backToTop');
+        var ticking = false;
+        var pointerTimer = null;
         window.addEventListener('scroll', function() {
-            btn.classList.toggle('visible', window.scrollY > 500);
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(function() {
+                    var shouldShow = window.scrollY > 500;
+                    var isVisible = btn.classList.contains('visible');
+                    if (shouldShow && !isVisible) {
+                        btn.classList.add('visible');
+                        // Defer pointer-events to prevent iOS ghost-tap on newly appeared button
+                        btn.style.pointerEvents = 'none';
+                        clearTimeout(pointerTimer);
+                        pointerTimer = setTimeout(function() { btn.style.pointerEvents = ''; }, 350);
+                    } else if (!shouldShow && isVisible) {
+                        btn.classList.remove('visible');
+                        clearTimeout(pointerTimer);
+                        btn.style.pointerEvents = '';
+                    }
+                    ticking = false;
+                });
+            }
         }, { passive: true });
         btn.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
