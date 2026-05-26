@@ -621,16 +621,29 @@
             z-index: 100;
             touch-action: manipulation;
         }
-        .weo-back-to-top.visible { opacity: 1; }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
         .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
         @media (max-width: 768px) {
-            .weo-back-to-top { opacity: 0.4; pointer-events: auto; }
-            .weo-back-to-top:hover,
-            .weo-back-to-top:active { opacity: 1; }
+            #backToTop { display: none !important; }
+        }
+        .weo-mobile-top-link {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .weo-mobile-top-link {
+                display: block;
+                text-align: center;
+                padding: 1rem;
+                color: #94A3B8;
+                font-size: 0.875rem;
+                text-decoration: none;
+                border-top: 1px solid var(--weo-border-primary);
+                margin-top: 2rem;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
     <div class="container pub-container" id="main-content">
 
@@ -1166,6 +1179,7 @@ absence. Fragmentation events are within scope because they are
 observable dynamics between blocs within this field — not because they
 involve cooperative coordination in the Keohane (1984) sense.</p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-1">Chapter 1: Executive Summary</h1>
 <h2 id="section-1-what">What WEO Is</h2>
 <p>This methodology enables systematic tracking of AI infrastructure
@@ -1340,6 +1354,7 @@ C).</p>
 <hr />
 <p><strong>End of Chapter 1: Executive Summary</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-2">Chapter 2: Methodology Architecture</h1>
 <h2 id="overview">Overview</h2>
 <p>This methodology enables systematic tracking of AI infrastructure
@@ -1773,6 +1788,7 @@ version milestones (§5.3 Review Mechanism).</p>
 <hr />
 <p><strong>End of Chapter 2: Methodology Architecture</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-3">Chapter 3: Event Verification</h1>
 <p><a href="/research/methodology/rationale/#rationale-3" class="weo-rationale-link">View rationale for this chapter →</a></p>
 
@@ -6528,6 +6544,7 @@ dynamics across geopolitical blocs.</p>
 <hr />
 <p><strong>End of Chapter 3: Event Verification</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-4">Chapter 4: Geopolitical Significance Assessment</h1>
 <p><a href="/research/methodology/rationale/#rationale-4" class="weo-rationale-link">View rationale for this chapter →</a></p>
 <h2 id="section-4-1">4.1 Purpose and Framework Overview</h2>
@@ -8521,6 +8538,7 @@ Response Evidence) for the Stage 2 qualification pathways.</em></p>
 <p><strong>End of Chapter 4: Geopolitical Significance
 Assessment</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-5">Chapter 5: Tier Classification</h1>
 <p><a href="/research/methodology/rationale/#rationale-5" class="weo-rationale-link">View rationale for this chapter →</a></p>
 
@@ -9944,6 +9962,7 @@ roles (not observers)</p>
 <hr />
 <p><strong>End of Chapter 5: Tier Classification</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-6">Chapter 6: Domain Classification</h1>
 <p><a href="/research/methodology/rationale/#rationale-6" class="weo-rationale-link">View rationale for this chapter →</a></p>
 
@@ -10588,6 +10607,7 @@ stage checklists verified - [ ] No outstanding LOW confidence flags - [
 <hr />
 <p><strong>End of Chapter 6: Domain Classification</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-7">Chapter 7: Industry Tags</h1>
 <p><a href="/research/methodology/rationale/#rationale-7" class="weo-rationale-link">View rationale for this chapter →</a></p>
 
@@ -11440,6 +11460,7 @@ directly addressing cloud infrastructure capital access.”</p>
 <hr />
 <p><strong>End of Chapter 7: Industry Tags</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-8">Chapter 8: Environmental Nexus Tags</h1>
 <p><a href="/research/methodology/rationale/#rationale-8" class="weo-rationale-link">View rationale for this chapter →</a></p>
 <h2 id="section-8-1">8.1 Purpose</h2>
@@ -12091,6 +12112,7 @@ population provides empirical boundary cases to codify.</p>
 <hr />
 <p><strong>End of Chapter 8: Environmental Nexus Tags</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="chapter-9">Chapter 9: Coordination Connections</h1>
 <p><a href="/research/methodology/rationale/#rationale-9" class="weo-rationale-link">View rationale for this chapter →</a></p>
 
@@ -13880,6 +13902,7 @@ analytical assessments, not documentary verification.</p>
 <hr />
 <p><strong>End of Chapter 9: Coordination Connections</strong></p>
 <hr />
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <h1 id="appendix-unified-index">Appendix: Unified Index</h1>
 <p>This index covers both the <strong>Methodology Manual</strong> (this
 document) and the companion <strong>Methodology Rationale</strong>.
@@ -14844,6 +14867,7 @@ References indicate document and section.</p>
 <p><em>End of Unified Index</em></p>
 <hr />
 <p><strong>End of Methodology Manual</strong></p>
+<a href="#top" class="weo-mobile-top-link">↑ Back to top</a>
 <p><em>Warmth Engine Observatory | January 2026 (v1.4, May
 2026)</em></p>
 
