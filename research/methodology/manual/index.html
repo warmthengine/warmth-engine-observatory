@@ -600,6 +600,28 @@
             }
         }
 
+        /* Back to top */
+        .weo-back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
+            z-index: 100;
+        }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
     </style>
 </head>
 <body>
@@ -621,8 +643,8 @@
                 <a href="/atlas.html">Atlas</a>
                 <a href="/events.html">Events</a>
                 <a href="/blocs.html">Blocs</a>
-                <a href="/methodology.html">Methodology</a>
-                <a href="/research.html" class="active">Research</a>
+                <a href="/methodology.html" class="active">Methodology</a>
+                <a href="/research.html">Research</a>
                 <a href="/about.html">About</a>
                 <a href="/support.html">Support</a>
             </div>
@@ -14900,7 +14922,22 @@ References indicate document and section.</p>
         });
     }
 
+    // Back to top
+    (function() {
+        const btn = document.getElementById('backToTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function() {
+            btn.classList.toggle('visible', window.scrollY > 500);
+        }, { passive: true });
+        btn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+
     </script>
+    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
     <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
