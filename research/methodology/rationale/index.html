@@ -544,7 +544,7 @@
             display: inline-block;
             margin-top: 0.5rem;
             font-size: 0.8125rem;
-            color: var(--weo-text-muted);
+            color: #94A3B8;
             text-decoration: none;
             padding: 0.2rem 0.5rem;
             border: 1px solid var(--weo-border-primary);
@@ -552,8 +552,8 @@
             transition: all 150ms ease;
         }
         .weo-rationale-link:hover {
-            color: var(--weo-accent-hover);
-            border-color: var(--weo-accent-hover);
+            color: #60a5fa;
+            border-color: #60a5fa;
         }
 
         /* :target highlight */
@@ -11455,8 +11455,10 @@ via the contact information provided on the WEO platform.</p>
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = '#' + h.id;
-            // Strip any remaining {#...} artefacts from heading text
-            a.textContent = h.textContent.replace(/\s*\{#[^\}]+\}/, '').trim();
+            // Clone heading, remove rationale links, then extract clean text
+            const hClone = h.cloneNode(true);
+            hClone.querySelectorAll('.weo-rationale-link').forEach(function(el) { el.parentNode.removeChild(el); });
+            a.textContent = hClone.textContent.replace(/\s*\{#[^\}]+\}/, '').trim();
             a.dataset.id = h.id;
             if (h.tagName === 'H2') {
                 li.style.paddingLeft = '0.75rem';
