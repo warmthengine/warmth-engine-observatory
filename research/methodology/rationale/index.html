@@ -11457,10 +11457,13 @@ via the contact information provided on the WEO platform.</p>
         });
     }
 
-    // Back to top
+    </script>
+    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <script>
     (function() {
-        const btn = document.getElementById('backToTop');
-        if (!btn) return;
+        var btn = document.getElementById('backToTop');
         window.addEventListener('scroll', function() {
             btn.classList.toggle('visible', window.scrollY > 500);
         }, { passive: true });
@@ -11468,11 +11471,7 @@ via the contact information provided on the WEO platform.</p>
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     })();
-
     </script>
-    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-    </button>
     <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
