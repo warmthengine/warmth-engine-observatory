@@ -54,4 +54,17 @@
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
+  <!-- Self-hosted publications -->
+  <url>
+    <loc>https://www.warmthengine.com/research/methodology/manual/</loc>
+    <lastmod>2026-05-23</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.warmthengine.com/research/methodology/rationale/</loc>
+    <lastmod>2026-05-23</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
