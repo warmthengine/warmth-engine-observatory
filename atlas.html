@@ -4292,7 +4292,7 @@
           highlyConnected:   'section-9-1',
           industryTags:      'section-7-2',
           environmentalNexus: 'section-8-2',
-          involvement:       'section-5-3-1',
+          involvement:       'section-3-10',
           scale:             null,
           tierSection:       'section-5-2',
           tiebreaker:        'section-4-9-tiebreakers',
@@ -8769,6 +8769,8 @@
             html += '<div class="atlas-panel-section-title"><span class="badge-with-tooltip">Tier classification' + generateTooltip('tierSection', 'below') + '</span></div>';
             if (event.tier_rationale) {
                 html += atlasMethodologyProseBlock('', event.tier_rationale, 75);
+            } else if (event.sample) {
+                html += '<div class="atlas-section-note" style="color:#94A3B8;font-size:13px;padding:8px 0;">Tier classification rationale loading...</div>';
             } else {
                 html += '<div class="atlas-section-locked">';
                 // §21 standardised copy.
@@ -8784,6 +8786,8 @@
             html += '<div class="atlas-panel-section-title">Bloc analysis</div>';
             if (event.bloc_analysis) {
                 html += atlasBlocAnalysisBlock(event.bloc_analysis);
+            } else if (event.sample) {
+                html += '<div class="atlas-section-note" style="color:#94A3B8;font-size:13px;padding:8px 0;">Bloc analysis loading...</div>';
             } else {
                 html += '<div class="atlas-section-locked">';
                 // §21 standardised copy.
