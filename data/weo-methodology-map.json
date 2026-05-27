@@ -1,0 +1,1003 @@
+{
+  "version": "1.4",
+  "generated": "2026-05-26",
+  "description": "Term-to-anchor mapping for WEO methodology cross-reference system. Maps UI-visible terms to section anchors in the self-hosted V1.4 Methodology Manual.",
+  "mappings": [
+    {
+      "term": "T1 (Cross-Bloc)",
+      "variants": ["T1", "Cross-Bloc", "Cross-Bloc Coordination"],
+      "anchor": "section-5-4",
+      "context": "Tier classification — verified cross-bloc adoption by principal AI actors from at least two distinct ecosystems"
+    },
+    {
+      "term": "T2 (Between-Bloc)",
+      "variants": ["T2", "Between-Bloc", "Between-Bloc Fragmentation"],
+      "anchor": "section-5-5",
+      "context": "Tier classification — structural separation between blocs through restriction, buildout, or regulatory barriers"
+    },
+    {
+      "term": "T3 (Intra-Bloc)",
+      "variants": ["T3", "Intra-Bloc", "Intra-Bloc Coordination"],
+      "anchor": "section-5-6",
+      "context": "Tier classification — coordination within a single bloc"
+    },
+    {
+      "term": "Three-Tier Architecture",
+      "variants": ["T1/T2/T3"],
+      "anchor": "section-5-2",
+      "context": "Event classification by coordination scale — Cross-Bloc, Between-Bloc, Intra-Bloc"
+    },
+    {
+      "term": "Western Bloc (WB)",
+      "variants": ["Western Bloc"],
+      "anchor": "section-3-10",
+      "context": "Bloc classification — US-anchored AI infrastructure ecosystem"
+    },
+    {
+      "term": "Eastern Bloc (EB)",
+      "variants": ["Eastern Bloc"],
+      "anchor": "section-3-10",
+      "context": "Bloc classification — China-anchored AI infrastructure ecosystem"
+    },
+    {
+      "term": "Non-Aligned (NA)",
+      "variants": ["Non-Aligned"],
+      "anchor": "section-3-10-2",
+      "context": "Bloc classification — nations with active partnerships with both blocs and strategic autonomy"
+    },
+    {
+      "term": "WB-Led",
+      "variants": [],
+      "anchor": "section-5-5",
+      "context": "Tier 2 bloc classification — fragmentation action initiated by Western Bloc"
+    },
+    {
+      "term": "EB-Led",
+      "variants": [],
+      "anchor": "section-5-5",
+      "context": "Tier 2 bloc classification — fragmentation action initiated by Eastern Bloc"
+    },
+    {
+      "term": "Coordination (Event Type)",
+      "variants": ["Event Type: Coordination"],
+      "anchor": "section-3-6",
+      "context": "Event type — multi-nation agreements, joint initiatives, standards cooperation"
+    },
+    {
+      "term": "Infrastructure (Event Type)",
+      "variants": ["Event Type: Infrastructure"],
+      "anchor": "section-3-6",
+      "context": "Event type — physical/digital systems deployment by government/sovereign entity"
+    },
+    {
+      "term": "Policy (Event Type)",
+      "variants": ["Event Type: Policy"],
+      "anchor": "section-3-6",
+      "context": "Event type — regulations, laws, executive orders, governance frameworks"
+    },
+    {
+      "term": "Corporate (Event Type)",
+      "variants": ["Event Type: Corporate"],
+      "anchor": "section-3-6",
+      "context": "Event type — private sector coordination, partnerships, market structure events"
+    },
+    {
+      "term": "Energy/Infrastructure (Domain)",
+      "variants": [],
+      "anchor": "section-6-2-energy",
+      "context": "Domain classification — physical AI infrastructure, energy systems, data centres, 20–60 year durability"
+    },
+    {
+      "term": "Security (Domain)",
+      "variants": [],
+      "anchor": "section-6-2-security",
+      "context": "Domain classification — military, national security, defence applications"
+    },
+    {
+      "term": "Technology (Domain)",
+      "variants": [],
+      "anchor": "section-6-3",
+      "context": "Domain classification — algorithms, models, software, standards, 2–5 year durability"
+    },
+    {
+      "term": "Trade (Domain)",
+      "variants": [],
+      "anchor": "section-6-3-trade",
+      "context": "Domain classification — economic exchange, investment, market access"
+    },
+    {
+      "term": "CC-V (Verified)",
+      "variants": ["CC-V"],
+      "anchor": "section-9-3-1",
+      "context": "CC confidence level — official document explicitly establishes connection"
+    },
+    {
+      "term": "CC-E (Established)",
+      "variants": ["CC-E"],
+      "anchor": "section-9-3-1",
+      "context": "CC confidence level — authoritative statement documents connection"
+    },
+    {
+      "term": "CC-A (Analytical)",
+      "variants": ["CC-A"],
+      "anchor": "section-9-3-1",
+      "context": "CC confidence level — convergent quality sources support analyst assessment"
+    },
+    {
+      "term": "Type 1: Policy Cascade",
+      "variants": ["Policy Cascade", "Type 1", "CC Type 1"],
+      "anchor": "section-9-2-1-type-1",
+      "context": "CC type — higher-authority event mandates implementation by lower-level event"
+    },
+    {
+      "term": "Type 2: Joint Issuance",
+      "variants": ["Joint Issuance", "Type 2", "CC Type 2"],
+      "anchor": "section-9-2-1-type-2",
+      "context": "CC type — multiple entities publish single unified document"
+    },
+    {
+      "term": "Type 3: Funding Flow",
+      "variants": ["Funding Flow", "Type 3", "CC Type 3"],
+      "anchor": "section-9-2-1-type-3",
+      "context": "CC type — financial resources from Event A directly enable Event B"
+    },
+    {
+      "term": "Type 4: Regulatory Enablement",
+      "variants": ["Regulatory Enablement", "Type 4", "CC Type 4"],
+      "anchor": "section-9-2-1-type-4",
+      "context": "CC type — Event A creates legal/regulatory basis making Event B possible"
+    },
+    {
+      "term": "Type 5: Response",
+      "variants": ["Type 5", "CC Type 5"],
+      "anchor": "section-9-2-1-type-5",
+      "context": "CC type — Event B is direct, deliberate reaction to Event A"
+    },
+    {
+      "term": "Type 6: Framework Family",
+      "variants": ["Framework Family", "Type 6", "CC Type 6"],
+      "anchor": "section-9-2-1-type-6",
+      "context": "CC type — events formally part of same standards suite, regulatory family, or institutional framework"
+    },
+    {
+      "term": "Type 7: Parallel Policy",
+      "variants": ["Parallel Policy", "Type 7", "CC Type 7"],
+      "anchor": "section-9-2-1-type-7",
+      "context": "CC type — similar events in different jurisdictions without formal coordination"
+    },
+    {
+      "term": "Coordination Connection (CC)",
+      "variants": ["Coordination Connection"],
+      "anchor": "section-9-1",
+      "context": "Documented relationship between verified events — seven types with three confidence levels"
+    },
+    {
+      "term": "ENT-1: Resource Demand",
+      "variants": ["ENT-1"],
+      "anchor": "section-8-3-1",
+      "context": "Environmental Nexus Tag — documented demand on environmental resources at hyperscale energy capacity"
+    },
+    {
+      "term": "ENT-2: Environmental Enablement",
+      "variants": ["ENT-2"],
+      "anchor": "section-8-3-2",
+      "context": "Environmental Nexus Tag — environmental objectives as stated justification in operative provisions"
+    },
+    {
+      "term": "ENT-3: Environmental Consequence",
+      "variants": ["ENT-3"],
+      "anchor": "section-8-3-3",
+      "context": "Environmental Nexus Tag — documented, measured environmental outcomes"
+    },
+    {
+      "term": "ENT-4: Environmental Dependency",
+      "variants": ["ENT-4"],
+      "anchor": "section-8-3-4",
+      "context": "Environmental Nexus Tag — authoritative environmental risk data documents a specific risk"
+    },
+    {
+      "term": "ENT-5: Environmental Coordination",
+      "variants": ["ENT-5"],
+      "anchor": "section-8-3-5",
+      "context": "Environmental Nexus Tag — binding environmental requirements on AI infrastructure or dedicated AI for environmental purposes"
+    },
+    {
+      "term": "Environmental Nexus Tags (ENT)",
+      "variants": ["ENT", "Environmental Nexus Tags", "ENTs"],
+      "anchor": "section-8-2",
+      "context": "Five-type analytical enrichment layer identifying environmental intersections"
+    },
+    {
+      "term": "Warmth Engine Ratio (WER)",
+      "variants": ["WER", "Warmth Engine Ratio"],
+      "anchor": "section-8-5",
+      "context": "ENT-1 count ÷ ENT-5 count — measures governance gap between environmental demand and environmental governance"
+    },
+    {
+      "term": "Principal AI Actor (PAA)",
+      "variants": ["PAA", "Principal AI Actor"],
+      "anchor": "section-5-3-1",
+      "context": "Actor designation — ecosystem anchor scoring ≥3 dimensions, passing severance test, holding sustainable platform dimension"
+    },
+    {
+      "term": "AI Infrastructure Keystone (AIK)",
+      "variants": ["AIK", "AI Infrastructure Keystone"],
+      "anchor": "section-5-3-1",
+      "context": "Actor designation — structural chokepoint leverage without providing the ecosystem itself"
+    },
+    {
+      "term": "Advanced Capability State (ACS)",
+      "variants": ["ACS", "Advanced Capability State"],
+      "anchor": "section-5-3-1",
+      "context": "Actor designation — ≥3 dimensions but failing severance test against a PAA"
+    },
+    {
+      "term": "Participant",
+      "variants": [],
+      "anchor": "section-5-3-1",
+      "context": "Actor designation — fewer than 3 dimensions met, operating within ecosystems shaped by PAAs and AIKs"
+    },
+    {
+      "term": "Sovereign Capability Profiles (SCP)",
+      "variants": ["SCP", "Sovereign Capability Profiles"],
+      "anchor": "section-5-3",
+      "context": "Seven-dimension framework assessing sovereign AI infrastructure capability"
+    },
+    {
+      "term": "Actor Designation Framework",
+      "variants": ["PAA/AIK/ACS/Participant"],
+      "anchor": "section-5-3-1",
+      "context": "Four-designation classification derived from three-gate structure"
+    },
+    {
+      "term": "Dimension 1: AI Accelerator Design",
+      "variants": [],
+      "anchor": "section-5-3-d1",
+      "context": "SCP dimension — designs and commercially markets AI training-relevant accelerators"
+    },
+    {
+      "term": "Dimension 2: Advanced Semiconductor Fabrication",
+      "variants": [],
+      "anchor": "section-5-3-d2",
+      "context": "SCP dimension — production-capable fabrication at ≤7nm"
+    },
+    {
+      "term": "Dimension 3: Semiconductor Manufacturing Equipment",
+      "variants": [],
+      "anchor": "section-5-3-d3",
+      "context": "SCP dimension — globally essential semiconductor production equipment"
+    },
+    {
+      "term": "Dimension 4: Cloud AI Compute Services",
+      "variants": [],
+      "anchor": "section-5-3-d4",
+      "context": "SCP dimension — hyperscale cloud AI compute on actor's territory"
+    },
+    {
+      "term": "Dimension 5: Frontier AI Model Development",
+      "variants": [],
+      "anchor": "section-5-3-d5",
+      "context": "SCP dimension — state-of-the-art foundation models with general applicability"
+    },
+    {
+      "term": "Dimension 6: AI-Specific Regulatory Authority",
+      "variants": [],
+      "anchor": "section-5-3-d6",
+      "context": "SCP dimension — AI-relevant compliance frameworks with extraterritorial reach"
+    },
+    {
+      "term": "Dimension 7: Sovereign AI Infrastructure Investment",
+      "variants": [],
+      "anchor": "section-5-3-d7",
+      "context": "SCP dimension — nationally transformative public capital towards AI infrastructure"
+    },
+    {
+      "term": "Severance Test",
+      "variants": [],
+      "anchor": "section-5-3-1-severance",
+      "context": "SCP Gate 2 — ecosystem independence test against each existing PAA"
+    },
+    {
+      "term": "Three-Gate Structure",
+      "variants": ["Gate 1/Gate 2/Gate 3"],
+      "anchor": "section-5-3-1",
+      "context": "PAA designation — capability threshold, severance test, sustainable platform dimension"
+    },
+    {
+      "term": "Buildout (Fragmentation Type)",
+      "variants": ["Fragmentation: Buildout"],
+      "anchor": "section-5-5-buildout",
+      "context": "T2 fragmentation type — parallel capability development reducing cross-bloc dependency"
+    },
+    {
+      "term": "Restriction (Fragmentation Type)",
+      "variants": ["Fragmentation: Restriction"],
+      "anchor": "section-5-5-restriction",
+      "context": "T2 fragmentation type — explicit restriction on other-bloc access"
+    },
+    {
+      "term": "Explicit-Targeting",
+      "variants": ["Explicit-Targeting Label"],
+      "anchor": "section-5-5-restriction",
+      "context": "T2 Restriction label — export controls, sanctions with named other-bloc entities"
+    },
+    {
+      "term": "Impact-Demonstrated",
+      "variants": ["T2 Impact-Demonstrated", "Impact-Demonstrated Pathway"],
+      "anchor": "section-5-5-impact-demonstrated",
+      "context": "T2 Restriction pathway — PIET Gate 3 byproduct establishing cross-bloc impact"
+    },
+    {
+      "term": "PISA-5",
+      "variants": ["Policy and Institutional Significance Assessment"],
+      "anchor": "section-4-9",
+      "context": "Five-factor assessment for single-jurisdiction policy and institutional events"
+    },
+    {
+      "term": "Keohane Pre-Filter",
+      "variants": ["Keohane Auto-Qualification"],
+      "anchor": "section-4-2",
+      "context": "Multi-nation coordination events auto-qualify for geopolitical significance"
+    },
+    {
+      "term": "Basel 5-Factor Assessment",
+      "variants": ["Basel 5-Factor"],
+      "anchor": "section-4-4",
+      "context": "Physical AI infrastructure significance — 2+ of 5 factors required"
+    },
+    {
+      "term": "Route-Based Assessment",
+      "variants": [],
+      "anchor": "section-4-8",
+      "context": "Software/platform infrastructure significance — four strategic routes"
+    },
+    {
+      "term": "QC4 (Qualification Criterion 4)",
+      "variants": ["QC4", "Qualification Criterion 4"],
+      "anchor": "section-4-1",
+      "context": "Geopolitical significance assessment gate"
+    },
+    {
+      "term": "AI Connection Filter",
+      "variants": [],
+      "anchor": "section-3-5",
+      "context": "Stage 2 scope filter — Options A through G for demonstrating AI infrastructure connection"
+    },
+    {
+      "term": "Option A: Measurable AI-Specific Allocation",
+      "variants": ["Option A"],
+      "anchor": "section-3-5-a",
+      "context": "AI Connection pathway — ≥10% AI allocation or ≥$100M absolute"
+    },
+    {
+      "term": "Option B: Dedicated AI Provisions",
+      "variants": ["Option B"],
+      "anchor": "section-3-5-b",
+      "context": "AI Connection pathway — ≥1 titled section about AI in official documents"
+    },
+    {
+      "term": "Option C: AI-Explicit Mandate",
+      "variants": ["Option C"],
+      "anchor": "section-3-5-c",
+      "context": "AI Connection pathway — AI as primary purpose"
+    },
+    {
+      "term": "Option D: Operational Evidence Protocol (OEP)",
+      "variants": ["Option D", "OEP"],
+      "anchor": "section-3-5-d",
+      "context": "AI Connection pathway — independent technical evidence for Infrastructure events"
+    },
+    {
+      "term": "Option E: Corporate Strategic Disclosure",
+      "variants": ["Option E"],
+      "anchor": "section-3-5-e",
+      "context": "AI Connection pathway — regulated financial disclosure linking transaction to AI (Corporate events)"
+    },
+    {
+      "term": "Option F: Defence Appropriation Evidence",
+      "variants": ["Option F"],
+      "anchor": "section-3-5-f",
+      "context": "AI Connection pathway — published defence appropriation with explicit AI designation (Policy events)"
+    },
+    {
+      "term": "Option G: Supply-Chain Response Evidence",
+      "variants": ["Option G"],
+      "anchor": "section-3-5-g",
+      "context": "AI Connection pathway — instrument controls documented AI infrastructure input material (Policy events)"
+    },
+    {
+      "term": "PIET (Post-Implementation Evidence Track)",
+      "variants": ["PIET", "Post-Implementation Evidence Track"],
+      "anchor": "section-3-5-1",
+      "context": "Source accommodation — four-gate post-implementation evidence for policy restriction events"
+    },
+    {
+      "term": "OEP (Operational Evidence Protocol)",
+      "variants": ["Operational Evidence Protocol"],
+      "anchor": "section-3-5-d",
+      "context": "Source accommodation — operational evidence for Infrastructure events without AI-specific documentation"
+    },
+    {
+      "term": "SVA (Structural Visibility Asymmetry)",
+      "variants": ["SVA", "Structural Visibility Asymmetry"],
+      "anchor": "section-4-11",
+      "context": "Source accommodation — state media with official documentary function under specified conditions"
+    },
+    {
+      "term": "Bloc Membership Register",
+      "variants": ["Bloc Register"],
+      "anchor": "section-3-10-1",
+      "context": "Versioned register of nation-to-bloc classifications with universal membership categories"
+    },
+    {
+      "term": "Core (Membership Category)",
+      "variants": [],
+      "anchor": "section-3-10-1",
+      "context": "Bloc membership — deepest alignment level in universal membership categories"
+    },
+    {
+      "term": "Integrated (Membership Category)",
+      "variants": [],
+      "anchor": "section-3-10-1",
+      "context": "Bloc membership — second-tier alignment in universal membership categories"
+    },
+    {
+      "term": "Engaged (Membership Category)",
+      "variants": [],
+      "anchor": "section-3-10-1",
+      "context": "Bloc membership — third-tier alignment in universal membership categories"
+    },
+    {
+      "term": "Peripheral (Membership Category)",
+      "variants": [],
+      "anchor": "section-3-10-1",
+      "context": "Bloc membership — lightest alignment in universal membership categories"
+    },
+    {
+      "term": "Bloc Analysis",
+      "variants": ["blocAnalysis"],
+      "anchor": "section-3-10-3",
+      "context": "Event-level bloc attribution using three-priority hierarchy for Non-Aligned nation events"
+    },
+    {
+      "term": "Scale Assessment Status",
+      "variants": [],
+      "anchor": "section-9-4-3-scale",
+      "context": "Parallel Policy scope assessment — status of scale comparison data availability"
+    },
+    {
+      "term": "Scope Comparator Hierarchy",
+      "variants": ["Scope Comparator"],
+      "anchor": "section-9-4-3-c3",
+      "context": "Two-level metric selection for Parallel Policy scope assessment"
+    },
+    {
+      "term": "Mechanism Statement",
+      "variants": [],
+      "anchor": "section-7-5",
+      "context": "One-sentence document-verifiable description of how event provisions address an industry or environmental intersection"
+    },
+    {
+      "term": "Qualifying Fact",
+      "variants": [],
+      "anchor": "section-4-4",
+      "context": "Documented evidence supporting a Basel 5-Factor assessment"
+    },
+    {
+      "term": "Genesis Data",
+      "variants": [],
+      "anchor": "section-3-15-2",
+      "context": "Immutable original qualified values at time of initial database entry"
+    },
+    {
+      "term": "Rolling Update",
+      "variants": ["Post-Qualification Verification"],
+      "anchor": "section-3-15",
+      "context": "System for incorporating post-entry developments with 6-month verification standard"
+    },
+    {
+      "term": "Pending Update",
+      "variants": [],
+      "anchor": "section-3-15-4",
+      "context": "Source-verified development awaiting 6-month temporal qualification"
+    },
+    {
+      "term": "Event Evolution Protocol",
+      "variants": ["Event Evolution", "Succession Protocol"],
+      "anchor": "section-3-14",
+      "context": "Framework for determining transformation (new event) vs scaling (rolling update)"
+    },
+    {
+      "term": "Corporate Product Release Supplement",
+      "variants": ["Corporate Product Diagnostic"],
+      "anchor": "section-3-14-1",
+      "context": "Three-dimension diagnostic for corporate product releases (Dimension A/B/C)"
+    },
+    {
+      "term": "J-Tier (Jurisdictional Significance)",
+      "variants": ["J-Tier A", "J-Tier B", "J-Tier C", "J-Tier D", "J-Tier E"],
+      "anchor": "section-4-9-f1",
+      "context": "PISA-5 Factor 1 — five-tier jurisdictional classification"
+    },
+    {
+      "term": "AI Hub Exception",
+      "variants": ["J-Tier D"],
+      "anchor": "section-4-9-ai-hub",
+      "context": "PISA-5 accommodation for AI-significant jurisdictions below standard J-Tier thresholds"
+    },
+    {
+      "term": "F3 Pathway Exemption",
+      "variants": ["F3 Exemption", "AI Centrality Exemption"],
+      "anchor": "section-4-9-f3",
+      "context": "Option F and Option G events exempt from PISA-5 Factor 3 (AI Centrality)"
+    },
+    {
+      "term": "Tiebreaker Criteria (TB1–TB5)",
+      "variants": ["TB1", "TB2", "TB3", "TB4", "TB5"],
+      "anchor": "section-4-9-tiebreakers",
+      "context": "PISA-5 marginal case resolution — Precedent-Setting, Resource Magnitude, Institutional Scope, Temporal Significance, Bloc Significance"
+    },
+    {
+      "term": "Authority Hierarchy (AL-1 to AL-6)",
+      "variants": ["AL-1", "AL-2", "AL-3", "AL-4", "AL-5", "AL-6"],
+      "anchor": "section-9-2-1-authority",
+      "context": "Six-level hierarchy distinguishing Policy Cascade from Regulatory Enablement"
+    },
+    {
+      "term": "Temporal Windows (CC)",
+      "variants": [],
+      "anchor": "section-9-4-1",
+      "context": "Domain-specific temporal proximity thresholds for CC qualification"
+    },
+    {
+      "term": "Chinese Regulatory Temporal Accommodation",
+      "variants": ["根据 Accommodation"],
+      "anchor": "section-9-4-1",
+      "context": "Extended temporal window for Chinese 根据 regulatory chains"
+    },
+    {
+      "term": "Funding Attribution Threshold",
+      "variants": [],
+      "anchor": "section-9-4-2",
+      "context": "Funding Flow minimum — ≥10% of Event B's funding traceable to Event A"
+    },
+    {
+      "term": "Distinct Actor Requirement",
+      "variants": ["Distinct Actor"],
+      "anchor": "section-9-1-6",
+      "context": "CC prerequisite — events must involve separate sovereign, corporate, or institutional entities"
+    },
+    {
+      "term": "Semiconductors & Equipment",
+      "variants": [],
+      "anchor": "section-7-3-semiconductors",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Cloud, Data Centres & Connectivity Infrastructure",
+      "variants": [],
+      "anchor": "section-7-3-cloud",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Energy & Power Infrastructure",
+      "variants": [],
+      "anchor": "section-7-3-energy",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "AI Software & Platforms",
+      "variants": [],
+      "anchor": "section-7-3-ai-software",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Defence & Aerospace",
+      "variants": [],
+      "anchor": "section-7-3-defence",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Automotive & Autonomous Systems",
+      "variants": [],
+      "anchor": "section-7-3-automotive",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Healthcare & Life Sciences",
+      "variants": [],
+      "anchor": "section-7-3-healthcare",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Financial Services & Investment",
+      "variants": [],
+      "anchor": "section-7-3-financial",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Trade & Logistics",
+      "variants": [],
+      "anchor": "section-7-3-trade",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Critical Minerals & Materials",
+      "variants": [],
+      "anchor": "section-7-3-minerals",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Standards & Governance Frameworks",
+      "variants": [],
+      "anchor": "section-7-3-standards",
+      "context": "Industry tag category"
+    },
+    {
+      "term": "Industry Tags",
+      "variants": [],
+      "anchor": "section-7-2",
+      "context": "Analytical enrichment layer identifying which industries event provisions address"
+    },
+    {
+      "term": "6-Month Verification Lag",
+      "variants": ["Verification Lag"],
+      "anchor": "section-3-9",
+      "context": "Temporal requirement — events must be ≥6 months post-implementation before database entry"
+    },
+    {
+      "term": "Source Hierarchy",
+      "variants": ["Source Quality Hierarchy"],
+      "anchor": "section-3-1",
+      "context": "Primary → Corroborating → Supplementary → Excluded source classification"
+    },
+    {
+      "term": "Confidence Language",
+      "variants": [],
+      "anchor": "section-3-4-5",
+      "context": "Tiered verification language — Confirmed, Established, Reported, Assessed, Claimed, Unconfirmed"
+    },
+    {
+      "term": "Processing Sequence",
+      "variants": ["Five-Stage Sequence"],
+      "anchor": "section-2-1",
+      "context": "Five stages across three phases — Qualification, Classification, Relationship Mapping"
+    },
+    {
+      "term": "Phase 1: Qualification",
+      "variants": [],
+      "anchor": "section-2-1",
+      "context": "Stages 1–2 — Event Verification and Significance Assessment"
+    },
+    {
+      "term": "Phase 2: Classification",
+      "variants": [],
+      "anchor": "section-2-1",
+      "context": "Stages 3–4 plus Industry Tags and ENTs"
+    },
+    {
+      "term": "Phase 3: Relationship Mapping",
+      "variants": [],
+      "anchor": "section-2-1",
+      "context": "Stage 5 — Coordination Connections cross-event analysis"
+    },
+    {
+      "term": "Documented (Evidence Basis)",
+      "variants": ["Evidence Basis: Documented"],
+      "anchor": "section-8-2-confidence",
+      "context": "ENT evidence basis — qualifying evidence appears in event's own source documentation"
+    },
+    {
+      "term": "Assessed (Evidence Basis)",
+      "variants": ["Evidence Basis: Assessed"],
+      "anchor": "section-8-2-confidence",
+      "context": "ENT evidence basis — analyst assessment based on authoritative third-party data"
+    },
+    {
+      "term": "Domain Durability",
+      "variants": [],
+      "anchor": "section-6-6",
+      "context": "Domain-typical asset lifespan ranges used in classification"
+    },
+    {
+      "term": "Keohane Coordination Definition",
+      "variants": ["Keohane (1984)"],
+      "anchor": "section-3-7",
+      "context": "Observable policy adjustments through negotiation or mutual accommodation"
+    },
+    {
+      "term": "Finnemore & Sikkink Threshold",
+      "variants": [],
+      "anchor": "section-3-7-type-3",
+      "context": "Demonstrated Convergence — approximately one-third of relevant states adopt"
+    },
+    {
+      "term": "Six-Level Implementation Hierarchy",
+      "variants": [],
+      "anchor": "section-3-7-hierarchy",
+      "context": "Proposed → Signed → Ratified → In Force → Implemented → Verified"
+    },
+    {
+      "term": "CJK Language Conventions",
+      "variants": ["CJK Conventions"],
+      "anchor": "section-3-3-1",
+      "context": "Four-pattern taxonomy for Chinese, Japanese, and Korean text in WEO"
+    },
+    {
+      "term": "Conflict-Era Source Currency",
+      "variants": ["Conflict-Era Adjustment"],
+      "anchor": "section-3-4-12",
+      "context": "Adjusted currency ceilings during formally defined conflict conditions"
+    },
+    {
+      "term": "Currency Windows",
+      "variants": ["Source Currency"],
+      "anchor": "section-3-4-8",
+      "context": "Maximum permissible source age by data type"
+    },
+    {
+      "term": "Claim Verification Tiers (A/B/C)",
+      "variants": ["Tier A Claims", "Tier B Claims", "Tier C Claims"],
+      "anchor": "section-3-4",
+      "context": "Evidentiary rigour required for different claim types — distinct from event classification tiers"
+    },
+    {
+      "term": "Version Control",
+      "variants": [],
+      "anchor": "section-3-15-7",
+      "context": "Rolling update versioning — +0.1 (update), +1.0 (classification change), +0.0.1 (error correction)"
+    },
+    {
+      "term": "CC Verification History",
+      "variants": [],
+      "anchor": "section-3-15-8",
+      "context": "Same-type CC reinforcement documented as entries in existing CC's verificationHistory"
+    },
+    {
+      "term": "Succession Modelling",
+      "variants": ["superseded_by", "succeeded_from", "split_into", "merged_from"],
+      "anchor": "section-3-14-4",
+      "context": "Bidirectional succession relationships between terminated and successor events"
+    },
+    {
+      "term": "Exclusion Criteria",
+      "variants": [],
+      "anchor": "section-3-11",
+      "context": "Nine conditions for automatic event exclusion"
+    },
+    {
+      "term": "MIIT Tripartite Classification",
+      "variants": ["通用算力/智能算力/超算算力"],
+      "anchor": "section-3-5-d-pathway-c",
+      "context": "Chinese official computing infrastructure classification — general, intelligent, supercomputing"
+    },
+    {
+      "term": "智算中心 (Intelligent Computing Centre)",
+      "variants": ["zhìsuàn zhōngxīn", "Intelligent Computing Centre"],
+      "anchor": "section-3-5-d-pathway-c",
+      "context": "OEP operative designation establishing AI connection for Pathway C"
+    },
+    {
+      "term": "Sovereign Control Principle",
+      "variants": ["Sovereign Control"],
+      "anchor": "section-5-3-2",
+      "context": "SCP governing rule — physical infrastructure follows territorial sovereignty; corporate capability follows ownership chain"
+    },
+    {
+      "term": "Subsidiary and Acquisition Clause",
+      "variants": [],
+      "anchor": "section-5-3-2",
+      "context": "SCP rule — foreign-owned entities assessed for parent's territory unless strategic autonomy demonstrated"
+    },
+    {
+      "term": "Dimension Durability",
+      "variants": ["Dimension Stickiness"],
+      "anchor": "section-3-10-1",
+      "context": "Bloc membership — hardware dimensions resist reclassification more than governance dimensions"
+    },
+    {
+      "term": "Third Bloc Formation",
+      "variants": ["Third Bloc"],
+      "anchor": "section-3-10-1-3",
+      "context": "Transitional classification mechanism when a new PAA qualifies under §5.3"
+    },
+    {
+      "term": "Three-Priority Hierarchy",
+      "variants": ["Financial Backing / Critical Technology / Strategic Leadership"],
+      "anchor": "section-3-10-3",
+      "context": "Event-level bloc attribution for Non-Aligned nation events"
+    },
+    {
+      "term": "Ecosystem Inputs",
+      "variants": ["PAA Ecosystem Inputs"],
+      "anchor": "section-5-3-1-severance",
+      "context": "Goods, services, and IP controlled by a PAA's sovereign jurisdiction or extraterritorial instruments"
+    },
+    {
+      "term": "Grade 1 / Grade 2 / Grade 3 (Sources)",
+      "variants": ["Source Authority Hierarchy"],
+      "anchor": "section-5-3-4",
+      "context": "SCP evidence standard — canonical instruments, institutional datasets, analytical sources"
+    },
+    {
+      "term": "Chokepoint Nature",
+      "variants": ["chokepoint_nature"],
+      "anchor": "section-5-3-1",
+      "context": "AIK actor profile — nature of structural chokepoint leverage"
+    },
+    {
+      "term": "Key Entities",
+      "variants": ["key_entities"],
+      "anchor": "section-5-3-1",
+      "context": "AIK actor profile — entities providing chokepoint capability"
+    },
+    {
+      "term": "Non-English Source Verification",
+      "variants": ["Non-English Verification"],
+      "anchor": "section-3-3",
+      "context": "Enhanced verification protocols for non-English language events"
+    },
+    {
+      "term": "Chinese Linguistic Markers (CC)",
+      "variants": ["根据", "落实", "依照", "贯彻", "配套", "联合", "针对"],
+      "anchor": "section-9-5-2",
+      "context": "Chinese text markers indicating CC type — Policy Cascade, Framework Family, Joint Issuance, Response"
+    },
+    {
+      "term": "GB vs GB/T",
+      "variants": ["GB Mandatory", "GB/T Voluntary"],
+      "anchor": "section-5-5-chinese-standard",
+      "context": "Chinese national standards — GB = mandatory (test for T2); GB/T = voluntary (automatic T3)"
+    },
+    {
+      "term": "1+N Framework",
+      "variants": ["1+N", "Chinese 1+N"],
+      "anchor": "section-9-5-2",
+      "context": "Chinese governance pattern — State Council directive ('1') with ministry implementation plans ('N')"
+    },
+    {
+      "term": "SAC/TC260",
+      "variants": ["TC260"],
+      "anchor": "section-9-5-2",
+      "context": "Chinese national technical committee for AI standards"
+    },
+    {
+      "term": "Normative References (CC Evidence)",
+      "variants": ["规范性引用文件"],
+      "anchor": "section-9-2-1-type-6",
+      "context": "Framework Family evidence — ISO/IEC normative references or Chinese equivalent"
+    },
+    {
+      "term": "Pending Designation (PIET)",
+      "variants": ["PENDING-PIET"],
+      "anchor": "section-3-5-1",
+      "context": "PIET status — event held pending assessment at 12-month post-implementation mark"
+    },
+    {
+      "term": "PIET Gate 1: Trade Flow Disruption",
+      "variants": [],
+      "anchor": "section-3-5-1-gate-1",
+      "context": "PIET gate — >50% global or >90% bilateral export decline"
+    },
+    {
+      "term": "PIET Gate 2: Commodity Price Movement",
+      "variants": [],
+      "anchor": "section-3-5-1-gate-2",
+      "context": "PIET gate — >20% sustained price change for ≥3 months"
+    },
+    {
+      "term": "PIET Gate 3: Government Policy Response",
+      "variants": [],
+      "anchor": "section-3-5-1-gate-3",
+      "context": "PIET gate — ≥2 other-bloc government policy responses within 18 months"
+    },
+    {
+      "term": "PIET Gate 4: Named Entity Commercial Disclosure",
+      "variants": [],
+      "anchor": "section-3-5-1-gate-4",
+      "context": "PIET gate — ≥1 named entity primary corporate disclosure citing restriction"
+    },
+    {
+      "term": "Mandatory Standard Test",
+      "variants": ["T2 Mandatory Standard"],
+      "anchor": "section-5-5-mandatory-standard",
+      "context": "T2 test — mandatory compliance language + documented enforcement mechanisms"
+    },
+    {
+      "term": "Borderline Case Verification",
+      "variants": ["T3 Borderline Check"],
+      "anchor": "section-5-6",
+      "context": "Verification protocol before classifying major events as T3"
+    },
+    {
+      "term": "Revision Policy",
+      "variants": ["Event Revision"],
+      "anchor": "section-3-12",
+      "context": "When and how verified events are revised"
+    },
+    {
+      "term": "Invalidation Tracking",
+      "variants": [],
+      "anchor": "section-3-15-10",
+      "context": "Records of developments that did not materialise — CANCELLED, DELAYED, MODIFIED, UNCONFIRMED"
+    },
+    {
+      "term": "Route 1: Official Critical Infrastructure Designation",
+      "variants": [],
+      "anchor": "section-4-8-route-1",
+      "context": "Part B pathway — CISA SIE, DMA Gatekeeper, NIS2, DORA designation"
+    },
+    {
+      "term": "Route 2: Investment-Based Infrastructure Scale",
+      "variants": [],
+      "anchor": "section-4-8-route-2",
+      "context": "Part B pathway — $100M auto or $50M+ with Route 3 support"
+    },
+    {
+      "term": "Route 3: Multi-Criteria Assessment",
+      "variants": [],
+      "anchor": "section-4-8-route-3",
+      "context": "Part B pathway — 2+ of 4 criteria (dependencies, market share, organisations, technical designation)"
+    },
+    {
+      "term": "Route 4: Open-Source AI Model Distribution",
+      "variants": [],
+      "anchor": "section-4-8-route-4",
+      "context": "Part B pathway — AI model adoption and coordination impact"
+    },
+    {
+      "term": "Deterrence Principle (Severance Test)",
+      "variants": [],
+      "anchor": "section-5-3-1-severance",
+      "context": "SCP severance test — mutual deterrence condition where denial is operationally self-destructive"
+    },
+    {
+      "term": "Cascade Analysis Boundary",
+      "variants": ["Single-Level Boundary"],
+      "anchor": "section-5-3-1-severance",
+      "context": "SCP severance test — cascade analysis extends one level to primary capability-sustaining entities"
+    },
+    {
+      "term": "ENT-2/ENT-5 Boundary",
+      "variants": [],
+      "anchor": "section-8-3-2",
+      "context": "ENT boundary — ENT-2 marks environmental intent; ENT-5 marks operationalisation into binding requirements"
+    },
+    {
+      "term": "Activation Conditions (ENT-3)",
+      "variants": [],
+      "anchor": "section-8-3-3",
+      "context": "ENT-3 distinguishes acute operational consequences from cumulative lifecycle impacts"
+    },
+    {
+      "term": "WRI Aqueduct Water Risk Atlas",
+      "variants": ["WRI Aqueduct"],
+      "anchor": "section-8-3-4",
+      "context": "ENT-4 authoritative index — facility-level water stress classification"
+    },
+    {
+      "term": "ND-GAIN Country Index",
+      "variants": ["ND-GAIN"],
+      "anchor": "section-8-3-4",
+      "context": "ENT-4 authoritative index — country-level climate vulnerability"
+    },
+    {
+      "term": "Munich Re NatCatSERVICE",
+      "variants": ["NatCatSERVICE"],
+      "anchor": "section-8-3-4",
+      "context": "ENT-4 authoritative index — natural catastrophe loss database"
+    },
+    {
+      "term": "Explicit Limitations",
+      "variants": [],
+      "anchor": "section-2-8",
+      "context": "What the methodology explicitly cannot capture"
+    },
+    {
+      "term": "Evidence-Only Observation",
+      "variants": ["Evidence-Only"],
+      "anchor": "section-1-principles",
+      "context": "Core principle — classification based on observable facts from official public documentation"
+    }
+  ]
+}
