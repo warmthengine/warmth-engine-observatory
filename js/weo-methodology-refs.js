@@ -3,32 +3,14 @@
 
     let methodologyMap = null;
     let annotationActive = false;
-    let toastShown = false;
     let termsIndex = []; // sorted by term length descending (longest match first)
-
-    // Inject toast styles once
-    (function injectStyles() {
-        const style = document.createElement('style');
-        style.textContent = [
-            '.weo-ref-toast{',
-            'position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(8px);',
-            'background:rgba(15,23,42,0.92);border:1px solid #334155;',
-            'color:#94A3B8;font-size:0.78rem;font-family:"Geist",sans-serif;',
-            'padding:0.45rem 0.9rem;border-radius:6px;white-space:nowrap;',
-            'opacity:0;transition:opacity 200ms ease,transform 200ms ease;',
-            'pointer-events:none;z-index:2000;',
-            '}',
-            '.weo-ref-toast.weo-ref-toast-visible{opacity:1;transform:translateX(-50%) translateY(0);}',
-            '@media(max-width:768px){.weo-ref-toast{display:none;}}'
-        ].join('');
-        document.head.appendChild(style);
-    })();
 
     async function loadMap() {
         try {
             const resp = await fetch('/data/weo-methodology-map.json');
             const data = await resp.json();
             methodologyMap = data;
+            // Flatten all terms + variants, sort longest first to prevent partial matches
             termsIndex = [];
             for (const entry of data.mappings) {
                 const allTerms = [entry.term, ...(entry.variants || [])];
@@ -50,20 +32,6 @@
 
     function escapeRegex(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.className = 'weo-ref-toast';
-        toast.textContent = msg;
-        document.body.appendChild(toast);
-        requestAnimationFrame(function() {
-            toast.classList.add('weo-ref-toast-visible');
-        });
-        setTimeout(function() {
-            toast.classList.remove('weo-ref-toast-visible');
-            setTimeout(function() { toast.remove(); }, 250);
-        }, 3000);
     }
 
     function annotateNode(root) {
@@ -106,6 +74,7 @@
                         span.dataset.weoRef = entry.anchor;
                         span.dataset.weoContext = entry.context;
                         span.textContent = match[0];
+                        // Capture anchor in closure
                         (function(anchor) {
                             span.addEventListener('click', function() {
                                 window.open(
@@ -143,11 +112,8 @@
 
         if (annotationActive) {
             annotateNode(document.querySelector('main') || document.body);
-            if (!toastShown) {
-                toastShown = true;
-                showToast('Methodology references active — click dotted terms to view definitions');
-            }
         } else {
+            // Unwrap all .weo-ref spans
             document.querySelectorAll('.weo-ref').forEach(function(span) {
                 const text = document.createTextNode(span.textContent);
                 span.parentNode.replaceChild(text, span);
