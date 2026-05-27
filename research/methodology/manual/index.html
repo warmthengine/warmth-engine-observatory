@@ -14906,6 +14906,7 @@ References indicate document and section.</p>
         });
     }
 
+    if (window.innerWidth > 768) {
     // ToC generation
     (function() {
         const body = document.getElementById('weo-methodology-body');
@@ -14949,6 +14950,7 @@ References indicate document and section.</p>
 
         headings.forEach(function(h) { observer.observe(h); });
     })();
+    }
 
     // Mobile ToC toggle
     const tocToggle = document.getElementById('tocToggle');
