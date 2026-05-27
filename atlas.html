@@ -1505,6 +1505,19 @@
           color: #F1F5F9;
           font-weight: 600;
         }
+        #weo-tooltip-overlay .weo-tooltip-method-link {
+          margin-top: 8px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(148,163,184,0.15);
+        }
+        #weo-tooltip-overlay .weo-tooltip-method-link a {
+          color: #94A3B8;
+          text-decoration: none;
+          font-size: 0.78em;
+        }
+        #weo-tooltip-overlay .weo-tooltip-method-link a:hover {
+          color: #60a5fa;
+        }
         @media (max-width: 767px) {
           #weo-tooltip-overlay {
             width: 310px;
@@ -3878,63 +3891,6 @@
             .atlas-landscape-hint { display: none !important; }
         }
 
-    /* Methodology cross-reference system */
-    .weo-ref-toggle {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: var(--weo-surface-raised);
-        border: 1px solid var(--weo-border-primary);
-        color: #94A3B8;
-        font-size: 1.25rem;
-        font-family: 'Geist', sans-serif;
-        cursor: pointer;
-        z-index: 1000;
-        transition: all 200ms ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.6;
-    }
-    .weo-ref-toggle:hover {
-        opacity: 1;
-        color: #60a5fa;
-        border-color: #60a5fa;
-    }
-    .weo-ref-toggle.active {
-        background: rgba(96, 165, 250, 0.15);
-        color: #60a5fa;
-        border-color: #60a5fa;
-        opacity: 1;
-    }
-    .weo-ref {
-        cursor: default;
-        position: relative;
-    }
-    .weo-refs-active .weo-ref {
-        cursor: pointer;
-        text-decoration: underline;
-        text-decoration-style: dotted;
-        text-decoration-color: #94A3B8;
-        text-underline-offset: 3px;
-    }
-    .weo-refs-active .weo-ref:hover {
-        text-decoration-color: #60a5fa;
-        color: #60a5fa;
-    }
-    .weo-refs-active .weo-ref:hover::after {
-        content: '§';
-        font-size: 0.7em;
-        color: #60a5fa;
-        margin-left: 2px;
-        vertical-align: super;
-    }
-    @media (max-width: 768px) {
-        .weo-ref-toggle { display: none; }
-    }
 
     </style>
 </head>
@@ -4315,23 +4271,47 @@
         };
 
         // Tooltip HTML helpers — same signatures as index.html.
+        const weoMethodAnchors = {
+          tier:              'section-5-2',
+          confidence:        'section-3-4-5',
+          checkpoints:       'section-3-5',
+          basel5:            'section-4-4',
+          cc:                'section-9-1',
+          keohane:           'section-4-2',
+          pisa5:             'section-4-9',
+          routeBased:        'section-4-8',
+          bloc:              'section-3-10',
+          domain:            'section-6-2',
+          highlyConnected:   'section-9-1',
+          industryTags:      'section-7-2',
+          environmentalNexus: 'section-8-2',
+          involvement:       'section-5-3-1',
+          scale:             null,
+          ccTypes: { 1: 'section-9-2-1-type-1', 2: 'section-9-2-1-type-2', 3: 'section-9-2-1-type-3', 4: 'section-9-2-1-type-4', 5: 'section-9-2-1-type-5', 6: 'section-9-2-1-type-6', 7: 'section-9-2-1-type-7' },
+          ccConfidence: { 'CC-V': 'section-9-3-1', 'CC-E': 'section-9-3-1', 'CC-A': 'section-9-3-1' }
+        };
+        function methodLink(anchor) {
+          if (!anchor) return '';
+          return '<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#' + anchor + '" target="_blank" rel="noopener">§ View in Methodology →</a></div>';
+        }
+
         function generateTooltip(key, position) {
           const t = weoTooltips[key];
           if (!t) return '';
           const posClass = position ? ' tooltip-' + position : '';
-          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors[key]) + '</span></span>';
         }
         function generateCCTypeTooltip(typeNum, position) {
           const t = weoTooltips.ccTypes[typeNum];
           if (!t) return '';
           const posClass = position ? ' tooltip-' + position : '';
-          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors.ccTypes[typeNum]) + '</span></span>';
         }
         function generateCCConfidenceTooltip(level, position) {
           const t = weoTooltips.ccConfidence[level];
           if (!t) return '';
           const posClass = position ? ' tooltip-' + position : '';
-          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+          return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors.ccConfidence[level]) + '</span></span>';
         }
 
         // Brief 4 §3.7 — framework field → display name mapping. Manual
@@ -8430,7 +8410,7 @@
             // tooltip carrier loaded from weoTooltips.ccConfidence.
             const confTipData = weoTooltips.ccConfidence && weoTooltips.ccConfidence[confLevel];
             const confTipHtml = confTipData
-                ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${confTipData.title}</div><div class="weo-tooltip-body">${confTipData.body}</div></span>`
+                ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${confTipData.title}</div><div class="weo-tooltip-body">${confTipData.body}</div>${methodLink('section-9-3-1')}</span>`
                 : '';
             html += `<span class="atlas-panel-confidence-pill atlas-panel-confidence-pill-${confClass} atlas-chip-trigger" tabindex="0" aria-label="Connection Confidence: ${escapeHtml(confLevel)}">${escapeHtml(confSlug)}${confTipHtml}</span>`;
             html += `<h2 class="atlas-panel-title" onclick="atlasScrollPanelToTop()" style="cursor:pointer">${escapeHtml(cc.connection_type_name || `Type ${typeNum}`)}</h2>`;
@@ -8534,7 +8514,7 @@
                 const conf = String(event.confidence).toUpperCase();
                 const confSlug = (conf === 'V' || conf === 'E' || conf === 'A') ? conf.toLowerCase() : 'a';
                 const confTip = weoTooltips.confidence
-                    ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.confidence.title}</div><div class="weo-tooltip-body">${weoTooltips.confidence.body}</div></span>`
+                    ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.confidence.title}</div><div class="weo-tooltip-body">${weoTooltips.confidence.body}</div>${methodLink('section-3-4-5')}</span>`
                     : '';
                 html += `<span class="atlas-panel-confidence-pill atlas-panel-confidence-pill-${confSlug} atlas-chip-trigger" tabindex="0" aria-label="Source Confidence Rating: CC-${escapeHtml(conf)}">${escapeHtml(conf)}${confTip}</span>`;
             }
@@ -8550,13 +8530,13 @@
             html += '<div class="atlas-panel-header-chips">';
             const tierNum = Number(event.tier) || 3;
             const tierTip = weoTooltips.tier
-                ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.tier.title}</div><div class="weo-tooltip-body">${weoTooltips.tier.body}</div></span>`
+                ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.tier.title}</div><div class="weo-tooltip-body">${weoTooltips.tier.body}</div>${methodLink('section-5-2')}</span>`
                 : '';
             html += `<span class="atlas-chip atlas-chip-tier-${tierNum} atlas-chip-trigger" onclick="atlasOpenAndScrollTo('atlas-section-tier')" tabindex="0">Tier ${tierNum}${tierTip}</span>`;
             if (event.bloc) {
                 const bc = ATLAS_BLOC_CHIP[event.bloc] || 'cross-bloc';
                 const blocTip = weoTooltips.bloc
-                    ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.bloc.title}</div><div class="weo-tooltip-body">${weoTooltips.bloc.body}</div></span>`
+                    ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.bloc.title}</div><div class="weo-tooltip-body">${weoTooltips.bloc.body}</div>${methodLink('section-3-10')}</span>`
                     : '';
                 html += `<span class="atlas-chip atlas-chip-bloc-${bc} atlas-chip-trigger" onclick="atlasOpenAndScrollTo('atlas-section-bloc')" tabindex="0">${escapeHtml(event.bloc)}${blocTip}</span>`;
             }
@@ -11405,11 +11385,6 @@
             </div>
         </div>
     </div>
-<!-- Methodology cross-reference toggle -->
-<button id="weoRefToggle" class="weo-ref-toggle"
-        onclick="WEO_REFS.toggle()"
-        title="Toggle methodology cross-references"
-        aria-label="Toggle methodology cross-references">§</button>
-<script src="/js/weo-methodology-refs.js"></script>
+
 </body>
 </html>
