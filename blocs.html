@@ -1583,6 +1583,94 @@
         margin-top: var(--weo-space-xs);
     }
 
+    /* ---- Tooltip System (matches index.html) ---- */
+    .weo-info-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      font-size: 10px;
+      color: #94A3B8;
+      cursor: pointer;
+      vertical-align: middle;
+      margin-left: 4px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    /* Dim-key labels wrap text + colored code: allow natural width/height */
+    .scp-dim-key .weo-info-trigger {
+      width: auto;
+      height: auto;
+      font-size: inherit;
+      margin-left: 0;
+      gap: 2px;
+    }
+    .weo-info-trigger:hover { color: #60a5fa; }
+    .weo-info-trigger::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+    }
+    .weo-info-trigger .weo-tooltip { display: none; }
+
+    #weo-tooltip-overlay {
+      position: fixed;
+      background: #1E293B;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 16px 18px;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      font-size: 13.5px;
+      color: #CBD5E1;
+      line-height: 1.65;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
+      pointer-events: none;
+    }
+    #weo-tooltip-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #weo-tooltip-overlay .weo-tooltip-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94A3B8;
+      margin-bottom: 6px;
+    }
+    #weo-tooltip-overlay .weo-tooltip-body {
+      font-size: 13px;
+      color: #CBD5E1;
+      line-height: 1.65;
+    }
+    #weo-tooltip-overlay .weo-tooltip-body strong {
+      color: #E2E8F0;
+      font-weight: 600;
+    }
+    #weo-tooltip-overlay .weo-tooltip-method-link {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(71, 85, 105, 0.5);
+    }
+    #weo-tooltip-overlay .weo-tooltip-method-link a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 11.5px;
+      letter-spacing: 0.02em;
+    }
+    #weo-tooltip-overlay .weo-tooltip-method-link a:hover {
+      color: #60a5fa;
+    }
+    @media (max-width: 768px) {
+      #weo-tooltip-overlay { width: calc(100vw - 32px); left: 16px !important; }
+    }
 
 </style>
 </head>
@@ -1779,7 +1867,7 @@
                     <!-- Core -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Core</span>
+                            <span class="subcategory-title">Core<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Core</div><div class="weo-tooltip-body">Deepest alignment — the actor anchoring the ecosystem or hosting the most critical infrastructure nodes.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(34)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -1808,7 +1896,7 @@
                     <!-- Integrated -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Integrated</span>
+                            <span class="subcategory-title">Integrated<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Integrated</div><div class="weo-tooltip-body">Embedded in the bloc's AI infrastructure through institutional, regulatory, or industrial integration.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(4)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -1870,7 +1958,7 @@
                     <!-- Engaged -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Engaged</span>
+                            <span class="subcategory-title">Engaged<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Engaged</div><div class="weo-tooltip-body">Active participation in bloc coordination without full institutional integration.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(3)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -1919,7 +2007,7 @@
                     <!-- Peripheral -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Peripheral</span>
+                            <span class="subcategory-title">Peripheral<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Peripheral</div><div class="weo-tooltip-body">Geographic or economic proximity without substantive AI infrastructure coordination.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(1)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -1969,7 +2057,7 @@
                     <!-- Core -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Core</span>
+                            <span class="subcategory-title">Core<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Core</div><div class="weo-tooltip-body">Deepest alignment — the actor anchoring the ecosystem or hosting the most critical infrastructure nodes.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(2)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -1998,7 +2086,7 @@
                     <!-- Integrated -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Integrated</span>
+                            <span class="subcategory-title">Integrated<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Integrated</div><div class="weo-tooltip-body">Embedded in the bloc's AI infrastructure through institutional, regulatory, or industrial integration.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(2)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -2027,7 +2115,7 @@
                     <!-- Engaged -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Engaged</span>
+                            <span class="subcategory-title">Engaged<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Engaged</div><div class="weo-tooltip-body">Active participation in bloc coordination without full institutional integration.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(3)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -2060,7 +2148,7 @@
                     <!-- Peripheral -->
                     <div class="subcategory">
                         <div class="subcategory-header">
-                            <span class="subcategory-title">Peripheral</span>
+                            <span class="subcategory-title">Peripheral<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Peripheral</div><div class="weo-tooltip-body">Geographic or economic proximity without substantive AI infrastructure coordination.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                             <span class="subcategory-count">(4)</span>
                         </div>
                         <div class="prose" style="margin-bottom: var(--weo-space-md);">
@@ -2111,7 +2199,7 @@
                 <div class="bloc-header" onclick="toggleBloc('non-aligned')">
                     <div class="bloc-header-left">
                         <span class="bloc-indicator non-aligned"></span>
-                        <span class="bloc-title">Non-Aligned</span>
+                        <span class="bloc-title">Non-Aligned<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Non-Aligned</div><div class="weo-tooltip-body">Nations with documented AI infrastructure partnerships with both blocs and maintained strategic autonomy. Classified to either bloc per event based on dominant partnership characteristics.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-3-10-2" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></span>
                     </div>
                     <div style="display: flex; align-items: center; gap: var(--weo-space-md);">
                         <span class="bloc-count non-aligned">9</span>
@@ -2216,25 +2304,25 @@
         
         <!-- Actor Capability Profiles -->
         <section class="section scp-section">
-            <h2 class="section-title">Actor Capability Profiles</h2>
+            <h2 class="section-title">Actor Capability Profiles<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Sovereign Capability Profiles</div><div class="weo-tooltip-body">Seven-dimension framework assessing each actor's sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></h2>
             <div class="card">
                 <p class="scp-intro">The actor capability framework assesses sovereign control across seven dimensions of the AI infrastructure stack. Two actors qualify as principal actors — anchoring the Western and Eastern ecosystems respectively. The remaining actors are classified by the depth and independence of their capabilities within those ecosystems.</p>
 
                 <div class="scp-legend" role="list" aria-label="Designation categories">
-                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-paa">PAA</span> Principal Actor</div>
-                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-aik">AIK</span> Critical Node</div>
-                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-acs">ACS</span> Ecosystem-Coupled</div>
-                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-part">PRT</span> Participant</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-paa">PAA</span><span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Principal AI Actor (PAA)</div><div class="weo-tooltip-body">Ecosystem anchor — ≥3 dimensions met, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (D4 or D5).</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span> Principal Actor</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-aik">AIK</span><span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">AI Infrastructure Keystone (AIK)</div><div class="weo-tooltip-body">Structural chokepoint leverage within an ecosystem without providing the ecosystem itself — ≥3 dimensions, passes severance test, no sustainable platform dimension.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span> Critical Node</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-acs">ACS</span><span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Advanced Capability State (ACS)</div><div class="weo-tooltip-body">Significant sovereign capabilities that the actor cannot sustain autonomously under withdrawal of a PAA's ecosystem inputs — ≥3 dimensions, fails severance test.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span> Ecosystem-Coupled</div>
+                    <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-part">PRT</span><span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Participant</div><div class="weo-tooltip-body">Fewer than 3 dimensions met — operates within ecosystems shaped by PAAs and AIKs.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span> Participant</div>
                 </div>
 
                 <div class="scp-dim-key" style="display: flex; flex-wrap: wrap; gap: 4px 16px;">
-                    <span><span class="scp-dim-hw">D1</span> Chip Design</span>
-                    <span><span class="scp-dim-hw">D2</span> Fabrication</span>
-                    <span><span class="scp-dim-hw">D3</span> Equipment</span>
-                    <span><span class="scp-dim-pl">D4</span> Compute</span>
-                    <span><span class="scp-dim-pl">D5</span> Models</span>
-                    <span><span class="scp-dim-gv">D6</span> Regulation</span>
-                    <span><span class="scp-dim-gv">D7</span> Investment</span>
+                    <span class="weo-info-trigger"><span class="scp-dim-hw">D1</span> Chip Design<span class="weo-tooltip"><div class="weo-tooltip-title">D1: AI Accelerator Design</div><div class="weo-tooltip-body">Designs and commercially markets merchant AI training-relevant accelerators (GPUs, TPUs, NPUs).</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-hw">D2</span> Fabrication<span class="weo-tooltip"><div class="weo-tooltip-title">D2: Advanced Semiconductor Fabrication</div><div class="weo-tooltip-body">Production-capable fabrication at ≤7nm process nodes.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d2" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-hw">D3</span> Equipment<span class="weo-tooltip"><div class="weo-tooltip-title">D3: Semiconductor Manufacturing Equipment</div><div class="weo-tooltip-body">Globally essential semiconductor production equipment (lithography, deposition, etching, metrology).</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d3" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-pl">D4</span> Compute<span class="weo-tooltip"><div class="weo-tooltip-title">D4: Cloud AI Compute Services</div><div class="weo-tooltip-body">Hyperscale data centre clusters for AI training and inference on the actor's territory.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d4" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-pl">D5</span> Models<span class="weo-tooltip"><div class="weo-tooltip-title">D5: Frontier AI Model Development</div><div class="weo-tooltip-body">State-of-the-art foundation models with general applicability.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d5" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-gv">D6</span> Regulation<span class="weo-tooltip"><div class="weo-tooltip-title">D6: AI-Specific Regulatory Authority</div><div class="weo-tooltip-body">Enforceable AI compliance frameworks with extraterritorial reach.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d6" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
+                    <span class="weo-info-trigger"><span class="scp-dim-gv">D7</span> Investment<span class="weo-tooltip"><div class="weo-tooltip-title">D7: Sovereign AI Infrastructure Investment</div><div class="weo-tooltip-body">Nationally transformative public capital towards AI compute, fabrication, or infrastructure capacity.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-d7" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span>
                 </div>
 
                 <div class="table-scroll-container"><div class="table-scroll-indicator left"><span class="table-scroll-chevrons">‹‹‹</span></div><div class="table-scroll-indicator right"><span class="table-scroll-chevrons">›››</span></div>
@@ -2592,6 +2680,52 @@
     .catch(function (err) {
       console.warn('[WEO] blocs.html: actors API unavailable, using fallback:', err.message);
     });
+})();
+</script>
+
+  <!-- Tooltip overlay -->
+  <div id="weo-tooltip-overlay">
+    <div class="weo-tooltip-title"></div>
+    <div class="weo-tooltip-body"></div>
+    <div class="weo-tooltip-method-link"></div>
+  </div>
+
+<script>
+(function() {
+  'use strict';
+  var overlay = document.getElementById('weo-tooltip-overlay');
+  var oTitle = overlay.querySelector('.weo-tooltip-title');
+  var oBody = overlay.querySelector('.weo-tooltip-body');
+  var oMethod = overlay.querySelector('.weo-tooltip-method-link');
+
+  function showTooltip(trigger) {
+    var tip = trigger.querySelector('.weo-tooltip');
+    if (!tip) return;
+    var t = tip.querySelector('.weo-tooltip-title');
+    var b = tip.querySelector('.weo-tooltip-body');
+    oTitle.textContent = t ? t.textContent : '';
+    oBody.innerHTML = b ? b.innerHTML : '';
+    var ml = tip.querySelector('.weo-tooltip-method-link');
+    oMethod.innerHTML = ml ? ml.innerHTML : '';
+    var rect = trigger.getBoundingClientRect();
+    var top = rect.bottom + 8;
+    var left = rect.left;
+    if (left + 320 > window.innerWidth) left = window.innerWidth - 336;
+    if (left < 16) left = 16;
+    if (top + 200 > window.innerHeight) top = rect.top - 200;
+    overlay.style.top = top + 'px';
+    overlay.style.left = left + 'px';
+    overlay.classList.add('visible');
+  }
+
+  function hideTooltip() { overlay.classList.remove('visible'); }
+
+  document.addEventListener('click', function(e) {
+    var trigger = e.target.closest('.weo-info-trigger');
+    if (trigger) { showTooltip(trigger); e.stopPropagation(); }
+    else if (!e.target.closest('#weo-tooltip-overlay')) { hideTooltip(); }
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideTooltip(); });
 })();
 </script>
 

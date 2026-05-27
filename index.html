@@ -5958,6 +5958,12 @@
       .weo-status-actor-row { display: none; }
     }
 
+    /* SCP panel tooltip triggers — minimal visual weight */
+    .scp-panel .weo-info-trigger { cursor: pointer; }
+    .scp-row-badge.weo-info-trigger { cursor: pointer; }
+    .scp-row-score.weo-info-trigger { cursor: pointer; text-decoration-style: dotted; text-decoration-line: underline; text-underline-offset: 3px; text-decoration-color: rgba(148,163,184,0.4); }
+    .scp-dim-name.weo-info-trigger:hover { color: #60a5fa; }
+
   </style>
 </head>
 <body>
@@ -6004,7 +6010,7 @@
       <span class="stat-number" id="total-connections-count">—</span> Connections
     </div>
     <div class="weo-status-wer" id="weo-status-wer" style="display:none;">
-      <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database. Calculated as Resource Demand tags ÷ Environmental Coordination tags.</div></span></div>
+      <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database. Calculated as Resource Demand tags ÷ Environmental Coordination tags.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-8-5" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></div>
       <div class="weo-status-wer-row">
         <span class="weo-status-wer-value" id="weo-wer-value">—</span>
         <span class="weo-status-wer-backfill weo-info-trigger" id="weo-wer-backfill-trigger">backfill<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Backfill Phase</div><div class="weo-tooltip-body">Ratio reflects the observable landscape across the verified event database. Database in backfill phase.</div></span></span>
@@ -6220,7 +6226,7 @@
         <div class="legend-cc-header" onclick="toggleLegendCC()">
           <div class="legend-cc-title-wrapper">
             <div class="legend-cc-mini-line"></div>
-            <span class="legend-cc-title-text">Coordination Connections</span>
+            <span class="legend-cc-title-text">Coordination Connections</span><a href="/research/methodology/manual/#section-9-2-1" target="_blank" rel="noopener" style="font-size:9px;color:#94A3B8;margin-left:6px;text-decoration:none;opacity:0.6;" onmouseover="this.style.opacity='1';this.style.color='#60a5fa'" onmouseout="this.style.opacity='0.6';this.style.color='#94A3B8'">§</a>
           </div>
           <span class="legend-cc-toggle" id="legendCCToggle">▲</span>
         </div>
@@ -6237,7 +6243,7 @@
   <div class="scp-panel" id="scpPanel" role="dialog" aria-label="Sovereign Capability Profiles">
     <div class="scp-hdr">
       <div>
-        <div class="scp-title">Sovereign Capability Profiles</div>
+        <div class="scp-title">Sovereign Capability Profiles <span class="weo-info-trigger" style="font-size:12px;vertical-align:middle;opacity:0.6;cursor:pointer;">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Sovereign Capability Profiles</div><div class="weo-tooltip-body">Seven-dimension framework assessing each actor's sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></div>
         <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">14</span> actors assessed</div>
       </div>
       <button class="scp-close" id="scpClose" aria-label="Close">×</button>
@@ -9865,6 +9871,10 @@ function generateCCSection(eventId, showFullContent) {
         title: 'Scale',
         body: 'Key quantitative metrics for this event, which may include investment, compute capacity, adoption figures, regulatory scope, or technical specifications.'
       },
+      tierSection: {
+        title: 'Tier Classification',
+        body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor from at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
+      },
       // CC Type Tooltips (7 types)
       ccTypes: {
         1: {
@@ -9931,8 +9941,13 @@ function generateCCSection(eventId, showFullContent) {
       oepCheckpoint:    'section-3-5-d',
       routeBased:       'section-4-8',
       bloc:             'section-3-10',
-      domain:           'section-6-2',
+      domain:           'chapter-6',
       highlyConnected:  'section-9-1',
+      industryTags:     'section-7-2',
+      environmentalNexus: 'section-8-2',
+      involvement:      'section-5-3-1',
+      scale:            null,
+      tierSection:      'section-5-2',
       ccTypes: { 1: 'section-9-2-1-type-1', 2: 'section-9-2-1-type-2', 3: 'section-9-2-1-type-3', 4: 'section-9-2-1-type-4', 5: 'section-9-2-1-type-5', 6: 'section-9-2-1-type-6', 7: 'section-9-2-1-type-7' },
       ccConfidence: { 'CC-V': 'section-9-3-1', 'CC-E': 'section-9-3-1', 'CC-A': 'section-9-3-1' }
     };
@@ -10605,7 +10620,7 @@ function generateCCSection(eventId, showFullContent) {
       const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title">Tier Classification</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Tier Classification</span>' + generateTooltip('tierSection', 'below') + '</div><div class="section-content">' + (event.tierRationale ? '<p>' + event.tierRationale + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + relatedHtml + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
@@ -11423,6 +11438,30 @@ function generateCCSection(eventId, showFullContent) {
   var GC = ['Grade 1','Grade 2','Grade 3'];
   var GCLS = ['scp-src-g1','scp-src-g2','scp-src-g3'];
 
+  /* ---- SCP Tooltips & Methodology Anchors ---- */
+  var SCP_DIM_TIPS = [
+    {t:'D1: AI Accelerator Design', b:'Designs and commercially markets merchant AI training-relevant accelerators (GPUs, TPUs, NPUs).', a:'section-5-3-d1'},
+    {t:'D2: Advanced Semiconductor Fabrication', b:'Production-capable fabrication at ≤7nm process nodes.', a:'section-5-3-d2'},
+    {t:'D3: Semiconductor Manufacturing Equipment', b:'Globally essential semiconductor production equipment (lithography, deposition, etching, metrology).', a:'section-5-3-d3'},
+    {t:'D4: Cloud AI Compute Services', b:'Hyperscale data centre clusters for AI training and inference on the actor\x27s territory.', a:'section-5-3-d4'},
+    {t:'D5: Frontier AI Model Development', b:'State-of-the-art foundation models with general applicability.', a:'section-5-3-d5'},
+    {t:'D6: AI-Specific Regulatory Authority', b:'Enforceable AI compliance frameworks with extraterritorial reach.', a:'section-5-3-d6'},
+    {t:'D7: Sovereign AI Infrastructure Investment', b:'Nationally transformative public capital towards AI compute, fabrication, or infrastructure capacity.', a:'section-5-3-d7'}
+  ];
+  var SCP_DESIG_TIPS = {
+    PAA: {t:'Principal AI Actor (PAA)', b:'Ecosystem anchor — ≥3 dimensions met, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (D4 or D5).'},
+    AIK: {t:'AI Infrastructure Keystone (AIK)', b:'Structural chokepoint leverage within an ecosystem without providing the ecosystem itself — ≥3 dimensions, passes severance test, no sustainable platform dimension.'},
+    ACS: {t:'Advanced Capability State (ACS)', b:'Significant sovereign capabilities that the actor cannot sustain autonomously under withdrawal of a PAA\x27s ecosystem inputs — ≥3 dimensions, fails severance test.'},
+    Part: {t:'Participant', b:'Fewer than 3 dimensions met — operates within ecosystems shaped by PAAs and AIKs.'}
+  };
+  function scpMethodLink(anchor) {
+    if (!anchor) return '';
+    return '<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#' + anchor + '" target="_blank" rel="noopener">§ View in Methodology →</a></div>';
+  }
+  function scpTip(title, body, anchor) {
+    return '<span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">' + title + '</div><div class="weo-tooltip-body">' + body + '</div>' + scpMethodLink(anchor) + '</span></span>';
+  }
+
   /* ---- Expose designation lookup for event tooltip enrichment ---- */
   var _scpLocKeys = [
     ['South Korea','KR'],['United States','US'],['United Kingdom','GB'],
@@ -11461,8 +11500,11 @@ function generateCCSection(eventId, showFullContent) {
   /* ---- Build pills ---- */
   var ph = '';
   DS.forEach(function(name, i) {
-    ph += '<span class="scp-pill ' + PC[DC[i]] + '" data-dim="' + i + '">';
-    ph += '<span class="scp-pill-dot"></span>' + name + ' <span class="scp-pill-ct">' + DF[i] + '</span></span>';
+    var tip = SCP_DIM_TIPS[i];
+    ph += '<span class="scp-pill ' + PC[DC[i]] + ' weo-info-trigger" data-dim="' + i + '">';
+    ph += '<span class="scp-pill-dot"></span>' + name + ' <span class="scp-pill-ct">' + DF[i] + '</span>';
+    ph += '<span class="weo-tooltip"><div class="weo-tooltip-title">' + tip.t + '</div><div class="weo-tooltip-body">' + tip.b + '</div>' + scpMethodLink(tip.a) + '</span>';
+    ph += '</span>';
   });
   pillsEl.innerHTML = ph;
 
@@ -11546,8 +11588,13 @@ function generateCCSection(eventId, showFullContent) {
       h += '<div class="scp-row-seg' + (d ? ' ' + DC[i] + '-m' : '') + '" data-di="' + i + '"></div>';
     });
     h += '</div>';
-    h += '<span class="scp-row-score">' + a.s + '/7</span>';
-    h += '<span class="scp-row-badge"><span class="scp-badge ' + BC[a.d] + '">' + BL[a.d] + '</span></span>';
+    h += '<span class="scp-row-score weo-info-trigger">' + a.s + '/7';
+    h += '<span class="weo-tooltip"><div class="weo-tooltip-title">Dimension Score</div><div class="weo-tooltip-body">Dimensions met out of 7 total. ≥3 required for PAA, AIK, or ACS designation; fewer than 3 = Participant.</div>' + scpMethodLink('section-5-3-1') + '</span>';
+    h += '</span>';
+    var dTip = SCP_DESIG_TIPS[a.d];
+    h += '<span class="scp-row-badge weo-info-trigger"><span class="scp-badge ' + BC[a.d] + '">' + BL[a.d] + '</span>';
+    h += '<span class="weo-tooltip"><div class="weo-tooltip-title">' + dTip.t + '</div><div class="weo-tooltip-body">' + dTip.b + '</div>' + scpMethodLink('section-5-3-1') + '</span>';
+    h += '</span>';
     h += '<span class="scp-row-chev">\u25BC</span></div>';
     return h;
   }
@@ -11557,7 +11604,10 @@ function generateCCSection(eventId, showFullContent) {
 
     a.dims.forEach(function(d, i) {
       h += '<div class="scp-dim-row">';
-      h += '<span class="scp-dim-name"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i] + '</span>';
+      var dimTip = SCP_DIM_TIPS[i];
+      h += '<span class="scp-dim-name weo-info-trigger"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i];
+      h += '<span class="weo-tooltip"><div class="weo-tooltip-title">' + dimTip.t + '</div><div class="weo-tooltip-body">' + dimTip.b + '</div>' + scpMethodLink(dimTip.a) + '</span>';
+      h += '</span>';
       h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : '—') + '</span>';
       h += '</div>';
       if (d && a.con && a.con[i]) {
@@ -11579,7 +11629,7 @@ function generateCCSection(eventId, showFullContent) {
     });
 
     if (a.svd) {
-      h += '<div class="scp-sev"><strong>Severance:</strong> ' + escH(a.svd) + '</div>';
+      h += '<div class="scp-sev"><strong>Severance:</strong> <span class="weo-info-trigger" style="font-size:11px;opacity:0.6;cursor:pointer;">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Severance Test</div><div class="weo-tooltip-body">Ecosystem independence test. Assesses whether the actor can sustain its met dimensions without access to any single Principal AI Actor\x27s ecosystem inputs within 24–36 months.</div>' + scpMethodLink('section-5-3-1') + '</span></span> ' + escH(a.svd) + '</div>';
     } else if (a.d === 'PAA' || a.d === 'AIK' || a.d === 'ACS') {
       h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Severance analysis (supporter access)</div>';
     }
