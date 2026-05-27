@@ -11553,6 +11553,7 @@ function generateCCSection(eventId, showFullContent) {
     if (!listenersAttached) {
       listenersAttached = true;
       bodyEl.addEventListener('click', function(e) {
+        if (e.target.closest('.weo-info-trigger')) return;
         if (e.target.closest('#scpPartToggle')) {
           partsExpanded = !partsExpanded;
           var pr = document.getElementById('scpPartRows');
@@ -11864,6 +11865,41 @@ function generateCCSection(eventId, showFullContent) {
 
   /* ---- Expose reload hook for auth state changes ---- */
   window._scpReloadActors = loadActorsData;
+
+  /* ---- SCP Tooltip Overlay Handler ---- */
+  /* showTooltip() in the main IIFE is scoped to #detailPanel, so we
+     wire up our own handler here for triggers inside #scpPanel. */
+  if (tooltipOv) {
+    var scpOvTitle = tooltipOv.querySelector('.weo-tooltip-title');
+    var scpOvBody = tooltipOv.querySelector('.weo-tooltip-body');
+    var scpOvMethod = tooltipOv.querySelector('.weo-tooltip-method-link');
+
+    function showSCPTooltip(trigger) {
+      var tip = trigger.querySelector('.weo-tooltip');
+      if (!tip) return;
+      var t = tip.querySelector('.weo-tooltip-title');
+      var b = tip.querySelector('.weo-tooltip-body');
+      var ml = tip.querySelector('.weo-tooltip-method-link');
+      if (scpOvTitle) scpOvTitle.textContent = t ? t.textContent : '';
+      if (scpOvBody) scpOvBody.innerHTML = b ? b.innerHTML : '';
+      if (scpOvMethod) scpOvMethod.innerHTML = ml ? ml.innerHTML : '';
+      var rect = trigger.getBoundingClientRect();
+      var top = rect.bottom + 8;
+      var left = rect.left;
+      if (left + 320 > window.innerWidth) left = window.innerWidth - 336;
+      if (left < 16) left = 16;
+      if (top + 200 > window.innerHeight) top = rect.top - 208;
+      tooltipOv.style.top = top + 'px';
+      tooltipOv.style.left = left + 'px';
+      tooltipOv.classList.add('visible');
+    }
+
+    panel.addEventListener('click', function(e) {
+      var trigger = e.target.closest('.weo-info-trigger');
+      if (trigger) { showSCPTooltip(trigger); return; }
+      if (!e.target.closest('#weo-tooltip-overlay')) { hideTooltipIfActive(); }
+    });
+  }
 
   /* ---- Initial actor data load from API ---- */
   loadActorsData();
