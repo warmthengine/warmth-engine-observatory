@@ -8835,7 +8835,7 @@
             } else if (!sample) {
                 html += '<div class="atlas-sources-locked-msg">Source titles, URLs, and corroborating outlets are visible to supporters.</div>';
                 html += '<div class="atlas-sources-cta-row">';
-                html += '<a href="#event=06" onclick="event.preventDefault(); setAtlasState({ selectedEventId: \'06\', selectedConnectionId: null });">See a fully-sourced example event →</a>';
+                html += '<a href="#event=06" class="atlas-example-event-link">See a fully-sourced example event →</a>';
                 html += '<a href="support.html">Become a supporter →</a>';
                 html += '</div>';
             }
@@ -9391,6 +9391,15 @@
             if (e.key !== 'Escape') return;
             if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                 setAtlasState({ selectedEventId: null, selectedConnectionId: null });
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('.atlas-example-event-link');
+            if (link) {
+                e.preventDefault();
+                e.stopPropagation();
+                setAtlasState({ selectedEventId: '06', selectedConnectionId: null });
             }
         });
 
