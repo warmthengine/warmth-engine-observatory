@@ -1918,7 +1918,20 @@
       color: #F1F5F9;
       font-weight: 600;
     }
-    
+    #weo-tooltip-overlay .weo-tooltip-method-link {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(148,163,184,0.15);
+    }
+    #weo-tooltip-overlay .weo-tooltip-method-link a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 0.78em;
+    }
+    #weo-tooltip-overlay .weo-tooltip-method-link a:hover {
+      color: #60a5fa;
+    }
+
     @media (max-width: 767px) {
       #weo-tooltip-overlay {
         width: 310px;
@@ -3071,63 +3084,6 @@
         font-size: 12px;
     }
 
-/* Methodology cross-reference system */
-.weo-ref-toggle {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--weo-surface-raised);
-    border: 1px solid var(--weo-border-primary);
-    color: #94A3B8;
-    font-size: 1.25rem;
-    font-family: 'Geist', sans-serif;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 200ms ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.6;
-}
-.weo-ref-toggle:hover {
-    opacity: 1;
-    color: #60a5fa;
-    border-color: #60a5fa;
-}
-.weo-ref-toggle.active {
-    background: rgba(96, 165, 250, 0.15);
-    color: #60a5fa;
-    border-color: #60a5fa;
-    opacity: 1;
-}
-.weo-ref {
-    cursor: default;
-    position: relative;
-}
-.weo-refs-active .weo-ref {
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-decoration-color: #94A3B8;
-    text-underline-offset: 3px;
-}
-.weo-refs-active .weo-ref:hover {
-    text-decoration-color: #60a5fa;
-    color: #60a5fa;
-}
-.weo-refs-active .weo-ref:hover::after {
-    content: '§';
-    font-size: 0.7em;
-    color: #60a5fa;
-    margin-left: 2px;
-    vertical-align: super;
-}
-@media (max-width: 768px) {
-    .weo-ref-toggle { display: none; }
-}
 
 </style>
 </head>
@@ -3690,7 +3646,7 @@ function generateIndustryShelfHtml(eventId) {
     let html = '<div class="industry-shelf">';
     // INDUSTRY row — grid layout
     html += '<div class="shelf-row">';
-    html += '<span class="shelf-label weo-info-trigger">Industry<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div></span></span>';
+    html += '<span class="shelf-label weo-info-trigger">Industry<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div>' + methodLink('section-7-2') + '</span></span>';
     html += '<div class="shelf-badges">';
     html += '<span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndBadgeClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span>';
     for (let i = 0; i < tags.secondary.length; i++) {
@@ -3701,7 +3657,7 @@ function generateIndustryShelfHtml(eventId) {
     // ENVIRONMENT row — conditional
     if (entTags.length > 0) {
         html += '<div class="shelf-row" style="margin-left:-24px;padding-left:22px;border-left:3px solid rgba(252,211,77,0.55);box-shadow:-4px 0 8px -2px rgba(252,211,77,0.15)">';
-        html += '<span class="shelf-label weo-info-trigger" style="color:rgba(252,211,77,0.55);-webkit-text-stroke:0.5px rgba(252,211,77,0.8)">Environment<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Environmental Nexus Tags</div><div class="weo-tooltip-body">Analytical enrichment identifying where AI infrastructure coordination intersects with environmental systems. Tags describe resource demand, enablement, consequence, dependency, and governance coordination.</div></span></span>';
+        html += '<span class="shelf-label weo-info-trigger" style="color:rgba(252,211,77,0.55);-webkit-text-stroke:0.5px rgba(252,211,77,0.8)">Environment<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Environmental Nexus Tags</div><div class="weo-tooltip-body">Analytical enrichment identifying where AI infrastructure coordination intersects with environmental systems. Tags describe resource demand, enablement, consequence, dependency, and governance coordination.</div>' + methodLink('section-8-2') + '</span></span>';
         html += '<div class="shelf-badges">';
         for (let j = 0; j < entTags.length; j++) {
             html += buildEntBadgeHtml(entTags[j]);
@@ -4066,17 +4022,44 @@ function scrollToModalSection(sectionKey) {
   }
 }
 
+const weoMethodAnchors = {
+  tier:             'section-5-2',
+  confidence:       'section-3-4-5',
+  checkpoints:      'section-3-5',
+  checkpointsPiet:  'section-3-5-1',
+  checkpointsOep:   'section-3-5-d',
+  basel5:           'section-4-4',
+  cc:               'section-9-1',
+  keohane:          'section-4-2',
+  pisa5:            'section-4-9',
+  tiebreaker:       'section-4-9-tiebreakers',
+  piet:             'section-3-5-1',
+  oep:              'section-3-5-d',
+  pietCheckpoint:   'section-3-5-1',
+  oepCheckpoint:    'section-3-5-d',
+  routeBased:       'section-4-8',
+  bloc:             'section-3-10',
+  domain:           'section-6-2',
+  highlyConnected:  'section-9-1',
+  ccTypes: { 1: 'section-9-2-1-type-1', 2: 'section-9-2-1-type-2', 3: 'section-9-2-1-type-3', 4: 'section-9-2-1-type-4', 5: 'section-9-2-1-type-5', 6: 'section-9-2-1-type-6', 7: 'section-9-2-1-type-7' },
+  ccConfidence: { 'CC-V': 'section-9-3-1', 'CC-E': 'section-9-3-1', 'CC-A': 'section-9-3-1' }
+};
+function methodLink(anchor) {
+  if (!anchor) return '';
+  return '<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#' + anchor + '" target="_blank" rel="noopener">§ View in Methodology →</a></div>';
+}
+
 function generateTooltip(key, position) {
   const t = weoTooltips[key];
   if (!t) return '';
   const posClass = position ? ' tooltip-' + position : '';
-  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors[key]) + '</span></span>';
 }
 function generateFieldLabel(labelText, tooltipKey, position) {
   const t = weoTooltips[tooltipKey];
   if (!t) return '<span class="z2-label">' + labelText + '</span>';
   const posClass = position ? ' tooltip-' + position : '';
-  return '<span class="z2-label weo-info-trigger">' + labelText + '<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+  return '<span class="z2-label weo-info-trigger">' + labelText + '<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors[tooltipKey]) + '</span></span>';
 }
 
 // Generate tooltip for CC connection types (1-7)
@@ -4084,7 +4067,7 @@ function generateCCTypeTooltip(typeNum, position) {
   const t = weoTooltips.ccTypes[typeNum];
   if (!t) return '';
   const posClass = position ? ' tooltip-' + position : '';
-  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors.ccTypes[typeNum]) + '</span></span>';
 }
 
 // Generate tooltip for CC confidence levels (CC-V, CC-E, CC-A)
@@ -4092,7 +4075,7 @@ function generateCCConfidenceTooltip(level, position) {
   const t = weoTooltips.ccConfidence[level];
   if (!t) return '';
   const posClass = position ? ' tooltip-' + position : '';
-  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div></span></span>';
+  return '<span class="weo-info-trigger">?<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors.ccConfidence[level]) + '</span></span>';
 }
 
 // ========================================
@@ -5186,7 +5169,7 @@ const openModal = (id) => {
             let pathwayDisplayName = 'Software/Platform';
             if (pathwayInfo) {
                 pathwayDisplayName = pathwayInfo.displayName;
-                pathwayTooltipHtml = `<span class="weo-info-trigger">?<span class="weo-tooltip tooltip-left"><div class="weo-tooltip-title">${pathwayInfo.title}</div><div class="weo-tooltip-body">${pathwayInfo.body}</div></span></span>`;
+                pathwayTooltipHtml = `<span class="weo-info-trigger">?<span class="weo-tooltip tooltip-left"><div class="weo-tooltip-title">${pathwayInfo.title}</div><div class="weo-tooltip-body">${pathwayInfo.body}</div>${methodLink('section-4-8')}</span></span>`;
             }
             const pathwayText = '(Part B — ' + pathwayDisplayName + ')';
             html += `
@@ -5213,7 +5196,7 @@ const openModal = (id) => {
                     <thead>
                         <tr style="border-bottom:1px solid var(--weo-border-primary);">
                             <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;">Bloc</th>
-                            <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;white-space:nowrap;">Involvement <span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event's implementation — who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div></span></span></th>
+                            <th style="text-align:left;padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-muted);font-weight:500;white-space:nowrap;">Involvement <span class="weo-info-trigger">ⓘ<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event's implementation — who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div>' + methodLink('section-5-3-1') + '</span></span></th>
                             <th style="text-align:left;padding:0.5rem 0;color:var(--weo-text-muted);font-weight:500;">Role</th>
                         </tr>
                     </thead>
@@ -6218,11 +6201,6 @@ if (navToggle && navLinks) {
 
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-<!-- Methodology cross-reference toggle -->
-<button id="weoRefToggle" class="weo-ref-toggle"
-        onclick="WEO_REFS.toggle()"
-        title="Toggle methodology cross-references"
-        aria-label="Toggle methodology cross-references">§</button>
-<script src="/js/weo-methodology-refs.js"></script>
+
 </body>
 </html>
