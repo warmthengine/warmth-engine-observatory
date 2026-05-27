@@ -3071,6 +3071,64 @@
         font-size: 12px;
     }
 
+/* Methodology cross-reference system */
+.weo-ref-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--weo-surface-raised);
+    border: 1px solid var(--weo-border-primary);
+    color: #94A3B8;
+    font-size: 1.25rem;
+    font-family: 'Geist', sans-serif;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}
+.weo-ref-toggle:hover {
+    opacity: 1;
+    color: #60a5fa;
+    border-color: #60a5fa;
+}
+.weo-ref-toggle.active {
+    background: rgba(96, 165, 250, 0.15);
+    color: #60a5fa;
+    border-color: #60a5fa;
+    opacity: 1;
+}
+.weo-ref {
+    cursor: default;
+    position: relative;
+}
+.weo-refs-active .weo-ref {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #94A3B8;
+    text-underline-offset: 3px;
+}
+.weo-refs-active .weo-ref:hover {
+    text-decoration-color: #60a5fa;
+    color: #60a5fa;
+}
+.weo-refs-active .weo-ref:hover::after {
+    content: '§';
+    font-size: 0.7em;
+    color: #60a5fa;
+    margin-left: 2px;
+    vertical-align: super;
+}
+@media (max-width: 768px) {
+    .weo-ref-toggle { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -6160,5 +6218,11 @@ if (navToggle && navLinks) {
 
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<!-- Methodology cross-reference toggle -->
+<button id="weoRefToggle" class="weo-ref-toggle"
+        onclick="WEO_REFS.toggle()"
+        title="Toggle methodology cross-references"
+        aria-label="Toggle methodology cross-references">§</button>
+<script src="/js/weo-methodology-refs.js"></script>
 </body>
 </html>
