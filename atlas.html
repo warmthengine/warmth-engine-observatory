@@ -8835,7 +8835,7 @@
             } else if (!sample) {
                 html += '<div class="atlas-sources-locked-msg">Source titles, URLs, and corroborating outlets are visible to supporters.</div>';
                 html += '<div class="atlas-sources-cta-row">';
-                html += '<a href="atlas.html#event=06">See a fully-sourced example event →</a>';
+                html += '<a href="#event=06" onclick="event.preventDefault(); setAtlasState({ selectedEventId: \'06\', selectedConnectionId: null });">See a fully-sourced example event →</a>';
                 html += '<a href="support.html">Become a supporter →</a>';
                 html += '</div>';
             }
