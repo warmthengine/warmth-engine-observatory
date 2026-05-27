@@ -1918,17 +1918,17 @@
       color: #F1F5F9;
       font-weight: 600;
     }
-    .weo-tooltip .weo-tooltip-method-link {
+    #weo-tooltip-overlay .weo-tooltip-method-link {
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px solid rgba(148,163,184,0.15);
     }
-    .weo-tooltip .weo-tooltip-method-link a {
+    #weo-tooltip-overlay .weo-tooltip-method-link a {
       color: #94A3B8;
       text-decoration: none;
       font-size: 0.78em;
     }
-    .weo-tooltip .weo-tooltip-method-link a:hover {
+    #weo-tooltip-overlay .weo-tooltip-method-link a:hover {
       color: #60a5fa;
     }
 
@@ -3128,6 +3128,7 @@
     <div id="weo-tooltip-overlay">
       <div class="weo-tooltip-title"></div>
       <div class="weo-tooltip-body"></div>
+      <div class="weo-tooltip-method-link"></div>
     </div>
 
     <div class="container">
@@ -5890,7 +5891,12 @@ function showTooltip(trigger) {
   tooltipTimeout = setTimeout(function() {
     if (title) tooltipTitle.innerHTML = title.innerHTML;
     if (body) tooltipBody.innerHTML = body.innerHTML;
-    
+    var methodLinkEl = inlineTooltip.querySelector('.weo-tooltip-method-link');
+    var overlayMethodLink = tooltipOverlay.querySelector('.weo-tooltip-method-link');
+    if (overlayMethodLink) {
+      overlayMethodLink.innerHTML = methodLinkEl ? methodLinkEl.innerHTML : '';
+    }
+
     const triggerRect = trigger.getBoundingClientRect();
     const tooltipWidth = 350;
     const padding = 16;
