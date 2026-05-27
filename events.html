@@ -3933,6 +3933,10 @@ const weoTooltips = {
     title: 'Scale',
     body: 'Key quantitative metrics for this event, which may include investment, compute capacity, adoption figures, regulatory scope, or technical specifications.'
   },
+  tierSection: {
+    title: 'Tier Classification',
+    body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor from at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
+  },
   // CC Type Tooltips (7 types)
   ccTypes: {
     1: {
@@ -4042,8 +4046,13 @@ const weoMethodAnchors = {
   oepCheckpoint:    'section-3-5-d',
   routeBased:       'section-4-8',
   bloc:             'section-3-10',
-  domain:           'section-6-2',
+  domain:           'chapter-6',
   highlyConnected:  'section-9-1',
+  industryTags:     'section-7-2',
+  environmentalNexus: 'section-8-2',
+  involvement:      'section-5-3-1',
+  scale:            null,
+  tierSection:      'section-5-2',
   ccTypes: { 1: 'section-9-2-1-type-1', 2: 'section-9-2-1-type-2', 3: 'section-9-2-1-type-3', 4: 'section-9-2-1-type-4', 5: 'section-9-2-1-type-5', 6: 'section-9-2-1-type-6', 7: 'section-9-2-1-type-7' },
   ccConfidence: { 'CC-V': 'section-9-3-1', 'CC-E': 'section-9-3-1', 'CC-A': 'section-9-3-1' }
 };
@@ -5233,7 +5242,7 @@ const openModal = (id) => {
 
         html += `
             <div class="paid-section">
-                <div class="paid-section-title">▼ Tier Classification</div>
+                <div class="paid-section-title section-title-with-tooltip">▼ Tier Classification${generateTooltip('tierSection', 'below')}</div>
                 <div class="detail-prose">${full.tier_rationale}</div>
                 ${ecoImplHtml}
                 ${blocAnalysisHtml}
