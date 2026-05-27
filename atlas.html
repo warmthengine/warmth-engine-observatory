@@ -8598,12 +8598,12 @@
             // Phase 2 P1 (Batch 2b++) — sub-header at --type-sm 500
             // muted so it reads as an enrichment layer, not a peer of
             // the structural sections. Tooltip on the header.
-            if (event.industry_primary) {
+            if (event.industryPrimary) {
                 html += '<section class="atlas-panel-section" id="atlas-section-industry">';
                 html += '<div class="atlas-panel-enrichment-title"><span class="badge-with-tooltip">Industry tags' + generateTooltip('industryTags', 'below') + '</span></div>';
                 html += '<div class="atlas-classify-chips">';
-                html += `<span class="atlas-chip atlas-chip-industry ${getAtlasIndClass(event.industry_primary)}">${escapeHtml(event.industry_primary)}</span>`;
-                const industrySecondary = Array.isArray(event.industry_secondary) ? event.industry_secondary : [];
+                html += `<span class="atlas-chip atlas-chip-industry ${getAtlasIndClass(event.industryPrimary)}">${escapeHtml(event.industryPrimary)}</span>`;
+                const industrySecondary = Array.isArray(event.industrySecondary) ? event.industrySecondary : [];
                 if (industrySecondary.length > 0) {
                     industrySecondary.forEach(is => {
                         const tag = (is && (is.tag || is.name)) || '';
@@ -8764,11 +8764,11 @@
             // analytical importance. Free non-sample events return no
             // tier_rationale, so the section stays collapsed instead of
             // expanding straight onto a "Subscribe" placeholder.).
-            const tierOpenByDefault = (event.tier_rationale && Number(event.tier) !== 3) ? ' open' : '';
+            const tierOpenByDefault = (event.tierRationale && Number(event.tier) !== 3) ? ' open' : '';
             html += `<section class="atlas-panel-section atlas-collapsible${tierOpenByDefault}" id="atlas-section-tier">`;
             html += '<div class="atlas-panel-section-title"><span class="badge-with-tooltip">Tier classification' + generateTooltip('tierSection', 'below') + '</span></div>';
-            if (event.tier_rationale) {
-                html += atlasMethodologyProseBlock('', event.tier_rationale, 75);
+            if (event.tierRationale) {
+                html += atlasMethodologyProseBlock('', event.tierRationale, 75);
             } else if (event.sample) {
                 html += '<div class="atlas-section-note" style="color:#94A3B8;font-size:13px;padding:8px 0;">Tier classification rationale loading...</div>';
             } else {
@@ -8784,8 +8784,8 @@
             // bloc analysis is dense prose; users can open on demand).
             html += '<section class="atlas-panel-section atlas-collapsible" id="atlas-section-bloc">';
             html += '<div class="atlas-panel-section-title">Bloc analysis</div>';
-            if (event.bloc_analysis) {
-                html += atlasBlocAnalysisBlock(event.bloc_analysis);
+            if (event.blocAnalysis) {
+                html += atlasBlocAnalysisBlock(event.blocAnalysis);
             } else if (event.sample) {
                 html += '<div class="atlas-section-note" style="color:#94A3B8;font-size:13px;padding:8px 0;">Bloc analysis loading...</div>';
             } else {
@@ -8816,8 +8816,8 @@
             // doesn't crowd the 14px section header.
             html += '<div class="atlas-panel-section-title">Sources</div>';
             html += `<div class="atlas-section-meta">${srcTotal} referenced: ${srcPrim} primary, ${srcCorr} corroborating</div>`;
-            const sourcesPrimary = Array.isArray(event.sources_primary) ? event.sources_primary : [];
-            const sourcesCorr = Array.isArray(event.sources_corroborating) ? event.sources_corroborating : [];
+            const sourcesPrimary = Array.isArray(event.sources_primary) ? event.sources_primary : (Array.isArray(event.primarySources) ? event.primarySources : []);
+            const sourcesCorr = Array.isArray(event.sources_corroborating) ? event.sources_corroborating : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources : []);
             const hasFullSources = sourcesPrimary.length > 0 || sourcesCorr.length > 0;
             if (hasFullSources) {
                 if (sourcesPrimary.length > 0) {
@@ -8832,7 +8832,7 @@
                     sourcesCorr.forEach(s => { html += atlasRenderSourceItem(s); });
                     html += '</ul>';
                 }
-            } else {
+            } else if (!sample) {
                 html += '<div class="atlas-sources-locked-msg">Source titles, URLs, and corroborating outlets are visible to supporters.</div>';
                 html += '<div class="atlas-sources-cta-row">';
                 html += '<a href="atlas.html#event=06">See a fully-sourced example event →</a>';
@@ -8846,7 +8846,7 @@
             html += '<div class="atlas-panel-body" style="border-top:none;padding-top:0;">';
 
             // §9 — Related events accordion (paid-only data)
-            const relatedEvents = Array.isArray(event.related_events) ? event.related_events : [];
+            const relatedEvents = Array.isArray(event.relatedEvents) ? event.relatedEvents : [];
             if (relatedEvents.length > 0) {
                 html += '<div class="atlas-accordion" id="atlas-accordion-related">';
                 html += `<button type="button" class="atlas-accordion-toggle">Related events <span><span class="atlas-panel-section-title-count">(${relatedEvents.length})</span> <span class="atlas-accordion-toggle-arrow">▾</span></span></button>`;
@@ -8884,9 +8884,9 @@
                 html += '<div class="atlas-version-row atlas-version-current">';
                 html += `<span class="atlas-version-label">Current</span>`;
                 html += `<span class="atlas-version-value"><strong>v${escapeHtml(String(event.version || '?'))}</strong>`;
-                if (event.version_date) {
-                    let fmtVerDate = event.version_date;
-                    try { fmtVerDate = new Date(event.version_date + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch(_e) {}
+                if (event.versionDate) {
+                    let fmtVerDate = event.versionDate;
+                    try { fmtVerDate = new Date(event.versionDate + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch(_e) {}
                     html += ` <span class="atlas-version-date">&middot; ${escapeHtml(fmtVerDate)}</span>`;
                 }
                 html += '</span></div>';
@@ -9980,14 +9980,14 @@
             const description = event.description || '';
             const investment = event.investment || '';
 
-            const sourcesPrimary = Array.isArray(event.sources_primary) ? event.sources_primary : [];
-            const sourcesCorr = Array.isArray(event.sources_corroborating) ? event.sources_corroborating : [];
+            const sourcesPrimary = Array.isArray(event.sources_primary) ? event.sources_primary : (Array.isArray(event.primarySources) ? event.primarySources : []);
+            const sourcesCorr = Array.isArray(event.sources_corroborating) ? event.sources_corroborating : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources : []);
             const hasFullSources = sourcesPrimary.length > 0 || sourcesCorr.length > 0;
             const srcCountPrimary = event.source_count_primary ?? event.sources ?? (Array.isArray(event.sources_primary) ? event.sources_primary.length : (Array.isArray(event.primarySources) ? event.primarySources.length : 0));
             const srcCountCorr = event.source_count_corroborating ?? event.corroborating ?? (Array.isArray(event.sources_corroborating) ? event.sources_corroborating.length : (Array.isArray(event.corroboratingSources) ? event.corroboratingSources.length : 0));
 
             const ents = Array.isArray(event.environmentalNexusTags) ? event.environmentalNexusTags : [];
-            const ccCount = typeof event.cc_count === 'number' ? event.cc_count : null;
+            const ccCount = typeof event.cc_count === 'number' ? event.cc_count : (typeof event.ccCount === 'number' ? event.ccCount : null);
 
             // --- HEADER ---
             let html = '';
@@ -10253,7 +10253,7 @@
             if (filters.bloc.length && !filters.bloc.includes(event.bloc)) return false;
             if (filters.domain.length && !filters.domain.includes(event.domain)) return false;
             if (filters.eventType.length && !filters.eventType.includes(event.type)) return false;
-            if (filters.industry.length && !filters.industry.includes(event.industry_primary)) return false;
+            if (filters.industry.length && !filters.industry.includes(event.industryPrimary)) return false;
             if (filters.ent.length) {
                 const tags = entTagsOf(event);
                 if (!filters.ent.some(e => tags.includes(e))) return false;
