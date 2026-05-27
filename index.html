@@ -10881,20 +10881,22 @@ function generateCCSection(eventId, showFullContent) {
       if (tooltipTimeout) {
         clearTimeout(tooltipTimeout);
       }
-      
+
       // Add slight persistence (150ms) before hiding
       tooltipTimeout = setTimeout(function() {
         tooltipOverlay.classList.remove('visible');
+        tooltipOverlay._lastTrigger = null;
         activeTooltipTrigger = null;
       }, 150);
     }
-    
+
     function hideTooltipImmediate() {
       if (tooltipTimeout) {
         clearTimeout(tooltipTimeout);
         tooltipTimeout = null;
       }
       tooltipOverlay.classList.remove('visible');
+      tooltipOverlay._lastTrigger = null;
       activeTooltipTrigger = null;
     }
     
@@ -11551,6 +11553,12 @@ function generateCCSection(eventId, showFullContent) {
         var tipTrigger = e.target.closest('.scp-tip-trigger');
         if (tipTrigger) {
           e.stopPropagation();
+          // Toggle: clicking the same trigger again closes the tooltip
+          if (tooltipOv && tooltipOv.classList.contains('visible') && tooltipOv._lastTrigger === tipTrigger) {
+            tooltipOv.classList.remove('visible');
+            tooltipOv._lastTrigger = null;
+            return;
+          }
           var tipKey = tipTrigger.getAttribute('data-scp-tip');
           var tipData = null;
           if (tipKey && tipKey.indexOf('dim-') === 0) {
@@ -11574,6 +11582,7 @@ function generateCCSection(eventId, showFullContent) {
             tooltipOv.style.top = top + 'px';
             tooltipOv.style.left = left + 'px';
             tooltipOv.classList.add('visible');
+            tooltipOv._lastTrigger = tipTrigger;
           }
           return;
         }
@@ -11860,7 +11869,7 @@ function generateCCSection(eventId, showFullContent) {
   /* ---- Tooltip for dimension segments ---- */
   var tooltipOv = document.getElementById('weo-tooltip-overlay');
   function hideTooltipIfActive() {
-    if (tooltipOv) tooltipOv.classList.remove('visible');
+    if (tooltipOv) { tooltipOv.classList.remove('visible'); tooltipOv._lastTrigger = null; }
   }
   if (tooltipOv) {
     bodyEl.addEventListener('scroll', hideTooltipIfActive);
@@ -11886,6 +11895,13 @@ function generateCCSection(eventId, showFullContent) {
     var tipTrigger = e.target.closest('.scp-tip-trigger');
     if (tipTrigger && !bodyEl.contains(tipTrigger)) {
       // Handle header-level tooltip triggers (SCP title ⓘ)
+      // Toggle: clicking the same trigger again closes the tooltip
+      if (tooltipOv && tooltipOv.classList.contains('visible') && tooltipOv._lastTrigger === tipTrigger) {
+        tooltipOv.classList.remove('visible');
+        tooltipOv._lastTrigger = null;
+        e.stopPropagation();
+        return;
+      }
       var tipKey = tipTrigger.getAttribute('data-scp-tip');
       var tipData = null;
       if (tipKey === 'scp-overview') {
@@ -11900,6 +11916,7 @@ function generateCCSection(eventId, showFullContent) {
         tooltipOv.style.top = (rect.bottom + 8) + 'px';
         tooltipOv.style.left = Math.max(16, Math.min(rect.left, window.innerWidth - 366)) + 'px';
         tooltipOv.classList.add('visible');
+        tooltipOv._lastTrigger = tipTrigger;
         e.stopPropagation();
       }
       return;
