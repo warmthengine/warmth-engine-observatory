@@ -4076,6 +4076,7 @@
     <div id="weo-tooltip-overlay">
       <div class="weo-tooltip-title"></div>
       <div class="weo-tooltip-body"></div>
+      <div class="weo-tooltip-method-link"></div>
     </div>
 
     <!-- Phase 2 P0 (Batch 1) — legacy `#detailPanel` removed; the
@@ -8971,6 +8972,11 @@
             tooltipTimeout = setTimeout(function() {
                 if (title) tooltipTitle.innerHTML = title.innerHTML;
                 if (body) tooltipBody.innerHTML = body.innerHTML;
+                var methodLinkEl = inlineTooltip.querySelector('.weo-tooltip-method-link');
+                var overlayMethodLink = tooltipOverlay.querySelector('.weo-tooltip-method-link');
+                if (overlayMethodLink) {
+                  overlayMethodLink.innerHTML = methodLinkEl ? methodLinkEl.innerHTML : '';
+                }
                 const triggerRect = trigger.getBoundingClientRect();
                 const tooltipWidth = 350;
                 const padding = 16;
