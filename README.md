@@ -23,6 +23,8 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 - **Interactive Map** — Geographic visualisation of global AI infrastructure deployment
 - **Interactive Atlas** — Network, timeline, and connectedness analytical surface for exploring coordination topology and event relationships via Cytoscape.js
 - **Evidence-Based Verification** — Every event verified through primary and corroborating sources with gold standard evidentiary requirements
+- **Sovereign Capability Profiles** — 7-dimension framework assessing 14 state actors' sovereign control across the AI infrastructure stack, with four designation levels (PAA, AIK, ACS, Participant)
+- **MCP Integration** — Model Context Protocol server at `warmthengine.com/mcp` exposing seven programmatic tools for AI systems to query verified Coordination Intelligence (search_events, get_event, get_connections, get_connection_by_id, get_actors, get_coverage_stats, get_methodology)
 
 ---
 
@@ -31,9 +33,11 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 The platform uses a decoupled architecture: HTML files serve as lightweight UI shells that fetch data dynamically from the WEO API (Cloudflare Worker + KV).
 
 - **Data source:** Cloudflare KV via WEO API (`warmthengine.com/api/`)
-- **Authentication:** Server-side password validation via custom header
+- **MCP endpoint:** `warmthengine.com/mcp` (Model Context Protocol for AI agent access)
+- **Authentication:** Token-based (`?token=weo_xxx`) for API and MCP consumers; password header for website
 - **Fallback:** Static JSON file for API downtime resilience
 - **Hosting:** GitHub Pages with custom domain
+- **Routes:** Managed via `wrangler.toml` (`warmthengine.com/api/*` and `warmthengine.com/mcp*`)
 
 Data updates flow through the API — no HTML changes required for new events or connections.
 
@@ -57,6 +61,15 @@ The WEO methodology is documented across four publications, all available on Zen
 | **Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination Connection metrics and theoretical foundations (Layer 2 framework) | [`10.5281/zenodo.18427584`](https://doi.org/10.5281/zenodo.18427584) |
 | **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining Coordination Connections across different tiers | [`10.5281/zenodo.18427586`](https://doi.org/10.5281/zenodo.18427586) |
 
+### Self-Hosted Documentation
+
+The V1.4 Manual and Rationale are self-hosted as navigable HTML with granular section anchoring:
+
+- **Manual:** [`warmthengine.com/research/methodology/manual/`](https://warmthengine.com/research/methodology/manual/) (448 section anchors)
+- **Rationale:** [`warmthengine.com/research/methodology/rationale/`](https://warmthengine.com/research/methodology/rationale/) (172 section anchors)
+
+A semantic dictionary (`data/weo-methodology-map.json`) maps 166 WEO-specific terms to their methodology section anchors, serving both human tooltip navigation and the MCP `get_methodology` tool.
+
 ---
 
 ## Repository Structure
@@ -74,7 +87,12 @@ warmth-engine-observatory/
 ├── legal.html                  # Legal information
 ├── 404.html                    # Custom error page
 ├── data/
-│   └── events-free.json        # Static fallback (free-tier event data)
+│   ├── events-free.json            # Static fallback (free-tier event data)
+│   └── weo-methodology-map.json    # 166 term-to-anchor semantic mappings
+├── research/
+│   └── methodology/
+│       ├── manual/                 # Self-hosted V1.4 Manual (HTML + PDF)
+│       └── rationale/              # Self-hosted V1.4 Rationale (HTML + PDF)
 ├── sitemap.xml                 # XML sitemap for search engines
 ├── robots.txt                  # Crawler directives
 ├── og-image.png                # Open Graph social preview image
@@ -116,6 +134,7 @@ This platform uses the following open-source libraries and typefaces:
 - **[Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)** (MIT) — Map marker clustering
 - **[Geist](https://vercel.com/font)** (SIL Open Font Licence) — Primary typeface
 - **[Geist Mono](https://vercel.com/font)** (SIL Open Font Licence) — Monospace typeface
+- **[Cytoscape.js](https://js.cytoscape.org/)** (MIT) — Network graph visualisation (Atlas)
 
 ---
 
