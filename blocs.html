@@ -2775,6 +2775,12 @@
     }
   });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideTooltip(); });
+  window.addEventListener('scroll', function() {
+    if (overlay.classList.contains('visible')) {
+      overlay.classList.remove('visible');
+      overlay._lastTrigger = null;
+    }
+  }, { passive: true });
 })();
 </script>
 
