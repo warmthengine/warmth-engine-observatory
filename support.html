@@ -24,6 +24,49 @@
     <meta name="twitter:description" content="Support the Warmth Engine Observatory — independent tracking of AI infrastructure coordination dynamics.">
     <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
     
+    <!-- Structured Data — Support & Programmatic Access -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Support — Warmth Engine Observatory",
+      "url": "https://www.warmthengine.com/support.html",
+      "description": "Support the Warmth Engine Observatory. Access tiers and programmatic access via Model Context Protocol.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free Access",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free tier access including MCP programmatic access with free-tier data via Model Context Protocol at warmthengine.com/mcp.",
+          "additionalProperty": {
+            "@type": "PropertyValue",
+            "name": "MCP Access",
+            "value": "Free-tier data via Model Context Protocol — warmthengine.com/mcp"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Analyst",
+          "price": "10",
+          "priceCurrency": "USD",
+          "description": "Full Analyst access including complete MCP programmatic access — event data, evidence, and analytical assessments via Model Context Protocol at warmthengine.com/mcp.",
+          "additionalProperty": {
+            "@type": "PropertyValue",
+            "name": "MCP Access",
+            "value": "Full programmatic access via Model Context Protocol — warmthengine.com/mcp"
+          }
+        }
+      ],
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "MCP Endpoint",
+        "description": "Seven tools: search_events, get_event, get_connections, get_connection_by_id, get_actors, get_coverage_stats, get_methodology. Unauthenticated connections receive free-tier data; tokens unlock Analyst tier.",
+        "value": "warmthengine.com/mcp"
+      }
+    }
+    </script>
+
     <!-- Fonts (shared with WEO platform) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -948,6 +991,10 @@
                         <ul class="tier-features">
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                MCP programmatic access — free-tier data via Model Context Protocol
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 All events on map with basic metadata
                             </li>
                             <li>
@@ -996,6 +1043,10 @@
                         <ul class="tier-features">
                             <li>
                                 <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                Full MCP programmatic access — complete event data, evidence, and analytical assessments via Model Context Protocol
+                            </li>
+                            <li>
+                                <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                                 Everything in Free, plus:
                             </li>
                             <li>
@@ -1040,6 +1091,51 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programmatic Access (MCP) -->
+        <section class="section">
+            <h2 class="section-title">Programmatic Access (MCP)</h2>
+            <div class="card">
+                <div class="prose">
+                    <p>WEO data is accessible via the Model Context Protocol for programmatic query of verified Coordination Intelligence.</p>
+                    <p><strong>Connection endpoint:</strong> <span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">warmthengine.com/mcp</span></p>
+                    <p><strong>Available tools:</strong></p>
+                </div>
+                <ul class="tier-features" style="margin: var(--weo-space-md) 0;">
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">search_events</span> — query by tier, bloc, domain, type, industry tag, or keyword</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_event</span> — retrieve a single event with full assessment data</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_connections</span> — coordination connections filtered by event, type, or confidence</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_connection_by_id</span> — retrieve a single coordination connection</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_actors</span> — sovereign capability profiles by designation</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_coverage_stats</span> — corpus statistics and distribution overview</span>
+                    </li>
+                    <li>
+                        <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">get_methodology</span> — methodology context for any WEO-specific term or field</span>
+                    </li>
+                </ul>
+                <div class="prose">
+                    <p>Access tiers apply. Unauthenticated access returns free-tier data. For full analytical access, MCP agent operators can obtain an API token by contacting <a href="mailto:warmthengine@proton.me" style="color: #60a5fa; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">warmthengine@proton.me</a>. Tokens are passed as a URL parameter: <span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">warmthengine.com/mcp?token=weo_xxx</span></p>
                 </div>
             </div>
         </section>

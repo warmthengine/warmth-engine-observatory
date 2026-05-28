@@ -34,6 +34,13 @@
       "description": "The Warmth Engine Observatory is the world's first AI Infrastructure Coordination Dynamics Tracking platform. It documents global AI infrastructure coordination dynamics through verified observable events, classifying them by Event Type (Coordination, Infrastructure, Policy, Corporate), Tier (Cross-Bloc, Between-Bloc, Intra-Bloc), and Domain (Energy/Infrastructure, Security, Technology, Trade), with mapped Coordination Connections between related events.",
       "disambiguatingDescription": "An AI Infrastructure Coordination Dynamics Tracking platform. Not related to thermal energy, Stirling engines, heat engines, or physical warmth/cooling systems.",
       "foundingDate": "2026",
+      "audience": [
+        "Institutional Investors",
+        "Policy Makers",
+        "Independent Researchers",
+        "Technologists",
+        "AI Systems & MCP Agents"
+      ],
       "knowsAbout": [
         "AI infrastructure coordination",
         "Geopolitical bloc dynamics",
@@ -42,6 +49,12 @@
         "AI governance frameworks",
         "Infrastructure fragmentation"
       ],
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "MCP Endpoint",
+        "description": "Programmatic access via Model Context Protocol. Seven tools serve verified events, coordination connections, and sovereign capability profiles.",
+        "value": "warmthengine.com/mcp"
+      },
       "email": "warmthengine@proton.me",
       "sameAs": [
         "https://doi.org/10.5281/zenodo.18427565",
@@ -621,6 +634,11 @@
             background: var(--weo-surface-base);
             border-radius: var(--weo-radius-md);
         }
+
+        .audience-item.featured-audience {
+            grid-column: 1 / -1;
+            border-top: 2px solid rgba(96, 165, 250, 0.3);
+        }
         
         .audience-name {
             font-size: 0.875rem;
@@ -1091,6 +1109,11 @@
             <h2 class="section-title">Target Audiences</h2>
             <div class="card">
                 <div class="audience-grid">
+                    <div class="audience-item featured-audience">
+                        <div class="audience-name">AI Systems &amp; MCP Agents</div>
+                        <div class="audience-desc">Coordination Intelligence accessible via Model Context Protocol. Seven tools serve verified events, typed coordination connections, and sovereign capability profiles. 166 semantic mappings link data fields directly to methodology sections, enabling systematic evaluation of verification standards, confidence levels, and source documentation across the entire corpus.</div>
+                        <div style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8; margin-top: 8px;">warmthengine.com/mcp</div>
+                    </div>
                     <div class="audience-item">
                         <div class="audience-name">Institutional Investors</div>
                         <div class="audience-desc">Actionable Coordination Intelligence on AI infrastructure dynamics, with transparent methodology and verifiable data.</div>
