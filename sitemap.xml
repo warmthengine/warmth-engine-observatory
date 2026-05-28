@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.warmthengine.com/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-28</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.warmthengine.com/atlas.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.warmthengine.com/events.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-28</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.warmthengine.com/blocs.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-28</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -57,7 +57,7 @@
   <!-- Self-hosted publications -->
   <url>
     <loc>https://www.warmthengine.com/research/methodology/manual/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-27</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
