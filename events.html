@@ -1898,7 +1898,15 @@
       visibility: visible;
       pointer-events: auto;
     }
-    
+    #weo-tooltip-overlay.visible::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+
     #weo-tooltip-overlay .weo-tooltip-title {
       font-size: 12px;
       font-weight: 600;
@@ -5881,6 +5889,26 @@ function initWEOTooltips() {
   if (modalBody) {
     modalBody.addEventListener('scroll', function() {
       if (!tooltipJustShown) hideTooltipImmediate();
+    });
+  }
+  // Also dismiss on modal overlay scroll (the actual scrollable container)
+  const modalOv = document.getElementById('modal-overlay');
+  if (modalOv) {
+    modalOv.addEventListener('scroll', function() {
+      if (!tooltipJustShown) hideTooltipImmediate();
+    }, { passive: true });
+  }
+
+  // Hover bridge: keep tooltip alive when cursor enters the overlay
+  if (tooltipOverlay) {
+    tooltipOverlay.addEventListener('mouseenter', function() {
+      if (tooltipTimeout) {
+        clearTimeout(tooltipTimeout);
+        tooltipTimeout = null;
+      }
+    });
+    tooltipOverlay.addEventListener('mouseleave', function() {
+      hideTooltip();
     });
   }
 }

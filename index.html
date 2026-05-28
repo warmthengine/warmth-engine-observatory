@@ -3961,7 +3961,15 @@
       visibility: visible;
       pointer-events: auto; /* Allow interaction on mobile */
     }
-    
+    #weo-tooltip-overlay.visible::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+
     #weo-tooltip-overlay .weo-tooltip-title {
       font-size: 12.5px;
       font-weight: 600;
@@ -10728,7 +10736,18 @@ function generateCCSection(eventId, showFullContent) {
       
       // Close on scroll
       panel.addEventListener('scroll', hideTooltipImmediate);
-      
+
+      // Hover bridge: keep tooltip alive when cursor enters the overlay
+      tooltipOverlay.addEventListener('mouseenter', function() {
+        if (tooltipTimeout) {
+          clearTimeout(tooltipTimeout);
+          tooltipTimeout = null;
+        }
+      });
+      tooltipOverlay.addEventListener('mouseleave', function() {
+        hideTooltip();
+      });
+
       // CC navigation handler - use bubble phase and register AFTER tooltip handlers
       // This way tooltips can handle their clicks first, and navigation happens for everything else
       panel.addEventListener('click', function(e) {
@@ -11551,6 +11570,12 @@ function generateCCSection(eventId, showFullContent) {
         var tipTrigger = e.target.closest('.scp-tip-trigger');
         if (tipTrigger) {
           e.stopPropagation();
+          // Toggle: if same trigger clicked while tooltip visible, close it
+          if (tooltipOv && tooltipOv.classList.contains('visible') && tooltipOv._lastTrigger === tipTrigger) {
+            tooltipOv.classList.remove('visible');
+            tooltipOv._lastTrigger = null;
+            return;
+          }
           var tipKey = tipTrigger.getAttribute('data-scp-tip');
           var tipData = null;
           if (tipKey && tipKey.indexOf('dim-') === 0) {
@@ -11558,7 +11583,7 @@ function generateCCSection(eventId, showFullContent) {
           } else if (tipKey && tipKey.indexOf('desig-') === 0) {
             tipData = SCP_DESIG_TIPS[tipKey.split('-')[1]];
           } else if (tipKey === 'severance') {
-            tipData = {t:'Severance Test', b:'Ecosystem independence test. Assesses whether the actor can sustain its met dimensions without access to any single Principal AI Actor\x27s ecosystem inputs within 24\u201336 months.', a:'section-5-3-1-severance'};
+            tipData = {t:'Severance Test', b:'Ecosystem independence test. Assesses whether the actor can sustain its met dimensions without access to any single Principal AI Actor\'s ecosystem inputs within 24\u201336 months.', a:'section-5-3-1-severance'};
           }
           if (tipData && tooltipOv) {
             tooltipOv.querySelector('.weo-tooltip-title').textContent = tipData.t;
@@ -11574,6 +11599,7 @@ function generateCCSection(eventId, showFullContent) {
             tooltipOv.style.top = top + 'px';
             tooltipOv.style.left = left + 'px';
             tooltipOv.classList.add('visible');
+            tooltipOv._lastTrigger = tipTrigger;
           }
           return;
         }
@@ -11860,7 +11886,10 @@ function generateCCSection(eventId, showFullContent) {
   /* ---- Tooltip for dimension segments ---- */
   var tooltipOv = document.getElementById('weo-tooltip-overlay');
   function hideTooltipIfActive() {
-    if (tooltipOv) tooltipOv.classList.remove('visible');
+    if (tooltipOv) {
+      tooltipOv.classList.remove('visible');
+      tooltipOv._lastTrigger = null;
+    }
   }
   if (tooltipOv) {
     bodyEl.addEventListener('scroll', hideTooltipIfActive);
@@ -11885,11 +11914,17 @@ function generateCCSection(eventId, showFullContent) {
   panel.addEventListener('click', function(e) {
     var tipTrigger = e.target.closest('.scp-tip-trigger');
     if (tipTrigger && !bodyEl.contains(tipTrigger)) {
-      // Handle header-level tooltip triggers (SCP title ⓘ)
+      // Toggle: same trigger clicked while visible → close
+      if (tooltipOv && tooltipOv.classList.contains('visible') && tooltipOv._lastTrigger === tipTrigger) {
+        tooltipOv.classList.remove('visible');
+        tooltipOv._lastTrigger = null;
+        e.stopPropagation();
+        return;
+      }
       var tipKey = tipTrigger.getAttribute('data-scp-tip');
       var tipData = null;
       if (tipKey === 'scp-overview') {
-        tipData = {t:'Sovereign Capability Profiles', b:'Seven-dimension framework assessing each actor\x27s sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.', a:'section-5-3'};
+        tipData = {t:'Sovereign Capability Profiles', b:'Seven-dimension framework assessing each actor\'s sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.', a:'section-5-3'};
       }
       if (tipData && tooltipOv) {
         tooltipOv.querySelector('.weo-tooltip-title').textContent = tipData.t;
@@ -11900,11 +11935,15 @@ function generateCCSection(eventId, showFullContent) {
         tooltipOv.style.top = (rect.bottom + 8) + 'px';
         tooltipOv.style.left = Math.max(16, Math.min(rect.left, window.innerWidth - 366)) + 'px';
         tooltipOv.classList.add('visible');
+        tooltipOv._lastTrigger = tipTrigger;
         e.stopPropagation();
       }
       return;
     }
-    if (!e.target.closest('#weo-tooltip-overlay')) { hideTooltipIfActive(); }
+    if (!e.target.closest('#weo-tooltip-overlay')) {
+      hideTooltipIfActive();
+      if (tooltipOv) tooltipOv._lastTrigger = null;
+    }
   });
 
   /* ---- Initial actor data load from API ---- */
