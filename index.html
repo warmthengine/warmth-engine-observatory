@@ -5842,6 +5842,10 @@
     .scp-dim-constraint { font-size: 11px; color: #64748B; padding: 1px 0 4px 11px; font-style: italic; line-height: 1.5; }
     .scp-sev { font-size: 11px; color: #64748B; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
     .scp-sev strong { color: #94A3B8; font-weight: 500; }
+    .scp-aik { margin-top: 8px; padding: 7px 8px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .scp-aik-label { font-size: 10px; font-weight: 580; color: #94A3B8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; }
+    .scp-aik-nature { font-size: 12px; color: #CBD5E1; font-weight: 380; line-height: 1.4; }
+    .scp-aik-entities { font-size: 11px; color: #64748B; font-style: italic; font-weight: 380; line-height: 1.5; margin-top: 2px; }
 
     /* Source evidence (supporter tier) */
     .scp-src-trigger { font-size: 10px; color: #475569; cursor: pointer; margin-left: 11px; padding: 2px 0; display: flex; align-items: center; gap: 4px; transition: color var(--duration-fast); }
@@ -11410,14 +11414,17 @@ function generateCCSection(eventId, showFullContent) {
      src:[[3,'TechInsights','2024-10','Ascend 910B: DaVinci architecture, 32 AI cores, 256 TFLOPS FP16.','https://library.techinsights.com/hg-asset/23d95da6-7c04-4e9e-a82b-a6702a8757df',3,'SemiAnalysis','2025-04','384 Ascend 910C in all-to-all topology. Commercial deployment.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'TechInsights','2025-12','SMIC N+3 confirmed, scaled evolution of 7nm-class.','https://www.techinsights.com/blog/smic-n3-confirmed-kirin-9030-analysis-reveals-how-close-smic-5nm',3,"Tom's Hardware",'2024-11','SMIC N+1 fabrication, 7nm-class production node.','https://www.tomshardware.com/tech-industry/artificial-intelligence/huaweis-homegrown-ai-chip-examined-chinese-fab-smic-produced-ascend-910b-is-massively-different-from-the-tsmc-produced-ascend-910'],null,[2,'Alibaba (SEC 6-K)','2025-02','RMB 380B ($53B) in cloud/AI infrastructure over three years.','https://www.sec.gov/Archives/edgar/data/0001577552/000110465925016348/tm257405d1_6k.htm',3,'SemiAnalysis','2025-04','Frontier training demonstrated by DeepSeek V4-Pro, Kimi K2, Qwen3.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'Stanford HAI 2026','2026','Alibaba (1,449 Elo) and DeepSeek (1,424) in top tier.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance',3,'LMArena','2026-05','Multiple Chinese models competitive with global frontier.','https://lmarena.ai'],[3,'Hogan Lovells','2024-12','Article 49: extraterritorial scope on dual-use items.','https://www.hoganlovells.com/en/publications/china-issues-the-regulations-on-the-export-control-of-dual-use-items',3,'White & Case','2025-10','MOFCOM exercised extraterritorial jurisdiction on REE controls.','https://www.whitecase.com/insight-alert/china-imposes-extraterritorial-jurisdiction-and-50-rule-export-controls-rare-earth'],[1,'SCIO/Xinhua (MIIT)','2026-01','6,000+ AI enterprises; core industry to exceed 1.2T yuan.','http://english.scio.gov.cn/pressroom/2026-01/22/content_118293752.html',3,'Reuters','2024-05','Big Fund III: RMB 344B ($47.5B), 19 state-backed investors.','https://www.reuters.com/technology/china-raises-47-bln-semiconductor-fund-boost-chip-industry-2024-05-27/']]},
     {id:'JP',n:'Japan',s:4,d:'AIK',dims:[0,0,1,1,0,1,1],
      con:[null,null,null,'GPU procurement via US ecosystem',null,null,null],
+     aik:{chokepoint_nature:'Front-end process tools and materials',key_entities:'TEL coater/developer (~90–100% EUV), Lasertec actinic mask inspection (100%), SCREEN single-wafer cleans, Shin-Etsu/JSR/TOK/SUMCO materials'},
      svd:'D4 degrades under severance; not required for AIK.',
      src:[null,null,[2,'TEL','2026','90% coater/developer share, ~100% for high-NA EUV.','https://www.tel.com/product/',2,'Lasertec','2026','World\'s first actinic EUV mask inspection. No competitor.','https://www.lasertec.co.jp/en/ir/individuals/creation.html'],[2,'SoftBank','2025-07','Exceeds 10,000 GPUs, delivering 13.7 ExaFLOPS.','https://www.softbank.jp/en/corp/news/press/sbkk/2025/20250723_01/',1,'METI','2025','Cloud Program under Economic Security Promotion Act.','https://www.meti.go.jp/english/policy/index_information_policy.html'],null,[3,'CSIS','2025-03','23 types of equipment added to FEFTA controls, July 2023.','https://www.csis.org/analysis/understanding-us-allies-current-legal-authority-implement-ai-and-semiconductor-export',3,'Chambers','2026','Catch-all Control strengthened. Effective October 2025.','https://chambers.com'],[3,'Japan Times','2025-12','AI budget quadrupled to ~\u00a51.23T ($7.9B).','https://www.japantimes.co.jp/business/2025/12/26/economy/ai-budget-support/',3,'Nikkei Asia','2026-04','Rapidus support: 2.35T yen total.','https://asia.nikkei.com/business/tech/semiconductors/japan-approves-additional-4bn-in-support-for-rapidus']]},
     {id:'KR',n:'South Korea',s:4,d:'AIK',dims:[0,1,1,0,0,1,1],
      con:[null,'Equipment dependency (ASML, TEL)',null,null,null,null,null],
+     aik:{chokepoint_nature:'Memory packaging, fabrication, and sovereign equipment monopolies',key_entities:'HPSP sole-source high-pressure annealing, Hanmi 71.2% TC bonder share, Samsung Foundry 2nm GAA HVM'},
      svd:'D2 degrades but does not collapse.',
      src:[null,[2,'Samsung Semiconductor','2026','3nm SF3 production, 2nm SF2 GAA on roadmap.','https://semiconductor.samsung.com/foundry/process-technology/',3,'TrendForce','2025-12','First 2nm GAA AP, mass production confirmed.','https://www.trendforce.com/news/2025/12/19/news-samsung-officially-unveils-exynos-2600-industry-first-2nm-gaa-ap-with-113-ai-performance-uplift/'],[3,'imec','2024-01','HPSP: world\'s first and only high-pressure annealing equipment.','https://www.imec-int.com/en/press/hpsp-expands-its-rd-capabilities-and-study-hpa-and-hpo',3,'TechInsights','2025','Hanmi 71.2% global TC bonder share.',null],null,null,[1,'CSET Georgetown','2026','AI Basic Act Art. 4(1): extraterritorial scope.','https://cset.georgetown.edu/wp-content/uploads/t0625_south_korea_ai_law_EN.pdf',3,'Cooley LLP','2026-01','Foreign providers above revenue/user thresholds must appoint domestic legal agent.','https://www.cooley.com/news/insight/2026/2026-01-27-south-koreas-ai-basic-act-overview-and-key-takeaways'],[1,'FSC','2025-09','AI Growth Fund expanded to 150T won.','https://fsc.go.kr/eng/pr010101/85267',1,'MOEF','2025-11','2026 AI budget: 10.1T won.','https://mpb.go.kr/web/main/file/download/uu/20251107224938_EABF4915-B9C5-4FA3-EDAA-C55AB77A7EA7']]},
     {id:'NL',n:'Netherlands',s:3,d:'AIK',dims:[0,0,1,0,0,1,1],
      con:[null,null,'Cymer subsidiary in San Diego',null,null,null,null],
+     aik:{chokepoint_nature:'Core lithography integration and advanced packaging',key_entities:'ASML 100% EUV monopoly, ASM International (ALD/epi), Besi (hybrid bonding)'},
      svd:'Core ASML IP remains Dutch-controlled.',
      src:[null,null,[2,'ASML (SEC 6-K)','2025-01','44 EUV systems, \u20ac28.3B net sales. Sole global supplier.','https://www.sec.gov/Archives/edgar/data/0000937966/000093796625000003/pressreleasequarterlyresul.htm',2,'Besi','2026-Q1','Hybrid bonding, 20 customers including TSMC.','https://www.besi.com/investors'],null,null,[1,'Staatsblad 2024, 261','2024','Strategic Goods Decree: semiconductor export controls.','https://zoek.officielebekendmakingen.nl/stb-2024-261.html',1,'Government.nl','2024-09','Expanded equipment export authorisation requirements.','https://www.government.nl/latest/news/2024/09/06/the-netherlands-expands-export-control-measure-advanced-semiconductor-manufacturing-equipment'],[1,'Government.nl','2024-03','Project Beethoven: \u20ac2.51B for Brainport Eindhoven.','https://www.government.nl/latest/news/2024/03/28/the-netherlands-to-invest-%E2%82%AC2.5-billion-to-strengthen-business-climate-for-chip-industry-in-brainport-eindhoven',1,'SURF','2025-10','AI Factory Groningen: \u20ac200M European funding.','https://www.surf.nl/en/news/netherlands-gets-ai-factory-european-funding-awarded']]},
     {id:'EU',n:'European Union',s:4,d:'ACS',dims:[0,1,1,0,0,1,1],
@@ -11670,6 +11677,14 @@ function generateCCSection(eventId, showFullContent) {
       }
     });
 
+    if (a.aik && a.d === 'AIK') {
+      h += '<div class="scp-aik">';
+      h += '<div class="scp-aik-label">Chokepoint Profile</div>';
+      h += '<div class="scp-aik-nature">' + escH(a.aik.chokepoint_nature) + '</div>';
+      h += '<div class="scp-aik-entities">' + escH(a.aik.key_entities) + '</div>';
+      h += '</div>';
+    }
+
     if (a.svd) {
       h += '<div class="scp-sev"><strong class="scp-tip-trigger" data-scp-tip="severance">Severance:</strong> ' + escH(a.svd) + '</div>';
     } else if (a.d === 'PAA' || a.d === 'AIK' || a.d === 'ACS') {
@@ -11714,6 +11729,7 @@ function generateCCSection(eventId, showFullContent) {
         s: actor.score || 0,
         d: actor.designation === 'Participant' ? 'Part' : (actor.designation || 'Part'),
         dims: dims, con: con, svd: actor.severance_detail || null, src: src,
+        aik: actor.aik_profile || null,
         sample: actor.sample || false
       };
     });
