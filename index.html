@@ -11263,19 +11263,18 @@ function generateCCSection(eventId, showFullContent) {
                 var eventLatLng = L.latLng(targetEvent.lat, targetEvent.lng);
                 var eventPoint = map.project(eventLatLng, targetZoom);
 
-                // Horizontal offset: event at 40% of visible width (left of panel)
                 var mapWidth = map.getSize().x;
                 var mapHeight = map.getSize().y;
                 var panelWidth = window.innerWidth <= 1024 ? 380 : 440;
-                var visibleWidth = mapWidth - panelWidth;
-                var desiredEventX = visibleWidth * 0.4;
+                var legendWidth = window.innerWidth <= 768 ? 0 : 324;
+
+                var clearLeft = legendWidth;
+                var clearRight = mapWidth - panelWidth;
+                var desiredEventX = clearLeft + ((clearRight - clearLeft) * 0.5);
                 var currentCenterX = mapWidth / 2;
                 var offsetX = currentCenterX - desiredEventX;
 
-                // Vertical offset: event at 45% of map height
-                // (slightly above geometric centre — accounts for
-                // status header and legend overlays at top-left)
-                var desiredEventY = mapHeight * 0.45;
+                var desiredEventY = mapHeight * 0.5;
                 var currentCenterY = mapHeight / 2;
                 var offsetY = currentCenterY - desiredEventY;
 
