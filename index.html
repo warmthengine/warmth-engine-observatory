@@ -11258,13 +11258,29 @@ function generateCCSection(eventId, showFullContent) {
                     targetMarker = layer;
                 }
             });
+
+            function centerAndOpen(targetZoom) {
+                var eventLatLng = L.latLng(targetEvent.lat, targetEvent.lng);
+                var eventPoint = map.project(eventLatLng, targetZoom);
+                var mapWidth = map.getSize().x;
+                var panelWidth = window.innerWidth <= 1024 ? 380 : 440;
+                var visibleWidth = mapWidth - panelWidth;
+                var desiredEventX = visibleWidth * 0.4;
+                var currentCenterX = mapWidth / 2;
+                var offsetX = currentCenterX - desiredEventX;
+                var newCenterPoint = L.point(eventPoint.x + offsetX, eventPoint.y);
+                var newCenterLatLng = map.unproject(newCenterPoint, targetZoom);
+                map.flyTo(newCenterLatLng, targetZoom, { duration: 0.8 });
+                setTimeout(function() { openPanel(targetEvent); }, 500);
+            }
+
             if (targetMarker) {
                 markers.zoomToShowLayer(targetMarker, function() {
-                    openPanel(targetEvent);
+                    var currentZoom = map.getZoom();
+                    centerAndOpen(currentZoom);
                 });
             } else {
-                map.flyTo([targetEvent.lat, targetEvent.lng], 14, { duration: 0.8 });
-                setTimeout(function() { openPanel(targetEvent); }, 400);
+                centerAndOpen(14);
             }
         }, 300);
     })();
