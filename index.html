@@ -11252,10 +11252,20 @@ function generateCCSection(eventId, showFullContent) {
 
         // Centre map on the event and open its panel
         setTimeout(function() {
-            map.flyTo([targetEvent.lat, targetEvent.lng], 6, { duration: 0.8 });
-            setTimeout(function() {
-                openPanel(targetEvent);
-            }, 400);
+            var targetMarker = null;
+            markers.eachLayer(function(layer) {
+                if (layer.eventData && (layer.eventData.id === paddedId || layer.eventData.id === eventId)) {
+                    targetMarker = layer;
+                }
+            });
+            if (targetMarker) {
+                markers.zoomToShowLayer(targetMarker, function() {
+                    openPanel(targetEvent);
+                });
+            } else {
+                map.flyTo([targetEvent.lat, targetEvent.lng], 14, { duration: 0.8 });
+                setTimeout(function() { openPanel(targetEvent); }, 400);
+            }
         }, 300);
     })();
 
