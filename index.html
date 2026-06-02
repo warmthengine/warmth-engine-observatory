@@ -5838,8 +5838,9 @@
     .scp-dim-dot.gv { background: var(--scp-gov); }
     .scp-dim-st { font-weight: 500; }
     .scp-dim-met { color: #22C55E; }
-    .scp-dim-not { color: #475569; }
+    .scp-dim-not { color: var(--scp-part); }
     .scp-dim-constraint { font-size: 11px; color: #64748B; padding: 1px 0 4px 11px; font-style: italic; line-height: 1.5; }
+    .scp-dim-con-label { font-style: normal; font-weight: 500; color: #94A3B8; letter-spacing: 0.01em; }
     .scp-sev { font-size: 11px; color: #64748B; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
     .scp-sev strong { color: #94A3B8; font-weight: 500; }
     .scp-aik { margin-top: 8px; padding: 7px 8px; border-top: 1px solid rgba(255,255,255,0.04); }
@@ -11665,23 +11666,25 @@ function generateCCSection(eventId, showFullContent) {
     a.dims.forEach(function(d, i) {
       h += '<div class="scp-dim-row">';
       h += '<span class="scp-dim-name scp-tip-trigger" data-scp-tip="dim-' + i + '"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i] + '</span>';
-      h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : '—') + '</span>';
+      h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : 'Not Met') + '</span>';
       h += '</div>';
       if (d && a.con && a.con[i]) {
         h += '<div class="scp-dim-constraint">' + escH(a.con[i]) + '</div>';
+      } else if (!d && a.con && a.con[i]) {
+        h += '<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> ' + escH(a.con[i]) + '</div>';
+      } else if (!d && a.hl && a.hl[i]) {
+        h += '<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> ' + escH(a.hl[i]) + '</div>';
       }
-      /* Sources present in data -> show; absent -> lock (free-tier strip) */
-      if (d) {
-        if (a.src && a.src[i]) {
-          var s = a.src[i]; /* [g1, pub1, date1, fact1, url1, g2, pub2, date2, fact2, url2] */
-          h += '<div class="scp-src-trigger"><span class="scp-src-icon">ⓘ</span> Sources</div>';
-          h += '<div class="scp-src-block">';
-          h += srcEntry('Primary', s[0], s[1], s[2], s[3], s[4]);
-          h += srcEntry('Corroborating', s[5], s[6], s[7], s[8], s[9]);
-          h += '</div>';
-        } else {
-          h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Sources (supporter access)</div>';
-        }
+      /* Sources present in data -> show; absent -> lock when content exists */
+      if (a.src && a.src[i]) {
+        var s = a.src[i]; /* [g1, pub1, date1, fact1, url1, g2, pub2, date2, fact2, url2] */
+        h += '<div class="scp-src-trigger"><span class="scp-src-icon">ⓘ</span> Sources</div>';
+        h += '<div class="scp-src-block">';
+        h += srcEntry('Primary', s[0], s[1], s[2], s[3], s[4]);
+        h += srcEntry('Corroborating', s[5], s[6], s[7], s[8], s[9]);
+        h += '</div>';
+      } else if (d || (!d && ((a.con && a.con[i]) || (a.hl && a.hl[i])))) {
+        h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Sources (supporter access)</div>';
       }
     });
 
@@ -11723,6 +11726,7 @@ function generateCCSection(eventId, showFullContent) {
     return apiData.actors.map(function(actor) {
       var dims = DK.map(function(k) { return actor.dimensions[k] && actor.dimensions[k].met ? 1 : 0; });
       var con  = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.constraint || null; });
+      var hl   = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.constraint_headline || null; });
       var src  = DK.map(function(k) {
         var dim = actor.dimensions[k] || {};
         if (!dim.sources) return null;
@@ -11736,7 +11740,7 @@ function generateCCSection(eventId, showFullContent) {
         n: actor.name,
         s: actor.score || 0,
         d: actor.designation === 'Participant' ? 'Part' : (actor.designation || 'Part'),
-        dims: dims, con: con, svd: actor.severance_detail || null, src: src,
+        dims: dims, con: con, hl: hl, svd: actor.severance_detail || null, src: src,
         aik: actor.aik_profile || null,
         sample: actor.sample || false
       };
