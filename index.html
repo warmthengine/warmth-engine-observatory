@@ -8269,7 +8269,11 @@ function generateEvidencePanel(conn) {
   
   // Content
   html += '<div class="cc-evidence-content">';
-  
+
+  if (conn.evidence_summary) {
+    html += '<p class="cc-evidence-summary">' + conn.evidence_summary + '</p>';
+  }
+
   // Funding breakdown (for Funding Flow)
   if (detail.funding_breakdown) {
     const fb = detail.funding_breakdown;

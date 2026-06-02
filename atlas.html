@@ -9589,6 +9589,9 @@
             h += '</div>';
             // Content
             h += '<div class="cc-evidence-content">';
+            if (conn.evidence_summary) {
+                h += '<p class="cc-evidence-summary">' + escapeHtml(conn.evidence_summary) + '</p>';
+            }
             if (detail.funding_breakdown) {
                 const fb = detail.funding_breakdown;
                 h += '<div class="cc-funding-grid">';

@@ -4391,7 +4391,11 @@ function generateEvidencePanel(conn) {
   
   // Content
   html += '<div class="cc-evidence-content">';
-  
+
+  if (conn.evidence) {
+    html += '<p class="cc-evidence-summary">' + conn.evidence + '</p>';
+  }
+
   // Funding breakdown (for Funding Flow)
   if (detail.funding_breakdown) {
     const fb = detail.funding_breakdown;
