@@ -7816,7 +7816,8 @@ function collapsePanelToPeek() {
     panel.classList.remove('cc-type-1', 'cc-type-2', 'cc-type-3', 'cc-type-4', 'cc-type-5', 'cc-type-6', 'cc-type-7', 'cc-dashed');
     
     panel.classList.add('peek-mode');
-    
+    panel.scrollTop = 0;
+
     // Apply CC type-specific styling if we have an active CC visualisation
     if (ccVisState.active && ccVisState.connectionType) {
       panel.classList.add('cc-type-' + ccVisState.connectionType);
