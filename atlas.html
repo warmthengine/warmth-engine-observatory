@@ -9589,6 +9589,9 @@
             h += '</div>';
             // Content
             h += '<div class="cc-evidence-content">';
+            if (conn.evidence_summary) {
+                h += '<p class="cc-evidence-summary">' + escapeHtml(conn.evidence_summary) + '</p>';
+            }
             if (detail.primary_documentation) {
                 h += '<p>' + escapeHtml(detail.primary_documentation) + '</p>';
             }
@@ -9671,9 +9674,6 @@
             if (detail.bilateral_statement) {
                 h += '<div class="cc-citation">"' + escapeHtml(detail.bilateral_statement) + '"</div>';
             }
-            if (detail.transparency_note) {
-                h += '<div class="cc-transparency-note">' + escapeHtml(detail.transparency_note) + '</div>';
-            }
             h += '</div>'; // /.cc-evidence-content
             // Verification History
             if (Array.isArray(conn.verificationHistory) && conn.verificationHistory.length > 1) {
@@ -9739,27 +9739,6 @@
                 h += '</div>';
                 h += '<div class="cc-criterion-evidence">' + escapeHtml(detail.implementation_mapping) + '</div>';
                 h += '</div>';
-            }
-            if (detail.linguistic_markers || detail.linguistic_marker) {
-                const lm = detail.linguistic_markers || detail.linguistic_marker;
-                let lmText = '';
-                if (typeof lm === 'object' && !Array.isArray(lm)) {
-                    if (lm.marker) lmText += '"' + escapeHtml(lm.marker) + '"';
-                    if (lm.function) lmText += ' — ' + escapeHtml(lm.function);
-                } else if (Array.isArray(lm)) {
-                    lmText = lm.map(m => m.marker ? '"' + escapeHtml(m.marker) + '" — ' + escapeHtml(m.function || m.translation || '') : escapeHtml(String(m))).join('<br>');
-                } else {
-                    lmText = escapeHtml(String(lm));
-                }
-                if (lmText) {
-                    h += '<div class="cc-criterion has-evidence" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
-                    h += '<div class="cc-criterion-header">';
-                    h += '<span class="cc-criterion-name">Original-Language Markers</span>';
-                    h += '<span class="cc-criterion-expand">▼</span>';
-                    h += '</div>';
-                    h += '<div class="cc-criterion-evidence">' + lmText + '</div>';
-                    h += '</div>';
-                }
             }
             if (detail.cross_references) {
                 h += '<div class="cc-transparency-note" style="font-size: 0.85em; opacity: 0.7;">📎 Cross-references documented</div>';

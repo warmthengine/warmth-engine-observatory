@@ -8270,11 +8270,16 @@ function generateEvidencePanel(conn) {
   // Content
   html += '<div class="cc-evidence-content">';
   
+  // Evidence summary (opening paragraph)
+  if (conn.evidence_summary) {
+    html += '<p class="cc-evidence-summary">' + conn.evidence_summary + '</p>';
+  }
+
   // Primary documentation
   if (detail.primary_documentation) {
     html += '<p>' + detail.primary_documentation + '</p>';
   }
-  
+
   // Citation text (for Policy Cascade, Funding Flow)
   if (detail.citation_text) {
     html += '<div class="cc-citation">';
@@ -8402,11 +8407,6 @@ function generateEvidencePanel(conn) {
     html += '</div>';
   }
   
-  // Transparency note
-  if (detail.transparency_note) {
-    html += '<div class="cc-transparency-note">' + detail.transparency_note + '</div>';
-  }
-  
   html += '</div>'; // End cc-evidence-content
   
   // Verification History (if present)
@@ -8497,38 +8497,6 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
     html += '<div class="cc-criterion-evidence">' + detail.implementation_mapping + '</div>';
-    html += '</div>';
-  }
-
-  // Progressive disclosure: linguistic markers (for Chinese regulatory CCs)
-  if (detail.linguistic_markers) {
-    const lm = detail.linguistic_markers;
-    let lmText = '';
-    if (typeof lm === 'object' && !Array.isArray(lm)) {
-        if (lm.marker) lmText += '"' + lm.marker + '"';
-        if (lm.function) lmText += ' — ' + lm.function;
-    } else if (Array.isArray(lm)) {
-        lmText = lm.map(function(m) { return m.marker ? '"' + m.marker + '" — ' + (m.function || m.translation || '') : String(m); }).join('<br>');
-    } else {
-        lmText = String(lm);
-    }
-    if (lmText) {
-        html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
-        html += '<div class="cc-criterion-header">';
-        html += '<span class="cc-criterion-name">Original-Language Markers</span>';
-        html += '<span class="cc-criterion-expand">▼</span>';
-        html += '</div>';
-        html += '<div class="cc-criterion-evidence">' + lmText + '</div>';
-        html += '</div>';
-    }
-  }
-  if (!detail.linguistic_markers && detail.linguistic_marker) {
-    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
-    html += '<div class="cc-criterion-header">';
-    html += '<span class="cc-criterion-name">Original-Language Markers</span>';
-    html += '<span class="cc-criterion-expand">▼</span>';
-    html += '</div>';
-    html += '<div class="cc-criterion-evidence">' + detail.linguistic_marker + '</div>';
     html += '</div>';
   }
 
