@@ -1,38 +1,38 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 157,
+    "total_events": 159,
     "sample_events": 6,
-    "standard_events": 151,
-    "last_updated": "2026-05-26",
+    "standard_events": 153,
+    "last_updated": "2026-06-02",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 45,
-        "Western": 94,
+        "Western": 96,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 139,
+        "T3": 141,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
-        "Coordination": 28,
-        "Policy": 40,
+        "Coordination": 29,
+        "Policy": 41,
         "Corporate": 46
       },
       "by_confidence": {
-        "A": 153,
+        "A": 155,
         "B": 4
       },
       "by_assessment_pathway": {
         "basel5": 86,
-        "keohane": 27,
-        "pisa5": 25,
+        "keohane": 28,
+        "pisa5": 26,
         "routeBased": 19,
         "oep": 6,
         "piet": 4
@@ -40,26 +40,27 @@
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 46,
         "Semiconductors & Equipment": 30,
-        "AI Software & Platforms": 58,
+        "AI Software & Platforms": 59,
         "Mining & Critical Minerals": 5,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
-        "Automotive & Manufacturing": 1
+        "Automotive & Manufacturing": 1,
+        "Trade & Logistics": 1
       },
       "by_version": {
         "1.2": 45,
         "1.3": 11,
         "1.1": 60,
         "1.4": 1,
-        "1.0": 39,
+        "1.0": 41,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-05-26",
-    "lastAudit": "2026-05-26",
+    "versionDate": "2026-06-02",
+    "lastAudit": "2026-06-02",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 157,
+    "event_count": 159,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -2679,7 +2680,7 @@
       "tier": 3,
       "type": "Policy",
       "sample": false,
-      "date": "2025-02",
+      "date": "February 2025",
       "location": "Paris, France",
       "scope": "France (National)",
       "description": "Comprehensive €10 billion investment plan by France's public investment bank to support the AI ecosystem, including foundation models, AI infrastructure, and deeptech startups, running from 2025 to 2029.",
@@ -3955,7 +3956,7 @@
       "tier": 3,
       "type": "Corporate",
       "sample": false,
-      "date": "August 31, 2023",
+      "date": "31 August 2023",
       "location": "Beijing, China",
       "scope": "People's Republic of China (Mainland)",
       "description": "Baidu publicly released ERNIE Bot, a frontier generative AI chatbot powered by the ERNIE large language model, following regulatory approval under China's Interim Measures for Generative AI. The platform reached 100M users within four months and is supported by the PaddlePaddle ecosystem of 8M developers and 220,000 enterprises at launch.",
@@ -5747,7 +5748,7 @@
       "tier": 3,
       "type": "Infrastructure",
       "sample": false,
-      "date": "2025-04",
+      "date": "April 2025",
       "location": "Chitose City, Hokkaido, Japan",
       "scope": "Japan (global advanced semiconductor supply chain)",
       "description": "Rapidus Corporation activated the IIM-1 (Innovative Integration for Manufacturing) pilot line in Chitose, Hokkaido, beginning test production of 2-nanometre gate-all-around nanosheet logic semiconductors under the METI/NEDO Beyond 2nm Project. Over 200 pieces of leading-edge equipment installed including an ASML EUV lithography system, with process technology based on IBM's nanosheet transistor structure.",
@@ -6898,6 +6899,64 @@
         "current": true
       },
       "version": "1.1"
+    },
+    {
+      "id": "185",
+      "name": "IRA 30D FEOC Final Rule",
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "06 May 2024",
+      "location": "United States",
+      "scope": "United States (with extraterritorial supply-chain implications for critical mineral and battery component sourcing)",
+      "description": "The IRA Section 30D Foreign Entity of Concern Final Rule (89 FR 37706), published 06 May 2024, establishes supply chain provenance requirements for clean vehicle tax credit eligibility under the Inflation Reduction Act. Vehicles placed in service from 2024 are ineligible for the Section 30D credit if their batteries contain components manufactured or assembled by a foreign entity of concern; from 2025, the restriction extends to critical minerals extracted, processed, or recycled by an FEOC. The DOE Final Interpretive Rule, published concurrently, defines criteria for FEOC determination.",
+      "investment": "N/A (regulatory instrument)",
+      "domain": "Trade",
+      "industryPrimary": "Trade & Logistics",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 3,
+      "confidence": "A",
+      "aiConnectionPathway": "option_g",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option G (lithium, cobalt, graphite, REE — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "187",
+      "name": "UN GA AI Panel & Dialogue Resolution (A/RES/79/325)",
+      "lat": 40.7489,
+      "lng": -73.968,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "26 August 2025",
+      "location": "New York, United States (UN General Assembly)",
+      "scope": "International (193 UN Member States; adopted by consensus without a vote)",
+      "description": "UNGA Resolution A/RES/79/325, adopted by consensus on 26 August 2025, establishes the Independent International Scientific Panel on Artificial Intelligence and the Global Dialogue on Artificial Intelligence Governance. The 40-member Scientific Panel is mandated to produce annual policy-relevant but non-prescriptive assessment reports synthesising existing AI research. Both mechanisms were formally launched at the 80th General Assembly session in September 2025. The resolution follows from the Global Digital Compact (A/RES/79/1, September 2024) framework.",
+      "investment": "N/A (governance framework)",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
     }
   ]
 }
