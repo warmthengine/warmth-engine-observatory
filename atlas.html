@@ -9589,23 +9589,6 @@
             h += '</div>';
             // Content
             h += '<div class="cc-evidence-content">';
-            if (detail.primary_documentation) {
-                h += '<p>' + escapeHtml(detail.primary_documentation) + '</p>';
-            }
-            if (detail.citation_text) {
-                h += '<div class="cc-citation">';
-                if (typeof detail.citation_text === 'object') {
-                    if (detail.citation_text.chinese) {
-                        h += '"' + escapeHtml(detail.citation_text.chinese) + '"';
-                    }
-                    if (detail.citation_text.english) {
-                        h += '<span class="cc-citation-source">' + escapeHtml(detail.citation_text.english) + '</span>';
-                    }
-                } else {
-                    h += '"' + escapeHtml(detail.citation_text) + '"';
-                }
-                h += '</div>';
-            }
             if (detail.funding_breakdown) {
                 const fb = detail.funding_breakdown;
                 h += '<div class="cc-funding-grid">';
@@ -9615,38 +9598,8 @@
                 if (fb.percentage) h += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + escapeHtml(fb.percentage) + '</div></div>';
                 h += '</div>';
             }
-            if (detail.criteria_assessment) {
-                const ca = detail.criteria_assessment;
-                h += '<div class="cc-criteria-grid">';
-                ['mechanism', 'target', 'scope', 'timing'].forEach(k => {
-                    if (!ca[k]) return;
-                    const c = ca[k];
-                    const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
-                    const statusIcon = c.met === true ? WEO_ICON_CHECK : (c.met === 'partial' ? '◐' : '○');
-                    const hasEvidence = c.evidence && c.evidence.length > 0;
-                    const onClick = hasEvidence ? ' onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')"' : '';
-                    h += '<div class="cc-criterion' + (hasEvidence ? ' has-evidence' : '') + '"' + onClick + '>';
-                    h += '<div class="cc-criterion-header">';
-                    h += '<span class="cc-criterion-status ' + statusClass + '">' + statusIcon + '</span>';
-                    h += '<span class="cc-criterion-name">' + escapeHtml(k.charAt(0).toUpperCase() + k.slice(1)) + '</span>';
-                    if (hasEvidence) h += '<span class="cc-criterion-expand">▼</span>';
-                    h += '</div>';
-                    if (hasEvidence) h += '<div class="cc-criterion-evidence">' + escapeHtml(c.evidence) + '</div>';
-                    h += '</div>';
-                });
-                h += '</div>';
-                if (detail.criteria_score) {
-                    h += '<div class="cc-criteria-score">';
-                    h += '<span class="cc-criteria-score-value">' + escapeHtml(String(detail.criteria_score)) + '</span>';
-                    h += '<span class="cc-criteria-score-label">criteria met</span>';
-                    h += '</div>';
-                }
-            }
             if (detail.framework_relationship) {
                 h += '<p><strong>Relationship:</strong> ' + escapeHtml(detail.framework_relationship) + '</p>';
-            }
-            if (detail.enabling_relationship) {
-                h += '<p><strong>Enabling:</strong> ' + escapeHtml(detail.enabling_relationship) + '</p>';
             }
             if (detail.award_a && detail.award_b) {
                 h += '<div class="cc-funding-grid">';
@@ -9670,9 +9623,6 @@
             }
             if (detail.bilateral_statement) {
                 h += '<div class="cc-citation">"' + escapeHtml(detail.bilateral_statement) + '"</div>';
-            }
-            if (detail.transparency_note) {
-                h += '<div class="cc-transparency-note">' + escapeHtml(detail.transparency_note) + '</div>';
             }
             h += '</div>'; // /.cc-evidence-content
             // Verification History
@@ -9739,27 +9689,6 @@
                 h += '</div>';
                 h += '<div class="cc-criterion-evidence">' + escapeHtml(detail.implementation_mapping) + '</div>';
                 h += '</div>';
-            }
-            if (detail.linguistic_markers || detail.linguistic_marker) {
-                const lm = detail.linguistic_markers || detail.linguistic_marker;
-                let lmText = '';
-                if (typeof lm === 'object' && !Array.isArray(lm)) {
-                    if (lm.marker) lmText += '"' + escapeHtml(lm.marker) + '"';
-                    if (lm.function) lmText += ' — ' + escapeHtml(lm.function);
-                } else if (Array.isArray(lm)) {
-                    lmText = lm.map(m => m.marker ? '"' + escapeHtml(m.marker) + '" — ' + escapeHtml(m.function || m.translation || '') : escapeHtml(String(m))).join('<br>');
-                } else {
-                    lmText = escapeHtml(String(lm));
-                }
-                if (lmText) {
-                    h += '<div class="cc-criterion has-evidence" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
-                    h += '<div class="cc-criterion-header">';
-                    h += '<span class="cc-criterion-name">Original-Language Markers</span>';
-                    h += '<span class="cc-criterion-expand">▼</span>';
-                    h += '</div>';
-                    h += '<div class="cc-criterion-evidence">' + lmText + '</div>';
-                    h += '</div>';
-                }
             }
             if (detail.cross_references) {
                 h += '<div class="cc-transparency-note" style="font-size: 0.85em; opacity: 0.7;">📎 Cross-references documented</div>';
