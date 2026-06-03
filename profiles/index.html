@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="weo-version" content="1.3.0">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
   <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
   <meta name="description" content="Nation-state AI infrastructure assessments across 14 actors. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment dimensions evaluated with sourced evidence.">
   <link rel="canonical" href="https://warmthengine.com/profiles/">
@@ -10,6 +14,10 @@
   <meta property="og:description" content="Which nations control the AI infrastructure stack? 14 actors assessed across 7 dimensions with sourced evidence.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://warmthengine.com/profiles/">
+  <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,38 +39,75 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg-primary: #0F172A;
-  --bg-card: #1E293B;
-  --bg-deep: #0B1120;
-  --text-primary: #E2E8F0;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --accent: #3B82F6;
-  --border: rgba(255,255,255,0.07);
-  --scp-hw: #60A5FA;
-  --scp-pl: #A78BFA;
-  --scp-gv: #2DD4BF;
-  --scp-paa: #F59E0B;
-  --scp-aik: #06B6D4;
-  --scp-acs: #A855F7;
+  /* WEO design tokens — aligned with index.html / 404.html */
+  --weo-surface-base:    #0F172A;
+  --weo-surface-raised:  #1E293B;
+  --weo-text-primary:    #E2E8F0;
+  --weo-text-secondary:  rgba(226, 232, 240, 0.7);
+  --weo-text-muted:      #94A3B8;
+  --weo-accent-hover:    #60A5FA;
+  --weo-border-primary:  #334155;
+  --weo-radius-sm:       4px;
+  --weo-radius-md:       8px;
+  --weo-radius-lg:       12px;
+
+  /* SCP palette */
+  --scp-hw:   #60A5FA;
+  --scp-pl:   #A78BFA;
+  --scp-gv:   #2DD4BF;
+  --scp-paa:  #F59E0B;
+  --scp-aik:  #06B6D4;
+  --scp-acs:  #A855F7;
   --scp-part: #64748B;
-  --scp-met: #22C55E;
-  --r-sm: 4px;
-  --r-md: 6px;
+  --scp-met:  #22C55E;
+
+  /* local shorthand */
   --r-pill: 20px;
 }
 
 html { scroll-behavior: smooth; }
 
+/* ── Focus & motion ── */
+*:focus { outline: none; }
+*:focus-visible { outline: 2px solid var(--weo-accent-hover); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--weo-surface-base);
+  color: var(--weo-text-primary);
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent); text-decoration: none; }
+/* ── Geist dark-mode weight compensation ──
+   Variable font weights adjusted for light-on-dark halation.
+   Standard 400 body → 380, standard 600 heading → 580, standard 500 data → 480. */
+body               { font-weight: 380; }
+.page-header h1    { font-weight: 580; }
+.actor-name        { font-weight: 580; }
+.desig-heading h2  { font-weight: 580; }
+.watch-section h2  { font-weight: 580; }
+.dim-status        { font-weight: 580; }
+.constraint-label  { font-weight: 580; }
+.sev-label         { font-weight: 580; }
+.aik-label         { font-weight: 580; }
+.actor-badge       { font-weight: 580; }
+.src-type          { font-weight: 580; }
+.src-grade         { font-weight: 580; }
+.actor-score       { font-weight: 480; }
+.dim-key           { font-weight: 480; }
+.dim-ref           { font-weight: 480; }
+.legend-key        { font-weight: 480; }
+
+a { color: var(--weo-accent-hover); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
@@ -70,26 +115,26 @@ a:hover { text-decoration: underline; }
 /* ── Page header ── */
 .page-header {
   padding: 48px 0 36px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--weo-border-primary);
   margin-bottom: 40px;
 }
 .page-header h1 {
-  font-size: 28px; font-weight: 700; color: var(--text-primary);
+  font-size: 28px; color: var(--weo-text-primary);
   letter-spacing: -0.02em; margin-bottom: 6px;
 }
-.page-subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 18px; }
+.page-subtitle { font-size: 15px; color: var(--weo-text-secondary); margin-bottom: 18px; }
 .page-framework {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  font-size: 13px; color: var(--weo-text-secondary); line-height: 1.7;
   max-width: 720px; margin-bottom: 20px;
 }
 .page-meta {
   display: flex; gap: 20px; flex-wrap: wrap;
-  font-size: 12px; color: var(--text-muted); margin-bottom: 24px;
+  font-size: 12px; color: #64748B; margin-bottom: 24px;
 }
 
 /* ── Dimension legend ── */
 .legend-heading {
-  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  font-size: 11px; color: var(--weo-text-muted);
   letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;
 }
 .dim-legend {
@@ -98,62 +143,69 @@ a:hover { text-decoration: underline; }
   gap: 6px;
 }
 .legend-item {
-  display: flex; align-items: flex-start; gap: 7px;
-  font-size: 12px; line-height: 1.45; padding: 6px 8px;
-  background: rgba(30,41,59,0.5); border-radius: var(--r-sm);
-  border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; padding: 6px 8px;
+  background: rgba(30,41,59,0.5); border-radius: var(--weo-radius-sm);
+  border: 1px solid var(--weo-border-primary);
+  min-width: 0;
 }
-.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .legend-key {
-  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
-  color: var(--text-muted); flex-shrink: 0; min-width: 20px;
+  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
+  color: #64748B; flex-shrink: 0; min-width: 20px;
 }
-.legend-name { font-weight: 500; color: var(--text-secondary); flex-shrink: 0; min-width: 100px; }
-.legend-desc { color: var(--text-muted); font-size: 11px; }
+.legend-name { color: var(--weo-text-muted); flex-shrink: 0; min-width: 100px; }
+.legend-desc {
+  color: #64748B; font-size: 11px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 
 /* ── Designation groups ── */
 .desig-section { margin-bottom: 48px; }
 .desig-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.desig-heading h2 { font-size: 14px; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap; }
-.desig-line { flex: 1; height: 1px; background: var(--border); }
-.desig-paa .desig-heading h2 { color: var(--scp-paa); }
-.desig-aik .desig-heading h2 { color: var(--scp-aik); }
-.desig-acs .desig-heading h2 { color: var(--scp-acs); }
+.desig-heading h2 { font-size: 14px; letter-spacing: 0.01em; white-space: nowrap; }
+.desig-line { flex: 1; height: 1px; background: var(--weo-border-primary); }
+.desig-paa .desig-heading h2         { color: var(--scp-paa); }
+.desig-aik .desig-heading h2         { color: var(--scp-aik); }
+.desig-acs .desig-heading h2         { color: var(--scp-acs); }
 .desig-participant .desig-heading h2 { color: var(--scp-part); }
 
 /* ── Actor cards ── */
 .actor-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--r-md); margin-bottom: 14px; overflow: hidden;
+  background: var(--weo-surface-raised);
+  border: 1px solid var(--weo-border-primary);
+  border-radius: var(--weo-radius-md);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.03);
+  margin-bottom: 14px; overflow: hidden;
 }
 .actor-header {
-  padding: 14px 20px 12px; border-bottom: 1px solid var(--border);
+  padding: 14px 20px 12px; border-bottom: 1px solid var(--weo-border-primary);
 }
 .actor-title-row {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
 }
 .actor-name {
-  font-size: 17px; font-weight: 700; color: var(--text-primary);
+  font-size: 17px; color: var(--weo-text-primary);
   display: flex; align-items: center; gap: 8px;
 }
 .actor-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .actor-score {
-  font-family: 'SF Mono','Fira Code',monospace; font-size: 13px;
-  font-weight: 700; color: var(--text-secondary);
+  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 13px;
+  color: var(--weo-text-muted);
   background: rgba(255,255,255,0.05); padding: 2px 8px;
-  border-radius: var(--r-sm); border: 1px solid var(--border);
+  border-radius: var(--weo-radius-sm); border: 1px solid var(--weo-border-primary);
 }
 .actor-badge {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  font-size: 11px; letter-spacing: 0.04em;
   padding: 3px 10px; border-radius: var(--r-pill); border: 1px solid;
 }
-.badge-paa   { background: rgba(245,158,11,0.15); color: #F59E0B;   border-color: rgba(245,158,11,0.35); }
-.badge-aik   { background: rgba(6,182,212,0.12);  color: #22D3EE;   border-color: rgba(6,182,212,0.3); }
-.badge-acs   { background: rgba(168,85,247,0.12); color: #C084FC;   border-color: rgba(168,85,247,0.3); }
+.badge-paa         { background: rgba(245,158,11,0.15); color: #F59E0B;  border-color: rgba(245,158,11,0.35); }
+.badge-aik         { background: rgba(6,182,212,0.12);  color: #22D3EE;  border-color: rgba(6,182,212,0.3); }
+.badge-acs         { background: rgba(168,85,247,0.12); color: #C084FC;  border-color: rgba(168,85,247,0.3); }
 .badge-participant { background: rgba(100,116,139,0.12); color: #64748B; border-color: rgba(100,116,139,0.25); }
 .sample-badge {
-  font-size: 10px; font-weight: 600;
+  font-size: 10px;
   background: rgba(255,215,0,0.1); color: #FFD700;
   border: 1px solid rgba(255,215,0,0.25); padding: 1px 6px;
   border-radius: 3px; letter-spacing: 0.03em;
@@ -165,9 +217,9 @@ a:hover { text-decoration: underline; }
   width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid;
   flex-shrink: 0;
 }
-.dim-bar-dot.hw.met  { background: var(--scp-hw);  border-color: var(--scp-hw); }
-.dim-bar-dot.pl.met  { background: var(--scp-pl);  border-color: var(--scp-pl); }
-.dim-bar-dot.gv.met  { background: var(--scp-gv);  border-color: var(--scp-gv); }
+.dim-bar-dot.hw.met  { background: var(--scp-hw); border-color: var(--scp-hw); }
+.dim-bar-dot.pl.met  { background: var(--scp-pl); border-color: var(--scp-pl); }
+.dim-bar-dot.gv.met  { background: var(--scp-gv); border-color: var(--scp-gv); }
 .dim-bar-dot.hw.nmet { background: transparent; border-color: rgba(96,165,250,0.3); }
 .dim-bar-dot.pl.nmet { background: transparent; border-color: rgba(167,139,250,0.3); }
 .dim-bar-dot.gv.nmet { background: transparent; border-color: rgba(45,212,191,0.3); }
@@ -193,47 +245,47 @@ a:hover { text-decoration: underline; }
 .dim-dot.pl.met { background: var(--scp-pl); }
 .dim-dot.gv.met { background: var(--scp-gv); }
 .dim-key {
-  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
-  color: var(--text-muted); flex-shrink: 0; min-width: 20px;
+  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
+  color: #64748B; flex-shrink: 0; min-width: 20px;
 }
-.dim-name  { color: var(--text-secondary); flex: 1; }
-.dim-status { font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.dim-name  { color: var(--weo-text-muted); flex: 1; }
+.dim-status { font-size: 11px; flex-shrink: 0; }
 .dim-met   { color: var(--scp-met); }
-.dim-nmet  { color: var(--text-muted); }
+.dim-nmet  { color: #64748B; }
 
 .dim-qual-hl {
-  font-size: 12px; color: #CBD5E1; line-height: 1.55;
+  font-size: 12px; color: var(--weo-text-secondary); line-height: 1.55;
   padding: 4px 0 2px 13px;
 }
 .dim-constraint {
-  font-size: 12px; color: var(--text-muted); line-height: 1.55;
+  font-size: 12px; color: #64748B; line-height: 1.55;
   padding: 4px 0 2px 13px; font-style: italic;
 }
-.constraint-label { font-style: normal; font-weight: 700; color: var(--text-secondary); }
+.constraint-label { font-style: normal; color: var(--weo-text-secondary); }
 
 .dim-details-dd { padding: 2px 0 2px 13px; }
 details.dim-details summary {
-  font-size: 11px; color: var(--text-muted); cursor: pointer;
+  font-size: 11px; color: #64748B; cursor: pointer;
   padding: 3px 0; display: inline-flex; align-items: center; gap: 5px;
   list-style: none; -webkit-appearance: none; transition: color 0.15s;
 }
 details.dim-details summary::-webkit-details-marker { display: none; }
 details.dim-details summary::before { content: '▸'; font-size: 9px; }
 details.dim-details[open] summary::before { content: '▾'; }
-details.dim-details summary:hover { color: var(--text-secondary); }
+details.dim-details summary:hover { color: var(--weo-text-muted); }
 
 .dim-qual-block {
   margin-top: 6px; padding: 10px 12px;
-  background: rgba(15,23,42,0.6); border-radius: var(--r-sm);
-  border: 1px solid var(--border);
-  font-size: 12px; color: var(--text-secondary); line-height: 1.65;
+  background: rgba(15,23,42,0.6); border-radius: var(--weo-radius-sm);
+  border: 1px solid var(--weo-border-primary);
+  font-size: 12px; color: var(--weo-text-secondary); line-height: 1.65;
 }
 
 /* ── Sources ── */
 .src-block {
   margin-top: 6px; padding: 10px 12px;
-  background: rgba(15,23,42,0.6); border-radius: var(--r-sm);
-  border: 1px solid var(--border);
+  background: rgba(15,23,42,0.6); border-radius: var(--weo-radius-sm);
+  border: 1px solid var(--weo-border-primary);
 }
 .src-entry {
   padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -242,79 +294,83 @@ details.dim-details summary:hover { color: var(--text-secondary); }
 .src-meta {
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 5px;
 }
-.src-type  { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.src-grade { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 3px; }
-.src-pub   { font-size: 11px; color: var(--text-secondary); }
-.src-date  { font-size: 10px; color: var(--text-muted); }
-.src-fact  { font-size: 11px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 5px; }
-.src-link  { font-size: 11px; color: var(--accent); }
+.src-type  { font-size: 10px; color: var(--weo-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.src-grade { font-size: 10px; padding: 1px 7px; border-radius: 3px; }
+.src-pub   { font-size: 11px; color: var(--weo-text-muted); }
+.src-date  { font-size: 10px; color: #64748B; }
+.src-fact  { font-size: 11px; color: var(--weo-text-secondary); line-height: 1.55; margin-bottom: 5px; }
+.src-link  { font-size: 11px; color: var(--weo-accent-hover); }
 
 /* ── AIK chokepoint ── */
 .aik-profile {
   margin-top: 12px; padding: 10px 12px;
   background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.15);
-  border-radius: var(--r-sm);
+  border-radius: var(--weo-radius-sm);
 }
 .aik-label  {
-  font-size: 10px; font-weight: 700; color: #94A3B8;
+  font-size: 10px; color: var(--weo-text-muted);
   letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px;
 }
-.aik-nature   { font-size: 13px; color: #CBD5E1; font-weight: 500; line-height: 1.45; }
-.aik-entities { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.55; margin-top: 3px; }
+.aik-nature   { font-size: 13px; color: var(--weo-text-secondary); line-height: 1.45; }
+.aik-entities { font-size: 11px; color: #64748B; font-style: italic; line-height: 1.55; margin-top: 3px; }
 
 /* ── Severance ── */
 .actor-severance {
-  font-size: 12px; color: var(--text-muted); margin-top: 12px;
+  font-size: 12px; color: #64748B; margin-top: 12px;
   padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04);
   line-height: 1.55;
 }
-.sev-label  { font-weight: 700; color: var(--text-secondary); }
-.sev-pass   { color: var(--scp-met); font-weight: 700; }
-.sev-fail   { color: #F87171; font-weight: 700; }
+.sev-label  { color: var(--weo-text-secondary); }
+.sev-pass   { color: var(--scp-met); }
+.sev-fail   { color: #F87171; }
 
 /* ── Dimension watch ── */
 .watch-section {
-  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);
+  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--weo-border-primary);
 }
 .watch-section h2 {
-  font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;
+  font-size: 17px; color: var(--weo-text-primary); margin-bottom: 8px;
 }
-.watch-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.watch-desc { font-size: 13px; color: #64748B; margin-bottom: 16px; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .watch-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .watch-table th {
-  text-align: left; font-size: 10px; font-weight: 700;
-  color: var(--text-muted); text-transform: uppercase;
+  text-align: left; font-size: 10px;
+  color: var(--weo-text-muted); text-transform: uppercase;
   letter-spacing: 0.06em; padding: 8px 12px;
-  border-bottom: 1px solid var(--border); white-space: nowrap;
+  border-bottom: 1px solid var(--weo-border-primary); white-space: nowrap;
 }
 .watch-table td {
   padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
-  vertical-align: top; color: var(--text-secondary); line-height: 1.5;
+  vertical-align: top; color: var(--weo-text-secondary); line-height: 1.5;
 }
 .watch-table tr:last-child td { border-bottom: none; }
 .watch-table tr:hover td { background: rgba(255,255,255,0.01); }
 .dim-ref {
-  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
-  color: var(--text-muted);
+  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
+  color: var(--weo-text-muted);
 }
-.w-met  { color: var(--scp-met); font-weight: 700; }
-.w-nmet { color: var(--text-muted); }
+.w-met  { color: var(--scp-met); }
+.w-nmet { color: #64748B; }
 
 /* ── Footer ── */
 .page-footer {
-  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
-  font-size: 12px; color: var(--text-muted); line-height: 1.8;
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--weo-border-primary);
+  font-size: 12px; color: #64748B; line-height: 1.8;
 }
 .footer-cta {
-  font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;
+  font-size: 13px; color: var(--weo-text-secondary); margin-bottom: 14px;
   padding: 10px 14px;
-  background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15);
-  border-radius: var(--r-sm);
+  background: rgba(96,165,250,0.05); border: 1px solid rgba(96,165,250,0.15);
+  border-radius: var(--weo-radius-sm);
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; }
-.footer-links a { color: var(--accent); }
-.footer-copy { font-size: 11px; color: var(--text-muted); }
+.footer-links a { color: var(--weo-accent-hover); }
+.footer-mono {
+  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 11px; color: var(--weo-text-muted); opacity: 0.5;
+  letter-spacing: 0.04em;
+}
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
@@ -345,43 +401,43 @@ details.dim-details summary:hover { color: var(--text-secondary); }
       <p class="legend-heading">Dimensions</p>
       <div class="dim-legend">
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-dot" style="background:var(--scp-hw);flex-shrink:0;"></span>
   <span class="legend-key">D1</span>
   <span class="legend-name">AI Chip Design</span>
   <span class="legend-desc">Designs and commercially sells training-class AI accelerators under domestic IP control.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-dot" style="background:var(--scp-hw);flex-shrink:0;"></span>
   <span class="legend-key">D2</span>
   <span class="legend-name">Advanced Fabrication</span>
   <span class="legend-desc">Operates production-capable semiconductor fabrication at process nodes of 7nm or below.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-dot" style="background:var(--scp-hw);flex-shrink:0;"></span>
   <span class="legend-key">D3</span>
   <span class="legend-name">Critical Equipment</span>
   <span class="legend-desc">Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-pl);"></span>
+  <span class="legend-dot" style="background:var(--scp-pl);flex-shrink:0;"></span>
   <span class="legend-key">D4</span>
   <span class="legend-name">AI Compute</span>
   <span class="legend-desc">Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor&#x27;s territory.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-pl);"></span>
+  <span class="legend-dot" style="background:var(--scp-pl);flex-shrink:0;"></span>
   <span class="legend-key">D5</span>
   <span class="legend-name">Frontier Models</span>
   <span class="legend-desc">Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-gv);"></span>
+  <span class="legend-dot" style="background:var(--scp-gv);flex-shrink:0;"></span>
   <span class="legend-key">D6</span>
   <span class="legend-name">AI Regulation</span>
   <span class="legend-desc">Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction.</span>
 </div>
 <div class="legend-item">
-  <span class="legend-dot" style="background:var(--scp-gv);"></span>
+  <span class="legend-dot" style="background:var(--scp-gv);flex-shrink:0;"></span>
   <span class="legend-key">D7</span>
   <span class="legend-name">Sovereign Investment</span>
   <span class="legend-desc">Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale.</span>
@@ -1794,8 +1850,17 @@ details.dim-details summary:hover { color: var(--text-secondary); }
         <a href="/?scp=open">Explore the interactive Sovereign Capability Profiles →</a>
         <a href="/research/methodology/manual/">Methodology Manual →</a>
       </div>
-      <p class="footer-copy">SCP Register v1.0 · Assessment: May 2026 · Methodology V1.4 · © 2026 Warmth Engine</p>
+      <p class="footer-mono">SCP Register v1.0 · Assessment: May 2026 · Methodology V1.4 · WEO v1.3.0</p>
+      <p class="footer-mono" style="margin-top:4px;opacity:0.5;">© 2026 Warmth Engine Observatory</p>
     </footer>
   </div>
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script>
+(function(){
+  var v = document.querySelector('meta[name="weo-version"]');
+  if (v) console.log('WEO v' + v.getAttribute('content'));
+})();
+</script>
 </body>
 </html>
