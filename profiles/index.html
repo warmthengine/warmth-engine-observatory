@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
+  <meta name="description" content="Nation-state AI infrastructure assessments across 14 actors. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment dimensions evaluated with sourced evidence.">
+  <link rel="canonical" href="https://warmthengine.com/profiles/">
+  <meta property="og:title" content="Sovereign Capability Profiles — Warmth Engine Observatory">
+  <meta property="og:description" content="Which nations control the AI infrastructure stack? 14 actors assessed across 7 dimensions with sourced evidence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://warmthengine.com/profiles/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "WEO Sovereign Capability Profiles",
+  "description": "Nation-state AI infrastructure capability assessments across 7 dimensions for 14 actors",
+  "url": "https://warmthengine.com/profiles/",
+  "creator": {
+    "@type": "Organisation",
+    "name": "Warmth Engine Observatory",
+    "url": "https://warmthengine.com"
+  },
+  "dateModified": "2026-06-03",
+  "license": "https://warmthengine.com/research/methodology/manual/"
+}
+  </script>
+  <style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #0F172A;
+  --bg-card: #1E293B;
+  --bg-deep: #0B1120;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent: #3B82F6;
+  --border: rgba(255,255,255,0.07);
+  --scp-hw: #60A5FA;
+  --scp-pl: #A78BFA;
+  --scp-gv: #2DD4BF;
+  --scp-paa: #F59E0B;
+  --scp-aik: #06B6D4;
+  --scp-acs: #A855F7;
+  --scp-part: #64748B;
+  --scp-met: #22C55E;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-pill: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.page-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* ── Page header ── */
+.page-header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.page-header h1 {
+  font-size: 28px; font-weight: 700; color: var(--text-primary);
+  letter-spacing: -0.02em; margin-bottom: 6px;
+}
+.page-subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 18px; }
+.page-framework {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  max-width: 720px; margin-bottom: 20px;
+}
+.page-meta {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-muted); margin-bottom: 24px;
+}
+
+/* ── Dimension legend ── */
+.legend-heading {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;
+}
+.dim-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 6px;
+}
+.legend-item {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 12px; line-height: 1.45; padding: 6px 8px;
+  background: rgba(30,41,59,0.5); border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.legend-key {
+  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
+  color: var(--text-muted); flex-shrink: 0; min-width: 20px;
+}
+.legend-name { font-weight: 500; color: var(--text-secondary); flex-shrink: 0; min-width: 100px; }
+.legend-desc { color: var(--text-muted); font-size: 11px; }
+
+/* ── Designation groups ── */
+.desig-section { margin-bottom: 48px; }
+.desig-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.desig-heading h2 { font-size: 14px; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap; }
+.desig-line { flex: 1; height: 1px; background: var(--border); }
+.desig-paa .desig-heading h2 { color: var(--scp-paa); }
+.desig-aik .desig-heading h2 { color: var(--scp-aik); }
+.desig-acs .desig-heading h2 { color: var(--scp-acs); }
+.desig-participant .desig-heading h2 { color: var(--scp-part); }
+
+/* ── Actor cards ── */
+.actor-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--r-md); margin-bottom: 14px; overflow: hidden;
+}
+.actor-header {
+  padding: 14px 20px 12px; border-bottom: 1px solid var(--border);
+}
+.actor-title-row {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
+}
+.actor-name {
+  font-size: 17px; font-weight: 700; color: var(--text-primary);
+  display: flex; align-items: center; gap: 8px;
+}
+.actor-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.actor-score {
+  font-family: 'SF Mono','Fira Code',monospace; font-size: 13px;
+  font-weight: 700; color: var(--text-secondary);
+  background: rgba(255,255,255,0.05); padding: 2px 8px;
+  border-radius: var(--r-sm); border: 1px solid var(--border);
+}
+.actor-badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 3px 10px; border-radius: var(--r-pill); border: 1px solid;
+}
+.badge-paa   { background: rgba(245,158,11,0.15); color: #F59E0B;   border-color: rgba(245,158,11,0.35); }
+.badge-aik   { background: rgba(6,182,212,0.12);  color: #22D3EE;   border-color: rgba(6,182,212,0.3); }
+.badge-acs   { background: rgba(168,85,247,0.12); color: #C084FC;   border-color: rgba(168,85,247,0.3); }
+.badge-participant { background: rgba(100,116,139,0.12); color: #64748B; border-color: rgba(100,116,139,0.25); }
+.sample-badge {
+  font-size: 10px; font-weight: 600;
+  background: rgba(255,215,0,0.1); color: #FFD700;
+  border: 1px solid rgba(255,215,0,0.25); padding: 1px 6px;
+  border-radius: 3px; letter-spacing: 0.03em;
+}
+
+/* ── Dimension bar ── */
+.dim-bar { display: flex; gap: 4px; align-items: center; }
+.dim-bar-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid;
+  flex-shrink: 0;
+}
+.dim-bar-dot.hw.met  { background: var(--scp-hw);  border-color: var(--scp-hw); }
+.dim-bar-dot.pl.met  { background: var(--scp-pl);  border-color: var(--scp-pl); }
+.dim-bar-dot.gv.met  { background: var(--scp-gv);  border-color: var(--scp-gv); }
+.dim-bar-dot.hw.nmet { background: transparent; border-color: rgba(96,165,250,0.3); }
+.dim-bar-dot.pl.nmet { background: transparent; border-color: rgba(167,139,250,0.3); }
+.dim-bar-dot.gv.nmet { background: transparent; border-color: rgba(45,212,191,0.3); }
+
+/* ── Actor body ── */
+.actor-body { padding: 0 20px 14px; }
+
+/* ── Dimensions list ── */
+.dimensions-list { list-style: none; }
+
+.dim-item { border-bottom: 1px solid rgba(255,255,255,0.04); padding: 9px 0; }
+.dim-item:last-of-type { border-bottom: none; }
+
+.dim-header {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; flex-wrap: wrap;
+}
+.dim-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dim-dot.hw     { background: rgba(96,165,250,0.3); }
+.dim-dot.pl     { background: rgba(167,139,250,0.3); }
+.dim-dot.gv     { background: rgba(45,212,191,0.3); }
+.dim-dot.hw.met { background: var(--scp-hw); }
+.dim-dot.pl.met { background: var(--scp-pl); }
+.dim-dot.gv.met { background: var(--scp-gv); }
+.dim-key {
+  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
+  color: var(--text-muted); flex-shrink: 0; min-width: 20px;
+}
+.dim-name  { color: var(--text-secondary); flex: 1; }
+.dim-status { font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.dim-met   { color: var(--scp-met); }
+.dim-nmet  { color: var(--text-muted); }
+
+.dim-qual-hl {
+  font-size: 12px; color: #CBD5E1; line-height: 1.55;
+  padding: 4px 0 2px 13px;
+}
+.dim-constraint {
+  font-size: 12px; color: var(--text-muted); line-height: 1.55;
+  padding: 4px 0 2px 13px; font-style: italic;
+}
+.constraint-label { font-style: normal; font-weight: 700; color: var(--text-secondary); }
+
+.dim-details-dd { padding: 2px 0 2px 13px; }
+details.dim-details summary {
+  font-size: 11px; color: var(--text-muted); cursor: pointer;
+  padding: 3px 0; display: inline-flex; align-items: center; gap: 5px;
+  list-style: none; -webkit-appearance: none; transition: color 0.15s;
+}
+details.dim-details summary::-webkit-details-marker { display: none; }
+details.dim-details summary::before { content: '▸'; font-size: 9px; }
+details.dim-details[open] summary::before { content: '▾'; }
+details.dim-details summary:hover { color: var(--text-secondary); }
+
+.dim-qual-block {
+  margin-top: 6px; padding: 10px 12px;
+  background: rgba(15,23,42,0.6); border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  font-size: 12px; color: var(--text-secondary); line-height: 1.65;
+}
+
+/* ── Sources ── */
+.src-block {
+  margin-top: 6px; padding: 10px 12px;
+  background: rgba(15,23,42,0.6); border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+.src-entry {
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.src-entry:last-child { border-bottom: none; padding-bottom: 0; }
+.src-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 5px;
+}
+.src-type  { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.src-grade { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 3px; }
+.src-pub   { font-size: 11px; color: var(--text-secondary); }
+.src-date  { font-size: 10px; color: var(--text-muted); }
+.src-fact  { font-size: 11px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 5px; }
+.src-link  { font-size: 11px; color: var(--accent); }
+
+/* ── AIK chokepoint ── */
+.aik-profile {
+  margin-top: 12px; padding: 10px 12px;
+  background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.15);
+  border-radius: var(--r-sm);
+}
+.aik-label  {
+  font-size: 10px; font-weight: 700; color: #94A3B8;
+  letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px;
+}
+.aik-nature   { font-size: 13px; color: #CBD5E1; font-weight: 500; line-height: 1.45; }
+.aik-entities { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.55; margin-top: 3px; }
+
+/* ── Severance ── */
+.actor-severance {
+  font-size: 12px; color: var(--text-muted); margin-top: 12px;
+  padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04);
+  line-height: 1.55;
+}
+.sev-label  { font-weight: 700; color: var(--text-secondary); }
+.sev-pass   { color: var(--scp-met); font-weight: 700; }
+.sev-fail   { color: #F87171; font-weight: 700; }
+
+/* ── Dimension watch ── */
+.watch-section {
+  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);
+}
+.watch-section h2 {
+  font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;
+}
+.watch-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.watch-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.watch-table th {
+  text-align: left; font-size: 10px; font-weight: 700;
+  color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 8px 12px;
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.watch-table td {
+  padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
+  vertical-align: top; color: var(--text-secondary); line-height: 1.5;
+}
+.watch-table tr:last-child td { border-bottom: none; }
+.watch-table tr:hover td { background: rgba(255,255,255,0.01); }
+.dim-ref {
+  font-family: 'SF Mono','Fira Code',monospace; font-size: 10px;
+  color: var(--text-muted);
+}
+.w-met  { color: var(--scp-met); font-weight: 700; }
+.w-nmet { color: var(--text-muted); }
+
+/* ── Footer ── */
+.page-footer {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-muted); line-height: 1.8;
+}
+.footer-cta {
+  font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;
+  padding: 10px 14px;
+  background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15);
+  border-radius: var(--r-sm);
+}
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; }
+.footer-links a { color: var(--accent); }
+.footer-copy { font-size: 11px; color: var(--text-muted); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .page-header h1 { font-size: 22px; }
+  .actor-title-row { flex-direction: column; align-items: flex-start; }
+  .dim-legend { grid-template-columns: 1fr; }
+  .page-meta { flex-direction: column; gap: 4px; }
+  .actor-name { font-size: 15px; }
+}
+@media (max-width: 375px) {
+  .page-wrap { padding: 0 12px 40px; }
+  .page-header { padding: 32px 0 24px; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="page-header">
+      <h1>Sovereign Capability Profiles</h1>
+      <p class="page-subtitle">Actor Designation Framework — 14 actors assessed</p>
+      <p class="page-framework">The Sovereign Capability Profile (SCP) framework assesses nation-state control of the AI infrastructure stack across seven dimensions: chip design, advanced fabrication, critical equipment, AI compute, frontier models, AI regulation, and sovereign investment. Actors are designated as Principal AI Actors (PAA), AI Infrastructure Keystones (AIK), Advanced Capability States (ACS), or Participants through a three-gate framework evaluating dimensional breadth, severance resilience, and platform sustainability.</p>
+      <div class="page-meta">
+        <span>Assessment date: 2026-05-06</span>
+        <span>Methodology: V1.4</span>
+        <span>Register: SCP-REG-009</span>
+      </div>
+      <p class="legend-heading">Dimensions</p>
+      <div class="dim-legend">
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-key">D1</span>
+  <span class="legend-name">AI Chip Design</span>
+  <span class="legend-desc">Designs and commercially sells training-class AI accelerators under domestic IP control.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-key">D2</span>
+  <span class="legend-name">Advanced Fabrication</span>
+  <span class="legend-desc">Operates production-capable semiconductor fabrication at process nodes of 7nm or below.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-hw);"></span>
+  <span class="legend-key">D3</span>
+  <span class="legend-name">Critical Equipment</span>
+  <span class="legend-desc">Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-pl);"></span>
+  <span class="legend-key">D4</span>
+  <span class="legend-name">AI Compute</span>
+  <span class="legend-desc">Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor&#x27;s territory.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-pl);"></span>
+  <span class="legend-key">D5</span>
+  <span class="legend-name">Frontier Models</span>
+  <span class="legend-desc">Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-gv);"></span>
+  <span class="legend-key">D6</span>
+  <span class="legend-name">AI Regulation</span>
+  <span class="legend-desc">Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction.</span>
+</div>
+<div class="legend-item">
+  <span class="legend-dot" style="background:var(--scp-gv);"></span>
+  <span class="legend-key">D7</span>
+  <span class="legend-name">Sovereign Investment</span>
+  <span class="legend-desc">Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale.</span>
+</div>
+</div>
+    </header>
+
+    <main>
+<section class="desig-section desig-paa">
+  <div class="desig-heading">
+    <h2>Principal AI Actors (2)</h2>
+    <div class="desig-line"></div>
+  </div>
+  <article id="us" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name"><span class="sample-badge">Sample</span> United States</h3>
+      <div class="actor-meta">
+        <span class="actor-score">7/7</span>
+        <span class="actor-badge badge-paa">PAA</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw met" title="D1"></span><span class="dim-bar-dot hw met" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl met" title="D4"></span><span class="dim-bar-dot pl met" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Three independent training-class accelerator programmes — NVIDIA Blackwell Ultra, AMD Instinct, Trainium — under US IP control</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">NVIDIA Data Centre compute revenue reached US$43.0 billion (Q3 FY2026, up 56%) with Blackwell Ultra as leading architecture. Amazon deployed 1.4 million Trainium chips; combined custom silicon revenue exceeds US$10 billion annually. AMD ships the Instinct MI series. No other jurisdiction hosts more than one competitive programme.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">NVIDIA (SEC 10-Q Q3 FY2026)</span>
+    <span class="src-date">2025-Q3</span>
+  </div>
+  <p class="src-fact">Data Centre compute revenue $43.0 billion, up 56%. Blackwell Ultra leading architecture across all customer categories.</p>
+  <a href="https://investor.nvidia.com/files/doc_financials/2026/q3/13e6981b-95ed-4aac-a602-ebc5865d0590.pdf" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">Amazon (SEC 8-K FY2025 Q4)</span>
+    <span class="src-date">2025-Q4</span>
+  </div>
+  <p class="src-fact">Trainium fully subscribed with 1.4 million chips landed across all generations. Combined custom silicon annual revenue run rate over US$10 billion (Trainium, Graviton, Nitro).</p>
+  <a href="https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000002/amzn-20251231xex991.htm" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Intel Fab 52 manufactures Intel 18A wafers and TSMC Arizona is in volume production, both operating on US territory</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">Intel&#x27;s Fab 52 is fully operational producing Intel 18A wafers — the most advanced logic process manufactured in the United States at time of assessment. TSMC&#x27;s Arizona facility entered volume production in late 2024. Both sites operate on US soil under territorial jurisdiction regardless of corporate parent.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">Intel (SEC 8-K Q3 FY2025)</span>
+    <span class="src-date">2025-Q3</span>
+  </div>
+  <p class="src-fact">Fab 52 fully operational, manufacturing Intel 18A wafers — most advanced logic wafers produced in the United States at time of assessment.</p>
+  <a href="https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000169/q325earningsrelease.htm" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">TSMC</span>
+    <span class="src-date">2025-03</span>
+  </div>
+  <p class="src-fact">TSMC Arizona site in volume production since late 2024.</p>
+  <a href="https://pr.tsmc.com/english/news/3210" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">KLA holds 73.8% of the global metrology and inspection market, described as indispensable to advanced process control</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">KLA increased its metrology and inspection market share from 72.6% in 2024 to 73.8% in 2025. Applied Materials and Lam Research hold dominant positions in deposition and etch respectively. No advanced fabrication facility at any node operates without US-designed process control equipment.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(100,116,139,0.15);color:#94A3B8;border:1px solid rgba(100,116,139,0.3);">Grade 3</span>
+    <span class="src-pub">247 Wall St citing SEMI</span>
+    <span class="src-date">2026-05</span>
+  </div>
+  <p class="src-fact">KLA increased metrology and inspection share from 72.6% in 2024 to 73.8% in 2025.</p>
+  <a href="https://247wallst.com/technology-3/2026/05/04/kla-is-gaining-share-as-ai-chip-complexity-drives-up-yield-costs/" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">KLA 2026 Investor Day</span>
+    <span class="src-date">2026-03</span>
+  </div>
+  <p class="src-fact">CEO: KLA is indispensable to advanced process control regardless of fab operator.</p>
+  <a href="https://ir.kla.com/news-events/press-releases/detail/512/kla-hosts-investor-day-announces-7-billion-share" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl met"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">xAI Colossus comprises 100,000 GPUs expanded to 555,000 at 2 GW; multiple US hyperscalers train frontier models on US territory</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">xAI&#x27;s Colossus cluster operates 100,000 NVIDIA Hopper GPUs, built in 122 days, and expanded to 555,000 GPUs at 2 GW capacity. Anthropic, xAI, Google, and OpenAI all occupy the top tier on Arena Elo rankings. US territory hosts the largest concentration of frontier-class AI training infrastructure globally at time of assessment.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">NVIDIA Newsroom (Colossus/Spectrum-X)</span>
+    <span class="src-date">2026-01</span>
+  </div>
+  <p class="src-fact">xAI Colossus: 100,000 NVIDIA Hopper GPUs, built in 122 days. Expanded to 555,000 GPUs at 2 GW.</p>
+  <a href="https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(100,116,139,0.15);color:#94A3B8;border:1px solid rgba(100,116,139,0.3);">Grade 3</span>
+    <span class="src-pub">Stanford HAI AI Index 2026</span>
+    <span class="src-date">2026</span>
+  </div>
+  <p class="src-fact">Anthropic, xAI, Google, OpenAI all occupy the top tier on Arena Elo.</p>
+  <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl met"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Anthropic, OpenAI, Google, and xAI all occupy the top benchmark tier; no other jurisdiction hosts four frontier labs</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">Stanford HAI&#x27;s 2026 AI Index confirms Anthropic, xAI, Google, and OpenAI in the top Arena Elo tier. Frontier models gained 30 percentage points on Humanity&#x27;s Last Exam in a single year. Multiple US-headquartered organisations hold frontier positions across reasoning, coding, and knowledge benchmarks.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(100,116,139,0.15);color:#94A3B8;border:1px solid rgba(100,116,139,0.3);">Grade 3</span>
+    <span class="src-pub">Stanford HAI AI Index 2026</span>
+    <span class="src-date">2026</span>
+  </div>
+  <p class="src-fact">Frontier models gained 30 percentage points in a single year on Humanity&#x27;s Last Exam.</p>
+  <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(100,116,139,0.15);color:#94A3B8;border:1px solid rgba(100,116,139,0.3);">Grade 3</span>
+    <span class="src-pub">Artificial Analysis / LMArena</span>
+    <span class="src-date">2026-05</span>
+  </div>
+  <p class="src-fact">Multiple US-headquartered models (Anthropic, OpenAI, Google, xAI) at global frontier across reasoning, coding, and knowledge benchmarks.</p>
+  <a href="https://artificialanalysis.ai" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Export controls enforced extraterritorially — Operation Gatekeeper prosecuted US$160 million GPU smuggling conspiracy</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">The Department of Justice prosecuted conspiracy to export at least US$160 million in controlled GPUs destined for China. Operation Gatekeeper seized over US$50 million in NVIDIA H100 and H200 GPUs and obtained guilty pleas, demonstrating active extraterritorial enforcement of AI-relevant export control instruments.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.35);">Grade 1</span>
+    <span class="src-pub">US Department of Justice</span>
+    <span class="src-date">2025-11</span>
+  </div>
+  <p class="src-fact">Prosecution for conspiracy to violate export controls by illegally exporting advanced GPUs to the PRC.</p>
+  <a href="https://www.justice.gov/opa/pr/us-citizens-and-chinese-nationals-arrested-exporting-artificial-intelligence-technology" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.35);">Grade 1</span>
+    <span class="src-pub">US Department of Justice (Operation Gatekeeper)</span>
+    <span class="src-date">2025-12</span>
+  </div>
+  <p class="src-fact">Conspiracy to export at least US$160 million in export-controlled NVIDIA H100 and H200 GPUs. Over US$50 million seized. Guilty pleas obtained.</p>
+  <a href="https://www.justice.gov/opa/pr/us-authorities-shut-down-major-china-linked-ai-tech-smuggling-network" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">CHIPS for America awarded over US$33 billion in fabrication incentives; Intel alone received US$5.7 billion</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Qualification</summary>
+    <div class="dim-qual-block">The CHIPS for America programme awarded over US$33 billion of the US$36 billion in proposed incentives, directed at semiconductor fabrication on US territory. Intel received US$5.695 billion in CHIPS incentives and issued equity instruments. The programme is the largest single sovereign investment in domestic semiconductor manufacturing at time of assessment.</div>
+  </details>
+</dd>
+<dd class="dim-details-dd">
+  <details class="dim-details">
+    <summary>Sources</summary>
+    <div class="src-block"><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Primary</span>
+    <span class="src-grade" style="background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.35);">Grade 1</span>
+    <span class="src-pub">US Department of Commerce (CHIPS for America)</span>
+    <span class="src-date">2025-01</span>
+  </div>
+  <p class="src-fact">CHIPS for America awarded over $33 billion of the over $36 billion in proposed incentives funding.</p>
+  <a href="https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div><div class="src-entry">
+  <div class="src-meta">
+    <span class="src-type">Corroborating</span>
+    <span class="src-grade" style="background:rgba(59,130,246,0.15);color:#3B82F6;border:1px solid rgba(59,130,246,0.35);">Grade 2</span>
+    <span class="src-pub">Intel (SEC 8-K)</span>
+    <span class="src-date">2025-08-27</span>
+  </div>
+  <p class="src-fact">Intel received $5.695 billion in CHIPS incentives; issued 274.6M shares of common stock and a warrant.</p>
+  <a href="https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000135/intc-20250827.htm" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
+</div></div>
+  </details>
+</dd>
+</div>
+    </dl>
+    
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-pass">PASS</span> — All 7 dimensions sustainable under severance. Full-stack ecosystem anchor.</div>
+  </div>
+</article><article id="cn" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">China</h3>
+      <div class="actor-meta">
+        <span class="actor-score">6/7</span>
+        <span class="actor-badge badge-paa">PAA</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw met" title="D1"></span><span class="dim-bar-dot hw met" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl met" title="D4"></span><span class="dim-bar-dot pl met" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Huawei&#x27;s Ascend 910B/910C uses the domestically designed DaVinci architecture with confirmed commercial hyperscale deployment</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">SMIC produces 7nm-class wafers using multi-patterning DUV lithography; DUV-only fabrication with no EUV access</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No Chinese tool globally non-substitutable at ≤7nm; all functions replaceable by US/Japan/Netherlands alternatives</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl met"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Frontier training on Chinese territory via Ascend clusters and pre-restriction NVIDIA H800; Ascend performance gap persists</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl met"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Alibaba and DeepSeek place in the top Arena Elo tier alongside US frontier labs across multiple capability domains</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Article 49 extends jurisdiction to transfers outside China; REE extraterritorial controls exercised then suspended</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Big Fund III raised RMB 344 billion (US$47.5 billion) from 19 state-backed investors for semiconductor development</dd>
+</div>
+    </dl>
+    
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-pass">PASS</span></div>
+  </div>
+</article>
+</section>
+<section class="desig-section desig-aik">
+  <div class="desig-heading">
+    <h2>AI Infrastructure Keystones (3)</h2>
+    <div class="desig-line"></div>
+  </div>
+  <article id="jp" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Japan</h3>
+      <div class="actor-meta">
+        <span class="actor-score">4/7</span>
+        <span class="actor-badge badge-aik">AIK</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl met" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Only domestic training accelerator (PFN MN-Core 2) deployed in low thousands; Japan&#x27;s own flagship HPC selects NVIDIA for AI workloads</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Zero ≤7nm fabs in volume manufacturing; Rapidus 2nm in pilot only, mass production targeted H2 FY2027</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">TEL holds ~100% EUV coater/developer share and Lasertec sole-sources actinic mask inspection; US-dependency exposure documented</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl met"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">SoftBank cluster delivers 13.7 ExaFLOPS on Japanese territory; domestically scaled but GPU procurement dependent on US ecosystem</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No Japanese-developed model places in the global top tier on any canonical discriminating benchmark</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">FEFTA controls 23 types of advanced semiconductor manufacturing equipment; catch-all controls strengthened October 2025</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">AI budgeted support nearly quadrupled to approximately ¥1.23 trillion; Rapidus received ¥2.35 trillion in total state backing</dd>
+</div>
+    </dl>
+    <div class="aik-profile">
+  <div class="aik-label">Chokepoint Profile</div>
+  <div class="aik-nature">Front-end process tools and materials</div>
+  <div class="aik-entities">TEL coater/developer (~90–100% EUV), Lasertec actinic mask inspection (100%), SCREEN single-wafer cleans, Shin-Etsu/JSR/TOK/SUMCO materials</div>
+</div>
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-pass">PASS</span></div>
+  </div>
+</article><article id="kr" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">South Korea</h3>
+      <div class="actor-meta">
+        <span class="actor-score">4/7</span>
+        <span class="actor-badge badge-aik">AIK</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw met" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> All shipping Korean-designed accelerators are inference-only; training compute runs on imported NVIDIA silicon</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Samsung Foundry produces at 3nm and commenced 2nm GAA mass production; fabrication dependent on imported ASML EUV equipment</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">HPSP is sole-source for high-pressure annealing and Hanmi holds 71.2% TC bonder share; FDPR and BIS exposure documented</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest coherent Korean-owned training cluster is ~4,000 GPUs; major facilities are US-hyperscaler-anchored</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Best Korean models score ~25-30 points below frontier flagships on aggregated capability leaderboards</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">AI Basic Act (Law 20676) Article 4(1) applies to acts conducted abroad affecting the Korean domestic market or users</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">KRW 10.1 trillion allocated in the 2026 AI budget; AI Growth Fund expanded to over KRW 150 trillion</dd>
+</div>
+    </dl>
+    <div class="aik-profile">
+  <div class="aik-label">Chokepoint Profile</div>
+  <div class="aik-nature">Memory packaging, fabrication, and sovereign equipment monopolies</div>
+  <div class="aik-entities">HPSP sole-source high-pressure annealing, Hanmi 71.2% TC bonder share, Samsung Foundry 2nm GAA HVM</div>
+</div>
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-pass">PASS</span></div>
+  </div>
+</article><article id="nl" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Netherlands</h3>
+      <div class="actor-meta">
+        <span class="actor-score">3/7</span>
+        <span class="actor-badge badge-aik">AIK</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Dutch chip designers (NXP, Axelera) produce inference/edge silicon only; no training-class accelerator exists</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No ≤7nm fab on Dutch territory; NXP Nijmegen operates at 200mm (~140nm), slated for closure</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">ASML holds 100% EUV monopoly and Besi leads hybrid bonding from Dutch territory; Cymer and multiple US leverage vectors documented</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Nebius Group N.V. Dutch-domiciled; zero qualifying compute on Dutch territory (all operational in Finland)</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> GPT-NL targets Dutch-language sovereignty at ~1/100th frontier budget; no Dutch model ranks on global benchmarks</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Strategic Goods Decree expanded semiconductor equipment export controls with national authorisation requirements</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Project Beethoven committed €2.51 billion to the Brainport Eindhoven chip ecosystem; AI Factory received €200 million</dd>
+</div>
+    </dl>
+    <div class="aik-profile">
+  <div class="aik-label">Chokepoint Profile</div>
+  <div class="aik-nature">Core lithography integration and advanced packaging</div>
+  <div class="aik-entities">ASML 100% EUV monopoly, ASM International (ALD/epi), Besi (hybrid bonding)</div>
+</div>
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-pass">PASS</span></div>
+  </div>
+</article>
+</section>
+<section class="desig-section desig-acs">
+  <div class="desig-heading">
+    <h2>Advanced Capability States (2)</h2>
+    <div class="desig-line"></div>
+  </div>
+  <article id="eu" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">European Union</h3>
+      <div class="actor-meta">
+        <span class="actor-score">4/7</span>
+        <span class="actor-badge badge-acs">ACS</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw met" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No EU entity designs a datacenter training accelerator; closest candidate (SiPearl Rhea1) is an HPC CPU for inference</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Intel Fab 34 in Ireland is the first European facility using EUV in volume production; the facility is US-owned</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">ASML shipped 44 EUV systems as sole global supplier; Zeiss holds 100% EUV optics share — Cymer light source under US jurisdiction</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest EU-controlled coherent training cluster is ~1,016 H100s; frontier training requires 50,000-200,000+</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Mistral&#x27;s best model scores 39/100 on composite intelligence index; frontier models score 57-61</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">EU AI Act Article 2(1)(c) applies to providers placing AI systems on the EU market regardless of establishment location</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">EuroHPC mandate expanded with AI Gigafactories programme; JUPITER operational at exascale, LUMI at pre-exascale</dd>
+</div>
+    </dl>
+    
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-fail">FAIL</span></div>
+  </div>
+</article><article id="tw" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Taiwan</h3>
+      <div class="actor-meta">
+        <span class="actor-score">3/7</span>
+        <span class="actor-badge badge-acs">ACS</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw met" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Taiwan&#x27;s ASIC design firms execute foreign clients&#x27; architectures; core accelerator IP remains abroad</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">TSMC operates 3nm volume production at Fab 18 with N2 GAA on roadmap; fabrication dependent on US-origin equipment and EDA tools</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Gudeng Precision holds approximately 80% of the global EUV photomask pod market and is sole supplier to TSMC</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Aggregate national compute (~114 PFLOPS) is roughly two orders of magnitude below frontier-training scale</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> All domestic models are foreign-base fine-tunes; none rank on any global benchmark leaderboard</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Export controls bind domestic exporters only; AI Basic Act is soft law with no extraterritorial reach</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">NT$30–31.1 billion first-year AI strategy allocation under NSTC; FY2026 budget at legislative risk, compute procures NVIDIA GPUs</dd>
+</div>
+    </dl>
+    
+    <div class="actor-severance"><span class="sev-label">Severance:</span> <span class="sev-fail">FAIL</span></div>
+  </div>
+</article>
+</section>
+<section class="desig-section desig-participant">
+  <div class="desig-heading">
+    <h2>Participants (7)</h2>
+    <div class="desig-line"></div>
+  </div>
+  <article id="fr" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">France</h3>
+      <div class="actor-meta">
+        <span class="actor-score">2/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> All French AI chip designs use licensed ARM architecture; no sovereign training-class accelerator exists</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Most advanced French volume node is 18nm FD-SOI; no FinFET or GAA fab exists at any node</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Soitec&#x27;s SOI substrates serve 22-90nm nodes, not ≤7nm FinFET/GAA process flows</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest sovereign cluster (Mistral Compute, ~13,800 GB300s) is commissioning, not operational</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Mistral scores ~35% below frontier on aggregate intelligence indices across key benchmarks</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Exercises EU AI Act authority with demonstrated extraterritorial enforcement — CNIL fined Clearview AI €20 million</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">France 2030 provides a €54 billion investment envelope; national AI strategy spending totals €2.4 billion across two phases</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="de" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Germany</h3>
+      <div class="actor-meta">
+        <span class="actor-score">2/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv met" title="D6"></span><span class="dim-bar-dot gv nmet" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No German entity designs or markets a datacenter AI training accelerator; full NVIDIA dependency for all sovereign compute</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No fab on German territory produces at ≤7nm; Intel Magdeburg cancelled, ESMC Dresden targets ≥12nm only</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Zeiss holds 100% EUV optics share and TRUMPF sole-sources EUV drive lasers; leverage operates through ASML, not independently</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest German-controlled AI cluster (~10,000 GPUs / 0.5 ExaFLOPS) is ~1/10th frontier training scale</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No German-controlled entity produces a top-tier foundation model; Aleph Alpha absorbed by Canadian Cohere (90/10 split)</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">21st AWV amendment added AI systems and semiconductor technology to the national export control list in July 2024</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> JUPITER is genuine (~€250M national share) but not &#x27;at scale&#x27;; collapsed Intel subsidy and foreign-controlled ESMC subsidy cannot be credited</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="gb" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">United Kingdom</h3>
+      <div class="actor-meta">
+        <span class="actor-score">1/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Sole UK AI accelerator designer (Graphcore) acquired by SoftBank July 2024; no IP-transfer restrictions imposed</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No UK fab operates at or below 7nm; domestic capacity limited to mature and compound semiconductor nodes</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> UK equipment firms serve advanced fabs but none is sole-sourced for ≤7nm lithographic fabrication</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No UK-HQ provider operates frontier-training-class compute on UK soil at assessment date; Nscale flagship facility scheduled Q4 2026-Q1 2027</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> DeepMind IP owned by Alphabet (US); no independent UK lab ranks top-tier across broad reasoning benchmarks</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No AI-specific binding framework enacted; AISI evaluations voluntary; anticipated UK AI bill did not materialise</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">UK Compute Roadmap commits up to £2 billion for public AI compute infrastructure, confirmed by Parliament</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="in" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">India</h3>
+      <div class="actor-meta">
+        <span class="actor-score">1/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv met" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No commercially marketed datacenter AI training accelerator with domestically controlled core microarchitectural IP</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No ≤7nm wafer fab on Indian territory; most advanced approved project (Tata Dholera) targets 28nm-110nm</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No Indian sole-source position in the ≤7nm semiconductor equipment supply chain</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest sovereign compute allocation (4,096 H100s, IndiaAI Mission) empirically exercised; produced sub-frontier result</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Sole candidate (Sarvam-105B) trails absolute May 2026 frontier; independent evaluation limited</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No AI-specific statute in force; DPDPA core obligations delayed to May 2027; IT Rules 2026 limited to content moderation</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv met"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">IndiaAI Mission budgets Rs 10,372 crore across seven pillars with a 10,000 GPU target; compute runs on US ecosystem infrastructure</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="il" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Israel</h3>
+      <div class="actor-meta">
+        <span class="actor-score">1/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw met" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv nmet" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Habana Labs/Gaudi IP wholly owned by Intel US; no independent Israeli training-class accelerator programme remains</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Fab 28 runs Intel 7 (10nm-class DUV, no EUV); Fab 38 frozen since mid-2024 with no restart date</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw met"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-met">Met</span>
+</dt>
+<dd class="dim-qual-hl">Nova holds sole-source metrology and Camtek is tool of reference for HBM4; limited to inspection, US-parented entities excluded</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Largest Israeli-controlled GPU clusters are an order of magnitude below frontier training scale</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> AI21 Jamba scores 40-50 percentage points behind frontier benchmarks; company has pivoted away from scale competition</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No enacted AI-specific law with extraterritorial reach; existing controls are privacy-based or dual-use export</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> ~$140M deployed AI-specific capital over six years; two orders of magnitude below $1B-$10B+ peer programmes</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="ru" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Russia</h3>
+      <div class="actor-meta">
+        <span class="actor-score">0/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv nmet" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No domestically designed training-class accelerator in production; ARM/MIPS licenses revoked, foundry access severed</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Most advanced operational node is 90nm at Mikron; state roadmap targets 28nm no earlier than 2028-2030</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Best domestic lithography tool operates at 350nm on 200mm wafers; no global supply role</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Total national AI compute 0.073 exaflops; largest cluster ~1,600 A100 nodes</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Flagship LLMs trail frontier by 34-55% on key benchmarks; two of three built on Chinese Qwen base weights</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No enacted AI-specific extraterritorial framework; enforcement model produces market exit, not foreign compliance</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Executed federal AI spending ~$80-90M/year; announced budgets systematically revised downward 5-20×</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article><article id="ca" class="actor-card">
+  <header class="actor-header">
+    <div class="actor-title-row">
+      <h3 class="actor-name">Canada</h3>
+      <div class="actor-meta">
+        <span class="actor-score">0/7</span>
+        <span class="actor-badge badge-participant">Participant</span>
+      </div>
+    </div>
+    <div class="dim-bar"><span class="dim-bar-dot hw nmet" title="D1"></span><span class="dim-bar-dot hw nmet" title="D2"></span><span class="dim-bar-dot hw nmet" title="D3"></span><span class="dim-bar-dot pl nmet" title="D4"></span><span class="dim-bar-dot pl nmet" title="D5"></span><span class="dim-bar-dot gv nmet" title="D6"></span><span class="dim-bar-dot gv nmet" title="D7"></span></div>
+  </header>
+  <div class="actor-body">
+    <dl class="dimensions-list">
+<div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D1</span>
+  <span class="dim-name">AI Chip Design</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Tenstorrent redomiciled to Delaware 2023; no Canadian-controlled accelerator in volume production</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D2</span>
+  <span class="dim-name">Advanced Fabrication</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Zero front-end logic fabs at ≤7nm on Canadian territory; ecosystem is packaging and specialty nodes</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot hw"></span>
+  <span class="dim-key">D3</span>
+  <span class="dim-name">Critical Equipment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> US-parented entity (Teledyne Technologies); pellicle manufacturing credits to parent jurisdiction</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D4</span>
+  <span class="dim-name">AI Compute</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> No Canadian-HQ entity operates GPU clusters at frontier-training scale; all hyperscalers US-controlled</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot pl"></span>
+  <span class="dim-key">D5</span>
+  <span class="dim-name">Frontier Models</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> Cohere ranks decisively second-tier on flagship cross-domain benchmarks (GPQA, Arena, SWE-bench)</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D6</span>
+  <span class="dim-name">AI Regulation</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> AIDA died on the order paper January 2025; ECL export controls bind Canadian exporters only, no extraterritorial reach</dd>
+</div><div class="dim-item">
+<dt class="dim-header">
+  <span class="dim-dot gv"></span>
+  <span class="dim-key">D7</span>
+  <span class="dim-name">Sovereign Investment</span>
+  <span class="dim-status dim-nmet">Not Met</span>
+</dt>
+<dd class="dim-constraint"><span class="constraint-label">Constraint:</span> ~CAD $2.9B over five years (~0.02% GDP/yr); flagship SCIP supercomputer not yet operational</dd>
+</div>
+    </dl>
+    
+    
+  </div>
+</article>
+</section>
+
+      <section class="watch-section">
+  <h2>Dimension Watch</h2>
+  <p class="watch-desc">Dimensions under active monitoring for potential status change at next assessment.</p>
+  <div class="table-wrap">
+    <table class="watch-table">
+      <thead>
+        <tr>
+          <th>Actor</th>
+          <th>Dimension</th>
+          <th>Current</th>
+          <th>Expected Change</th>
+          <th>Trigger</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td><a href="#gb">United Kingdom</a></td>
+  <td><span class="dim-ref">D4</span> AI Compute</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Probable MET</td>
+  <td>Nscale Loughton 23,040-GPU cluster operational</td>
+  <td>Q1 2027</td>
+</tr>
+<tr>
+  <td><a href="#fr">France</a></td>
+  <td><span class="dim-ref">D4</span> AI Compute</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Mistral Compute sustained frontier-class training runs</td>
+  <td>Q3/Q4 2026</td>
+</tr>
+<tr>
+  <td><a href="#fr">France</a></td>
+  <td><span class="dim-ref">D5</span> Frontier Models</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Mistral release closing approximately 35% frontier gap</td>
+  <td>Unknown</td>
+</tr>
+<tr>
+  <td><a href="#kr">South Korea</a></td>
+  <td><span class="dim-ref">D4</span> AI Compute</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Sovereign compute exceeding 50,000 GPUs</td>
+  <td>2027–2028</td>
+</tr>
+<tr>
+  <td><a href="#in">India</a></td>
+  <td><span class="dim-ref">D4</span> AI Compute</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Sovereign compute consolidation exceeding 50,000 GPUs</td>
+  <td>2027–2028</td>
+</tr>
+<tr>
+  <td><a href="#in">India</a></td>
+  <td><span class="dim-ref">D5</span> Frontier Models</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Independent verification of Sarvam-105B benchmark claims</td>
+  <td>Near-term</td>
+</tr>
+<tr>
+  <td><a href="#tw">Taiwan</a></td>
+  <td><span class="dim-ref">D7</span> Sovereign Investment</td>
+  <td class="w-met">MET</td>
+  <td>At risk</td>
+  <td>FY2026 budget blocked by opposition in Legislative Yuan</td>
+  <td>Ongoing</td>
+</tr>
+<tr>
+  <td><a href="#de">Germany</a></td>
+  <td><span class="dim-ref">D7</span> Sovereign Investment</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>STACKIT and sovereign AI programme scaling</td>
+  <td>End-2027+</td>
+</tr>
+<tr>
+  <td><a href="#il">Israel</a></td>
+  <td><span class="dim-ref">D7</span> Sovereign Investment</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>Nagel Committee NIS 25 billion legislatively appropriated</td>
+  <td>Unknown</td>
+</tr>
+<tr>
+  <td><a href="#ca">Canada</a></td>
+  <td><span class="dim-ref">D5</span> Frontier Models</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible shift</td>
+  <td>Cohere–Aleph Alpha merger closes and combined capability assessed</td>
+  <td>Late 2026</td>
+</tr>
+<tr>
+  <td><a href="#ca">Canada</a></td>
+  <td><span class="dim-ref">D7</span> Sovereign Investment</td>
+  <td class="w-nmet">NOT MET</td>
+  <td>Possible MET</td>
+  <td>SCIP operational and Budget 2026 scales commitment</td>
+  <td>2027–2028</td>
+</tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-cta">Full analysis and sources for all actors available with supporter access.</p>
+      <div class="footer-links">
+        <a href="/?scp=open">Explore the interactive Sovereign Capability Profiles →</a>
+        <a href="/research/methodology/manual/">Methodology Manual →</a>
+      </div>
+      <p class="footer-copy">SCP Register v1.0 · Assessment: May 2026 · Methodology V1.4 · © 2026 Warmth Engine</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -54,6 +54,12 @@
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
+  <url>
+    <loc>https://www.warmthengine.com/profiles/</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Self-hosted publications -->
   <url>
     <loc>https://www.warmthengine.com/research/methodology/manual/</loc>
