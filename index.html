@@ -5840,6 +5840,11 @@
     .scp-dim-met { color: #22C55E; }
     .scp-dim-not { color: var(--scp-part); }
     .scp-dim-constraint { font-size: 11px; color: #64748B; padding: 1px 0 4px 11px; font-style: italic; line-height: 1.5; }
+    .scp-dim-qual-hl { font-size: 11px; color: #CBD5E1; padding: 1px 0 4px 11px; line-height: 1.5; }
+    .scp-qual-trigger { font-size: 10px; color: #475569; cursor: pointer; margin-left: 11px; padding: 2px 0; display: flex; align-items: center; gap: 4px; transition: color var(--duration-fast); }
+    .scp-qual-trigger:hover { color: #94A3B8; }
+    .scp-qual-block { display: none; margin: 4px 0 6px 11px; padding: 8px 12px; background: rgba(15,23,42,0.5); border-radius: var(--weo-radius-sm); border: 1px solid rgba(255,255,255,0.04); font-size: 10px; color: #94A3B8; line-height: 1.6; }
+    .scp-qual-block.show { display: block; }
     .scp-dim-con-label { font-style: normal; font-weight: 500; color: #94A3B8; letter-spacing: 0.01em; }
     .scp-sev { font-size: 11px; color: #64748B; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
     .scp-sev strong { color: #94A3B8; font-weight: 500; }
@@ -6400,7 +6405,7 @@
     const WEO_DB = {
       event_count: 130,
       cc_count: 107,
-      last_updated: "2026-06-02",
+      last_updated: "2026-06-03",
       db_version: "1.5.0"
     };
 
@@ -11639,6 +11644,15 @@ function generateCCSection(eventId, showFullContent) {
           if (block) block.classList.toggle('show');
           return;
         }
+        var qualTrig = e.target.closest('.scp-qual-trigger');
+        if (qualTrig) {
+          var qualBlock = qualTrig.nextElementSibling;
+          if (qualBlock && qualBlock.classList.contains('scp-qual-block')) {
+            qualBlock.classList.toggle('show');
+            qualTrig.querySelector('.scp-src-icon').textContent = qualBlock.classList.contains('show') ? '▾' : '▸';
+          }
+          return;
+        }
         var lockEl = e.target.closest('.scp-src-lock');
         if (lockEl) { if (typeof window.openAccessModal === 'function') window.openAccessModal(); }
       });
@@ -11668,12 +11682,19 @@ function generateCCSection(eventId, showFullContent) {
       h += '<span class="scp-dim-name scp-tip-trigger" data-scp-tip="dim-' + i + '"><span class="scp-dim-dot ' + DC[i] + '"></span>' + DN[i] + '</span>';
       h += '<span class="scp-dim-st ' + (d ? 'scp-dim-met' : 'scp-dim-not') + '">' + (d ? 'Met' : 'Not Met') + '</span>';
       h += '</div>';
+      if (d && a.qhl && a.qhl[i]) {
+        h += '<div class="scp-dim-qual-hl">' + escH(a.qhl[i]) + '</div>';
+      }
       if (d && a.con && a.con[i]) {
         h += '<div class="scp-dim-constraint">' + escH(a.con[i]) + '</div>';
       } else if (!d && a.con && a.con[i]) {
         h += '<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> ' + escH(a.con[i]) + '</div>';
       } else if (!d && a.hl && a.hl[i]) {
         h += '<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> ' + escH(a.hl[i]) + '</div>';
+      }
+      if (d && a.qual && a.qual[i]) {
+        h += '<div class="scp-qual-trigger"><span class="scp-src-icon">▸</span> Qualification</div>';
+        h += '<div class="scp-qual-block">' + escH(a.qual[i]) + '</div>';
       }
       /* Sources present in data -> show; absent -> lock when content exists */
       if (a.src && a.src[i]) {
@@ -11727,6 +11748,8 @@ function generateCCSection(eventId, showFullContent) {
       var dims = DK.map(function(k) { return actor.dimensions[k] && actor.dimensions[k].met ? 1 : 0; });
       var con  = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.constraint || null; });
       var hl   = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.constraint_headline || null; });
+      var qhl  = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.qualification_headline || null; });
+      var qual = DK.map(function(k) { var dim = actor.dimensions[k] || {}; return dim.qualification || null; });
       var src  = DK.map(function(k) {
         var dim = actor.dimensions[k] || {};
         if (!dim.sources) return null;
@@ -11740,7 +11763,7 @@ function generateCCSection(eventId, showFullContent) {
         n: actor.name,
         s: actor.score || 0,
         d: actor.designation === 'Participant' ? 'Part' : (actor.designation || 'Part'),
-        dims: dims, con: con, hl: hl, svd: actor.severance_detail || null, src: src,
+        dims: dims, con: con, hl: hl, qhl: qhl, qual: qual, svd: actor.severance_detail || null, src: src,
         aik: actor.aik_profile || null,
         sample: actor.sample || false
       };
