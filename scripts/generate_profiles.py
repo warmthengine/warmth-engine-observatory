@@ -1,684 +1,247 @@
 #!/usr/bin/env python3
 """
-generate_profiles.py — Generate static SCP profiles page for warmthengine.com/profiles/
-Usage: python3 scripts/generate_profiles.py --input path/to/actors-free.json --output profiles/index.html
+generate_profiles.py — Produces profiles/index.html from actors-free.json.
+
+Uses the exact SCP panel CSS classes and HTML structure from the homepage.
+Actors collapsed by default via <details>/<summary>.
+Run: python3 scripts/generate_profiles.py --input path/to/actors-free.json --output profiles/index.html
 """
 
-import json
-import argparse
-import html as _html
-from pathlib import Path
+import json, argparse, html as html_mod, os, sys
+from datetime import date
 
+# ── Constants matching index.html SCP panel ──
+DN = ['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment']
+DS = ['Chip','Fab','Equip','Compute','Models','Reg','Invest']
+DC = ['hw','hw','hw','pl','pl','gv','gv']
+DK = ['D1','D2','D3','D4','D5','D6','D7']
+BC = {'PAA':'scp-badge-paa','AIK':'scp-badge-aik','ACS':'scp-badge-acs','Part':'scp-badge-part'}
+BL = {'PAA':'PAA','AIK':'AIK','ACS':'ACS','Part':'Part'}
+GN = {'PAA':'Principal AI Actors','AIK':'AI Infrastructure Keystones','ACS':'Advanced Capability States'}
+GC = ['Grade 1','Grade 2','Grade 3']
+GCLS = ['scp-src-g1','scp-src-g2','scp-src-g3']
+LOCK_ICON = '🔒'
+
+GROUP_ORDER = ['PAA','AIK','ACS','Part']
 
 def esc(s):
-    if s is None:
-        return ''
-    return _html.escape(str(s))
-
-
-DESIGNATION_ORDER = ['PAA', 'AIK', 'ACS', 'Participant']
-DESIGNATION_LABELS = {
-    'PAA': 'Principal AI Actors',
-    'AIK': 'AI Infrastructure Keystones',
-    'ACS': 'Advanced Capability States',
-    'Participant': 'Participants',
-}
-
-ACTOR_ORDER = ['US', 'CN', 'JP', 'KR', 'NL', 'EU', 'TW', 'FR', 'DE', 'GB', 'IN', 'IL', 'RU', 'CA']
-
-DIM_CATEGORIES = {
-    'D1': 'hw', 'D2': 'hw', 'D3': 'hw',
-    'D4': 'pl', 'D5': 'pl',
-    'D6': 'gv', 'D7': 'gv',
-}
-
-GRADE_STYLES = {
-    1: ('rgba(245,158,11,0.15)', '#F59E0B', 'rgba(245,158,11,0.35)'),
-    2: ('rgba(59,130,246,0.15)',  '#3B82F6', 'rgba(59,130,246,0.35)'),
-    3: ('rgba(100,116,139,0.15)', '#94A3B8', 'rgba(100,116,139,0.3)'),
-}
-
-INLINE_CSS = """
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  /* WEO design tokens — aligned with index.html / 404.html */
-  --weo-surface-base:    #0F172A;
-  --weo-surface-raised:  #1E293B;
-  --weo-text-primary:    #E2E8F0;
-  --weo-text-secondary:  rgba(226, 232, 240, 0.7);
-  --weo-text-muted:      #94A3B8;
-  --weo-accent-hover:    #60A5FA;
-  --weo-border-primary:  #334155;
-  --weo-radius-sm:       4px;
-  --weo-radius-md:       8px;
-  --weo-radius-lg:       12px;
-
-  /* SCP palette */
-  --scp-hw:   #60A5FA;
-  --scp-pl:   #A78BFA;
-  --scp-gv:   #2DD4BF;
-  --scp-paa:  #F59E0B;
-  --scp-aik:  #06B6D4;
-  --scp-acs:  #A855F7;
-  --scp-part: #64748B;
-  --scp-met:  #22C55E;
-
-  /* local shorthand */
-  --r-pill: 20px;
-}
-
-html { scroll-behavior: smooth; }
-
-/* ── Focus & motion ── */
-*:focus { outline: none; }
-*:focus-visible { outline: 2px solid var(--weo-accent-hover); outline-offset: 2px; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-body {
-  background: var(--weo-surface-base);
-  color: var(--weo-text-primary);
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── Geist dark-mode weight compensation ──
-   Variable font weights adjusted for light-on-dark halation.
-   Standard 400 body → 380, standard 600 heading → 580, standard 500 data → 480. */
-body               { font-weight: 380; }
-.page-header h1    { font-weight: 580; }
-.actor-name        { font-weight: 580; }
-.desig-heading h2  { font-weight: 580; }
-.watch-section h2  { font-weight: 580; }
-.dim-status        { font-weight: 580; }
-.constraint-label  { font-weight: 580; }
-.sev-label         { font-weight: 580; }
-.aik-label         { font-weight: 580; }
-.actor-badge       { font-weight: 580; }
-.src-type          { font-weight: 580; }
-.src-grade         { font-weight: 580; }
-.actor-score       { font-weight: 480; }
-.dim-key           { font-weight: 480; }
-.dim-ref           { font-weight: 480; }
-.legend-key        { font-weight: 480; }
-
-a { color: var(--weo-accent-hover); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.page-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
-
-/* ── Page header ── */
-.page-header {
-  padding: 48px 0 36px;
-  border-bottom: 1px solid var(--weo-border-primary);
-  margin-bottom: 40px;
-}
-.page-header h1 {
-  font-size: 28px; color: var(--weo-text-primary);
-  letter-spacing: -0.02em; margin-bottom: 6px;
-}
-.page-subtitle { font-size: 15px; color: var(--weo-text-secondary); margin-bottom: 18px; }
-.page-framework {
-  font-size: 13px; color: var(--weo-text-secondary); line-height: 1.7;
-  max-width: 720px; margin-bottom: 20px;
-}
-.page-meta {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  font-size: 12px; color: #64748B; margin-bottom: 24px;
-}
-
-/* ── Dimension legend ── */
-.legend-heading {
-  font-size: 11px; color: var(--weo-text-muted);
-  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;
-}
-.dim-legend {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 6px;
-}
-.legend-item {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; padding: 6px 8px;
-  background: rgba(30,41,59,0.5); border-radius: var(--weo-radius-sm);
-  border: 1px solid var(--weo-border-primary);
-  min-width: 0;
-}
-.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.legend-key {
-  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
-  color: #64748B; flex-shrink: 0; min-width: 20px;
-}
-.legend-name { color: var(--weo-text-muted); flex-shrink: 0; min-width: 100px; }
-.legend-desc {
-  color: #64748B; font-size: 11px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-
-/* ── Designation groups ── */
-.desig-section { margin-bottom: 48px; }
-.desig-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.desig-heading h2 { font-size: 14px; letter-spacing: 0.01em; white-space: nowrap; }
-.desig-line { flex: 1; height: 1px; background: var(--weo-border-primary); }
-.desig-paa .desig-heading h2         { color: var(--scp-paa); }
-.desig-aik .desig-heading h2         { color: var(--scp-aik); }
-.desig-acs .desig-heading h2         { color: var(--scp-acs); }
-.desig-participant .desig-heading h2 { color: var(--scp-part); }
-
-/* ── Actor cards ── */
-.actor-card {
-  background: var(--weo-surface-raised);
-  border: 1px solid var(--weo-border-primary);
-  border-radius: var(--weo-radius-md);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.03);
-  margin-bottom: 14px; overflow: hidden;
-}
-.actor-header {
-  padding: 14px 20px 12px; border-bottom: 1px solid var(--weo-border-primary);
-}
-.actor-title-row {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
-}
-.actor-name {
-  font-size: 17px; color: var(--weo-text-primary);
-  display: flex; align-items: center; gap: 8px;
-}
-.actor-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.actor-score {
-  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 13px;
-  color: var(--weo-text-muted);
-  background: rgba(255,255,255,0.05); padding: 2px 8px;
-  border-radius: var(--weo-radius-sm); border: 1px solid var(--weo-border-primary);
-}
-.actor-badge {
-  font-size: 11px; letter-spacing: 0.04em;
-  padding: 3px 10px; border-radius: var(--r-pill); border: 1px solid;
-}
-.badge-paa         { background: rgba(245,158,11,0.15); color: #F59E0B;  border-color: rgba(245,158,11,0.35); }
-.badge-aik         { background: rgba(6,182,212,0.12);  color: #22D3EE;  border-color: rgba(6,182,212,0.3); }
-.badge-acs         { background: rgba(168,85,247,0.12); color: #C084FC;  border-color: rgba(168,85,247,0.3); }
-.badge-participant { background: rgba(100,116,139,0.12); color: #64748B; border-color: rgba(100,116,139,0.25); }
-.sample-badge {
-  font-size: 10px;
-  background: rgba(255,215,0,0.1); color: #FFD700;
-  border: 1px solid rgba(255,215,0,0.25); padding: 1px 6px;
-  border-radius: 3px; letter-spacing: 0.03em;
-}
-
-/* ── Dimension bar ── */
-.dim-bar { display: flex; gap: 4px; align-items: center; }
-.dim-bar-dot {
-  width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid;
-  flex-shrink: 0;
-}
-.dim-bar-dot.hw.met  { background: var(--scp-hw); border-color: var(--scp-hw); }
-.dim-bar-dot.pl.met  { background: var(--scp-pl); border-color: var(--scp-pl); }
-.dim-bar-dot.gv.met  { background: var(--scp-gv); border-color: var(--scp-gv); }
-.dim-bar-dot.hw.nmet { background: transparent; border-color: rgba(96,165,250,0.3); }
-.dim-bar-dot.pl.nmet { background: transparent; border-color: rgba(167,139,250,0.3); }
-.dim-bar-dot.gv.nmet { background: transparent; border-color: rgba(45,212,191,0.3); }
-
-/* ── Actor body ── */
-.actor-body { padding: 0 20px 14px; }
-
-/* ── Dimensions list ── */
-.dimensions-list { list-style: none; }
-
-.dim-item { border-bottom: 1px solid rgba(255,255,255,0.04); padding: 9px 0; }
-.dim-item:last-of-type { border-bottom: none; }
-
-.dim-header {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 13px; flex-wrap: wrap;
-}
-.dim-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.dim-dot.hw     { background: rgba(96,165,250,0.3); }
-.dim-dot.pl     { background: rgba(167,139,250,0.3); }
-.dim-dot.gv     { background: rgba(45,212,191,0.3); }
-.dim-dot.hw.met { background: var(--scp-hw); }
-.dim-dot.pl.met { background: var(--scp-pl); }
-.dim-dot.gv.met { background: var(--scp-gv); }
-.dim-key {
-  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
-  color: #64748B; flex-shrink: 0; min-width: 20px;
-}
-.dim-name  { color: var(--weo-text-muted); flex: 1; }
-.dim-status { font-size: 11px; flex-shrink: 0; }
-.dim-met   { color: var(--scp-met); }
-.dim-nmet  { color: #64748B; }
-
-.dim-qual-hl {
-  font-size: 12px; color: var(--weo-text-secondary); line-height: 1.55;
-  padding: 4px 0 2px 13px;
-}
-.dim-constraint {
-  font-size: 12px; color: #64748B; line-height: 1.55;
-  padding: 4px 0 2px 13px; font-style: italic;
-}
-.constraint-label { font-style: normal; color: var(--weo-text-secondary); }
-
-.dim-details-dd { padding: 2px 0 2px 13px; }
-details.dim-details summary {
-  font-size: 11px; color: #64748B; cursor: pointer;
-  padding: 3px 0; display: inline-flex; align-items: center; gap: 5px;
-  list-style: none; -webkit-appearance: none; transition: color 0.15s;
-}
-details.dim-details summary::-webkit-details-marker { display: none; }
-details.dim-details summary::before { content: '▸'; font-size: 9px; }
-details.dim-details[open] summary::before { content: '▾'; }
-details.dim-details summary:hover { color: var(--weo-text-muted); }
-
-.dim-qual-block {
-  margin-top: 6px; padding: 10px 12px;
-  background: rgba(15,23,42,0.6); border-radius: var(--weo-radius-sm);
-  border: 1px solid var(--weo-border-primary);
-  font-size: 12px; color: var(--weo-text-secondary); line-height: 1.65;
-}
-
-/* ── Sources ── */
-.src-block {
-  margin-top: 6px; padding: 10px 12px;
-  background: rgba(15,23,42,0.6); border-radius: var(--weo-radius-sm);
-  border: 1px solid var(--weo-border-primary);
-}
-.src-entry {
-  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.src-entry:last-child { border-bottom: none; padding-bottom: 0; }
-.src-meta {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 5px;
-}
-.src-type  { font-size: 10px; color: var(--weo-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.src-grade { font-size: 10px; padding: 1px 7px; border-radius: 3px; }
-.src-pub   { font-size: 11px; color: var(--weo-text-muted); }
-.src-date  { font-size: 10px; color: #64748B; }
-.src-fact  { font-size: 11px; color: var(--weo-text-secondary); line-height: 1.55; margin-bottom: 5px; }
-.src-link  { font-size: 11px; color: var(--weo-accent-hover); }
-
-/* ── AIK chokepoint ── */
-.aik-profile {
-  margin-top: 12px; padding: 10px 12px;
-  background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.15);
-  border-radius: var(--weo-radius-sm);
-}
-.aik-label  {
-  font-size: 10px; color: var(--weo-text-muted);
-  letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px;
-}
-.aik-nature   { font-size: 13px; color: var(--weo-text-secondary); line-height: 1.45; }
-.aik-entities { font-size: 11px; color: #64748B; font-style: italic; line-height: 1.55; margin-top: 3px; }
-
-/* ── Severance ── */
-.actor-severance {
-  font-size: 12px; color: #64748B; margin-top: 12px;
-  padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04);
-  line-height: 1.55;
-}
-.sev-label  { color: var(--weo-text-secondary); }
-.sev-pass   { color: var(--scp-met); }
-.sev-fail   { color: #F87171; }
-
-/* ── Dimension watch ── */
-.watch-section {
-  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--weo-border-primary);
-}
-.watch-section h2 {
-  font-size: 17px; color: var(--weo-text-primary); margin-bottom: 8px;
-}
-.watch-desc { font-size: 13px; color: #64748B; margin-bottom: 16px; }
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.watch-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.watch-table th {
-  text-align: left; font-size: 10px;
-  color: var(--weo-text-muted); text-transform: uppercase;
-  letter-spacing: 0.06em; padding: 8px 12px;
-  border-bottom: 1px solid var(--weo-border-primary); white-space: nowrap;
-}
-.watch-table td {
-  padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
-  vertical-align: top; color: var(--weo-text-secondary); line-height: 1.5;
-}
-.watch-table tr:last-child td { border-bottom: none; }
-.watch-table tr:hover td { background: rgba(255,255,255,0.01); }
-.dim-ref {
-  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace; font-size: 10px;
-  color: var(--weo-text-muted);
-}
-.w-met  { color: var(--scp-met); }
-.w-nmet { color: #64748B; }
-
-/* ── Footer ── */
-.page-footer {
-  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--weo-border-primary);
-  font-size: 12px; color: #64748B; line-height: 1.8;
-}
-.footer-cta {
-  font-size: 13px; color: var(--weo-text-secondary); margin-bottom: 14px;
-  padding: 10px 14px;
-  background: rgba(96,165,250,0.05); border: 1px solid rgba(96,165,250,0.15);
-  border-radius: var(--weo-radius-sm);
-}
-.footer-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; }
-.footer-links a { color: var(--weo-accent-hover); }
-.footer-mono {
-  font-family: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 11px; color: var(--weo-text-muted); opacity: 0.5;
-  letter-spacing: 0.04em;
-}
-
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  .page-header h1 { font-size: 22px; }
-  .actor-title-row { flex-direction: column; align-items: flex-start; }
-  .dim-legend { grid-template-columns: 1fr; }
-  .page-meta { flex-direction: column; gap: 4px; }
-  .actor-name { font-size: 15px; }
-}
-@media (max-width: 375px) {
-  .page-wrap { padding: 0 12px 40px; }
-  .page-header { padding: 32px 0 24px; }
-}
-"""
-
-
-def render_source(label, src):
-    grade = src.get('grade', 3)
-    bg, color, border = GRADE_STYLES.get(grade, GRADE_STYLES[3])
-    grade_label = f'Grade {grade}'
-    pub = esc(src.get('publisher', ''))
-    date = esc(src.get('date', ''))
-    fact = esc(src.get('qualifying_fact', ''))
-    url = esc(src.get('url', ''))
-    return f"""<div class="src-entry">
-  <div class="src-meta">
-    <span class="src-type">{label}</span>
-    <span class="src-grade" style="background:{bg};color:{color};border:1px solid {border};">{grade_label}</span>
-    <span class="src-pub">{pub}</span>
-    <span class="src-date">{date}</span>
-  </div>
-  <p class="src-fact">{fact}</p>
-  <a href="{url}" class="src-link" target="_blank" rel="noopener noreferrer">View source →</a>
-</div>"""
-
-
-def render_dimension(dim_key, dim_data, dim_info, is_sample):
-    met = dim_data.get('met', False)
-    cat = DIM_CATEGORIES.get(dim_key, 'hw')
-    dot_class = f"dim-dot {cat}{' met' if met else ''}"
-    dim_name = esc(dim_info.get('name', dim_key))
-    status_class = 'dim-met' if met else 'dim-nmet'
-    status_label = 'Met' if met else 'Not Met'
-
-    detail_rows = ''
-
-    if met:
-        qual_headline = dim_data.get('qualification_headline')
-        constraint = dim_data.get('constraint')
-        qualification = dim_data.get('qualification')
-        sources = dim_data.get('sources')
-
-        if qual_headline:
-            detail_rows += f'<dd class="dim-qual-hl">{esc(qual_headline)}</dd>\n'
-
-        if constraint:
-            detail_rows += f'<dd class="dim-constraint"><em>{esc(constraint)}</em></dd>\n'
-
-        if is_sample and qualification:
-            detail_rows += f"""<dd class="dim-details-dd">
-  <details class="dim-details">
-    <summary>Qualification</summary>
-    <div class="dim-qual-block">{esc(qualification)}</div>
-  </details>
-</dd>
-"""
-
-        if is_sample and sources:
-            src_entries = ''
-            for label, src in [('Primary', sources.get('primary')), ('Corroborating', sources.get('corroborating'))]:
-                if src:
-                    src_entries += render_source(label, src)
-            detail_rows += f"""<dd class="dim-details-dd">
-  <details class="dim-details">
-    <summary>Sources</summary>
-    <div class="src-block">{src_entries}</div>
-  </details>
-</dd>
-"""
-    else:
-        constraint_headline = dim_data.get('constraint_headline')
-        constraint = dim_data.get('constraint')
-
-        if constraint_headline:
-            detail_rows += (
-                f'<dd class="dim-constraint">'
-                f'<span class="constraint-label">Constraint:</span> {esc(constraint_headline)}'
-                f'</dd>\n'
-            )
-
-        if is_sample and constraint:
-            detail_rows += f'<dd class="dim-constraint">{esc(constraint)}</dd>\n'
-
-    return f"""<div class="dim-item">
-<dt class="dim-header">
-  <span class="{dot_class}"></span>
-  <span class="dim-key">{dim_key}</span>
-  <span class="dim-name">{dim_name}</span>
-  <span class="dim-status {status_class}">{status_label}</span>
-</dt>
-{detail_rows}</div>"""
-
-
-def render_dim_bar(dimensions):
-    dots = []
-    for dk in ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7']:
-        met = dimensions.get(dk, {}).get('met', False)
-        cat = DIM_CATEGORIES[dk]
-        mc = 'met' if met else 'nmet'
-        dots.append(f'<span class="dim-bar-dot {cat} {mc}" title="{dk}"></span>')
-    return '<div class="dim-bar">' + ''.join(dots) + '</div>'
-
-
-def render_actor(actor, dimensions_meta):
-    actor_id = actor['id'].lower()
-    name = esc(actor['name'])
-    score = actor.get('score', 0)
-    designation = actor.get('designation', 'Participant')
-    is_sample = actor.get('sample', False)
-    severance = actor.get('severance')
-    severance_detail = actor.get('severance_detail', '')
-    aik_profile = actor.get('aik_profile')
-    dimensions = actor.get('dimensions', {})
-
-    badge_class = f'badge-{designation.lower()}'
-
-    dim_bar_html = render_dim_bar(dimensions)
-
-    dims_html = ''
-    for dk in ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7']:
-        dims_html += render_dimension(dk, dimensions.get(dk, {}), dimensions_meta.get(dk, {}), is_sample)
-
-    aik_html = ''
-    if aik_profile:
-        nature = esc(aik_profile.get('chokepoint_nature', ''))
-        entities = esc(aik_profile.get('key_entities', ''))
-        aik_html = f"""<div class="aik-profile">
-  <div class="aik-label">Chokepoint Profile</div>
-  <div class="aik-nature">{nature}</div>
-  <div class="aik-entities">{entities}</div>
-</div>"""
-
-    sev_html = ''
-    if severance is not None:
-        sev_class = 'sev-pass' if severance == 'PASS' else 'sev-fail'
-        sev_text = f'<span class="{sev_class}">{esc(severance)}</span>'
-        if severance_detail:
-            sev_text += f' — {esc(severance_detail)}'
-        sev_html = f'<div class="actor-severance"><span class="sev-label">Severance:</span> {sev_text}</div>'
-
-    sample_badge = '<span class="sample-badge">Sample</span> ' if is_sample else ''
-
-    return f"""<article id="{actor_id}" class="actor-card">
-  <header class="actor-header">
-    <div class="actor-title-row">
-      <h3 class="actor-name">{sample_badge}{name}</h3>
-      <div class="actor-meta">
-        <span class="actor-score">{score}/7</span>
-        <span class="actor-badge {badge_class}">{esc(designation)}</span>
-      </div>
-    </div>
-    {dim_bar_html}
-  </header>
-  <div class="actor-body">
-    <dl class="dimensions-list">
-{dims_html}
-    </dl>
-    {aik_html}
-    {sev_html}
-  </div>
-</article>"""
-
-
-def render_watch(watch_list, actors_by_id, dimensions_meta):
-    rows = ''
-    for item in watch_list:
-        actor_id = item.get('actor_id', '')
-        actor_name = esc(actors_by_id.get(actor_id, {}).get('name', actor_id))
-        dim = item.get('dimension', '')
-        dim_name = esc(dimensions_meta.get(dim, {}).get('name', ''))
-        current = esc(item.get('current', ''))
-        expected = esc(item.get('expected_change', ''))
-        trigger = esc(item.get('trigger', ''))
-        timeline = esc(item.get('timeline', ''))
-        cur_class = 'w-met' if item.get('current') == 'MET' else 'w-nmet'
-        rows += f"""<tr>
-  <td><a href="#{actor_id.lower()}">{actor_name}</a></td>
-  <td><span class="dim-ref">{esc(dim)}</span> {dim_name}</td>
-  <td class="{cur_class}">{current}</td>
-  <td>{expected}</td>
-  <td>{trigger}</td>
-  <td>{timeline}</td>
-</tr>
-"""
-    return f"""<section class="watch-section">
-  <h2>Dimension Watch</h2>
-  <p class="watch-desc">Dimensions under active monitoring for potential status change at next assessment.</p>
-  <div class="table-wrap">
-    <table class="watch-table">
-      <thead>
-        <tr>
-          <th>Actor</th>
-          <th>Dimension</th>
-          <th>Current</th>
-          <th>Expected Change</th>
-          <th>Trigger</th>
-          <th>Timeline</th>
-        </tr>
-      </thead>
-      <tbody>
-{rows}
-      </tbody>
-    </table>
-  </div>
-</section>"""
-
-
-def render_legend(dimensions_meta):
-    items = ''
-    for dk in ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7']:
-        info = dimensions_meta.get(dk, {})
-        cat = DIM_CATEGORIES[dk]
-        cat_var = {'hw': 'var(--scp-hw)', 'pl': 'var(--scp-pl)', 'gv': 'var(--scp-gv)'}[cat]
-        name = esc(info.get('name', dk))
-        desc = esc(info.get('description', ''))
-        items += f"""<div class="legend-item">
-  <span class="legend-dot" style="background:{cat_var};flex-shrink:0;"></span>
-  <span class="legend-key">{dk}</span>
-  <span class="legend-name">{name}</span>
-  <span class="legend-desc">{desc}</span>
-</div>
-"""
-    return f'<div class="dim-legend">\n{items}</div>'
-
-
-def generate_html(data):
-    meta = data['metadata']
-    dims = data['dimensions']
-    actors = data['actors']
-    watch = data.get('dimension_watch', [])
-
-    actors_by_id = {a['id']: a for a in actors}
-
-    groups = {d: [] for d in DESIGNATION_ORDER}
-    for actor_id in ACTOR_ORDER:
-        if actor_id in actors_by_id:
-            actor = actors_by_id[actor_id]
-            groups.setdefault(actor.get('designation', 'Participant'), []).append(actor)
-
-    sections_html = ''
-    for des in DESIGNATION_ORDER:
-        group = groups.get(des, [])
-        if not group:
-            continue
-        label = DESIGNATION_LABELS.get(des, des)
-        des_class = f'desig-{des.lower()}'
-        actors_html = ''.join(render_actor(a, dims) for a in group)
-        sections_html += f"""<section class="desig-section {des_class}">
-  <div class="desig-heading">
-    <h2>{label} ({len(group)})</h2>
-    <div class="desig-line"></div>
-  </div>
-  {actors_html}
-</section>
-"""
-
-    assessment_date = esc(meta.get('assessment_date', ''))
-    methodology_version = esc(meta.get('methodology_version', ''))
-    total_actors = meta.get('total_actors', 14)
-
-    legend_html = render_legend(dims)
-    watch_html = render_watch(watch, actors_by_id, dims)
-
-    json_ld = json.dumps({
-        "@context": "https://schema.org",
-        "@type": "Dataset",
-        "name": "WEO Sovereign Capability Profiles",
-        "description": "Nation-state AI infrastructure capability assessments across 7 dimensions for 14 actors",
-        "url": "https://warmthengine.com/profiles/",
-        "creator": {
-            "@type": "Organisation",
-            "name": "Warmth Engine Observatory",
-            "url": "https://warmthengine.com"
-        },
-        "dateModified": "2026-06-03",
-        "license": "https://warmthengine.com/research/methodology/manual/"
-    }, indent=2)
-
-    framework_desc = (
-        "The Sovereign Capability Profile (SCP) framework assesses nation-state control of the AI infrastructure "
-        "stack across seven dimensions: chip design, advanced fabrication, critical equipment, AI compute, frontier "
-        "models, AI regulation, and sovereign investment. Actors are designated as Principal AI Actors (PAA), "
-        "AI Infrastructure Keystones (AIK), Advanced Capability States (ACS), or Participants through a three-gate "
-        "framework evaluating dimensional breadth, severance resilience, and platform sustainability."
-    )
-
-    return f"""<!DOCTYPE html>
+    return html_mod.escape(s or '', quote=True)
+
+def normalize(actor):
+    dims = [1 if actor['dimensions'].get(k,{}).get('met') else 0 for k in DK]
+    con = [actor['dimensions'].get(k,{}).get('constraint') for k in DK]
+    hl = [actor['dimensions'].get(k,{}).get('constraint_headline') for k in DK]
+    qhl = [actor['dimensions'].get(k,{}).get('qualification_headline') for k in DK]
+    qual = [actor['dimensions'].get(k,{}).get('qualification') for k in DK]
+    src = []
+    for k in DK:
+        dim = actor['dimensions'].get(k,{})
+        s = dim.get('sources')
+        if not s: src.append(None); continue
+        p = s.get('primary',{}); c = s.get('corroborating',{})
+        if not p.get('publisher'): src.append(None); continue
+        src.append([p.get('grade'),p.get('publisher'),p.get('date'),p.get('qualifying_fact'),p.get('url'),
+                     c.get('grade'),c.get('publisher'),c.get('date'),c.get('qualifying_fact'),c.get('url')])
+    desig = actor.get('designation','Participant')
+    d = 'Part' if desig == 'Participant' else desig
+    return {
+        'id': actor['id'], 'n': actor['name'], 's': actor.get('score',0),
+        'd': d, 'dims': dims, 'con': con, 'hl': hl, 'qhl': qhl, 'qual': qual,
+        'svd': actor.get('severance_detail'), 'src': src,
+        'aik': actor.get('aik_profile'), 'sample': actor.get('sample', False)
+    }
+
+def star_svg():
+    return '<span style="display:inline-block;vertical-align:super;margin-left:3px;line-height:1;"><svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(255,215,0,0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>'
+
+def src_entry_html(label, s, offset):
+    grade = s[offset]; pub = s[offset+1]; dt = s[offset+2]; fact = s[offset+3]; url = s[offset+4]
+    if not pub: return ''
+    gi = (grade or 1) - 1
+    h = f'<div class="scp-src-entry">'
+    h += f'<span class="scp-src-label">{label}</span> '
+    h += f'<span class="scp-src-grade {GCLS[gi]}">{GC[gi]}</span>'
+    h += f'{esc(pub)} · {esc(dt or "")}'
+    if url: h += f' <a href="{esc(url)}" target="_blank" rel="noopener" class="scp-src-link">↗</a>'
+    h += f'<br><span class="scp-src-fact">{esc(fact or "")}</span>'
+    h += '</div>'
+    return h
+
+def detail_html(a):
+    h = ''
+    for i in range(7):
+        d = a['dims'][i]
+        h += '<div class="scp-dim-row">'
+        h += f'<span class="scp-dim-name"><span class="scp-dim-dot {DC[i]}"></span>{DN[i]}</span>'
+        h += f'<span class="scp-dim-st {"scp-dim-met" if d else "scp-dim-not"}">{"Met" if d else "Not Met"}</span>'
+        h += '</div>'
+        # Qualification headline (MET)
+        if d and a['qhl'][i]:
+            h += f'<div class="scp-dim-qual-hl">{esc(a["qhl"][i])}</div>'
+        # Constraint
+        if d and a['con'][i]:
+            h += f'<div class="scp-dim-constraint">{esc(a["con"][i])}</div>'
+        elif not d and a['con'][i]:
+            h += f'<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> {esc(a["con"][i])}</div>'
+        elif not d and a['hl'][i]:
+            h += f'<div class="scp-dim-constraint"><span class="scp-dim-con-label">Constraint:</span> {esc(a["hl"][i])}</div>'
+        # Qualification expandable (paid tier — only US sample has this data)
+        if d and a['qual'][i]:
+            h += '<details class="scp-expand"><summary class="scp-qual-trigger"><span class="scp-src-icon">▸</span> Qualification</summary>'
+            h += f'<div class="scp-qual-block">{esc(a["qual"][i])}</div></details>'
+        # Sources
+        if a['src'][i]:
+            s = a['src'][i]
+            h += '<details class="scp-expand"><summary class="scp-src-trigger"><span class="scp-src-icon">ⓘ</span> Sources</summary>'
+            h += '<div class="scp-src-block">'
+            h += src_entry_html('Primary', s, 0)
+            h += src_entry_html('Corroborating', s, 5)
+            h += '</div></details>'
+        elif d or (not d and (a['con'][i] or a['hl'][i])):
+            h += f'<div class="scp-src-lock">{LOCK_ICON} Sources (supporter access)</div>'
+
+    # AIK Chokepoint Profile
+    if a['aik'] and a['d'] == 'AIK':
+        h += '<div class="scp-aik">'
+        h += '<div class="scp-aik-label">Chokepoint Profile</div>'
+        h += f'<div class="scp-aik-nature">{esc(a["aik"].get("chokepoint_nature",""))}</div>'
+        h += f'<div class="scp-aik-entities">{esc(a["aik"].get("key_entities",""))}</div>'
+        h += '</div>'
+
+    # Severance
+    if a['svd']:
+        sev_word = 'PASS' if 'PASS' in (a.get('svd','') or '') or a.get('d') in ('PAA','AIK') else 'FAIL'
+        # Check actual data
+        h += f'<div class="scp-sev"><strong>Severance:</strong> {esc(a["svd"])}</div>'
+    elif a['d'] in ('PAA','AIK','ACS'):
+        h += f'<div class="scp-src-lock">{LOCK_ICON} Severance analysis (supporter access)</div>'
+
+    return h
+
+def row_html(a):
+    name_suffix = star_svg() if a['sample'] else ''
+    h = f'<span class="scp-row-name" title="{esc(a["n"])}">{esc(a["n"])}{name_suffix}</span>'
+    h += '<div class="scp-row-bar">'
+    for i in range(7):
+        seg_cls = f' {DC[i]}-m' if a['dims'][i] else ''
+        h += f'<div class="scp-row-seg{seg_cls}" data-di="{i}"></div>'
+    h += '</div>'
+    h += f'<span class="scp-row-score">{a["s"]}/7</span>'
+    h += f'<span class="scp-row-badge"><span class="scp-badge {BC[a["d"]]}">{BL[a["d"]]}</span></span>'
+    h += '<span class="scp-row-chev">▼</span>'
+    return h
+
+def dim_watch_html(watches):
+    if not watches: return ''
+    h = '<div class="scp-watch">'
+    h += '<h2 class="scp-watch-title">Dimension Watch</h2>'
+    h += '<p class="scp-watch-desc">Dimensions approaching a status change at the next assessment cycle.</p>'
+    h += '<div class="scp-watch-wrap"><table class="scp-watch-table">'
+    h += '<thead><tr><th>Actor</th><th>Dimension</th><th>Current</th><th>Expected</th><th>Trigger</th><th>Timeline</th></tr></thead>'
+    h += '<tbody>'
+    for w in watches:
+        dim_key = w.get('dimension','')
+        dim_idx = DK.index(dim_key) if dim_key in DK else -1
+        dim_name = DN[dim_idx] if dim_idx >= 0 else dim_key
+        dim_cat = DC[dim_idx] if dim_idx >= 0 else ''
+        current = w.get('current','')
+        expected = w.get('expected_change','')
+        # Fix "Probable MET" -> "Possible MET"
+        if expected == 'Probable MET': expected = 'Possible MET'
+        cur_cls = 'scp-dim-met' if current == 'MET' else 'scp-dim-not'
+        actor_id = w.get('actor_id','').lower()
+        h += '<tr>'
+        h += f'<td><a href="#{actor_id}" class="scp-watch-actor">{esc(w.get("actor_id",""))}</a></td>'
+        h += f'<td><span class="scp-dim-dot {dim_cat}" style="display:inline-block;margin-right:4px;"></span>{esc(dim_name)}</td>'
+        h += f'<td class="{cur_cls}">{esc(current)}</td>'
+        h += f'<td>{esc(expected)}</td>'
+        h += f'<td>{esc(w.get("trigger",""))}</td>'
+        h += f'<td>{esc(w.get("timeline",""))}</td>'
+        h += '</tr>'
+    h += '</tbody></table></div></div>'
+    return h
+
+def pills_html(actors):
+    # Count met dimensions
+    counts = [0]*7
+    for a in actors:
+        for i in range(7):
+            if a['dims'][i]: counts[i] += 1
+    h = '<div class="scp-pills">'
+    for i in range(7):
+        h += f'<span class="scp-pill {DC[i]}" data-dim="{i}">'
+        h += f'<span class="scp-pill-dot"></span>{DS[i]} <span class="scp-pill-ct">{counts[i]}</span>'
+        h += '</span>'
+    h += '</div>'
+    return h
+
+def build_page(data):
+    actors = [normalize(a) for a in data['actors']]
+    meta = data.get('metadata', {})
+    watches = data.get('dimension_watch', [])
+
+    # Map actor IDs to names for dimension watch
+    id_to_name = {a['id']: a['n'] for a in actors}
+
+    # Group actors
+    groups = {'PAA':[],'AIK':[],'ACS':[],'Part':[]}
+    for a in actors:
+        groups[a['d']].append(a)
+
+    # Fix dimension watch actor names
+    for w in watches:
+        aid = w.get('actor_id','')
+        if aid in id_to_name:
+            w['_name'] = id_to_name[aid]
+
+    # ── Build body content ──
+    body = ''
+    body += pills_html(actors)
+    body += '<div class="scp-body">'
+
+    idx = 0
+    for gk in ['PAA','AIK','ACS']:
+        grp = groups[gk]
+        if not grp: continue
+        body += f'<div class="scp-grp">{GN[gk]} ({len(grp)})<span class="scp-grp-line"></span></div>'
+        for a in grp:
+            aid = f'scp-r{idx}'
+            body += f'<details class="scp-actor" id="{a["id"].lower()}">'
+            body += f'<summary class="scp-row">{row_html(a)}</summary>'
+            body += f'<div class="scp-detail">{detail_html(a)}</div>'
+            body += '</details>'
+            idx += 1
+        if gk == 'PAA':
+            body += '<div class="scp-paa-fold"><div class="scp-paa-fold-label">Ecosystem anchors</div></div>'
+
+    # Participants
+    parts = groups['Part']
+    body += f'<details class="scp-part-group">'
+    body += f'<summary class="scp-part-toggle"><span class="scp-part-arr">▶</span> {len(parts)} Participants</summary>'
+    body += '<div class="scp-part-rows">'
+    for a in parts:
+        aid = f'scp-r{idx}'
+        body += f'<details class="scp-actor" id="{a["id"].lower()}">'
+        body += f'<summary class="scp-row">{row_html(a)}</summary>'
+        body += f'<div class="scp-detail">{detail_html(a)}</div>'
+        body += '</details>'
+        idx += 1
+    body += '</div></details>'
+
+    body += dim_watch_html(watches)
+    body += '</div>'  # scp-body
+
+    assessment_date = meta.get('assessment_date', '2026-05-06')
+    meth_version = meta.get('methodology_version', '1.4')
+    reg_version = meta.get('register_version', 'SCP-REG-009')
+    today = date.today().isoformat()
+
+    page = f'''<!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="weo-version" content="1.3.0">
-  <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
   <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
   <meta name="description" content="Nation-state AI infrastructure assessments across 14 actors. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment dimensions evaluated with sourced evidence.">
   <link rel="canonical" href="https://warmthengine.com/profiles/">
@@ -687,78 +250,417 @@ def generate_html(data):
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://warmthengine.com/profiles/">
   <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
   <script type="application/ld+json">
-{json_ld}
+  {{
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "WEO Sovereign Capability Profiles",
+    "description": "Nation-state AI infrastructure capability assessments across 7 dimensions for 14 actors",
+    "url": "https://warmthengine.com/profiles/",
+    "creator": {{ "@type": "Organization", "name": "Warmth Engine Observatory", "url": "https://warmthengine.com" }},
+    "dateModified": "{today}",
+    "license": "https://warmthengine.com/research/methodology/manual/"
+  }}
   </script>
   <style>
-{INLINE_CSS}
+    /* ── Reset ── */
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    *:focus {{ outline: none; }}
+    *:focus-visible {{ outline: 2px solid #60a5fa; outline-offset: 2px; }}
+
+    /* ── Tokens — exact match to index.html ── */
+    :root {{
+      --scp-hw: #60A5FA; --scp-plat: #A78BFA; --scp-gov: #2DD4BF;
+      --scp-paa: #F59E0B; --scp-aik: #06B6D4; --scp-acs: #A855F7; --scp-part: #64748B;
+      --weo-radius-sm: 4px; --weo-radius-md: 8px; --weo-radius-lg: 12px;
+      --duration-fast: 150ms; --duration-normal: 250ms;
+      --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+    }}
+
+    html {{ scroll-behavior: smooth; }}
+
+    body {{
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 380;
+      background: #0F172A;
+      color: #E2E8F0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }}
+
+    /* ── Page frame ── */
+    .page-nav {{
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 32px;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+      font-size: 12px; font-weight: 480;
+      background: #1E293B;
+      position: sticky; top: 0; z-index: 100;
+    }}
+    .page-nav a {{ color: #94A3B8; text-decoration: none; transition: color var(--duration-fast); }}
+    .page-nav a:hover {{ color: #E2E8F0; }}
+    .nav-brand {{ color: #CBD5E1; font-weight: 580; display: flex; align-items: center; gap: 6px; }}
+    .nav-brand span {{ font-size: 13px; }}
+    .nav-links {{ display: flex; gap: 16px; }}
+
+    .page-wrap {{
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }}
+
+    /* ── Header ── */
+    .scp-page-title {{ font-size: 22px; font-weight: 580; color: #F1F5F9; letter-spacing: 0.01em; }}
+    .scp-page-subtitle {{ font-size: 13px; color: #94A3B8; margin-top: 4px; font-weight: 380; }}
+    .scp-page-meta {{
+      font-family: 'Geist Mono', 'Fira Code', monospace;
+      font-size: 11px; font-weight: 480; color: #64748B;
+      margin-top: 10px; letter-spacing: 0.02em;
+    }}
+    .scp-page-header {{
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+      margin-bottom: 4px;
+    }}
+
+    /* ── Dimension pills — exact match ── */
+    .scp-pills {{
+      display: flex; gap: 5px; padding: 14px 0;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+      flex-wrap: wrap;
+    }}
+    .scp-pill {{
+      font-size: 12px; font-weight: 480; padding: 4px 11px; border-radius: 12px;
+      border: 1px solid transparent; cursor: pointer;
+      transition: all var(--duration-fast); user-select: none; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 5px;
+    }}
+    .scp-pill .scp-pill-dot {{ width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }}
+    .scp-pill.hw {{ color: #7DB8F5; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.15); }}
+    .scp-pill.hw .scp-pill-dot {{ background: var(--scp-hw); }}
+    .scp-pill.pl {{ color: #B9A4F8; background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.15); }}
+    .scp-pill.pl .scp-pill-dot {{ background: var(--scp-plat); }}
+    .scp-pill.gv {{ color: #5EDBC9; background: rgba(45,212,191,0.06); border-color: rgba(45,212,191,0.15); }}
+    .scp-pill.gv .scp-pill-dot {{ background: var(--scp-gov); }}
+    .scp-pill:hover.hw {{ background: rgba(96,165,250,0.12); border-color: rgba(96,165,250,0.3); }}
+    .scp-pill:hover.pl {{ background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.3); }}
+    .scp-pill:hover.gv {{ background: rgba(45,212,191,0.12); border-color: rgba(45,212,191,0.3); }}
+    .scp-pill.active.hw {{ background: rgba(96,165,250,0.2); border-color: rgba(96,165,250,0.5); color: #93C5FD; }}
+    .scp-pill.active.pl {{ background: rgba(167,139,250,0.2); border-color: rgba(167,139,250,0.5); color: #C4B5FD; }}
+    .scp-pill.active.gv {{ background: rgba(45,212,191,0.2); border-color: rgba(45,212,191,0.5); color: #5EEAD4; }}
+    .scp-pill-ct {{ font-family: 'Geist Mono','Fira Code',monospace; font-size: 10px; opacity: 0.5; font-weight: 480; }}
+
+    /* ── Body ── */
+    .scp-body {{ padding-top: 4px; }}
+
+    /* ── Group headers — exact match ── */
+    .scp-grp {{
+      font-size: 11px; font-weight: 580; color: #64748B;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 16px 0 6px;
+      display: flex; align-items: center; gap: 8px;
+    }}
+    .scp-grp-line {{ flex: 1; height: 1px; background: #334155; }}
+
+    .scp-paa-fold {{ margin: 6px 0 0; border-bottom: 2px solid rgba(245,158,11,0.3); padding-bottom: 6px; }}
+    .scp-paa-fold-label {{ font-size: 10px; color: rgba(245,158,11,0.5); text-align: right; letter-spacing: 0.03em; }}
+
+    /* ── Actor rows — uses <details>/<summary> ── */
+    .scp-actor {{ border-bottom: 1px solid rgba(255,255,255,0.03); }}
+    .scp-actor[open] > .scp-row {{ background: rgba(51,65,85,0.15); }}
+    .scp-actor[open] .scp-row-chev {{ transform: rotate(180deg); color: #94A3B8; }}
+
+    .scp-row {{
+      display: flex; align-items: center; padding: 10px 0;
+      cursor: pointer; transition: background var(--duration-fast) var(--ease-out);
+      list-style: none; /* removes default <summary> marker */
+    }}
+    .scp-row::-webkit-details-marker {{ display: none; }}
+    .scp-row::marker {{ display: none; content: ''; }}
+    .scp-row:hover {{ background: rgba(255,255,255,0.03); }}
+
+    .scp-row-name {{
+      font-size: 14px; font-weight: 480; color: #E2E8F0;
+      width: 160px; flex-shrink: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }}
+    .scp-row-bar {{ display: flex; gap: 3px; flex: 1; max-width: 140px; margin: 0 16px; }}
+    .scp-row-seg {{
+      flex: 1; height: 9px; border-radius: 2px;
+      background: rgba(255,255,255,0.06);
+      transition: all var(--duration-fast); position: relative;
+    }}
+    .scp-row-seg.hw-m {{ background: var(--scp-hw); }}
+    .scp-row-seg.pl-m {{ background: var(--scp-plat); }}
+    .scp-row-seg.gv-m {{ background: var(--scp-gov); }}
+    .scp-row-seg.col-hl {{ outline: 2px solid rgba(255,255,255,0.5); outline-offset: 1px; z-index: 1; }}
+    .scp-row-seg.col-hl.hw-m {{ outline-color: rgba(96,165,250,0.8); }}
+    .scp-row-seg.col-hl.pl-m {{ outline-color: rgba(167,139,250,0.8); }}
+    .scp-row-seg.col-hl.gv-m {{ outline-color: rgba(45,212,191,0.8); }}
+    .scp-row-seg.col-dim {{ opacity: 0.2; }}
+
+    .scp-row-score {{
+      font-family: 'Geist Mono','Fira Code',monospace;
+      font-size: 13px; font-weight: 480; color: #94A3B8;
+      width: 36px; text-align: right; flex-shrink: 0;
+    }}
+    .scp-row-badge {{ margin-left: 12px; flex-shrink: 0; }}
+    .scp-badge {{
+      display: inline-block; padding: 3px 10px; border-radius: 12px;
+      font-size: 11px; font-weight: 580; letter-spacing: 0.05em; text-transform: uppercase;
+    }}
+    .scp-badge-paa {{ background: rgba(245,158,11,0.15); color: var(--scp-paa); border: 1px solid rgba(245,158,11,0.35); }}
+    .scp-badge-aik {{ background: rgba(6,182,212,0.12); color: #22D3EE; border: 1px solid rgba(6,182,212,0.3); }}
+    .scp-badge-acs {{ background: rgba(168,85,247,0.12); color: #C084FC; border: 1px solid rgba(168,85,247,0.3); }}
+    .scp-badge-part {{ background: rgba(100,116,139,0.12); color: var(--scp-part); border: 1px solid rgba(100,116,139,0.25); }}
+
+    .scp-row-chev {{ font-size: 10px; color: #475569; margin-left: 10px; transition: transform var(--duration-normal) var(--ease-out); flex-shrink: 0; }}
+
+    /* ── Expanded detail — exact match ── */
+    .scp-detail {{
+      padding: 10px 16px 18px;
+      background: rgba(15,23,42,0.3);
+    }}
+    .scp-dim-row {{ display: flex; align-items: baseline; justify-content: space-between; padding: 5px 0; font-size: 13px; }}
+    .scp-dim-name {{ color: #94A3B8; display: flex; align-items: center; gap: 7px; }}
+    .scp-dim-dot {{ width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }}
+    .scp-dim-dot.hw {{ background: var(--scp-hw); }}
+    .scp-dim-dot.pl {{ background: var(--scp-plat); }}
+    .scp-dim-dot.gv {{ background: var(--scp-gov); }}
+    .scp-dim-st {{ font-weight: 580; }}
+    .scp-dim-met {{ color: #22C55E; }}
+    .scp-dim-not {{ color: var(--scp-part); }}
+    .scp-dim-constraint {{ font-size: 12px; color: #64748B; padding: 2px 0 5px 13px; font-style: italic; line-height: 1.5; }}
+    .scp-dim-qual-hl {{ font-size: 12px; color: #CBD5E1; padding: 2px 0 5px 13px; line-height: 1.5; }}
+    .scp-dim-con-label {{ font-style: normal; font-weight: 580; color: #94A3B8; letter-spacing: 0.01em; }}
+
+    /* ── Expandable triggers ── */
+    .scp-expand {{ margin-left: 13px; }}
+    .scp-expand summary {{
+      font-size: 11px; color: #475569; cursor: pointer;
+      padding: 2px 0; display: inline-flex; align-items: center; gap: 4px;
+      list-style: none; transition: color var(--duration-fast);
+    }}
+    .scp-expand summary::-webkit-details-marker {{ display: none; }}
+    .scp-expand summary::marker {{ display: none; content: ''; }}
+    .scp-expand summary:hover {{ color: #94A3B8; }}
+
+    .scp-qual-trigger {{ font-size: 11px; color: #475569; }}
+    .scp-src-trigger {{ font-size: 11px; color: #475569; }}
+    .scp-src-icon {{ font-size: 10px; }}
+
+    .scp-qual-block {{
+      margin: 4px 0 8px; padding: 10px 14px;
+      background: rgba(15,23,42,0.5); border-radius: var(--weo-radius-sm);
+      border: 1px solid rgba(255,255,255,0.04);
+      font-size: 11px; color: #94A3B8; line-height: 1.6;
+    }}
+    .scp-src-block {{
+      margin: 4px 0 8px; padding: 10px 14px;
+      background: rgba(15,23,42,0.5); border-radius: var(--weo-radius-sm);
+      border: 1px solid rgba(255,255,255,0.04);
+    }}
+    .scp-src-entry {{ font-size: 11px; color: #94A3B8; line-height: 1.6; margin-bottom: 6px; }}
+    .scp-src-entry:last-child {{ margin-bottom: 0; }}
+    .scp-src-label {{ font-weight: 580; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em; font-size: 10px; }}
+    .scp-src-grade {{ font-family: 'Geist Mono',monospace; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-right: 4px; font-weight: 480; }}
+    .scp-src-g1 {{ background: rgba(45,212,191,0.12); color: #5EEAD4; }}
+    .scp-src-g2 {{ background: rgba(96,165,250,0.12); color: #93C5FD; }}
+    .scp-src-g3 {{ background: rgba(148,163,184,0.12); color: #94A3B8; }}
+    .scp-src-fact {{ color: #CBD5E1; }}
+    .scp-src-link {{ color: var(--scp-aik); text-decoration: none; font-size: 10px; margin-left: 4px; }}
+    .scp-src-link:hover {{ text-decoration: underline; }}
+    .scp-src-lock {{ font-size: 11px; color: #475569; margin-left: 13px; padding: 3px 0; }}
+
+    /* ── AIK Chokepoint ── */
+    .scp-aik {{
+      margin-top: 10px; padding: 9px 10px;
+      background: rgba(6,182,212,0.04);
+      border: 1px solid rgba(6,182,212,0.12);
+      border-radius: var(--weo-radius-sm);
+    }}
+    .scp-aik-label {{ font-size: 10px; font-weight: 580; color: #94A3B8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }}
+    .scp-aik-nature {{ font-size: 13px; color: #CBD5E1; font-weight: 380; line-height: 1.4; }}
+    .scp-aik-entities {{ font-size: 12px; color: #64748B; font-style: italic; font-weight: 380; line-height: 1.5; margin-top: 3px; }}
+
+    /* ── Severance ── */
+    .scp-sev {{ font-size: 12px; color: #64748B; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }}
+    .scp-sev strong {{ color: #94A3B8; font-weight: 580; }}
+
+    /* ── Participant group ── */
+    .scp-part-group > summary {{
+      padding: 10px 0; font-size: 12px; color: #94A3B8;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background var(--duration-fast); user-select: none;
+      list-style: none;
+    }}
+    .scp-part-group > summary::-webkit-details-marker {{ display: none; }}
+    .scp-part-group > summary::marker {{ display: none; content: ''; }}
+    .scp-part-group > summary:hover {{ background: rgba(255,255,255,0.03); }}
+    .scp-part-arr {{ font-size: 10px; transition: transform var(--duration-normal) var(--ease-out); display: inline-block; }}
+    .scp-part-group[open] .scp-part-arr {{ transform: rotate(90deg); }}
+
+    /* ── Dimension Watch ── */
+    .scp-watch {{
+      margin-top: 32px; padding-top: 24px;
+      border-top: 1px solid rgba(51,65,85,0.5);
+    }}
+    .scp-watch-title {{ font-size: 16px; font-weight: 580; color: #F1F5F9; margin-bottom: 6px; }}
+    .scp-watch-desc {{ font-size: 12px; color: #64748B; margin-bottom: 16px; font-weight: 380; }}
+    .scp-watch-wrap {{ overflow-x: auto; -webkit-overflow-scrolling: touch; }}
+    .scp-watch-table {{ width: 100%; border-collapse: collapse; font-size: 12px; }}
+    .scp-watch-table th {{
+      text-align: left; font-size: 10px; font-weight: 580;
+      color: #64748B; text-transform: uppercase;
+      letter-spacing: 0.06em; padding: 8px 10px;
+      border-bottom: 1px solid #334155; white-space: nowrap;
+    }}
+    .scp-watch-table td {{
+      padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top; color: #94A3B8; line-height: 1.5; font-weight: 380;
+    }}
+    .scp-watch-table tr:last-child td {{ border-bottom: none; }}
+    .scp-watch-table tr:hover td {{ background: rgba(255,255,255,0.01); }}
+    .scp-watch-actor {{ color: var(--scp-aik); text-decoration: none; font-weight: 480; }}
+    .scp-watch-actor:hover {{ text-decoration: underline; }}
+
+    /* ── Footer ── */
+    .scp-page-footer {{
+      margin-top: 40px; padding-top: 20px;
+      border-top: 1px solid rgba(51,65,85,0.5);
+    }}
+    .scp-footer-cta {{
+      font-size: 12px; color: #94A3B8; margin-bottom: 12px;
+      padding: 10px 14px;
+      background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.12);
+      border-radius: var(--weo-radius-sm); font-weight: 380;
+    }}
+    .scp-footer-links {{ display: flex; gap: 16px; margin-bottom: 10px; font-size: 12px; }}
+    .scp-footer-links a {{ color: var(--scp-aik); text-decoration: none; }}
+    .scp-footer-links a:hover {{ text-decoration: underline; }}
+    .scp-footer-disclaimer {{
+      font-size: 10px; color: #94A3B8; line-height: 1.5; opacity: 0.7; font-style: italic;
+    }}
+    .scp-footer-version {{
+      font-family: 'Geist Mono','Fira Code',monospace;
+      font-size: 10px; font-weight: 480; color: #94A3B8; opacity: 0.5; margin-top: 8px;
+    }}
+    .scp-footer-copy {{ font-size: 11px; color: #64748B; margin-top: 8px; }}
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {{
+      .page-wrap {{ padding: 24px 16px 40px; }}
+      .scp-row-name {{ width: 120px; font-size: 13px; }}
+      .scp-row-bar {{ max-width: 100px; margin: 0 10px; }}
+      .nav-links {{ gap: 10px; font-size: 11px; }}
+    }}
+    @media (max-width: 480px) {{
+      .scp-row-name {{ width: 100px; font-size: 12px; }}
+      .scp-row-bar {{ max-width: 80px; margin: 0 6px; }}
+      .scp-dim-row {{ font-size: 12px; }}
+      .scp-page-title {{ font-size: 18px; }}
+      .page-nav {{ padding: 10px 16px; }}
+    }}
+
+    @media (prefers-reduced-motion: reduce) {{
+      *, *::before, *::after {{
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }}
+    }}
   </style>
 </head>
 <body>
+  <nav class="page-nav">
+    <a href="/" class="nav-brand"><span>Warmth Engine Observatory</span></a>
+    <div class="nav-links">
+      <a href="/">Map</a>
+      <a href="/atlas.html">Atlas</a>
+      <a href="/events.html">Events</a>
+      <a href="/profiles/" aria-current="page" style="color:#E2E8F0;">Profiles</a>
+      <a href="/about.html">About</a>
+    </div>
+  </nav>
+
   <div class="page-wrap">
-    <header class="page-header">
-      <h1>Sovereign Capability Profiles</h1>
-      <p class="page-subtitle">Actor Designation Framework — {total_actors} actors assessed</p>
-      <p class="page-framework">{framework_desc}</p>
-      <div class="page-meta">
-        <span>Assessment date: {assessment_date}</span>
-        <span>Methodology: V{methodology_version}</span>
-        <span>Register: SCP-REG-009</span>
-      </div>
-      <p class="legend-heading">Dimensions</p>
-      {legend_html}
-    </header>
+    <div class="scp-page-header">
+      <h1 class="scp-page-title">Sovereign Capability Profiles</h1>
+      <div class="scp-page-subtitle">Actor Designation Framework — {meta.get('total_actors',14)} actors assessed</div>
+      <div class="scp-page-meta">Assessment: {assessment_date.replace('-',' ')} · Methodology V{meth_version} · {reg_version}</div>
+    </div>
 
-    <main>
-{sections_html}
-      {watch_html}
-    </main>
+    {body}
 
-    <footer class="page-footer">
-      <p class="footer-cta">Full analysis and sources for all actors available with supporter access.</p>
-      <div class="footer-links">
-        <a href="/?scp=open">Explore the interactive Sovereign Capability Profiles →</a>
+    <div class="scp-page-footer">
+      <div class="scp-footer-cta">Full analysis and sources for all actors available with supporter access.</div>
+      <div class="scp-footer-links">
+        <a href="/">Explore the interactive map →</a>
         <a href="/research/methodology/manual/">Methodology Manual →</a>
       </div>
-      <p class="footer-mono">SCP Register v1.0 · Assessment: May 2026 · Methodology V{methodology_version} · WEO v1.3.0</p>
-      <p class="footer-mono" style="margin-top:4px;opacity:0.5;">© 2026 Warmth Engine Observatory</p>
-    </footer>
+      <p class="scp-footer-disclaimer">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
+      <div class="scp-footer-version">SCP Register v1.0 · Assessment: {assessment_date} · Methodology V{meth_version}</div>
+      <p class="scp-footer-copy">© 2026 Warmth Engine Observatory</p>
+    </div>
   </div>
-<script data-goatcounter="https://warmthengine.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-<script>
-(function(){{
-  var v = document.querySelector('meta[name="weo-version"]');
-  if (v) console.log('WEO v' + v.getAttribute('content'));
-}})();
-</script>
-</body>
-</html>"""
 
+  <script>
+    /* Dimension pill column highlighting */
+    (function() {{
+      var pills = document.querySelectorAll('.scp-pill');
+      var segs = document.querySelectorAll('.scp-row-seg');
+      var active = -1;
+      pills.forEach(function(p) {{
+        p.addEventListener('click', function() {{
+          var di = parseInt(p.getAttribute('data-dim'));
+          if (active === di) {{
+            active = -1;
+            pills.forEach(function(pp) {{ pp.classList.remove('active'); }});
+            segs.forEach(function(s) {{ s.classList.remove('col-hl','col-dim'); }});
+          }} else {{
+            active = di;
+            pills.forEach(function(pp) {{ pp.classList.remove('active'); }});
+            p.classList.add('active');
+            segs.forEach(function(s) {{
+              var si = parseInt(s.getAttribute('data-di'));
+              if (si === di) {{ s.classList.add('col-hl'); s.classList.remove('col-dim'); }}
+              else {{ s.classList.add('col-dim'); s.classList.remove('col-hl'); }}
+            }});
+          }}
+        }});
+      }});
+    }})();
+  </script>
+  <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>(function(){{ var v=document.querySelector('meta[name="weo-version"]'); if(v) console.log('WEO v'+v.getAttribute('content')); }})();</script>
+</body>
+</html>'''
+    return page
 
 def main():
     parser = argparse.ArgumentParser(description='Generate static SCP profiles page')
-    parser.add_argument('--input',  required=True, help='Path to actors-free.json')
-    parser.add_argument('--output', required=True, help='Output path for index.html')
+    parser.add_argument('--input', required=True, help='Path to actors-free.json')
+    parser.add_argument('--output', required=True, help='Output path for profiles/index.html')
     args = parser.parse_args()
 
-    input_path  = Path(args.input).expanduser()
-    output_path = Path(args.output).expanduser()
-
-    with open(input_path, encoding='utf-8') as f:
+    with open(args.input, 'r') as f:
         data = json.load(f)
 
-    html = generate_html(data)
+    html_content = build_page(data)
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(html)
+    os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
+    with open(args.output, 'w') as f:
+        f.write(html_content)
 
-    print(f'Generated: {output_path}')
-
+    print(f'Generated {args.output} ({len(html_content):,} bytes)')
+    print(f'Actors: {len(data["actors"])}')
 
 if __name__ == '__main__':
     main()
