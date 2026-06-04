@@ -187,15 +187,25 @@ def build_page(data):
   --r-sm:4px;--r-md:8px;--r-lg:12px;
   --fast:150ms;--norm:250ms;--ease:cubic-bezier(.33,1,.68,1);
   --col-w:76px;
+  --link:#3B82F6;--link-hover:#60A5FA;
 }}
 html{{scroll-behavior:smooth}}
 body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:380;background:var(--base);color:var(--t2);min-height:100vh;-webkit-font-smoothing:antialiased}}
 
 /* Nav */
-.nav{{display:flex;justify-content:space-between;align-items:center;padding:14px 40px;border-bottom:1px solid rgba(51,65,85,.5);font-size:13px;font-weight:480;background:var(--raised);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.3)}}
-.nav a{{color:var(--t4);text-decoration:none;transition:color var(--fast)}} .nav a:hover{{color:var(--t2)}}
-.nav-brand{{color:var(--t3);font-weight:580;font-size:14px}}
-.nav-links{{display:flex;gap:20px}} .nav-links a[aria-current]{{color:var(--t1)}}
+.weo-nav{{display:flex;align-items:center;justify-content:space-between;padding:14px 36px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:var(--raised);box-shadow:0 1px 8px rgba(0,0,0,.3)}}
+.weo-nav-brand{{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--t2);font-weight:600;font-size:.875rem;transition:color var(--fast) var(--ease)}}
+.weo-nav-brand:hover{{color:#2DD4BF}}
+.weo-nav-logo{{width:28px;height:28px;background:linear-gradient(135deg,rgba(45,212,191,.15) 0%,rgba(59,130,246,.1) 100%);border:1px solid rgba(45,212,191,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:.5rem;font-weight:700;color:#2DD4BF}}
+.weo-nav-links{{display:flex;align-items:center;gap:4px}}
+.weo-nav-links a{{padding:4px 8px;color:var(--t4);text-decoration:none;font-size:.8125rem;font-weight:500;border-radius:var(--r-sm);transition:all var(--fast) var(--ease)}}
+.weo-nav-links a:hover{{color:var(--t2);background:rgba(59,130,246,.1)}}
+.weo-nav-links a.active{{color:#2DD4BF;background:rgba(45,212,191,.1)}}
+.weo-nav-toggle{{display:none;width:32px;height:32px;background:var(--raised);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}}
+.weo-nav-toggle span{{display:block;width:16px;height:2px;background:var(--t4);border-radius:1px;transition:all var(--norm) var(--ease)}}
+.weo-nav-toggle:hover{{background:rgba(59,130,246,.2);border-color:#60A5FA}}
+.weo-nav-toggle:hover span{{background:var(--t2)}}
+@media(max-width:767px){{.weo-nav{{position:relative;padding:12px 16px}} .weo-nav-links{{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(15,23,42,.97);border:1px solid rgba(96,165,250,.2);border-top:2px solid rgba(96,165,250,.8);border-radius:var(--r-md);padding:8px;margin-top:8px;z-index:100;box-shadow:0 4px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.03);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}} .weo-nav-links.open{{display:flex}} .weo-nav-links a{{width:100%;padding:8px 16px}} .weo-nav-toggle{{display:flex;min-width:44px;min-height:44px}}}}
 
 /* Panel */
 .panel{{max-width:1100px;margin:36px auto;background:var(--raised);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:0 4px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.03);padding:28px 36px 32px}}
@@ -209,8 +219,8 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 /* Pills — column-aligned with dots below */
 .pills-row{{display:flex;align-items:center;padding:16px 0 12px;border-bottom:1px solid rgba(51,65,85,.5)}}
 .pills-spacer{{width:200px;flex-shrink:0}}
-.pills-grid{{display:grid;grid-template-columns:repeat(7,var(--col-w));justify-items:center}}
-.pill{{font-size:11px;font-weight:480;padding:4px 0;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;border-radius:10px;border:1px solid transparent}}
+.pills-grid{{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px}}
+.pill{{font-size:11px;font-weight:480;padding:4px 10px;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;border-radius:10px;border:1px solid transparent}}
 .pill .pill-dot{{width:6px;height:6px;border-radius:50%;flex-shrink:0}}
 .pill.hw{{color:#7DB8F5}} .pill.hw .pill-dot{{background:var(--hw)}}
 .pill.pl{{color:#B9A4F8}} .pill.pl .pill-dot{{background:var(--pl)}}
@@ -275,7 +285,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .src-label{{font-weight:580;color:var(--t5);text-transform:uppercase;letter-spacing:.04em;font-size:10px}}
 .src-grade{{font-family:'Geist Mono',monospace;font-size:10px;padding:1px 6px;border-radius:3px;margin-right:4px;font-weight:480}}
 .g1{{background:rgba(45,212,191,.12);color:#5EEAD4}} .g2{{background:rgba(96,165,250,.12);color:#93C5FD}} .g3{{background:rgba(148,163,184,.12);color:var(--t4)}}
-.src-fact{{color:var(--t3)}} .src-link{{color:var(--aik);text-decoration:none;font-size:10px;margin-left:4px}} .src-link:hover{{text-decoration:underline}}
+.src-fact{{color:var(--t3)}} .src-link{{color:var(--link);text-decoration:none;font-size:10px;margin-left:4px}} .src-link:hover{{color:var(--link-hover);text-decoration:underline}}
 
 /* AIK / Sev */
 .det-aik{{margin-top:10px;padding:10px 12px;background:rgba(6,182,212,.04);border:1px solid rgba(6,182,212,.12);border-radius:var(--r-sm)}}
@@ -293,36 +303,52 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .part-group[open] .part-arr{{transform:rotate(90deg)}}
 
 /* Watch */
-.watch{{margin-top:28px;padding-top:22px;border-top:1px solid rgba(51,65,85,.5)}}
+.watch{{margin-top:48px;padding-top:22px;border-top:1px solid rgba(51,65,85,.5)}}
 .watch-title{{font-size:17px;font-weight:580;color:var(--t1);margin-bottom:5px}}
 .watch-desc{{font-size:12px;color:var(--t5);margin-bottom:14px;font-weight:380}}
 .watch-tbl{{width:100%;border-collapse:collapse;font-size:12px}}
 .watch-tbl th{{text-align:left;font-size:10px;font-weight:580;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}}
 .watch-tbl td{{padding:10px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top;color:var(--t4);line-height:1.5;font-weight:380}}
 .watch-tbl tr:hover td{{background:rgba(255,255,255,.01)}}
-.watch-link{{color:var(--aik);text-decoration:none;font-weight:480}} .watch-link:hover{{text-decoration:underline}}
+.watch-tbl td:nth-child(5){{color:var(--t3)}}
+.watch-link{{color:var(--link);text-decoration:none;font-weight:480}} .watch-link:hover{{color:var(--link-hover);text-decoration:underline}}
 
 /* Footer */
 .ftr{{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5)}}
 .ftr-cta{{font-size:12px;color:var(--t4);margin-bottom:14px;padding:10px 16px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-sm);font-weight:380}}
 .ftr-links{{display:flex;gap:18px;margin-bottom:10px;font-size:12px}}
-.ftr-links a{{color:var(--aik);text-decoration:none}} .ftr-links a:hover{{text-decoration:underline}}
+.ftr-links a{{color:var(--link);text-decoration:none}} .ftr-links a:hover{{color:var(--link-hover);text-decoration:underline}}
 .ftr-disc{{font-size:10px;color:var(--t4);line-height:1.5;opacity:.7;font-style:italic}}
 .ftr-ver{{font-family:'Geist Mono',monospace;font-size:10px;font-weight:480;color:var(--t4);opacity:.5;margin-top:8px}}
 .ftr-copy{{font-size:11px;color:var(--t5);margin-top:8px}}
+.ftr-legal{{font-size:11px;margin-top:4px}} .ftr-legal a{{color:var(--t4);text-decoration:none}} .ftr-legal a:hover{{color:var(--link)}}
 
 /* Responsive */
 @media(max-width:1140px){{.panel{{margin:24px 16px;padding:24px 24px 28px}} :root{{--col-w:64px}} .row-name,.pills-spacer{{width:160px}} .row-name{{font-size:14px}}}}
 @media(max-width:860px){{:root{{--col-w:52px}} .row-name,.pills-spacer{{width:130px}} .row-name{{font-size:13px}} .dot{{width:12px;height:12px}} .row-score{{font-size:13px;width:38px}} .badge{{font-size:10px;padding:2px 8px}}}}
-@media(max-width:640px){{:root{{--col-w:40px}} .row-name,.pills-spacer{{width:110px}} .row-name{{font-size:12px}} .dot{{width:10px;height:10px}} .pill{{font-size:9px}} .pill-ct{{font-size:8px}} .nav{{padding:10px 16px}} .panel{{margin:16px 8px;padding:16px 12px 20px}} .hdr-title{{font-size:18px}} .row-score{{font-size:12px;width:34px;margin-left:8px}} .row-badge{{margin-left:6px}} .row-chev{{margin-left:4px}}}}
+@media(max-width:640px){{:root{{--col-w:40px}} .row-name,.pills-spacer{{width:110px}} .row-name{{font-size:12px}} .dot{{width:10px;height:10px}} .pill{{font-size:9px}} .pill-ct{{font-size:8px}} .panel{{margin:16px 8px;padding:16px 12px 20px}} .hdr-title{{font-size:18px}} .row-score{{font-size:12px;width:34px;margin-left:8px}} .row-badge{{margin-left:6px}} .row-chev{{margin-left:4px}}}}
 @media(prefers-reduced-motion:reduce){{*,*::before,*::after{{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}}}
 </style>
 </head>
 <body>
-<nav class="nav">
-  <a href="/" class="nav-brand">Warmth Engine Observatory</a>
-  <div class="nav-links">
-    <a href="/">Map</a><a href="/atlas.html">Atlas</a><a href="/events.html">Events</a><a href="/profiles/" aria-current="page">Profiles</a><a href="/about.html">About</a>
+<nav class="weo-nav">
+  <a href="/" class="weo-nav-brand">
+    <span class="weo-nav-logo">WEO</span>
+    <span>Warmth Engine Observatory</span>
+  </a>
+  <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="weo-nav-links" id="navLinks">
+    <a href="/">Map</a>
+    <a href="/atlas.html">Atlas</a>
+    <a href="/events.html">Events</a>
+    <a href="/profiles/" class="active">Profiles</a>
+    <a href="/blocs.html">Blocs</a>
+    <a href="/methodology.html">Methodology</a>
+    <a href="/research.html">Research</a>
+    <a href="/about.html">About</a>
+    <a href="/support.html">Support</a>
   </div>
 </nav>
 <div class="panel">
@@ -338,6 +364,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
     <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad} &middot; Methodology V{mv}</div>
     <p class="ftr-copy">&copy; 2026 Warmth Engine Observatory</p>
+    <p class="ftr-legal"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
   </div>
 </div>
 <script>
@@ -351,6 +378,16 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
     }})
   }})
 }})();
+</script>
+<script>
+var navToggle=document.getElementById('navToggle');
+var navLinks=document.getElementById('navLinks');
+if(navToggle&&navLinks){{
+  navToggle.addEventListener('click',function(){{
+    navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded',navLinks.classList.contains('open'));
+  }});
+}}
 </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>(function(){{var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))}})();</script>
