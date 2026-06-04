@@ -5731,6 +5731,8 @@
       transition: all var(--duration-fast) var(--ease-out);
     }
     .scp-close:hover { background: #334155; color: #F1F5F9; }
+    .scp-fullscreen-link { font-size: 10px; color: #475569; text-decoration: none; margin-top: 5px; display: inline-block; transition: color 150ms; }
+    .scp-fullscreen-link:hover { color: #94A3B8; }
 
     /* Dimension pills */
     .scp-pills {
@@ -6064,7 +6066,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       Map
     </a>
-    <a href="#" id="navScpToggle" onclick="event.preventDefault();" class="nav-scp-link">
+    <a href="/profiles/" class="nav-scp-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       Actor Profiles
     </a>
@@ -6263,6 +6265,7 @@
       <div>
         <div class="scp-title">Sovereign Capability Profiles <span class="scp-tip-trigger" data-scp-tip="scp-overview" style="font-size:12px;opacity:0.5;cursor:pointer;">&#9432;</span></div>
         <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">14</span> actors assessed</div>
+        <a href="/profiles/" class="scp-fullscreen-link">View full screen →</a>
       </div>
       <button class="scp-close" id="scpClose" aria-label="Close">×</button>
     </div>
