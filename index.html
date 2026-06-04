@@ -5731,8 +5731,8 @@
       transition: all var(--duration-fast) var(--ease-out);
     }
     .scp-close:hover { background: #334155; color: #F1F5F9; }
-    .scp-profiles-link { font-size: 11px; color: #64748B; text-decoration: none; transition: color 150ms; margin-top: 6px; display: inline-block; }
-    .scp-profiles-link:hover { color: #3B82F6; }
+    .scp-fullscreen-link { font-size: 10px; color: #475569; text-decoration: none; margin-top: 5px; display: inline-block; transition: color 150ms; }
+    .scp-fullscreen-link:hover { color: #94A3B8; }
 
     /* Dimension pills */
     .scp-pills {
@@ -6066,6 +6066,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       Map
     </a>
+    <a href="/profiles/" class="nav-scp-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Actor Profiles
+    </a>
     <a href="atlas.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 7.07 2.93M12 2a10 10 0 0 0-7.07 2.93M12 22a10 10 0 0 0 7.07-2.93M12 22a10 10 0 0 1-7.07-2.93"/><line x1="12" y1="9" x2="18" y2="3"/><line x1="12" y1="9" x2="6" y2="3"/><line x1="12" y1="15" x2="18" y2="21"/><line x1="12" y1="15" x2="6" y2="21"/></svg>
       Atlas
@@ -6265,7 +6269,7 @@
       <div>
         <div class="scp-title">Sovereign Capability Profiles <span class="scp-tip-trigger" data-scp-tip="scp-overview" style="font-size:12px;opacity:0.5;cursor:pointer;">&#9432;</span></div>
         <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">14</span> actors assessed</div>
-        <a href="/profiles/" class="scp-profiles-link">View in Profiles →</a>
+        <a href="/profiles/" class="scp-fullscreen-link">View full screen →</a>
       </div>
       <button class="scp-close" id="scpClose" aria-label="Close">×</button>
     </div>
