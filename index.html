@@ -5540,6 +5540,31 @@
         border-bottom: 1px solid rgba(255,255,255,0.04); margin-bottom: 0.125rem;
     }
     .piet-source-gate-label:first-child { padding-top: 0; }
+    .trace-materials-shelf { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.5rem; }
+    .trace-material-chip {
+        position: relative; display: inline-block; font-size: 0.625rem; font-weight: 600;
+        padding: 2px 7px; border-radius: var(--weo-radius-sm);
+        background: rgba(45,212,191,0.10); color: rgba(45,212,191,0.80);
+        border: 1px solid rgba(45,212,191,0.20); cursor: default; white-space: nowrap;
+        text-transform: capitalize;
+    }
+    .trace-material-chip:hover .trace-material-tooltip { display: block; }
+    .trace-material-tooltip {
+        display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+        background: #1E2533; border: 1px solid rgba(45,212,191,0.25); border-radius: var(--weo-radius-sm);
+        padding: 6px 10px; font-size: 0.5625rem; font-weight: 400; line-height: 1.4;
+        color: rgba(255,255,255,0.65); width: max-content; max-width: 220px; z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5); white-space: normal; text-transform: none;
+    }
+    .trace-material-tooltip::after {
+        content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+        border: 5px solid transparent; border-top-color: rgba(45,212,191,0.25);
+    }
+    .trace-exclusion-row {
+        display: flex; align-items: center; gap: 0.375rem;
+        font-size: 0.6875rem; color: rgba(255,255,255,0.50); padding: 0.125rem 0;
+    }
+    .trace-exclusion-row .gate-pass { color: rgba(34,197,94,0.60); font-size: 0.6875rem; flex-shrink: 0; }
 
     /* ==========================================================
        GEIST DARK-MODE WEIGHT COMPENSATION
@@ -6590,6 +6615,7 @@ function mapApiEventToInternal(e) {
   if (e.tiebreaker != null) mapped.tiebreaker = e.tiebreaker;
   if (e.piet != null) mapped.piet = e.piet;
   if (e.oep != null) mapped.oep = e.oep;
+  if (e.trace != null) mapped.trace = e.trace;
   if (e.f1_annotation !== undefined) mapped.f1_annotation = e.f1_annotation;
   mapped.ecosystemImplementation = e.ecosystem_implementation ?? e.ecosystemImplementation ?? undefined;
 
@@ -9768,6 +9794,10 @@ function generateCCSection(eventId, showFullContent) {
         title: 'Verification Checkpoints',
         body: 'Four criteria for event inclusion. <strong>AI Connection:</strong> Established via alternative evidence pathway (OEP) — see below. <strong>Quantitative Threshold:</strong> Meets scale requirements. <strong>Implementation Evidence:</strong> Operational proof, not announcements. <strong>Active Status:</strong> Within verification timeframe (≤24mo infrastructure, ≤12mo policy).'
       },
+      checkpointsTrace: {
+        title: 'Verification Checkpoints',
+        body: 'Four criteria for event inclusion. <strong>AI Connection:</strong> Established via alternative evidence pathway (TRACE) — see below. <strong>Quantitative Threshold:</strong> Meets scale requirements. <strong>Implementation Evidence:</strong> Operational proof, not announcements. <strong>Active Status:</strong> Within verification timeframe (≤24mo infrastructure, ≤12mo policy).'
+      },
       basel5: {
         title: 'Basel 5-Factor Assessment',
         body: 'Qualification framework for physical AI infrastructure significance, adapted from Basel Committee G-SIB methodology. <strong>Size:</strong> Top-quartile scale ($500M+). <strong>Interconnectedness:</strong> Cross-border dependencies. <strong>Substitutability:</strong> Uniqueness/concentration. <strong>Complexity:</strong> Cutting-edge tech/long lead times. <strong>Cross-jurisdictional:</strong> Multi-nation impact. 2+ factors required.'
@@ -9920,6 +9950,7 @@ function generateCCSection(eventId, showFullContent) {
       checkpoints:      'section-3-5',
       checkpointsPiet:  'section-3-5-1',
       checkpointsOep:   'section-3-5-d',
+      checkpointsTrace: 'section-3-5-g',
       basel5:           'section-4-4',
       cc:               'section-9-1',
       keohane:          'section-4-2',
@@ -9927,8 +9958,10 @@ function generateCCSection(eventId, showFullContent) {
       tiebreaker:       'section-4-9-tiebreakers',
       piet:             'section-3-5-1',
       oep:              'section-3-5-d',
+      trace:            'section-3-5-g',
       pietCheckpoint:   'section-3-5-1',
       oepCheckpoint:    'section-3-5-d',
+      traceCheckpoint:  'section-3-5-g',
       routeBased:       'section-4-8',
       bloc:             'section-3-10',
       domain:           'chapter-6',
@@ -10018,7 +10051,7 @@ function generateCCSection(eventId, showFullContent) {
       // Tooltips
       const tierTooltip = generateTooltip('tier', 'below');
       const confidenceTooltip = generateTooltip('confidence', 'left');
-      const checkpointsTooltipKey = event.aiConnectionPathway === 'piet' ? 'checkpointsPiet' : event.aiConnectionPathway === 'oep' ? 'checkpointsOep' : 'checkpoints';
+      const checkpointsTooltipKey = event.aiConnectionPathway === 'piet' ? 'checkpointsPiet' : event.aiConnectionPathway === 'oep' ? 'checkpointsOep' : event.aiConnectionPathway === 'trace' ? 'checkpointsTrace' : 'checkpoints';
       const checkpointsTooltip = generateTooltip(checkpointsTooltipKey, 'left');
       const blocTooltip = generateTooltip('bloc', 'below');
       const domainTooltip = generateTooltip('domain', 'below');
@@ -10055,9 +10088,15 @@ function generateCCSection(eventId, showFullContent) {
         });
       }
       const sourceTallyText = totalPrimarySources + ' Primary, ' + totalCorroboratingSources + ' Corroborating' + (versionCount > 1 ? ' (across ' + versionCount + ' versions)' : '');
-      const freeIsPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep';
+      const freeIsPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep' || event.aiConnectionPathway === 'trace';
       const freeAiCheckpointHtml = freeIsPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">AI Connection</span></div>';
-      const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : 'OEP')) + '</span></div>' : '';
+      var freeTraceMatsHtml = '';
+      if (event.aiConnectionPathway === 'trace' && event.trace && event.trace.materials) {
+        freeTraceMatsHtml = '<div class="trace-materials-shelf" style="margin-top:0.375rem;">';
+        event.trace.materials.forEach(function(m) { freeTraceMatsHtml += '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; });
+        freeTraceMatsHtml += '</div>';
+      }
+      const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : event.aiConnectionPathway === 'trace' ? 'TRACE' : 'OEP')) + '</span>' + freeTraceMatsHtml + '</div>' : '';
       
       return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + event.name + '</div><div class="panel-subtitle">' + event.type + ' • ' + formatDateUK(event.date) + ' • ' + event.location + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + event.description + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + event.investment + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + event.scope + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationale & Bloc Analysis</li><li>Coordination Connection Details & Evidence</li><li>Cross-Event Navigation</li><li>Full Source Documentation</li><li>Version History & Rolling Updates</li><li>Related Events</li><li>Sovereign Capability Profiles — full dimensional assessments and severance analysis</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div><a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
@@ -10347,7 +10386,7 @@ function generateCCSection(eventId, showFullContent) {
       // Tooltips
       const tierTooltip = generateTooltip('tier', 'below');
       const confidenceTooltip = generateTooltip('confidence', 'left');
-      const checkpointsTooltipKey = event.aiConnectionPathway === 'piet' ? 'checkpointsPiet' : event.aiConnectionPathway === 'oep' ? 'checkpointsOep' : 'checkpoints';
+      const checkpointsTooltipKey = event.aiConnectionPathway === 'piet' ? 'checkpointsPiet' : event.aiConnectionPathway === 'oep' ? 'checkpointsOep' : event.aiConnectionPathway === 'trace' ? 'checkpointsTrace' : 'checkpoints';
       const checkpointsTooltip = generateTooltip(checkpointsTooltipKey, 'left');
       const basel5Tooltip = generateTooltip('basel5', 'left');
       const keohaneTooltip = generateTooltip('keohane', 'left');
@@ -10516,7 +10555,50 @@ function generateCCSection(eventId, showFullContent) {
         }
         pietVerificationHtml += '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">OEP</span> \u00B7 ' + event.oep.confidence + generateTooltip('oep', 'left') + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel">' + oepPwDetailHtml + oepSourcesHtml + '</div></div>';
       }
-      
+      if (event.trace && event.trace.conditions && event.trace.conditions.length > 0) {
+        var groupedTraceSources = [];
+        var traceSrcIdx = 1;
+        event.trace.conditions.forEach(function(c) {
+          if (c.sources && c.sources.length > 0) {
+            var condSrcs = [];
+            c.sources.forEach(function(s) { condSrcs.push({id: s.id, desc: s.desc, url: s.url, type: s.type, num: traceSrcIdx++}); });
+            groupedTraceSources.push({gate: c.factor, sources: condSrcs});
+          }
+        });
+        var totalTraceSources = traceSrcIdx - 1;
+        var traceMatsHtml = '<div class="trace-materials-shelf">';
+        event.trace.materials.forEach(function(m) { traceMatsHtml += '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; });
+        traceMatsHtml += '</div>';
+        var traceConditionsHtml = '';
+        event.trace.conditions.forEach(function(c) {
+          var summaryText = c.summary || (c.rationale.length > 80 ? c.rationale.substring(0, 80) + '\u2026' : c.rationale);
+          traceConditionsHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (c.pass ? 'gate-pass' : 'gate-fail') + '">' + (c.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + c.factor + ':</span> <span class="gate-metric">' + summaryText + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
+          traceConditionsHtml += '<div class="piet-gate-evidence"><div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + c.rationale + '</div></div>';
+        });
+        var traceExclHtml = '';
+        if (event.trace.excludedInstrumentCheck) {
+          var ei = event.trace.excludedInstrumentCheck;
+          traceExclHtml = '<div style="margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);"><div style="font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.28);margin-bottom:0.25rem;">Excluded Instrument Check</div>';
+          traceExclHtml += '<div class="trace-exclusion-row"><span class="gate-pass">\u2713</span><span>' + (!ei.generalIndustrialPolicy ? 'Not general industrial policy' : 'General industrial policy') + '</span></div>';
+          traceExclHtml += '<div class="trace-exclusion-row"><span class="gate-pass">\u2713</span><span>' + (!ei.broadEconomicStimulus ? 'Not broad economic stimulus' : 'Broad economic stimulus') + '</span></div>';
+          traceExclHtml += '<div class="trace-exclusion-row"><span class="gate-pass">\u2713</span><span>' + (!ei.multiSectorFramework ? 'Not multi-sector framework' : 'Multi-sector framework') + '</span></div>';
+          traceExclHtml += '</div>';
+        }
+        var traceSourcesHtml = '';
+        if (totalTraceSources > 0) {
+          var traceSrcItems = '';
+          groupedTraceSources.forEach(function(grp) {
+            traceSrcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>';
+            grp.sources.forEach(function(s) {
+              var srcLink = s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' \u2197</a>' : '<span>' + s.desc + '</span>';
+              traceSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span>' + srcLink + '</div>';
+            });
+          });
+          traceSourcesHtml = '<div class="piet-sources-footer"><span class="piet-sources-toggle" onclick="var l=this.nextElementSibling; l.classList.toggle(\'visible\'); this.textContent=l.classList.contains(\'visible\')?\'Sources (' + totalTraceSources + ') \u25BE\':\'Sources (' + totalTraceSources + ') \u25B8\';">Sources (' + totalTraceSources + ') \u25B8</span><div class="piet-sources-list">' + traceSrcItems + '</div></div>';
+        }
+        pietVerificationHtml += '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">TRACE</span> \u00B7 ' + event.trace.materials.length + ' materials \u00B7 ' + event.trace.confidence + generateTooltip('trace', 'left') + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel"><div style="font-size:0.625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:rgba(255,255,255,0.35);padding-bottom:0.25rem;">Materials</div>' + traceMatsHtml + traceConditionsHtml + traceExclHtml + traceSourcesHtml + '</div></div>';
+      }
+
       let basel5Section = '';
       if (event.basel5 && event.basel5.length > 0 && event.basel5.some(function(f) { return f.rationale; })) {
         const basel5Met = event.basel5.filter(function(f) { return f.pass; }).length;
@@ -10605,8 +10687,8 @@ function generateCCSection(eventId, showFullContent) {
           }).join('') + '</div>';
       }
 
-      // AI Connection checkpoint: for PIET/OEP events, don't render standard checkbox (PIET subsection IS the AI Connection evidence)
-      const isPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep';
+      // AI Connection checkpoint: for PIET/OEP/TRACE events, don't render standard checkbox (pathway subsection IS the AI Connection evidence)
+      const isPietOrOep = event.aiConnectionPathway === 'piet' || event.aiConnectionPathway === 'oep' || event.aiConnectionPathway === 'trace';
       const aiCheckpointDiv = isPietOrOep ? '' : '<div class="checkpoint"><span class="checkpoint-icon ' + (cp.ai ? 'pass' : 'fail') + '">' + (cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">AI Connection Verified</span></div>';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
