@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <link rel="canonical" href="https://www.warmthengine.com/research/methodology/materials-register/">
+    <meta property="og:url" content="https://www.warmthengine.com/research/methodology/materials-register/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="weo-version" content="1.3.0">
+    <title>WEO AI-Critical Materials Register — Warmth Engine Observatory</title>
+    <meta name="description" content="The WEO AI-Critical Materials Register — materials with pre-established AI infrastructure relevance at primary source standard, used in TRACE pathway qualification.">
+    <meta name="keywords" content="AI infrastructure; critical materials; supply chain; TRACE pathway; semiconductor; data centre; WEO methodology">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="WEO AI-Critical Materials Register — Warmth Engine Observatory">
+    <meta property="og:description" content="The WEO AI-Critical Materials Register — materials with pre-established AI infrastructure relevance at primary source standard, used in TRACE pathway qualification.">
+    <meta property="og:type" content="article">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WEO AI-Critical Materials Register — Warmth Engine Observatory">
+    <meta name="twitter:description" content="The WEO AI-Critical Materials Register — materials with pre-established AI infrastructure relevance at primary source standard, used in TRACE pathway qualification.">
+    <meta name="twitter:image" content="https://www.warmthengine.com/og-image.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #94A3B8;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-bloc-cross: #2DD4BF;
+            --weo-status-positive: #22C55E;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
+        button:focus-visible, a:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: 2px; }
+
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
+        }
+
+        /* Navigation */
+        .weo-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--weo-space-md) 0;
+            margin-bottom: var(--weo-space-xl);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+        .weo-nav-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-sm);
+            text-decoration: none;
+            color: var(--weo-text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-brand:hover { color: #2DD4BF; }
+        .weo-nav-logo {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--weo-font-mono);
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #2DD4BF;
+        }
+        .weo-nav-links {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-xs);
+        }
+        .weo-nav-links a {
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            color: var(--weo-text-tertiary);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-links a:hover { color: var(--weo-text-primary); background: rgba(59, 130, 246, 0.1); }
+        .weo-nav-links a.active { color: #2DD4BF; background: rgba(45, 212, 191, 0.1); }
+        .weo-nav-toggle {
+            display: none;
+            width: 32px;
+            height: 32px;
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .weo-nav-toggle span { display: block; width: 16px; height: 2px; background: var(--weo-text-tertiary); border-radius: 1px; transition: all var(--weo-duration-normal) var(--weo-ease-out); }
+        .weo-nav-toggle:hover { background: rgba(59, 130, 246, 0.2); border-color: #60A5FA; }
+        .weo-nav-toggle:hover span { background: var(--weo-text-primary); }
+        @media (max-width: 767px) {
+            .weo-nav { position: relative; }
+            .weo-nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.97);
+                border: 1px solid rgba(96, 165, 250, 0.2);
+                border-top: 2px solid rgba(96, 165, 250, 0.8);
+                border-radius: var(--weo-radius-md);
+                padding: var(--weo-space-sm);
+                margin-top: var(--weo-space-sm);
+                z-index: 100;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+            .weo-nav-links.open { display: flex; }
+            .weo-nav-links a { width: 100%; padding: var(--weo-space-sm) var(--weo-space-md); }
+            .weo-nav-toggle { display: flex; min-width: 44px; min-height: 44px; }
+        }
+
+        /* Page header */
+        .reg-header {
+            margin-bottom: var(--weo-space-xl);
+            padding: 1.75rem 2rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        .reg-pathway-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            background: rgba(45, 212, 191, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: var(--weo-radius-sm);
+            padding: 0.2rem 0.6rem;
+            margin-bottom: 0.875rem;
+        }
+
+        .reg-title {
+            font-size: 1.625rem;
+            font-weight: 700;
+            color: var(--weo-text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.625rem;
+            line-height: 1.25;
+        }
+
+        .reg-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem 0.75rem;
+            font-size: 0.8125rem;
+            color: var(--weo-text-tertiary);
+            margin-bottom: 1.125rem;
+        }
+
+        .meta-sep { color: var(--weo-text-muted); }
+
+        .reg-intro {
+            font-size: 0.9375rem;
+            color: var(--weo-text-secondary);
+            line-height: 1.65;
+            border-top: 1px solid var(--weo-border-primary);
+            padding-top: 1rem;
+        }
+
+        .reg-intro a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .reg-intro a:hover { text-decoration: underline; }
+
+        /* Register table */
+        .reg-table-wrap {
+            overflow-x: auto;
+            border-radius: var(--weo-radius-lg);
+            border: 1px solid var(--weo-border-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            margin-bottom: var(--weo-space-xl);
+        }
+
+        .reg-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .reg-table thead {
+            background: var(--weo-surface-raised);
+        }
+
+        .reg-table th {
+            padding: 0.75rem 1rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--weo-text-muted);
+            text-align: left;
+            border-bottom: 1px solid var(--weo-border-primary);
+            white-space: nowrap;
+        }
+
+        .reg-table th:first-child { border-radius: var(--weo-radius-lg) 0 0 0; }
+        .reg-table th:last-child { border-radius: 0 var(--weo-radius-lg) 0 0; }
+
+        .reg-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        .reg-table tr:last-child td { border-bottom: none; }
+
+        .reg-table tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.018);
+        }
+
+        .reg-table tr:hover td {
+            background: rgba(45, 212, 191, 0.04);
+        }
+
+        .material-name {
+            font-weight: 600;
+            color: var(--weo-text-primary);
+            white-space: nowrap;
+        }
+
+        .material-formula {
+            font-family: var(--weo-font-mono);
+            font-size: 0.8em;
+            color: var(--weo-text-tertiary);
+        }
+
+        .application-text {
+            color: var(--weo-text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .source-text {
+            color: var(--weo-text-tertiary);
+            font-size: 0.8125rem;
+            font-family: var(--weo-font-mono);
+            line-height: 1.5;
+        }
+
+        /* Maintenance note */
+        .reg-maintenance {
+            padding: 1.25rem 1.5rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-left: 3px solid var(--weo-border-subtle);
+            border-radius: var(--weo-radius-md);
+            margin-bottom: var(--weo-space-xl);
+        }
+
+        .reg-maintenance-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--weo-text-muted);
+            margin-bottom: 0.625rem;
+        }
+
+        .reg-maintenance p {
+            font-size: 0.875rem;
+            color: var(--weo-text-tertiary);
+            line-height: 1.6;
+        }
+
+        /* Manual reference */
+        .reg-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            color: var(--weo-text-muted);
+            text-decoration: none;
+            padding: 0.3rem 0.75rem;
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            margin-bottom: var(--weo-space-xl);
+            display: inline-flex;
+        }
+        .reg-ref:hover { color: #60a5fa; border-color: #60a5fa; }
+
+        /* Footer */
+        .page-footer {
+            margin-top: var(--weo-space-3xl);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
+            text-align: center;
+        }
+        .footer-text { font-size: 0.8125rem; color: var(--weo-text-muted); margin-bottom: 0.5rem; }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #60a5fa; }
+
+        /* Back to top */
+        .weo-back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
+            z-index: 100;
+            touch-action: manipulation;
+        }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
+        @media (max-width: 768px) {
+            .weo-back-to-top { width: 36px; height: 36px; }
+            .weo-back-to-top.visible { opacity: 0.5; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
+
+        <nav class="weo-nav">
+            <a href="/" class="weo-nav-brand">
+                <span class="weo-nav-logo">WEO</span>
+                <span>Warmth Engine Observatory</span>
+            </a>
+            <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="weo-nav-links" id="navLinks">
+                <a href="/">Map</a>
+                <a href="/atlas.html">Atlas</a>
+                <a href="/events.html">Events</a>
+                <a href="/blocs.html">Blocs</a>
+                <a href="/methodology.html" class="active">Methodology</a>
+                <a href="/research.html">Research</a>
+                <a href="/about.html">About</a>
+                <a href="/support.html">Support</a>
+            </div>
+        </nav>
+
+        <main>
+
+            <header class="reg-header">
+                <div class="reg-pathway-badge">TRACE · Condition 1 Reference</div>
+                <h1 class="reg-title">WEO AI-Critical Materials Register</h1>
+                <div class="reg-meta">
+                    <span>Warmth Engine Observatory</span>
+                    <span class="meta-sep">·</span>
+                    <span>Version 1</span>
+                    <span class="meta-sep">·</span>
+                    <span>May 2026</span>
+                    <span class="meta-sep">·</span>
+                    <span>Status: Published</span>
+                </div>
+                <p class="reg-intro">
+                    This register defines the materials that qualify under the TRACE pathway (Manual §3.5, Option G, Condition 1) without requiring individual causal-chain documentation each time. Materials on this register have pre-established AI infrastructure relevance at primary source standard. Materials not on this register may still qualify through individual Condition 1(a)+(b) documentation.
+                </p>
+            </header>
+
+            <div class="reg-table-wrap">
+                <table class="reg-table" aria-label="WEO AI-Critical Materials Register">
+                    <thead>
+                        <tr>
+                            <th scope="col">Material</th>
+                            <th scope="col">AI Infrastructure Application</th>
+                            <th scope="col">Primary Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="material-name">Gallium</span></td>
+                            <td><span class="application-text">GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking</span></td>
+                            <td><span class="source-text">USGS Mineral Commodity Summaries; EU CRMA Annex I</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Germanium</span></td>
+                            <td><span class="application-text">Fibre optic signal amplification <span class="material-formula">(GeO₂ dopant)</span>; infrared optics; SiGe heterojunction transistors</span></td>
+                            <td><span class="source-text">USGS MCS; BGS Critical Minerals Strategy</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Rare Earth Elements (NdPr)</span></td>
+                            <td><span class="application-text">NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion</span></td>
+                            <td><span class="source-text">USGS MCS; Shin-Etsu Chemical technical documentation</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Cobalt</span></td>
+                            <td><span class="application-text">Li-ion battery cathodes for data centre UPS and grid-scale storage</span></td>
+                            <td><span class="source-text">IEA Global EV Outlook (battery chemistry data); USGS MCS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Lithium</span></td>
+                            <td><span class="application-text">Li-ion battery cells for data centre UPS, grid-scale energy storage</span></td>
+                            <td><span class="source-text">IEA; USGS MCS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Graphite</span></td>
+                            <td><span class="application-text">Li-ion battery anode material (natural and synthetic)</span></td>
+                            <td><span class="source-text">USGS MCS; EU CRMA Annex I</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Antimony</span></td>
+                            <td><span class="application-text">Flame retardant in data centre cabling and PCB substrates <span class="material-formula">(Sb₂O₃)</span>; lead-acid battery hardening</span></td>
+                            <td><span class="source-text">USGS MCS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Silicon metal (high-purity)</span></td>
+                            <td><span class="application-text">Polysilicon feedstock for semiconductor-grade wafer production</span></td>
+                            <td><span class="source-text">SEMI; USGS MCS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Palladium</span></td>
+                            <td><span class="application-text">MLCC electrodes in AI accelerator PCBs; wire bonding in semiconductor packaging</span></td>
+                            <td><span class="source-text">Johnson Matthey PGM Market Report</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Tantalum</span></td>
+                            <td><span class="application-text">Capacitors in server power delivery; ALD precursors in advanced fab processes</span></td>
+                            <td><span class="source-text">USGS MCS; TechInsights teardown data</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Neon</span></td>
+                            <td><span class="application-text">Excimer laser gas for DUV lithography</span></td>
+                            <td><span class="source-text">Techcet Critical Materials Report</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="material-name">Fluorine compounds (high-purity)</span></td>
+                            <td><span class="application-text">Etch gases <span class="material-formula">(CF₄, C₄F₈, NF₃, SF₆)</span> in semiconductor fabrication</span></td>
+                            <td><span class="source-text">Techcet; Linde technical documentation</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="reg-maintenance">
+                <div class="reg-maintenance-label">Register Maintenance</div>
+                <p>The AI-Critical Materials Register is reviewed at methodology version milestones. Materials are added when their AI infrastructure application is documented at primary source standard. Materials are removed when the AI infrastructure application is superseded (e.g., a material replaced by a substitute in semiconductor manufacturing). The register is a convenience list, not an exhaustive boundary — materials not on the register can qualify through individual Condition 1(a)+(b) documentation.</p>
+            </div>
+
+            <a class="reg-ref" href="/research/methodology/manual/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                WEO Methodology Manual — §3.5 Option G
+            </a>
+
+        </main>
+
+        <footer class="page-footer">
+            <p class="footer-version">Register V1 · WEO v1.3.0</p>
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+    // Navigation toggle (mobile)
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+    </script>
+
+    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <script>
+    (function() {
+        var btn = document.getElementById('backToTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function() {
+            btn.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        btn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+    </script>
+
+    <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
