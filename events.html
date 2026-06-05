@@ -3489,6 +3489,7 @@ function mapApiEventToFull(e) {
   if (e.tiebreaker != null) full.tiebreaker = e.tiebreaker;
   if (e.piet != null) full.piet = e.piet;
   if (e.oep != null) full.oep = e.oep;
+  if (e.trace != null) full.trace = e.trace;
   if (e.f1_annotation != null) full.f1_annotation = e.f1_annotation;
   if ((e.ecosystem_implementation ?? e.ecosystemImplementation) != null) full.ecosystem_implementation = e.ecosystem_implementation ?? e.ecosystemImplementation;
   // ENT passthrough
@@ -5227,7 +5228,7 @@ const openModal = (id) => {
         `;
         
         // Verification Section (moved here - after Tier Classification, harmonised with index.html)
-        const checkpointsTooltipKey = full && full.ai_connection_pathway === 'piet' ? 'checkpointsPiet' : full && full.ai_connection_pathway === 'oep' ? 'checkpointsOep' : 'checkpoints';
+        const checkpointsTooltipKey = full && full.ai_connection_pathway === 'piet' ? 'checkpointsPiet' : full && full.ai_connection_pathway === 'oep' ? 'checkpointsOep' : full && full.ai_connection_pathway === 'trace' ? 'checkpointsTrace' : 'checkpoints';
         const checkpointsTooltip = generateTooltip(checkpointsTooltipKey, 'left');
         const confidenceTooltip = generateTooltip('confidence', 'left');
         
@@ -5261,7 +5262,7 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(full && (full.ai_connection_pathway === 'piet' || full.ai_connection_pathway === 'oep')) ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>` : ''}
+                        ${!(full && (full.ai_connection_pathway === 'piet' || full.ai_connection_pathway === 'oep' || full.ai_connection_pathway === 'trace')) ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>` : ''}
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold Met</span>
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence Confirmed</span>
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status Confirmed</span>
@@ -5374,10 +5375,69 @@ const openModal = (id) => {
                             </div>
                         </div>`;
                     })() : ''}
+                    ${full && full.trace ? (() => {
+                        const t = full.trace;
+                        let groupedSources = [];
+                        let srcIdx = 1;
+                        t.conditions.forEach(c => {
+                            if(c.sources && c.sources.length > 0) {
+                                groupedSources.push({ gate: c.factor, sources: c.sources.map(s => ({...s, num: srcIdx++})) });
+                            }
+                        });
+                        const totalSources = srcIdx - 1;
+                        const matChips = t.materials.map(m => `<div class="trace-material-chip">${m.name}<div class="trace-material-tooltip">${m.application}</div></div>`).join('');
+                        const exclHtml = t.excludedInstrumentCheck ? `
+                            <div style="margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+                                <div style="font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.28);margin-bottom:0.25rem;">Excluded Instrument Check</div>
+                                <div class="trace-exclusion-row"><span class="gate-pass">✓</span><span>${!t.excludedInstrumentCheck.generalIndustrialPolicy ? 'Not general industrial policy' : 'General industrial policy'}</span></div>
+                                <div class="trace-exclusion-row"><span class="gate-pass">✓</span><span>${!t.excludedInstrumentCheck.broadEconomicStimulus ? 'Not broad economic stimulus' : 'Broad economic stimulus'}</span></div>
+                                <div class="trace-exclusion-row"><span class="gate-pass">✓</span><span>${!t.excludedInstrumentCheck.multiSectorFramework ? 'Not multi-sector framework' : 'Multi-sector framework'}</span></div>
+                            </div>` : '';
+                        return `
+                        <div style="margin-top:1rem;margin-bottom:0.5rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div>
+                        <div class="piet-verification-subsection">
+                            <div class="piet-expand-trigger" onclick="this.classList.toggle('expanded'); this.parentElement.querySelector('.piet-detail-panel').classList.toggle('visible');">
+                                <span class="badge-with-tooltip"><span class="piet-pathway-label">TRACE</span> · ${t.materials.length} materials · ${t.confidence}${generateTooltip('trace', 'left')}</span>
+                                <span class="piet-expand-chevron">▸</span>
+                            </div>
+                            <div class="piet-detail-panel">
+                                <div style="font-size:0.625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:rgba(255,255,255,0.35);padding-bottom:0.25rem;">Materials</div>
+                                <div class="trace-materials-shelf">${matChips}</div>
+                                ${t.conditions.map(c => `
+                                    <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
+                                        <span class="${c.pass ? 'gate-pass' : 'gate-fail'}">${c.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>
+                                        <span><span class="gate-name">${c.factor}:</span> <span class="gate-metric">${c.summary || c.rationale.substring(0, 80) + '…'}</span></span>
+                                        <span class="gate-detail-chevron">▸</span>
+                                    </div>
+                                    <div class="piet-gate-evidence">
+                                        <div class="piet-rationale-toggle" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Hide full rationale ▾' : 'Full rationale ▸';">Full rationale ▸</div>
+                                        <div class="piet-rationale-full">${c.rationale}</div>
+                                    </div>
+                                `).join('')}
+                                ${exclHtml}
+                                ${totalSources > 0 ? `
+                                <div class="piet-sources-footer">
+                                    <span class="piet-sources-toggle" onclick="this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Sources (${totalSources}) ▾' : 'Sources (${totalSources}) ▸';">Sources (${totalSources}) ▸</span>
+                                    <div class="piet-sources-list">
+                                        ${groupedSources.map(grp => `
+                                            <div class="piet-source-gate-label">${grp.gate}</div>
+                                            ${grp.sources.map(s => `
+                                                <div class="piet-source-item">
+                                                    <span class="piet-source-num">[${s.num}]</span>
+                                                    <span class="piet-source-type ${s.type.toLowerCase()}">${s.type}</span>
+                                                    ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.desc} ↗</a>` : `<span>${s.desc}</span>`}
+                                                </div>
+                                            `).join('')}
+                                        `).join('')}
+                                    </div>
+                                </div>` : ''}
+                            </div>
+                        </div>`;
+                    })() : ''}
                 </div>
             </div>
         `;
-        
+
         // Sources - Enhanced Source Provenance UX
         const hasRollingUpdates = full.rollingUpdates && full.rollingUpdates.length > 0;
         
@@ -5523,12 +5583,18 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep') ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>` : ''}
+                        ${!(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep' || e.ai_connection_pathway === 'trace') ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>` : ''}
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold</span>
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence</span>
                         <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status</span>
                     </div>
-                    ${(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep') ? `<div style="margin-top:1rem;margin-bottom:0.25rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div><span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.ai_detail || (e.ai_connection_pathway === 'piet' ? 'PIET' : 'OEP')}</span>` : ''}
+                    ${(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep' || e.ai_connection_pathway === 'trace') ? (() => {
+                        const pwLabel = e.ai_detail || (e.ai_connection_pathway === 'piet' ? 'PIET' : e.ai_connection_pathway === 'trace' ? 'TRACE' : 'OEP');
+                        const matChips = (e.ai_connection_pathway === 'trace' && e.trace && e.trace.materials)
+                            ? '<div class="trace-materials-shelf" style="margin-top:0.375rem;">' + e.trace.materials.map(m => `<div class="trace-material-chip">${m.name}<div class="trace-material-tooltip">${m.application}</div></div>`).join('') + '</div>'
+                            : '';
+                        return `<div style="margin-top:1rem;margin-bottom:0.25rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div><span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${pwLabel}</span>${matChips}`;
+                    })() : ''}
                 </div>
             </div>
         `;
