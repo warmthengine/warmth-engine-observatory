@@ -23,7 +23,9 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 - **Interactive Map** — Geographic visualisation of global AI infrastructure deployment
 - **Interactive Atlas** — Network, timeline, and connectedness analytical surface for exploring coordination topology and event relationships via Cytoscape.js
 - **Evidence-Based Verification** — Every event verified through primary and corroborating sources with gold standard evidentiary requirements
-- **Sovereign Capability Profiles** — 7-dimension framework assessing 14 state actors' sovereign control across the AI infrastructure stack, with four designation levels (PAA, AIK, ACS, Participant)
+- **Sovereign Capability Profiles** — 7-dimension framework assessing 14 state actors' sovereign control across the AI infrastructure stack, with four designation levels (PAA, AIK, ACS, Participant); includes qualification headlines, constraint summaries, sourced evidence, and severance analysis
+- **Profiles Page** — Standalone `/profiles/` page rendering the full SCP panel with dimension filtering, actor detail expansion, and Dimension Watch table
+- **Dimension Watch** — Forward-looking monitoring table identifying actors approaching a designation status change at the next assessment cycle, with trigger conditions and timeline estimates
 - **MCP Integration** — Model Context Protocol server at `warmthengine.com/mcp` exposing seven programmatic tools for AI systems to query verified Coordination Intelligence (search_events, get_event, get_connections, get_connection_by_id, get_actors, get_coverage_stats, get_methodology)
 
 ---
@@ -86,6 +88,10 @@ warmth-engine-observatory/
 ├── support.html                # Supporter access
 ├── legal.html                  # Legal information
 ├── 404.html                    # Custom error page
+├── profiles/
+│   └── index.html                  # Sovereign Capability Profiles page (generated)
+├── scripts/
+│   └── generate_profiles.py        # Profiles page generator (actors JSON → HTML)
 ├── data/
 │   ├── events-free.json            # Static fallback (free-tier event data)
 │   └── weo-methodology-map.json    # 166 term-to-anchor semantic mappings
