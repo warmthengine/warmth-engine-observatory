@@ -194,18 +194,18 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   /* Matrix scroll container */
   .matrix-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
   .matrix-scroll::-webkit-scrollbar{display:none}
-  .matrix-inner{min-width:600px;padding:0 16px}
+  .matrix-inner{min-width:750px;padding:0 16px}
 
-  /* Comfortable column sizing inside the scroll area — NOT squeezed to viewport */
+  /* Comfortable column sizing inside the scroll area — wide enough for pills to not overlap */
   .pills-spacer{width:120px;flex-shrink:0}
-  .pills-grid{grid-template-columns:repeat(7,56px);gap:4px 0}
+  .pills-grid{grid-template-columns:repeat(7,76px);gap:4px 0}
   .pill{font-size:10px;padding:4px 7px;gap:3px;border-radius:10px}
   .pill-ct{font-size:8px}
   .pills-row{padding:12px 0 10px}
 
   .row-name{width:120px;flex-shrink:0;font-size:12px}
-  .row-dots{grid-template-columns:repeat(7,56px)}
-  .dot{width:24px;height:10px;border-radius:3px}
+  .row-dots{grid-template-columns:repeat(7,76px)}
+  .dot{width:28px;height:10px;border-radius:3px}
   .row-score{font-size:12px;width:34px;margin-left:8px}
   .row-badge{margin-left:6px}
   .row-chev{margin-left:4px}
@@ -223,7 +223,8 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .watch-desc{padding:0 16px;margin-bottom:10px}
   .watch-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
   .watch-scroll::-webkit-scrollbar{display:none}
-  .watch-tbl{min-width:560px}
+  .watch-tbl{min-width:580px}
+  .watch-tbl td:nth-child(2){white-space:nowrap}
 
   /* Footer padding */
   .ftr{margin-top:20px;padding:16px}
