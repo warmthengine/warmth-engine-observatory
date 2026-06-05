@@ -10576,7 +10576,7 @@ function generateCCSection(eventId, showFullContent) {
           traceConditionsHtml += '<div class="piet-gate-evidence"><div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + c.rationale + '</div></div>';
         });
         var traceExclHtml = '';
-        if (event.trace.excludedInstrumentCheck) {
+        if (false && event.trace.excludedInstrumentCheck) {
           var ei = event.trace.excludedInstrumentCheck;
           traceExclHtml = '<div style="margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);"><div style="font-size:0.5625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.28);margin-bottom:0.25rem;">Excluded Instrument Check</div>';
           traceExclHtml += '<div class="trace-exclusion-row"><span class="gate-pass">\u2713</span><span>' + (!ei.generalIndustrialPolicy ? 'Not general industrial policy' : 'General industrial policy') + '</span></div>';
