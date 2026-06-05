@@ -114,7 +114,7 @@ def watch_html(ws):
     if not ws: return ''
     h='<div class="watch"><h2 class="watch-title">Dimension Watch</h2>'
     h+='<p class="watch-desc">Dimensions approaching a status change at the next assessment cycle.</p>'
-    h+='<table class="watch-tbl"><thead><tr><th>Actor</th><th>Dimension</th><th>Current</th><th>Expected</th><th>Trigger</th><th>Timeline</th></tr></thead><tbody>'
+    h+='<table class="watch-tbl"><thead><tr><th>Actor</th><th>Dimension</th><th>Current</th><th>Potential</th><th>Trigger</th><th>Timeline</th></tr></thead><tbody>'
     for w in ws:
         dk=w.get('dimension',''); di=DK.index(dk) if dk in DK else -1
         dn=DN[di] if di>=0 else dk; dc=DC[di] if di>=0 else ''
@@ -122,7 +122,8 @@ def watch_html(ws):
         if exp=='Probable MET': exp='Possible MET'
         cur=w.get('current',''); cc='det-met' if cur=='MET' else 'det-not'
         aid=w.get('actor_id','').lower()
-        h+=f'<tr><td><a href="#{aid}" class="watch-link">{e(w.get("actor_id",""))}</a></td>'
+        tr_cls=f' class="watch-row-{dc}"' if dc else ''
+        h+=f'<tr{tr_cls}><td><a href="#{aid}" class="watch-link">{e(w.get("actor_id",""))}</a></td>'
         h+=f'<td><span class="det-dot {dc}" style="display:inline-block;margin-right:5px;"></span>{e(dn)}</td>'
         h+=f'<td class="{cc}">{e(cur)}</td><td>{e(exp)}</td><td>{e(w.get("trigger",""))}</td><td>{e(w.get("timeline",""))}</td></tr>'
     h+='</tbody></table></div>'
@@ -220,7 +221,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .pills-row{{display:flex;align-items:center;padding:16px 0 12px;border-bottom:1px solid rgba(51,65,85,.5)}}
 .pills-spacer{{width:200px;flex-shrink:0}}
 .pills-grid{{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px}}
-.pill{{font-size:11px;font-weight:480;padding:4px 10px;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;border-radius:10px;border:1px solid transparent}}
+.pill{{font-size:11px;font-weight:480;padding:4px 8px;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;border-radius:10px;border:1px solid transparent}}
 .pill .pill-dot{{width:6px;height:6px;border-radius:50%;flex-shrink:0}}
 .pill.hw{{color:#7DB8F5}} .pill.hw .pill-dot{{background:var(--hw)}}
 .pill.pl{{color:#B9A4F8}} .pill.pl .pill-dot{{background:var(--pl)}}
@@ -249,7 +250,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .row-name{{font-size:15px;font-weight:480;color:var(--t2);width:200px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .sample-star{{display:inline-block;vertical-align:super;margin-left:3px;line-height:1}}
 .row-dots{{display:grid;grid-template-columns:repeat(7,var(--col-w));justify-items:center;align-items:center}}
-.dot{{width:14px;height:14px;border-radius:50%;transition:all var(--fast)}}
+.dot{{width:14px;height:14px;border-radius:4px;transition:all var(--fast)}}
 .dot-met.hw{{background:var(--hw)}} .dot-met.pl{{background:var(--pl)}} .dot-met.gv{{background:var(--gv)}}
 .dot-unmet{{background:transparent;border:1.5px solid rgba(255,255,255,.1)}}
 .dot.col-hl{{transform:scale(1.3);box-shadow:0 0 8px rgba(255,255,255,.2)}}
@@ -311,6 +312,11 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .watch-tbl td{{padding:10px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top;color:var(--t4);line-height:1.5;font-weight:380}}
 .watch-tbl tr:hover td{{background:rgba(255,255,255,.01)}}
 .watch-tbl td:nth-child(5){{color:var(--t3)}}
+.watch-tbl td:first-child{{border-left:3px solid transparent;padding-left:8px}}
+.watch-row-hw td:first-child{{border-left-color:rgba(96,165,250,0.3)}}
+.watch-row-pl td:first-child{{border-left-color:rgba(167,139,250,0.3)}}
+.watch-row-gv td:first-child{{border-left-color:rgba(45,212,191,0.3)}}
+.watch-tbl .det-dot{{width:8px;height:8px}}
 .watch-link{{color:var(--link);text-decoration:none;font-weight:480}} .watch-link:hover{{color:var(--link-hover);text-decoration:underline}}
 
 /* Footer */
