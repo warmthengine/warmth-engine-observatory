@@ -472,16 +472,22 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 @media(max-width:1140px){{.panel{{margin:24px 16px;padding:24px 24px 28px}} :root{{--col-w:64px}} .row-name,.pills-spacer{{width:160px}} .row-name{{font-size:14px}}}}
 @media(max-width:860px){{:root{{--col-w:52px}} .row-name,.pills-spacer{{width:130px}} .row-name{{font-size:13px}} .dot{{width:12px;height:12px}} .row-score{{font-size:13px;width:38px}} .badge{{font-size:10px;padding:2px 8px}}}}
 
-/* Responsive — mobile: enable scroll containers */
+/* Responsive — mobile: native layout, no horizontal scroll */
 @media(max-width:767px){{
+  /* Panel & header */
   .panel{{margin:12px 8px;padding:16px 0 20px;overflow:hidden}}
   .hdr{{padding:0 16px 16px}}
   .hdr-title{{font-size:18px}}
-  .matrix-scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}}
-  .matrix-scroll::-webkit-scrollbar{{display:none}}
-  .matrix-inner{{min-width:750px;padding:0 16px}}
-  .pills-spacer{{width:120px;flex-shrink:0}}
-  .pills-grid{{grid-template-columns:repeat(7,76px);gap:4px 0}}
+
+  /* Matrix — remove scroll container, content fits natively */
+  .matrix-scroll{{overflow-x:visible}}
+  .matrix-inner{{min-width:unset;padding:0}}
+  .matrix-scroll-wrap>.scroll-fade{{display:none}}
+
+  /* Pills — wrapping flex row, no column alignment on mobile */
+  .pills-spacer{{display:none}}
+  .pills-row{{display:block;padding:12px 16px 10px}}
+  .pills-grid{{display:flex;flex-wrap:wrap;gap:4px 6px}}
   .pill{{font-size:10px;padding:4px 7px;gap:3px;border-radius:10px}}
   .pill.hw{{border-color:rgba(96,165,250,.2)}}
   .pill.pl{{border-color:rgba(167,139,250,.2)}}
@@ -489,18 +495,30 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .pill-ct{{font-size:8px}}
   .pill-group{{gap:1px}}
   .pill-group>.weo-info-trigger{{display:none}}
-  .pills-row{{padding:12px 0 10px}}
-  .row-name{{width:120px;flex-shrink:0;font-size:12px}}
-  .row-dots{{grid-template-columns:repeat(7,76px)}}
-  .dot{{width:28px;height:10px;border-radius:3px}}
-  .row-score{{font-size:12px;width:34px;margin-left:8px}}
+
+  /* Actor rows — compact flex bar matching homepage SCP panel */
+  .row{{padding:8px 16px}}
+  .row-name{{width:100px;flex-shrink:0;font-size:12px}}
+  .row-dots{{display:flex;gap:2px;flex:1;margin:0 8px}}
+  .dot{{flex:1;width:auto;height:8px;border-radius:2px}}
+  .row-score{{font-size:11px;width:28px;margin-left:6px}}
   .row-badge{{margin-left:6px}}
+  .badge{{font-size:9px;padding:2px 7px}}
   .row-chev{{display:none}}
-  .row{{padding:10px 0}}
+
+  /* Dot highlight — outline instead of scale for flex segments */
+  .dot.col-hl{{transform:none;box-shadow:none;outline:2px solid rgba(255,255,255,.5);outline-offset:1px;z-index:1}}
+  .dot.col-hl.hw{{outline-color:rgba(96,165,250,.7)}}
+  .dot.col-hl.pl{{outline-color:rgba(167,139,250,.7)}}
+  .dot.col-hl.gv{{outline-color:rgba(45,212,191,.7)}}
+
+  /* Groups, detail, participants */
   .grp{{padding:14px 16px 6px}}
   .paa-fold{{margin:6px 16px 0}}
   .part-group>summary{{padding:10px 16px}}
   .det{{padding:12px 16px 16px}}
+
+  /* Watch table — justified horizontal scroll (real data table) */
   .watch{{margin-top:32px;padding-top:16px}}
   .watch-title{{padding:0 16px;font-size:15px}}
   .watch-desc{{padding:0 16px;margin-bottom:10px}}
@@ -508,14 +526,20 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .watch-scroll::-webkit-scrollbar{{display:none}}
   .watch-tbl{{min-width:580px}}
   .watch-tbl td:nth-child(2){{white-space:nowrap}}
+
+  /* Footer */
   .ftr{{margin-top:20px;padding:16px;text-align:left}}
   .ftr-links{{flex-direction:column;gap:8px}}
+
+  /* Register metadata & snapshot history */
   .register-meta{{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}}
   .snapshot-history{{padding:0;text-align:left}}
   .snapshot-title{{text-align:left;display:block}}
   .snapshot-list{{display:flex;flex-direction:column;gap:6px;width:100%}}
   .snapshot-item{{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;width:100%}}
   .snapshot-desc-row{{display:flex;flex-wrap:wrap;align-items:center;gap:8px}}
+
+  /* Tooltip overlay */
   #weo-tooltip-overlay{{width:300px;font-size:13px;padding:14px 16px}}
 }}
 
