@@ -196,9 +196,9 @@ def snapshot_history_html(meta):
         '<div class="snapshot-title">Snapshot History</div>'
         '<div class="snapshot-list">'
         f'<div class="snapshot-item active">'
-        f'<span class="snapshot-date">{ad_fmt}</span>'
-        f'<span class="snapshot-label">Initial register ({rv}) — {ta} actors assessed</span>'
-        '<span class="snapshot-badge">Active</span>'
+        f'<div class="snapshot-date">{ad_fmt}</div>'
+        f'<div class="snapshot-desc-row"><span class="snapshot-label">Initial register ({rv}) — {ta} actors assessed</span>'
+        '<span class="snapshot-badge">Active</span></div>'
         '</div>'
         '</div></div>'
     )
@@ -344,7 +344,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .paa-fold-label{{display:block;font-size:10px;color:rgba(245,158,11,.5);text-align:right;letter-spacing:.03em}}
 
 /* Actor rows — flex + grid dots */
-.actor{{border-bottom:1px solid rgba(255,255,255,.03)}}
+.actor{{border-bottom:1px solid rgba(255,255,255,.03);scroll-margin-top:90px}}
 .actor[open]>.row{{background:rgba(51,65,85,.15)}}
 .actor[open] .row-chev{{transform:rotate(180deg);color:var(--t4)}}
 .row{{display:flex;align-items:center;padding:10px 0;cursor:pointer;transition:background var(--fast) var(--ease);list-style:none}}
@@ -368,7 +368,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .badge-aik{{background:rgba(6,182,212,.12);color:#22D3EE;border:1px solid rgba(6,182,212,.3)}}
 .badge-acs{{background:rgba(168,85,247,.12);color:#C084FC;border:1px solid rgba(168,85,247,.3)}}
 .badge-part{{background:rgba(100,116,139,.12);color:var(--part);border:1px solid rgba(100,116,139,.25)}}
-.row-chev{{font-size:10px;color:var(--t5);margin-left:10px;transition:transform var(--norm) var(--ease);flex-shrink:0}}
+.row-chev{{font-size:10px;color:var(--t5);margin-left:6px;transition:transform var(--norm) var(--ease);flex-shrink:0}}
 
 /* Detail */
 .det{{padding:12px 20px 20px;background:rgba(15,23,42,.3);border-top:1px solid rgba(255,255,255,.03)}}
@@ -431,6 +431,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .snapshot-date{{font-family:'Geist Mono',monospace;font-size:12px;color:var(--t4);min-width:90px;font-weight:480}}
 .snapshot-label{{font-size:12px;color:var(--t3);flex:1}}
 .snapshot-badge{{font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--r-sm);background:rgba(45,212,191,.1);color:#5EEAD4}}
+.snapshot-desc-row{{display:flex;align-items:center;gap:8px;flex:1}}
 
 /* Footer */
 .ftr{{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5);text-align:left}}
@@ -487,14 +488,14 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .pill.gv{{border-color:rgba(45,212,191,.2)}}
   .pill-ct{{font-size:8px}}
   .pill-group{{gap:1px}}
-  .pill-group>.weo-info-trigger{{width:9px;height:9px;font-size:6px}}
+  .pill-group>.weo-info-trigger{{display:none}}
   .pills-row{{padding:12px 0 10px}}
   .row-name{{width:120px;flex-shrink:0;font-size:12px}}
   .row-dots{{grid-template-columns:repeat(7,76px)}}
   .dot{{width:28px;height:10px;border-radius:3px}}
   .row-score{{font-size:12px;width:34px;margin-left:8px}}
   .row-badge{{margin-left:6px}}
-  .row-chev{{margin-left:4px}}
+  .row-chev{{display:none}}
   .row{{padding:10px 0}}
   .grp{{padding:14px 16px 6px}}
   .paa-fold{{margin:6px 16px 0}}
@@ -512,9 +513,9 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .register-meta{{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}}
   .snapshot-history{{padding:0;text-align:left}}
   .snapshot-title{{text-align:left;display:block}}
-  .snapshot-list{{display:flex;flex-direction:column;align-items:flex-start;gap:6px}}
-  .snapshot-item{{display:flex;flex-direction:column;align-items:flex-start!important;gap:6px;text-align:left}}
-  .snapshot-badge{{align-self:flex-start}}
+  .snapshot-list{{display:flex;flex-direction:column;gap:6px;width:100%}}
+  .snapshot-item{{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;width:100%}}
+  .snapshot-desc-row{{display:flex;flex-wrap:wrap;align-items:center;gap:8px}}
   #weo-tooltip-overlay{{width:300px;font-size:13px;padding:14px 16px}}
 }}
 
@@ -629,7 +630,7 @@ if(navToggle&&navLinks){{
       if(partGroup)partGroup.open=true;
       actorEl.open=true;
       requestAnimationFrame(function(){{
-        actorEl.scrollIntoView({{behavior:'smooth',block:'center'}});
+        actorEl.scrollIntoView({{behavior:'smooth',block:'start'}});
       }});
     }});
   }});
