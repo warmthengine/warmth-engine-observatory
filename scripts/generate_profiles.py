@@ -148,7 +148,7 @@ def pills(actors):
     h='<div class="pills-row"><span class="pills-spacer"></span><span class="pills-grid">'
     for i in range(7):
         tip = tooltip_trigger(DN[i], TOOLTIP_DIM[i][0], TOOLTIP_DIM[i][1])
-        h+=f'<span class="pill {DC[i]}" data-dim="{i}"><span class="pill-dot"></span>{DS[i]} <span class="pill-ct">{cts[i]}</span>{tip}</span>'
+        h+=f'<span class="pill-group"><span class="pill {DC[i]}" data-dim="{i}"><span class="pill-dot"></span>{DS[i]} <span class="pill-ct">{cts[i]}</span></span>{tip}</span>'
     h+='</span></div>'
     return h
 
@@ -335,6 +335,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .pill.active.pl{{background:rgba(167,139,250,.18);border-color:rgba(167,139,250,.45);color:#C4B5FD}}
 .pill.active.gv{{background:rgba(45,212,191,.18);border-color:rgba(45,212,191,.45);color:#5EEAD4}}
 .pill-ct{{font-family:'Geist Mono',monospace;font-size:9px;opacity:.5;font-weight:480}}
+.pill-group{{display:flex;align-items:center;justify-content:center;gap:2px}}
 
 /* Groups */
 .grp{{font-size:11px;font-weight:580;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;padding:18px 0 6px;display:flex;align-items:center;gap:8px}}
@@ -454,7 +455,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .weo-info-trigger::before{{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:44px;min-height:44px}}
 .weo-info-trigger .weo-tooltip{{display:none}}
 .badge-with-tooltip{{display:inline-flex;align-items:center;overflow:visible}}
-.pill .weo-info-trigger{{width:11px;height:11px;font-size:8px;margin-left:3px;opacity:.7}}
+.pill-group>.weo-info-trigger{{width:10px;height:10px;font-size:7px;margin-left:0;opacity:0.5}}
 .hdr-title .weo-info-trigger{{width:15px;height:15px;font-size:10px;margin-left:7px}}
 #weo-tooltip-overlay{{position:fixed;background:#1E293B;border:1px solid #475569;border-radius:8px;padding:16px 18px;width:340px;max-width:calc(100vw - 32px);font-size:13.5px;color:#CBD5E1;line-height:1.65;box-shadow:0 4px 20px rgba(0,0,0,.6);z-index:10000;opacity:0;visibility:hidden;transition:opacity 250ms ease,visibility 250ms ease;pointer-events:none}}
 #weo-tooltip-overlay.visible{{opacity:1;visibility:visible;pointer-events:auto}}
@@ -485,6 +486,8 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .pill.pl{{border-color:rgba(167,139,250,.2)}}
   .pill.gv{{border-color:rgba(45,212,191,.2)}}
   .pill-ct{{font-size:8px}}
+  .pill-group{{gap:1px}}
+  .pill-group>.weo-info-trigger{{width:9px;height:9px;font-size:6px}}
   .pills-row{{padding:12px 0 10px}}
   .row-name{{width:120px;flex-shrink:0;font-size:12px}}
   .row-dots{{grid-template-columns:repeat(7,76px)}}
@@ -504,13 +507,14 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .watch-scroll::-webkit-scrollbar{{display:none}}
   .watch-tbl{{min-width:580px}}
   .watch-tbl td:nth-child(2){{white-space:nowrap}}
-  .ftr{{margin-top:20px;padding:16px}}
+  .ftr{{margin-top:20px;padding:16px;text-align:left}}
   .ftr-links{{flex-direction:column;gap:8px}}
   .register-meta{{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}}
-  .snapshot-history{{padding:0 16px;text-align:left}}
-  .snapshot-title{{text-align:left}}
-  .snapshot-list{{align-items:flex-start}}
-  .snapshot-item{{flex-direction:column;align-items:flex-start;gap:6px}}
+  .snapshot-history{{padding:0;text-align:left}}
+  .snapshot-title{{text-align:left;display:block}}
+  .snapshot-list{{display:flex;flex-direction:column;align-items:flex-start;gap:6px}}
+  .snapshot-item{{display:flex;flex-direction:column;align-items:flex-start!important;gap:6px;text-align:left}}
+  .snapshot-badge{{align-self:flex-start}}
   #weo-tooltip-overlay{{width:300px;font-size:13px;padding:14px 16px}}
 }}
 
@@ -614,6 +618,25 @@ if(navToggle&&navLinks){{
 </script>
 <script>
 (function(){{
+  document.querySelectorAll('.watch-link').forEach(function(link){{
+    link.addEventListener('click',function(e){{
+      e.preventDefault();
+      var href=link.getAttribute('href');
+      if(!href||href[0]!=='#')return;
+      var actorEl=document.getElementById(href.slice(1));
+      if(!actorEl)return;
+      var partGroup=actorEl.closest('.part-group');
+      if(partGroup)partGroup.open=true;
+      actorEl.open=true;
+      requestAnimationFrame(function(){{
+        actorEl.scrollIntoView({{behavior:'smooth',block:'center'}});
+      }});
+    }});
+  }});
+}})();
+</script>
+<script>
+(function(){{
   var tooltipOv=document.getElementById('weo-tooltip-overlay');
   if(!tooltipOv)return;
   var ttTitle=tooltipOv.querySelector('.weo-tooltip-title');
@@ -696,7 +719,8 @@ if(navToggle&&navLinks){{
   document.addEventListener('touchstart',function(e){{
     var pill=e.target.closest('.pill');
     if(!pill)return;
-    var t=pill.querySelector('.weo-info-trigger');
+    var grp=pill.closest('.pill-group');
+    var t=grp?grp.querySelector('.weo-info-trigger'):pill.querySelector('.weo-info-trigger');
     if(!t)return;
     lpTimer=setTimeout(function(){{lpTimer=null;doShow(t)}},600);
   }},{{passive:true}});
