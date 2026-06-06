@@ -20,31 +20,33 @@ WEO_VERSION = '1.3.0'
 e = lambda s: H.escape(s or '', quote=True)
 
 TOOLTIP_DIM = [
-    'Designs and commercially sells training-class AI accelerators under domestic IP control.',
-    'Operates production-capable semiconductor fabrication at process nodes of 7nm or below.',
-    'Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication.',
-    'Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor’s territory.',
-    'Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains.',
-    'Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction.',
-    'Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale.',
+    ('Designs and commercially sells training-class AI accelerators under domestic IP control.', 'section-5-3-d1'),
+    ('Operates production-capable semiconductor fabrication at process nodes of 7nm or below.', 'section-5-3-d2'),
+    ('Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication.', 'section-5-3-d3'),
+    ('Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor\'s territory.', 'section-5-3-d4'),
+    ('Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains.', 'section-5-3-d5'),
+    ('Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction.', 'section-5-3-d6'),
+    ('Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale.', 'section-5-3-d7'),
 ]
 
 BADGE_TOOLTIP_DATA = {
-    'PAA': ('Principal AI Actor', 'Ecosystem anchor — meets three or more dimensions, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (Compute or Models).'),
-    'AIK': ('AI Infrastructure Keystone', 'Structural chokepoint — meets three or more dimensions but lacks a sustainable platform dimension. Controls globally non-substitutable supply chain positions.'),
-    'ACS': ('Advanced Capability State', 'Significant but dependent capabilities — meets three or more dimensions but does not pass the ecosystem independence (severance) test.'),
-    'Part': ('Participant', 'Meets fewer than three dimensions or does not satisfy the designation gate criteria.'),
+    'PAA': ('Principal AI Actor', 'Ecosystem anchor — meets three or more dimensions, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (Compute or Models).', 'section-5-3-1-paa-def'),
+    'AIK': ('AI Infrastructure Keystone', 'Structural chokepoint — meets three or more dimensions but lacks a sustainable platform dimension. Controls globally non-substitutable supply chain positions.', 'section-5-3-1-aik-def'),
+    'ACS': ('Advanced Capability State', 'Significant but dependent capabilities — meets three or more dimensions but does not pass the ecosystem independence (severance) test.', 'section-5-3-1-acs-def'),
+    'Part': ('Participant', 'Meets fewer than three dimensions or does not satisfy the designation gate criteria.', 'section-5-3-1-part-def'),
 }
 
-METHOD_LINK_HTML = '<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/" target="_blank" rel="noopener">§ View in Methodology →</a></div>'
+def method_link(anchor=''):
+    url = '/research/methodology/manual/' + ('#' + anchor if anchor else '')
+    return '<div class="weo-tooltip-method-link"><a href="' + url + '" target="_blank" rel="noopener">§ View in Methodology →</a></div>'
 
-def tooltip_trigger(title, body):
+def tooltip_trigger(title, body, anchor=''):
     return (
         '<span class="weo-info-trigger">&#9432;'
         '<span class="weo-tooltip">'
         '<div class="weo-tooltip-title">' + e(title) + '</div>'
         '<div class="weo-tooltip-body">' + e(body) + '</div>'
-        + METHOD_LINK_HTML +
+        + method_link(anchor) +
         '</span></span>'
     )
 
@@ -127,8 +129,8 @@ def actor_row(a):
             dots+=f'<span class="dot dot-met {DC[i]}" data-di="{i}"></span>'
         else:
             dots+=f'<span class="dot dot-unmet" data-di="{i}"></span>'
-    tt, tb = BADGE_TOOLTIP_DATA.get(a['d'], ('', ''))
-    btip = tooltip_trigger(tt, tb)
+    tt, tb, ta = BADGE_TOOLTIP_DATA.get(a['d'], ('', '', ''))
+    btip = tooltip_trigger(tt, tb, ta)
     h=f'<details class="actor" id="{a["id"].lower()}">'
     h+=f'<summary class="row"><span class="row-name" title="{e(a["n"])}">{e(a["n"])}{ns}</span>'
     h+=f'<span class="row-dots">{dots}</span>'
@@ -145,7 +147,7 @@ def pills(actors):
             if a['dims'][i]: cts[i]+=1
     h='<div class="pills-row"><span class="pills-spacer"></span><span class="pills-grid">'
     for i in range(7):
-        tip = tooltip_trigger(DN[i], TOOLTIP_DIM[i])
+        tip = tooltip_trigger(DN[i], TOOLTIP_DIM[i][0], TOOLTIP_DIM[i][1])
         h+=f'<span class="pill {DC[i]}" data-dim="{i}"><span class="pill-dot"></span>{DS[i]} <span class="pill-ct">{cts[i]}</span>{tip}</span>'
     h+='</span></div>'
     return h
@@ -239,9 +241,10 @@ def build_page(data):
 
     hdr_tip = tooltip_trigger(
         'Sovereign Capability Profiles',
-        'Seven-dimension framework assessing each actor’s sovereign control across the AI infrastructure stack. '
+        'Seven-dimension framework assessing each actor\'s sovereign control across the AI infrastructure stack. '
         'Actors are designated as PAA (ecosystem anchor), AIK (structural chokepoint), ACS (significant but dependent '
-        'capabilities), or Participant based on capability breadth, ecosystem independence, and platform sustainability.'
+        'capabilities), or Participant based on capability breadth, ecosystem independence, and platform sustainability.',
+        'section-5-3'
     )
     reg_meta = register_meta_html(meta)
     snap_hist = snapshot_history_html(meta)
@@ -504,11 +507,17 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   .ftr{{margin-top:20px;padding:16px}}
   .ftr-links{{flex-direction:column;gap:8px}}
   .register-meta{{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}}
-  .snapshot-history{{padding:0 16px}}
+  .snapshot-history{{padding:0 16px;text-align:left}}
+  .snapshot-title{{text-align:left}}
+  .snapshot-list{{align-items:flex-start}}
   .snapshot-item{{flex-direction:column;align-items:flex-start;gap:6px}}
   #weo-tooltip-overlay{{width:300px;font-size:13px;padding:14px 16px}}
 }}
 
+.weo-back-to-top{{position:fixed;bottom:2rem;right:2rem;width:40px;height:40px;background:var(--raised);border:1px solid var(--border);border-radius:var(--r-md);color:#94A3B8;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 200ms ease,color 150ms ease,border-color 150ms ease;z-index:100;touch-action:manipulation}}
+.weo-back-to-top.visible{{opacity:1;pointer-events:auto}}
+.weo-back-to-top:hover{{color:#60a5fa;border-color:#60a5fa}}
+@media(max-width:767px){{.weo-back-to-top{{width:36px;height:36px}}.weo-back-to-top.visible{{opacity:0.5}}}}
 @media(prefers-reduced-motion:reduce){{*,*::before,*::after{{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}}}
 </style>
 </head>
@@ -702,6 +711,8 @@ if(navToggle&&navLinks){{
   window.addEventListener('scroll',hideTooltipNow,{{passive:true,capture:true}});
 }})();
 </script>
+<button class="weo-back-to-top" id="backToTop" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+<script>(function(){{var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){{btn.classList.toggle('visible',window.scrollY>300)}},{{passive:true}});btn.addEventListener('click',function(){{var motion=window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';window.scrollTo({{top:0,behavior:motion}});}});}})();</script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>(function(){{var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))}})();</script>
 </body>
