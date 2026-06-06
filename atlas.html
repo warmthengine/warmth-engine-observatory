@@ -855,7 +855,9 @@
             font-family: var(--font-mono);
         }
         .topo-kv-label { color: var(--text-secondary); }
-        .topo-kv-value { color: var(--text-primary); font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+        .topo-kv-value { color: var(--text-primary); font-weight: 500; font-variant-numeric: tabular-nums; }
+        .topo-kv-count { display: inline-block; min-width: 2.5em; text-align: right; }
+        .topo-kv-pct { color: #94A3B8; margin-left: 6px; }
         .topo-expand-btn {
             /* Patch §3 — hidden until the "expand to full network"
                feature is implemented. Kept in DOM (not deleted) so
@@ -7782,7 +7784,7 @@
                     row.className = 'topo-kv-row';
                     row.innerHTML = `
                         <span class="topo-kv-label">T${escapeHtml(String(tier))}</span>
-                        <span class="topo-kv-value">${n} (${pct}%)</span>`;
+                        <span class="topo-kv-value"><span class="topo-kv-count">${escapeHtml(String(n))}</span><span class="topo-kv-pct">(${pct}%)</span></span>`;
                     tierEl.appendChild(row);
                 });
 
