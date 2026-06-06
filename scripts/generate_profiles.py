@@ -5,7 +5,7 @@ Dimension dots column-align under pills. Actors collapsed by default.
 Run: python3 scripts/generate_profiles.py --input path/to/actors-free.json --output profiles/index.html
 """
 import json, argparse, html as H, os
-from datetime import date
+from datetime import date, datetime
 
 DN = ['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment']
 DS = ['Chip','Fab','Equip','Compute','Models','Reg','Invest']
@@ -16,7 +16,58 @@ BL = {'PAA':'PAA','AIK':'AIK','ACS':'ACS','Part':'Part'}
 GN = {'PAA':'Principal AI Actors','AIK':'AI Infrastructure Keystones','ACS':'Advanced Capability States'}
 GC = ['Grade 1','Grade 2','Grade 3']
 GCLS = ['g1','g2','g3']
+WEO_VERSION = '1.3.0'
 e = lambda s: H.escape(s or '', quote=True)
+
+TOOLTIP_DIM = [
+    'Designs and commercially sells training-class AI accelerators under domestic IP control.',
+    'Operates production-capable semiconductor fabrication at process nodes of 7nm or below.',
+    'Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication.',
+    'Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor’s territory.',
+    'Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains.',
+    'Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction.',
+    'Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale.',
+]
+
+BADGE_TOOLTIP_DATA = {
+    'PAA': ('Principal AI Actor', 'Ecosystem anchor — meets three or more dimensions, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (Compute or Models).'),
+    'AIK': ('AI Infrastructure Keystone', 'Structural chokepoint — meets three or more dimensions but lacks a sustainable platform dimension. Controls globally non-substitutable supply chain positions.'),
+    'ACS': ('Advanced Capability State', 'Significant but dependent capabilities — meets three or more dimensions but does not pass the ecosystem independence (severance) test.'),
+    'Part': ('Participant', 'Meets fewer than three dimensions or does not satisfy the designation gate criteria.'),
+}
+
+METHOD_LINK_HTML = '<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/" target="_blank" rel="noopener">§ View in Methodology →</a></div>'
+
+def tooltip_trigger(title, body):
+    return (
+        '<span class="weo-info-trigger">&#9432;'
+        '<span class="weo-tooltip">'
+        '<div class="weo-tooltip-title">' + e(title) + '</div>'
+        '<div class="weo-tooltip-body">' + e(body) + '</div>'
+        + METHOD_LINK_HTML +
+        '</span></span>'
+    )
+
+def fmt_date(d):
+    try:
+        dt = datetime.strptime(d, '%Y-%m-%d')
+        return f"{dt.day} {dt.strftime('%B')} {dt.year}"
+    except Exception:
+        return d
+
+def star():
+    return '<span class="sample-star"><svg width="11" height="11" viewBox="0 0 24 24" fill="rgba(255,215,0,0.3)" stroke="#FFD700" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>'
+
+def src_html(label, s, off):
+    pub=s[off+1]; g=s[off]; dt=s[off+2]; fact=s[off+3]; url=s[off+4]
+    if not pub: return ''
+    gi=(g or 1)-1
+    h=f'<div class="src-entry"><span class="src-label">{label}</span> '
+    h+=f'<span class="src-grade {GCLS[gi]}">{GC[gi]}</span>'
+    h+=f'{e(pub)} &middot; {e(dt or "")}'
+    if url: h+=f' <a href="{e(url)}" target="_blank" rel="noopener" class="src-link">&#8599;</a>'
+    h+=f'<br><span class="src-fact">{e(fact or "")}</span></div>'
+    return h
 
 def norm(a):
     dims=[1 if a['dimensions'].get(k,{}).get('met') else 0 for k in DK]
@@ -35,20 +86,6 @@ def norm(a):
     d='Part' if a.get('designation')=='Participant' else a.get('designation','Part')
     return dict(id=a['id'],n=a['name'],s=a.get('score',0),d=d,dims=dims,con=con,hl=hl,qhl=qhl,qual=qual,
                 svd=a.get('severance_detail'),src=src,aik=a.get('aik_profile'),sample=a.get('sample',False))
-
-def star():
-    return '<span class="sample-star"><svg width="11" height="11" viewBox="0 0 24 24" fill="rgba(255,215,0,0.3)" stroke="#FFD700" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>'
-
-def src_html(label, s, off):
-    pub=s[off+1]; g=s[off]; dt=s[off+2]; fact=s[off+3]; url=s[off+4]
-    if not pub: return ''
-    gi=(g or 1)-1
-    h=f'<div class="src-entry"><span class="src-label">{label}</span> '
-    h+=f'<span class="src-grade {GCLS[gi]}">{GC[gi]}</span>'
-    h+=f'{e(pub)} &middot; {e(dt or "")}'
-    if url: h+=f' <a href="{e(url)}" target="_blank" rel="noopener" class="src-link">&#8599;</a>'
-    h+=f'<br><span class="src-fact">{e(fact or "")}</span></div>'
-    return h
 
 def detail(a):
     h=''
@@ -90,11 +127,13 @@ def actor_row(a):
             dots+=f'<span class="dot dot-met {DC[i]}" data-di="{i}"></span>'
         else:
             dots+=f'<span class="dot dot-unmet" data-di="{i}"></span>'
+    tt, tb = BADGE_TOOLTIP_DATA.get(a['d'], ('', ''))
+    btip = tooltip_trigger(tt, tb)
     h=f'<details class="actor" id="{a["id"].lower()}">'
     h+=f'<summary class="row"><span class="row-name" title="{e(a["n"])}">{e(a["n"])}{ns}</span>'
     h+=f'<span class="row-dots">{dots}</span>'
     h+=f'<span class="row-score">{a["s"]}/7</span>'
-    h+=f'<span class="row-badge"><span class="badge badge-{BC[a["d"]]}">{BL[a["d"]]}</span></span>'
+    h+=f'<span class="row-badge"><span class="badge-with-tooltip"><span class="badge badge-{BC[a["d"]]}">{BL[a["d"]]}</span>{btip}</span></span>'
     h+=f'<span class="row-chev">&#9660;</span></summary>'
     h+=f'<div class="det">{detail(a)}</div></details>'
     return h
@@ -106,7 +145,8 @@ def pills(actors):
             if a['dims'][i]: cts[i]+=1
     h='<div class="pills-row"><span class="pills-spacer"></span><span class="pills-grid">'
     for i in range(7):
-        h+=f'<span class="pill {DC[i]}" data-dim="{i}"><span class="pill-dot"></span>{DS[i]} <span class="pill-ct">{cts[i]}</span></span>'
+        tip = tooltip_trigger(DN[i], TOOLTIP_DIM[i])
+        h+=f'<span class="pill {DC[i]}" data-dim="{i}"><span class="pill-dot"></span>{DS[i]} <span class="pill-ct">{cts[i]}</span>{tip}</span>'
     h+='</span></div>'
     return h
 
@@ -114,6 +154,10 @@ def watch_html(ws):
     if not ws: return ''
     h='<div class="watch"><h2 class="watch-title">Dimension Watch</h2>'
     h+='<p class="watch-desc">Dimensions approaching a status change at the next assessment cycle.</p>'
+    h+=('<div class="watch-scroll-wrap">'
+        '<div class="scroll-fade scroll-fade-left" id="watchFadeL"></div>'
+        '<div class="scroll-fade scroll-fade-right" id="watchFadeR"></div>'
+        '<div class="watch-scroll" id="watchScroll">')
     h+='<table class="watch-tbl"><thead><tr><th>Actor</th><th>Dimension</th><th>Current</th><th>Potential</th><th>Trigger</th><th>Timeline</th></tr></thead><tbody>'
     for w in ws:
         dk=w.get('dimension',''); di=DK.index(dk) if dk in DK else -1
@@ -126,40 +170,89 @@ def watch_html(ws):
         h+=f'<tr{tr_cls}><td><a href="#{aid}" class="watch-link">{e(w.get("actor_id",""))}</a></td>'
         h+=f'<td><span class="det-dot {dc}" style="display:inline-block;margin-right:5px;"></span>{e(dn)}</td>'
         h+=f'<td class="{cc}">{e(cur)}</td><td>{e(exp)}</td><td>{e(w.get("trigger",""))}</td><td>{e(w.get("timeline",""))}</td></tr>'
-    h+='</tbody></table></div>'
+    h+='</tbody></table></div></div></div>'
     return h
+
+def register_meta_html(meta):
+    ad_fmt = fmt_date(meta.get('assessment_date',''))
+    rv = e(meta.get('register_version',''))
+    return (
+        '<div class="register-meta">'
+        f'<div class="register-meta-item"><span class="register-meta-label">Last Verified</span><span class="register-meta-value">{ad_fmt}</span></div>'
+        f'<div class="register-meta-item"><span class="register-meta-label">Register Version</span><span class="register-meta-value version">{rv}</span></div>'
+        '<div class="register-meta-item"><span class="register-meta-label">Document ID</span><span class="register-meta-value">WEO-SCP-001</span></div>'
+        '<div class="register-meta-item"><span class="register-meta-label">Status</span><span class="register-meta-value">Living Register</span></div>'
+        '</div>'
+    )
+
+def snapshot_history_html(meta):
+    ad_fmt = fmt_date(meta.get('assessment_date',''))
+    rv = e(meta.get('register_version',''))
+    ta = meta.get('total_actors', 0)
+    return (
+        '<div class="snapshot-history">'
+        '<div class="snapshot-title">Snapshot History</div>'
+        '<div class="snapshot-list">'
+        f'<div class="snapshot-item active">'
+        f'<span class="snapshot-date">{ad_fmt}</span>'
+        f'<span class="snapshot-label">Initial register ({rv}) — {ta} actors assessed</span>'
+        '<span class="snapshot-badge">Active</span>'
+        '</div>'
+        '</div></div>'
+    )
 
 def build_page(data):
     actors=[norm(a) for a in data['actors']]
     meta=data.get('metadata',{})
     groups={'PAA':[],'AIK':[],'ACS':[],'Part':[]}
     for a in actors: groups[a['d']].append(a)
-    m=pills(actors)
-    m+='<div class="matrix-body">'
-    idx=0
+
+    matrix='<div class="matrix-body">'
     for gk in ['PAA','AIK','ACS']:
         g=groups[gk]
         if not g: continue
-        m+=f'<div class="grp">{GN[gk]} ({len(g)})<span class="grp-line"></span></div>'
-        for a in g: m+=actor_row(a); idx+=1
+        matrix+=f'<div class="grp">{GN[gk]} ({len(g)})<span class="grp-line"></span></div>'
+        for a in g: matrix+=actor_row(a)
         if gk=='PAA':
-            m+='<div class="paa-fold"><span class="paa-fold-label">Ecosystem anchors</span></div>'
+            matrix+='<div class="paa-fold"><span class="paa-fold-label">Ecosystem anchors</span></div>'
     parts=groups['Part']
-    m+=f'<details class="part-group"><summary class="part-toggle"><span class="part-arr">&#9654;</span> {len(parts)} Participants</summary><div class="part-inner">'
-    for a in parts: m+=actor_row(a); idx+=1
-    m+='</div></details>'
-    m+=watch_html(data.get('dimension_watch',[]))
-    m+='</div>'
+    matrix+=f'<details class="part-group"><summary class="part-toggle"><span class="part-arr">&#9654;</span> {len(parts)} Participants</summary><div class="part-inner">'
+    for a in parts: matrix+=actor_row(a)
+    matrix+='</div></details></div>'
+
+    pills_html = pills(actors)
+    matrix_wrap = (
+        '<div class="matrix-scroll-wrap">'
+        '<div class="scroll-fade scroll-fade-left" id="matFadeL"></div>'
+        '<div class="scroll-fade scroll-fade-right" id="matFadeR"></div>'
+        '<div class="matrix-scroll" id="matScroll">'
+        '<div class="matrix-inner">'
+        + pills_html + matrix +
+        '</div></div></div>'
+    )
+
     ad=meta.get('assessment_date','2026-05-06')
     mv=meta.get('methodology_version','1.4')
-    rv=meta.get('register_version','SCP-REG-009')
+    ad_fmt=fmt_date(ad)
+    ta=meta.get('total_actors',14)
     td=date.today().isoformat()
+
+    hdr_tip = tooltip_trigger(
+        'Sovereign Capability Profiles',
+        'Seven-dimension framework assessing each actor’s sovereign control across the AI infrastructure stack. '
+        'Actors are designated as PAA (ecosystem anchor), AIK (structural chokepoint), ACS (significant but dependent '
+        'capabilities), or Participant based on capability breadth, ecosystem independence, and platform sustainability.'
+    )
+    reg_meta = register_meta_html(meta)
+    snap_hist = snapshot_history_html(meta)
+    watch = watch_html(data.get('dimension_watch',[]))
+
     return f'''<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="weo-version" content="1.3.0">
+<meta name="weo-version" content="{WEO_VERSION}">
 <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
 <meta name="description" content="Nation-state AI infrastructure assessments across 14 actors and 7 dimensions. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment.">
 <link rel="canonical" href="https://warmthengine.com/profiles/">
@@ -213,9 +306,15 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 
 /* Header */
 .hdr{{padding-bottom:20px;border-bottom:1px solid rgba(51,65,85,.5)}}
-.hdr-title{{font-size:22px;font-weight:580;color:var(--t1);letter-spacing:.01em}}
+.hdr-title{{font-size:22px;font-weight:580;color:var(--t1);letter-spacing:.01em;display:flex;align-items:center;gap:0}}
 .hdr-sub{{font-size:13px;color:var(--t4);margin-top:3px;font-weight:380}}
-.hdr-meta{{font-family:'Geist Mono','Fira Code',monospace;font-size:11px;font-weight:480;color:var(--t5);margin-top:8px;letter-spacing:.02em}}
+
+/* Register metadata card */
+.register-meta{{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;padding:16px 20px;margin:12px 0 0;background:rgba(15,23,42,.5);border:1px solid rgba(51,65,85,.4);border-left:3px solid rgba(45,212,191,.4);border-radius:var(--r-md)}}
+.register-meta-item{{display:flex;flex-direction:column;gap:4px}}
+.register-meta-label{{font-size:0.6875rem;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:0.05em}}
+.register-meta-value{{font-size:0.875rem;font-weight:500;color:var(--t1)}}
+.register-meta-value.version{{font-family:'Geist Mono',monospace;color:var(--link)}}
 
 /* Pills — column-aligned with dots below */
 .pills-row{{display:flex;align-items:center;padding:16px 0 12px;border-bottom:1px solid rgba(51,65,85,.5)}}
@@ -319,8 +418,18 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .watch-tbl .det-dot{{width:8px;height:8px}}
 .watch-link{{color:var(--link);text-decoration:none;font-weight:480}} .watch-link:hover{{color:var(--link-hover);text-decoration:underline}}
 
+/* Snapshot history */
+.snapshot-history{{margin-top:20px;margin-bottom:4px}}
+.snapshot-title{{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--t4);margin-bottom:10px}}
+.snapshot-list{{display:flex;flex-direction:column;gap:6px}}
+.snapshot-item{{display:flex;align-items:center;gap:14px;padding:10px 12px;background:rgba(15,23,42,.5);border:1px solid var(--border);border-radius:var(--r-sm)}}
+.snapshot-item.active{{border-color:rgba(45,212,191,.4);border-width:2px}}
+.snapshot-date{{font-family:'Geist Mono',monospace;font-size:12px;color:var(--t4);min-width:90px;font-weight:480}}
+.snapshot-label{{font-size:12px;color:var(--t3);flex:1}}
+.snapshot-badge{{font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--r-sm);background:rgba(45,212,191,.1);color:#5EEAD4}}
+
 /* Footer */
-.ftr{{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5)}}
+.ftr{{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5);text-align:left}}
 .ftr-cta{{font-size:12px;color:var(--t4);margin-bottom:14px;padding:10px 16px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-sm);font-weight:380}}
 .ftr-links{{display:flex;gap:18px;margin-bottom:10px;font-size:12px}}
 .ftr-links a{{color:var(--link);text-decoration:none}} .ftr-links a:hover{{color:var(--link-hover);text-decoration:underline}}
@@ -329,10 +438,77 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .ftr-copy{{font-size:11px;color:var(--t5);margin-top:8px}}
 .ftr-legal{{font-size:11px;margin-top:4px}} .ftr-legal a{{color:var(--t4);text-decoration:none}} .ftr-legal a:hover{{color:var(--link)}}
 
-/* Responsive */
+/* Scroll containers — inert on desktop, active on mobile */
+.matrix-scroll-wrap,.watch-scroll-wrap{{position:relative;overflow:hidden}}
+.scroll-fade{{position:absolute;top:0;bottom:0;width:28px;z-index:4;pointer-events:none;opacity:0;transition:opacity var(--norm) var(--ease)}}
+.scroll-fade.visible{{opacity:1}}
+.scroll-fade-left{{left:0;background:linear-gradient(to right,var(--raised) 30%,transparent)}}
+.scroll-fade-right{{right:0;background:linear-gradient(to left,var(--raised) 30%,transparent)}}
+
+/* Tooltip system */
+.weo-info-trigger{{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;background:rgba(100,116,139,.25);border-radius:50%;font-size:9px;font-weight:600;color:#94A3B8;cursor:help;transition:all 150ms ease;flex-shrink:0;margin-left:5px;position:relative;vertical-align:middle}}
+.weo-info-trigger:hover{{background:rgba(96,165,250,.3);color:#60A5FA}}
+.weo-info-trigger::before{{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:44px;min-height:44px}}
+.weo-info-trigger .weo-tooltip{{display:none}}
+.badge-with-tooltip{{display:inline-flex;align-items:center;overflow:visible}}
+.pill .weo-info-trigger{{width:11px;height:11px;font-size:8px;margin-left:3px;opacity:.7}}
+.hdr-title .weo-info-trigger{{width:15px;height:15px;font-size:10px;margin-left:7px}}
+#weo-tooltip-overlay{{position:fixed;background:#1E293B;border:1px solid #475569;border-radius:8px;padding:16px 18px;width:340px;max-width:calc(100vw - 32px);font-size:13.5px;color:#CBD5E1;line-height:1.65;box-shadow:0 4px 20px rgba(0,0,0,.6);z-index:10000;opacity:0;visibility:hidden;transition:opacity 250ms ease,visibility 250ms ease;pointer-events:none}}
+#weo-tooltip-overlay.visible{{opacity:1;visibility:visible;pointer-events:auto}}
+#weo-tooltip-overlay.visible::before{{content:'';position:absolute;top:-12px;left:0;right:0;height:12px}}
+#weo-tooltip-overlay .weo-tooltip-title{{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94A3B8;margin-bottom:10px}}
+#weo-tooltip-overlay .weo-tooltip-body{{font-size:13.5px;color:#CBD5E1;line-height:1.65}}
+#weo-tooltip-overlay .weo-tooltip-body strong{{color:#F1F5F9;font-weight:600}}
+#weo-tooltip-overlay .weo-tooltip-method-link{{margin-top:8px;padding-top:8px;border-top:1px solid rgba(148,163,184,.15)}}
+#weo-tooltip-overlay .weo-tooltip-method-link a{{color:#94A3B8;text-decoration:none;font-size:.8em;transition:color 200ms ease}}
+#weo-tooltip-overlay .weo-tooltip-method-link a:hover{{color:#CBD5E1;text-decoration:underline}}
+
+/* Responsive — desktop/tablet */
 @media(max-width:1140px){{.panel{{margin:24px 16px;padding:24px 24px 28px}} :root{{--col-w:64px}} .row-name,.pills-spacer{{width:160px}} .row-name{{font-size:14px}}}}
 @media(max-width:860px){{:root{{--col-w:52px}} .row-name,.pills-spacer{{width:130px}} .row-name{{font-size:13px}} .dot{{width:12px;height:12px}} .row-score{{font-size:13px;width:38px}} .badge{{font-size:10px;padding:2px 8px}}}}
-@media(max-width:640px){{:root{{--col-w:40px}} .row-name,.pills-spacer{{width:110px}} .row-name{{font-size:12px}} .dot{{width:10px;height:10px}} .pill{{font-size:9px}} .pill-ct{{font-size:8px}} .panel{{margin:16px 8px;padding:16px 12px 20px}} .hdr-title{{font-size:18px}} .row-score{{font-size:12px;width:34px;margin-left:8px}} .row-badge{{margin-left:6px}} .row-chev{{margin-left:4px}}}}
+
+/* Responsive — mobile: enable scroll containers */
+@media(max-width:767px){{
+  .panel{{margin:12px 8px;padding:16px 0 20px;overflow:hidden}}
+  .hdr{{padding:0 16px 16px}}
+  .hdr-title{{font-size:18px}}
+  .matrix-scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}}
+  .matrix-scroll::-webkit-scrollbar{{display:none}}
+  .matrix-inner{{min-width:750px;padding:0 16px}}
+  .pills-spacer{{width:120px;flex-shrink:0}}
+  .pills-grid{{grid-template-columns:repeat(7,76px);gap:4px 0}}
+  .pill{{font-size:10px;padding:4px 7px;gap:3px;border-radius:10px}}
+  .pill.hw{{border-color:rgba(96,165,250,.2)}}
+  .pill.pl{{border-color:rgba(167,139,250,.2)}}
+  .pill.gv{{border-color:rgba(45,212,191,.2)}}
+  .pill-ct{{font-size:8px}}
+  .pills-row{{padding:12px 0 10px}}
+  .row-name{{width:120px;flex-shrink:0;font-size:12px}}
+  .row-dots{{grid-template-columns:repeat(7,76px)}}
+  .dot{{width:28px;height:10px;border-radius:3px}}
+  .row-score{{font-size:12px;width:34px;margin-left:8px}}
+  .row-badge{{margin-left:6px}}
+  .row-chev{{margin-left:4px}}
+  .row{{padding:10px 0}}
+  .grp{{padding:14px 16px 6px}}
+  .paa-fold{{margin:6px 16px 0}}
+  .part-group>summary{{padding:10px 16px}}
+  .det{{padding:12px 16px 16px}}
+  .watch{{margin-top:32px;padding-top:16px}}
+  .watch-title{{padding:0 16px;font-size:15px}}
+  .watch-desc{{padding:0 16px;margin-bottom:10px}}
+  .watch-scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}}
+  .watch-scroll::-webkit-scrollbar{{display:none}}
+  .watch-tbl{{min-width:580px}}
+  .watch-tbl td:nth-child(2){{white-space:nowrap}}
+  .ftr{{margin-top:20px;padding:16px}}
+  .ftr-links{{flex-direction:column;gap:8px}}
+  .register-meta{{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}}
+  .snapshot-history{{padding:0 16px}}
+  .snapshot-item{{flex-direction:column;align-items:flex-start;gap:6px}}
+  #weo-tooltip-overlay{{width:300px;font-size:13px;padding:14px 16px}}
+}}
+
 @media(prefers-reduced-motion:reduce){{*,*::before,*::after{{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}}}
 </style>
 </head>
@@ -359,30 +535,39 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 </nav>
 <div class="panel">
   <div class="hdr">
-    <h1 class="hdr-title">Sovereign Capability Profiles</h1>
-    <div class="hdr-sub">Actor Designation Framework &mdash; {meta.get('total_actors',14)} actors assessed</div>
-    <div class="hdr-meta">Assessment: {ad} &middot; Methodology V{mv} &middot; {rv}</div>
+    <h1 class="hdr-title">Sovereign Capability Profiles {hdr_tip}</h1>
+    <div class="hdr-sub">Actor Designation Framework &mdash; {ta} actors assessed</div>
+    {reg_meta}
   </div>
-  {m}
+  {matrix_wrap}
+  {watch}
   <div class="ftr">
     <div class="ftr-cta">Full analysis and sources for all actors available with supporter access.</div>
     <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a></div>
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
-    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad} &middot; Methodology V{mv}</div>
+    {snap_hist}
+    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad_fmt} &middot; Methodology V{mv} &middot; WEO v{WEO_VERSION}</div>
     <p class="ftr-copy">&copy; 2026 Warmth Engine Observatory</p>
     <p class="ftr-legal"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
   </div>
 </div>
+<div id="weo-tooltip-overlay">
+  <div class="weo-tooltip-title"></div>
+  <div class="weo-tooltip-body"></div>
+  <div class="weo-tooltip-method-link"></div>
+</div>
 <script>
 (function(){{
   var pills=document.querySelectorAll('.pill'),dots=document.querySelectorAll('.dot'),active=-1;
+  function resetAll(){{active=-1;pills.forEach(function(pp){{pp.classList.remove('active')}});dots.forEach(function(d){{d.classList.remove('col-hl','col-dim')}})}}
   pills.forEach(function(p){{
-    p.addEventListener('click',function(){{
+    p.addEventListener('click',function(e){{
+      e.stopPropagation();
       var di=parseInt(p.getAttribute('data-dim'));
-      if(active===di){{active=-1;pills.forEach(function(pp){{pp.classList.remove('active')}});dots.forEach(function(d){{d.classList.remove('col-hl','col-dim')}})}}
-      else{{active=di;pills.forEach(function(pp){{pp.classList.remove('active')}});p.classList.add('active');dots.forEach(function(d){{var si=parseInt(d.getAttribute('data-di'));if(si===di){{d.classList.add('col-hl');d.classList.remove('col-dim')}}else{{d.classList.add('col-dim');d.classList.remove('col-hl')}}}})}}
-    }})
-  }})
+      if(active===di){{resetAll()}}
+      else{{active=di;pills.forEach(function(pp){{pp.classList.remove('active')}});p.classList.add('active');dots.forEach(function(d){{var si=parseInt(d.getAttribute('data-di'));if(si===di){{d.classList.add('col-hl');d.classList.remove('col-dim')}}else{{d.classList.add('col-dim');d.classList.remove('col-hl')}}}})}}}})
+  }});
+  document.addEventListener('click',function(e){{if(active!==-1&&!e.target.closest('.pill')){{resetAll()}}}})
 }})();
 </script>
 <script>
@@ -394,6 +579,128 @@ if(navToggle&&navLinks){{
     navToggle.setAttribute('aria-expanded',navLinks.classList.contains('open'));
   }});
 }}
+</script>
+<script>
+(function(){{
+  function initScrollFade(scrollEl,wrapEl){{
+    if(!scrollEl||!wrapEl)return;
+    var fL=wrapEl.querySelector('.scroll-fade-left');
+    var fR=wrapEl.querySelector('.scroll-fade-right');
+    if(!fL||!fR)return;
+    function update(){{
+      var sl=scrollEl.scrollLeft;
+      var sw=scrollEl.scrollWidth-scrollEl.clientWidth;
+      if(sw<=2){{fL.classList.remove('visible');fR.classList.remove('visible');return}}
+      if(sl>4)fL.classList.add('visible');else fL.classList.remove('visible');
+      if(sl<sw-4)fR.classList.add('visible');else fR.classList.remove('visible');
+    }}
+    scrollEl.addEventListener('scroll',update,{{passive:true}});
+    window.addEventListener('resize',function(){{setTimeout(update,50)}});
+    setTimeout(update,100);
+    update();
+  }}
+  initScrollFade(document.getElementById('matScroll'),document.querySelector('.matrix-scroll-wrap'));
+  initScrollFade(document.getElementById('watchScroll'),document.querySelector('.watch-scroll-wrap'));
+}})();
+</script>
+<script>
+(function(){{
+  var tooltipOv=document.getElementById('weo-tooltip-overlay');
+  if(!tooltipOv)return;
+  var ttTitle=tooltipOv.querySelector('.weo-tooltip-title');
+  var ttBody=tooltipOv.querySelector('.weo-tooltip-body');
+  var ttLink=tooltipOv.querySelector('.weo-tooltip-method-link');
+  var tooltipTimeout=null;
+  var activeTrigger=null;
+
+  function positionTooltip(trigger){{
+    var rect=trigger.getBoundingClientRect();
+    var w=Math.min(340,window.innerWidth-32);
+    var pad=16;
+    var top=rect.bottom+8;
+    var left=Math.max(pad,Math.min(rect.left,window.innerWidth-w-pad));
+    if(top+180>window.innerHeight-pad)top=Math.max(pad,rect.top-188);
+    tooltipOv.style.top=top+'px';
+    tooltipOv.style.left=left+'px';
+  }}
+
+  function doShow(trigger){{
+    var inline=trigger.querySelector('.weo-tooltip');
+    if(!inline)return;
+    var t=inline.querySelector('.weo-tooltip-title');
+    var b=inline.querySelector('.weo-tooltip-body');
+    var ml=inline.querySelector('.weo-tooltip-method-link');
+    ttTitle.innerHTML=t?t.innerHTML:'';
+    ttBody.innerHTML=b?b.innerHTML:'';
+    ttLink.innerHTML=ml?ml.innerHTML:'';
+    positionTooltip(trigger);
+    tooltipOv.classList.add('visible');
+    activeTrigger=trigger;
+  }}
+
+  function showTooltip(trigger,immediate){{
+    if(tooltipTimeout){{clearTimeout(tooltipTimeout);tooltipTimeout=null}}
+    if(immediate){{doShow(trigger)}}
+    else{{tooltipTimeout=setTimeout(function(){{doShow(trigger)}},200)}}
+  }}
+
+  function hideTooltip(){{
+    if(tooltipTimeout)clearTimeout(tooltipTimeout);
+    tooltipTimeout=setTimeout(function(){{tooltipOv.classList.remove('visible');activeTrigger=null}},150);
+  }}
+
+  function hideTooltipNow(){{
+    if(tooltipTimeout){{clearTimeout(tooltipTimeout);tooltipTimeout=null}}
+    tooltipOv.classList.remove('visible');
+    activeTrigger=null;
+  }}
+
+  /* Desktop hover */
+  document.addEventListener('mouseenter',function(e){{
+    var t=e.target.closest('.weo-info-trigger');
+    if(t)showTooltip(t,false);
+  }},true);
+  document.addEventListener('mouseleave',function(e){{
+    var t=e.target.closest('.weo-info-trigger');
+    if(t&&!tooltipOv.matches(':hover'))hideTooltip();
+  }},true);
+  tooltipOv.addEventListener('mouseenter',function(){{
+    if(tooltipTimeout){{clearTimeout(tooltipTimeout);tooltipTimeout=null}}
+  }});
+  tooltipOv.addEventListener('mouseleave',hideTooltip);
+
+  /* Click toggle — desktop and mobile tap */
+  document.addEventListener('click',function(e){{
+    var t=e.target.closest('.weo-info-trigger');
+    if(t){{
+      e.preventDefault();
+      e.stopPropagation();
+      if(activeTrigger===t&&tooltipOv.classList.contains('visible')){{hideTooltipNow()}}
+      else{{if(tooltipTimeout){{clearTimeout(tooltipTimeout);tooltipTimeout=null}}doShow(t)}}
+      return;
+    }}
+    if(!e.target.closest('#weo-tooltip-overlay'))hideTooltipNow();
+  }},true);
+
+  /* Mobile long-press on pill — shows dimension tooltip */
+  var lpTimer=null;
+  document.addEventListener('touchstart',function(e){{
+    var pill=e.target.closest('.pill');
+    if(!pill)return;
+    var t=pill.querySelector('.weo-info-trigger');
+    if(!t)return;
+    lpTimer=setTimeout(function(){{lpTimer=null;doShow(t)}},600);
+  }},{{passive:true}});
+  document.addEventListener('touchend',function(){{
+    if(lpTimer){{clearTimeout(lpTimer);lpTimer=null}}
+  }},{{passive:true}});
+  document.addEventListener('touchmove',function(){{
+    if(lpTimer){{clearTimeout(lpTimer);lpTimer=null}}
+  }},{{passive:true}});
+
+  /* Hide on page scroll */
+  window.addEventListener('scroll',hideTooltipNow,{{passive:true,capture:true}});
+}})();
 </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>(function(){{var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))}})();</script>
