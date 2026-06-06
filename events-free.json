@@ -1,38 +1,38 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 159,
+    "total_events": 162,
     "sample_events": 6,
-    "standard_events": 153,
-    "last_updated": "2026-06-02",
+    "standard_events": 156,
+    "last_updated": "2026-06-06",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 45,
-        "Western": 96,
+        "Western": 99,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 141,
+        "T3": 144,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
         "Coordination": 29,
-        "Policy": 41,
+        "Policy": 44,
         "Corporate": 46
       },
       "by_confidence": {
-        "A": 155,
+        "A": 158,
         "B": 4
       },
       "by_assessment_pathway": {
         "basel5": 86,
         "keohane": 28,
-        "pisa5": 26,
+        "pisa5": 29,
         "routeBased": 19,
         "oep": 6,
         "piet": 4
@@ -41,7 +41,7 @@
         "Cloud, Data Centres & Connectivity Infrastructure": 46,
         "Semiconductors & Equipment": 30,
         "AI Software & Platforms": 59,
-        "Mining & Critical Minerals": 5,
+        "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
@@ -53,14 +53,14 @@
         "1.3": 11,
         "1.1": 60,
         "1.4": 1,
-        "1.0": 41,
+        "1.0": 44,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-02",
-    "lastAudit": "2026-06-02",
+    "versionDate": "2026-06-06",
+    "lastAudit": "2026-06-06",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 159,
+    "event_count": 162,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -6902,7 +6902,7 @@
     },
     {
       "id": "185",
-      "name": "IRA 30D FEOC Final Rule",
+      "name": "IRA Section 30D FEOC Final Rule",
       "lat": 38.9072,
       "lng": -77.0369,
       "bloc": "Western",
@@ -6912,18 +6912,81 @@
       "date": "06 May 2024",
       "location": "United States",
       "scope": "United States (with extraterritorial supply-chain implications for critical mineral and battery component sourcing)",
-      "description": "The IRA Section 30D Foreign Entity of Concern Final Rule (89 FR 37706), published 06 May 2024, establishes supply chain provenance requirements for clean vehicle tax credit eligibility under the Inflation Reduction Act. Vehicles placed in service from 2024 are ineligible for the Section 30D credit if their batteries contain components manufactured or assembled by a foreign entity of concern; from 2025, the restriction extends to critical minerals extracted, processed, or recycled by an FEOC. The DOE Final Interpretive Rule, published concurrently, defines criteria for FEOC determination.",
-      "investment": "N/A (regulatory instrument)",
+      "description": "The IRA Section 30D Foreign Entity of Concern Final Rule (89 FR 37706), published 06 May 2024, conditions clean vehicle tax credit eligibility on battery component and critical mineral supply chain provenance under the Inflation Reduction Act. A concurrent DOE Interpretive Rule defines FEOC determination criteria.",
+      "investment": "Fiscal conditionality (no direct financial allocation); phased exclusion: battery components from 2024, critical minerals from 2025; Section 30D credit value US$7,500/US$3,750 per vehicle; qualifying models reduced from 43 to 19; covered nations: PRC, Russia, DPRK, Iran.",
       "domain": "Trade",
       "industryPrimary": "Trade & Logistics",
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 3,
       "confidence": "A",
-      "aiConnectionPathway": "option_g",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-02",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, graphite, and rare earth elements with documented applications across AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, anode and cathode materials for server power systems, and permanent magnets for hard drive actuators and cooling fan motors.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The instrument governs battery mineral and critical component supply chains for clean vehicle tax credit eligibility. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power systems and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register — IRA Section 30D FEOC Final Rule (89 FR 37706)",
+                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09038/section-30d-new-clean-vehicle-credit",
+                "type": "PRIMARY"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
       "checkpoints": {
         "ai": true,
-        "aiDetail": "Option G (lithium, cobalt, graphite, REE — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (4 materials — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -6932,7 +6995,7 @@
     },
     {
       "id": "187",
-      "name": "UN GA AI Panel & Dialogue Resolution (A/RES/79/325)",
+      "name": "UNGA AI Scientific Panel and Global Dialogue (A/RES/79/325)",
       "lat": 40.7489,
       "lng": -73.968,
       "bloc": "Western",
@@ -6942,8 +7005,8 @@
       "date": "26 August 2025",
       "location": "New York, United States (UN General Assembly)",
       "scope": "International (193 UN Member States; adopted by consensus without a vote)",
-      "description": "UNGA Resolution A/RES/79/325, adopted by consensus on 26 August 2025, establishes the Independent International Scientific Panel on Artificial Intelligence and the Global Dialogue on Artificial Intelligence Governance. The 40-member Scientific Panel is mandated to produce annual policy-relevant but non-prescriptive assessment reports synthesising existing AI research. Both mechanisms were formally launched at the 80th General Assembly session in September 2025. The resolution follows from the Global Digital Compact (A/RES/79/1, September 2024) framework.",
-      "investment": "N/A (governance framework)",
+      "description": "UNGA Resolution A/RES/79/325, adopted by consensus on 26 August 2025, establishes the Independent International Scientific Panel on Artificial Intelligence and the Global Dialogue on Artificial Intelligence Governance. The Scientific Panel is mandated to produce annual non-prescriptive assessment reports synthesising AI research. The resolution follows from the Global Digital Compact (A/RES/79/1) framework.",
+      "investment": "Consensus adoption by 193 Member States; 123 co-sponsors; 40-member Scientific Panel (3-year terms); both mechanisms launched at 80th General Assembly session September 2025; Dialogue convened annually alternating Geneva and New York.",
       "domain": "Technology",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [],
@@ -6952,6 +7015,306 @@
       "confidence": "A",
       "checkpoints": {
         "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "188",
+      "name": "EU Critical Raw Materials Act",
+      "lat": 50.8503,
+      "lng": 4.3517,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "23 May 2024",
+      "location": "European Union",
+      "scope": "European Union (27 Member States, with extraterritorial supply-chain implications through Strategic Partnerships mechanism and 65% single-country concentration cap)",
+      "description": "Regulation (EU) 2024/1252 establishes a framework for secure and sustainable supply of critical raw materials across the European Union, designating 17 strategic and 34 critical raw materials including gallium, germanium, lithium, cobalt, rare earth elements, and graphite. Binding capacity benchmarks require at least 10% extraction, 40% processing, and 25% recycling of annual EU consumption by 2030, with a 65% single-country concentration cap. The European Raw Materials Board coordinates implementation, with 47 Strategic Projects designated in March 2025.",
+      "investment": "€22.5 billion in capital investment across 47 designated Strategic Projects (March 2025). Binding benchmarks: at least 10% EU extraction, 40% processing, 25% recycling of annual consumption by 2030.",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "gallium",
+            "registerVerified": true,
+            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
+          },
+          {
+            "name": "germanium",
+            "registerVerified": true,
+            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
+          },
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Gallium, germanium, lithium, cobalt, rare earth elements, and graphite with documented applications across AI infrastructure — compound semiconductors for data centre networking, fibre optic signal amplification, battery storage for uninterruptible power supply and grid-scale energy storage, and permanent magnets for server hardware components.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              },
+              {
+                "id": "TRACE-C1-2",
+                "desc": "EUR-Lex — Regulation (EU) 2024/1252 Annexes I and II",
+                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The regulation establishes supply-chain benchmarks for critical raw materials across the green and digital transitions. The AI infrastructure connection operates through the regulated materials' documented applications in semiconductor fabrication, data centre power systems, and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "EUR-Lex — Regulation (EU) 2024/1252 (full text)",
+                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "type": "PRIMARY"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "189",
+      "name": "US DPA Title III Battery Minerals Determination",
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "31 March 2022",
+      "location": "United States",
+      "scope": "United States (domestic production authority for strategic and critical materials essential to national defence)",
+      "description": "Presidential Determination No. 2022-11 invokes Defence Production Act Title III authorities for domestic mining, beneficiation, and processing of five battery minerals — lithium, nickel, cobalt, graphite, and manganese. The Department of Defense serves as executing authority, enabling feasibility studies and modernisation projects for domestic critical minerals production. The determination represents the first application of DPA Title III to critical minerals.",
+      "investment": "Department of Defense Title III programme grants for domestic mining, beneficiation, and processing projects across five battery minerals (lithium, nickel, cobalt, graphite, manganese).",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, and graphite with documented applications in AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, and anode materials for server power systems.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The Presidential Determination invokes defence production authority for domestic mining and processing of battery minerals essential to national defence. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power and energy storage systems.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register — Presidential Determination No. 2022-11",
+                "url": "https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
+                "type": "PRIMARY"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (3 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "190",
+      "name": "Australia Critical Minerals Production Tax Incentive",
+      "lat": -35.2809,
+      "lng": 149.13,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "14 February 2025",
+      "location": "Australia",
+      "scope": "Australia (domestic critical minerals processing, 31 designated minerals under the Future Made in Australia framework)",
+      "description": "The Critical Minerals Production Tax Incentive provides a 10% refundable tax offset for eligible costs of processing 31 designated critical minerals in Australia, available from 1 July 2027 through 30 June 2040. Enacted as part of the Future Made in Australia legislative framework, the CMPTI operationalises the 2023 Critical Minerals Strategy's processing objectives through a legislated fiscal mechanism administered by the Australian Taxation Office.",
+      "investment": "A$7 billion over 11 years (1 July 2027 – 30 June 2040).",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 0,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          },
+          {
+            "name": "gallium",
+            "registerVerified": true,
+            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
+          },
+          {
+            "name": "germanium",
+            "registerVerified": true,
+            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, rare earth elements, graphite, gallium, and germanium with documented applications across AI infrastructure — battery storage for data centre power systems, compound semiconductors for networking and signal processing, fibre optic amplification, and permanent magnets for server hardware components.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The legislation provides a refundable tax offset for domestic processing of designated critical minerals. The AI infrastructure connection operates through the incentivised materials' documented applications in semiconductor fabrication, data centre energy storage, and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register of Legislation — Future Made in Australia Act 2025",
+                "url": "https://www.legislation.gov.au/C2025A00009/latest/text",
+                "type": "PRIMARY"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
