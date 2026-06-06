@@ -1078,26 +1078,6 @@
             .nation-table {
                 min-width: 500px;
             }
-            
-            /* SCP table — native layout, no scroll */
-            .scp-section .table-scroll-indicator { display: none !important; }
-            .scp-table-wrap { overflow-x: visible; }
-            .scp-table { min-width: unset; }
-            .scp-bar-cell, .scp-bar-header { display: table-cell !important; }
-            .scp-bar-header {
-                font-family: var(--weo-font-mono);
-                font-size: 0.6875rem;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-                color: var(--weo-text-tertiary);
-                text-align: center;
-                padding: var(--weo-space-sm);
-                border-bottom: 1px solid var(--weo-border-primary);
-            }
-            .scp-table thead th:nth-child(n+4):nth-child(-n+10),
-            .scp-table tbody td:nth-child(n+4):nth-child(-n+10) { display: none; }
-            .scp-table td:first-child { padding-left: var(--weo-space-sm); }
         }
         
         @media (min-width: 768px) {
@@ -1329,14 +1309,6 @@
         .scp-section .table-scroll-indicator { width: 16px; }
         .scp-table thead th:first-child,
         .scp-table td:first-child { padding-left: 20px; }
-
-        /* SCP flex bar — mobile dimension indicator (hidden on desktop) */
-        .scp-bar-cell, .scp-bar-header { display: none; }
-        .scp-bar { display: flex; gap: 2px; min-width: 80px; }
-        .scp-seg { flex: 1; height: 8px; border-radius: 2px; background: rgba(255,255,255,0.06); }
-        .scp-seg.hw.met { background: var(--scp-hw); }
-        .scp-seg.pl.met { background: var(--scp-plat); }
-        .scp-seg.gv.met { background: var(--scp-gov); }
 
         /* Temporal disclaimer */
         .scp-disclaimer {
@@ -1736,33 +1708,6 @@
     }
     @media (max-width: 768px) {
       #weo-tooltip-overlay { width: calc(100vw - 32px); left: 16px !important; }
-    }
-
-    .weo-back-to-top {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 40px;
-        height: 40px;
-        background: var(--weo-surface-raised, #1E293B);
-        border: 1px solid var(--weo-border-primary, #334155);
-        border-radius: var(--weo-radius-md, 8px);
-        color: #94A3B8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
-        z-index: 100;
-        touch-action: manipulation;
-    }
-    .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
-    .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
-    @media (max-width: 768px) {
-        .weo-back-to-top { width: 36px; height: 36px; }
-        .weo-back-to-top.visible { opacity: 0.5; }
     }
 
 </style>
@@ -2426,7 +2371,6 @@
                             <tr>
                                 <th scope="col">Actor</th>
                                 <th scope="col">Designation</th>
-                                <th scope="col" class="scp-bar-header">Dims</th>
                                 <th scope="col" class="scp-col-hw scp-group-start" title="AI Chip Design">D1</th>
                                 <th scope="col" class="scp-col-hw" title="Advanced Fabrication">D2</th>
                                 <th scope="col" class="scp-col-hw" title="Critical Equipment">D3</th>
@@ -2442,8 +2386,8 @@
                 </div></div>
 
                 <div class="scp-disclaimer">
-                    <span id="scp-disclaimer-date">Assessment date: May 2026 · 14 actors · Methodology V1.4</span>
-                    <span>Full dimension assessments, qualification evidence, and Dimension Watch tracking are available on the Profiles page. <a href="/profiles/">View Profiles →</a> <a href="index.html">Explore on Map →</a></span>
+                    <span id="scp-disclaimer-date">Assessment date: May 2026 · Batch 1 (14 actors) · Methodology V1.4</span>
+                    <span>The interactive panel on the Map provides full dimension detail, qualification evidence, and source references for each actor. <a href="index.html">Explore on Map →</a></span>
                 </div>
             </div>
         </section>
@@ -2502,7 +2446,7 @@
             <div class="document-info-grid">
                 <div class="document-info-item">
                     <div class="document-info-label">Document Type</div>
-                    <div class="document-info-value">Living Register</div>
+                    <div class="document-info-value">Living Register (Non-Evergreen)</div>
                 </div>
                 <div class="document-info-item">
                     <div class="document-info-label">Update Frequency</div>
@@ -2690,8 +2634,10 @@
     if (!meta) return null;
     var parts = [];
     if (meta.assessment_date) parts.push('Assessment date: ' + formatDate(meta.assessment_date));
-    if (meta.total_actors != null)
-      parts.push(meta.total_actors + ' actors');
+    if (meta.batch != null && meta.total_actors != null)
+      parts.push('Batch ' + meta.batch + ' (' + meta.total_actors + ' actors)');
+    else if (meta.batch != null)
+      parts.push('Batch ' + meta.batch);
     if (meta.methodology_version) parts.push('Methodology V' + meta.methodology_version);
     return parts.length ? parts.join(' · ') : null;
   }
@@ -2712,7 +2658,7 @@
           + 'letter-spacing:0.06em;text-transform:uppercase;color:#94A3B8;'
           + 'border-bottom:1px solid rgba(51,65,85,0.4);';
         html += '<tr class="scp-designation-row" aria-hidden="true">'
-              + '<td colspan="11" style="' + hStyle + '">'
+              + '<td colspan="10" style="' + hStyle + '">'
               + (DESIG_LABELS[d] || d) + '</td></tr>';
       }
       var bloc     = EASTERN_IDS[actor.id] ? 'eastern' : 'western';
@@ -2724,14 +2670,6 @@
       html += '<td><span class="scp-actor-name"><span class="scp-bloc-dot ' + bloc + '"></span>'
             + actor.name + '</span></td>';
       html += '<td><span class="scp-badge ' + badgeCls + '">' + badgeLbl + '</span></td>';
-
-      /* Flex bar cell — visible on mobile only */
-      var DIM_COLORS = ['hw','hw','hw','pl','pl','gv','gv'];
-      html += '<td class="scp-bar-cell"><span class="scp-bar">';
-      for (var k = 0; k < actor.dims.length; k++) {
-        html += '<span class="scp-seg ' + DIM_COLORS[k] + (actor.dims[k] ? ' met' : '') + '"></span>';
-      }
-      html += '</span></td>';
 
       for (var j = 0; j < actor.dims.length; j++) {
         var gs  = GROUP_START_DIMS.indexOf(j) >= 0 ? ' class="scp-group-start"' : '';
@@ -2844,22 +2782,6 @@
       overlay._lastTrigger = null;
     }
   }, { passive: true });
-})();
-</script>
-<button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-</button>
-<script>
-(function() {
-    var btn = document.getElementById('backToTop');
-    if (!btn) return;
-    window.addEventListener('scroll', function() {
-        btn.classList.toggle('visible', window.scrollY > 300);
-    }, { passive: true });
-    btn.addEventListener('click', function() {
-        var motion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-        window.scrollTo({ top: 0, behavior: motion });
-    });
 })();
 </script>
 
