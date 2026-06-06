@@ -4709,19 +4709,16 @@
             const degVals = Object.values(globalDegree);
             maxDegree = degVals.length ? Math.max.apply(null, degVals) : 0;
 
-            if (eventsPayload && eventsPayload.last_updated) {
+            {
                 const el = document.getElementById('weo-last-updated');
                 if (el) {
-                    let dateStr = eventsPayload.last_updated;
+                    const raw = (eventsPayload && (eventsPayload.last_updated || (eventsPayload.metadata && eventsPayload.metadata.last_updated))) || '2026-06-03';
                     try {
-                        const d = new Date(dateStr + 'T00:00:00Z');
-                        if (!isNaN(d)) {
-                            dateStr = d.toLocaleDateString('en-GB', {
-                                day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
-                            });
-                        }
-                    } catch (_) {}
-                    el.textContent = dateStr;
+                        const d = new Date(raw + 'T00:00:00Z');
+                        el.textContent = !isNaN(d) ? d.toLocaleDateString('en-GB', {
+                            day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+                        }) : raw;
+                    } catch (_) { el.textContent = raw; }
                 }
             }
         }
