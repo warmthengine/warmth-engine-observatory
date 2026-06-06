@@ -164,22 +164,24 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .watch-link{color:var(--link);text-decoration:none;font-weight:480} .watch-link:hover{color:var(--link-hover);text-decoration:underline}
 
 /* Register metadata card */
-.register-meta{display:flex;flex-wrap:wrap;gap:24px;align-items:center;padding:16px 20px;margin:0 0 4px;border-top:1px solid rgba(51,65,85,.3)}
+.register-meta{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;padding:16px 20px;margin:12px 0 0;background:rgba(15,23,42,.5);border:1px solid rgba(51,65,85,.4);border-left:3px solid rgba(45,212,191,.4);border-radius:var(--r-md)}
 .register-meta-item{display:flex;flex-direction:column;gap:4px}
 .register-meta-label{font-size:0.6875rem;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:0.05em}
 .register-meta-value{font-size:0.875rem;font-weight:500;color:var(--t1)}
 .register-meta-value.version{font-family:'Geist Mono',monospace;color:var(--link)}
 
 /* Snapshot history */
-.snapshot-history{margin-top:24px;padding:20px;border-top:1px solid rgba(51,65,85,.3)}
-.snapshot-title{font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--t3);margin-bottom:16px}
-.snapshot-entry{display:flex;align-items:center;gap:16px;padding:10px 0;font-size:13px}
-.snapshot-date{color:var(--t2);min-width:90px;font-weight:480}
-.snapshot-label{color:var(--t3)}
-.snapshot-status{font-family:'Geist Mono',monospace;font-size:11px;padding:2px 8px;border-radius:4px;background:rgba(45,212,191,.1);color:#5EEAD4;font-weight:500}
+.snapshot-history{margin-top:20px;margin-bottom:4px}
+.snapshot-title{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--t4);margin-bottom:10px}
+.snapshot-list{display:flex;flex-direction:column;gap:6px}
+.snapshot-item{display:flex;align-items:center;gap:14px;padding:10px 12px;background:rgba(15,23,42,.5);border:1px solid var(--border);border-radius:var(--r-sm)}
+.snapshot-item.active{border-color:rgba(45,212,191,.4);border-width:2px}
+.snapshot-date{font-family:'Geist Mono',monospace;font-size:12px;color:var(--t4);min-width:90px;font-weight:480}
+.snapshot-label{font-size:12px;color:var(--t3);flex:1}
+.snapshot-badge{font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--r-sm);background:rgba(45,212,191,.1);color:#5EEAD4}
 
 /* Footer */
-.ftr{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5)}
+.ftr{margin-top:28px;padding-top:20px;border-top:1px solid rgba(51,65,85,.5);text-align:left}
 .ftr-cta{font-size:12px;color:var(--t4);margin-bottom:14px;padding:10px 16px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-sm);font-weight:380}
 .ftr-links{display:flex;gap:18px;margin-bottom:10px;font-size:12px}
 .ftr-links a{color:var(--link);text-decoration:none} .ftr-links a:hover{color:var(--link-hover);text-decoration:underline}
@@ -249,8 +251,8 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .ftr-links{flex-direction:column;gap:8px}
 
   .register-meta{flex-direction:column;align-items:flex-start;padding:12px 16px;gap:12px}
-  .snapshot-history{padding:16px}
-  .snapshot-entry{flex-direction:column;align-items:flex-start;gap:6px}
+  .snapshot-history{padding:0 16px}
+  .snapshot-item{flex-direction:column;align-items:flex-start;gap:6px}
 }
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
@@ -281,7 +283,7 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <div class="hdr">
     <h1 class="hdr-title">Sovereign Capability Profiles</h1>
     <div class="hdr-sub">Actor Designation Framework &mdash; 14 actors assessed</div>
-    <div class="hdr-meta">Assessment: 6 May 2026 &middot; Methodology V1.4 &middot; SCP-REG-009</div>
+    <div class="hdr-meta">Assessment: 6 May 2026 &middot; Methodology V1.4</div>
     <div class="register-meta">
       <div class="register-meta-item">
         <span class="register-meta-label">Last Verified</span>
@@ -307,17 +309,19 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="ftr-cta">Full analysis and sources for all actors available with supporter access.</div>
     <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a></div>
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
+    <div class="snapshot-history">
+      <div class="snapshot-title">Snapshot History</div>
+      <div class="snapshot-list">
+        <div class="snapshot-item active">
+          <span class="snapshot-date">6 May 2026</span>
+          <span class="snapshot-label">Initial register (2026.05.06-001) — Batch 1, 14 actors assessed</span>
+          <span class="snapshot-badge">Active</span>
+        </div>
+      </div>
+    </div>
     <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: 6 May 2026 &middot; Methodology V1.4 &middot; WEO v1.3.0</div>
     <p class="ftr-copy">&copy; 2026 Warmth Engine Observatory</p>
     <p class="ftr-legal"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
-  </div>
-  <div class="snapshot-history">
-    <div class="snapshot-title">Snapshot History</div>
-    <div class="snapshot-entry">
-      <span class="snapshot-date">6 May 2026</span>
-      <span class="snapshot-label">Initial register (2026.05.06-001) — Batch 1, 14 actors assessed</span>
-      <span class="snapshot-status">ACTIVE</span>
-    </div>
   </div>
 </div>
 <script>
