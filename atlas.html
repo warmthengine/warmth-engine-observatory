@@ -7777,7 +7777,7 @@
             Object.entries(tierCounts)
                 .sort((a, b) => a[0] - b[0])
                 .forEach(([tier, n]) => {
-                    const pct = totalEvents ? Math.round((n / totalEvents) * 100) : 0;
+                    const pct = totalEvents ? ((n / totalEvents) * 100).toFixed(2) : '0.00';
                     const row = document.createElement('div');
                     row.className = 'topo-kv-row';
                     row.innerHTML = `
