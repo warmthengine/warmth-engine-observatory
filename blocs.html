@@ -1081,8 +1081,8 @@
             
             /* SCP table — native layout, no scroll */
             .scp-section .table-scroll-indicator { display: none !important; }
-            .scp-table-wrap { overflow-x: visible; }
-            .scp-table { min-width: unset; }
+            .scp-section .scp-table-wrap { overflow-x: visible; }
+            .scp-section .scp-table { min-width: unset; }
             .scp-bar-cell, .scp-bar-header { display: table-cell !important; }
             .scp-bar-header {
                 font-family: var(--weo-font-mono);
@@ -1100,6 +1100,12 @@
             .scp-table thead th:nth-child(2),
             .scp-table tbody td:nth-child(2) { display: none; }
             .scp-table td:first-child { padding-left: var(--weo-space-sm); }
+            .scp-section {
+                background: var(--weo-surface-raised);
+                border: 1px solid var(--weo-border-primary);
+                border-radius: var(--weo-radius-lg);
+                padding: var(--weo-space-lg);
+            }
         }
         
         @media (min-width: 768px) {
@@ -2309,9 +2315,9 @@
         
         <!-- Actor Capability Profiles -->
         <section class="section scp-section">
-            <h2 class="section-title">Actor Capability Profiles <span class="weo-info-trigger">?<span class="weo-tooltip"><div class="weo-tooltip-title">Sovereign Capability Profiles</div><div class="weo-tooltip-body">Seven-dimension framework assessing each actor's sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></h2>
+            <h2 class="section-title">Actor Capability Profiles <span class="weo-info-trigger" style="vertical-align:middle;color:#94A3B8;">&#9432;<span class="weo-tooltip"><div class="weo-tooltip-title">Sovereign Capability Profiles</div><div class="weo-tooltip-body">Seven-dimension framework assessing each actor's sovereign control across the AI infrastructure stack. Actors are designated as <strong>PAA</strong> (ecosystem anchor), <strong>AIK</strong> (structural chokepoint), <strong>ACS</strong> (significant but dependent capabilities), or <strong>Participant</strong> based on capability breadth, ecosystem independence, and platform sustainability.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></h2>
             <div class="card">
-                <p class="scp-intro">The actor capability framework assesses sovereign control across seven dimensions of the AI infrastructure stack. Two actors qualify as principal actors — anchoring the Western and Eastern ecosystems respectively. The remaining actors are classified by the depth and independence of their capabilities within those ecosystems.</p>
+                <p class="scp-intro">Bloc classification determines which AI infrastructure ecosystem a nation operates within. The profiles below show what assessed actors independently control across the seven dimensions that define those ecosystems.</p>
 
                 <div class="scp-legend" role="list" aria-label="Designation categories">
                     <div class="scp-legend-item" role="listitem"><span class="scp-badge scp-badge-paa weo-info-trigger" style="cursor:pointer;">PAA<span class="weo-tooltip"><div class="weo-tooltip-title">Principal AI Actor (PAA)</div><div class="weo-tooltip-body">Ecosystem anchor — ≥3 dimensions met, passes ecosystem independence (severance) test, holds at least one sustainable platform dimension (D4 or D5).</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3-1-paa-def" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span> Principal Actor</div>
