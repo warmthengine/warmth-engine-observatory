@@ -3470,6 +3470,42 @@
 // Replaces embedded data — single source of truth from Cloudflare KV
 // ============================================================
 
+// Pathway-specific verification checkpoints.
+// Returns an array of {label, pass} rows derived from the event's AI
+// connection pathway object, or null when no pathway object is present.
+function weoPathwayCheckpointRows(pathway, trace, piet, oep) {
+  if (pathway === 'trace' && trace && trace.conditions && trace.conditions.length > 0) {
+    var rows = trace.conditions.map(function(c) {
+      var lbl = c.factor === 'AI Infrastructure Materials' ? 'Register Materials Verified'
+              : c.factor === 'AI Connection Basis' ? 'AI Connection Basis Confirmed'
+              : c.factor;
+      return { label: lbl, pass: !!c.pass };
+    });
+    if (trace.excludedInstrumentCheck) {
+      var ei = trace.excludedInstrumentCheck;
+      rows.push({ label: 'Excluded Instrument Check Passed', pass: !ei.generalIndustrialPolicy && !ei.broadEconomicStimulus && !ei.multiSectorFramework });
+    }
+    return rows;
+  }
+  if (pathway === 'piet' && piet && piet.gates && piet.gates.length > 0) {
+    var rows = [{ label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: (piet.gatesPassed || 0) >= (piet.gatesRequired || 3) }];
+    if (piet.t2ImpactDemonstrated) rows.push({ label: 'Trade-Impact Confirmed', pass: true });
+    return rows;
+  }
+  if (pathway === 'oep' && oep && oep.pathways && oep.pathways.length > 0) {
+    return [{ label: 'Operational Evidence Confirmed' + (oep.result ? ' (' + oep.result + ')' : ''), pass: (oep.pathwaysConfirmed || 0) >= (oep.pathwaysRequired || 1) }];
+  }
+  return null;
+}
+
+// Render pathway checkpoint rows as inline spans (events.html modal markup).
+function weoPathwayCheckpointSpans(rows) {
+  if (!rows) return '';
+  return rows.map(function(r) {
+    return '<span style="font-size:0.8125rem;color:var(--weo-text-primary);font-weight:600;">' + (r.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + ' ' + r.label + '</span>';
+  }).join('');
+}
+
 // Map API event fields to events.html freeEvents format
 function mapApiEventToFree(e) {
   const mapped = {
@@ -5319,10 +5355,19 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(full && (full.ai_connection_pathway === 'piet' || full.ai_connection_pathway === 'oep' || full.ai_connection_pathway === 'trace')) ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>` : ''}
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold Met</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence Confirmed</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status Confirmed</span>
+                        ${(() => {
+                            const pathway = full && full.ai_connection_pathway;
+                            const isAlt = pathway === 'piet' || pathway === 'oep' || pathway === 'trace';
+                            const pwRows = weoPathwayCheckpointRows(pathway, full && full.trace, full && full.piet, full && full.oep);
+                            const pwSpans = weoPathwayCheckpointSpans(pwRows);
+                            const genOp = pwRows ? '0.45' : '1';
+                            const gs = (icon, txt) => `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);opacity:${genOp};">${icon} ${txt}</span>`;
+                            return (isAlt ? '' : `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>`)
+                                + pwSpans
+                                + gs(e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Quantitative Threshold Met')
+                                + gs(e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Implementation Evidence Confirmed')
+                                + gs(e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Active Status Confirmed');
+                        })()}
                     </div>
                     ${full && full.piet ? (() => {
                         const p = full.piet;
@@ -5637,10 +5682,19 @@ const openModal = (id) => {
                 <div style="margin-top:1rem;">
                     <div class="detail-label" style="margin-bottom:0.5rem;">Verification Checkpoints</div>
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        ${!(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep' || e.ai_connection_pathway === 'trace') ? `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>` : ''}
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS} Quantitative Threshold</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS} Implementation Evidence</span>
-                        <span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS} Active Status</span>
+                        ${(() => {
+                            const pathway = e.ai_connection_pathway;
+                            const isAlt = pathway === 'piet' || pathway === 'oep' || pathway === 'trace';
+                            const pwRows = weoPathwayCheckpointRows(pathway, e.trace, e.piet, e.oep);
+                            const pwSpans = weoPathwayCheckpointSpans(pwRows);
+                            const genOp = pwRows ? '0.45' : '1';
+                            const gs = (icon, txt) => `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);opacity:${genOp};">${icon} ${txt}</span>`;
+                            return (isAlt ? '' : `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>`)
+                                + pwSpans
+                                + gs(e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Quantitative Threshold')
+                                + gs(e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Implementation Evidence')
+                                + gs(e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Active Status');
+                        })()}
                     </div>
                     ${(e.ai_connection_pathway === 'piet' || e.ai_connection_pathway === 'oep' || e.ai_connection_pathway === 'trace') ? (() => {
                         const pwLabel = e.ai_detail || (e.ai_connection_pathway === 'piet' ? 'PIET' : e.ai_connection_pathway === 'trace' ? 'TRACE' : 'OEP');

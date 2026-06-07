@@ -1876,6 +1876,10 @@
         .atlas-checkpoint-label {
             color: #CBD5E1;
         }
+        /* Pathway-specific checkpoints: primary signal. Generic rows are
+           de-emphasised (.secondary) only when pathway rows are present. */
+        .atlas-checkpoint.pathway .atlas-checkpoint-label { color: #F1F5F9; font-weight: 600; }
+        .atlas-checkpoint.secondary { opacity: 0.45; }
         .atlas-pathway-note {
             margin-top: 12px;
             font-size: 12.5px;
@@ -9761,6 +9765,35 @@
             return h;
         }
 
+        // Pathway-specific verification checkpoints.
+        // Returns an array of {label, pass} rows from the pathway object, or
+        // null when no pathway object is present (e.g. free-tier OEP/PIET,
+        // where the generic checkpoints remain the trust signal).
+        function weoPathwayCheckpointRows(pathway, trace, piet, oep) {
+            if (pathway === 'trace' && trace && trace.conditions && trace.conditions.length > 0) {
+                const rows = trace.conditions.map(c => {
+                    const lbl = c.factor === 'AI Infrastructure Materials' ? 'Register Materials Verified'
+                              : c.factor === 'AI Connection Basis' ? 'AI Connection Basis Confirmed'
+                              : c.factor;
+                    return { label: lbl, pass: !!c.pass };
+                });
+                if (trace.excludedInstrumentCheck) {
+                    const ei = trace.excludedInstrumentCheck;
+                    rows.push({ label: 'Excluded Instrument Check Passed', pass: !ei.generalIndustrialPolicy && !ei.broadEconomicStimulus && !ei.multiSectorFramework });
+                }
+                return rows;
+            }
+            if (pathway === 'piet' && piet && piet.gates && piet.gates.length > 0) {
+                const rows = [{ label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: (piet.gatesPassed || 0) >= (piet.gatesRequired || 3) }];
+                if (piet.t2ImpactDemonstrated) rows.push({ label: 'Trade-Impact Confirmed', pass: true });
+                return rows;
+            }
+            if (pathway === 'oep' && oep && oep.pathways && oep.pathways.length > 0) {
+                return [{ label: 'Operational Evidence Confirmed' + (oep.result ? ' (' + oep.result + ')' : ''), pass: (oep.pathwaysConfirmed || 0) >= (oep.pathwaysRequired || 1) }];
+            }
+            return null;
+        }
+
         function atlasVerificationBlock(event) {
             const cp = event.checkpoints || { ai: true, threshold: true, implemented: true, current: true };
             // Sources — prefer the precomputed totals, fall back to array
@@ -9818,15 +9851,25 @@
             h += '</div>';
             h += '</div>';
 
-            // 4 checkpoints. AI Connection is replaced by a pathway note
-            // below when an alternative pathway is set.
+            // 4 checkpoints. AI Connection is replaced by pathway-specific
+            // checkpoint rows (primary signal) when a pathway object is
+            // present; the generic rows below are then de-emphasised. When
+            // the pathway object is absent (free-tier OEP/PIET), the generic
+            // rows stay at full strength and the pathway note still renders.
+            const pwRows = weoPathwayCheckpointRows(pathway, event.trace, event.piet, event.oep);
+            const genCls = pwRows ? ' secondary' : '';
             h += '<div class="atlas-checkpoint-list">';
             if (!isAlt) {
                 h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.ai ? 'pass' : 'fail'}">${cp.ai ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">AI Connection</span></div>`;
             }
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.threshold ? 'pass' : 'fail'}">${cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Quantitative Threshold</span></div>`;
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.implemented ? 'pass' : 'fail'}">${cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Implementation Evidence</span></div>`;
-            h += `<div class="atlas-checkpoint"><span class="atlas-checkpoint-icon ${cp.current ? 'pass' : 'fail'}">${cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Active Status</span></div>`;
+            if (pwRows) {
+                pwRows.forEach(r => {
+                    h += `<div class="atlas-checkpoint pathway"><span class="atlas-checkpoint-icon ${r.pass ? 'pass' : 'fail'}">${r.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">${escapeHtml(r.label)}</span></div>`;
+                });
+            }
+            h += `<div class="atlas-checkpoint${genCls}"><span class="atlas-checkpoint-icon ${cp.threshold ? 'pass' : 'fail'}">${cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Quantitative Threshold</span></div>`;
+            h += `<div class="atlas-checkpoint${genCls}"><span class="atlas-checkpoint-icon ${cp.implemented ? 'pass' : 'fail'}">${cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Implementation Evidence</span></div>`;
+            h += `<div class="atlas-checkpoint${genCls}"><span class="atlas-checkpoint-icon ${cp.current ? 'pass' : 'fail'}">${cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span><span class="atlas-checkpoint-label">Active Status</span></div>`;
             h += '</div>';
 
             // Pathway note — minimal disclosure for now. The 4-layer
