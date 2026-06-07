@@ -3488,9 +3488,15 @@ function weoPathwayCheckpointRows(pathway, trace, piet, oep) {
     return rows;
   }
   if (pathway === 'piet' && piet && piet.gates && piet.gates.length > 0) {
-    var rows = [{ label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: (piet.gatesPassed || 0) >= (piet.gatesRequired || 3) }];
-    if (piet.t2ImpactDemonstrated) rows.push({ label: 'Trade-Impact Confirmed', pass: true });
-    return rows;
+    var gatesPass = (piet.gatesPassed || 0) >= (piet.gatesRequired || 3);
+    // Two prominent checkpoints: the gate tally, and the PIET confidence
+    // verdict (always "Trade-Impact Confirmed" for qualified PIET events).
+    // t2ImpactDemonstrated is a separate T2-classification byproduct and
+    // is NOT used here — it is false for some qualified PIET events.
+    return [
+      { label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: gatesPass },
+      { label: piet.confidence || 'Trade-Impact Confirmed', pass: gatesPass }
+    ];
   }
   if (pathway === 'oep' && oep && oep.pathways && oep.pathways.length > 0) {
     return [{ label: 'Operational Evidence Confirmed' + (oep.result ? ' (' + oep.result + ')' : ''), pass: (oep.pathwaysConfirmed || 0) >= (oep.pathwaysRequired || 1) }];
@@ -5364,6 +5370,7 @@ const openModal = (id) => {
                             const gs = (icon, txt) => `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);opacity:${genOp};">${icon} ${txt}</span>`;
                             return (isAlt ? '' : `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection Verified</span>`)
                                 + pwSpans
+                                + (pwRows ? '<span style="flex:0 0 100%;height:0;"></span>' : '')
                                 + gs(e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Quantitative Threshold Met')
                                 + gs(e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Implementation Evidence Confirmed')
                                 + gs(e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Active Status Confirmed');
@@ -5691,6 +5698,7 @@ const openModal = (id) => {
                             const gs = (icon, txt) => `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);opacity:${genOp};">${icon} ${txt}</span>`;
                             return (isAlt ? '' : `<span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${e.verification_checkpoints.ai_connection?WEO_ICON_CHECK:WEO_ICON_CROSS} AI Connection</span>`)
                                 + pwSpans
+                                + (pwRows ? '<span style="flex:0 0 100%;height:0;"></span>' : '')
                                 + gs(e.verification_checkpoints.quantitative_threshold?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Quantitative Threshold')
                                 + gs(e.verification_checkpoints.implementation_status?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Implementation Evidence')
                                 + gs(e.verification_checkpoints.currency_window?WEO_ICON_CHECK:WEO_ICON_CROSS, 'Active Status');

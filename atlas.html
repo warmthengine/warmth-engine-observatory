@@ -9784,9 +9784,16 @@
                 return rows;
             }
             if (pathway === 'piet' && piet && piet.gates && piet.gates.length > 0) {
-                const rows = [{ label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: (piet.gatesPassed || 0) >= (piet.gatesRequired || 3) }];
-                if (piet.t2ImpactDemonstrated) rows.push({ label: 'Trade-Impact Confirmed', pass: true });
-                return rows;
+                const gatesPass = (piet.gatesPassed || 0) >= (piet.gatesRequired || 3);
+                // Two prominent checkpoints: the gate tally, and the PIET
+                // confidence verdict (always "Trade-Impact Confirmed" for
+                // qualified PIET events). t2ImpactDemonstrated is a separate
+                // T2-classification byproduct and is NOT used here — it is
+                // false for some qualified PIET events.
+                return [
+                    { label: 'Evidence Pathways Met (' + piet.gatesPassed + ' of ' + piet.gates.length + ')', pass: gatesPass },
+                    { label: piet.confidence || 'Trade-Impact Confirmed', pass: gatesPass }
+                ];
             }
             if (pathway === 'oep' && oep && oep.pathways && oep.pathways.length > 0) {
                 return [{ label: 'Operational Evidence Confirmed' + (oep.result ? ' (' + oep.result + ')' : ''), pass: (oep.pathwaysConfirmed || 0) >= (oep.pathwaysRequired || 1) }];
