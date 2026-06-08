@@ -4,7 +4,7 @@
     "total_events": 162,
     "sample_events": 6,
     "standard_events": 156,
-    "last_updated": "2026-06-06",
+    "last_updated": "2026-06-08",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -57,8 +57,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-06",
-    "lastAudit": "2026-06-06",
+    "versionDate": "2026-06-08",
+    "lastAudit": "2026-06-08",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 162,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -5986,12 +5986,18 @@
             {
               "citation": "新华网宁夏 — 中金数据 zero-carbon base",
               "type": "corroborating",
-              "url": "http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html"
+              "url": "http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html"
             },
             {
               "citation": "State Grid Ningxia 330kV substation EIA filing",
               "type": "primary",
-              "url": "http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html"
+              "url": "http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html"
             }
           ]
         },
@@ -6004,7 +6010,10 @@
             {
               "citation": "中卫市数据局 CPPCC response — binding PUE/WUE limits",
               "type": "primary",
-              "url": "https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html"
+              "url": "https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html"
             }
           ]
         },
@@ -6018,12 +6027,18 @@
             {
               "citation": "水利部黄河水利委员会 — drought documentation",
               "type": "corroborating",
-              "url": "http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html"
+              "url": "http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html"
             },
             {
               "citation": "沙坡头区水务局 — Yellow River water allocation constraints",
               "type": "primary",
-              "url": "https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html"
+              "url": "https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html"
             }
           ]
         }
@@ -6066,7 +6081,10 @@
             {
               "citation": "贵州日报 — 500kV substation 4,000 MW capacity",
               "type": "corroborating",
-              "url": "https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html"
+              "url": "https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html"
             }
           ]
         },
@@ -6080,7 +6098,10 @@
             {
               "citation": "北极星环保网 — Gui'an upstream water source analysis",
               "type": "corroborating",
-              "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
+              "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
             }
           ]
         }
@@ -6130,7 +6151,10 @@
             {
               "citation": "庆阳市发改委 project approval with PUE mandate",
               "type": "primary",
-              "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
+              "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
             }
           ]
         },
@@ -6144,7 +6168,10 @@
             {
               "citation": "民族先锋报 — Qingyang extreme water scarcity classification",
               "type": "corroborating",
-              "url": "http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
+              "url": "http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
             }
           ]
         }
@@ -6186,7 +6213,10 @@
             {
               "citation": "GOV.UK Delivering AI Growth Zones Policy Paper",
               "type": "primary",
-              "url": "https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones"
+              "url": "https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones"
             }
           ]
         },
@@ -6199,7 +6229,10 @@
             {
               "citation": "UK Find a Tender — Culham Campus Heat Network",
               "type": "primary",
-              "url": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d"
+              "url": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d"
             }
           ]
         },
@@ -6212,7 +6245,10 @@
             {
               "citation": "UKTN — Culham AIGZ CTO Interview",
               "type": "primary",
-              "url": "https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204"
+              "url": "https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204"
             }
           ]
         },
@@ -6226,7 +6262,10 @@
             {
               "citation": "GOV.UK — AI Growth Zones Launch Press Release",
               "type": "primary",
-              "url": "https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change"
+              "url": "https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change"
             }
           ]
         }
@@ -6357,7 +6396,10 @@
             {
               "citation": "WRI Aqueduct Water Risk Atlas V4.0",
               "type": "primary",
-              "url": "https://www.wri.org/aqueduct"
+              "url": "https://www.wri.org/aqueduct",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.wri.org/aqueduct"
             }
           ]
         }
@@ -6431,7 +6473,10 @@
             {
               "citation": "CWW — facility specifications and power capacity",
               "type": "primary",
-              "url": "http://cww.net.cn/article?id=602183"
+              "url": "http://cww.net.cn/article?id=602183",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/http://cww.net.cn/article?id=602183"
             }
           ]
         }
@@ -6474,7 +6519,10 @@
             {
               "citation": "SoftBank Corp. / Sharp Corp. MoU Press Release (7 June 2024)",
               "type": "PRIMARY",
-              "url": "https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/"
+              "url": "https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/"
             }
           ]
         }
@@ -6545,12 +6593,18 @@
             {
               "citation": "DCD — Naver Launches 270MW Data Centre Campus in Sejong",
               "type": "CORROBORATING",
-              "url": "https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/"
+              "url": "https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/"
             },
             {
               "citation": "Korea Times — Operation Efficiency at Core of AI Infrastructure (October 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
+              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
             }
           ]
         },
@@ -6563,17 +6617,26 @@
             {
               "citation": "Naver Corp. — TCFD Climate Disclosure 2024",
               "type": "PRIMARY",
-              "url": "https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df"
+              "url": "https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df"
             },
             {
               "citation": "Naver Corp. — TCFD Report 2022",
               "type": "PRIMARY",
-              "url": "https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377"
+              "url": "https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377"
             },
             {
               "citation": "Korea Times — NAMU III Cooling and 240-Day Air Cooling (October 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
+              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
             }
           ]
         }
@@ -6802,12 +6865,18 @@
             {
               "citation": "Teslarati — Musk reveals power needs (June 2024)",
               "type": "CORROBORATING",
-              "url": "https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/"
+              "url": "https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/"
             },
             {
               "citation": "TechCrunch — Tesla’s Dojo, a timeline (September 2025)",
               "type": "CORROBORATING",
-              "url": "https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/"
+              "url": "https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/"
             }
           ]
         },
@@ -6820,12 +6889,18 @@
             {
               "citation": "Tom’s Hardware — Supermicro CEO endorses liquid cooling (July 2024)",
               "type": "CORROBORATING",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months"
+              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months"
             },
             {
               "citation": "Datacenters.com — Texas Water Crisis (July 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource"
+              "url": "https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "https://web.archive.org/web/20260607/https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource"
             }
           ]
         }
