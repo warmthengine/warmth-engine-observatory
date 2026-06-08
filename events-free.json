@@ -1972,7 +1972,10 @@
           "sources": [
             {
               "citation": "Yotta NM1 facility specifications",
-              "type": "corroborating"
+              "type": "corroborating",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -2915,7 +2918,10 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -3083,7 +3089,10 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -4571,7 +4580,10 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         }
@@ -4659,7 +4671,10 @@
           "sources": [
             {
               "citation": "China Mobile corporate communications — cold-plate liquid cooling (冷板式液冷), PUE 1.15, 69% green electricity",
-              "type": "corroborating"
+              "type": "corroborating",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         }
@@ -5046,11 +5061,17 @@
           "sources": [
             {
               "citation": "ICPE/DREAL Auvergne-Rhône-Alpes environmental authorisation — STMicroelectronics Crolles",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             },
             {
               "citation": "BImSchG permits, Landesdirektion Sachsen — Infineon Technologies Dresden",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         }
