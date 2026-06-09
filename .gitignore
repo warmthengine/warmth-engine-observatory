@@ -1,10 +1,46 @@
-# Claude Code configuration (personal, not shared)
+# Claude Code workspace
 .claude/
 agent_docs/
 CLAUDE.md
 BUDGETS.md
 .mcp.json
 
-# Local working directory (not deployed)
-weo-ent/
+# Protected directories — novel IP and internal workspaces
 SCP_Design/
+SCP_Reference/
+weo-ent/
+
+# Canonical and premium data — KV-only, never to GitHub
+events-canonical*.json
+events-full.json
+connections-canonical*.json
+actors-canonical*.json
+actors-full.json
+
+# Cloudflare tooling
+.wrangler/
+wrangler.toml
+wrangler.jsonc
+
+# Worker source (contains auth logic)
+worker.js
+
+# Playwright session data
+.playwright-mcp/
+
+# OS artifacts
+.DS_Store
+**/.DS_Store
+
+# Backup and temporary files
+*.bak
+*.bak2
+*.tmp
+
+# Internal pipeline documents that may end up in repo root
+WEO_LIVE_DATABASE_ENTRY_PROCESS*.md
+CHANGELOG.md
+atlas-mobile-issues-handover.md
+local-mobile-testing-workflow.md
+Claude\ Code\ Session\ Backup\ Protocol.md
+html\ archive/
