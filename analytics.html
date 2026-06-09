@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
+    <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="weo-version" content="1.3.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Analytics — Warmth Engine Observatory</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #94A3B8;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-bloc-cross: #2DD4BF;
+            --weo-cross-glow: rgba(45, 212, 191, 0.15);
+            --weo-cross-bg: rgba(45, 212, 191, 0.08);
+            --weo-status-positive: #22C55E;
+            --weo-status-positive-bg: rgba(34, 197, 94, 0.12);
+            --weo-status-negative: #F87171;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
+
+            /* Analytics-specific */
+            --ana-mcp: #2DD4BF;
+            --ana-api: #60A5FA;
+            --ana-auth: #22C55E;
+            --ana-mcp-bg: rgba(45, 212, 191, 0.15);
+            --ana-api-bg: rgba(96, 165, 250, 0.15);
+            --ana-auth-bg: rgba(34, 197, 94, 0.12);
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
+
+        body {
+            font-family: var(--weo-font-sans);
+            font-weight: 380;
+            background: var(--weo-surface-base);
+            color: var(--weo-text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--weo-space-lg);
+        }
+
+        /* ========================================
+           NAVIGATION (matches platform)
+           ======================================== */
+        .weo-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--weo-space-md) 0;
+            margin-bottom: var(--weo-space-xl);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+        .weo-nav-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-sm);
+            text-decoration: none;
+            color: var(--weo-text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-brand:hover { color: #2DD4BF; }
+        .weo-nav-logo {
+            width: 28px; height: 28px;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--weo-font-mono);
+            font-size: 0.5rem; font-weight: 700; color: #2DD4BF;
+        }
+        .weo-nav-links { display: flex; align-items: center; gap: var(--weo-space-xs); }
+        .weo-nav-links a {
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            color: var(--weo-text-tertiary);
+            text-decoration: none; font-size: 0.8125rem; font-weight: 500;
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-links a:hover { color: var(--weo-text-primary); background: rgba(59, 130, 246, 0.1); }
+        .weo-nav-links a.active { color: #2DD4BF; background: rgba(45, 212, 191, 0.1); }
+        .weo-nav-toggle {
+            display: none; width: 32px; height: 32px;
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            cursor: pointer; flex-direction: column;
+            align-items: center; justify-content: center; gap: 4px;
+        }
+        .weo-nav-toggle span {
+            display: block; width: 16px; height: 2px;
+            background: var(--weo-text-tertiary); border-radius: 1px;
+            transition: all var(--weo-duration-normal) var(--weo-ease-out);
+        }
+        .weo-nav-toggle:hover { background: rgba(59, 130, 246, 0.2); border-color: #60A5FA; }
+        .weo-nav-toggle:hover span { background: var(--weo-text-primary); }
+
+        @media (max-width: 767px) {
+            .weo-nav { position: relative; }
+            .weo-nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.97);
+                border: 1px solid rgba(96, 165, 250, 0.2);
+                border-top: 2px solid rgba(96, 165, 250, 0.8);
+                border-radius: var(--weo-radius-md);
+                padding: var(--weo-space-sm); margin-top: var(--weo-space-sm);
+                z-index: 100;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+                backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            }
+            .weo-nav-links.open { display: flex; }
+            .weo-nav-links a { width: 100%; padding: var(--weo-space-sm) var(--weo-space-md); }
+            .weo-nav-toggle { display: flex; min-width: 44px; min-height: 44px; }
+        }
+
+        /* ========================================
+           AUTH GATE
+           ======================================== */
+        .auth-gate {
+            position: fixed; inset: 0;
+            background: var(--weo-surface-base);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+        .auth-gate.hidden { display: none; }
+        .auth-box {
+            text-align: center; max-width: 360px; padding: var(--weo-space-xl);
+        }
+        .auth-box h2 {
+            font-size: 1.25rem; font-weight: 580;
+            margin-bottom: var(--weo-space-sm);
+        }
+        .auth-box p {
+            color: var(--weo-text-secondary); font-size: 0.875rem;
+            margin-bottom: var(--weo-space-lg);
+        }
+        .auth-input {
+            width: 100%; padding: 0.625rem 0.875rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: var(--weo-text-primary);
+            font-family: var(--weo-font-mono); font-size: 0.875rem;
+            transition: border-color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .auth-input:focus { border-color: var(--weo-accent-hover); }
+        .auth-input::placeholder { color: var(--weo-text-muted); }
+        .auth-btn {
+            width: 100%; margin-top: var(--weo-space-md);
+            padding: 0.625rem; background: var(--ana-api-bg);
+            border: 1px solid var(--ana-api); color: var(--ana-api);
+            border-radius: var(--weo-radius-md);
+            font-family: var(--weo-font-sans); font-size: 0.875rem;
+            font-weight: 500; cursor: pointer;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .auth-btn:hover { background: var(--ana-api); color: var(--weo-surface-base); }
+        .auth-error {
+            color: var(--weo-status-negative); font-size: 0.8125rem;
+            margin-top: var(--weo-space-sm); min-height: 1.2em;
+        }
+
+        /* ========================================
+           PAGE HEADER
+           ======================================== */
+        .page-header { margin-bottom: var(--weo-space-2xl); }
+        .page-title { font-size: 1.75rem; font-weight: 580; margin-bottom: var(--weo-space-xs); }
+        .page-subtitle { color: var(--weo-text-secondary); font-size: 0.9375rem; }
+
+        /* ========================================
+           CONTROLS
+           ======================================== */
+        .controls {
+            display: flex; align-items: center; gap: var(--weo-space-md);
+            margin-bottom: var(--weo-space-xl); flex-wrap: wrap;
+        }
+        .range-btn {
+            padding: var(--weo-space-xs) var(--weo-space-md);
+            background: transparent; border: 1px solid var(--weo-border-primary);
+            color: var(--weo-text-tertiary); border-radius: var(--weo-radius-sm);
+            font-family: var(--weo-font-mono); font-size: 0.75rem; font-weight: 480;
+            cursor: pointer;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .range-btn:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
+        .range-btn.active { color: var(--ana-mcp); border-color: var(--ana-mcp); background: var(--ana-mcp-bg); }
+        .last-updated {
+            margin-left: auto;
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-muted);
+        }
+
+        /* ========================================
+           METRIC CARDS (top row)
+           ======================================== */
+        .metrics-row {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: var(--weo-space-md); margin-bottom: var(--weo-space-xl);
+        }
+        .metric-card {
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-lg);
+        }
+        .metric-label {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted); text-transform: uppercase;
+            letter-spacing: 0.08em; margin-bottom: var(--weo-space-sm);
+        }
+        .metric-value {
+            font-family: var(--weo-font-mono); font-size: 2rem;
+            font-weight: 580; line-height: 1;
+        }
+        .metric-value.mcp { color: var(--ana-mcp); }
+        .metric-value.api { color: var(--ana-api); }
+        .metric-value.auth { color: var(--ana-auth); }
+        .metric-value.total { color: var(--weo-text-primary); }
+        .metric-sub {
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-muted); margin-top: var(--weo-space-xs);
+        }
+
+        @media (max-width: 767px) {
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ========================================
+           PANELS (breakdown sections)
+           ======================================== */
+        .panels-row {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: var(--weo-space-md); margin-bottom: var(--weo-space-md);
+        }
+        @media (max-width: 767px) {
+            .panels-row { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-lg);
+        }
+        .panel-title {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted); text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--weo-space-lg);
+            padding-bottom: var(--weo-space-sm);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+
+        /* Bar rows */
+        .bar-row {
+            display: flex; align-items: center; gap: var(--weo-space-md);
+            margin-bottom: var(--weo-space-sm);
+        }
+        .bar-label {
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-secondary); min-width: 90px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .bar-track {
+            flex: 1; height: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: var(--weo-radius-sm);
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: var(--weo-radius-sm);
+            transition: width var(--weo-duration-slow) var(--weo-ease-out);
+            min-width: 2px;
+        }
+        .bar-fill.mcp { background: var(--ana-mcp); }
+        .bar-fill.api { background: var(--ana-api); }
+        .bar-fill.client { background: var(--ana-api); }
+        .bar-fill.country { background: var(--weo-accent-primary); }
+        .bar-count {
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-muted); min-width: 40px; text-align: right;
+        }
+
+        /* ========================================
+           DAILY TREND (sparkline bar chart)
+           ======================================== */
+        .trend-panel {
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            padding: var(--weo-space-lg);
+            margin-bottom: var(--weo-space-md);
+        }
+        .trend-chart {
+            display: flex; align-items: flex-end;
+            gap: 2px; height: 120px;
+            padding-top: var(--weo-space-sm);
+        }
+        .trend-day {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-end;
+            height: 100%; position: relative;
+            cursor: default;
+        }
+        .trend-bar-stack {
+            width: 100%; display: flex; flex-direction: column-reverse;
+            border-radius: 2px; overflow: hidden;
+        }
+        .trend-bar-mcp {
+            background: var(--ana-mcp); width: 100%;
+            transition: height var(--weo-duration-slow) var(--weo-ease-out);
+        }
+        .trend-bar-api {
+            background: var(--ana-api); width: 100%;
+            transition: height var(--weo-duration-slow) var(--weo-ease-out);
+        }
+        .trend-date {
+            font-family: var(--weo-font-mono); font-size: 0.5625rem;
+            color: var(--weo-text-muted); margin-top: 4px;
+            transform: rotate(-45deg); transform-origin: top left;
+            white-space: nowrap;
+        }
+        .trend-tooltip {
+            position: absolute; bottom: 100%; left: 50%;
+            transform: translateX(-50%); margin-bottom: 6px;
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-subtle);
+            border-radius: var(--weo-radius-sm);
+            padding: 4px 8px;
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-primary);
+            white-space: nowrap; pointer-events: none;
+            opacity: 0; transition: opacity var(--weo-duration-fast);
+            z-index: 10;
+        }
+        .trend-day:hover .trend-tooltip { opacity: 1; }
+        .trend-legend {
+            display: flex; gap: var(--weo-space-lg);
+            margin-top: var(--weo-space-md); justify-content: center;
+        }
+        .trend-legend-item {
+            display: flex; align-items: center; gap: var(--weo-space-xs);
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted);
+        }
+        .trend-legend-swatch {
+            width: 10px; height: 10px; border-radius: 2px;
+        }
+        .trend-legend-swatch.mcp { background: var(--ana-mcp); }
+        .trend-legend-swatch.api { background: var(--ana-api); }
+
+        /* ========================================
+           HOURLY PATTERN
+           ======================================== */
+        .hourly-chart {
+            display: flex; align-items: flex-end; gap: 1px; height: 80px;
+        }
+        .hourly-bar {
+            flex: 1; background: var(--weo-accent-primary);
+            border-radius: 1px 1px 0 0;
+            transition: height var(--weo-duration-slow) var(--weo-ease-out);
+            min-height: 1px; position: relative; cursor: default;
+        }
+        .hourly-bar:hover { background: var(--weo-accent-hover); }
+        .hourly-labels {
+            display: flex; gap: 1px; margin-top: 4px;
+        }
+        .hourly-label {
+            flex: 1; text-align: center;
+            font-family: var(--weo-font-mono); font-size: 0.5rem;
+            color: var(--weo-text-muted);
+        }
+
+        /* ========================================
+           LOADING / EMPTY STATES
+           ======================================== */
+        .loading {
+            text-align: center; padding: var(--weo-space-3xl);
+            color: var(--weo-text-muted);
+            font-family: var(--weo-font-mono); font-size: 0.875rem;
+        }
+        .loading-dot {
+            display: inline-block; width: 6px; height: 6px;
+            background: var(--ana-mcp); border-radius: 50%;
+            margin: 0 2px;
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes pulse { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+        .empty-state {
+            color: var(--weo-text-muted);
+            font-family: var(--weo-font-mono); font-size: 0.8125rem;
+            text-align: center; padding: var(--weo-space-xl);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .page-footer {
+            margin-top: var(--weo-space-3xl);
+            padding: var(--weo-space-lg) 0;
+            border-top: 1px solid var(--weo-border-primary);
+            text-align: center;
+        }
+        .footer-badge {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted); letter-spacing: 0.08em;
+        }
+        .footer-version {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted); opacity: 0.4;
+            margin-top: var(--weo-space-xs);
+        }
+
+        /* ========================================
+           GEIST DARK-MODE WEIGHT COMPENSATION
+           ======================================== */
+        body { font-weight: 380; }
+        .page-title, .metric-value { font-weight: 580; }
+        .panel-title, .metric-label, .bar-label, .bar-count,
+        .trend-date, .footer-badge, .range-btn { font-weight: 480; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Auth Gate -->
+<div class="auth-gate" id="authGate">
+    <div class="auth-box">
+        <div style="margin-bottom:var(--weo-space-lg);">
+            <span class="weo-nav-logo" style="width:40px;height:40px;font-size:0.7rem;margin:0 auto;">WEO</span>
+        </div>
+        <h2>Analytics</h2>
+        <p>Operator access required</p>
+        <input type="password" class="auth-input" id="authInput" placeholder="Password" autocomplete="off">
+        <button class="auth-btn" id="authBtn">Authenticate</button>
+        <div class="auth-error" id="authError"></div>
+    </div>
+</div>
+
+<!-- Main Content (hidden until auth) -->
+<div class="container" id="mainContent" style="display:none;">
+    
+    <!-- Navigation -->
+    <nav class="weo-nav">
+        <a href="/" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+        </a>
+        <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="weo-nav-links" id="navLinks">
+            <a href="/">Map</a>
+            <a href="atlas.html">Atlas</a>
+            <a href="events.html">Events</a>
+            <a href="/profiles/">Profiles</a>
+            <a href="blocs.html">Blocs</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="research.html">Research</a>
+            <a href="about.html">About</a>
+            <a href="support.html">Support</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1 class="page-title">Analytics</h1>
+        <p class="page-subtitle">MCP and API traffic — the machine layer</p>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="range-btn" data-days="1">24h</button>
+        <button class="range-btn active" data-days="7">7d</button>
+        <button class="range-btn" data-days="14">14d</button>
+        <button class="range-btn" data-days="30">30d</button>
+        <span class="last-updated" id="lastUpdated"></span>
+    </div>
+
+    <!-- Metric Cards -->
+    <div class="metrics-row" id="metricsRow">
+        <div class="metric-card">
+            <div class="metric-label">MCP Requests</div>
+            <div class="metric-value mcp" id="metricMcp">—</div>
+            <div class="metric-sub" id="metricMcpSub"></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">API Requests</div>
+            <div class="metric-value api" id="metricApi">—</div>
+            <div class="metric-sub" id="metricApiSub"></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Authenticated</div>
+            <div class="metric-value auth" id="metricAuth">—</div>
+            <div class="metric-sub" id="metricAuthSub"></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Total</div>
+            <div class="metric-value total" id="metricTotal">—</div>
+            <div class="metric-sub" id="metricTotalSub"></div>
+        </div>
+    </div>
+
+    <!-- Daily Trend -->
+    <div class="trend-panel">
+        <div class="panel-title">Daily Trend</div>
+        <div class="trend-chart" id="trendChart"></div>
+        <div class="trend-legend">
+            <div class="trend-legend-item"><div class="trend-legend-swatch mcp"></div>MCP</div>
+            <div class="trend-legend-item"><div class="trend-legend-swatch api"></div>API</div>
+        </div>
+    </div>
+
+    <!-- Breakdowns -->
+    <div class="panels-row">
+        <div class="panel">
+            <div class="panel-title">Client Types</div>
+            <div id="clientPanel"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Endpoints</div>
+            <div id="endpointPanel"></div>
+        </div>
+    </div>
+
+    <div class="panels-row">
+        <div class="panel">
+            <div class="panel-title">Countries</div>
+            <div id="countryPanel"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Hourly Pattern (UTC)</div>
+            <div class="hourly-chart" id="hourlyChart"></div>
+            <div class="hourly-labels" id="hourlyLabels"></div>
+        </div>
+    </div>
+
+    <!-- MCP Client Breakdown -->
+    <div class="panels-row">
+        <div class="panel">
+            <div class="panel-title">MCP by Client</div>
+            <div id="mcpClientPanel"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">API by Client</div>
+            <div id="apiClientPanel"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+        <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
+        <div class="footer-version">Methodology V1.4 · WEO v1.3.0 · Analytics</div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    var password = '';
+    var currentDays = 7;
+    var API_BASE = 'https://warmthengine.com/api/analytics';
+
+    // --- Auth ---
+    var authGate = document.getElementById('authGate');
+    var authInput = document.getElementById('authInput');
+    var authBtn = document.getElementById('authBtn');
+    var authError = document.getElementById('authError');
+    var mainContent = document.getElementById('mainContent');
+
+    function tryAuth() {
+        password = authInput.value.trim();
+        if (!password) { authError.textContent = 'Password required'; return; }
+        authError.textContent = '';
+        authBtn.textContent = 'Checking…';
+        
+        // Test auth against a known endpoint
+        fetch('https://warmthengine.com/api/analytics?days=1', {
+            headers: { 'X-WEO-Password': password }
+        })
+        .then(function(r) {
+            if (r.status === 401 || r.status === 403) throw new Error('denied');
+            return r.json();
+        })
+        .then(function() {
+            authGate.classList.add('hidden');
+            mainContent.style.display = 'block';
+            loadData(currentDays);
+        })
+        .catch(function() {
+            authError.textContent = 'Authentication failed';
+            authBtn.textContent = 'Authenticate';
+        });
+    }
+
+    authBtn.addEventListener('click', tryAuth);
+    authInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryAuth(); });
+    authInput.focus();
+
+    // --- Range buttons ---
+    var rangeBtns = document.querySelectorAll('.range-btn');
+    rangeBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            rangeBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            currentDays = parseInt(btn.getAttribute('data-days'));
+            loadData(currentDays);
+        });
+    });
+
+    // --- Data loading ---
+    function loadData(days) {
+        document.getElementById('lastUpdated').textContent = 'Loading…';
+
+        fetch(API_BASE + '?days=' + days, {
+            headers: { 'X-WEO-Password': password }
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (days === 1) {
+                // Single day comes as flat object
+                var today = new Date().toISOString().slice(0, 10);
+                var wrapped = {};
+                wrapped[today] = data;
+                render(wrapped, days);
+            } else {
+                render(data, days);
+            }
+        })
+        .catch(function(err) {
+            document.getElementById('lastUpdated').textContent = 'Error loading data';
+            console.error('Analytics fetch error:', err);
+        });
+    }
+
+    // --- Rendering ---
+    function render(dailyData, days) {
+        var dates = Object.keys(dailyData).sort();
+        var now = new Date().toISOString().slice(0, 10);
+        document.getElementById('lastUpdated').textContent = dates.length + ' day' + (dates.length !== 1 ? 's' : '') + ' · ' + now;
+
+        // Aggregate across all days
+        var totals = { mcp: 0, api: 0, authenticated: 0 };
+        var aggCountry = {};
+        var aggEndpoint = {};
+        var aggClient = {};
+        var aggHour = {};
+        var aggMcpClient = {};
+        var aggApiClient = {};
+
+        dates.forEach(function(d) {
+            var day = dailyData[d];
+            if (!day || (day.mcp === 0 && day.api === 0)) return;
+            totals.mcp += (day.mcp || 0);
+            totals.api += (day.api || 0);
+            totals.authenticated += (day.authenticated || 0);
+            merge(aggCountry, day.by_country);
+            merge(aggEndpoint, day.by_endpoint);
+            merge(aggClient, day.by_client);
+            merge(aggHour, day.by_hour);
+            merge(aggMcpClient, day.mcp_by_client);
+            merge(aggApiClient, day.api_by_client);
+        });
+
+        var total = totals.mcp + totals.api;
+
+        // Metric cards
+        document.getElementById('metricMcp').textContent = fmt(totals.mcp);
+        document.getElementById('metricApi').textContent = fmt(totals.api);
+        document.getElementById('metricAuth').textContent = fmt(totals.authenticated);
+        document.getElementById('metricTotal').textContent = fmt(total);
+
+        var pctMcp = total > 0 ? Math.round(totals.mcp / total * 100) : 0;
+        var pctApi = total > 0 ? Math.round(totals.api / total * 100) : 0;
+        document.getElementById('metricMcpSub').textContent = pctMcp + '% of total';
+        document.getElementById('metricApiSub').textContent = pctApi + '% of total';
+        document.getElementById('metricAuthSub').textContent = totals.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
+        document.getElementById('metricTotalSub').textContent = days + 'd period';
+
+        // Daily trend chart
+        renderTrend(dates, dailyData);
+
+        // Breakdown panels
+        renderBars('clientPanel', aggClient, 'client');
+        renderBars('endpointPanel', aggEndpoint, 'api');
+        renderBars('countryPanel', aggCountry, 'country');
+        renderBars('mcpClientPanel', aggMcpClient, 'mcp');
+        renderBars('apiClientPanel', aggApiClient, 'api');
+
+        // Hourly chart
+        renderHourly(aggHour);
+    }
+
+    function renderTrend(dates, dailyData) {
+        var chart = document.getElementById('trendChart');
+        chart.innerHTML = '';
+
+        if (dates.length === 0) {
+            chart.innerHTML = '<div class="empty-state">No data available</div>';
+            return;
+        }
+
+        var maxVal = 0;
+        dates.forEach(function(d) {
+            var day = dailyData[d] || {};
+            var dayTotal = (day.mcp || 0) + (day.api || 0);
+            if (dayTotal > maxVal) maxVal = dayTotal;
+        });
+        if (maxVal === 0) maxVal = 1;
+
+        dates.forEach(function(d) {
+            var day = dailyData[d] || {};
+            var mcp = day.mcp || 0;
+            var api = day.api || 0;
+            var dayTotal = mcp + api;
+            var heightPct = (dayTotal / maxVal * 100);
+
+            var mcpH = dayTotal > 0 ? (mcp / maxVal * 100) : 0;
+            var apiH = dayTotal > 0 ? (api / maxVal * 100) : 0;
+
+            var dateLabel = d.slice(5); // MM-DD
+            var col = document.createElement('div');
+            col.className = 'trend-day';
+
+            col.innerHTML =
+                '<div class="trend-tooltip">' + dateLabel + ' · MCP: ' + mcp + ' · API: ' + api + '</div>' +
+                '<div class="trend-bar-stack" style="height:' + heightPct + '%">' +
+                    '<div class="trend-bar-api" style="height:' + (dayTotal > 0 ? (api/dayTotal*100) : 0) + '%"></div>' +
+                    '<div class="trend-bar-mcp" style="height:' + (dayTotal > 0 ? (mcp/dayTotal*100) : 0) + '%"></div>' +
+                '</div>';
+
+            // Only show date labels for every Nth day depending on range
+            if (dates.length <= 14 || dates.indexOf(d) % Math.ceil(dates.length / 10) === 0) {
+                var label = document.createElement('div');
+                label.className = 'trend-date';
+                label.textContent = dateLabel;
+                col.appendChild(label);
+            }
+
+            chart.appendChild(col);
+        });
+    }
+
+    function renderBars(containerId, data, colorClass) {
+        var container = document.getElementById(containerId);
+        if (!data || Object.keys(data).length === 0) {
+            container.innerHTML = '<div class="empty-state">No data yet</div>';
+            return;
+        }
+
+        var sorted = Object.entries(data).sort(function(a, b) { return b[1] - a[1]; });
+        var maxVal = sorted[0] ? sorted[0][1] : 1;
+
+        var html = '';
+        sorted.slice(0, 10).forEach(function(item) {
+            var label = item[0];
+            var count = item[1];
+            var pct = Math.max(2, count / maxVal * 100);
+            html +=
+                '<div class="bar-row">' +
+                    '<div class="bar-label" title="' + label + '">' + label + '</div>' +
+                    '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
+                    '<div class="bar-count">' + fmt(count) + '</div>' +
+                '</div>';
+        });
+        container.innerHTML = html;
+    }
+
+    function renderHourly(hourData) {
+        var chart = document.getElementById('hourlyChart');
+        var labels = document.getElementById('hourlyLabels');
+        chart.innerHTML = '';
+        labels.innerHTML = '';
+
+        var maxVal = 0;
+        for (var h = 0; h < 24; h++) {
+            var key = h.toString().padStart(2, '0');
+            var val = hourData[key] || 0;
+            if (val > maxVal) maxVal = val;
+        }
+        if (maxVal === 0) maxVal = 1;
+
+        for (var h = 0; h < 24; h++) {
+            var key = h.toString().padStart(2, '0');
+            var val = hourData[key] || 0;
+            var pct = Math.max(1, val / maxVal * 100);
+
+            var bar = document.createElement('div');
+            bar.className = 'hourly-bar';
+            bar.style.height = pct + '%';
+            bar.title = key + ':00 UTC — ' + val + ' requests';
+            chart.appendChild(bar);
+
+            var lbl = document.createElement('div');
+            lbl.className = 'hourly-label';
+            lbl.textContent = (h % 4 === 0) ? key : '';
+            labels.appendChild(lbl);
+        }
+    }
+
+    // --- Helpers ---
+    function merge(target, source) {
+        if (!source) return;
+        Object.keys(source).forEach(function(k) {
+            target[k] = (target[k] || 0) + source[k];
+        });
+    }
+
+    function fmt(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+        if (n >= 10000) return (n / 1000).toFixed(1) + 'k';
+        if (n >= 1000) return (n / 1000).toFixed(2) + 'k';
+        return n.toString();
+    }
+
+    // --- Nav toggle ---
+    var navToggle = document.getElementById('navToggle');
+    var navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+})();
+</script>
+<script>
+(function(){
+  var v = document.querySelector('meta[name="weo-version"]');
+  if (v) console.log('WEO v' + v.getAttribute('content'));
+})();
+</script>
+</body>
+</html>
