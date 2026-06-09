@@ -640,6 +640,7 @@
             return r.json();
         })
         .then(function() {
+            sessionStorage.setItem('weo_analytics_auth', password);
             authGate.classList.add('hidden');
             mainContent.style.display = 'block';
             loadData(currentDays);
@@ -652,7 +653,31 @@
 
     authBtn.addEventListener('click', tryAuth);
     authInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryAuth(); });
-    authInput.focus();
+
+    // Resume session if a stored password exists
+    (function() {
+        var stored = sessionStorage.getItem('weo_analytics_auth');
+        if (!stored) { authInput.focus(); return; }
+        authBtn.textContent = 'Checking…';
+        fetch('https://warmthengine.com/api/analytics?days=1', {
+            headers: { 'X-WEO-Password': stored }
+        })
+        .then(function(r) {
+            if (r.status === 401 || r.status === 403) throw new Error('denied');
+            return r.json();
+        })
+        .then(function() {
+            password = stored;
+            authGate.classList.add('hidden');
+            mainContent.style.display = 'block';
+            loadData(currentDays);
+        })
+        .catch(function() {
+            sessionStorage.removeItem('weo_analytics_auth');
+            authBtn.textContent = 'Authenticate';
+            authInput.focus();
+        });
+    })();
 
     // --- Range buttons ---
     var rangeBtns = document.querySelectorAll('.range-btn');
