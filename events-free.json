@@ -71,11 +71,11 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1410,
-      "preserved": 1383,
+      "total_sources": 1401,
+      "preserved": 1374,
       "preservation_rate": 0.981,
       "by_status": {
-        "captured": 1363,
+        "captured": 1354,
         "recovered": 14,
         "existing": 6,
         "no_capture": 19,
@@ -88,8 +88,8 @@
           "preserved": 829
         },
         "connections": {
-          "total": 374,
-          "preserved": 368
+          "total": 365,
+          "preserved": 359
         },
         "actors": {
           "total": 188,
@@ -7454,7 +7454,7 @@
       "tier": 3,
       "type": "Corporate",
       "sample": false,
-      "date": "1 March 2025",
+      "date": "22 November 2023",
       "location": "Tianjin, China",
       "scope": "Mainland China (domestic AI compute market)",
       "description": "Hygon Information Technology's DCU series comprises three generations of GPGPU-architecture AI accelerators in mass production for training and inference workloads, operating within a CUDA-compatible software ecosystem supporting deployment across Chinese AI infrastructure.",
@@ -7487,7 +7487,7 @@
       "tier": 3,
       "type": "Corporate",
       "sample": false,
-      "date": "31 December 2024",
+      "date": "1 March 2024",
       "location": "Beijing, China",
       "scope": "Mainland China (domestic AI compute market)",
       "description": "Kunlunxin's P800, a third-generation AI accelerator based on the proprietary XPU-P architecture, entered mass production in 2024. A Baidu subsidiary, Kunlunxin develops purpose-built AI training and inference processors for the Chinese domestic market.",
@@ -7520,7 +7520,7 @@
       "tier": 3,
       "type": "Corporate",
       "sample": false,
-      "date": "8 January 2026",
+      "date": "15 November 2023",
       "location": "Shanghai, China",
       "scope": "Mainland China (domestic AI infrastructure)",
       "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tian'ai series for AI training and the Zhikai series for inference, listing on HKEX in January 2026. The Tian'ai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
