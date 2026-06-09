@@ -1813,14 +1813,10 @@
                         <div class="standard-value">70%+</div>
                         <div class="standard-label">Confidence Floor</div>
                     </div>
-                    <div class="standard-item">
-                        <div class="standard-value" id="preservationRateValue">—</div>
-                        <div class="standard-label">Source Preservation</div>
-                    </div>
                 </div>
                 
                 <div class="prose" style="margin-top: var(--weo-space-lg);">
-                    <p>WEO aims to meet the verification rigour of major financial indices. All events require either 2+ primary sources OR 1 primary + 2 corroborating sources. The 6-month verification lag ensures implementation confirmation before database entry. All cited sources are submitted to the Internet Archive for permanent preservation, with current capture status tracked across the full evidence base.</p>
+                    <p>WEO aims to meet the verification rigour of major financial indices. All events require either 2+ primary sources OR 1 primary + 2 corroborating sources. The 6-month verification lag ensures implementation confirmation before database entry. All cited sources are submitted to the Internet Archive for permanent preservation, with capture status tracked across the full evidence base. Current preservation rate: <span class="weo-value weo-value--pill" id="preservationRateInline">—</span> across <span class="weo-value weo-value--pill" id="preservationSourceCount">—</span> cited sources.</p>
                     <p>Low-confidence events (&lt;70%) are excluded from the database. Only <span class="weo-value weo-value--pill">HIGH (90%+)</span> and <span class="weo-value weo-value--pill">MEDIUM (70–90%)</span> confidence events appear in WEO.</p>
                 </div>
             </div>
@@ -1951,14 +1947,19 @@
 </script>
 <script>
 (function() {
-    var el = document.getElementById('preservationRateValue');
-    if (!el) return;
+    var rateEl = document.getElementById('preservationRateInline');
+    var countEl = document.getElementById('preservationSourceCount');
+    if (!rateEl && !countEl) return;
     fetch('https://warmthengine.com/api/events')
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var rate = data && data.metadata && data.metadata.source_durability && data.metadata.source_durability.preservation_rate;
-            if (typeof rate === 'number') {
-                el.textContent = (rate * 100).toFixed(1) + '%';
+            var dur = data && data.metadata && data.metadata.source_durability;
+            if (!dur) return;
+            if (rateEl && typeof dur.preservation_rate === 'number') {
+                rateEl.textContent = (dur.preservation_rate * 100).toFixed(1) + '%';
+            }
+            if (countEl && typeof dur.total_sources === 'number') {
+                countEl.textContent = dur.total_sources.toLocaleString();
             }
         })
         .catch(function() {});
