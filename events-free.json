@@ -1,21 +1,21 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 162,
+    "total_events": 165,
     "sample_events": 6,
-    "standard_events": 156,
-    "last_updated": "2026-06-08",
+    "standard_events": 159,
+    "last_updated": "2026-06-09",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
-        "Eastern": 45,
+        "Eastern": 48,
         "Western": 99,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 144,
+        "T3": 147,
         "T2": 17,
         "T1": 1
       },
@@ -23,14 +23,14 @@
         "Infrastructure": 43,
         "Coordination": 29,
         "Policy": 44,
-        "Corporate": 46
+        "Corporate": 49
       },
       "by_confidence": {
-        "A": 158,
+        "A": 161,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 86,
+        "basel5": 89,
         "keohane": 28,
         "pisa5": 29,
         "routeBased": 19,
@@ -46,21 +46,22 @@
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
-        "Trade & Logistics": 1
+        "Trade & Logistics": 1,
+        "Unknown": 3
       },
       "by_version": {
         "1.2": 45,
         "1.3": 11,
         "1.1": 60,
         "1.4": 1,
-        "1.0": 44,
+        "1.0": 47,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-08",
-    "lastAudit": "2026-06-08",
+    "versionDate": "2026-06-09",
+    "lastAudit": "2026-06-09",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 162,
+    "event_count": 165,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -68,6 +69,33 @@
     "wer": {
       "value": 6.6,
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
+    },
+    "source_durability": {
+      "total_sources": 1410,
+      "preserved": 1383,
+      "preservation_rate": 0.981,
+      "by_status": {
+        "captured": 1363,
+        "recovered": 14,
+        "existing": 6,
+        "no_capture": 19,
+        "dead_source": 1,
+        "pending": 7
+      },
+      "by_layer": {
+        "events": {
+          "total": 848,
+          "preserved": 829
+        },
+        "connections": {
+          "total": 374,
+          "preserved": 368
+        },
+        "actors": {
+          "total": 188,
+          "preserved": 186
+        }
+      }
     },
     "tier": "free"
   },
@@ -7411,6 +7439,105 @@
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "191",
+      "name": "Hygon DCU Series",
+      "lat": 39.1,
+      "lng": 117.16,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "1 March 2025",
+      "location": "Tianjin, China",
+      "scope": "Mainland China (domestic AI compute market)",
+      "description": "Hygon Information Technology's DCU series comprises three generations of GPGPU-architecture AI accelerators in mass production for training and inference workloads, operating within a CUDA-compatible software ecosystem supporting deployment across Chinese AI infrastructure.",
+      "investment": "2024 revenue RMB 9.162B (+52.4% YoY); gross margin 63.72%; current generation FP16 49 TFLOPS",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "GPGPU AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 1,
+      "corroborating": 7,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "192",
+      "name": "Kunlunxin P800",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "31 December 2024",
+      "location": "Beijing, China",
+      "scope": "Mainland China (domestic AI compute market)",
+      "description": "Kunlunxin's P800, a third-generation AI accelerator based on the proprietary XPU-P architecture, entered mass production in 2024. A Baidu subsidiary, Kunlunxin develops purpose-built AI training and inference processors for the Chinese domestic market.",
+      "investment": "2024 revenue ~RMB 2B (net loss ~RMB 200M); Baidu 57.67% shareholding; 69,000 units shipped — second among Chinese AI chip producers per IDC 2024",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "193",
+      "name": "Tianshu Zhixin GPU Series",
+      "lat": 31.2304,
+      "lng": 121.4737,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "8 January 2026",
+      "location": "Shanghai, China",
+      "scope": "Mainland China (domestic AI infrastructure)",
+      "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tian'ai series for AI training and the Zhikai series for inference, listing on HKEX in January 2026. The Tian'ai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
+      "investment": "2025 revenue RMB 1.034B (+91.6% YoY); gross margin 54.0%; 52,000+ GPUs deployed to 290+ customers as of mid-2025",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "GPGPU AI accelerator design with training and inference product lines — Priority Group 1 semiconductor/GPU keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
