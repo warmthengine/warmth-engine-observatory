@@ -1541,26 +1541,6 @@
             gap: 0.25rem;
         }
         .version-sources-ref-link:hover { text-decoration: underline; }
-        .related-events { display: flex; flex-wrap: wrap; gap: var(--weo-space-sm); }
-        .related-event { 
-            background: var(--weo-surface-overlay); 
-            border-radius: var(--weo-radius-sm); 
-            padding: var(--weo-space-xs) var(--weo-space-sm); 
-            font-size: 0.75rem; 
-            color: var(--weo-text-secondary);
-            cursor: pointer;
-            transition: background-color var(--weo-duration-fast) var(--weo-ease-out), border-color var(--weo-duration-fast), transform var(--weo-duration-fast);
-            border: 1px solid transparent;
-        }
-        /* Related Events: Subtle hover - muted grey tones (lower visual hierarchy than CC) */
-        .related-event:hover {
-            background-color: rgba(148, 163, 184, 0.18);
-            border-color: rgba(148, 163, 184, 0.35);
-            transform: translateY(-1px);
-        }
-        .related-event:hover strong {
-            color: #CBD5E1;
-        }
         .page-footer { margin-top: var(--weo-space-2xl); padding-top: var(--weo-space-lg); border-top: 1px solid var(--weo-border-primary); }
         .footer-text { font-size: 0.75rem; color: var(--weo-text-muted); }
         .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
@@ -3556,10 +3536,6 @@ function mapApiEventToFull(e) {
   if ((e.sources_primary ?? e.primarySources) != null) full.sources_primary = e.sources_primary ?? e.primarySources;
   if ((e.sources_corroborating ?? e.corroboratingSources) != null) full.sources_corroborating = e.sources_corroborating ?? e.corroboratingSources;
   if ((e.bloc_analysis ?? e.blocAnalysis) != null) full.bloc_analysis = e.bloc_analysis ?? e.blocAnalysis;
-  var relEvts = e.related_events ?? e.relatedEvents;
-  if (relEvts != null) full.related_events = relEvts.map(function(r) {
-    return { event_id: r.event_id || r.id, relationship: r.relationship };
-  });
 
   // Assessment frameworks: API names → events.html UI names
   if (e.basel5 != null) { full.basel_factors = e.basel5; full.basel_factors_met = e.basel5_factors_met; }
@@ -4805,15 +4781,6 @@ function navigateBackFromCC() {
   }
 }
 
-// Navigate to a related event (uses same back navigation as CC)
-function navigateToRelatedEvent(targetEventId, sourceEventId) {
-  const sourceEvent = freeEvents.find(e => e.event_id === sourceEventId);
-  if (sourceEvent) {
-    ccNavigationState.previousEventId = sourceEventId;
-    ccNavigationState.previousEventName = sourceEvent.event_name;
-  }
-  openModal(targetEventId);
-}
 
 function generateCCSection(eventId, showFullContent) {
   const connections = getConnectionsForEvent(eventId);
@@ -5625,33 +5592,10 @@ const openModal = (id) => {
         // Original Qualification Data (for events with genesis data and version > 1.0)
         html += generateOriginalQualificationSection(full);
 
-        // Coordination Connections section (for sample events with connections) - BEFORE Related Events
+        // Coordination Connections section (for sample events with connections)
         const ccSectionHtml = generateCCSection(id, true);
         if (ccSectionHtml) {
             html += ccSectionHtml;
-        }
-        
-        // Related Events - AFTER CC (filter out events already linked via Coordination Connections)
-        if (full.related_events && full.related_events.length > 0) {
-            // Get event IDs that are already connected via CC
-            const ccConnectedIds = getConnectionsForEvent(id).map(c => c.source === id ? c.target : c.source);
-            // Filter out related events that already have CC connections
-            const filteredRelated = full.related_events.filter(r => !ccConnectedIds.includes(r.event_id));
-            
-            if (filteredRelated.length > 0) {
-                html += `
-                <div class="paid-section">
-                    <div class="paid-section-title">▼ Related Events</div>
-                    <div class="related-events">
-                        ${filteredRelated.map(r=>{
-                            const related = freeEvents.find(x=>x.event_id===r.event_id);
-                            const name = related ? related.event_name : 'Event '+r.event_id;
-                            return `<div class="related-event" onclick="navigateToRelatedEvent('${r.event_id}', '${id}')" title="Click to view this event"><strong>Event ${r.event_id}:</strong> ${name.substring(0,40)}${name.length>40?'...':''}<br><span style="font-size:0.6875rem;color:var(--weo-text-muted);">${r.relationship}</span></div>`;
-                        }).join('')}
-                    </div>
-                </div>
-            `;
-            }
         }
     } else {
         // FREE TIER - Verification Section (shown to all users as trust signal, harmonised with index.html)
@@ -5772,7 +5716,6 @@ const openModal = (id) => {
                         <li>Cross-Event Navigation</li>
                         <li>Full Source Documentation</li>
                         <li>Version History & Rolling Updates</li>
-                        <li>Related Events</li>
                         <li>Sovereign Capability Profiles — full dimensional assessments and severance analysis</li>
                         <li>Priority access to new analytical capabilities as they deploy</li>
                     </ul>

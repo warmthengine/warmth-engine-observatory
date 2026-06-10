@@ -3107,23 +3107,6 @@
             line-height: 1.5;
         }
         .atlas-accordion.open .atlas-accordion-body { display: block; }
-        .atlas-related-row {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 8px;
-            align-items: baseline;
-            padding: 5px 4px;
-            font-size: 12px;
-            cursor: pointer;
-            border-bottom: 1px dashed var(--border-subtle);
-        }
-        .atlas-related-row:hover .atlas-cc-target-name { color: #2DD4BF; }
-        .atlas-related-row:last-child { border-bottom: none; }
-        .atlas-related-rel {
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            color: var(--text-muted);
-        }
         .atlas-checkpoints {
             display: flex;
             flex-direction: column;
@@ -8851,27 +8834,6 @@
 
             html += '<div class="atlas-panel-body" style="border-top:none;padding-top:0;">';
 
-            // §9 — Related events accordion (paid-only data)
-            const relatedEvents = Array.isArray(event.relatedEvents) ? event.relatedEvents : [];
-            if (relatedEvents.length > 0) {
-                html += '<div class="atlas-accordion" id="atlas-accordion-related">';
-                html += `<button type="button" class="atlas-accordion-toggle">Related events <span><span class="atlas-panel-section-title-count">(${relatedEvents.length})</span> <span class="atlas-accordion-toggle-arrow">▾</span></span></button>`;
-                html += '<div class="atlas-accordion-body">';
-                relatedEvents.forEach(re => {
-                    const reId = String(re && re.id || '');
-                    const reEv = eventById[reId];
-                    const reName = (reEv && reEv.name) ? truncate(reEv.name, 40) : `Event ${reId}`;
-                    const rel = (re && re.relationship) || '';
-                    // Brief 3b.1 §4.4 — event ID stripped from related rows
-                    // (matches the CC list treatment for visual consistency).
-                    html += `<div class="atlas-related-row" data-target-id="${escapeHtml(reId)}" role="button" tabindex="0">`;
-                    html += `<span class="atlas-cc-target-name">${escapeHtml(reName)}</span>`;
-                    html += `<span class="atlas-related-rel">${escapeHtml(rel)}</span>`;
-                    html += '</div>';
-                });
-                html += '</div></div>';
-            }
-            // For free users with no related_events data, the section header is hidden entirely (per brief §5.3 §9).
 
             // §15 — Version History accordion (Brief 3b.2 §15)
             //   - Split from the brief-3a "Version & checkpoints" accordion;
@@ -8930,7 +8892,6 @@
                 html += '<li>Cross-Event Navigation</li>';
                 html += '<li>Full Source Documentation</li>';
                 html += '<li>Version History &amp; Rolling Updates</li>';
-                html += '<li>Related Events</li>';
                 html += '<li>Sovereign Capability Profiles — full dimensional assessments and severance analysis</li>';
                 html += '<li>Priority access to new analytical capabilities as they deploy</li>';
                 html += '</ul>';
@@ -9350,23 +9311,6 @@
                     if (!group) return;
                     group.classList.add('expanded');
                     btn.remove();
-                });
-            });
-            // Related events click-to-focus (same pattern as CC target).
-            elAtlasPanelContent.querySelectorAll('.atlas-related-row').forEach(el => {
-                el.addEventListener('click', () => {
-                    const targetId = el.dataset.targetId;
-                    if (!targetId) return;
-                    setAtlasState({ selectedEventId: targetId });
-                    if (cy) {
-                        const node = cy.getElementById(targetId);
-                        if (node && node.length) {
-                            animateToUsableCenter(node, {
-                                zoom: Math.max(cy.zoom(), 1.2),
-                                duration: 320
-                            });
-                        }
-                    }
                 });
             });
             // Methodology "show more" — expand truncated prose inline.
