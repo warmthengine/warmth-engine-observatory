@@ -4,7 +4,7 @@
     "total_events": 165,
     "sample_events": 6,
     "standard_events": 159,
-    "last_updated": "2026-06-09",
+    "last_updated": "2026-06-10",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -52,14 +52,14 @@
       "by_version": {
         "1.2": 45,
         "1.3": 11,
-        "1.1": 60,
+        "1.1": 61,
         "1.4": 1,
-        "1.0": 47,
+        "1.0": 46,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-09",
-    "lastAudit": "2026-06-09",
+    "versionDate": "2026-06-10",
+    "lastAudit": "2026-06-10",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 165,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -71,25 +71,26 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1401,
-      "preserved": 1374,
-      "preservation_rate": 0.981,
+      "total_sources": 1414,
+      "preserved": 1386,
+      "preservation_rate": 0.98,
       "by_status": {
-        "captured": 1354,
+        "captured": 1366,
         "recovered": 14,
         "existing": 6,
         "no_capture": 19,
         "dead_source": 1,
-        "pending": 7
+        "pending": 7,
+        "pending_capture": 1
       },
       "by_layer": {
         "events": {
-          "total": 848,
+          "total": 849,
           "preserved": 829
         },
         "connections": {
-          "total": 365,
-          "preserved": 359
+          "total": 377,
+          "preserved": 371
         },
         "actors": {
           "total": 188,
@@ -5117,13 +5118,13 @@
       "date": "29 August 2023",
       "location": "Shanghai, China (SMIC fab); Shenzhen, China (HiSilicon design)",
       "scope": "China (SMIC: Shanghai; Huawei HiSilicon: Shenzhen)",
-      "description": "SMIC’s achievement of 7nm-class semiconductor manufacturing using its N+2 process node, demonstrated via Huawei’s Kirin 9000s system-on-chip deployed in the Mate 60 Pro smartphone. First non-Western foundry to demonstrate 7nm-class production capability using DUV lithography without access to EUV equipment.",
+      "description": "SMIC’s progressive advancement of DUV-only semiconductor manufacturing, demonstrated through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class) deployed in the Mate 60 Pro (2023), and the Kirin 9030 (N+3, 5nm-class) deployed in the Mate 80 Pro Max (2025). Both process nodes confirmed by independent TechInsights physical teardown and die analysis. First non-Western foundry to achieve 5nm-class production using multi-patterning DUV lithography without EUV equipment access.",
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
       "ai_connection_pathway": "oep",
       "industryPrimary": "Semiconductors & Equipment",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 2,
       "checkpoints": {
         "ai": true,
@@ -5132,7 +5133,7 @@
         "current": true,
         "aiDetail": "OEP (Pathway A — Strong)"
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "142",
