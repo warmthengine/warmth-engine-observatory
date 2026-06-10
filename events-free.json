@@ -5118,7 +5118,7 @@
       "date": "29 August 2023",
       "location": "Shanghai, China (SMIC fab); Shenzhen, China (HiSilicon design)",
       "scope": "China (SMIC: Shanghai; Huawei HiSilicon: Shenzhen)",
-      "description": "SMIC’s progressive advancement of DUV-only semiconductor manufacturing, demonstrated through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class) deployed in the Mate 60 Pro (2023), and the Kirin 9030 (N+3, 5nm-class) deployed in the Mate 80 Pro Max (2025). Both process nodes confirmed by independent TechInsights physical teardown and die analysis. First non-Western foundry to achieve 5nm-class production using multi-patterning DUV lithography without EUV equipment access.",
+      "description": "SMIC’s advancement of DUV-only semiconductor manufacturing through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class, Mate 60 Pro, 2023) and the Kirin 9030 (N+3, 5nm-class, Mate 80 Pro Max, 2025). Both process nodes confirmed by independent TechInsights physical teardown. First non-Western foundry to achieve 5nm-class DUV production without EUV access, at time of assessment.",
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
