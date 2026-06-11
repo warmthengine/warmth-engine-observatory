@@ -71,11 +71,11 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1408,
-      "preserved": 1379,
+      "total_sources": 1413,
+      "preserved": 1384,
       "preservation_rate": 0.979,
       "by_status": {
-        "captured": 1359,
+        "captured": 1364,
         "recovered": 14,
         "existing": 6,
         "no_capture": 19,
@@ -88,8 +88,8 @@
           "preserved": 830
         },
         "connections": {
-          "total": 371,
-          "preserved": 363
+          "total": 376,
+          "preserved": 368
         },
         "actors": {
           "total": 188,
@@ -6105,6 +6105,7 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
+      "geographic_context": "Operates within the NDRC-designated Gui'an Data Centre Cluster (贵安数据中心集群), one of eight national hub nodes under the 东数西算 programme (发改高技〔2021〕709号). The programme designates the geographic cluster zone; Huawei Cloud is the largest commercial operator within it, not a named programme component.",
       "description": "Huawei Cloud's globally largest intelligent computing centre, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
