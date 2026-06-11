@@ -1020,7 +1020,7 @@
                             <div class="stat-label">Verified Events</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="weo-cc-count">138</div>
+                            <div class="stat-value" id="weo-cc-count">147</div>
                             <div class="stat-label">Coordination Connections</div>
                         </div>
                     </div>
@@ -1337,12 +1337,20 @@
         .then(function(d) {
           if (d && d.metadata) {
             var evEl = document.getElementById('weo-event-count');
-            var ccEl = document.getElementById('weo-cc-count');
             if (evEl && d.metadata.event_count) evEl.textContent = d.metadata.event_count;
-            if (ccEl && d.metadata.cc_count) ccEl.textContent = d.metadata.cc_count;
           }
         })
-        .catch(function() { /* fallback values already in HTML */ });
+        .catch(function() { /* fallback value already in HTML */ });
+
+      fetch('https://warmthengine.com/api/connections')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d && d.metadata) {
+            var ccEl = document.getElementById('weo-cc-count');
+            if (ccEl && d.metadata.total_connections) ccEl.textContent = d.metadata.total_connections;
+          }
+        })
+        .catch(function() { /* fallback value already in HTML */ });
     </script>
 <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
