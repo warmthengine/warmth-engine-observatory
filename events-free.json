@@ -1,46 +1,46 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 165,
+    "total_events": 167,
     "sample_events": 6,
-    "standard_events": 159,
-    "last_updated": "2026-06-10",
+    "standard_events": 161,
+    "last_updated": "2026-06-11",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 48,
-        "Western": 99,
+        "Western": 101,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 147,
+        "T3": 149,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
         "Coordination": 29,
-        "Policy": 44,
+        "Policy": 46,
         "Corporate": 49
       },
       "by_confidence": {
-        "A": 161,
+        "A": 163,
         "B": 4
       },
       "by_assessment_pathway": {
         "basel5": 89,
         "keohane": 28,
-        "pisa5": 29,
+        "pisa5": 31,
         "routeBased": 19,
         "oep": 6,
         "piet": 4
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 46,
+        "Cloud, Data Centres & Connectivity Infrastructure": 47,
         "Semiconductors & Equipment": 30,
-        "AI Software & Platforms": 59,
+        "AI Software & Platforms": 60,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
@@ -54,14 +54,14 @@
         "1.3": 11,
         "1.1": 61,
         "1.4": 1,
-        "1.0": 46,
+        "1.0": 48,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-10",
-    "lastAudit": "2026-06-10",
+    "versionDate": "2026-06-11",
+    "lastAudit": "2026-06-11",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 165,
+    "event_count": 167,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -71,26 +71,25 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1414,
-      "preserved": 1386,
-      "preservation_rate": 0.98,
+      "total_sources": 1408,
+      "preserved": 1379,
+      "preservation_rate": 0.979,
       "by_status": {
-        "captured": 1366,
+        "captured": 1359,
         "recovered": 14,
         "existing": 6,
         "no_capture": 19,
         "dead_source": 1,
-        "pending": 7,
-        "pending_capture": 1
+        "pending": 9
       },
       "by_layer": {
         "events": {
           "total": 849,
-          "preserved": 829
+          "preserved": 830
         },
         "connections": {
-          "total": 377,
-          "preserved": 371
+          "total": 371,
+          "preserved": 363
         },
         "actors": {
           "total": 188,
@@ -7539,6 +7538,64 @@
       "confidence": "A",
       "checkpoints": {
         "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "194",
+      "name": "South Korea AI Basic Act (Law No. 20676)",
+      "lat": 37.5665,
+      "lng": 126.978,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "21 January 2025",
+      "location": "Seoul, South Korea",
+      "scope": "South Korea (extraterritorial application)",
+      "description": "South Korea's Framework Act on the Development of Artificial Intelligence (Law No. 20676) is the first comprehensive AI regulatory statute in the Asia-Pacific region at time of enactment. It imposes risk-based obligations on AI operators, establishes an AI Safety Institute under MSIT authority, and mandates transparency and disclosure requirements.",
+      "investment": "Regulatory framework (administrative fines up to KRW 30M / ~US$21,000 per violation via MSIT corrective-order enforcement); 10²⁶ FLOPs high-performance AI threshold (Enforcement Decree).",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 7,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "195",
+      "name": "UK Compute Roadmap (CP 1352)",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "17 July 2025",
+      "location": "London, United Kingdom",
+      "scope": "United Kingdom",
+      "description": "The UK government published the Compute Roadmap (CP 1352), a national AI compute strategy committing up to £2 billion to expand sovereign compute capacity from 2026–27 to 2029–30. Ten actions cover AI Research Resource expansion targeting a twentyfold increase by 2030, a new Edinburgh national supercomputer service, AI Growth Zone coordination, and international compute partnerships including EuroHPC membership.",
+      "investment": "Up to £2B (2026–30); £1B+ AIRR expansion; £750M Edinburgh supercomputer; 6GW data centre capacity target by 2030",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 9,
+      "corroborating": 5,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (100% AI compute content — £2B commitment, exceeds $100M threshold)",
         "threshold": true,
         "implemented": true,
         "current": true
