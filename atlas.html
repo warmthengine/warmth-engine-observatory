@@ -4394,7 +4394,7 @@
                 Math.max(80, Math.min(350, spacingFactor * 1.8 * idealEdgeMul))
             );
             // Patch — base constant raised from 0.03 to 0.05. Our 127-node
-            // graph has 43 degree-0 orphans; with weaker gravity fcose
+            // graph has 66 degree-0 orphans; with weaker gravity fcose
             // lets them drift outward and stretches the bounding box,
             // forcing cy.fit() to zoom out further than necessary. The
             // bumped base brings orphans closer to the connected mass
@@ -9392,7 +9392,7 @@
                 return 'This event has no Coordination Connections recorded in the current database.';
             }
 
-            const role = total >= 6 ? 'Hub' : (total >= 3 ? 'Connected node' : 'Peripheral node');
+            const role = total >= 6 ? 'Highly connected node' : (total >= 3 ? 'Connected node' : 'Sparsely connected node');
 
             const parts = [];
             if (outbound.length > 0) parts.push(`${outbound.length} outbound`);
