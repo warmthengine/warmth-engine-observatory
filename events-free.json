@@ -4,7 +4,7 @@
     "total_events": 167,
     "sample_events": 6,
     "standard_events": 161,
-    "last_updated": "2026-06-11",
+    "last_updated": "2026-06-13",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-11",
-    "lastAudit": "2026-06-11",
+    "versionDate": "2026-06-13",
+    "lastAudit": "2026-06-13",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 167,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -71,11 +71,11 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1413,
-      "preserved": 1384,
-      "preservation_rate": 0.979,
+      "total_sources": 1452,
+      "preserved": 1423,
+      "preservation_rate": 0.98,
       "by_status": {
-        "captured": 1364,
+        "captured": 1403,
         "recovered": 14,
         "existing": 6,
         "no_capture": 19,
@@ -84,12 +84,12 @@
       },
       "by_layer": {
         "events": {
-          "total": 849,
-          "preserved": 830
+          "total": 873,
+          "preserved": 854
         },
         "connections": {
-          "total": 376,
-          "preserved": 368
+          "total": 391,
+          "preserved": 383
         },
         "actors": {
           "total": 188,
@@ -601,7 +601,7 @@
           "rationale": "Affects manufacturing decisions by TSMC, Samsung, Intel globally; restricts China expansion"
         }
       ],
-      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Section 103 guardrails explicitly prohibit funded entities from China expansion, creating binding cross-bloc operating restrictions. Meets multiple Tier 2 criteria with explicit China targeting: dependency reduction language referencing Taiwan/China risk; national security and China co-mention in White House Fact Sheet; supply chain resilience framed around China concerns. Funding conditions create between-bloc fragmentation through explicit prohibitions on recipient operations in countries of concern.",
+      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Buildout). The CHIPS and Science Act conditions its manufacturing incentives on Section 103 guardrails that prohibit funded entities from expanding capacity in countries of concern — a binding cross-bloc operating restriction. The programme's supporting documentation frames it explicitly around China: dependency-reduction language cites Taiwan and China risk, national-security justifications co-name China in the White House Fact Sheet, and supply-chain resilience is defined against Chinese concentration. The resulting fragmentation is structural — domestic buildout fenced off from the opposing bloc by statutory condition.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -974,7 +974,7 @@
           "rationale": "Affects AI chip supply chains across multiple Western nations"
         }
       ],
-      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. Multiple other-bloc governments issued documented policy responses to the controls, demonstrating cross-bloc fragmentation impact.",
+      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). MOFCOM Announcement No. 23 of 2023 names no country or bloc — the licensing regime is application-agnostic on its face. With China holding over 90% of global gallium and roughly 60% of germanium supply, the controls drew formal policy responses from multiple other-bloc governments. The cross-bloc fragmentation is therefore demonstrated through documented reaction rather than asserted through targeting language — the distinguishing feature of the Impact-Demonstrated route.",
       "blocAnalysis": [
         {
           "bloc": "Western",
