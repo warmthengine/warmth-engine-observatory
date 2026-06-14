@@ -1140,11 +1140,14 @@
 
         var tz = bkkMode ? 'BKK' : 'UTC';
         for (var i = 0; i < 24; i++) {
-            var displayH = i;                                     // local hour, 00..23 left→right
-            var utcH = bkkMode ? (displayH - 7 + 24) % 24 : displayH;
+            var utcH = i;
             var key = utcH.toString().padStart(2, '0');
             var val = hourData[key] || 0;
             var pct = Math.max(1, val / maxVal * 100);
+            var displayKey = displayH.toString().padStart(2, '0');
+
+            // BKK = UTC+7; relabel bars with local-time hour
+            var displayH = bkkMode ? (utcH + 7) % 24 : utcH;
             var displayKey = displayH.toString().padStart(2, '0');
 
             var bar = document.createElement('div');
