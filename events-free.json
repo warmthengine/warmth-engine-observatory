@@ -1,21 +1,21 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 167,
+    "total_events": 171,
     "sample_events": 6,
-    "standard_events": 161,
-    "last_updated": "2026-06-13",
+    "standard_events": 165,
+    "last_updated": "2026-06-14",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 48,
-        "Western": 101,
+        "Western": 105,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 149,
+        "T3": 153,
         "T2": 17,
         "T1": 1
       },
@@ -23,14 +23,14 @@
         "Infrastructure": 43,
         "Coordination": 29,
         "Policy": 46,
-        "Corporate": 49
+        "Corporate": 53
       },
       "by_confidence": {
-        "A": 163,
+        "A": 167,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 89,
+        "basel5": 93,
         "keohane": 28,
         "pisa5": 31,
         "routeBased": 19,
@@ -39,7 +39,7 @@
       },
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 47,
-        "Semiconductors & Equipment": 30,
+        "Semiconductors & Equipment": 34,
         "AI Software & Platforms": 60,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
@@ -54,14 +54,14 @@
         "1.3": 11,
         "1.1": 61,
         "1.4": 1,
-        "1.0": 48,
+        "1.0": 52,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-13",
-    "lastAudit": "2026-06-13",
+    "versionDate": "2026-06-14",
+    "lastAudit": "2026-06-14",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 167,
+    "event_count": 171,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -7597,6 +7597,118 @@
       "checkpoints": {
         "ai": true,
         "aiDetail": "Option A (100% AI compute content — £2B commitment, exceeds $100M threshold)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "196",
+      "name": "NVIDIA AI Accelerator Series",
+      "lat": 37.3541,
+      "lng": -121.9552,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "20 September 2022",
+      "location": "Santa Clara, California, USA",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "NVIDIA's data-centre accelerator line, spanning the Hopper and Blackwell generations, built around the Transformer Engine for large language model workloads and the CUDA software ecosystem. Deployed by every major hyperscaler, the line is the dominant global platform for AI training and inference.",
+      "investment": "FY2025 Data Centre segment revenue ~US$115.2B (up 142%); an estimated 70–95% share of the AI accelerator market",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "197",
+      "name": "AMD Instinct Series",
+      "lat": 37.3875,
+      "lng": -121.976,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "06 December 2023",
+      "location": "Santa Clara, California, USA",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "AMD's Instinct accelerator line, built on the CDNA architecture and paired with the open-source ROCm software stack as the principal alternative to NVIDIA's CUDA ecosystem. The MI300X generation carries 192GB of HBM3 memory, positioning the line for large-model training and inference.",
+      "investment": "FY2024 Data Centre segment revenue US$12.6B (up 94%), with Instinct GPU sales a named growth driver",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "198",
+      "name": "Google TPU Series",
+      "lat": 37.422,
+      "lng": -122.0841,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "29 August 2023",
+      "location": "Mountain View, California, USA",
+      "scope": "United States (global Google Cloud reach)",
+      "description": "Google's Tensor Processing Unit line, the custom AI accelerator on which Google trains and serves its own Gemini frontier models. Unlike merchant silicon, TPUs are not sold as discrete hardware; they are consumed exclusively as Google Cloud compute services, spanning the v5e and v5p generations.",
+      "investment": "Google Cloud segment revenue ~US$43.1B FY2024; TPU fleet committed to Cloud and internal Gemini training not separately disclosed",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "199",
+      "name": "Amazon Trainium Series",
+      "lat": 47.6155,
+      "lng": -122.3384,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "03 December 2024",
+      "location": "Seattle, Washington, USA",
+      "scope": "United States (global AWS reach)",
+      "description": "Amazon's Trainium line, AWS's custom AI training silicon offered only as rentable cloud capacity rather than sold as hardware, positioned as a cost-efficient alternative to GPU-based training. Trainium2 became available through EC2 Trn2 instances, with the architecture anchoring Anthropic's Project Rainier training cluster.",
+      "investment": "AWS segment revenue ~US$107.6B FY2024 (Trainium not separately disclosed); Project Rainier deployment of hundreds of thousands of Trainium2 chips for Anthropic",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
