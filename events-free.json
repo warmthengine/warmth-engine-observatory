@@ -71,25 +71,25 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1452,
-      "preserved": 1423,
+      "total_sources": 1473,
+      "preserved": 1443,
       "preservation_rate": 0.98,
       "by_status": {
-        "captured": 1403,
+        "captured": 1421,
         "recovered": 14,
-        "existing": 6,
-        "no_capture": 19,
+        "existing": 8,
+        "no_capture": 20,
         "dead_source": 1,
         "pending": 9
       },
       "by_layer": {
         "events": {
-          "total": 873,
-          "preserved": 854
+          "total": 888,
+          "preserved": 868
         },
         "connections": {
-          "total": 391,
-          "preserved": 383
+          "total": 397,
+          "preserved": 389
         },
         "actors": {
           "total": 188,
