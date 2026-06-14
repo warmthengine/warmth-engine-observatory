@@ -10,11 +10,11 @@
     <meta name="weo-version" content="1.3.0">
     <meta name="robots" content="noindex, nofollow">
     <title>Analytics — Warmth Engine Observatory</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --weo-surface-base: #0F172A;
@@ -64,7 +64,7 @@
             --ana-api-bg: rgba(96, 165, 250, 0.15);
             --ana-auth-bg: rgba(34, 197, 94, 0.12);
         }
-        
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         *:focus { outline: none; }
         *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
@@ -231,10 +231,31 @@
         }
         .range-btn:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
         .range-btn.active { color: var(--ana-mcp); border-color: var(--ana-mcp); background: var(--ana-mcp-bg); }
+        .csv-btn {
+            padding: var(--weo-space-xs) var(--weo-space-md);
+            background: transparent; border: 1px solid var(--weo-border-primary);
+            color: var(--weo-text-tertiary); border-radius: var(--weo-radius-sm);
+            font-family: var(--weo-font-mono); font-size: 0.75rem; font-weight: 480;
+            cursor: pointer;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            display: none;
+        }
+        .csv-btn:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
         .last-updated {
             margin-left: auto;
             font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-muted);
+        }
+
+        /* ========================================
+           SELF-EXCLUDED INDICATOR
+           ======================================== */
+        .self-excluded-bar {
+            display: none;
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-muted); opacity: 0.65;
+            margin-bottom: var(--weo-space-md);
+            text-align: right;
         }
 
         /* ========================================
@@ -267,6 +288,17 @@
             font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-muted); margin-top: var(--weo-space-xs);
         }
+        .metric-delta {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            margin-top: 3px; min-height: 1em;
+        }
+        .metric-delta.positive { color: var(--weo-status-positive); }
+        .metric-delta.negative { color: var(--weo-status-negative); }
+        .metric-delta.neutral { color: var(--weo-text-muted); }
+        .metric-stat {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted); margin-top: 2px;
+        }
 
         @media (max-width: 767px) {
             .metrics-row { grid-template-columns: repeat(2, 1fr); }
@@ -288,6 +320,8 @@
             border-radius: var(--weo-radius-lg);
             padding: var(--weo-space-lg);
         }
+        /* Diagnostic panel — amber accent for UA/unidentified panel */
+        .panel-diag { border-color: rgba(251, 191, 36, 0.35); }
         .panel-title {
             font-family: var(--weo-font-mono); font-size: 0.6875rem;
             color: var(--weo-text-muted); text-transform: uppercase;
@@ -295,7 +329,9 @@
             margin-bottom: var(--weo-space-lg);
             padding-bottom: var(--weo-space-sm);
             border-bottom: 1px solid var(--weo-border-primary);
+            display: flex; align-items: center; justify-content: space-between;
         }
+        .panel-title-diag { color: rgba(251, 191, 36, 0.85); }
 
         /* Bar rows */
         .bar-row {
@@ -323,10 +359,29 @@
         .bar-fill.api { background: var(--ana-api); }
         .bar-fill.client { background: var(--ana-api); }
         .bar-fill.country { background: var(--weo-accent-primary); }
+        .bar-fill.diag { background: rgba(251, 191, 36, 0.7); }
         .bar-count {
             font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-muted); min-width: 40px; text-align: right;
         }
+
+        /* ========================================
+           TZ TOGGLE (hourly panel)
+           ======================================== */
+        .tz-toggle {
+            font-family: var(--weo-font-mono); font-size: 0.6rem;
+            padding: 1px 6px;
+            background: transparent;
+            border: 1px solid var(--weo-border-primary);
+            color: var(--weo-text-muted);
+            border-radius: var(--weo-radius-sm);
+            cursor: pointer;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .tz-toggle:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
+        .tz-toggle.bkk { color: var(--ana-mcp); border-color: var(--ana-mcp); background: var(--ana-mcp-bg); }
 
         /* ========================================
            DAILY TREND (sparkline bar chart)
@@ -495,7 +550,7 @@
 
 <!-- Main Content (hidden until auth) -->
 <div class="container" id="mainContent" style="display:none;">
-    
+
     <!-- Navigation -->
     <nav class="weo-nav">
         <a href="/" class="weo-nav-brand">
@@ -530,8 +585,12 @@
         <button class="range-btn active" data-days="7">7d</button>
         <button class="range-btn" data-days="14">14d</button>
         <button class="range-btn" data-days="30">30d</button>
+        <button class="csv-btn" id="csvBtn">Export CSV</button>
         <span class="last-updated" id="lastUpdated"></span>
     </div>
+
+    <!-- Self-excluded indicator (forward-only; hidden until self > 0) -->
+    <div class="self-excluded-bar" id="selfExcludedBar"></div>
 
     <!-- Metric Cards -->
     <div class="metrics-row" id="metricsRow">
@@ -539,26 +598,31 @@
             <div class="metric-label">MCP Requests</div>
             <div class="metric-value mcp" id="metricMcp">—</div>
             <div class="metric-sub" id="metricMcpSub"></div>
+            <div class="metric-delta neutral" id="metricMcpDelta"></div>
+            <div class="metric-stat" id="metricMcpStat"></div>
         </div>
         <div class="metric-card">
             <div class="metric-label">API Requests</div>
             <div class="metric-value api" id="metricApi">—</div>
             <div class="metric-sub" id="metricApiSub"></div>
+            <div class="metric-delta neutral" id="metricApiDelta"></div>
         </div>
         <div class="metric-card">
             <div class="metric-label">Authenticated</div>
             <div class="metric-value auth" id="metricAuth">—</div>
             <div class="metric-sub" id="metricAuthSub"></div>
+            <div class="metric-delta neutral" id="metricAuthDelta"></div>
         </div>
         <div class="metric-card">
             <div class="metric-label">Total</div>
             <div class="metric-value total" id="metricTotal">—</div>
             <div class="metric-sub" id="metricTotalSub"></div>
+            <div class="metric-delta neutral" id="metricTotalDelta"></div>
         </div>
     </div>
 
-    <!-- Daily Trend -->
-    <div class="trend-panel">
+    <!-- Daily Trend (hidden on 24h view) -->
+    <div class="trend-panel" id="trendPanel">
         <div class="panel-title">Daily Trend</div>
         <div class="trend-chart" id="trendChart"></div>
         <div class="trend-legend">
@@ -567,7 +631,7 @@
         </div>
     </div>
 
-    <!-- Breakdowns -->
+    <!-- Breakdowns row 1 -->
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">Client Types</div>
@@ -579,13 +643,29 @@
         </div>
     </div>
 
+    <!-- Breakdowns row 2: Tools + Methods -->
+    <div class="panels-row">
+        <div class="panel">
+            <div class="panel-title">Tools</div>
+            <div id="toolsPanel"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">MCP Methods</div>
+            <div id="methodsPanel"></div>
+        </div>
+    </div>
+
+    <!-- Breakdowns row 3 -->
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">Countries</div>
             <div id="countryPanel"></div>
         </div>
         <div class="panel">
-            <div class="panel-title">Hourly Pattern (UTC)</div>
+            <div class="panel-title">
+                <span id="hourlyTitle">Hourly Pattern · BKK</span>
+                <button class="tz-toggle bkk" id="tzToggle">BKK</button>
+            </div>
             <div class="hourly-chart" id="hourlyChart"></div>
             <div class="hourly-labels" id="hourlyLabels"></div>
         </div>
@@ -603,10 +683,22 @@
         </div>
     </div>
 
+    <!-- Diagnostic row: Unidentified UA + Named MCP Clients -->
+    <div class="panels-row">
+        <div class="panel panel-diag">
+            <div class="panel-title panel-title-diag">Unidentified Clients · User-Agent</div>
+            <div id="uaPanel"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Named MCP Clients</div>
+            <div id="namedClientPanel"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <div class="page-footer">
         <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
-        <div class="footer-version">Methodology V1.4 · WEO v1.3.0 · Analytics</div>
+        <div class="footer-version" id="footerVersion">Methodology V1.4 · WEO v1.3.0 · Analytics</div>
     </div>
 </div>
 
@@ -617,6 +709,10 @@
     var password = '';
     var currentDays = 7;
     var API_BASE = 'https://warmthengine.com/api/analytics';
+    var refreshInterval = null;
+    var bkkMode = true;
+    var lastHourData = null;
+    var lastCsvData = null;
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -630,8 +726,7 @@
         if (!password) { authError.textContent = 'Password required'; return; }
         authError.textContent = '';
         authBtn.textContent = 'Checking…';
-        
-        // Test auth against a known endpoint
+
         fetch('https://warmthengine.com/api/analytics?days=1', {
             headers: { 'X-WEO-Password': password }
         })
@@ -690,24 +785,78 @@
         });
     });
 
+    // --- UTC/BKK toggle ---
+    var tzToggle = document.getElementById('tzToggle');
+    var hourlyTitle = document.getElementById('hourlyTitle');
+    if (tzToggle) {
+        tzToggle.addEventListener('click', function() {
+            bkkMode = !bkkMode;
+            tzToggle.textContent = bkkMode ? 'BKK' : 'UTC';
+            tzToggle.classList.toggle('bkk', bkkMode);
+            if (hourlyTitle) hourlyTitle.textContent = 'Hourly Pattern · ' + (bkkMode ? 'BKK' : 'UTC');
+            if (lastHourData) renderHourly(lastHourData);
+        });
+    }
+
+    // --- CSV export ---
+    var csvBtn = document.getElementById('csvBtn');
+    if (csvBtn) {
+        csvBtn.addEventListener('click', function() {
+            if (!lastCsvData) return;
+            var agg = lastCsvData.agg;
+            var days = lastCsvData.days;
+            var lines = ['field,value', 'period_days,' + days,
+                'mcp,' + agg.mcp, 'api,' + agg.api,
+                'authenticated,' + agg.authenticated, 'self_excluded,' + agg.self];
+
+            function addMap(prefix, obj) {
+                if (!obj) return;
+                Object.keys(obj).sort(function(a, b) { return obj[b] - obj[a]; }).forEach(function(k) {
+                    lines.push(prefix + '_' + k.replace(/,/g, ';') + ',' + obj[k]);
+                });
+            }
+            addMap('country', agg.by_country);
+            addMap('client', agg.by_client);
+            addMap('endpoint', agg.by_endpoint);
+            addMap('tool', agg.by_tool);
+            addMap('method', agg.by_method);
+            addMap('ua', agg.by_ua);
+            addMap('named_client', agg.by_mcp_client_named);
+            addMap('mcp_client', agg.mcp_by_client);
+            addMap('api_client', agg.api_by_client);
+
+            var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'weo-analytics-' + days + 'd.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
     // --- Data loading ---
     function loadData(days) {
+        if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; }
         document.getElementById('lastUpdated').textContent = 'Loading…';
 
-        fetch(API_BASE + '?days=' + days, {
+        // Fetch double the period for delta comparison; always >= 2 so response is date-keyed
+        var fetchDays = Math.max(2, days * 2);
+
+        fetch(API_BASE + '?days=' + fetchDays, {
             headers: { 'X-WEO-Password': password }
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            if (days === 1) {
-                // Single day comes as flat object
-                var today = new Date().toISOString().slice(0, 10);
-                var wrapped = {};
-                wrapped[today] = data;
-                render(wrapped, days);
-            } else {
-                render(data, days);
-            }
+            render(data, days);
+            refreshInterval = setInterval(function() {
+                fetch(API_BASE + '?days=' + fetchDays, {
+                    headers: { 'X-WEO-Password': password }
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(d) { render(d, days); })
+                .catch(function() {});
+            }, 60000);
         })
         .catch(function(err) {
             document.getElementById('lastUpdated').textContent = 'Error loading data';
@@ -716,61 +865,189 @@
     }
 
     // --- Rendering ---
-    function render(dailyData, days) {
-        var dates = Object.keys(dailyData).sort();
-        var now = new Date().toISOString().slice(0, 10);
-        document.getElementById('lastUpdated').textContent = dates.length + ' day' + (dates.length !== 1 ? 's' : '') + ' · ' + now;
+    function render(rawData, days) {
+        // Filter to date-keyed entries only (YYYY-MM-DD) to ignore any top-level metadata keys
+        var allDates = Object.keys(rawData).filter(function(k) {
+            return /^\d{4}-\d{2}-\d{2}$/.test(k);
+        }).sort();
 
-        // Aggregate across all days
-        var totals = { mcp: 0, api: 0, authenticated: 0 };
-        var aggCountry = {};
-        var aggEndpoint = {};
-        var aggClient = {};
-        var aggHour = {};
-        var aggMcpClient = {};
-        var aggApiClient = {};
+        // Split into current period (last N days) and prior period (preceding N days)
+        var currentDates, priorDates;
+        if (allDates.length <= days) {
+            currentDates = allDates;
+            priorDates = [];
+        } else {
+            currentDates = allDates.slice(-days);
+            priorDates = allDates.slice(0, allDates.length - days).slice(-days);
+        }
+        var hasPrior = priorDates.length > 0;
 
-        dates.forEach(function(d) {
-            var day = dailyData[d];
-            if (!day || (day.mcp === 0 && day.api === 0)) return;
-            totals.mcp += (day.mcp || 0);
-            totals.api += (day.api || 0);
-            totals.authenticated += (day.authenticated || 0);
-            merge(aggCountry, day.by_country);
-            merge(aggEndpoint, day.by_endpoint);
-            merge(aggClient, day.by_client);
-            merge(aggHour, day.by_hour);
-            merge(aggMcpClient, day.mcp_by_client);
-            merge(aggApiClient, day.api_by_client);
-        });
+        // Worker version from most recent day object
+        var mostRecentDate = allDates[allDates.length - 1];
+        if (mostRecentDate && rawData[mostRecentDate] && rawData[mostRecentDate].version) {
+            var workerVer = rawData[mostRecentDate].version;
+            var footerEl = document.getElementById('footerVersion');
+            if (footerEl) footerEl.textContent = 'Methodology V1.4 · Worker v' + workerVer + ' · Analytics';
+        }
 
-        var total = totals.mcp + totals.api;
+        // Aggregate
+        var agg = aggregateDays(rawData, currentDates);
+        var prior = aggregateDays(rawData, priorDates);
+        var total = agg.mcp + agg.api;
+        var priorTotal = prior.mcp + prior.api;
+
+        // Timestamp
+        var now = new Date();
+        var hms = now.toTimeString().slice(0, 8);
+        document.getElementById('lastUpdated').textContent = hms + ' · ' + currentDates.length + 'd';
 
         // Metric cards
-        document.getElementById('metricMcp').textContent = fmt(totals.mcp);
-        document.getElementById('metricApi').textContent = fmt(totals.api);
-        document.getElementById('metricAuth').textContent = fmt(totals.authenticated);
+        document.getElementById('metricMcp').textContent = fmt(agg.mcp);
+        document.getElementById('metricApi').textContent = fmt(agg.api);
+        document.getElementById('metricAuth').textContent = fmt(agg.authenticated);
         document.getElementById('metricTotal').textContent = fmt(total);
 
-        var pctMcp = total > 0 ? Math.round(totals.mcp / total * 100) : 0;
-        var pctApi = total > 0 ? Math.round(totals.api / total * 100) : 0;
+        var pctMcp = total > 0 ? Math.round(agg.mcp / total * 100) : 0;
+        var pctApi = total > 0 ? Math.round(agg.api / total * 100) : 0;
         document.getElementById('metricMcpSub').textContent = pctMcp + '% of total';
         document.getElementById('metricApiSub').textContent = pctApi + '% of total';
-        document.getElementById('metricAuthSub').textContent = totals.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
+        document.getElementById('metricAuthSub').textContent = agg.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
         document.getElementById('metricTotalSub').textContent = days + 'd period';
 
-        // Daily trend chart
-        renderTrend(dates, dailyData);
+        // Deltas
+        setDelta('metricMcpDelta', agg.mcp, prior.mcp, hasPrior);
+        setDelta('metricApiDelta', agg.api, prior.api, hasPrior);
+        setDelta('metricAuthDelta', agg.authenticated, prior.authenticated, hasPrior);
+        setDelta('metricTotalDelta', total, priorTotal, hasPrior);
+
+        // Distinct MCP clients (per correctness rules)
+        var distinctStat = document.getElementById('metricMcpStat');
+        if (distinctStat) {
+            var distinctCount = 0;
+            var hitCap = false;
+            if (days === 1) {
+                var dayObj = rawData[currentDates[currentDates.length - 1]] || {};
+                distinctCount = dayObj.distinct_mcp_clients || 0;
+            } else {
+                var nameSet = {};
+                currentDates.forEach(function(d) {
+                    var day = rawData[d] || {};
+                    var names = day.mcp_client_names;
+                    if (Array.isArray(names)) {
+                        if (names.length >= 50) hitCap = true;
+                        names.forEach(function(n) { nameSet[n] = 1; });
+                    }
+                });
+                distinctCount = Object.keys(nameSet).length;
+            }
+            if (distinctCount > 0) {
+                distinctStat.textContent = distinctCount + (hitCap ? '+' : '') +
+                    ' distinct client' + (distinctCount !== 1 ? 's' : '');
+            } else {
+                distinctStat.textContent = '';
+            }
+        }
+
+        // Self-excluded indicator (forward-only)
+        var selfBar = document.getElementById('selfExcludedBar');
+        if (selfBar) {
+            if (agg.self > 0) {
+                selfBar.textContent = agg.self + ' self-excluded';
+                selfBar.style.display = 'block';
+            } else {
+                selfBar.style.display = 'none';
+            }
+        }
+
+        // CSV button visibility
+        if (csvBtn) csvBtn.style.display = 'inline-block';
+        lastCsvData = { agg: agg, days: days };
+
+        // Daily trend: hide for 24h (single bar is degenerate)
+        var trendPanel = document.getElementById('trendPanel');
+        if (trendPanel) {
+            if (days === 1) {
+                trendPanel.style.display = 'none';
+            } else {
+                trendPanel.style.display = '';
+                renderTrend(currentDates, rawData);
+            }
+        }
 
         // Breakdown panels
-        renderBars('clientPanel', aggClient, 'client');
-        renderBars('endpointPanel', aggEndpoint, 'api');
-        renderBars('countryPanel', aggCountry, 'country');
-        renderBars('mcpClientPanel', aggMcpClient, 'mcp');
-        renderBars('apiClientPanel', aggApiClient, 'api');
+        renderBars('clientPanel', agg.by_client, 'client');
+        renderBars('endpointPanel', agg.by_endpoint, 'api');
+        renderBars('toolsPanel', agg.by_tool, 'mcp');
+        renderBars('methodsPanel', agg.by_method, 'api');
+        renderBars('countryPanel', agg.by_country, 'country');
+        renderBars('mcpClientPanel', agg.mcp_by_client, 'mcp');
+        renderBars('apiClientPanel', agg.api_by_client, 'api');
+        renderBars('uaPanel', agg.by_ua, 'diag');
+        renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp');
 
         // Hourly chart
-        renderHourly(aggHour);
+        lastHourData = agg.by_hour;
+        renderHourly(agg.by_hour);
+    }
+
+    function aggregateDays(rawData, dates) {
+        var result = {
+            mcp: 0, api: 0, authenticated: 0, self: 0,
+            by_country: {}, by_endpoint: {}, by_client: {}, by_hour: {},
+            mcp_by_client: {}, api_by_client: {},
+            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {}
+        };
+        dates.forEach(function(d) {
+            var day = rawData[d];
+            if (!day) return;
+            result.mcp += (day.mcp || 0);
+            result.api += (day.api || 0);
+            result.authenticated += (day.authenticated || 0);
+            result.self += (day.self || 0);
+            merge(result.by_country, day.by_country);
+            merge(result.by_endpoint, day.by_endpoint);
+            merge(result.by_client, day.by_client);
+            merge(result.by_hour, day.by_hour);
+            merge(result.mcp_by_client, day.mcp_by_client);
+            merge(result.api_by_client, day.api_by_client);
+            merge(result.by_ua, day.by_ua);
+            merge(result.by_method, day.by_method);
+            merge(result.by_tool, day.by_tool);
+            merge(result.by_mcp_client_named, day.by_mcp_client_named);
+            // mcp_client_names (array) is handled separately in render()
+        });
+        return result;
+    }
+
+    function setDelta(elId, current, priorVal, hasPrior) {
+        var el = document.getElementById(elId);
+        if (!el) return;
+        if (!hasPrior) {
+            el.textContent = 'no prior data';
+            el.className = 'metric-delta neutral';
+            return;
+        }
+        if (priorVal === 0 && current === 0) {
+            el.textContent = '';
+            el.className = 'metric-delta neutral';
+            return;
+        }
+        if (priorVal === 0) {
+            el.textContent = '▲ new';
+            el.className = 'metric-delta positive';
+            return;
+        }
+        var pct = Math.round((current - priorVal) / priorVal * 100);
+        if (pct > 0) {
+            el.textContent = '▲ +' + pct + '% vs prior';
+            el.className = 'metric-delta positive';
+        } else if (pct < 0) {
+            el.textContent = '▼ ' + pct + '% vs prior';
+            el.className = 'metric-delta negative';
+        } else {
+            el.textContent = '→ flat vs prior';
+            el.className = 'metric-delta neutral';
+        }
     }
 
     function renderTrend(dates, dailyData) {
@@ -797,9 +1074,6 @@
             var dayTotal = mcp + api;
             var heightPct = (dayTotal / maxVal * 100);
 
-            var mcpH = dayTotal > 0 ? (mcp / maxVal * 100) : 0;
-            var apiH = dayTotal > 0 ? (api / maxVal * 100) : 0;
-
             var dateLabel = d.slice(5); // MM-DD
             var col = document.createElement('div');
             col.className = 'trend-day';
@@ -811,7 +1085,6 @@
                     '<div class="trend-bar-mcp" style="height:' + (dayTotal > 0 ? (mcp/dayTotal*100) : 0) + '%"></div>' +
                 '</div>';
 
-            // Only show date labels for every Nth day depending on range
             if (dates.length <= 14 || dates.indexOf(d) % Math.ceil(dates.length / 10) === 0) {
                 var label = document.createElement('div');
                 label.className = 'trend-date';
@@ -825,6 +1098,7 @@
 
     function renderBars(containerId, data, colorClass) {
         var container = document.getElementById(containerId);
+        if (!container) return;
         if (!data || Object.keys(data).length === 0) {
             container.innerHTML = '<div class="empty-state">No data yet</div>';
             return;
@@ -840,7 +1114,7 @@
             var pct = Math.max(2, count / maxVal * 100);
             html +=
                 '<div class="bar-row">' +
-                    '<div class="bar-label" title="' + label + '">' + label + '</div>' +
+                    '<div class="bar-label" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
                 '</div>';
@@ -854,6 +1128,8 @@
         chart.innerHTML = '';
         labels.innerHTML = '';
 
+        if (!hourData) { return; }
+
         var maxVal = 0;
         for (var h = 0; h < 24; h++) {
             var key = h.toString().padStart(2, '0');
@@ -862,25 +1138,35 @@
         }
         if (maxVal === 0) maxVal = 1;
 
-        for (var h = 0; h < 24; h++) {
-            var key = h.toString().padStart(2, '0');
+        var tz = bkkMode ? 'BKK' : 'UTC';
+        for (var i = 0; i < 24; i++) {
+            var displayH = i;                                     // local hour, 00..23 left→right
+            var utcH = bkkMode ? (displayH - 7 + 24) % 24 : displayH;
+            var key = utcH.toString().padStart(2, '0');
             var val = hourData[key] || 0;
             var pct = Math.max(1, val / maxVal * 100);
+            var displayKey = displayH.toString().padStart(2, '0');
 
             var bar = document.createElement('div');
             bar.className = 'hourly-bar';
             bar.style.height = pct + '%';
-            bar.title = key + ':00 UTC — ' + val + ' requests';
+            bar.title = displayKey + ':00 ' + tz + ' — ' + val + ' requests';
             chart.appendChild(bar);
 
             var lbl = document.createElement('div');
             lbl.className = 'hourly-label';
-            lbl.textContent = (h % 4 === 0) ? key : '';
+            lbl.textContent = (displayH % 4 === 0) ? displayKey : '';
             labels.appendChild(lbl);
         }
     }
 
     // --- Helpers ---
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+    }
+
     function merge(target, source) {
         if (!source) return;
         Object.keys(source).forEach(function(k) {
@@ -891,7 +1177,7 @@
     function fmt(n) {
         if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
         if (n >= 10000) return (n / 1000).toFixed(1) + 'k';
-        if (n >= 1000) return (n / 1000).toFixed(2) + 'k';
+        if (n >= 1000) return n.toLocaleString();
         return n.toString();
     }
 
