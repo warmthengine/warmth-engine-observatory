@@ -1114,7 +1114,7 @@
             var pct = Math.max(2, count / maxVal * 100);
             html +=
                 '<div class="bar-row">' +
-                    '<div class="bar-label" title="' + label + '">' + label + '</div>' +
+                    '<div class="bar-label" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
                 '</div>';
@@ -1140,13 +1140,11 @@
 
         var tz = bkkMode ? 'BKK' : 'UTC';
         for (var i = 0; i < 24; i++) {
-            var utcH = i;
+            var displayH = i;                                     // local hour, 00..23 left→right
+            var utcH = bkkMode ? (displayH - 7 + 24) % 24 : displayH;
             var key = utcH.toString().padStart(2, '0');
             var val = hourData[key] || 0;
             var pct = Math.max(1, val / maxVal * 100);
-
-            // BKK = UTC+7; relabel bars with local-time hour
-            var displayH = bkkMode ? (utcH + 7) % 24 : utcH;
             var displayKey = displayH.toString().padStart(2, '0');
 
             var bar = document.createElement('div');
@@ -1163,6 +1161,12 @@
     }
 
     // --- Helpers ---
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+    }
+
     function merge(target, source) {
         if (!source) return;
         Object.keys(source).forEach(function(k) {
