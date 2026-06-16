@@ -4,7 +4,7 @@
     "total_events": 171,
     "sample_events": 6,
     "standard_events": 165,
-    "last_updated": "2026-06-15",
+    "last_updated": "2026-06-16",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-15",
-    "lastAudit": "2026-06-15",
+    "versionDate": "2026-06-16",
+    "lastAudit": "2026-06-16",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 171,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -71,26 +71,26 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1476,
-      "preserved": 1401,
-      "preservation_rate": 0.949,
+      "total_sources": 1492,
+      "preserved": 1446,
+      "preservation_rate": 0.969,
       "by_status": {
-        "captured": 1374,
+        "captured": 1419,
         "recovered": 21,
         "existing": 6,
         "no_capture": 20,
         "dead_source": 1,
-        "retry_pending": 49,
-        "pending": 5
+        "retry_pending": 23,
+        "pending": 2
       },
       "by_layer": {
         "events": {
-          "total": 891,
-          "preserved": 843
+          "total": 907,
+          "preserved": 873
         },
         "connections": {
           "total": 397,
-          "preserved": 372
+          "preserved": 387
         },
         "actors": {
           "total": 188,
@@ -6149,8 +6149,9 @@
               "citation": "北极星环保网 — Gui'an upstream water source analysis",
               "type": "corroborating",
               "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml",
-              "captureStatus": "retry_pending",
-              "accessDate": "2026-06-07"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260615205136/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
             }
           ]
         }
