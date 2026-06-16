@@ -72,25 +72,25 @@
     },
     "source_durability": {
       "total_sources": 1492,
-      "preserved": 1446,
-      "preservation_rate": 0.969,
+      "preserved": 1460,
+      "preservation_rate": 0.979,
       "by_status": {
-        "captured": 1419,
+        "captured": 1433,
         "recovered": 21,
         "existing": 6,
         "no_capture": 20,
         "dead_source": 1,
-        "retry_pending": 23,
+        "retry_pending": 9,
         "pending": 2
       },
       "by_layer": {
         "events": {
           "total": 907,
-          "preserved": 873
+          "preserved": 881
         },
         "connections": {
           "total": 397,
-          "preserved": 387
+          "preserved": 393
         },
         "actors": {
           "total": 188,
@@ -5855,8 +5855,9 @@
               "citation": "About Amazon — AWS WUE and seasonal water profile",
               "type": "PRIMARY",
               "url": "https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster",
-              "captureStatus": "capture_failed",
-              "accessDate": "2026-05-04"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616014333/https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster"
             }
           ]
         }
@@ -6218,8 +6219,9 @@
               "citation": "民族先锋报 — Qingyang extreme water scarcity classification",
               "type": "corroborating",
               "url": "http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm",
-              "captureStatus": "retry_pending",
-              "accessDate": "2026-06-07"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616013755/https://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
             }
           ]
         }
@@ -6311,8 +6313,9 @@
               "citation": "GOV.UK — AI Growth Zones Launch Press Release",
               "type": "primary",
               "url": "https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change",
-              "captureStatus": "retry_pending",
-              "accessDate": "2026-06-07"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616013731/https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change"
             }
           ]
         }
