@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "title": "WEO Atlas Guided Journeys — single source of truth",
+    "purpose": "Defines the operator-selected guided journeys ONCE. Consumed by atlas.html (clickable landing questions) and by the Worker MCP server (prompts + getting-started resource). Edit here only; the two surfaces read this file so they cannot drift.",
+    "spec": "WS-8 Atlas Guided Journeys (WEO_WS8_ATLAS_GUIDED_JOURNEYS_BUILD_SPEC_V1.md); journeys from WEO_WS8_SELECTED_JOURNEYS_V1.md.",
+    "discipline": "V1.4 methodology — question wording is RELATIONAL, readouts are DESCRIPTIVE (counts + named entities only, never causal/interpretive).",
+    "served_at": "https://www.warmthengine.com/guided-journeys.json (Pages). Worker fetches the www host directly — the apex 301-redirects to www.",
+    "counts": "Readout {placeholders} are filled by the LIVE journey at click time — never hard-code. B1 material = thread RECORDS (get_threads, ~19); C1 material = event-PAIRS (get_event_stack, ~15). The two counting methods differ deliberately.",
+    "chain_dependency": "Journeys are pinned to stable anchor chains (E93 spine; E196 NVIDIA hub). A future loop that re-shapes these chains must refresh this file. Anchors chosen for durability per the curation pass.",
+    "version": "1.0.0",
+    "updated": "2026-06-16"
+  },
+  "journeys": [
+    {
+      "id": "coordination",
+      "slot": "A2",
+      "substrate": "coordination",
+      "title": "China generative-AI regulatory cascade",
+      "mode": "trace",
+      "root": "93",
+      "params": { "types": [1, 4], "direction": "downstream", "depth": 3 },
+      "question": "Trace the regulatory chain from China's Algorithm Recommendation Provisions through to the generative-AI services downstream — what links each step to the next?",
+      "readout": "Events 93→94→07 / China's foundational AI provisions — a regulatory-enablement chain (CC-V) feeding {n} downstream items, including Baidu ERNIE Bot, Doubao, the AI Content Labelling Measures, and TC260 security requirements.",
+      "count_source": "coordination_downstream_leaves",
+      "mcp": {
+        "tool": "traverse_coordination",
+        "arguments": { "mode": "descendants", "node_id": "93", "cc_types": [1, 4], "max_depth": 3 },
+        "call": "traverse_coordination(mode=\"descendants\", node_id=\"93\", cc_types=[1,4], max_depth=3)"
+      },
+      "deep_link": "#journey=coordination"
+    },
+    {
+      "id": "material",
+      "slot": "B1",
+      "substrate": "material",
+      "title": "NVIDIA accelerator deployment hub",
+      "mode": "threads",
+      "root": "196",
+      "params": { "direction": "inbound" },
+      "question": "What runs on the NVIDIA accelerator series? — trace the material links into it.",
+      "readout": "Event 196 / NVIDIA AI Accelerator Series — {n} material (deploys) links across 9 chip generations, from 15 Western facilities (Stargate, JUPITER, Isambard-AI, Fairwater, Tesla Cortex, Meta, EuroHPC Leonardo…).",
+      "count_source": "material_inbound_records",
+      "mcp": {
+        "tool": "get_threads",
+        "arguments": { "event_id": "196" },
+        "call": "get_threads(event_id=\"196\")  // read inbound[]"
+      },
+      "deep_link": "#journey=material"
+    },
+    {
+      "id": "stack",
+      "slot": "C1",
+      "substrate": "stack",
+      "title": "NVIDIA accelerator full stack",
+      "mode": "stack",
+      "root": "196",
+      "params": {},
+      "question": "What's the full stack around the NVIDIA accelerator series — the coordination, material, and capability links together?",
+      "readout": "Event 196 / NVIDIA AI Accelerator Series — {coord} coordination hop (US BIS computing controls, CC-V), {mat} material links (9 chip generations, 15 Western facilities), {cap} capability contributions across the stack (D1/D4/D5/D6/D7; US/JP/EU/GB).",
+      "count_source": "stack_counts",
+      "mcp": {
+        "tool": "get_event_stack",
+        "arguments": { "event_id": "196" },
+        "call": "get_event_stack(event_id=\"196\")"
+      },
+      "deep_link": "#journey=stack"
+    }
+  ]
+}
