@@ -2999,7 +2999,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "76",
@@ -3053,7 +3061,21 @@
         "current": true
       },
       "version": "1.2",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA A100",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "78",
@@ -3890,7 +3912,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GH200 Grace Hopper",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "101",
@@ -4293,6 +4323,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "166",
+          "linkType": "deploys",
+          "asset": "Cambricon SiYuan",
+          "field": "description"
+        }
       ]
     },
     {
@@ -4571,7 +4609,15 @@
       "scope": "United Kingdom (national AI research resource)",
       "sources": 3,
       "corroborating": 1,
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GH200 Grace Hopper",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "126",
@@ -4616,6 +4662,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200",
+          "field": "description"
+        }
       ]
     },
     {
@@ -4643,7 +4697,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms"
+      "industryPrimary": "AI Software & Platforms",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "trains_on",
+          "asset": "NVIDIA H100",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "128",
@@ -5214,6 +5276,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI250X",
+          "field": "description"
+        }
       ]
     },
     {
@@ -5274,6 +5344,14 @@
               "snapshotUrl": "https://web.archive.org/web/20260429043333/https://hpc.llnl.gov/sites/default/files/El-Cap-Fun-Facts.pdf"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI300A",
+          "field": "description"
         }
       ]
     },
@@ -5759,6 +5837,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H200",
+          "field": "description"
+        }
       ]
     },
     {
@@ -5860,6 +5946,14 @@
               "snapshotUrl": "https://web.archive.org/web/20260616014333/https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "199",
+          "linkType": "deploys",
+          "asset": "Amazon Trainium2",
+          "field": "description"
         }
       ]
     },
@@ -5997,6 +6091,14 @@
               "snapshotUrl": "https://web.archive.org/web/20251209203012/https://www.ytlpowerinternational.com/press-releases/malaysia-accelerates-sovereign-ai-ambition-nvidia-and-ytl-brief-prime-minister-anwar-ibrahim-at-apec-summit/"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200 Grace Blackwell",
+          "field": "description"
         }
       ]
     },
@@ -6224,6 +6326,14 @@
               "snapshotUrl": "https://web.archive.org/web/20260616013755/https://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "176",
+          "linkType": "deploys",
+          "asset": "Enflame S60",
+          "field": "description"
         }
       ]
     },
@@ -6484,7 +6594,21 @@
       },
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [],
-      "aiConnectionPathway": "oep"
+      "aiConnectionPathway": "oep",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "181",
+          "linkType": "deploys",
+          "asset": "MetaX C500",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "167",
+          "linkType": "deploys",
+          "asset": "Biren BR100/BR106",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "171",
@@ -6531,7 +6655,21 @@
           ]
         }
       ],
-      "aiConnectionPathway": "oep"
+      "aiConnectionPathway": "oep",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "181",
+          "linkType": "deploys",
+          "asset": "MetaX C500",
+          "field": "description"
+        },
+        {
+          "targetEventId": "191",
+          "linkType": "deploys",
+          "asset": "Hygon DCU",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "172",
@@ -6576,6 +6714,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA Blackwell",
+          "field": "description"
+        }
       ]
     },
     {
@@ -6604,7 +6750,15 @@
       },
       "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "environmentalNexusTags": []
+      "environmentalNexusTags": [],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "174",
@@ -6774,7 +6928,27 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2"
+      "version": "1.2",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H200",
+          "field": "description"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA B200",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "178",
@@ -6802,7 +6976,21 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB300",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "179",
@@ -6830,7 +7018,15 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "180",
@@ -6858,7 +7054,15 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "181",
@@ -6965,7 +7169,15 @@
         "current": true,
         "aiDetail": "Option A (≥10% AI-designated capacity — ~50,000 H100 GPUs, 10× the 5,000+ threshold)"
       },
-      "version": "1.1"
+      "version": "1.1",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "183",
