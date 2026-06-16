@@ -692,6 +692,142 @@
             background: rgba(45, 212, 191, 0.18);
         }
 
+        /* WS-8 — Guided journeys. A non-blocking, dismissible entry layer on
+           the Atlas landing: three clickable questions that fire the existing
+           trace / thread / stack journeys. Bottom-anchored so the graph stays
+           the product; the strip never traps the user. */
+        .atlas-journeys {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            width: min(880px, calc(100% - 32px));
+            background: var(--surface-raised);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+            padding: 12px 14px 14px;
+            z-index: 90;
+            display: none;
+        }
+        .atlas-journeys.visible { display: block; }
+        .atlas-journeys-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .atlas-journeys-title {
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        .atlas-journeys-dismiss {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journeys-dismiss:hover { color: var(--text-primary); }
+        .atlas-journeys-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .atlas-journey-card {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid var(--jcolour, #2DD4BF);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            color: var(--text-primary);
+            transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journey-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--jcolour, #2DD4BF);
+        }
+        .atlas-journey-card-eyebrow {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--jcolour, #2DD4BF);
+            margin-bottom: 5px;
+        }
+        .atlas-journey-card-q {
+            font-size: 12.5px;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+        @media (max-width: 720px) {
+            .atlas-journeys-cards { grid-template-columns: 1fr; }
+            .atlas-journeys { bottom: 12px; }
+        }
+
+        /* WS-8 — Guided-journey readout banner. The approved DESCRIPTIVE
+           answer (counts + named entities, never causal) that lands alongside
+           the visual reveal so a newcomer reads the result. Top-anchored,
+           dismissible. The count is supplied LIVE by the journey, not frozen. */
+        .atlas-journey-readout {
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            transform: translateX(-50%);
+            width: min(760px, calc(100% - 32px));
+            background: var(--surface-raised);
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid var(--jcolour, #2DD4BF);
+            border-radius: var(--radius-md);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+            padding: 12px 38px 12px 14px;
+            z-index: 95;
+            display: none;
+        }
+        .atlas-journey-readout.visible { display: block; }
+        .atlas-journey-readout-eyebrow {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--jcolour, #2DD4BF);
+            margin-bottom: 5px;
+        }
+        .atlas-journey-readout-text {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+        .atlas-journey-readout-machine {
+            display: block;
+            margin-top: 7px;
+            font-family: var(--font-mono, monospace);
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .atlas-journey-readout-dismiss {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 2px 4px;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journey-readout-dismiss:hover { color: var(--text-primary); }
+
         /* --- Main split: canvas + (panel) + topology ---
            Brief 3a — the panel reflows the canvas (it's a grid sibling,
            not an overlay). Default 2 columns; with .has-panel-open the
@@ -4387,6 +4523,27 @@
                 <div class="atlas-empty-state" id="atlas-empty-state" role="status" aria-live="polite">
                     <div class="atlas-empty-state-msg">No events match the current filters.</div>
                     <button class="atlas-empty-state-clear" type="button" id="atlas-empty-state-clear">Clear filters</button>
+                </div>
+
+                <!-- WS-8 — Guided journeys entry layer. Non-blocking, dismissible
+                     cards on the landing state; populated from guided-journeys.json
+                     (the single source shared with the MCP prompts). Each card fires
+                     an existing journey (trace / thread / stack). -->
+                <div class="atlas-journeys" id="atlas-journeys" role="region" aria-label="Guided journeys">
+                    <div class="atlas-journeys-head">
+                        <span class="atlas-journeys-title">Start here — three ways to read the Atlas</span>
+                        <button class="atlas-journeys-dismiss" type="button" id="atlas-journeys-dismiss" aria-label="Dismiss guided journeys">Dismiss ✕</button>
+                    </div>
+                    <div class="atlas-journeys-cards" id="atlas-journeys-cards"></div>
+                </div>
+
+                <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
+                     shown alongside the visual reveal when a journey is triggered. -->
+                <div class="atlas-journey-readout" id="atlas-journey-readout" role="status" aria-live="polite">
+                    <button class="atlas-journey-readout-dismiss" type="button" id="atlas-journey-readout-dismiss" aria-label="Dismiss readout">&times;</button>
+                    <span class="atlas-journey-readout-eyebrow" id="atlas-journey-readout-eyebrow"></span>
+                    <span class="atlas-journey-readout-text" id="atlas-journey-readout-text"></span>
+                    <span class="atlas-journey-readout-machine" id="atlas-journey-readout-machine"></span>
                 </div>
                 <!-- Brief 3e §5/§6 — Timeline chrome lives inside the
                      canvas wrapper so the absolute positions resolve
@@ -12299,6 +12456,11 @@
                     if (['network', 'connectedness', 'timeline'].includes(m)) {
                         atlasState.layoutMode = m;
                     }
+                } else if (key === 'journey') {
+                    // WS-8 — guided-journey entry deep-link. Fired in boot()
+                    // after the canvas settles; the journey itself sets the
+                    // underlying overlay state (trace / thread / stack).
+                    guidedBootJourney = val;
                 } else {
                     console.warn('[WEO Atlas] unknown URL hash key, ignoring:', key);
                 }
@@ -12804,6 +12966,165 @@
             }
         }
 
+        // =================================================================
+        // WS-8 — GUIDED JOURNEYS (entry layer + readouts)
+        //
+        // A non-blocking, dismissible set of three landing questions that
+        // fire the EXISTING trace / thread / stack journeys, each with the
+        // operator-approved descriptive readout. Definitions live in
+        // guided-journeys.json — the SAME source the MCP prompts read, so
+        // the human and machine onboarding can't drift. Readout counts are
+        // supplied LIVE by each journey; never frozen in the displayed text.
+        // =================================================================
+        const GUIDED_COLOURS = { coordination: '#2DD4BF', material: '#818CF8', stack: '#FBBF24' };
+        const GUIDED_DISMISS_KEY = 'weo-guided-journeys-dismissed';
+        let guidedJourneys = [];
+        let guidedBootJourney = null;   // set by hydrateStateFromHash (#journey=)
+
+        async function loadGuidedJourneys() {
+            try {
+                // Same-origin relative fetch — redirect-immune regardless of
+                // whether the visitor landed on the apex or www host.
+                const res = await fetch('guided-journeys.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('guided-journeys.json -> ' + res.status);
+                const data = await res.json();
+                guidedJourneys = (data && data.journeys) || [];
+            } catch (e) {
+                console.warn('[WEO Atlas] guided journeys unavailable:', e);
+                guidedJourneys = [];
+            }
+        }
+
+        function guidedJourneyById(id) {
+            return guidedJourneys.find(j => j.id === id) || null;
+        }
+
+        // Live count(s) for a journey's readout — computed from the same
+        // primitives the journey renders, so the displayed number is never a
+        // frozen literal. The material counting method differs by design:
+        // B1 = thread RECORDS (get_threads); C1 = event-PAIRS (get_event_stack).
+        function guidedCounts(j) {
+            try {
+                if (j.count_source === 'coordination_downstream_leaves') {
+                    const { downstream } = buildTraceChain(j.root);
+                    const sources = new Set(downstream.map(c => String(c.source_event_id)));
+                    const leaves = new Set(downstream
+                        .map(c => String(c.target_event_id))
+                        .filter(t => !sources.has(t)));
+                    return { n: leaves.size };
+                }
+                if (j.count_source === 'material_inbound_records') {
+                    // get_threads(event).inbound — one record per asset/generation
+                    // deployed into this producer hub.
+                    const recs = (threadsByEvent[String(j.root)] || [])
+                        .filter(t => String(t.targetEventId) === String(j.root));
+                    return { n: recs.length };
+                }
+                if (j.count_source === 'stack_counts') {
+                    const s = buildStackJourney(j.root);
+                    return { coord: s.coordination.length, mat: s.material.length, cap: s.capability.length };
+                }
+            } catch (e) {
+                console.warn('[WEO Atlas] guided count failed:', e);
+            }
+            return {};
+        }
+
+        function fillReadout(template, counts) {
+            return String(template || '').replace(/\{(\w+)\}/g, (m, k) => (counts[k] != null ? counts[k] : m));
+        }
+
+        function showJourneyReadout(j) {
+            const banner = document.getElementById('atlas-journey-readout');
+            if (!banner) return;
+            const counts = guidedCounts(j);
+            const colour = GUIDED_COLOURS[j.substrate] || '#2DD4BF';
+            banner.style.setProperty('--jcolour', colour);
+            const eyebrow = document.getElementById('atlas-journey-readout-eyebrow');
+            const text = document.getElementById('atlas-journey-readout-text');
+            const machine = document.getElementById('atlas-journey-readout-machine');
+            if (eyebrow) eyebrow.textContent = (j.slot ? j.slot + ' · ' : '') + (j.title || '');
+            if (text) text.textContent = fillReadout(j.readout, counts);
+            if (machine) machine.textContent = (j.mcp && j.mcp.call) ? '↳ machine call: ' + j.mcp.call : '';
+            banner.classList.add('visible');
+        }
+        function hideJourneyReadout() {
+            const banner = document.getElementById('atlas-journey-readout');
+            if (banner) banner.classList.remove('visible');
+        }
+
+        // Material journey visual — reveal the thread layer and recentre on
+        // the hub. Reuses the existing layer toggle + event selection, so it
+        // introduces no new graph-state that could leak into the other modes.
+        function focusEventThreads(eventId) {
+            eventId = String(eventId);
+            if (typeof setThreadLayerVisible === 'function') setThreadLayerVisible(true);
+            const tbtn = document.getElementById('atlas-thread-toggle');
+            if (tbtn) { tbtn.classList.add('active'); tbtn.setAttribute('aria-pressed', 'true'); }
+            setAtlasState({ selectedEventId: eventId, selectedConnectionId: null });
+            setTimeout(() => { if (typeof recentreOnEvent === 'function') recentreOnEvent(eventId); }, 140);
+        }
+
+        function runGuidedJourney(id) {
+            const j = guidedJourneyById(id);
+            if (!j) return;
+            hideGuidedCards();
+            switch (j.mode) {
+                case 'trace':
+                    setAtlasState({ stackRootId: null, selectedThreadKey: null, traceRootId: String(j.root) });
+                    break;
+                case 'threads':
+                    setAtlasState({ traceRootId: null, stackRootId: null, selectedThreadKey: null });
+                    focusEventThreads(j.root);
+                    break;
+                case 'stack':
+                    setAtlasState({ traceRootId: null, selectedThreadKey: null, stackRootId: String(j.root) });
+                    break;
+                default:
+                    console.warn('[WEO Atlas] unknown guided journey mode:', j.mode);
+                    return;
+            }
+            showJourneyReadout(j);
+        }
+
+        function renderGuidedCards() {
+            const wrap = document.getElementById('atlas-journeys');
+            const cards = document.getElementById('atlas-journeys-cards');
+            if (!wrap || !cards || !guidedJourneys.length) return;
+            let dismissed = false;
+            try { dismissed = localStorage.getItem(GUIDED_DISMISS_KEY) === 'true'; } catch (e) {}
+            if (dismissed) return;
+            cards.innerHTML = '';
+            guidedJourneys.forEach(j => {
+                const colour = GUIDED_COLOURS[j.substrate] || '#2DD4BF';
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'atlas-journey-card';
+                btn.style.setProperty('--jcolour', colour);
+                btn.setAttribute('data-journey', j.id);
+                btn.innerHTML =
+                    '<span class="atlas-journey-card-eyebrow">' + escapeHtml((j.slot ? j.slot + ' · ' : '') + (j.substrate || '')) + '</span>' +
+                    '<span class="atlas-journey-card-q">' + escapeHtml(j.question || '') + '</span>';
+                btn.addEventListener('click', () => runGuidedJourney(j.id));
+                cards.appendChild(btn);
+            });
+            wrap.classList.add('visible');
+        }
+        function hideGuidedCards() {
+            const wrap = document.getElementById('atlas-journeys');
+            if (wrap) wrap.classList.remove('visible');
+        }
+        function dismissGuidedCards() {
+            hideGuidedCards();
+            try { localStorage.setItem(GUIDED_DISMISS_KEY, 'true'); } catch (e) {}
+        }
+        function wireGuidedJourneys() {
+            const dis = document.getElementById('atlas-journeys-dismiss');
+            if (dis) dis.addEventListener('click', dismissGuidedCards);
+            const rdis = document.getElementById('atlas-journey-readout-dismiss');
+            if (rdis) rdis.addEventListener('click', hideJourneyReadout);
+        }
+
         // -----------------------------------------------------------------
         // Boot
         // -----------------------------------------------------------------
@@ -12889,6 +13210,18 @@
                 if (atlasState.traceRootId && eventById[String(atlasState.traceRootId)]) {
                     setTimeout(() => openTracePanel(atlasState.traceRootId), 600);
                 }
+
+                // WS-8 — guided journeys. Load the single-source manifest, then
+                // either fire a #journey= deep-link or, on a clean landing (no
+                // other deep-link active), show the dismissible entry cards.
+                await loadGuidedJourneys();
+                wireGuidedJourneys();
+                if (guidedBootJourney && guidedJourneyById(guidedBootJourney)) {
+                    setTimeout(() => runGuidedJourney(guidedBootJourney), 650);
+                } else if (!atlasState.selectedEventId && !atlasState.selectedConnectionId && !atlasState.traceRootId) {
+                    renderGuidedCards();
+                }
+
                 syncUrlHash(atlasState);
             } catch (err) {
                 console.error('[WEO Atlas] boot failed:', err);
@@ -12910,7 +13243,10 @@
             clear: clearAllFilters,
             // WS-3 — drive the coordination-pathways trace from the console.
             trace: (id) => setAtlasState({ traceRootId: id != null ? String(id) : null }),
-            traceChain: (id) => buildTraceChain(id)
+            traceChain: (id) => buildTraceChain(id),
+            // WS-8 — guided journeys (verification handles).
+            get journeys() { return guidedJourneys; },
+            runJourney: runGuidedJourney
         };
 
         // ---------------------------------------------------------
