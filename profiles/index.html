@@ -512,5 +512,178 @@ if(navToggle&&navLinks){
 <script>(function(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>300)},{passive:true});btn.addEventListener('click',function(){var motion=window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';window.scrollTo({top:0,behavior:motion});});})();</script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>(function(){var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))})();</script>
+<!-- WS-2b — Per-cell capability evidence drawer. Hash #<ACTOR>-<Dn> (actor codes are GB, not UK). Reads the served /api/capability-links for event evidence; reuses the inlined per-dimension MET status / qualifying headline / constraint already on the page. Does NOT add a methodology element — the existing per-dimension method tooltips are preserved. -->
+<style>
+.weo-dr-scrim{position:fixed;inset:0;background:rgba(2,6,23,.55);opacity:0;visibility:hidden;transition:opacity var(--norm) var(--ease),visibility var(--norm) var(--ease);z-index:9998}
+.weo-dr-scrim.open{opacity:1;visibility:visible}
+.weo-drawer{position:fixed;top:0;right:0;height:100%;width:440px;max-width:92vw;background:var(--raised);border-left:1px solid var(--border);box-shadow:-10px 0 44px rgba(0,0,0,.5);transform:translateX(100%);transition:transform var(--norm) var(--ease);z-index:9999;display:flex;flex-direction:column;overflow:hidden}
+.weo-drawer.open{transform:translateX(0)}
+.weo-dr-head{position:relative;padding:22px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.weo-dr-eyebrow{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5EEAD4;margin-bottom:8px}
+.weo-dr-title{font-size:18px;font-weight:580;color:var(--t1);line-height:1.3}
+.weo-dr-title .weo-dr-dn{color:var(--t5);font-family:'Geist Mono',monospace;font-size:13px;font-weight:500}
+.weo-dr-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;font-size:12px;color:var(--t4)}
+.weo-dr-status{font-weight:600;letter-spacing:.03em}
+.weo-dr-status.met{color:#22C55E} .weo-dr-status.not{color:var(--part)}
+.weo-dr-tag{font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:10px;letter-spacing:.02em}
+.weo-dr-tag.sole{background:rgba(45,212,191,.14);color:#5EEAD4;border:1px solid rgba(45,212,191,.3)}
+.weo-dr-tag.helps{background:rgba(96,165,250,.14);color:#93C5FD;border:1px solid rgba(96,165,250,.3)}
+.weo-dr-tag.contrib{background:rgba(148,163,184,.14);color:var(--t3);border:1px solid rgba(148,163,184,.25)}
+.weo-dr-close{position:absolute;top:14px;right:16px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.5);border:1px solid var(--border);border-radius:6px;color:var(--t4);font-size:18px;line-height:1;cursor:pointer;transition:all var(--fast) var(--ease)}
+.weo-dr-close:hover{color:var(--t1);border-color:#60A5FA}
+.weo-dr-body{padding:18px 24px 30px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.weo-dr-sec{margin-bottom:20px}
+.weo-dr-sec-title{font-size:11px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.weo-dr-qhl{font-size:12.5px;color:var(--t3);line-height:1.55;padding:10px 12px;background:rgba(15,23,42,.4);border:1px solid rgba(255,255,255,.04);border-radius:var(--r-sm)}
+.weo-dr-con{font-size:12px;color:var(--t5);line-height:1.5;font-style:italic;margin-top:8px}
+.weo-dr-con b{font-style:normal;color:var(--t4);font-weight:600}
+.weo-dr-ev{padding:10px 12px;background:rgba(15,23,42,.45);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px}
+.weo-dr-ent{font-size:13px;font-weight:540;color:var(--t2);line-height:1.4;margin-bottom:5px}
+.weo-dr-evlink{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--link);text-decoration:none}
+.weo-dr-evlink:hover{color:var(--link-hover);text-decoration:underline}
+.weo-dr-contriblabel{font-size:10px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.weo-dr-empty{font-size:12px;color:var(--t5);line-height:1.55;font-style:italic}
+.weo-dr-lock{margin-top:10px;font-size:11px;color:var(--t5);line-height:1.55;padding:10px 12px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-sm)}
+.weo-dr-lock a{color:var(--link);text-decoration:none} .weo-dr-lock a:hover{text-decoration:underline}
+.dot.weo-dr-dot-hl{transform:scale(1.45);box-shadow:0 0 12px rgba(255,255,255,.45)}
+@media(max-width:767px){.weo-drawer{width:100%;max-width:100%}}
+</style>
+<div class="weo-dr-scrim" id="weoDrScrim"></div>
+<aside class="weo-drawer" id="weoDrawer" role="dialog" aria-modal="true" aria-labelledby="weoDrTitle" tabindex="-1">
+  <div class="weo-dr-head">
+    <button class="weo-dr-close" id="weoDrClose" aria-label="Close evidence drawer">&times;</button>
+    <div class="weo-dr-eyebrow">Capability evidence</div>
+    <h2 class="weo-dr-title" id="weoDrTitle"></h2>
+    <div class="weo-dr-meta" id="weoDrMeta"></div>
+  </div>
+  <div class="weo-dr-body" id="weoDrBody"></div>
+</aside>
+<script>
+(function(){
+  var DIM=['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var API='https://warmthengine.com/api/capability-links';
+  var byCell=null,ready=false,current=null,lastFocus=null;
+  var scrim=document.getElementById('weoDrScrim'),drawer=document.getElementById('weoDrawer'),
+      elTitle=document.getElementById('weoDrTitle'),elMeta=document.getElementById('weoDrMeta'),
+      elBody=document.getElementById('weoDrBody'),elClose=document.getElementById('weoDrClose');
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function ingest(links){
+    byCell={};
+    links.forEach(function(l){
+      var k=l.actor+'|'+l.dimension,c=byCell[k]||(byCell[k]={qc:[],ca:[]});
+      (l.link_type==='qualifying_contributor'?c.qc:c.ca).push(l);
+    });
+    ready=true;
+    if(current)render(current.actor,current.dn);
+  }
+  // Extract the inlined free detail (status / qualifying headline / constraint) for actor x dimension index k.
+  function domDetail(details,k){
+    var dots=details.querySelectorAll('.row-dots .dot');
+    var dot=dots[k]||null;
+    var met=!!(dot&&dot.classList.contains('dot-met'));
+    var qhl='',con='';
+    var dims=details.querySelectorAll('.det .det-dim');
+    var start=dims[k];
+    if(start){
+      var n=start.nextElementSibling;
+      while(n&&!n.classList.contains('det-dim')){
+        if(n.classList.contains('det-qhl'))qhl=n.textContent.trim();
+        else if(n.classList.contains('det-con'))con=n.innerHTML.trim();
+        n=n.nextElementSibling;
+      }
+    }
+    return {met:met,dot:dot,qhl:qhl,con:con};
+  }
+  function evLink(id){return '<a class="weo-dr-evlink" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles">View event '+esc(id)+' &#8594;</a>';}
+  function render(actorUc,dn){
+    var k=parseInt(dn.slice(1),10)-1;
+    var details=document.getElementById(actorUc.toLowerCase());
+    if(!details||isNaN(k)||k<0||k>6)return false;
+    var nameEl=details.querySelector('.row-name');
+    var actorName=(nameEl&&(nameEl.getAttribute('title')||nameEl.textContent.trim()))||actorUc;
+    var d=domDetail(details,k);
+    var cell=(ready&&byCell)?(byCell[actorUc+'|'+dn]||{qc:[],ca:[]}):{qc:[],ca:[]};
+    // header
+    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>';
+    var tag='';
+    if(cell.qc.length===1)tag='<span class="weo-dr-tag sole">Sole basis (current corpus)</span>';
+    else if(cell.qc.length>1)tag='<span class="weo-dr-tag helps">Helps establish &middot; one of '+cell.qc.length+'</span>';
+    else if(cell.ca.length)tag='<span class="weo-dr-tag contrib">Contributory evidence</span>';
+    elMeta.innerHTML='<span>'+esc(actorName)+'</span><span class="weo-dr-status '+(d.met?'met':'not')+'">'+(d.met?'MET':'NOT MET')+'</span>'+tag;
+    // body
+    var h='';
+    if(d.met&&d.qhl){h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Qualification</div><div class="weo-dr-qhl">'+esc(d.qhl)+(d.con?'<div class="weo-dr-con">'+d.con+'</div>':'')+'</div></div>';}
+    else if(d.con){h+='<div class="weo-dr-sec"><div class="weo-dr-qhl"><div class="weo-dr-con" style="margin-top:0">'+d.con+'</div></div></div>';}
+    if(d.met){
+      // establishing evidence (qualifying_contributor)
+      h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Establishing evidence</div>';
+      if(cell.qc.length){
+        h+=cell.qc.map(function(l){
+          return '<div class="weo-dr-ev">'+(l.entity?'<div class="weo-dr-ent">'+esc(l.entity)+'</div>':'')+evLink(l.event_id)+'</div>';
+        }).join('');
+      } else if(!ready){ h+='<div class="weo-dr-empty">Loading evidence&hellip;</div>'; }
+      else { h+='<div class="weo-dr-empty">Met, but no catalogued event currently provides a qualifying basis for this dimension. The qualification above stands on its own SCP assessment.</div>'; }
+      h+='</div>';
+      // contributory evidence (capability_area)
+      if(cell.ca.length){
+        h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Contributory evidence</div>';
+        h+=cell.ca.map(function(l){
+          return '<div class="weo-dr-ev"><div class="weo-dr-contriblabel">Contributing</div>'+evLink(l.event_id)+'</div>';
+        }).join('');
+        h+='</div>';
+      }
+      h+='<div class="weo-dr-lock">Qualification basis, rationale, and full source analysis available with supporter access. <a href="/support.html">Subscribe &#8594;</a></div>';
+    } else {
+      h+='<div class="weo-dr-sec"><div class="weo-dr-empty">This dimension is not met for '+esc(actorName)+'. No qualifying or contributory event evidence is catalogued.</div></div>';
+    }
+    elBody.innerHTML=h;
+    elBody.scrollTop=0;
+    // context: open underlying actor row + highlight the cell's dot
+    var pg=details.closest('.part-group'); if(pg)pg.open=true;
+    details.open=true;
+    document.querySelectorAll('.dot.weo-dr-dot-hl').forEach(function(x){x.classList.remove('weo-dr-dot-hl');});
+    if(d.dot)d.dot.classList.add('weo-dr-dot-hl');
+    return true;
+  }
+  function open(actorUc,dn){
+    current={actor:actorUc,dn:dn};
+    if(!render(actorUc,dn)){current=null;return;}
+    lastFocus=document.activeElement;
+    scrim.classList.add('open');drawer.classList.add('open');
+    drawer.focus();
+  }
+  function close(strip){
+    current=null;
+    scrim.classList.remove('open');drawer.classList.remove('open');
+    document.querySelectorAll('.dot.weo-dr-dot-hl').forEach(function(x){x.classList.remove('weo-dr-dot-hl');});
+    if(strip!==false&&/#[A-Za-z]+-D[1-7]$/.test(location.hash)){
+      history.replaceState(null,'',location.pathname+location.search);
+    }
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus();}catch(e){}}
+  }
+  function applyHash(){
+    var m=/^#([A-Za-z]{2,3})-(D[1-7])$/.exec(location.hash);
+    if(m&&document.getElementById(m[1].toLowerCase())){open(m[1].toUpperCase(),m[2]);}
+    else{close(false);}
+  }
+  // Dot click → deep-link the cell (keeps browser history / back-forward working).
+  document.addEventListener('click',function(e){
+    var dot=e.target.closest&&e.target.closest('.row-dots .dot');
+    if(!dot)return;
+    var details=dot.closest('details.actor');var di=dot.getAttribute('data-di');
+    if(!details||di==null)return;
+    e.preventDefault();e.stopPropagation();
+    var hash='#'+details.id.toUpperCase()+'-D'+(parseInt(di,10)+1);
+    if(location.hash===hash)applyHash();else location.hash=hash;
+  },true);
+  elClose.addEventListener('click',function(){close(true);});
+  scrim.addEventListener('click',function(){close(true);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&drawer.classList.contains('open'))close(true);});
+  window.addEventListener('hashchange',applyHash);
+  fetch(API,{cache:'default'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.links)ingest(d.links);}).catch(function(){});
+  applyHash();
+})();
+</script>
+
 </body>
 </html>
