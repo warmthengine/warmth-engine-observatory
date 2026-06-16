@@ -3265,6 +3265,243 @@
             border-color: rgba(45, 212, 191, 0.4);
         }
 
+        /* =================================================================
+           WS-3 — COORDINATION PATHWAYS (trace mode)
+           A floating overlay that steps a user through the directional CC
+           chain a selected event forms. Floats over the canvas (right on
+           desktop, bottom sheet on mobile) so the highlighted chain stays
+           visible behind it. WEO surfaces the chain — the user reads it;
+           there is no auto-generated narrative anywhere in this panel.
+           ================================================================= */
+        .atlas-trace-panel {
+            position: fixed;
+            top: 88px;
+            right: 16px;
+            width: 360px;
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-raised, #0f172a);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--weo-radius-lg, 12px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+            z-index: 60;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+            pointer-events: none;
+        }
+        .atlas-trace-panel.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .atlas-trace-header {
+            position: relative;
+            padding: 16px 44px 12px 18px;
+            border-bottom: 1px solid var(--border-default);
+        }
+        .atlas-trace-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+        }
+        .atlas-trace-title {
+            margin: 4px 0 0 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        /* Guide note — the spec's balanced counterweight to the dense
+           canvas. Verbatim from WS-3 §3. */
+        .atlas-trace-guide {
+            margin-top: 8px;
+            font-size: 11.5px;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .atlas-trace-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 26px;
+            height: 26px;
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .atlas-trace-close:hover { color: var(--text-primary); border-color: var(--border-default); }
+        .atlas-trace-body {
+            overflow-y: auto;
+            padding: 14px 18px 18px 18px;
+        }
+        .atlas-trace-section-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 4px 0 8px 0;
+        }
+        /* The selected event, sitting between its antecedents and what
+           flows onward from it. */
+        .atlas-trace-root {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            margin: 10px 0;
+            border: 1px solid rgba(45, 212, 191, 0.4);
+            border-radius: var(--radius-md);
+            background: rgba(45, 212, 191, 0.07);
+        }
+        .atlas-trace-root-dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: #2DD4BF; flex-shrink: 0;
+        }
+        .atlas-trace-root-name {
+            font-size: 13px; font-weight: 600; color: var(--text-primary);
+        }
+        /* One hop = two events + the CC between them. */
+        .atlas-trace-hop {
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            padding: 9px 11px;
+            margin-bottom: 8px;
+            background: var(--surface-overlay, rgba(30, 41, 59, 0.4));
+            cursor: pointer;
+            transition: border-color var(--duration-fast) var(--ease-out),
+                        background var(--duration-fast) var(--ease-out);
+        }
+        .atlas-trace-hop:hover { border-color: rgba(45, 212, 191, 0.4); }
+        .atlas-trace-hop.current {
+            border-color: #2DD4BF;
+            background: rgba(45, 212, 191, 0.1);
+        }
+        .atlas-trace-hop-endpoints {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+        .atlas-trace-evt {
+            font-size: 12.5px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(148, 163, 184, 0.5);
+            cursor: pointer;
+        }
+        .atlas-trace-evt:hover { color: #2DD4BF; border-bottom-color: #2DD4BF; }
+        .atlas-trace-arrow {
+            font-size: 13px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .atlas-trace-hop-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 7px;
+        }
+        .atlas-trace-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .atlas-trace-type-dot {
+            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+        }
+        /* Confidence line-swatch — the homepage solid/dashed convention
+           rendered inline next to the textual chip so the trace reads the
+           same language as the Map legend (solid = Verified/Established,
+           dashed = Analytical). WS-5 thread lines must remain distinct
+           from BOTH of these styles — leave that design room. */
+        .atlas-trace-conf-swatch {
+            width: 22px; height: 0; flex-shrink: 0;
+            border-top: 2px solid currentColor;
+        }
+        .atlas-trace-conf-swatch.dashed {
+            border-top-style: dashed;
+        }
+        .atlas-trace-conf {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            margin-left: auto;
+            color: #2DD4BF;
+        }
+        .atlas-trace-conf.cc-e { color: #94A3B8; }
+        .atlas-trace-conf.cc-a { color: #94A3B8; }
+        .atlas-trace-empty {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            padding: 6px 0;
+        }
+        /* Stepper — moves a "current hop" highlight along the chain on the
+           canvas. Reading aid only; never narrates. */
+        .atlas-trace-stepper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-top: 1px solid var(--border-default);
+            background: var(--surface-raised, #0f172a);
+            border-bottom-left-radius: var(--weo-radius-lg, 12px);
+            border-bottom-right-radius: var(--weo-radius-lg, 12px);
+        }
+        .atlas-trace-step-btn {
+            flex: 1;
+            padding: 7px 10px;
+            background: var(--surface-overlay);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .atlas-trace-step-btn:hover:not(:disabled) {
+            background: rgba(45, 212, 191, 0.08);
+            color: #2DD4BF;
+            border-color: rgba(45, 212, 191, 0.4);
+        }
+        .atlas-trace-step-btn:disabled { opacity: 0.4; cursor: default; }
+        .atlas-trace-step-counter {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            min-width: 54px;
+            text-align: center;
+        }
+        @media (max-width: 767px) {
+            .atlas-trace-panel {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                max-height: 72vh;
+                border-radius: var(--weo-radius-lg, 12px) var(--weo-radius-lg, 12px) 0 0;
+                transform: translateY(100%);
+            }
+            .atlas-trace-panel.open { transform: translateY(0); }
+        }
+
         /* --- §13 Standing disclaimer --- */
         .atlas-panel-disclaimer {
             padding: 12px 22px 18px 22px;
@@ -3999,6 +4236,14 @@
                 <div class="atlas-panel-drag-handle" aria-hidden="true"></div>
                 <div class="atlas-panel-swipe-hint" aria-hidden="true">Swipe up for more</div>
                 <div id="atlas-panel-content"></div>
+            </aside>
+
+            <!-- WS-3 Coordination Pathways — trace mode overlay. Floats over
+                 the canvas so the highlighted directional CC chain stays
+                 visible behind it. Populated by renderTracePanel(); shown
+                 only when atlasState.traceRootId is set. -->
+            <aside class="atlas-trace-panel" id="atlas-trace-panel" aria-hidden="true" aria-label="Coordination pathways trace" hidden>
+                <div id="atlas-trace-content"></div>
             </aside>
 
             <aside id="atlas-topology" aria-label="Coordination topology">
@@ -4787,6 +5032,11 @@
                         ccType: c.connection_type,
                         ccTypeName: c.connection_type_name,
                         confidence: c.confidence_level,
+                        // WS-3 — solid/dashed confidence convention from the
+                        // homepage legend: CC-V / CC-E render solid, CC-A
+                        // (Analytical) renders dashed. Drives the line-style
+                        // selector below so the Atlas reads the same as the Map.
+                        confStyle: (c.confidence_level === 'CC-A') ? 'dashed' : 'solid',
                         color: ccColour,
                         gradientSource: gradientSource,
                         gradientTarget: gradientTarget,
@@ -5080,6 +5330,66 @@
                         selector: 'edge[ccType = 6]',
                         style: {
                             'target-arrow-shape': 'none'
+                        }
+                    },
+                    {
+                        // WS-3 — CC confidence solid/dashed convention,
+                        // aligned with the homepage legend (solid =
+                        // Verified/Established, dashed = Analytical). CC-A
+                        // edges carry confStyle='dashed' from buildElements.
+                        // WS-5 thread lines must remain visually distinct
+                        // from BOTH this dash and the solid CC line.
+                        selector: 'edge[confStyle = "dashed"]',
+                        style: {
+                            'line-style': 'dashed',
+                            'line-dash-pattern': [6, 4]
+                        }
+                    },
+                    {
+                        // WS-3 trace mode — everything not on the traced
+                        // chain recedes so the directional pathway reads
+                        // clearly against the dense canvas.
+                        selector: '.trace-dim',
+                        style: {
+                            'opacity': 0.08,
+                            'text-opacity': 0,
+                            'transition-property': 'opacity',
+                            'transition-duration': '160ms'
+                        }
+                    },
+                    {
+                        // Chain nodes stay bright and labelled while a
+                        // trace is active.
+                        selector: 'node.trace-node',
+                        style: {
+                            'opacity': 1,
+                            'text-opacity': 1,
+                            'z-index': 950
+                        }
+                    },
+                    {
+                        // Chain edges — emphasised, solid-colour fill (the
+                        // gradient is dropped here so the dashed-vs-solid
+                        // confidence cue is unambiguous on the traced hops).
+                        selector: 'edge.trace-edge',
+                        style: {
+                            'opacity': 1,
+                            'line-opacity': 1,
+                            'width': 3.5,
+                            'line-fill': 'solid',
+                            'line-color': 'data(color)',
+                            'target-arrow-color': 'data(color)',
+                            'z-index': 960,
+                            'transition-property': 'opacity, width',
+                            'transition-duration': '160ms'
+                        }
+                    },
+                    {
+                        // The single hop the stepper is currently on.
+                        selector: 'edge.trace-current',
+                        style: {
+                            'width': 6,
+                            'z-index': 970
                         }
                     },
                     {
@@ -8168,6 +8478,12 @@
             if (wasOpen) {
                 setTimeout(() => {
                     if (!cy) return;
+                    // WS-3 — if a coordination-pathways trace has taken over
+                    // the canvas, leave its highlight + framing intact. The
+                    // trace owns the camera and the trace-* classes now; the
+                    // heavy panel-close refit/opacity-snap below would clobber
+                    // both. Clear the close flag so filters work again later.
+                    if (atlasState.traceRootId) { panelClosingInProgress = false; return; }
                     cy.resize();
                     // V8 — symmetric reverse of the open path's
                     // applyPanelSelectionHighlight, which adds
@@ -8917,6 +9233,19 @@
             // CSS pins this element to the bottom of the panel
             // viewport so the buttons remain reachable even when the
             // upgrade CTA grows tall on free-tier non-sample events.
+            // WS-3 — trace launcher. Shown only when this event participates
+            // in at least one directional CC (Policy Cascade / Funding Flow /
+            // Regulatory Enablement / Response); bidirectional-only events
+            // form no chain to step through.
+            const hasDirectionalChain = allConnections.some(c =>
+                isDirectionalCC(c) &&
+                (String(c.source_event_id) === id || String(c.target_event_id) === id));
+            if (hasDirectionalChain) {
+                html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;background:transparent;">';
+                html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
+                html += '</div>';
+            }
+
             html += '<div class="atlas-panel-actions" id="atlas-section-actions">';
             html += `<a class="atlas-panel-action-btn" href="events.html?event=${encodeURIComponent(id)}&from=atlas" target="_blank" rel="noopener">View in Events Database →</a>`;
             html += `<a class="atlas-panel-action-btn" href="index.html?event=${encodeURIComponent(id)}&from=atlas" target="_blank" rel="noopener">View on Map →</a>`;
@@ -9249,6 +9578,18 @@
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => setAtlasState({ selectedEventId: null }));
             }
+            // WS-3 — launch the coordination-pathways trace rooted at this
+            // event. Clears the detail-panel selection (mutual exclusion).
+            const traceLaunch = elAtlasPanelContent.querySelector('#atlas-trace-launch');
+            if (traceLaunch) {
+                traceLaunch.addEventListener('click', () => {
+                    const id = traceLaunch.getAttribute('data-trace-launch');
+                    // The trace floats over the still-open event panel; the
+                    // detail selection is left intact so closing the trace
+                    // returns the user to the event they traced from.
+                    if (id) setAtlasState({ traceRootId: id });
+                });
+            }
             // Accordions
             elAtlasPanelContent.querySelectorAll('.atlas-accordion-toggle').forEach(t => {
                 t.addEventListener('click', () => {
@@ -9340,6 +9681,12 @@
         // Brief 3d — also handles the new CC panel via selectedConnectionId.
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
+            // WS-3 — the trace overlay sits on top, so Escape dismisses it
+            // first (returning to the event panel underneath, if any).
+            if (atlasState.traceRootId) {
+                setAtlasState({ traceRootId: null });
+                return;
+            }
             if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                 setAtlasState({ selectedEventId: null, selectedConnectionId: null });
             }
@@ -9953,6 +10300,313 @@
                 : String(cc.source_event_id);
         }
 
+        // =====================================================================
+        // WS-3 — COORDINATION PATHWAYS (Atlas trace mode)
+        //
+        // Renders over the existing directional CC graph — recomputes nothing.
+        // The chain is built from allConnections using directional CC types
+        // ONLY: Policy Cascade (1), Funding Flow (3), Regulatory Enablement (4),
+        // Response (5). The bidirectional / co-membership types — Joint
+        // Issuance (2), Framework Family (6), Parallel Policy (7) — never form
+        // a chain and are excluded. WEO surfaces the chain; the USER reads it.
+        // No auto-generated narrative or conclusion is produced anywhere here.
+        // =====================================================================
+        const TRACE_DIRECTIONAL_TYPES = new Set([1, 3, 4, 5]);
+
+        const elTracePanel = document.getElementById('atlas-trace-panel');
+        const elTraceContent = document.getElementById('atlas-trace-content');
+
+        // The flat, ordered hop list the stepper walks (antecedents first,
+        // then onward), and the index of the hop currently emphasised on the
+        // canvas (-1 = whole chain shown, no single hop singled out).
+        let traceHops = [];
+        let traceStepIndex = -1;
+
+        function isDirectionalCC(c) {
+            return TRACE_DIRECTIONAL_TYPES.has(Number(c.connection_type)) &&
+                   (c.direction || '').toLowerCase() === 'source_to_target';
+        }
+
+        // Build the directional chain through a root event: the antecedent
+        // hops that lead to it (parent→child, walked backward) and the onward
+        // hops that flow from it (walked forward). BFS in each direction,
+        // deduped by connection_id so cycles terminate.
+        function buildTraceChain(rootId) {
+            rootId = String(rootId);
+            const dir = allConnections.filter(isDirectionalCC);
+            const outBy = {}, inBy = {};
+            dir.forEach(c => {
+                const s = String(c.source_event_id), t = String(c.target_event_id);
+                (outBy[s] = outBy[s] || []).push(c);
+                (inBy[t] = inBy[t] || []).push(c);
+            });
+
+            // Upstream — walk parent edges back from the root, layer by layer,
+            // so the deepest antecedent ends up first when the layers reverse.
+            const upLayers = [];
+            const seenEdgeUp = new Set();
+            const seenNodeUp = new Set([rootId]);
+            let frontier = [rootId];
+            while (frontier.length) {
+                const layer = [], next = [], nextNodes = new Set();
+                frontier.forEach(node => {
+                    (inBy[node] || []).forEach(c => {
+                        if (seenEdgeUp.has(c.connection_id)) return;
+                        seenEdgeUp.add(c.connection_id);
+                        layer.push(c);
+                        const parent = String(c.source_event_id);
+                        if (!seenNodeUp.has(parent) && !nextNodes.has(parent)) {
+                            nextNodes.add(parent); next.push(parent);
+                        }
+                    });
+                });
+                if (layer.length) upLayers.push(layer);
+                nextNodes.forEach(n => seenNodeUp.add(n));
+                frontier = next;
+            }
+            const upstream = [].concat.apply([], upLayers.reverse());
+
+            // Downstream — walk child edges forward from the root.
+            const downstream = [];
+            const seenEdgeDown = new Set();
+            const seenNodeDown = new Set([rootId]);
+            frontier = [rootId];
+            while (frontier.length) {
+                const next = [], nextNodes = new Set();
+                frontier.forEach(node => {
+                    (outBy[node] || []).forEach(c => {
+                        if (seenEdgeDown.has(c.connection_id)) return;
+                        seenEdgeDown.add(c.connection_id);
+                        downstream.push(c);
+                        const child = String(c.target_event_id);
+                        if (!seenNodeDown.has(child) && !nextNodes.has(child)) {
+                            nextNodes.add(child); next.push(child);
+                        }
+                    });
+                });
+                nextNodes.forEach(n => seenNodeDown.add(n));
+                frontier = next;
+            }
+
+            return { upstream, downstream };
+        }
+
+        // One hop card — two events + the CC's type and confidence. The
+        // event names deep-link to their detail panels (existing #event=
+        // convention); the hop body steps the stepper to this hop.
+        function renderTraceHop(c, idx) {
+            const typeNum = Number(c.connection_type);
+            const colour = CC_TYPE_COLOUR[typeNum] || '#94A3B8';
+            const typeName = c.connection_type_name || CC_TYPE_NAME[typeNum] || ('Type ' + typeNum);
+            const conf = c.confidence_level || 'CC-V';
+            const confClass = conf === 'CC-E' ? 'cc-e' : (conf === 'CC-A' ? 'cc-a' : 'cc-v');
+            const dashed = conf === 'CC-A' ? ' dashed' : '';
+            const srcId = String(c.source_event_id), tgtId = String(c.target_event_id);
+            const src = eventById[srcId], tgt = eventById[tgtId];
+            const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
+            const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
+            let h = `<div class="atlas-trace-hop" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
+            h += '<div class="atlas-trace-hop-endpoints">';
+            h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
+            h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
+            h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(tgtId)}" role="button" tabindex="0">${escapeHtml(tgtName)}</span>`;
+            h += '</div>';
+            h += '<div class="atlas-trace-hop-meta">';
+            h += `<span class="atlas-trace-type"><span class="atlas-trace-type-dot" style="background:${colour}"></span>${escapeHtml(typeName)}</span>`;
+            h += `<span class="badge-with-tooltip">${generateCCTypeTooltip(typeNum, 'below')}</span>`;
+            h += `<span class="atlas-trace-conf ${confClass}"><span class="atlas-trace-conf-swatch${dashed}"></span>${escapeHtml(conf)}</span>`;
+            h += `<span class="badge-with-tooltip">${generateCCConfidenceTooltip(conf, 'left')}</span>`;
+            h += '</div>';
+            h += '</div>';
+            return h;
+        }
+
+        function renderTracePanel(rootId) {
+            const root = eventById[String(rootId)];
+            const rootName = root && root.name ? root.name : ('Event ' + rootId);
+            const { upstream, downstream } = buildTraceChain(rootId);
+            traceHops = upstream.concat(downstream);
+            traceStepIndex = -1;
+
+            let h = '';
+            h += '<div class="atlas-trace-header">';
+            h += '<button class="atlas-trace-close" type="button" id="atlas-trace-close" aria-label="Close pathways trace">&times;</button>';
+            h += '<div class="atlas-trace-eyebrow">Coordination pathways</div>';
+            h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
+            // Guide note — verbatim from WS-3 §3.
+            h += '<p class="atlas-trace-guide">Trace how events link through the connections between them. Pick an event and follow the chain it forms.</p>';
+            h += '</div>';
+
+            h += '<div class="atlas-trace-body">';
+            if (!traceHops.length) {
+                h += '<div class="atlas-trace-empty">This event forms no directional coordination pathway — it has no Policy Cascade, Funding Flow, Regulatory Enablement, or Response connection to step through. Bidirectional connections (Joint Issuance, Framework Family, Parallel Policy) do not form a chain.</div>';
+            } else {
+                if (upstream.length) {
+                    h += '<div class="atlas-trace-section-label">Leads to this event</div>';
+                    upstream.forEach((c, i) => { h += renderTraceHop(c, i); });
+                }
+                h += '<div class="atlas-trace-root"><span class="atlas-trace-root-dot"></span><span class="atlas-trace-root-name">' + escapeHtml(truncate(rootName, 36)) + '</span></div>';
+                if (downstream.length) {
+                    h += '<div class="atlas-trace-section-label">Flows onward from here</div>';
+                    downstream.forEach((c, i) => { h += renderTraceHop(c, upstream.length + i); });
+                }
+            }
+            h += '</div>';
+
+            if (traceHops.length) {
+                h += '<div class="atlas-trace-stepper">';
+                h += '<button class="atlas-trace-step-btn" type="button" id="atlas-trace-prev">← Prev</button>';
+                h += `<span class="atlas-trace-step-counter" id="atlas-trace-counter">— / ${traceHops.length}</span>`;
+                h += '<button class="atlas-trace-step-btn" type="button" id="atlas-trace-next">Next →</button>';
+                h += '</div>';
+            }
+
+            elTraceContent.innerHTML = h;
+        }
+
+        // Paint the chain onto the canvas: dim everything, then surface the
+        // chain's nodes + edges. trace-edge drops the gradient for a solid
+        // colour fill so the dashed-vs-solid confidence cue is unambiguous.
+        function highlightTraceChain() {
+            if (!cy) return;
+            const edgeIds = new Set(traceHops.map(c => c.connection_id));
+            const nodeIds = new Set();
+            traceHops.forEach(c => {
+                nodeIds.add(String(c.source_event_id));
+                nodeIds.add(String(c.target_event_id));
+            });
+            cy.batch(() => {
+                // Clear any panel-selection emphasis so the two systems
+                // don't fight over opacity.
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current');
+                cy.elements().addClass('trace-dim');
+                cy.edges().forEach(e => {
+                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge');
+                });
+                cy.nodes().forEach(n => {
+                    if (nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
+                });
+            });
+            // Frame the chain (fall back to the root if the chain is empty).
+            const focusEles = nodeIds.size
+                ? cy.nodes().filter(n => nodeIds.has(n.id()))
+                : cy.getElementById(String(atlasState.traceRootId));
+            if (focusEles && focusEles.length) {
+                if (typeof fitToUsableViewport === 'function') {
+                    fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
+                } else {
+                    cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
+                }
+            }
+        }
+
+        function clearTraceHighlight() {
+            if (!cy) return;
+            cy.elements().removeClass('trace-dim trace-edge trace-node trace-current');
+            // Restore degree-driven base opacities, then re-apply any active
+            // filter dimming so the canvas returns to its pre-trace state.
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+        }
+
+        // Move the stepper. i === -1 shows the whole chain with no single hop
+        // emphasised; 0..n-1 emphasises that hop's edge on the canvas and
+        // scrolls its card into view. Reading aid only — never narrates.
+        function setTraceStep(i) {
+            if (!traceHops.length) return;
+            const max = traceHops.length - 1;
+            traceStepIndex = i < -1 ? -1 : (i > max ? max : i);
+            // DOM: mark the current hop card.
+            elTraceContent.querySelectorAll('.atlas-trace-hop').forEach(el => {
+                const on = Number(el.getAttribute('data-hop-index')) === traceStepIndex;
+                el.classList.toggle('current', on);
+                if (on) el.scrollIntoView({ block: 'nearest' });
+            });
+            // Counter + button states.
+            const counter = elTraceContent.querySelector('#atlas-trace-counter');
+            if (counter) counter.textContent = (traceStepIndex < 0 ? '—' : (traceStepIndex + 1)) + ' / ' + traceHops.length;
+            const prevBtn = elTraceContent.querySelector('#atlas-trace-prev');
+            const nextBtn = elTraceContent.querySelector('#atlas-trace-next');
+            if (prevBtn) prevBtn.disabled = traceStepIndex < 0;
+            if (nextBtn) nextBtn.disabled = traceStepIndex >= max;
+            // Canvas: emphasise the current hop's edge.
+            if (cy) {
+                cy.edges('.trace-current').removeClass('trace-current');
+                if (traceStepIndex >= 0) {
+                    const c = traceHops[traceStepIndex];
+                    const edge = cy.getElementById(c.connection_id);
+                    if (edge && edge.length) edge.addClass('trace-current');
+                }
+            }
+        }
+
+        function wireTracePanelInteractions() {
+            initTooltips();
+            const closeBtn = elTraceContent.querySelector('#atlas-trace-close');
+            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ traceRootId: null }));
+
+            // Event-name deep-links — open the event's detail panel (this
+            // closes the trace via the mutual-exclusion rule in
+            // syncTraceOnState). Satisfies WS-3 "deep-link to the event panels".
+            elTraceContent.querySelectorAll('.atlas-trace-evt').forEach(el => {
+                const open = (e) => {
+                    e.stopPropagation();
+                    const id = el.getAttribute('data-trace-event');
+                    if (id) setAtlasState({ selectedEventId: id, selectedConnectionId: null });
+                };
+                el.addEventListener('click', open);
+                el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') open(e); });
+            });
+
+            // Hop body click — step the stepper to this hop.
+            elTraceContent.querySelectorAll('.atlas-trace-hop').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = Number(el.getAttribute('data-hop-index'));
+                    if (!Number.isNaN(idx)) setTraceStep(idx);
+                });
+            });
+
+            const prevBtn = elTraceContent.querySelector('#atlas-trace-prev');
+            const nextBtn = elTraceContent.querySelector('#atlas-trace-next');
+            if (prevBtn) prevBtn.addEventListener('click', () => setTraceStep(traceStepIndex - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => setTraceStep(traceStepIndex + 1));
+
+            // Tooltip lifecycle for the ? triggers inside the hop meta rows.
+            if (!window.matchMedia('(hover: none)').matches) {
+                elTraceContent.querySelectorAll('.weo-info-trigger').forEach(function(trigger) {
+                    trigger.addEventListener('mouseenter', function() { showTooltip(trigger); activeTooltipTrigger = trigger; });
+                    trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
+                });
+            }
+        }
+
+        function openTracePanel(rootId) {
+            if (!elTracePanel || !elTraceContent) return;
+            renderTracePanel(rootId);
+            elTracePanel.hidden = false;
+            elTracePanel.setAttribute('aria-hidden', 'false');
+            // rAF so the .open transition runs from the hidden state.
+            requestAnimationFrame(() => elTracePanel.classList.add('open'));
+            highlightTraceChain();
+            wireTracePanelInteractions();
+        }
+
+        function closeTracePanel() {
+            if (!elTracePanel) return;
+            elTracePanel.classList.remove('open');
+            elTracePanel.setAttribute('aria-hidden', 'true');
+            elTracePanel.hidden = true;
+            traceHops = [];
+            traceStepIndex = -1;
+            clearTraceHighlight();
+            // If a detail panel is still open underneath (the common case —
+            // the trace was launched from an event panel), restore its
+            // spotlight so the canvas returns to the event-selected state.
+            if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
+                applyPanelSelectionHighlight();
+            }
+        }
+
         // Atlas brief 3a: superseded by atlasRenderPanel — remove on 3a sign-off.
         // The functions below (renderPanelContent and renderSourceItem) were
         // the lossy copy of index.html's panel from brief 1c. They are no
@@ -10103,6 +10757,9 @@
             },
             selectedEventId: null,
             selectedConnectionId: null,
+            // WS-3 — the event a coordination-pathway trace is rooted at.
+            // Mutually exclusive with the event/CC detail panels.
+            traceRootId: null,
             layoutName: 'fcose',
             // Brief 3e §2 — layout mode: 'network' (force-directed,
             // default) | 'connectedness' (concentric by degree) |
@@ -10341,6 +10998,11 @@
             // camera zoom-back. cleanupFinal clears this flag and calls
             // applyFiltersToCytoscape itself once the transition is done.
             if (panelClosingInProgress) return;
+            // WS-3 — while a coordination-pathways trace owns the canvas,
+            // the trace-dim / trace-edge / trace-node classes drive opacity.
+            // Skip filter dimming so the two systems don't fight; the trace
+            // restores filter state on close via clearTraceHighlight().
+            if (atlasState.traceRootId) return;
             const { filters } = state;
             const active = hasAnyActiveFilter(filters);
             cy.batch(() => {
@@ -10676,6 +11338,7 @@
             const filters = JSON.parse(JSON.stringify(atlasState.filters));
             let selectedEventId = atlasState.selectedEventId;
             let selectedConnectionId = atlasState.selectedConnectionId;
+            let traceRootId = atlasState.traceRootId;
             raw.split('&').forEach(pair => {
                 if (!pair) return;
                 const idx = pair.indexOf('=');
@@ -10694,6 +11357,9 @@
                 } else if (key === 'cc') {
                     // Brief 3d — deep-link to a CC inspection panel.
                     selectedConnectionId = val;
+                } else if (key === 'trace') {
+                    // WS-3 — deep-link to a coordination-pathways trace.
+                    traceRootId = val;
                 } else if (key === 'mode') {
                     // Brief 3e — deep-link to a layout mode. Legacy
                     // bookmarks may still use the original 'importance'
@@ -10718,6 +11384,9 @@
                 atlasState.selectedEventId = selectedEventId;
                 atlasState.selectedConnectionId = null;
             }
+            // WS-3 — the trace overlay floats above the detail panel, so it
+            // is not mutually exclusive with the selection at hydrate time.
+            atlasState.traceRootId = traceRootId || null;
         }
 
         function syncUrlHash(state) {
@@ -10739,6 +11408,10 @@
             // Brief 3d — serialise CC selection (mutually exclusive with event).
             if (state.selectedConnectionId) {
                 parts.push(`cc=${encodeURIComponent(state.selectedConnectionId)}`);
+            }
+            // WS-3 — serialise an active coordination-pathways trace.
+            if (state.traceRootId) {
+                parts.push(`trace=${encodeURIComponent(state.traceRootId)}`);
             }
             // Brief 3e — serialise layout mode (omitted when 'network').
             if (state.layoutMode && state.layoutMode !== 'network') {
@@ -11110,6 +11783,27 @@
         function syncFilterBarOnState(state, prev) {
             syncFilterBarToState(state);
         }
+        // WS-3 — drives the coordination-pathways trace overlay. Runs before
+        // syncDetailPanelOnState so trace teardown happens before a newly
+        // selected event's panel highlight is applied.
+        function syncTraceOnState(state, prev) {
+            const traceChanged = state.traceRootId !== prev.traceRootId;
+            // A detail panel was navigated to (e.g. clicking an event name
+            // inside the trace) while a trace was showing → the trace yields
+            // to it. Direct-clear avoids a second dispatch.
+            const selectionAdvanced =
+                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
+                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId);
+            if (state.traceRootId && selectionAdvanced) {
+                atlasState.traceRootId = null;
+                closeTracePanel();
+                return;
+            }
+            if (!traceChanged) return;
+            if (state.traceRootId) openTracePanel(state.traceRootId);
+            else closeTracePanel();
+        }
+
         function syncDetailPanelOnState(state, prev) {
             // Brief 3d — single subscriber covers both panels. Mutual
             // exclusion: setting selectedEventId clears
@@ -11196,6 +11890,7 @@
                 subscribeAtlasState(syncCytoscapeOnState);
                 subscribeAtlasState(syncTopologyOnState);
                 subscribeAtlasState(syncFilterBarOnState);
+                subscribeAtlasState(syncTraceOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncUrlHash);
 
@@ -11252,6 +11947,12 @@
                         }
                     }, 400);
                 }
+                // WS-3 — deep-link straight into a coordination-pathways
+                // trace. Runs after the panel deep-link so the trace overlay
+                // (and its chain highlight) lands on a settled canvas.
+                if (atlasState.traceRootId && eventById[String(atlasState.traceRootId)]) {
+                    setTimeout(() => openTracePanel(atlasState.traceRootId), 600);
+                }
                 syncUrlHash(atlasState);
             } catch (err) {
                 console.error('[WEO Atlas] boot failed:', err);
@@ -11270,7 +11971,10 @@
             get connections() { return allConnections; },
             get state() { return atlasState; },
             setFilter: setAtlasFilter,
-            clear: clearAllFilters
+            clear: clearAllFilters,
+            // WS-3 — drive the coordination-pathways trace from the console.
+            trace: (id) => setAtlasState({ traceRootId: id != null ? String(id) : null }),
+            traceChain: (id) => buildTraceChain(id)
         };
 
         // ---------------------------------------------------------
