@@ -3502,6 +3502,203 @@
             .atlas-trace-panel.open { transform: translateY(0); }
         }
 
+        /* =================================================================
+           WS-5 — STACK JOURNEY + INFRASTRUCTURE THREADS
+           Threads are MATERIAL FACTS, not CCs: muted slate, dashed, lighter
+           panel chrome. The Stack Journey labels every hop by kind so a
+           mixed chain never reads as one coordination story.
+           ================================================================= */
+        /* Thread overlay toggle (topology sidebar). */
+        .atlas-thread-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin: 10px 0 4px 0;
+            padding: 8px 10px;
+            background: transparent;
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md, 8px);
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: border-color 150ms, color 150ms, background 150ms;
+        }
+        .atlas-thread-toggle:hover:not(:disabled) { border-color: #7C8A9E; color: var(--text-primary); }
+        .atlas-thread-toggle:disabled { opacity: 0.4; cursor: default; }
+        .atlas-thread-toggle.active {
+            border-color: #7C8A9E;
+            background: rgba(124, 138, 158, 0.12);
+            color: var(--text-primary);
+        }
+        /* Dashed swatch echoes the on-canvas thread line (muted, [2,5]). */
+        .atlas-thread-toggle-swatch {
+            width: 22px; height: 0; flex-shrink: 0;
+            border-top: 1.5px dashed #7C8A9E;
+        }
+        .atlas-thread-toggle-label { flex: 1; text-align: left; letter-spacing: 0.01em; }
+        .atlas-thread-toggle-count {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            background: rgba(124, 138, 158, 0.15);
+            border-radius: 9px;
+            padding: 1px 7px;
+        }
+        .atlas-thread-toggle.active .atlas-thread-toggle-count { color: #cbd5e1; }
+
+        /* Stack + thread panels share the trace panel's floating frame. */
+        .atlas-stack-panel,
+        .atlas-thread-panel {
+            position: fixed;
+            top: 88px;
+            right: 16px;
+            width: 376px;
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-raised, #0f172a);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--weo-radius-lg, 12px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+            z-index: 61;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+            pointer-events: none;
+        }
+        .atlas-stack-panel.open,
+        .atlas-thread-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        /* ---- Stack Journey panel ---- */
+        .atlas-stack-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-stack-eyebrow {
+            font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #818CF8;
+        }
+        .atlas-stack-guide {
+            margin-top: 8px; font-size: 11.5px; font-style: italic;
+            color: var(--text-secondary); line-height: 1.5;
+        }
+        .atlas-stack-legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 10px; }
+        .atlas-stack-legend-item {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 10.5px; color: var(--text-muted);
+        }
+        .atlas-stack-swatch { width: 14px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+        .atlas-stack-swatch.coordination { background: #2DD4BF; }
+        .atlas-stack-swatch.material { background: transparent; border-top: 2px dashed #7C8A9E; height: 0; }
+        .atlas-stack-swatch.capability { background: #F59E0B; }
+        .atlas-stack-body { overflow-y: auto; padding: 12px 18px 18px 18px; }
+        .atlas-stack-section-label {
+            font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+            text-transform: uppercase; margin: 14px 0 8px 0;
+            padding-left: 8px; border-left: 3px solid var(--border-default);
+        }
+        .atlas-stack-section-label:first-child { margin-top: 2px; }
+        .atlas-stack-section-label.coordination { color: #2DD4BF; border-left-color: #2DD4BF; }
+        .atlas-stack-section-label.material { color: #9FB0C4; border-left-color: #7C8A9E; }
+        .atlas-stack-section-label.capability { color: #F59E0B; border-left-color: #F59E0B; }
+        /* Hop card — left border colour-codes the kind so the three never
+           blur into one running coordination narrative. */
+        .atlas-stack-hop {
+            padding: 8px 10px; margin-bottom: 7px;
+            border: 1px solid var(--border-primary);
+            border-left-width: 3px;
+            border-radius: var(--radius-md, 8px);
+            background: rgba(148, 163, 184, 0.03);
+        }
+        .atlas-stack-hop.coordination { border-left-color: #2DD4BF; }
+        .atlas-stack-hop.material { border-left-color: #7C8A9E; cursor: pointer; }
+        .atlas-stack-hop.material:hover { background: rgba(124, 138, 158, 0.08); }
+        .atlas-stack-hop.capability { border-left-color: #F59E0B; }
+        .atlas-stack-hop-endpoints { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+        .atlas-stack-evt {
+            font-size: 12px; color: var(--text-primary); cursor: pointer;
+            border-bottom: 1px dotted transparent;
+        }
+        .atlas-stack-evt:hover { color: #2DD4BF; border-bottom-color: #2DD4BF; }
+        .atlas-stack-arrow { color: var(--text-muted); font-size: 13px; }
+        .atlas-stack-arrow.material { color: #7C8A9E; }
+        .atlas-stack-hop-meta {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+            margin-top: 6px; font-size: 10.5px; color: var(--text-muted);
+        }
+        .atlas-stack-kind {
+            font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em;
+            text-transform: uppercase; padding: 1px 6px; border-radius: 4px;
+        }
+        .atlas-stack-kind.coordination { color: #2DD4BF; background: rgba(45, 212, 191, 0.12); }
+        .atlas-stack-kind.material { color: #9FB0C4; background: rgba(124, 138, 158, 0.15); }
+        .atlas-stack-kind.capability { color: #F59E0B; background: rgba(245, 158, 11, 0.12); }
+        .atlas-stack-type { display: inline-flex; align-items: center; gap: 5px; }
+        .atlas-stack-type-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .atlas-stack-asset { color: var(--text-secondary); }
+        .atlas-stack-waypoint-label { font-size: 12px; color: var(--text-primary); font-weight: 500; }
+        .atlas-stack-via { color: var(--text-muted); }
+        .atlas-stack-launch-btn { color: #818CF8 !important; }
+
+        /* ---- Infrastructure-thread factual-link panel ---- */
+        .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-thread-eyebrow {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em;
+            text-transform: uppercase; color: #9FB0C4;
+        }
+        .atlas-thread-eyebrow-dot {
+            width: 16px; height: 0; border-top: 1.5px dashed #7C8A9E; flex-shrink: 0;
+        }
+        /* Deliberately lighter than the CC panel — the "factual link" framing
+           makes the lower epistemic status legible on open. */
+        .atlas-thread-note {
+            margin-top: 8px; font-size: 11px; color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .atlas-thread-body { overflow-y: auto; padding: 14px 18px 18px 18px; }
+        .atlas-thread-link-row {
+            padding: 9px 11px; margin-bottom: 9px;
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid #7C8A9E;
+            border-radius: var(--radius-md, 8px);
+            background: rgba(124, 138, 158, 0.05);
+        }
+        .atlas-thread-statement { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+        .atlas-thread-verb {
+            font-family: var(--font-mono); font-size: 11px; color: #9FB0C4;
+            padding: 0 2px;
+        }
+        .atlas-thread-asset { font-weight: 600; color: #cbd5e1; }
+        .atlas-thread-sourced {
+            margin-top: 6px; font-size: 11px; color: var(--text-muted); line-height: 1.5;
+        }
+        .atlas-thread-field { font-family: var(--font-mono); color: #9FB0C4; }
+        .atlas-thread-evt { color: #cbd5e1; cursor: pointer; border-bottom: 1px dotted transparent; }
+        .atlas-thread-evt:hover { color: #2DD4BF; border-bottom-color: #2DD4BF; }
+        .atlas-thread-direction {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+            padding: 8px 11px; margin: 4px 0 12px 0;
+            border: 1px dashed rgba(124, 138, 158, 0.5);
+            border-radius: var(--radius-md, 8px);
+            font-size: 11px;
+        }
+        .atlas-thread-dir-label {
+            font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em;
+            text-transform: uppercase; color: #7C8A9E;
+        }
+        .atlas-thread-dir-arrow { color: #7C8A9E; font-size: 15px; }
+        .atlas-thread-jumps { display: flex; flex-direction: column; gap: 7px; }
+
+        @media (max-width: 767px) {
+            .atlas-stack-panel, .atlas-thread-panel {
+                top: auto; bottom: 0; left: 0; right: 0;
+                width: 100%; max-width: 100%; max-height: 72vh;
+                border-radius: var(--weo-radius-lg, 12px) var(--weo-radius-lg, 12px) 0 0;
+                transform: translateY(100%);
+            }
+            .atlas-stack-panel.open, .atlas-thread-panel.open { transform: translateY(0); }
+        }
+
         /* --- §13 Standing disclaimer --- */
         .atlas-panel-disclaimer {
             padding: 12px 22px 18px 22px;
@@ -4246,6 +4443,20 @@
                 <div id="atlas-trace-content"></div>
             </aside>
 
+            <!-- WS-5 — Stack Journey (fusion traversal). Same floating
+                 treatment as the trace overlay; populated by renderStackPanel
+                 when atlasState.stackRootId is set. -->
+            <aside class="atlas-stack-panel" id="atlas-stack-panel" aria-hidden="true" aria-label="Stack journey" hidden>
+                <div id="atlas-stack-content"></div>
+            </aside>
+
+            <!-- WS-5 — Infrastructure-thread factual-link panel. A material
+                 fact, deliberately lighter than the CC panel; shown when
+                 atlasState.selectedThreadKey is set. -->
+            <aside class="atlas-thread-panel" id="atlas-thread-panel" aria-hidden="true" aria-label="Infrastructure thread factual link" hidden>
+                <div id="atlas-thread-content"></div>
+            </aside>
+
             <aside id="atlas-topology" aria-label="Coordination topology">
                 <h2 class="topo-title"><span class="topo-title-dot" aria-hidden="true"></span>Coordination topology</h2>
                 <div class="topo-summary" id="topo-summary">— events · — CCs</div>
@@ -4258,6 +4469,16 @@
                     <button class="atlas-mode-btn" type="button" data-mode="timeline" role="tab">Timeline</button>
                     <button class="atlas-mode-btn" type="button" data-mode="connectedness" role="tab">Connectedness</button>
                 </div>
+
+                <!-- WS-5 — Infrastructure threads overlay toggle. A separate
+                     layer, OFF by default, so the coordination graph stays
+                     clean; the material plumbing is revealed only on demand. -->
+                <button class="atlas-thread-toggle" id="atlas-thread-toggle" type="button" role="switch" aria-pressed="false"
+                        title="Reveal infrastructure threads — sourced material links (chip → facility), shown dashed and muted. Not Coordination Connections.">
+                    <span class="atlas-thread-toggle-swatch" aria-hidden="true"></span>
+                    <span class="atlas-thread-toggle-label">Infrastructure threads</span>
+                    <span class="atlas-thread-toggle-count" aria-hidden="true">0</span>
+                </button>
 
                 <div class="topo-section">
                     <div class="topo-section-label">CC Type</div>
@@ -4404,6 +4625,36 @@
             1: 'Policy Cascade', 2: 'Joint Issuance', 3: 'Funding Flow',
             4: 'Regulatory Enablement', 5: 'Response',
             6: 'Framework Family', 7: 'Parallel Policy'
+        };
+
+        // =================================================================
+        // WS-5 — STACK JOURNEY (Infrastructure Threads + fusion traversal)
+        //
+        // Threads are SOURCED MATERIAL FACTS, not Coordination Connections.
+        // They carry no §9 type, no confidence grade, no rubric. Everything
+        // here must read as a different KIND of object from a CC — muted,
+        // dashed, ungraded — both on the canvas and in the panel.
+        // =================================================================
+        // Muted neutral plumbing tone — deliberately OUTSIDE the CC palette
+        // (CC_TYPE_COLOUR above) so a thread can never be mistaken for a
+        // typed coordination edge. Slate, low saturation.
+        const THREAD_LINE_COLOUR = '#7C8A9E';
+        // linkType → plain-language verb for the factual-link panel
+        // ("[facility] deploys [asset]"). Subject is the source event; the
+        // asset originates at the target event. production → use.
+        const THREAD_LINKTYPE_PHRASE = {
+            'deploys': 'deploys',
+            'trains_on': 'trains on',
+            'powered_by': 'powered by',
+            'fabricated_at': 'fabricated at'
+        };
+        // SCP dimension display names (Manual §5.3) — the human label with a
+        // muted code in brackets, mirroring the WS-2 membership badge wording.
+        const SCP_DIMENSION_NAME = {
+            D1: 'AI Chip Design', D2: 'Advanced Fabrication',
+            D3: 'Critical Equipment', D4: 'AI Compute',
+            D5: 'Frontier Models', D6: 'AI Regulation',
+            D7: 'Sovereign Investment'
         };
 
         // Industry tag → colour class slug (matches index.html indClassMap)
@@ -4740,6 +4991,16 @@
         let allEvents = [];
         let allConnections = [];
         let eventById = {};
+        // WS-5 — Infrastructure Threads (material facts) + membership links
+        // (Output A capability waypoints). Both fetched from the served APIs
+        // alongside events/connections; defaulted to empty so a fetch failure
+        // degrades gracefully (threads stay an optional overlay).
+        let allThreads = [];          // raw thread records from /api/threads
+        let threadEdgeIndex = {};     // "src|tgt" → { source, target, threads[] }
+        let threadsByEvent = {};      // eventId → [thread records touching it]
+        let capabilityLinks = [];     // raw Output A links from /api/capability-links
+        let membershipByEvent = {};   // eventId → [capability link records]
+        let qcCountByActorDim = {};   // "ACTOR|Dn" → qualifying_contributor count (§4.5)
         // Global degree — same source data as allConnections, kept as a
         // lookup map for sizing and topology computations.
         let globalDegree = {};
@@ -4940,6 +5201,55 @@
             // hub event don't break the hierarchy.
             const degVals = Object.values(globalDegree);
             maxDegree = degVals.length ? Math.max.apply(null, degVals) : 0;
+
+            // WS-5 — Infrastructure Threads + capability membership. Both are
+            // SUPPLEMENTARY overlays: a failure here must not break the core
+            // coordination graph, so each is wrapped and defaults to empty.
+            try {
+                const threadsPayload = await fetchJson('https://warmthengine.com/api/threads');
+                allThreads = (threadsPayload && threadsPayload.threads) || [];
+                // Keep only threads whose BOTH endpoints exist in the events
+                // set (mirrors the CC endpoint guard above — protects the
+                // canvas from dangling thread edges).
+                allThreads = allThreads.filter(t =>
+                    idSet.has(String(t.sourceEventId)) && idSet.has(String(t.targetEventId)));
+                threadEdgeIndex = {};
+                threadsByEvent = {};
+                allThreads.forEach(t => {
+                    const s = String(t.sourceEventId), tg = String(t.targetEventId);
+                    const key = s + '|' + tg;
+                    // One canvas edge per (source,target) pair; multiple
+                    // assets on the same pair (e.g. A100 + H100) ride one line
+                    // and are all listed in the factual-link panel.
+                    if (!threadEdgeIndex[key]) threadEdgeIndex[key] = { key, source: s, target: tg, threads: [] };
+                    threadEdgeIndex[key].threads.push(t);
+                    (threadsByEvent[s] = threadsByEvent[s] || []).push(t);
+                    (threadsByEvent[tg] = threadsByEvent[tg] || []).push(t);
+                });
+            } catch (e) {
+                console.warn('[WEO Atlas] threads unavailable — thread layer disabled:', e);
+                allThreads = []; threadEdgeIndex = {}; threadsByEvent = {};
+            }
+
+            try {
+                const capPayload = await fetchJson('https://warmthengine.com/api/capability-links');
+                capabilityLinks = (capPayload && (capPayload.links || capPayload.capability_links)) || [];
+                membershipByEvent = {};
+                qcCountByActorDim = {};
+                capabilityLinks.forEach(l => {
+                    const ev = String(l.event_id);
+                    (membershipByEvent[ev] = membershipByEvent[ev] || []).push(l);
+                    // §4.5 — sole vs one-of-several is derived by counting
+                    // qualifying_contributor links per actor × dimension.
+                    if (l.link_type === 'qualifying_contributor') {
+                        const k = l.actor + '|' + l.dimension;
+                        qcCountByActorDim[k] = (qcCountByActorDim[k] || 0) + 1;
+                    }
+                });
+            } catch (e) {
+                console.warn('[WEO Atlas] capability-links unavailable — capability waypoints disabled:', e);
+                capabilityLinks = []; membershipByEvent = {}; qcCountByActorDim = {};
+            }
 
             {
                 const el = document.getElementById('weo-last-updated');
@@ -5293,7 +5603,12 @@
                         }
                     },
                     {
-                        selector: 'edge',
+                        // WS-5 — scoped to CC edges (which all carry
+                        // gradientStops). Thread edges have no gradient data
+                        // and are fully styled by the `.thread-edge` rule, so
+                        // scoping here keeps Cytoscape from warning about
+                        // missing data mappings on the thread overlay.
+                        selector: 'edge[gradientStops]',
                         style: {
                             'width': 2,
                             // Brief 3b §4 — gradient edges. The line fades
@@ -5390,6 +5705,102 @@
                         style: {
                             'width': 6,
                             'z-index': 970
+                        }
+                    },
+                    {
+                        // WS-5 — Infrastructure Thread edges. A MATERIAL FACT,
+                        // not a CC: it must RECEDE relative to coordination
+                        // edges. Four cues hold it visually apart from BOTH
+                        // CC solid (Verified/Established) and CC dashed
+                        // (Analytical, line-dash [6,4]): (1) muted slate tone
+                        // outside the CC palette; (2) a finer, sparser dash
+                        // [2,5] distinct from the CC-A dash; (3) thinner weight;
+                        // (4) an OPEN 'vee' chevron — not the CC filled
+                        // triangle — sitting at the source (use) end so it
+                        // reads production → use, clearly NOT a CC arrow.
+                        // Hidden by default via display:none — threads are a
+                        // separate toggle layer revealed only on demand.
+                        selector: 'edge.thread-edge',
+                        style: {
+                            'display': 'none',
+                            'width': 1.4,
+                            'line-fill': 'solid',
+                            'line-color': THREAD_LINE_COLOUR,
+                            'line-style': 'dashed',
+                            'line-dash-pattern': [2, 5],
+                            'opacity': 0.5,
+                            'curve-style': 'bezier',
+                            'control-point-step-size': 18,
+                            'target-arrow-shape': 'none',
+                            'source-arrow-shape': 'vee',
+                            'source-arrow-color': THREAD_LINE_COLOUR,
+                            'source-arrow-fill': 'hollow',
+                            'arrow-scale': 0.85,
+                            'z-index': 2,
+                            'transition-property': 'opacity, width',
+                            'transition-duration': '150ms'
+                        }
+                    },
+                    {
+                        // Threads revealed by the toggle. display flips to
+                        // element; they stay muted/recessive — never as loud
+                        // as a CC. Cap at 0.55 opacity so the coordination
+                        // graph keeps primacy even with plumbing shown.
+                        selector: 'edge.thread-edge.thread-visible',
+                        style: { 'display': 'element', 'opacity': 0.55 }
+                    },
+                    {
+                        // Hover affordance so a thread reads as clickable
+                        // (it opens the factual-link panel).
+                        selector: 'edge.thread-edge.thread-visible:active',
+                        style: { 'width': 2.2, 'opacity': 0.85 }
+                    },
+                    {
+                        // WS-5 fusion (Stack Journey) — material hop on the
+                        // traced value chain. Forced visible + emphasised, but
+                        // KEEPS its dashed/muted material character so the
+                        // chain never reads as one continuous coordination
+                        // story. Distinct from stack-coordination below.
+                        selector: 'edge.stack-material',
+                        style: {
+                            'display': 'element',
+                            'opacity': 1,
+                            'width': 2.6,
+                            'line-color': THREAD_LINE_COLOUR,
+                            'line-style': 'dashed',
+                            'line-dash-pattern': [2, 5],
+                            'source-arrow-color': THREAD_LINE_COLOUR,
+                            'z-index': 962
+                        }
+                    },
+                    {
+                        // Fusion — coordination hop (a CC) on the value chain.
+                        // Solid colour fill, reusing the trace-edge treatment
+                        // so coordination joints read identically to WS-3.
+                        selector: 'edge.stack-coordination',
+                        style: {
+                            'opacity': 1,
+                            'line-opacity': 1,
+                            'width': 3.2,
+                            'line-fill': 'solid',
+                            'line-color': 'data(color)',
+                            'target-arrow-color': 'data(color)',
+                            'z-index': 961
+                        }
+                    },
+                    {
+                        // Fusion — a node that is a membership waypoint
+                        // (its event qualifies an SCP dimension). A capability
+                        // marker: amber ring, distinct from both the slate
+                        // material tone and the typed CC colours.
+                        selector: 'node.stack-waypoint',
+                        style: {
+                            'opacity': 1,
+                            'text-opacity': 1,
+                            'border-width': 4,
+                            'border-color': '#F59E0B',
+                            'border-opacity': 1,
+                            'z-index': 965
                         }
                     },
                     {
@@ -5705,6 +6116,11 @@
             // Brief 3e — mode toggle + playback wiring.
             wireModeToggle();
             wirePlaybackControls();
+            // WS-5 — add the thread overlay edges AFTER the initial layout has
+            // run (so they never influence node positions) and wire its
+            // toggle. Threads stay hidden until the user reveals the layer.
+            addThreadEdgesToGraph();
+            wireThreadToggle();
         }
 
         // Brief 3b §5 — zoom-driven label reveal. When zoom passes
@@ -5903,7 +6319,10 @@
             params.animate = true;
             params.animationDuration = 600;
             params.animationEasing = 'ease-out';
-            const layout = cy.layout(params);
+            // WS-5 — run fcose on everything EXCEPT thread edges so the
+            // material-plumbing overlay never distorts the coordination
+            // layout (threads are facts about the same nodes, not forces).
+            const layout = cy.elements().not('.thread-edge').layout(params);
             layout.one('layoutstop', () => {
                 applyPostLayoutPipeline();
                 cacheNetworkPositions();
@@ -7935,6 +8354,12 @@
                 if (_cyMultitouch) return;
                 const d = evt.target.data();
                 if (!d || !d.id) return;
+                // WS-5 — a thread edge is a material fact, not a CC: route it
+                // to the lightweight factual-link panel, never the CC panel.
+                if (evt.target.hasClass('thread-edge')) {
+                    setAtlasState({ selectedThreadKey: d.threadKey, selectedConnectionId: null, selectedEventId: null });
+                    return;
+                }
                 setAtlasState({ selectedConnectionId: d.id, selectedEventId: null });
             });
 
@@ -7949,6 +8374,10 @@
             // Single click on empty canvas closes whichever panel is open.
             cy.on('tap', (evt) => {
                 if (evt.target !== cy) return;
+                if (atlasState.selectedThreadKey) {
+                    setAtlasState({ selectedThreadKey: null });
+                    return;
+                }
                 if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                     setAtlasState({ selectedEventId: null, selectedConnectionId: null });
                 }
@@ -9249,6 +9678,18 @@
             // WS-2b — subject-implicit Sovereign capability badge (free membership fact).
             if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
+            // WS-5 — Stack Journey launcher. Offered when this event sits on
+            // ANY traceable value chain: a directional CC, an infrastructure
+            // thread, or a capability membership. The fusion walks all three
+            // and labels every hop by kind.
+            const hasThread = !!(threadsByEvent[id] && threadsByEvent[id].length);
+            const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
+            if (hasDirectionalChain || hasThread || hasMembership) {
+                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;background:transparent;">';
+                html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack journey →</button>`;
+                html += '</div>';
+            }
+
             html += '<div class="atlas-panel-actions" id="atlas-section-actions">';
             html += `<a class="atlas-panel-action-btn" href="events.html?event=${encodeURIComponent(id)}&from=atlas" target="_blank" rel="noopener">View in Events Database →</a>`;
             html += `<a class="atlas-panel-action-btn" href="index.html?event=${encodeURIComponent(id)}&from=atlas" target="_blank" rel="noopener">View on Map →</a>`;
@@ -9591,6 +10032,16 @@
                     // detail selection is left intact so closing the trace
                     // returns the user to the event they traced from.
                     if (id) setAtlasState({ traceRootId: id });
+                });
+            }
+            // WS-5 — launch the Stack Journey rooted at this event. Floats
+            // over the open event panel (same pattern as the trace), so
+            // closing the journey returns to the event traced from.
+            const stackLaunch = elAtlasPanelContent.querySelector('#atlas-stack-launch');
+            if (stackLaunch) {
+                stackLaunch.addEventListener('click', () => {
+                    const id = stackLaunch.getAttribute('data-stack-launch');
+                    if (id) setAtlasState({ stackRootId: id });
                 });
             }
             // Accordions
@@ -10324,6 +10775,9 @@
         // canvas (-1 = whole chain shown, no single hop singled out).
         let traceHops = [];
         let traceStepIndex = -1;
+        // WS-5 — the assembled fusion path (coordination/material/capability)
+        // for the currently-open Stack Journey, null when none is open.
+        let stackJourney = null;
 
         function isDirectionalCC(c) {
             return TRACE_DIRECTIONAL_TYPES.has(Number(c.connection_type)) &&
@@ -10610,6 +11064,469 @@
             }
         }
 
+        // =================================================================
+        // WS-5 — INFRASTRUCTURE THREADS (material-fact layer) + STACK JOURNEY
+        //
+        // Two surfaces, both kept rigorously distinct from Coordination
+        // Connections:
+        //   (1) a toggleable thread overlay + a lightweight "factual link"
+        //       panel (no §9 type, no confidence grade);
+        //   (2) the fusion traversal — a value-chain walk that labels every
+        //       hop by KIND (coordination / material / capability) so it
+        //       never reads as one continuous coordination story.
+        // =================================================================
+        const elThreadPanel  = document.getElementById('atlas-thread-panel');
+        const elThreadContent = document.getElementById('atlas-thread-content');
+        const elStackPanel   = document.getElementById('atlas-stack-panel');
+        const elStackContent = document.getElementById('atlas-stack-content');
+        let threadLayerOn = false;
+
+        function threadCyId(key) { return 'thread-' + key.replace('|', '-'); }
+
+        // Subject-implicit membership wording, mirroring the WS-2 badge
+        // (§4.1): sole vs one-of-several derived by counting
+        // qualifying_contributor links per actor × dimension (§4.5);
+        // capability_area links are "Contributes to", never "establishes".
+        function membershipWaypointLabel(link) {
+            const dimName = SCP_DIMENSION_NAME[link.dimension] || link.dimension;
+            const dimCode = ' (' + link.dimension + ')';
+            if (link.link_type === 'capability_area') {
+                return 'Contributes to ' + link.actor + ' ' + dimName + dimCode;
+            }
+            const n = qcCountByActorDim[link.actor + '|' + link.dimension] || 1;
+            return (n <= 1 ? 'Sole basis for ' : 'Helps establish ') + link.actor + ' ' + dimName + dimCode;
+        }
+
+        // ----- Thread overlay (toggle layer, OFF by default) --------------
+        // Edges are added AFTER the initial fcose layout settles so they can
+        // never influence node positions (relayoutNetworkMode also excludes
+        // them). One canvas edge per (source,target) pair; multiple assets
+        // ride a single line and are listed in the panel.
+        function addThreadEdgesToGraph() {
+            if (!cy) return;
+            const eles = [];
+            Object.values(threadEdgeIndex).forEach(te => {
+                if (!cy.getElementById(te.source).length || !cy.getElementById(te.target).length) return;
+                eles.push({
+                    group: 'edges',
+                    data: { id: threadCyId(te.key), threadKey: te.key, source: te.source, target: te.target, kind: 'thread' },
+                    classes: 'thread-edge'
+                });
+            });
+            if (eles.length) cy.add(eles);
+        }
+
+        function setThreadLayerVisible(on) {
+            threadLayerOn = on;
+            if (!cy) return;
+            cy.batch(() => {
+                if (on) cy.edges('.thread-edge').addClass('thread-visible');
+                else cy.edges('.thread-edge').removeClass('thread-visible');
+            });
+        }
+
+        function wireThreadToggle() {
+            const btn = document.getElementById('atlas-thread-toggle');
+            if (!btn) return;
+            const countEl = btn.querySelector('.atlas-thread-toggle-count');
+            const nPairs = Object.keys(threadEdgeIndex).length;
+            if (countEl) countEl.textContent = String(nPairs);
+            if (!nPairs) {
+                btn.disabled = true;
+                btn.title = 'No infrastructure threads available for this dataset';
+                return;
+            }
+            btn.addEventListener('click', () => {
+                const on = !btn.classList.contains('active');
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                setThreadLayerVisible(on);
+                // Closing the layer also dismisses an open factual-link panel
+                // so a hidden edge can't leave an orphaned panel behind.
+                if (!on && atlasState.selectedThreadKey) setAtlasState({ selectedThreadKey: null });
+            });
+        }
+
+        // ----- Factual-link panel -----------------------------------------
+        // Mirrors the CC panel's FORM but carries NONE of its apparatus —
+        // no §9 type, no confidence grade, no rubric. Header reads "factual
+        // link" so the lighter epistemic status is legible on open.
+        function renderThreadPanel(threadKey) {
+            const te = threadEdgeIndex[threadKey];
+            if (!te) return;
+            const srcId = te.source, tgtId = te.target;       // source=use, target=production-origin
+            const src = eventById[srcId], tgt = eventById[tgtId];
+            const srcName = (src && src.name) || ('Event ' + srcId);
+            const tgtName = (tgt && tgt.name) || ('Event ' + tgtId);
+            const assets = te.threads.map(t => t.asset);
+            const assetTitle = assets.length === 1 ? assets[0]
+                : (assets.slice(0, 2).join(', ') + (assets.length > 2 ? ' +' + (assets.length - 2) : ''));
+
+            let h = '';
+            h += '<div class="atlas-thread-header">';
+            h += '<button class="atlas-trace-close" type="button" id="atlas-thread-close" aria-label="Close factual link">&times;</button>';
+            h += '<div class="atlas-thread-eyebrow"><span class="atlas-thread-eyebrow-dot" aria-hidden="true"></span>Infrastructure thread · factual link</div>';
+            h += '<h2 class="atlas-trace-title">' + escapeHtml(assetTitle) + '</h2>';
+            h += '<p class="atlas-thread-note">A <strong>sourced material fact</strong> — the same hardware asset documented in two events. Not a Coordination Connection: no relationship type, no confidence grade.</p>';
+            h += '</div>';
+
+            h += '<div class="atlas-thread-body">';
+            // Each asset on this pair → one plain-language statement + its
+            // sourced field provenance. linkType drives the verb.
+            te.threads.forEach(t => {
+                const verb = THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType;
+                h += '<div class="atlas-thread-link-row">';
+                h += '<div class="atlas-thread-statement">';
+                h += '<span class="atlas-thread-evt" data-thread-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 34)) + '</span>';
+                h += ' <span class="atlas-thread-verb">' + escapeHtml(verb) + '</span> ';
+                h += '<span class="atlas-thread-asset">' + escapeHtml(t.asset) + '</span>';
+                h += '</div>';
+                // Sourced line — the material fact + its field provenance.
+                h += '<div class="atlas-thread-sourced">Sourced from the <span class="atlas-thread-field">' + escapeHtml(t.field || '—') + '</span> field of <span class="atlas-thread-evt" data-thread-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 30)) + '</span> — see that event for its primary sources.</div>';
+                h += '</div>';
+            });
+
+            // Production → use direction, stated explicitly so the cue can't
+            // be mistaken for a CC arrow.
+            h += '<div class="atlas-thread-direction">';
+            h += '<span class="atlas-thread-dir-label">Production → use</span>';
+            h += '<span class="atlas-thread-evt" data-thread-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
+            h += '<span class="atlas-thread-dir-arrow" aria-hidden="true">⇢</span>';
+            h += '<span class="atlas-thread-evt" data-thread-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
+            h += '</div>';
+
+            // The two events as jump-links (open their detail panels).
+            h += '<div class="atlas-thread-jumps">';
+            h += '<a class="atlas-panel-action-btn" href="events.html?event=' + encodeURIComponent(tgtId) + '&from=atlas" target="_blank" rel="noopener">View ' + escapeHtml(truncate(tgtName, 22)) + ' →</a>';
+            h += '<a class="atlas-panel-action-btn" href="events.html?event=' + encodeURIComponent(srcId) + '&from=atlas" target="_blank" rel="noopener">View ' + escapeHtml(truncate(srcName, 22)) + ' →</a>';
+            h += '</div>';
+            h += '</div>';
+
+            elThreadContent.innerHTML = h;
+        }
+
+        function wireThreadPanelInteractions() {
+            const closeBtn = elThreadContent.querySelector('#atlas-thread-close');
+            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ selectedThreadKey: null }));
+            elThreadContent.querySelectorAll('.atlas-thread-evt').forEach(el => {
+                const open = (e) => {
+                    e.stopPropagation();
+                    const id = el.getAttribute('data-thread-event');
+                    if (id) setAtlasState({ selectedEventId: id, selectedConnectionId: null });
+                };
+                el.addEventListener('click', open);
+                el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') open(e); });
+            });
+        }
+
+        function highlightThread(threadKey) {
+            if (!cy) return;
+            const id = threadCyId(threadKey);
+            cy.batch(() => {
+                // Reset any emphasis left by a previously-selected thread
+                // (handles clicking straight from one thread to another), and
+                // drop the forced-visible class from edges the layer toggle
+                // wouldn't otherwise show.
+                cy.edges('.thread-edge').forEach(e => {
+                    e.removeStyle('width'); e.removeStyle('opacity');
+                    if (!threadLayerOn && e.id() !== id) e.removeClass('thread-visible');
+                });
+                const e = cy.getElementById(id);
+                if (e && e.length) {
+                    // Force the edge visible + emphasised even if the layer
+                    // toggle is off (the user clicked it directly via stack).
+                    e.addClass('thread-visible');
+                    e.style('width', 2.6);
+                    e.style('opacity', 0.95);
+                }
+            });
+        }
+        function clearThreadHighlight(threadKey) {
+            if (!cy) return;
+            const e = cy.getElementById(threadCyId(threadKey));
+            if (e && e.length) {
+                e.removeStyle('width');
+                e.removeStyle('opacity');
+                if (!threadLayerOn) e.removeClass('thread-visible');
+            }
+        }
+
+        function openThreadPanel(threadKey) {
+            if (!elThreadPanel || !elThreadContent) return;
+            renderThreadPanel(threadKey);
+            elThreadPanel.hidden = false;
+            elThreadPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elThreadPanel.classList.add('open'));
+            highlightThread(threadKey);
+            wireThreadPanelInteractions();
+        }
+        function closeThreadPanel() {
+            if (!elThreadPanel) return;
+            const prevKey = atlasState._lastThreadKey;
+            elThreadPanel.classList.remove('open');
+            elThreadPanel.setAttribute('aria-hidden', 'true');
+            elThreadPanel.hidden = true;
+            if (prevKey) clearThreadHighlight(prevKey);
+        }
+
+        // ----- Stack Journey (fusion traversal) ---------------------------
+        // Composes three EXISTING data sources into one value chain, each
+        // hop tagged by what it is. Surfaces; never narrates a conclusion.
+        function buildStackJourney(rootId) {
+            rootId = String(rootId);
+            // (1) Coordination — the directional CC chain (WS-3 reuse).
+            const { upstream, downstream } = buildTraceChain(rootId);
+            const coordination = upstream.concat(downstream);
+            const scope = new Set([rootId]);
+            coordination.forEach(c => { scope.add(String(c.source_event_id)); scope.add(String(c.target_event_id)); });
+
+            // (2) Material — BFS over thread edges from every in-scope event,
+            // so a facility → chip → foundry chain is followed if it exists.
+            const material = [];
+            const seenThread = new Set();
+            const seenNode = new Set(scope);
+            let frontier = Array.from(scope);
+            let guard = 0;
+            while (frontier.length && guard++ < 30) {
+                const next = [];
+                frontier.forEach(ev => {
+                    (threadsByEvent[ev] || []).forEach(t => {
+                        const key = String(t.sourceEventId) + '|' + String(t.targetEventId);
+                        if (!seenThread.has(key) && threadEdgeIndex[key]) {
+                            seenThread.add(key);
+                            material.push(threadEdgeIndex[key]);
+                        }
+                        [String(t.sourceEventId), String(t.targetEventId)].forEach(n => {
+                            scope.add(n);
+                            if (!seenNode.has(n)) { seenNode.add(n); next.push(n); }
+                        });
+                    });
+                });
+                frontier = next;
+            }
+
+            // (3) Capability — membership waypoints for any in-scope event.
+            const capability = [];
+            const seenCap = new Set();
+            scope.forEach(ev => {
+                (membershipByEvent[ev] || []).forEach(l => {
+                    const k = ev + '|' + l.actor + '|' + l.dimension + '|' + l.link_type;
+                    if (seenCap.has(k)) return;
+                    seenCap.add(k);
+                    capability.push(Object.assign({ _eventId: ev }, l));
+                });
+            });
+            return { rootId, coordination, material, capability, scope };
+        }
+
+        function renderStackHopCC(c) {
+            const typeNum = Number(c.connection_type);
+            const colour = CC_TYPE_COLOUR[typeNum] || '#94A3B8';
+            const typeName = c.connection_type_name || CC_TYPE_NAME[typeNum] || ('Type ' + typeNum);
+            const srcId = String(c.source_event_id), tgtId = String(c.target_event_id);
+            const srcName = (eventById[srcId] && eventById[srcId].name) || ('Event ' + srcId);
+            const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
+            let h = '<div class="atlas-stack-hop coordination">';
+            h += '<div class="atlas-stack-hop-endpoints">';
+            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
+            h += '<span class="atlas-stack-arrow" aria-hidden="true">→</span>';
+            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
+            h += '</div>';
+            h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind coordination">Coordination</span><span class="atlas-stack-type"><span class="atlas-stack-type-dot" style="background:' + colour + '"></span>' + escapeHtml(typeName) + '</span></div>';
+            h += '</div>';
+            return h;
+        }
+        function renderStackHopThread(te) {
+            const srcId = te.source, tgtId = te.target;
+            const srcName = (eventById[srcId] && eventById[srcId].name) || ('Event ' + srcId);
+            const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
+            const verbs = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType)));
+            const assets = Array.from(new Set(te.threads.map(t => t.asset)));
+            let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '">';
+            h += '<div class="atlas-stack-hop-endpoints">';
+            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
+            h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
+            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
+            h += '</div>';
+            h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind material">Material fact</span><span class="atlas-stack-asset">' + escapeHtml(verbs.join(' / ')) + ' · ' + escapeHtml(assets.join(', ')) + '</span></div>';
+            h += '</div>';
+            return h;
+        }
+        function renderStackWaypoint(link) {
+            const evName = (eventById[String(link._eventId)] && eventById[String(link._eventId)].name) || ('Event ' + link._eventId);
+            let h = '<div class="atlas-stack-hop capability">';
+            h += '<div class="atlas-stack-waypoint-label">' + escapeHtml(membershipWaypointLabel(link)) + '</div>';
+            h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind capability">Capability</span>';
+            h += '<span class="atlas-stack-via">via <span class="atlas-stack-evt" data-stack-event="' + escapeHtml(String(link._eventId)) + '" role="button" tabindex="0">' + escapeHtml(truncate(evName, 26)) + '</span></span></div>';
+            return h + '</div>';
+        }
+
+        function renderStackPanel(rootId) {
+            const root = eventById[String(rootId)];
+            const rootName = (root && root.name) || ('Event ' + rootId);
+            const j = buildStackJourney(rootId);
+            stackJourney = j;
+
+            let h = '';
+            h += '<div class="atlas-stack-header">';
+            h += '<button class="atlas-trace-close" type="button" id="atlas-stack-close" aria-label="Close stack journey">&times;</button>';
+            h += '<div class="atlas-stack-eyebrow">Stack journey</div>';
+            h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
+            h += '<p class="atlas-stack-guide">The value chain around this event, across three different kinds of link. Each hop is labelled by what it is — coordination, material fact, and capability are <strong>not the same kind of claim</strong>. Read the chain; the inference is yours.</p>';
+            // Kind legend so the distinctions are explicit before the list.
+            h += '<div class="atlas-stack-legend">';
+            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>';
+            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>';
+            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>';
+            h += '</div>';
+            h += '</div>';
+
+            h += '<div class="atlas-stack-body">';
+            const empty = !j.coordination.length && !j.material.length && !j.capability.length;
+            if (empty) {
+                h += '<div class="atlas-trace-empty">This event sits at no value chain we can trace — it has no directional coordination link, no infrastructure thread, and no capability membership to walk.</div>';
+            } else {
+                if (j.coordination.length) {
+                    h += '<div class="atlas-stack-section-label coordination">Coordination joints — Coordination Connections</div>';
+                    j.coordination.forEach(c => { h += renderStackHopCC(c); });
+                }
+                if (j.material.length) {
+                    h += '<div class="atlas-stack-section-label material">Material links — infrastructure threads (sourced facts)</div>';
+                    j.material.forEach(te => { h += renderStackHopThread(te); });
+                }
+                if (j.capability.length) {
+                    h += '<div class="atlas-stack-section-label capability">Capability waypoints — SCP dimension membership</div>';
+                    j.capability.forEach(l => { h += renderStackWaypoint(l); });
+                }
+            }
+            h += '</div>';
+            elStackContent.innerHTML = h;
+        }
+
+        // Paint the mixed chain: dim everything, then surface each kind with
+        // its own treatment so coordination, material and capability stay
+        // visually separable on the canvas too.
+        function highlightStackJourney() {
+            if (!cy || !stackJourney) return;
+            const ccIds = new Set(stackJourney.coordination.map(c => c.connection_id));
+            const threadIds = new Set(stackJourney.material.map(te => threadCyId(te.key)));
+            const wpNodeIds = new Set(stackJourney.capability.map(l => String(l._eventId)));
+            const nodeIds = new Set([String(stackJourney.rootId)]);
+            stackJourney.coordination.forEach(c => { nodeIds.add(String(c.source_event_id)); nodeIds.add(String(c.target_event_id)); });
+            stackJourney.material.forEach(te => { nodeIds.add(te.source); nodeIds.add(te.target); });
+            wpNodeIds.forEach(id => nodeIds.add(id));
+
+            cy.batch(() => {
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint');
+                cy.elements().addClass('trace-dim');
+                cy.edges().forEach(e => {
+                    if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination');
+                    else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material');
+                });
+                cy.nodes().forEach(n => {
+                    if (nodeIds.has(n.id())) {
+                        n.removeClass('trace-dim').addClass('trace-node');
+                        if (wpNodeIds.has(n.id())) n.addClass('stack-waypoint');
+                    }
+                });
+            });
+            const focusEles = cy.nodes().filter(n => nodeIds.has(n.id()));
+            if (focusEles && focusEles.length) {
+                if (typeof fitToUsableViewport === 'function') fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
+                else cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
+            }
+        }
+        function clearStackHighlight() {
+            if (!cy) return;
+            cy.elements().removeClass('trace-dim trace-node stack-coordination stack-material stack-waypoint');
+            // stack-material forced thread edges visible; restore the toggle's
+            // intent once the journey closes.
+            if (!threadLayerOn) cy.edges('.thread-edge').removeClass('thread-visible');
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+        }
+
+        function wireStackPanelInteractions() {
+            const closeBtn = elStackContent.querySelector('#atlas-stack-close');
+            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ stackRootId: null }));
+            elStackContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
+                const open = (e) => {
+                    e.stopPropagation();
+                    const id = el.getAttribute('data-stack-event');
+                    if (id) setAtlasState({ selectedEventId: id, selectedConnectionId: null });
+                };
+                el.addEventListener('click', open);
+                el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') open(e); });
+            });
+            // A material hop deep-links to its factual-link panel.
+            elStackContent.querySelectorAll('.atlas-stack-hop.material').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target.closest('.atlas-stack-evt')) return;
+                    const key = el.getAttribute('data-thread-key');
+                    if (key) setAtlasState({ selectedThreadKey: key });
+                });
+            });
+        }
+
+        function openStackPanel(rootId) {
+            if (!elStackPanel || !elStackContent) return;
+            renderStackPanel(rootId);
+            elStackPanel.hidden = false;
+            elStackPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elStackPanel.classList.add('open'));
+            highlightStackJourney();
+            wireStackPanelInteractions();
+        }
+        function closeStackPanel() {
+            if (!elStackPanel) return;
+            elStackPanel.classList.remove('open');
+            elStackPanel.setAttribute('aria-hidden', 'true');
+            elStackPanel.hidden = true;
+            stackJourney = null;
+            clearStackHighlight();
+            if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
+                applyPanelSelectionHighlight();
+            }
+        }
+
+        // ----- State subscribers (mutually exclusive overlays) ------------
+        function syncThreadPanelOnState(state, prev) {
+            const changed = state.selectedThreadKey !== prev.selectedThreadKey;
+            const advanced =
+                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
+                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
+                (state.stackRootId && state.stackRootId !== prev.stackRootId) ||
+                (state.traceRootId && state.traceRootId !== prev.traceRootId);
+            if (state.selectedThreadKey && advanced) {
+                atlasState._lastThreadKey = state.selectedThreadKey;
+                atlasState.selectedThreadKey = null;
+                closeThreadPanel();
+                return;
+            }
+            if (!changed) return;
+            if (state.selectedThreadKey) {
+                atlasState._lastThreadKey = state.selectedThreadKey;
+                openThreadPanel(state.selectedThreadKey);
+            } else {
+                closeThreadPanel();
+            }
+        }
+
+        function syncStackPanelOnState(state, prev) {
+            const changed = state.stackRootId !== prev.stackRootId;
+            const advanced =
+                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
+                (state.traceRootId && state.traceRootId !== prev.traceRootId);
+            if (state.stackRootId && advanced) {
+                atlasState.stackRootId = null;
+                closeStackPanel();
+                return;
+            }
+            if (!changed) return;
+            if (state.stackRootId) openStackPanel(state.stackRootId);
+            else closeStackPanel();
+        }
+
         // Atlas brief 3a: superseded by atlasRenderPanel — remove on 3a sign-off.
         // The functions below (renderPanelContent and renderSourceItem) were
         // the lossy copy of index.html's panel from brief 1c. They are no
@@ -10763,6 +11680,12 @@
             // WS-3 — the event a coordination-pathway trace is rooted at.
             // Mutually exclusive with the event/CC detail panels.
             traceRootId: null,
+            // WS-5 — the selected infrastructure thread (factual-link panel)
+            // and the root of an open Stack Journey (fusion traversal). Both
+            // mutually exclusive with the other overlays.
+            selectedThreadKey: null,
+            stackRootId: null,
+            _lastThreadKey: null,
             layoutName: 'fcose',
             // Brief 3e §2 — layout mode: 'network' (force-directed,
             // default) | 'connectedness' (concentric by degree) |
@@ -11066,6 +11989,11 @@
                     }
                 });
                 cy.edges().forEach(edge => {
+                    // WS-5 — thread edges carry no `connection` data and are
+                    // governed by their own toggle/highlight, not the CC
+                    // filter system. Skip them so this loop never dereferences
+                    // an undefined connection.
+                    if (edge.hasClass('thread-edge')) return;
                     const cc = edge.data('connection');
                     const src = eventById[String(cc.source_event_id)];
                     const tgt = eventById[String(cc.target_event_id)];
@@ -11796,7 +12724,10 @@
             // to it. Direct-clear avoids a second dispatch.
             const selectionAdvanced =
                 (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
-                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId);
+                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
+                // WS-5 — opening a thread or a stack journey also pre-empts a trace.
+                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
+                (state.stackRootId && state.stackRootId !== prev.stackRootId);
             if (state.traceRootId && selectionAdvanced) {
                 atlasState.traceRootId = null;
                 closeTracePanel();
@@ -11894,6 +12825,8 @@
                 subscribeAtlasState(syncTopologyOnState);
                 subscribeAtlasState(syncFilterBarOnState);
                 subscribeAtlasState(syncTraceOnState);
+                subscribeAtlasState(syncThreadPanelOnState);
+                subscribeAtlasState(syncStackPanelOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncUrlHash);
 
