@@ -4,7 +4,7 @@
     "total_events": 171,
     "sample_events": 6,
     "standard_events": 165,
-    "last_updated": "2026-06-16",
+    "last_updated": "2026-06-17",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-16",
-    "lastAudit": "2026-06-16",
+    "versionDate": "2026-06-17",
+    "lastAudit": "2026-06-17",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 171,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -72,16 +72,15 @@
     },
     "source_durability": {
       "total_sources": 1492,
-      "preserved": 1460,
-      "preservation_rate": 0.979,
+      "preserved": 1462,
+      "preservation_rate": 0.98,
       "by_status": {
-        "captured": 1433,
+        "captured": 1435,
         "recovered": 21,
         "existing": 6,
         "no_capture": 20,
         "dead_source": 1,
-        "retry_pending": 9,
-        "pending": 2
+        "retry_pending": 9
       },
       "by_layer": {
         "events": {
@@ -94,7 +93,7 @@
         },
         "actors": {
           "total": 188,
-          "preserved": 186
+          "preserved": 188
         }
       }
     },
@@ -7434,7 +7433,10 @@
                 "id": "TRACE-C1-2",
                 "desc": "EUR-Lex — Regulation (EU) 2024/1252 Annexes I and II",
                 "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "accessDate": "2026-06-16"
               }
             ]
           },
@@ -7447,7 +7449,10 @@
                 "id": "TRACE-C2-1",
                 "desc": "EUR-Lex — Regulation (EU) 2024/1252 (full text)",
                 "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "accessDate": "2026-06-16"
               }
             ]
           }
@@ -7535,7 +7540,10 @@
                 "id": "TRACE-C2-1",
                 "desc": "Federal Register — Presidential Determination No. 2022-11",
                 "url": "https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20251219195834/https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
+                "accessDate": "2026-06-16"
               }
             ]
           }
@@ -7638,7 +7646,10 @@
                 "id": "TRACE-C2-1",
                 "desc": "Federal Register of Legislation — Future Made in Australia Act 2025",
                 "url": "https://www.legislation.gov.au/C2025A00009/latest/text",
-                "type": "PRIMARY"
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606155911/https://www.legislation.gov.au/C2025A00009/latest/text",
+                "accessDate": "2026-06-16"
               }
             ]
           }
