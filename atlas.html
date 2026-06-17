@@ -762,6 +762,39 @@
             border-color: var(--text-secondary);
         }
         .atlas-journeys-recall.visible { display: inline-flex; }
+        /* WS-9 — while the exit pill shows, lift the recall pill so the two
+           stack instead of overlapping (and clear of the timeline bar). */
+        .atlas-journeys-recall.stacked { bottom: 56px; }
+        /* WS-9 — exit-journey pill. Same family as the recall pill but in the
+           journey-green so "leave" reads distinct from "open more". */
+        .atlas-journey-exit {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 18px;
+            z-index: 91;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: rgba(45, 212, 191, 0.10);
+            border: 1px solid rgba(45, 212, 191, 0.45);
+            border-radius: var(--radius-md);
+            padding: 6px 14px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journey-exit:hover {
+            opacity: 1;
+            background: rgba(45, 212, 191, 0.18);
+            border-color: #2DD4BF;
+        }
+        .atlas-journey-exit.visible { display: inline-flex; }
         .atlas-journeys-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -4596,6 +4629,13 @@
                 <button id="atlas-journeys-recall" class="atlas-journeys-recall" type="button"
                         aria-label="Reopen guided journeys">Start here ▸</button>
 
+                <!-- WS-9 — Exit journey mode pill. Shown only while a journey
+                     owns the canvas; routes through exitJourney (positions
+                     restore, graph re-fits). Stacked below the recall pill so
+                     "Start here ▸" stays available for journey→journey. -->
+                <button id="atlas-journey-exit" class="atlas-journey-exit" type="button"
+                        aria-label="Exit journey mode">Exit journey mode ✕</button>
+
                 <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
                      shown alongside the visual reveal when a journey is triggered. -->
                 <div class="atlas-journey-readout" id="atlas-journey-readout" role="status" aria-live="polite">
@@ -8326,6 +8366,11 @@
             // line-opacity (the gradient stops stay; opacity is the cheap
             // multiplier).
             cy.on('mouseover', 'node', (evt) => {
+                // WS-9 area F — in journey mode the canvas belongs to the
+                // journey; an out-of-journey node must not steal focus. Tap
+                // still opens a node's data panel (handled below), only the
+                // hover spotlight is gated. Normal mode is untouched.
+                if (typeof inJourneyMode === 'function' && inJourneyMode()) return;
                 // DEF-046 — block all hover-driven opacity changes
                 // during Timeline empty-state. The hover spotlight
                 // sets opacity directly on every node/edge, bypassing
@@ -9283,12 +9328,13 @@
             if (wasOpen) {
                 setTimeout(() => {
                     if (!cy) return;
-                    // WS-3 — if a coordination-pathways trace has taken over
-                    // the canvas, leave its highlight + framing intact. The
-                    // trace owns the camera and the trace-* classes now; the
-                    // heavy panel-close refit/opacity-snap below would clobber
-                    // both. Clear the close flag so filters work again later.
-                    if (atlasState.traceRootId) { panelClosingInProgress = false; return; }
+                    // WS-3/WS-9 — if any journey owns the canvas, leave its
+                    // highlight + framing intact. The journey owns the camera
+                    // and the trace-*/stack-* classes now; the heavy panel-
+                    // close refit/opacity-snap below would clobber both. The
+                    // journey's own untuck re-frames it. Clear the close flag
+                    // so filters work again later.
+                    if (typeof inJourneyMode === 'function' && inJourneyMode()) { panelClosingInProgress = false; return; }
                     cy.resize();
                     // V8 — symmetric reverse of the open path's
                     // applyPanelSelectionHighlight, which adds
@@ -10511,14 +10557,20 @@
         // Brief 3d — also handles the new CC panel via selectedConnectionId.
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            // WS-3 — the trace overlay sits on top, so Escape dismisses it
-            // first (returning to the event panel underneath, if any).
-            if (atlasState.traceRootId) {
-                setAtlasState({ traceRootId: null });
-                return;
-            }
+            // WS-9 area F — inverted precedence: a DATA panel opened over a
+            // journey closes first and the journey survives; only once no data
+            // panel is open does Escape exit the journey itself.
             if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                 setAtlasState({ selectedEventId: null, selectedConnectionId: null });
+                return;
+            }
+            if (atlasState.selectedThreadKey) {
+                setAtlasState({ selectedThreadKey: null });
+                return;
+            }
+            if (typeof inJourneyMode === 'function' && inJourneyMode()) {
+                exitJourney();
+                return;
             }
         });
 
@@ -11430,7 +11482,9 @@
         function wireTracePanelInteractions() {
             initTooltips();
             const closeBtn = elTraceContent.querySelector('#atlas-trace-close');
-            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ traceRootId: null }));
+            // WS-9 area F — route the ✕ through exitJourney so positions
+            // restore and the graph re-fits, not just a state null.
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
 
             // Event-name deep-links — open the event's detail panel (this
             // closes the trace via the mutual-exclusion rule in
@@ -11892,7 +11946,7 @@
 
         function wireStackPanelInteractions() {
             const closeBtn = elStackContent.querySelector('#atlas-stack-close');
-            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ stackRootId: null }));
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
             elStackContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
                 const open = (e) => {
                     e.stopPropagation();
@@ -12043,7 +12097,7 @@
 
         function wireMaterialPanelInteractions() {
             const closeBtn = elMaterialContent.querySelector('#atlas-material-close');
-            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ materialRootId: null }));
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
             elMaterialContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
                 const open = (e) => {
                     e.stopPropagation();
@@ -12084,6 +12138,59 @@
             }
         }
 
+        // ----- Journey tuck/untuck (data panel overlays a live journey) ---
+        // WS-9 area F — when a data panel (event / CC / factual link) opens
+        // from within a journey, the journey panel tucks away (DOM hidden,
+        // state + canvas intact); when the data panel closes, the journey
+        // untucks — re-rendered, re-highlighted and re-framed. So clicking a
+        // journey node opens its data panel and closing it returns to the
+        // journey.
+        function tuckTracePanel() {
+            if (!elTracePanel) return;
+            elTracePanel.classList.remove('open');
+            elTracePanel.setAttribute('aria-hidden', 'true');
+            elTracePanel.hidden = true;
+        }
+        function untuckTracePanel() {
+            if (!elTracePanel || !atlasState.traceRootId) return;
+            renderTracePanel(atlasState.traceRootId);
+            elTracePanel.hidden = false;
+            elTracePanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elTracePanel.classList.add('open'));
+            highlightTraceChain();
+            wireTracePanelInteractions();
+        }
+        function tuckStackPanel() {
+            if (!elStackPanel) return;
+            elStackPanel.classList.remove('open');
+            elStackPanel.setAttribute('aria-hidden', 'true');
+            elStackPanel.hidden = true;
+        }
+        function untuckStackPanel() {
+            if (!elStackPanel || !atlasState.stackRootId) return;
+            renderStackPanel(atlasState.stackRootId);
+            elStackPanel.hidden = false;
+            elStackPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elStackPanel.classList.add('open'));
+            highlightStackJourney();
+            wireStackPanelInteractions();
+        }
+        function tuckMaterialPanel() {
+            if (!elMaterialPanel) return;
+            elMaterialPanel.classList.remove('open');
+            elMaterialPanel.setAttribute('aria-hidden', 'true');
+            elMaterialPanel.hidden = true;
+        }
+        function untuckMaterialPanel() {
+            if (!elMaterialPanel || !atlasState.materialRootId) return;
+            renderMaterialPanel(atlasState.materialRootId);
+            elMaterialPanel.hidden = false;
+            elMaterialPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            highlightMaterialJourney(atlasState.materialRootId);
+            wireMaterialPanelInteractions();
+        }
+
         // ----- State subscribers (mutually exclusive overlays) ------------
         function syncThreadPanelOnState(state, prev) {
             const changed = state.selectedThreadKey !== prev.selectedThreadKey;
@@ -12109,39 +12216,53 @@
 
         function syncStackPanelOnState(state, prev) {
             const changed = state.stackRootId !== prev.stackRootId;
-            const advanced =
-                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
-                (state.traceRootId && state.traceRootId !== prev.traceRootId);
-            if (state.stackRootId && advanced) {
+            // WS-9 area F — only a competing JOURNEY pre-empts the stack
+            // journey; a data panel tucks it instead (below).
+            const journeyAdvanced =
+                (state.traceRootId && state.traceRootId !== prev.traceRootId) ||
+                (state.materialRootId && state.materialRootId !== prev.materialRootId);
+            if (state.stackRootId && journeyAdvanced) {
                 atlasState.stackRootId = null;
                 closeStackPanel();
                 return;
             }
-            if (!changed) return;
-            if (state.stackRootId) openStackPanel(state.stackRootId);
-            else closeStackPanel();
+            if (changed) {
+                if (state.stackRootId) openStackPanel(state.stackRootId);
+                else closeStackPanel();
+                return;
+            }
+            if (state.stackRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckStackPanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckStackPanel);
+            }
         }
 
         function syncMaterialPanelOnState(state, prev) {
             const changed = state.materialRootId !== prev.materialRootId;
-            // Mirror the trace/stack mutual-exclusion: a competing overlay
-            // (event/CC/thread panel or another journey) pre-empts the
-            // material journey. (Area F upgrades this to a tuck/untuck so the
-            // journey survives a data panel; for now it yields like the others.)
-            const advanced =
-                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
-                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
-                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
+            // WS-9 area F — only a competing JOURNEY pre-empts the material
+            // journey; a data panel (incl. the per-pair factual link reached
+            // by clicking a leg) tucks it instead (below).
+            const journeyAdvanced =
                 (state.traceRootId && state.traceRootId !== prev.traceRootId) ||
                 (state.stackRootId && state.stackRootId !== prev.stackRootId);
-            if (state.materialRootId && advanced) {
+            if (state.materialRootId && journeyAdvanced) {
                 atlasState.materialRootId = null;
                 closeMaterialPanel();
                 return;
             }
-            if (!changed) return;
-            if (state.materialRootId) openMaterialPanel(state.materialRootId);
-            else closeMaterialPanel();
+            if (changed) {
+                if (state.materialRootId) openMaterialPanel(state.materialRootId);
+                else closeMaterialPanel();
+                return;
+            }
+            if (state.materialRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckMaterialPanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckMaterialPanel);
+            }
         }
 
         // Atlas brief 3a: superseded by atlasRenderPanel — remove on 3a sign-off.
@@ -13344,23 +13465,29 @@
         // selected event's panel highlight is applied.
         function syncTraceOnState(state, prev) {
             const traceChanged = state.traceRootId !== prev.traceRootId;
-            // A detail panel was navigated to (e.g. clicking an event name
-            // inside the trace) while a trace was showing → the trace yields
-            // to it. Direct-clear avoids a second dispatch.
-            const selectionAdvanced =
-                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
-                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
-                // WS-5 — opening a thread or a stack journey also pre-empts a trace.
-                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
-                (state.stackRootId && state.stackRootId !== prev.stackRootId);
-            if (state.traceRootId && selectionAdvanced) {
+            // WS-9 area F — only a competing JOURNEY pre-empts the trace.
+            // A data panel (event / CC / factual link) no longer closes it —
+            // it tucks (below) so the journey survives the data panel.
+            const journeyAdvanced =
+                (state.stackRootId && state.stackRootId !== prev.stackRootId) ||
+                (state.materialRootId && state.materialRootId !== prev.materialRootId);
+            if (state.traceRootId && journeyAdvanced) {
                 atlasState.traceRootId = null;
                 closeTracePanel();
                 return;
             }
-            if (!traceChanged) return;
-            if (state.traceRootId) openTracePanel(state.traceRootId);
-            else closeTracePanel();
+            if (traceChanged) {
+                if (state.traceRootId) openTracePanel(state.traceRootId);
+                else closeTracePanel();
+                return;
+            }
+            // Trace persists — tuck/untuck around a data panel.
+            if (state.traceRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckTracePanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckTracePanel);
+            }
         }
 
         function syncDetailPanelOnState(state, prev) {
@@ -13560,6 +13687,75 @@
             if (atlasState.materialRootId) { atlasState.materialRootId = null; closeMaterialPanel(); }
         }
 
+        // WS-9 area F — the single exit path. Every way out of a journey (the
+        // exit pill, each panel's ✕, and Escape-with-no-data-panel) routes
+        // here so the canvas always returns to its pre-journey state:
+        // positions restored, classes/markers cleared, hover re-enabled
+        // (implicit once inJourneyMode() is false), chrome hidden, graph
+        // re-fit.
+        function exitJourney() {
+            if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
+            const hadDetail = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            // Null journey + selection state directly (no re-dispatch loop).
+            atlasState.traceRootId = null;
+            atlasState.stackRootId = null;
+            atlasState.materialRootId = null;
+            // Close every overlay (idempotent).
+            closeTracePanel();
+            closeStackPanel();
+            closeMaterialPanel();
+            if (atlasState.selectedThreadKey) {
+                atlasState._lastThreadKey = atlasState.selectedThreadKey;
+                atlasState.selectedThreadKey = null;
+                closeThreadPanel();
+            }
+            if (hadDetail) {
+                atlasState.selectedEventId = null;
+                atlasState.selectedConnectionId = null;
+                closePanel();   // owns its own refit (journey guard now off)
+            }
+            // Clear any lingering journey canvas classes + restore opacities.
+            if (cy) {
+                cy.elements().removeClass('trace-dim trace-node trace-edge trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+            }
+            restoreJourneyPositions();
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+            hideJourneyReadout();
+            hideExitPill();
+            // Fit back to the full graph once positions settle — unless
+            // closePanel already owns the refit for a just-closed detail panel.
+            if (cy && !hadDetail) {
+                setTimeout(() => {
+                    if (cy && typeof fitToUsableViewport === 'function') {
+                        fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420 });
+                    }
+                }, 380);
+            }
+        }
+
+        // Exit pill — shown only while a journey owns the canvas. Lives in the
+        // recall pill's visual family; stacked above the "Start here ▸" recall
+        // pill (which stays available so a journey can switch to another
+        // journey without exiting first).
+        function showExitPill() {
+            const pill = document.getElementById('atlas-journey-exit');
+            if (pill) pill.classList.add('visible');
+            const recall = document.getElementById('atlas-journeys-recall');
+            if (recall) recall.classList.add('stacked');
+        }
+        function hideExitPill() {
+            const pill = document.getElementById('atlas-journey-exit');
+            if (pill) pill.classList.remove('visible');
+            const recall = document.getElementById('atlas-journeys-recall');
+            if (recall) recall.classList.remove('stacked');
+        }
+        // Subscriber — keep the exit pill in lockstep with journey mode.
+        function syncExitPill() {
+            if (inJourneyMode()) showExitPill();
+            else hideExitPill();
+        }
+
         function runGuidedJourney(id) {
             const j = guidedJourneyById(id);
             if (!j) return;
@@ -13657,6 +13853,9 @@
             if (recall) recall.addEventListener('click', showGuidedStrip);
             const rdis = document.getElementById('atlas-journey-readout-dismiss');
             if (rdis) rdis.addEventListener('click', hideJourneyReadout);
+            // WS-9 area F — the exit pill is the primary way out of a journey.
+            const exit = document.getElementById('atlas-journey-exit');
+            if (exit) exit.addEventListener('click', exitJourney);
         }
 
         // -----------------------------------------------------------------
@@ -13684,6 +13883,7 @@
                 subscribeAtlasState(syncStackPanelOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncMaterialPanelOnState);
+                subscribeAtlasState(syncExitPill);
                 subscribeAtlasState(syncUrlHash);
 
                 // Subscribers don't fire on init (no setAtlasState call) —
