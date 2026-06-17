@@ -11087,8 +11087,9 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-trace-close" aria-label="Close pathways trace">&times;</button>';
             h += '<div class="atlas-trace-eyebrow">Coordination pathways</div>';
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
-            // Guide note — verbatim from WS-3 §3.
-            h += '<p class="atlas-trace-guide">Trace how events link through the connections between them. Pick an event and follow the chain it forms.</p>';
+            // Guide note — states what the trace IS (a downstream cascade),
+            // no circular "follow the chain it forms" phrasing.
+            h += '<p class="atlas-trace-guide">How this event cascades into the ones downstream of it. Each step is a single coordination connection — follow them in sequence and the chain speaks for itself.</p>';
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
