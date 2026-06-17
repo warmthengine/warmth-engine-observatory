@@ -9051,7 +9051,11 @@
             // dimension so it doesn't consume disproportionate space
             // on narrow viewports (iPad with panel: 348px usable).
             // Desktop (900px+): keeps caller's padding unchanged.
-            var effectivePadding = Math.min(padding, Math.round(Math.min(usableW, usableH) * 0.10));
+            // WS-9 item 4 — callers framing a whole journey pass a larger
+            // paddingCapRatio so the rooted hierarchy gets comfortable
+            // breathing room (not edge-to-edge) instead of the default 10%.
+            var capRatio = opts.paddingCapRatio || 0.10;
+            var effectivePadding = Math.min(padding, Math.round(Math.min(usableW, usableH) * capRatio));
 
             // Zoom: frame bounding box within usable area
             var zoom = Math.min(
@@ -9120,10 +9124,16 @@
                 maximal: false
             });
             // Re-fit once the tiers settle, with the desktop/tablet/mobile
-            // insets fitToUsableViewport already understands.
+            // insets fitToUsableViewport already understands. WS-9 item 4 —
+            // frame the COMPLETE journey node set with comfortable margin
+            // (larger padding + cap ratio) and a zoom ceiling so a small
+            // hub-and-spoke journey can't over-zoom and push legs off-screen.
             layout.one('layoutstop', function() {
                 if (typeof fitToUsableViewport === 'function') {
-                    fitToUsableViewport(focusEles.nodes(), { padding: 90, duration: 360 });
+                    fitToUsableViewport(focusEles.nodes(), {
+                        padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
+                        duration: 360
+                    });
                 }
             });
             layout.run();
@@ -13686,7 +13696,11 @@
             if (!cy || !inJourneyMode()) return;
             const nodes = cy.nodes('.trace-node');
             if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
-                fitToUsableViewport(nodes, { padding: 90, duration: 320 });
+                // WS-9 item 4 — same comfortable framing as the entry fit.
+                fitToUsableViewport(nodes, {
+                    padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
+                    duration: 320
+                });
             }
         }
         // Re-fit when a journey panel finishes opening/closing — the panel
