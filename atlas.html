@@ -734,6 +734,34 @@
             transition: color var(--duration-fast) var(--ease-out);
         }
         .atlas-journeys-dismiss:hover { color: var(--text-primary); }
+        .atlas-journeys-recall {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 18px;
+            z-index: 90;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 6px 14px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journeys-recall:hover {
+            opacity: 1;
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+        .atlas-journeys-recall.visible { display: inline-flex; }
         .atlas-journeys-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -4537,6 +4565,13 @@
                     <div class="atlas-journeys-cards" id="atlas-journeys-cards"></div>
                 </div>
 
+                <!-- WS-8 — Recall pill. When the strip is collapsed (dismissed
+                     ✕, journey launched, or view switch) this re-opens it. Lives
+                     inside #atlas-network so absolute positioning resolves
+                     against the canvas. Hidden by default. -->
+                <button id="atlas-journeys-recall" class="atlas-journeys-recall" type="button"
+                        aria-label="Reopen guided journeys">Start here ▸</button>
+
                 <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
                      shown alongside the visual reveal when a journey is triggered. -->
                 <div class="atlas-journey-readout" id="atlas-journey-readout" role="status" aria-live="polite">
@@ -6493,6 +6528,8 @@
         // prior fcose layout so ecosystems stay clustered in the same
         // directional sector.
         function activateConnectednessMode() {
+            // WS-8 — leaving network view: collapse the journeys strip to the pill.
+            if (typeof collapseGuidedToPill === 'function') collapseGuidedToPill();
             if (!cy || cy.nodes().length === 0) return;
             hideTimelineUI();
             // DEF-040 V2 §4c — Timeline-only hint; clear it on entry.
@@ -7144,6 +7181,9 @@
         };
 
         function activateTimelineMode() {
+            // WS-8 — leaving network view: collapse the journeys strip to the
+            // pill so it can't overlap the playback bar. Session-only (no flag).
+            if (typeof collapseGuidedToPill === 'function') collapseGuidedToPill();
             if (!cy || cy.nodes().length === 0) return;
             // DEF-046 — halt any in-flight Cytoscape animations.
             // revealStarsIgniting may have running .animate() calls
@@ -12977,6 +13017,7 @@
         // supplied LIVE by each journey; never frozen in the displayed text.
         // =================================================================
         const GUIDED_COLOURS = { coordination: '#2DD4BF', material: '#818CF8', stack: '#FBBF24' };
+        const GUIDED_LABELS = { coordination: 'COORDINATION', material: 'HARDWARE', stack: 'ALL LAYERS' };
         const GUIDED_DISMISS_KEY = 'weo-guided-journeys-dismissed';
         let guidedJourneys = [];
         let guidedBootJourney = null;   // set by hydrateStateFromHash (#journey=)
@@ -13043,7 +13084,7 @@
             const eyebrow = document.getElementById('atlas-journey-readout-eyebrow');
             const text = document.getElementById('atlas-journey-readout-text');
             const machine = document.getElementById('atlas-journey-readout-machine');
-            if (eyebrow) eyebrow.textContent = (j.slot ? j.slot + ' · ' : '') + (j.title || '');
+            if (eyebrow) eyebrow.textContent = GUIDED_LABELS[j.substrate] || j.title || '';
             if (text) text.textContent = fillReadout(j.readout, counts);
             if (machine) machine.textContent = (j.mcp && j.mcp.call) ? '↳ machine call: ' + j.mcp.call : '';
             banner.classList.add('visible');
@@ -13068,7 +13109,9 @@
         function runGuidedJourney(id) {
             const j = guidedJourneyById(id);
             if (!j) return;
-            hideGuidedCards();
+            // Session action — collapse to the pill so the strip returns on the
+            // next clean load; do NOT set the persistent collapsed flag.
+            collapseGuidedToPill();
             switch (j.mode) {
                 case 'trace':
                     setAtlasState({ stackRootId: null, selectedThreadKey: null, traceRootId: String(j.root) });
@@ -13087,13 +13130,30 @@
             showJourneyReadout(j);
         }
 
+        // Recall pill — the collapsed form of the journeys strip. Showing it
+        // never touches the persistent flag; only dismissGuidedCards() does.
+        function showRecallPill() {
+            const pill = document.getElementById('atlas-journeys-recall');
+            if (pill) pill.classList.add('visible');
+        }
+        function hideRecallPill() {
+            const pill = document.getElementById('atlas-journeys-recall');
+            if (pill) pill.classList.remove('visible');
+        }
+        // Collapse to the pill for a SESSION action (journey launch, view
+        // switch) — strip hidden, pill shown, persistent flag untouched.
+        function collapseGuidedToPill() {
+            hideGuidedCards();
+            showRecallPill();
+        }
         function renderGuidedCards() {
             const wrap = document.getElementById('atlas-journeys');
             const cards = document.getElementById('atlas-journeys-cards');
             if (!wrap || !cards || !guidedJourneys.length) return;
-            let dismissed = false;
-            try { dismissed = localStorage.getItem(GUIDED_DISMISS_KEY) === 'true'; } catch (e) {}
-            if (dismissed) return;
+            let collapsed = false;
+            try { collapsed = localStorage.getItem(GUIDED_DISMISS_KEY) === 'true'; } catch (e) {}
+            // Always build the cards so the strip can be reopened via the pill
+            // even on a load that starts collapsed.
             cards.innerHTML = '';
             guidedJourneys.forEach(j => {
                 const colour = GUIDED_COLOURS[j.substrate] || '#2DD4BF';
@@ -13103,12 +13163,23 @@
                 btn.style.setProperty('--jcolour', colour);
                 btn.setAttribute('data-journey', j.id);
                 btn.innerHTML =
-                    '<span class="atlas-journey-card-eyebrow">' + escapeHtml((j.slot ? j.slot + ' · ' : '') + (j.substrate || '')) + '</span>' +
+                    '<span class="atlas-journey-card-eyebrow">' + escapeHtml(GUIDED_LABELS[j.substrate] || j.substrate || '') + '</span>' +
                     '<span class="atlas-journey-card-q">' + escapeHtml(j.question || '') + '</span>';
                 btn.addEventListener('click', () => runGuidedJourney(j.id));
                 cards.appendChild(btn);
             });
-            wrap.classList.add('visible');
+            if (collapsed) {
+                // Started collapsed on this load — keep the strip hidden, offer the pill.
+                hideGuidedCards();
+                showRecallPill();
+            } else {
+                showGuidedStrip();
+            }
+        }
+        function showGuidedStrip() {
+            const wrap = document.getElementById('atlas-journeys');
+            if (wrap) wrap.classList.add('visible');
+            hideRecallPill();
         }
         function hideGuidedCards() {
             const wrap = document.getElementById('atlas-journeys');
@@ -13116,11 +13187,14 @@
         }
         function dismissGuidedCards() {
             hideGuidedCards();
+            showRecallPill();
             try { localStorage.setItem(GUIDED_DISMISS_KEY, 'true'); } catch (e) {}
         }
         function wireGuidedJourneys() {
             const dis = document.getElementById('atlas-journeys-dismiss');
             if (dis) dis.addEventListener('click', dismissGuidedCards);
+            const recall = document.getElementById('atlas-journeys-recall');
+            if (recall) recall.addEventListener('click', showGuidedStrip);
             const rdis = document.getElementById('atlas-journey-readout-dismiss');
             if (rdis) rdis.addEventListener('click', hideJourneyReadout);
         }
