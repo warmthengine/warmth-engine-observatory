@@ -12992,6 +12992,11 @@
             const filters = JSON.parse(JSON.stringify(atlasState.filters));
             let selectedEventId = atlasState.selectedEventId;
             let selectedConnectionId = atlasState.selectedConnectionId;
+            // WS-9 item 1 (hardening) — track whether a journey-implying key
+            // (journey= / legacy trace=) appeared so we can strip it from the
+            // live URL below; that guarantees a refresh sees a clean URL and
+            // returns to the default strip rather than re-triggering anything.
+            let hadJourneyHash = false;
             raw.split('&').forEach(pair => {
                 if (!pair) return;
                 const idx = pair.indexOf('=');
@@ -13014,8 +13019,9 @@
                     // WS-9 item 1 — journeys are session-scoped: a legacy
                     // trace= deep-link is intentionally NOT restored (it was
                     // the source of the post-refresh half-state). Swallowed
-                    // here so it isn't logged as an unknown key. Use
-                    // #journey=<id> for a durable guided-journey entry link.
+                    // here so it isn't logged as an unknown key, and flagged
+                    // for stripping. Use #journey=<id> for a durable entry link.
+                    hadJourneyHash = true;
                 } else if (key === 'mode') {
                     // Brief 3e — deep-link to a layout mode. Legacy
                     // bookmarks may still use the original 'importance'
@@ -13027,8 +13033,12 @@
                 } else if (key === 'journey') {
                     // WS-8 — guided-journey entry deep-link. Fired in boot()
                     // after the canvas settles; the journey itself sets the
-                    // underlying overlay state (trace / thread / stack).
+                    // underlying overlay state (trace / thread / stack). WS-9
+                    // item 1: consumed into a JS variable, then stripped from
+                    // the URL (below) so it is a one-time entry, never
+                    // re-triggered by a later refresh.
                     guidedBootJourney = val;
+                    hadJourneyHash = true;
                 } else {
                     console.warn('[WEO Atlas] unknown URL hash key, ignoring:', key);
                 }
@@ -13047,6 +13057,14 @@
             }
             // WS-9 item 1 — traceRootId is deliberately left at its initial
             // null: guided / trace journeys do not restore from the URL.
+            // WS-9 item 1 (hardening) — strip the journey-implying keys from
+            // the live URL now (before the page is interactive) so a refresh
+            // while inside a journey reliably lands on the clean default strip,
+            // never the half-state, whatever the load-window timing. The
+            // one-time launch is driven by guidedBootJourney, not the URL.
+            if (hadJourneyHash && typeof syncUrlHash === 'function') {
+                syncUrlHash(atlasState);
+            }
         }
 
         function syncUrlHash(state) {
