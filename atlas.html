@@ -13571,7 +13571,13 @@
         // =================================================================
         const GUIDED_COLOURS = { coordination: '#2DD4BF', material: '#818CF8', stack: '#FBBF24' };
         const GUIDED_LABELS = { coordination: 'COORDINATION', material: 'HARDWARE', stack: 'ALL LAYERS' };
-        const GUIDED_DISMISS_KEY = 'weo-guided-journeys-dismissed';
+        // WS-9 item 2 — the dismiss flag is bumped to a -v2 key so any value an
+        // earlier build wrongly wrote on journey launch / load is ignored. That
+        // guarantees a fresh visitor (and anyone affected by that regression)
+        // gets the FULL strip on first load; only the ✕ (dismissGuidedCards)
+        // ever sets it. The legacy key is cleaned up in renderGuidedCards.
+        const GUIDED_DISMISS_KEY = 'weo-guided-journeys-dismissed-v2';
+        const GUIDED_DISMISS_KEY_LEGACY = 'weo-guided-journeys-dismissed';
         let guidedJourneys = [];
         let guidedBootJourney = null;   // set by hydrateStateFromHash (#journey=)
 
@@ -13822,7 +13828,12 @@
             const cards = document.getElementById('atlas-journeys-cards');
             if (!wrap || !cards || !guidedJourneys.length) return;
             let collapsed = false;
-            try { collapsed = localStorage.getItem(GUIDED_DISMISS_KEY) === 'true'; } catch (e) {}
+            try {
+                collapsed = localStorage.getItem(GUIDED_DISMISS_KEY) === 'true';
+                // WS-9 item 2 — drop the legacy dismiss key so it can never
+                // resurrect the pill-on-first-load regression.
+                localStorage.removeItem(GUIDED_DISMISS_KEY_LEGACY);
+            } catch (e) {}
             // Always build the cards so the strip can be reopened via the pill
             // even on a load that starts collapsed.
             cards.innerHTML = '';
