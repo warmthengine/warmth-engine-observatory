@@ -3574,9 +3574,10 @@
             margin: 4px 0 8px 0;
         }
         /* WS-9 area D — depth-grouped legs. The sub-header names the step
-           (mirrors the canvas tiers) and child cards indent slightly so the
-           "via <intermediate>" sub-groups read as a second tier. No
-           connector lines. */
+           (mirrors the canvas tiers); the "via <intermediate>" sub-groups are
+           signalled by the sub-header alone. WS-9 item 9 — the cards stay
+           FULL-WIDTH (the old indent narrowed them and wrapped the CC-V meta).
+           No connector lines. */
         .atlas-journey-leg {
             font-family: var(--font-mono);
             font-size: 10px;
@@ -3587,7 +3588,8 @@
             padding-left: 8px;
             border-left: 2px solid rgba(45, 212, 191, 0.4);
         }
-        .atlas-journey-leg-child { margin-left: 14px; }
+        /* WS-9 item 9 — full-width, left-aligned with the first-step cards. */
+        .atlas-journey-leg-child { margin-left: 0; }
         /* The selected event, sitting between its antecedents and what
            flows onward from it. */
         .atlas-trace-root {
@@ -3647,6 +3649,9 @@
             align-items: center;
             gap: 8px;
             margin-top: 7px;
+            /* WS-9 item 9 — keep the type + CC-V on one line; never wrap. */
+            flex-wrap: nowrap;
+            white-space: nowrap;
         }
         .atlas-trace-type {
             display: inline-flex;
@@ -3677,6 +3682,9 @@
             font-family: var(--font-mono);
             font-size: 10px;
             margin-left: auto;
+            /* WS-9 item 9 — the CC-V chip stays intact on one line. */
+            flex-shrink: 0;
+            white-space: nowrap;
             color: #2DD4BF;
         }
         .atlas-trace-conf.cc-e { color: #94A3B8; }
