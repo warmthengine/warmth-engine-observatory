@@ -9118,24 +9118,6 @@
             layout.run();
         }
 
-        // BFS depth from the root over a journey sub-graph (nodes + edges).
-        // Drives the panel's depth-grouped legs so the list mirrors the
-        // canvas top-to-bottom. directed:true follows source→target only.
-        function journeyBfsDepths(rootId, eles, directed) {
-            const depths = {};
-            if (!cy || !eles || !eles.length) return depths;
-            const root = cy.getElementById(String(rootId));
-            if (!root || !root.length) return depths;
-            try {
-                eles.bfs({
-                    roots: root,
-                    directed: !!directed,
-                    visit: function(v, e, u, i, depth) { depths[v.id()] = depth; }
-                });
-            } catch (err) { /* defensive — a malformed sub-graph never blocks the journey */ }
-            return depths;
-        }
-
         // Gentle restore of every journey-displaced node to its cached
         // fcose position. Called only on a full exit (not on journey-to-
         // journey switches, where the next layout repositions its own set).
