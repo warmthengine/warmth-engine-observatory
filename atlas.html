@@ -11511,7 +11511,7 @@
         // Paint the chain onto the canvas: dim everything, then surface the
         // chain's nodes + edges. trace-edge drops the gradient for a solid
         // colour fill so the dashed-vs-solid confidence cue is unambiguous.
-        function highlightTraceChain() {
+        function highlightTraceChain(skipLayout) {
             if (!cy) return;
             const edgeIds = new Set(traceHops.map(c => c.connection_id));
             const nodeIds = new Set();
@@ -11546,7 +11546,10 @@
                 : cy.getElementById(rootId);
             if (focusNodes && focusNodes.length) {
                 const focusEles = focusNodes.union(cy.edges('.trace-edge'));
-                layoutJourneySubgraph(rootId, focusEles, { directed: true, spacingFactor: 1.3 });
+                // WS-9 item 11 — on untuck the nodes are still in their journey
+                // positions, so skip the re-layout (and its one-time pulse);
+                // the panel re-open transitionend re-fits the camera.
+                if (!skipLayout) layoutJourneySubgraph(rootId, focusEles, { directed: true, spacingFactor: 1.3 });
             }
         }
 
@@ -12004,7 +12007,7 @@
         // Paint the mixed chain: dim everything, then surface each kind with
         // its own treatment so coordination, material and capability stay
         // visually separable on the canvas too.
-        function highlightStackJourney() {
+        function highlightStackJourney(skipLayout) {
             if (!cy || !stackJourney) return;
             const ccIds = new Set(stackJourney.coordination.map(c => c.connection_id));
             const threadIds = new Set(stackJourney.material.map(te => threadCyId(te.key)));
@@ -12042,7 +12045,8 @@
                 const focusEles = focusNodes
                     .union(cy.edges('.stack-coordination'))
                     .union(cy.edges('.stack-material'));
-                layoutJourneySubgraph(rootId, focusEles, { directed: false, grid: true, spacingFactor: 1.4 });
+                // WS-9 item 11 — skip re-layout on untuck; transitionend re-fits.
+                if (!skipLayout) layoutJourneySubgraph(rootId, focusEles, { directed: false, grid: true, spacingFactor: 1.4 });
             }
         }
         function clearStackHighlight() {
@@ -12175,7 +12179,7 @@
         // Paint the hub: dim everything, surface the root + spoke facilities +
         // the inbound thread edges (kept in their production→use chevron form),
         // then lay them out hub-and-spoke with the green root.
-        function highlightMaterialJourney(rootId) {
+        function highlightMaterialJourney(rootId, skipLayout) {
             if (!cy || !materialJourney) return;
             const j = materialJourney;
             const rid = String(rootId);
@@ -12195,7 +12199,8 @@
             const focusNodes = cy.nodes().filter(n => j.nodeIds.has(n.id()));
             if (focusNodes && focusNodes.length) {
                 const focusEles = focusNodes.union(cy.edges('.stack-material'));
-                layoutJourneySubgraph(rid, focusEles, { directed: false, grid: true, spacingFactor: 1.5 });
+                // WS-9 item 11 — skip re-layout on untuck; transitionend re-fits.
+                if (!skipLayout) layoutJourneySubgraph(rid, focusEles, { directed: false, grid: true, spacingFactor: 1.5 });
             }
         }
         function clearMaterialHighlight() {
@@ -12268,7 +12273,10 @@
             elTracePanel.hidden = false;
             elTracePanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elTracePanel.classList.add('open'));
-            highlightTraceChain();
+            // WS-9 item 11 — returning from a data panel: re-apply the journey
+            // highlight WITHOUT re-laying out (nodes are still in place); the
+            // panel re-open transitionend re-fits the camera to the journey.
+            highlightTraceChain(true);
             wireTracePanelInteractions();
         }
         function tuckStackPanel() {
@@ -12283,7 +12291,9 @@
             elStackPanel.hidden = false;
             elStackPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elStackPanel.classList.add('open'));
-            highlightStackJourney();
+            // WS-9 item 11 — re-apply highlight without re-layout; refit via
+            // the panel re-open transitionend.
+            highlightStackJourney(true);
             wireStackPanelInteractions();
         }
         function tuckMaterialPanel() {
@@ -12298,7 +12308,9 @@
             elMaterialPanel.hidden = false;
             elMaterialPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
-            highlightMaterialJourney(atlasState.materialRootId);
+            // WS-9 item 11 — re-apply highlight without re-layout; refit via
+            // the panel re-open transitionend.
+            highlightMaterialJourney(atlasState.materialRootId, true);
             wireMaterialPanelInteractions();
         }
 
@@ -13679,6 +13691,19 @@
             } else if (state.selectedConnectionId) {
                 const cc = allConnections.find(c => c.connection_id === state.selectedConnectionId);
                 if (cc) openCCPanel(cc);
+                // WS-9 item 11 — magnify a CC clicked within a journey (the
+                // journey panel tucks; this brings the local hop forward). Wait
+                // for the panel reflow, then frame the CC's two endpoints.
+                if (cy && typeof inJourneyMode === 'function' && inJourneyMode()) {
+                    const edge = cy.getElementById(String(state.selectedConnectionId));
+                    if (edge && edge.length) {
+                        setTimeout(() => {
+                            if (cy && edge.inside() && typeof fitToUsableViewport === 'function') {
+                                fitToUsableViewport(edge.connectedNodes(), { padding: 80, duration: 380, maxAbsoluteZoom: 1.8, easing: 'ease-out' });
+                            }
+                        }, 350);
+                    }
+                }
             } else {
                 // Brief 3b.1 §3.1 fix — was checking elDetailPanel
                 // (legacy brief-1c panel) which never gets the .open
@@ -13807,6 +13832,11 @@
             // panel's opacity transitionend fired a second fit during the
             // layout animation, stacking viewport tweens (the janky flash).
             if (_journeyEntering) return;
+            // WS-9 item 11 — while a data panel is open over the journey, that
+            // panel owns the camera (the clicked node/CC is magnified). Don't
+            // let the journey-panel tuck transitionend yank the camera back to
+            // the whole journey; the untuck (data panel closed) re-frames it.
+            if (atlasState.selectedEventId || atlasState.selectedConnectionId || atlasState.selectedThreadKey) return;
             const nodes = cy.nodes('.trace-node');
             if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
                 // WS-9 item 4 — same comfortable framing as the entry fit.
