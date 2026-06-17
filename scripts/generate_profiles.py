@@ -762,7 +762,7 @@ if(navToggle&&navLinks){{
 </script>
 <button class="weo-back-to-top" id="backToTop" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
 <script>(function(){{var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){{btn.classList.toggle('visible',window.scrollY>300)}},{{passive:true}});btn.addEventListener('click',function(){{var motion=window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';window.scrollTo({{top:0,behavior:motion}});}});}})();</script>
-<script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
 <script>(function(){{var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))}})();</script>
 </body>
 </html>'''
