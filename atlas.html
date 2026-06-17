@@ -8366,11 +8366,15 @@
             // line-opacity (the gradient stops stay; opacity is the cheap
             // multiplier).
             cy.on('mouseover', 'node', (evt) => {
-                // WS-9 area F — in journey mode the canvas belongs to the
-                // journey; an out-of-journey node must not steal focus. Tap
-                // still opens a node's data panel (handled below), only the
-                // hover spotlight is gated. Normal mode is untouched.
-                if (typeof inJourneyMode === 'function' && inJourneyMode()) return;
+                // WS-9 item 3 — membership-based hover gate. In journey mode the
+                // canvas belongs to the journey: only nodes IN the journey set
+                // (.trace-node, applied to every journey node) show hover info;
+                // out-of-journey nodes show nothing. In-journey nodes still get
+                // the tooltip + pointer below, but NOT the spotlight recolor
+                // (which would fight the journey dim/highlight classes) — that
+                // is suppressed by folding inJourney into the early-return.
+                const inJourney = (typeof inJourneyMode === 'function') && inJourneyMode();
+                if (inJourney && !evt.target.hasClass('trace-node')) return;
                 // DEF-046 — block all hover-driven opacity changes
                 // during Timeline empty-state. The hover spotlight
                 // sets opacity directly on every node/edge, bypassing
@@ -8403,7 +8407,7 @@
                 // extended: shows at macro zoom OR when a panel is
                 // open. Same grey style as macro for visual
                 // consistency with the CC line hover tooltip.
-                if (elNodeTooltip && (cy.zoom() < LABEL_ZOOM_REVEAL || panelOpen)) {
+                if (elNodeTooltip && (cy.zoom() < LABEL_ZOOM_REVEAL || panelOpen || inJourney)) {
                     const ev = n.data('event');
                     const name = ev ? ev.name : (n.data('label') || '');
                     elNodeTooltip.textContent = name;
@@ -8411,7 +8415,10 @@
                     elNodeTooltip.setAttribute('aria-hidden', 'false');
                 }
                 document.body.style.cursor = 'pointer';
-                if (panelOpen) return;
+                // WS-9 item 3 — in journey mode show the tooltip/cursor above
+                // but never the canvas-wide spotlight recolor (it would clobber
+                // the journey dim/highlight). Same suppression as panel-open.
+                if (panelOpen || inJourney) return;
                 // Patch 3 §1 — paint the hovered node above its
                 // neighbours so its label isn't occluded by an adjacent
                 // node body in the tightly-packed inner ring.
@@ -8532,6 +8539,10 @@
             // they'd see if they clicked.
             cy.on('mouseover', 'edge', (evt) => {
                 if (timelineFirstEntry && atlasState.layoutMode === 'timeline') return;
+                // WS-9 item 3 — membership-based hover gate (mirror of the node
+                // handler): in journey mode only edges IN the journey set show
+                // hover info; out-of-journey edges show nothing.
+                if (typeof inJourneyMode === 'function' && inJourneyMode() && !isJourneyEdge(evt.target)) return;
                 const d = evt.target.data();
                 const conn = d && d.connection;
                 const truncate = (s, n) => (s && s.length > n) ? s.slice(0, n) + '…' : (s || '?');
@@ -13656,6 +13667,15 @@
         // WS-9 — true whenever any of the three journeys owns the canvas.
         function inJourneyMode() {
             return !!(atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId);
+        }
+        // WS-9 item 3 — an edge that belongs to whichever journey owns the
+        // canvas. Each journey kind tags its edges with one of these classes
+        // (trace: trace-edge/journey-edge/trace-current; stack: stack-
+        // coordination/stack-material; material: stack-material).
+        function isJourneyEdge(el) {
+            return !!el && (el.hasClass('trace-edge') || el.hasClass('journey-edge') ||
+                el.hasClass('stack-coordination') || el.hasClass('stack-material') ||
+                el.hasClass('trace-current'));
         }
 
         // WS-9 area C — re-frame the active journey (no re-layout) so the fit
