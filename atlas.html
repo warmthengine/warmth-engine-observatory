@@ -5900,6 +5900,39 @@
                         }
                     },
                     {
+                        // WS-9 — journey root marker. Mirrors the side-panel
+                        // green root pill: a green ring + soft halo on the seed
+                        // node, label forced on so "where the journey starts"
+                        // is unmistakable on every layout.
+                        selector: 'node.journey-root',
+                        style: {
+                            'border-width': 4,
+                            'border-color': '#2DD4BF',
+                            'border-opacity': 1,
+                            'underlay-color': '#2DD4BF',
+                            'underlay-opacity': 0.28,
+                            'underlay-padding': 10,
+                            'text-opacity': 1,
+                            'font-weight': 'bold',
+                            'z-index': 990
+                        }
+                    },
+                    {
+                        // WS-9 — directional arrow on journey edges. Vertical
+                        // tier position encodes depth; the arrowhead encodes
+                        // flow (source = upstream, target = downstream). The
+                        // colour matches the edge so the cue reads as part of
+                        // the line, not an overlay.
+                        selector: 'edge.journey-edge',
+                        style: {
+                            'target-arrow-shape': 'triangle',
+                            'target-arrow-color': 'data(color)',
+                            'target-arrow-fill': 'filled',
+                            'arrow-scale': 1.25,
+                            'z-index': 968
+                        }
+                    },
+                    {
                         // WS-5 — Infrastructure Thread edges. A MATERIAL FACT,
                         // not a CC: it must RECEDE relative to coordination
                         // edges. Four cues hold it visually apart from BOTH
@@ -8929,6 +8962,85 @@
             });
         }
 
+        // =================================================================
+        // WS-9 — GUIDED-JOURNEY STRUCTURE (shared layout machinery)
+        //
+        // A journey re-lays ONLY its own sub-set as a rooted hierarchy so a
+        // human reads root → legs → direction at a glance. Non-journey nodes
+        // keep their fcose positions (dimmed). breadthfirst is built into
+        // Cytoscape core — no new dependency. exitJourney restores the moved
+        // nodes to their cached fcose positions.
+        // =================================================================
+        // IDs of every node a journey layout has displaced this session —
+        // restored from cachedNetworkPositions on exitJourney.
+        let _journeyMovedNodeIds = [];
+
+        function layoutJourneySubgraph(rootId, focusEles, opts) {
+            if (!cy || !focusEles || !focusEles.length) return;
+            opts = opts || {};
+            const rootNode = cy.getElementById(String(rootId));
+            // Track displaced nodes so exitJourney can put them back.
+            focusEles.nodes().forEach(n => {
+                if (_journeyMovedNodeIds.indexOf(n.id()) === -1) _journeyMovedNodeIds.push(n.id());
+            });
+            const layout = focusEles.layout({
+                name: 'breadthfirst',
+                roots: (rootNode && rootNode.length) ? rootNode : undefined,
+                directed: !!opts.directed,
+                grid: !!opts.grid,
+                circle: false,
+                animate: true,
+                animationDuration: 400,
+                spacingFactor: opts.spacingFactor || 1.2,
+                padding: 30,
+                avoidOverlap: true,
+                maximal: false
+            });
+            // Re-fit once the tiers settle, with the desktop/tablet/mobile
+            // insets fitToUsableViewport already understands.
+            layout.one('layoutstop', function() {
+                if (typeof fitToUsableViewport === 'function') {
+                    fitToUsableViewport(focusEles.nodes(), { padding: 90, duration: 360 });
+                }
+            });
+            layout.run();
+        }
+
+        // BFS depth from the root over a journey sub-graph (nodes + edges).
+        // Drives the panel's depth-grouped legs so the list mirrors the
+        // canvas top-to-bottom. directed:true follows source→target only.
+        function journeyBfsDepths(rootId, eles, directed) {
+            const depths = {};
+            if (!cy || !eles || !eles.length) return depths;
+            const root = cy.getElementById(String(rootId));
+            if (!root || !root.length) return depths;
+            try {
+                eles.bfs({
+                    roots: root,
+                    directed: !!directed,
+                    visit: function(v, e, u, i, depth) { depths[v.id()] = depth; }
+                });
+            } catch (err) { /* defensive — a malformed sub-graph never blocks the journey */ }
+            return depths;
+        }
+
+        // Gentle restore of every journey-displaced node to its cached
+        // fcose position. Called only on a full exit (not on journey-to-
+        // journey switches, where the next layout repositions its own set).
+        function restoreJourneyPositions() {
+            if (!cy) { _journeyMovedNodeIds = []; return; }
+            if (!_journeyMovedNodeIds.length) return;
+            if (!Object.keys(cachedNetworkPositions).length) { _journeyMovedNodeIds = []; return; }
+            _journeyMovedNodeIds.forEach(id => {
+                const n = cy.getElementById(id);
+                const pos = cachedNetworkPositions[id];
+                if (n && n.length && pos) {
+                    n.animate({ position: { x: pos.x, y: pos.y } }, { duration: 360, easing: 'ease-out' });
+                }
+            });
+            _journeyMovedNodeIds = [];
+        }
+
         // Brief 3d patch — degree-aware canvas re-centring extracted
         // from openPanel so it can also fire from cross-panel
         // navigation (CC panel → event panel) where the panel is
@@ -11130,34 +11242,40 @@
                 nodeIds.add(String(c.source_event_id));
                 nodeIds.add(String(c.target_event_id));
             });
+            const rootId = String(atlasState.traceRootId);
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
-                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge');
+                    // WS-9 — journey-edge adds the source→target arrowhead so
+                    // the cascade direction is unmistakable (CCs are directional).
+                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge journey-edge');
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
                 });
+                // WS-9 — mark the seed node so the green root reads like the
+                // side-panel root pill.
+                const rootNode = cy.getElementById(rootId);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
             });
-            // Frame the chain (fall back to the root if the chain is empty).
-            const focusEles = nodeIds.size
+            // WS-9 — re-lay the chain as a rooted, directed hierarchy so the
+            // root sits at the top and each leg tiers downstream. The fit
+            // runs on layoutstop inside the helper.
+            const focusNodes = nodeIds.size
                 ? cy.nodes().filter(n => nodeIds.has(n.id()))
-                : cy.getElementById(String(atlasState.traceRootId));
-            if (focusEles && focusEles.length) {
-                if (typeof fitToUsableViewport === 'function') {
-                    fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
-                } else {
-                    cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
-                }
+                : cy.getElementById(rootId);
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes.union(cy.edges('.trace-edge'));
+                layoutJourneySubgraph(rootId, focusEles, { directed: true, spacingFactor: 1.3 });
             }
         }
 
         function clearTraceHighlight() {
             if (!cy) return;
-            cy.elements().removeClass('trace-dim trace-edge trace-node trace-current');
+            cy.elements().removeClass('trace-dim trace-edge trace-node trace-current journey-root journey-edge');
             // Restore degree-driven base opacities, then re-apply any active
             // filter dimming so the canvas returns to its pre-trace state.
             if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
@@ -11614,11 +11732,15 @@
             stackJourney.material.forEach(te => { nodeIds.add(te.source); nodeIds.add(te.target); });
             wpNodeIds.forEach(id => nodeIds.add(id));
 
+            const rootId = String(stackJourney.rootId);
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
-                    if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination');
+                    // journey-edge arrows ride only on the directional CC hops;
+                    // material (thread) hops keep their production→use source
+                    // chevron via the stack-material rule below.
+                    if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination journey-edge');
                     else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material');
                 });
                 cy.nodes().forEach(n => {
@@ -11627,16 +11749,23 @@
                         if (wpNodeIds.has(n.id())) n.addClass('stack-waypoint');
                     }
                 });
+                const rootNode = cy.getElementById(rootId);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
             });
-            const focusEles = cy.nodes().filter(n => nodeIds.has(n.id()));
-            if (focusEles && focusEles.length) {
-                if (typeof fitToUsableViewport === 'function') fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
-                else cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
+            // WS-9 — hub-and-spoke: the event genuinely is the hub, so an
+            // undirected breadthfirst tiers the (mostly single) ring of
+            // joints around it. grid:true wraps a wide tier legibly.
+            const focusNodes = cy.nodes().filter(n => nodeIds.has(n.id()));
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes
+                    .union(cy.edges('.stack-coordination'))
+                    .union(cy.edges('.stack-material'));
+                layoutJourneySubgraph(rootId, focusEles, { directed: false, grid: true, spacingFactor: 1.4 });
             }
         }
         function clearStackHighlight() {
             if (!cy) return;
-            cy.elements().removeClass('trace-dim trace-node stack-coordination stack-material stack-waypoint');
+            cy.elements().removeClass('trace-dim trace-node stack-coordination stack-material stack-waypoint journey-root journey-edge');
             // stack-material forced thread edges visible; restore the toggle's
             // intent once the journey closes.
             if (!threadLayerOn) cy.edges('.thread-edge').removeClass('thread-visible');
