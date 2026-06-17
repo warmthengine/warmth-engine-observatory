@@ -9101,10 +9101,17 @@
         // IDs of every node a journey layout has displaced this session —
         // restored from cachedNetworkPositions on exitJourney.
         let _journeyMovedNodeIds = [];
+        // WS-9 item 5 — true from the moment a journey layout starts until its
+        // single entry fit completes. While set, refitActiveJourney() bails so
+        // the panel's transitionend can't stack a second viewport tween on top
+        // of the entry fit (that overlap caused the janky flash / disappear).
+        let _journeyEntering = false;
 
         function layoutJourneySubgraph(rootId, focusEles, opts) {
             if (!cy || !focusEles || !focusEles.length) return;
             opts = opts || {};
+            // WS-9 item 5 — entry begins now; held until the single fit settles.
+            _journeyEntering = true;
             const rootNode = cy.getElementById(String(rootId));
             // Track displaced nodes so exitJourney can put them back.
             focusEles.nodes().forEach(n => {
@@ -9132,8 +9139,13 @@
                 if (typeof fitToUsableViewport === 'function') {
                     fitToUsableViewport(focusEles.nodes(), {
                         padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
-                        duration: 360
+                        duration: 360, easing: 'ease-out',
+                        // WS-9 item 5 — exactly ONE viewport tween per entry:
+                        // only after it settles is refit re-enabled.
+                        complete: function() { _journeyEntering = false; }
                     });
+                } else {
+                    _journeyEntering = false;
                 }
             });
             layout.run();
@@ -13694,6 +13706,11 @@
         // covers every mode.
         function refitActiveJourney() {
             if (!cy || !inJourneyMode()) return;
+            // WS-9 item 5 — never re-fit mid-entry; the single entry fit
+            // (layoutstop) owns the camera until it settles. Without this the
+            // panel's opacity transitionend fired a second fit during the
+            // layout animation, stacking viewport tweens (the janky flash).
+            if (_journeyEntering) return;
             const nodes = cy.nodes('.trace-node');
             if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
                 // WS-9 item 4 — same comfortable framing as the entry fit.
