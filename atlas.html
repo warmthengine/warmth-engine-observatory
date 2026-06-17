@@ -8957,6 +8957,40 @@
                 }
             }
 
+            // WS-9 area C — desktop/tablet journey insets. The journey panels
+            // are fixed overlays on the right and the readout banner sits on
+            // top; on >767 neither the tablet has-panel-open branch (event
+            // detail grid) nor the desktop full-canvas centring reserves space
+            // for them, so a journey slides under the banner and behind the
+            // panel. Measure the actual overlap against the canvas rect and
+            // shift the usable centre into the clear region. Mirrors the
+            // tablet/mobile inset pattern above.
+            if (window.innerWidth > 767 && typeof cy.container === 'function') {
+                var _cont = cy.container();
+                var cRect = _cont ? _cont.getBoundingClientRect() : null;
+                if (cRect) {
+                    var jp = document.querySelector('.atlas-trace-panel.open, .atlas-stack-panel.open, .atlas-material-panel.open, .atlas-thread-panel.open');
+                    if (jp) {
+                        var pRect = jp.getBoundingClientRect();
+                        // px of the canvas the panel covers on its right edge
+                        var coveredRight = Math.max(0, cRect.right - Math.max(cRect.left, pRect.left));
+                        if (coveredRight > 8) {
+                            usableW = Math.max(240, cw - coveredRight - 16);
+                            usableCx = usableW / 2;
+                        }
+                    }
+                    var rdt = document.getElementById('atlas-journey-readout');
+                    if (rdt && rdt.classList.contains('visible')) {
+                        var rRect = rdt.getBoundingClientRect();
+                        var coveredTop = Math.max(0, rRect.bottom - cRect.top);
+                        if (coveredTop > 8) {
+                            usableH = Math.max(200, ch - coveredTop - 12);
+                            usableCy = coveredTop + usableH / 2;
+                        }
+                    }
+                }
+            }
+
             // Scale padding proportionally to the smaller usable
             // dimension so it doesn't consume disproportionate space
             // on narrow viewports (iPad with panel: 348px usable).
@@ -13488,6 +13522,32 @@
             return !!(atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId);
         }
 
+        // WS-9 area C — re-frame the active journey (no re-layout) so the fit
+        // is right whether or not the readout banner is showing. All three
+        // journeys tag their focus nodes with .trace-node, so one selector
+        // covers every mode.
+        function refitActiveJourney() {
+            if (!cy || !inJourneyMode()) return;
+            const nodes = cy.nodes('.trace-node');
+            if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
+                fitToUsableViewport(nodes, { padding: 90, duration: 320 });
+            }
+        }
+        // Re-fit when a journey panel finishes opening/closing — the panel
+        // overlay width (and the readout banner) only settle on transitionend.
+        function wireJourneyPanelRefit() {
+            ['atlas-trace-panel', 'atlas-stack-panel', 'atlas-material-panel', 'atlas-thread-panel'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('transitionend', (e) => {
+                    // One re-fit per transition (opacity fires once); guard so
+                    // the simultaneous transform transition doesn't double-run.
+                    if (e.propertyName !== 'opacity') return;
+                    refitActiveJourney();
+                });
+            });
+        }
+
         // WS-9 — tear down whichever journey currently owns the canvas WITHOUT
         // restoring fcose positions. Used when switching journey→journey: the
         // incoming layout repositions its own set, and closing in-line (rather
@@ -13691,6 +13751,7 @@
                 // other deep-link active), show the dismissible entry cards.
                 await loadGuidedJourneys();
                 wireGuidedJourneys();
+                wireJourneyPanelRefit();
                 if (guidedBootJourney && guidedJourneyById(guidedBootJourney)) {
                     setTimeout(() => runGuidedJourney(guidedBootJourney), 650);
                 } else if (!atlasState.selectedEventId && !atlasState.selectedConnectionId && !atlasState.traceRootId) {
