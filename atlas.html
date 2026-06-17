@@ -12992,7 +12992,6 @@
             const filters = JSON.parse(JSON.stringify(atlasState.filters));
             let selectedEventId = atlasState.selectedEventId;
             let selectedConnectionId = atlasState.selectedConnectionId;
-            let traceRootId = atlasState.traceRootId;
             raw.split('&').forEach(pair => {
                 if (!pair) return;
                 const idx = pair.indexOf('=');
@@ -13012,8 +13011,11 @@
                     // Brief 3d — deep-link to a CC inspection panel.
                     selectedConnectionId = val;
                 } else if (key === 'trace') {
-                    // WS-3 — deep-link to a coordination-pathways trace.
-                    traceRootId = val;
+                    // WS-9 item 1 — journeys are session-scoped: a legacy
+                    // trace= deep-link is intentionally NOT restored (it was
+                    // the source of the post-refresh half-state). Swallowed
+                    // here so it isn't logged as an unknown key. Use
+                    // #journey=<id> for a durable guided-journey entry link.
                 } else if (key === 'mode') {
                     // Brief 3e — deep-link to a layout mode. Legacy
                     // bookmarks may still use the original 'importance'
@@ -13043,9 +13045,8 @@
                 atlasState.selectedEventId = selectedEventId;
                 atlasState.selectedConnectionId = null;
             }
-            // WS-3 — the trace overlay floats above the detail panel, so it
-            // is not mutually exclusive with the selection at hydrate time.
-            atlasState.traceRootId = traceRootId || null;
+            // WS-9 item 1 — traceRootId is deliberately left at its initial
+            // null: guided / trace journeys do not restore from the URL.
         }
 
         function syncUrlHash(state) {
@@ -13068,10 +13069,12 @@
             if (state.selectedConnectionId) {
                 parts.push(`cc=${encodeURIComponent(state.selectedConnectionId)}`);
             }
-            // WS-3 — serialise an active coordination-pathways trace.
-            if (state.traceRootId) {
-                parts.push(`trace=${encodeURIComponent(state.traceRootId)}`);
-            }
+            // WS-9 item 1 — guided journeys (trace / stack / material) are
+            // SESSION-scoped and are never serialised to the URL. This is what
+            // guarantees a refresh returns to a clean default (or a non-journey
+            // deep-link) instead of the old broken half-state. The
+            // #journey=<id> entry deep-link is consumed from the incoming hash
+            // (see hydrateStateFromHash) but never written back here.
             // Brief 3e — serialise layout mode (omitted when 'network').
             if (state.layoutMode && state.layoutMode !== 'network') {
                 parts.push(`mode=${encodeURIComponent(state.layoutMode)}`);
@@ -13767,6 +13770,18 @@
             showJourneyReadout(j);
         }
 
+        // WS-9 item 1 — launch a guided journey only once the base graph has
+        // settled and its fcose positions are cached, so the journey's own
+        // breadthfirst layout + fit run against a stable canvas. Restoring a
+        // journey before the cache populated was the cause of the post-refresh
+        // half-state. Polls the cache with a hard cap so it always fires.
+        function runGuidedJourneyWhenReady(id, _tries) {
+            _tries = _tries || 0;
+            const ready = cy && Object.keys(cachedNetworkPositions).length > 0;
+            if (ready || _tries > 40) { runGuidedJourney(id); return; }
+            setTimeout(() => runGuidedJourneyWhenReady(id, _tries + 1), 150);
+        }
+
         // Recall pill — the collapsed form of the journeys strip. Showing it
         // never touches the persistent flag; only dismissGuidedCards() does.
         function showRecallPill() {
@@ -13921,12 +13936,12 @@
                         }
                     }, 400);
                 }
-                // WS-3 — deep-link straight into a coordination-pathways
-                // trace. Runs after the panel deep-link so the trace overlay
-                // (and its chain highlight) lands on a settled canvas.
-                if (atlasState.traceRootId && eventById[String(atlasState.traceRootId)]) {
-                    setTimeout(() => openTracePanel(atlasState.traceRootId), 600);
-                }
+                // WS-9 item 1 — the old WS-3 trace= auto-restore was removed:
+                // it opened the trace journey against an unsettled graph and
+                // without the guided entry chrome, producing the post-refresh
+                // half-state. Guided / trace journeys are now session-scoped;
+                // the only durable entry is the #journey=<id> deep-link handled
+                // below, deferred until the graph is ready.
 
                 // WS-8 — guided journeys. Load the single-source manifest, then
                 // either fire a #journey= deep-link or, on a clean landing (no
@@ -13935,8 +13950,14 @@
                 wireGuidedJourneys();
                 wireJourneyPanelRefit();
                 if (guidedBootJourney && guidedJourneyById(guidedBootJourney)) {
-                    setTimeout(() => runGuidedJourney(guidedBootJourney), 650);
-                } else if (!atlasState.selectedEventId && !atlasState.selectedConnectionId && !atlasState.traceRootId) {
+                    // WS-9 item 1 — entry deep-link. Build the cards (so the
+                    // recall pill can reopen the strip), collapse to the pill
+                    // since we're entering a journey, then launch once the
+                    // graph has settled and positions are cached.
+                    renderGuidedCards();
+                    collapseGuidedToPill();
+                    runGuidedJourneyWhenReady(guidedBootJourney);
+                } else if (!atlasState.selectedEventId && !atlasState.selectedConnectionId) {
                     renderGuidedCards();
                 }
 
