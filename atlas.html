@@ -3465,6 +3465,7 @@
             position: relative;
             padding: 16px 44px 12px 18px;
             border-bottom: 1px solid var(--border-default);
+            flex-shrink: 0;
         }
         .atlas-trace-eyebrow {
             font-family: var(--font-mono);
@@ -3504,7 +3505,14 @@
             cursor: pointer;
         }
         .atlas-trace-close:hover { color: var(--text-primary); border-color: var(--border-default); }
+        /* WS-9 area E — bound the list to the panel's usable height (the
+           panel itself is max-height: calc(100vh - 120px)) so the last leg
+           is reachable by scrolling instead of running off-screen. flex
+           sizing + min-height:0 lets overflow-y actually clip. Mirrors the
+           event-detail panel body (flex: 1 1 auto). */
         .atlas-trace-body {
+            flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto;
             padding: 14px 18px 18px 18px;
         }
@@ -3637,6 +3645,7 @@
             align-items: center;
             gap: 10px;
             padding: 12px 18px;
+            flex-shrink: 0;
             border-top: 1px solid var(--border-default);
             background: var(--surface-raised, #0f172a);
             border-bottom-left-radius: var(--weo-radius-lg, 12px);
@@ -3751,7 +3760,7 @@
         .atlas-thread-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         /* ---- Stack Journey panel ---- */
-        .atlas-stack-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-stack-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
         .atlas-stack-eyebrow {
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
             text-transform: uppercase; color: #818CF8;
@@ -3769,7 +3778,7 @@
         .atlas-stack-swatch.coordination { background: #2DD4BF; }
         .atlas-stack-swatch.material { background: transparent; border-top: 2px dashed #7C8A9E; height: 0; }
         .atlas-stack-swatch.capability { background: #F59E0B; }
-        .atlas-stack-body { overflow-y: auto; padding: 12px 18px 18px 18px; }
+        .atlas-stack-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 18px 18px 18px; }
         .atlas-stack-section-label {
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
             text-transform: uppercase; margin: 14px 0 8px 0;
@@ -3819,7 +3828,7 @@
         .atlas-stack-launch-btn { color: #818CF8 !important; }
 
         /* ---- Infrastructure-thread factual-link panel ---- */
-        .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
         .atlas-thread-eyebrow {
             display: inline-flex; align-items: center; gap: 7px;
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em;
@@ -3834,7 +3843,7 @@
             margin-top: 8px; font-size: 11px; color: var(--text-secondary);
             line-height: 1.5;
         }
-        .atlas-thread-body { overflow-y: auto; padding: 14px 18px 18px 18px; }
+        .atlas-thread-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 14px 18px 18px 18px; }
         .atlas-thread-link-row {
             padding: 9px 11px; margin-bottom: 9px;
             border: 1px solid var(--border-primary);
