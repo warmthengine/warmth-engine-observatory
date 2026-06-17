@@ -13133,6 +13133,7 @@
         // Recall pill — the collapsed form of the journeys strip. Showing it
         // never touches the persistent flag; only dismissGuidedCards() does.
         function showRecallPill() {
+            if (!guidedJourneys.length) return;   // no journeys built → never surface the pill
             const pill = document.getElementById('atlas-journeys-recall');
             if (pill) pill.classList.add('visible');
         }
