@@ -957,6 +957,28 @@
             0%, 100% { box-shadow: 0 0 4px 1px rgba(255, 215, 0, 0.25), 0 0 12px 3px rgba(255, 215, 0, 0.10); }
             50%      { box-shadow: 0 0 6px 2px rgba(255, 215, 0, 0.30), 0 0 16px 4px rgba(255, 215, 0, 0.15); }
         }
+        /* WS-9 item 12 (D2) — always-on "ROOT" tag pinned above the journey
+           root node. Positioned in JS (syncJourneyRootBadge) against the node's
+           rendered position; the transform centres it horizontally and lifts it
+           above the node + halo. */
+        .atlas-journey-root-badge {
+            position: absolute;
+            display: none;
+            transform: translate(-50%, -100%);
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: #2DD4BF;
+            color: #04201c;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1.45;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 80;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+        }
         #atlas-network .atlas-loading {
             position: absolute;
             top: 50%; left: 50%;
@@ -6003,12 +6025,18 @@
                         // is unmistakable on every layout.
                         selector: 'node.journey-root',
                         style: {
+                            // WS-9 item 12 (D2) — slightly larger than the seed
+                            // node's own size (set per journey as journeyRootSize)
+                            // so the root is unmistakable. Only the root carries
+                            // this class, so the mapper is only ever read here.
+                            'width': 'data(journeyRootSize)',
+                            'height': 'data(journeyRootSize)',
                             'border-width': 4,
                             'border-color': '#2DD4BF',
                             'border-opacity': 1,
                             'underlay-color': '#2DD4BF',
-                            'underlay-opacity': 0.28,
-                            'underlay-padding': 10,
+                            'underlay-opacity': 0.3,
+                            'underlay-padding': 12,
                             'text-opacity': 1,
                             'font-weight': 'bold',
                             'z-index': 990
@@ -6360,6 +6388,10 @@
             buildSampleOverlays();
             cy.on('render pan zoom resize', syncSampleOverlays);
             window.addEventListener('resize', syncSampleOverlays);
+            // WS-9 item 12 — keep the ROOT badge pinned to the journey root
+            // through every viewport change (same listener profile).
+            cy.on('render pan zoom resize', syncJourneyRootBadge);
+            window.addEventListener('resize', syncJourneyRootBadge);
             // V3 fix R4 (DEF-047) — domain labels track band rendered
             // positions through every viewport change. Same listener
             // profile as syncSampleOverlays; function early-returns
@@ -11536,7 +11568,12 @@
                 // WS-9 — mark the seed node so the green root reads like the
                 // side-panel root pill.
                 const rootNode = cy.getElementById(rootId);
-                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                if (rootNode && rootNode.length) {
+                    // WS-9 item 12 — size the root ~35% larger than its own base
+                    // size so it's unmistakable (consumed by node.journey-root).
+                    rootNode.data('journeyRootSize', Math.round((rootNode.data('size') || 30) * 1.35));
+                    rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                }
             });
             // WS-9 — re-lay the chain as a rooted, directed hierarchy so the
             // root sits at the top and each leg tiers downstream. The fit
@@ -12035,7 +12072,12 @@
                     }
                 });
                 const rootNode = cy.getElementById(rootId);
-                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                if (rootNode && rootNode.length) {
+                    // WS-9 item 12 — size the root ~35% larger than its own base
+                    // size so it's unmistakable (consumed by node.journey-root).
+                    rootNode.data('journeyRootSize', Math.round((rootNode.data('size') || 30) * 1.35));
+                    rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                }
             });
             // WS-9 — hub-and-spoke: the event genuinely is the hub, so an
             // undirected breadthfirst tiers the (mostly single) ring of
@@ -12194,7 +12236,12 @@
                     if (j.nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
                 });
                 const rootNode = cy.getElementById(rid);
-                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                if (rootNode && rootNode.length) {
+                    // WS-9 item 12 — size the root ~35% larger than its own base
+                    // size so it's unmistakable (consumed by node.journey-root).
+                    rootNode.data('journeyRootSize', Math.round((rootNode.data('size') || 30) * 1.35));
+                    rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+                }
             });
             const focusNodes = cy.nodes().filter(n => j.nodeIds.has(n.id()));
             if (focusNodes && focusNodes.length) {
@@ -13820,6 +13867,36 @@
                 el.hasClass('stack-coordination') || el.hasClass('stack-material') ||
                 el.hasClass('trace-current'));
         }
+        // WS-9 item 12 (D2) — an always-on "ROOT" badge pinned to the journey
+        // root node. Reuses the sample-overlay pattern: an absolutely-positioned
+        // element tracked to the node's rendered position on every viewport
+        // change. Visibility derives from the .journey-root class, so it shows
+        // on journey entry and hides on exit/switch with no extra state.
+        function syncJourneyRootBadge() {
+            if (!cy) return;
+            let badge = document.getElementById('atlas-journey-root-badge');
+            const root = cy.nodes('.journey-root');
+            if (!root || !root.length) {
+                if (badge) badge.style.display = 'none';
+                return;
+            }
+            if (!badge) {
+                const container = document.getElementById('atlas-network');
+                if (!container) return;
+                badge = document.createElement('div');
+                badge.id = 'atlas-journey-root-badge';
+                badge.className = 'atlas-journey-root-badge';
+                badge.textContent = 'ROOT';
+                badge.setAttribute('aria-hidden', 'true');
+                container.appendChild(badge);
+            }
+            const n = root[0];
+            const pos = n.renderedPosition();
+            const rh = n.renderedHeight();
+            badge.style.display = 'block';
+            badge.style.left = pos.x + 'px';
+            badge.style.top = (pos.y - rh / 2 - 9) + 'px';
+        }
 
         // WS-9 area C — re-frame the active journey (no re-layout) so the fit
         // is right whether or not the readout banner is showing. All three
@@ -13908,6 +13985,8 @@
             if (cy) {
                 cy.elements().removeClass('trace-dim trace-node trace-edge trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
             }
+            // WS-9 item 12 — root marker is gone; hide its badge immediately.
+            if (typeof syncJourneyRootBadge === 'function') syncJourneyRootBadge();
             restoreJourneyPositions();
             if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
             if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
