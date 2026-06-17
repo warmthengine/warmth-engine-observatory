@@ -13804,6 +13804,10 @@
         // re-fit.
         function exitJourney() {
             if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
+            // WS-9 item 7 — leaving entry mode: clear the entry guard so the
+            // exit's own fit is never blocked, and any in-flight entry pulse /
+            // fit is mooted (they guard on inJourneyMode(), false from here).
+            _journeyEntering = false;
             const hadDetail = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
             // Null journey + selection state directly (no re-dispatch loop).
             atlasState.traceRootId = null;
@@ -13832,12 +13836,15 @@
             if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
             hideJourneyReadout();
             hideExitPill();
-            // Fit back to the full graph once positions settle — unless
-            // closePanel already owns the refit for a just-closed detail panel.
+            // WS-9 item 7 — sequence: let the position-restore (≈360ms,
+            // ease-out) finish, THEN run a single eased fit back to the full
+            // graph so the exit reads as one continuous motion, not a jump.
+            // Skipped when closePanel already owns the refit for a just-closed
+            // detail panel.
             if (cy && !hadDetail) {
                 setTimeout(() => {
                     if (cy && typeof fitToUsableViewport === 'function') {
-                        fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420 });
+                        fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420, easing: 'ease-out' });
                     }
                 }, 380);
             }
