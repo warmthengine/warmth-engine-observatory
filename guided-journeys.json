@@ -7,8 +7,8 @@
     "served_at": "https://www.warmthengine.com/guided-journeys.json (Pages). Worker fetches the www host directly — the apex 301-redirects to www.",
     "counts": "Readout {placeholders} are filled by the LIVE journey at click time — never hard-code. B1 material = thread RECORDS (get_threads, ~19); C1 material = event-PAIRS (get_event_stack, ~15). The two counting methods differ deliberately.",
     "chain_dependency": "Journeys are pinned to stable anchor chains (E93 spine; E196 NVIDIA hub). A future loop that re-shapes these chains must refresh this file. Anchors chosen for durability per the curation pass.",
-    "version": "1.0.0",
-    "updated": "2026-06-16"
+    "version": "1.0.1",
+    "updated": "2026-06-17"
   },
   "journeys": [
     {
@@ -19,13 +19,13 @@
       "mode": "trace",
       "root": "93",
       "params": { "types": [1, 4], "direction": "downstream", "depth": 3 },
-      "question": "Trace the regulatory chain from China's Algorithm Recommendation Provisions through to the generative-AI services downstream — what links each step to the next?",
+      "question": "What generative-AI services and rules cascade from China's Algorithm Recommendation Provisions?",
       "readout": "Events 93→94→07 / China's foundational AI provisions — a regulatory-enablement chain (CC-V) feeding {n} downstream items, including Baidu ERNIE Bot, Doubao, the AI Content Labelling Measures, and TC260 security requirements.",
       "count_source": "coordination_downstream_leaves",
       "mcp": {
         "tool": "traverse_coordination",
-        "arguments": { "mode": "descendants", "node_id": "93", "cc_types": [1, 4], "max_depth": 3 },
-        "call": "traverse_coordination(mode=\"descendants\", node_id=\"93\", cc_types=[1,4], max_depth=3)"
+        "arguments": { "mode": "descendants", "node_id": "E93", "cc_types": [1, 4], "max_depth": 3 },
+        "call": "traverse_coordination(mode=\"descendants\", node_id=\"E93\", cc_types=[1,4], max_depth=3)"
       },
       "deep_link": "#journey=coordination"
     },
@@ -37,7 +37,7 @@
       "mode": "threads",
       "root": "196",
       "params": { "direction": "inbound" },
-      "question": "What runs on the NVIDIA accelerator series? — trace the material links into it.",
+      "question": "Which supercomputers, data centres, and AI models run on NVIDIA's accelerators, and on which chip generation?",
       "readout": "Event 196 / NVIDIA AI Accelerator Series — {n} material (deploys) links across 9 chip generations, from 15 Western facilities (Stargate, JUPITER, Isambard-AI, Fairwater, Tesla Cortex, Meta, EuroHPC Leonardo…).",
       "count_source": "material_inbound_records",
       "mcp": {
@@ -51,11 +51,11 @@
       "id": "stack",
       "slot": "C1",
       "substrate": "stack",
-      "title": "NVIDIA accelerator full stack",
+      "title": "NVIDIA accelerators across all layers",
       "mode": "stack",
       "root": "196",
       "params": {},
-      "question": "What's the full stack around the NVIDIA accelerator series — the coordination, material, and capability links together?",
+      "question": "Which export controls govern NVIDIA's accelerators, which AI systems run on them, and which national capabilities draw on them?",
       "readout": "Event 196 / NVIDIA AI Accelerator Series — {coord} coordination hop (US BIS computing controls, CC-V), {mat} material links (9 chip generations, 15 Western facilities), {cap} capability contributions across the stack (D1/D4/D5/D6/D7; US/JP/EU/GB).",
       "count_source": "stack_counts",
       "mcp": {
