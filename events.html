@@ -3428,6 +3428,11 @@
     const WEO_ICON_ALERT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
     const WEO_ICON_STAR = '<svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 
+    // Shared HTML escaper for DB-derived values interpolated into innerHTML (XSS hardening).
+    // Hoisted to the main script scope so row/modal builders can reuse it (mirrors the
+    // local esc() inside the WEOCapBadge module).
+    function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
     // Tooltip state — declared early to avoid reference errors in openModal click handlers
     let tooltipTimeout = null;
     let activeTooltipTrigger = null;
@@ -4904,17 +4909,17 @@ const renderTable = () => {
         return `
         <tr class="${e.is_sample_event?'sample-event':''}" data-id="${e.event_id}">
             <td style="font-family:var(--weo-font-mono);color:var(--weo-text-muted);">${e.event_id}</td>
-            <td><div class="event-name-cell"><span class="event-name">${e.event_name}</span>${e.is_sample_event?'<span class="sample-star">'+WEO_ICON_STAR+'</span>':''}</div></td>
-            <td><div class="type-icon-cell" title="${e.event_type}">${getTypeIcon(e.event_type)}</div></td>
+            <td><div class="event-name-cell"><span class="event-name">${esc(e.event_name)}</span>${e.is_sample_event?'<span class="sample-star">'+WEO_ICON_STAR+'</span>':''}</div></td>
+            <td><div class="type-icon-cell" title="${esc(e.event_type)}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
-            <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${e.tier}</span></td>
-            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${e.bloc}</span></td>
-            <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':e.domain}</span></td>
-            <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${getIndTags(e.event_id).primary}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + getIndTags(e.event_id).secondary.map(s => s.tag).join(', ') + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
-            <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + ents.map(function(t){return t.name||t.type}).join(', ') + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
+            <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${esc(e.tier)}</span></td>
+            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span></td>
+            <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':esc(e.domain)}</span></td>
+            <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${esc(getIndTags(e.event_id).primary)}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + esc(getIndTags(e.event_id).secondary.map(s => s.tag).join(', ')) + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
+            <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + esc(ents.map(function(t){return t.name||t.type}).join(', ')) + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
             <td><span class="cc-count ${ccClass}">${cc}</span></td>
             <td><div class="checkpoints">${['ai_connection','quantitative_threshold','implementation_status','currency_window'].map(c=>`<span class="checkpoint ${e.verification_checkpoints[c]?'pass':'fail'}">${WEO_ICON_CHECK}</span>`).join('')}</div></td>
-            <td><span class="confidence confidence-${e.confidence_tier.toLowerCase()}">${e.confidence_tier}</span></td>
+            <td><span class="confidence confidence-${esc(e.confidence_tier.toLowerCase())}">${esc(e.confidence_tier)}</span></td>
             <td class="source-count">${e.source_count_primary}P+${e.source_count_corroborating}C</td>
         </tr>`;
     }).join('');
@@ -5083,9 +5088,9 @@ const openModal = (id) => {
     const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${full.version}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
     document.getElementById('modal-meta').innerHTML = `
         <div class="z2-rows" role="group" aria-label="Event classification">
-          <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${e.tier}</span></div></div>
-          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${e.bloc}</span></div></div>
-          <div class="z2-row" role="group" aria-label="Domain">${domainLabel}<div class="z2-badges"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${e.domain}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${esc(e.tier)}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${esc(e.bloc)}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Domain">${domainLabel}<div class="z2-badges"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${esc(e.domain)}</span></div></div>
           ${connRow}
           ${headerVersionBadge}
         </div>
@@ -5110,7 +5115,7 @@ const openModal = (id) => {
             : ccNavigationState.previousEventName;
         html += `<div class="cc-back-breadcrumb" onclick="navigateBackFromCC()">
             <span class="cc-back-breadcrumb-arrow">←</span>
-            <span class="cc-back-breadcrumb-text">Back to ${truncatedName}</span>
+            <span class="cc-back-breadcrumb-text">Back to ${esc(truncatedName)}</span>
         </div>`;
     }
     
@@ -5652,9 +5657,9 @@ const openModal = (id) => {
                         const pwLabel = e.ai_detail || (e.ai_connection_pathway === 'piet' ? 'PIET' : e.ai_connection_pathway === 'trace' ? 'TRACE' : 'OEP');
                         var matChipsHtml = '';
                         if (e.ai_connection_pathway === 'trace' && e.trace && e.trace.materials) {
-                            matChipsHtml = '<div class="trace-materials-shelf" style="margin-top:0.375rem;">' + e.trace.materials.map(function(m) { return '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; }).join('') + '</div>';
+                            matChipsHtml = '<div class="trace-materials-shelf" style="margin-top:0.375rem;">' + e.trace.materials.map(function(m) { return '<div class="trace-material-chip">' + esc(m.name) + '<div class="trace-material-tooltip">' + esc(m.application) + '</div></div>'; }).join('') + '</div>';
                         }
-                        return `<div style="margin-top:1rem;margin-bottom:0.25rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div><span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${pwLabel}</span>` + matChipsHtml;
+                        return `<div style="margin-top:1rem;margin-bottom:0.25rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--weo-text-label);">AI Connection</div><span style="font-size:0.8125rem;color:var(--weo-text-secondary);">${esc(pwLabel)}</span>` + matChipsHtml;
                     })() : ''}
                 </div>
             </div>
@@ -5741,8 +5746,8 @@ const openModal = (id) => {
     if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
     html += '<div class="modal-cross-links" style="display:flex;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(51,65,85,0.5);">';
-    html += '<a href="atlas.html#event=' + id + '" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View in Atlas →</a>';
-    html += '<a href="index.html?event=' + id + '&from=events" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View on Map →</a>';
+    html += '<a href="atlas.html#event=' + esc(id) + '" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View in Atlas →</a>';
+    html += '<a href="index.html?event=' + esc(id) + '&from=events" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View on Map →</a>';
     html += '</div>';
 
     document.getElementById('modal-body').innerHTML = html;
@@ -6360,7 +6365,7 @@ if (navToggle && navLinks) {
 })();
 </script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="/js/count.js"></script>
 
 <!-- WS-2b — Sovereign capability membership badge (event panels). Reads the served /api/capability-links; subject-implicit wording per Handover v1.2 §4.1; deep-links to the Profiles per-cell drawer. -->
 <style>
