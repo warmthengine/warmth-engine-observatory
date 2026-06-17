@@ -8568,8 +8568,31 @@
                 // hover info; out-of-journey edges show nothing.
                 if (typeof inJourneyMode === 'function' && inJourneyMode() && !isJourneyEdge(evt.target)) return;
                 const d = evt.target.data();
-                const conn = d && d.connection;
                 const truncate = (s, n) => (s && s.length > n) ? s.slice(0, n) + '…' : (s || '?');
+                // WS-9 item 10 — an infrastructure-thread edge is a MATERIAL
+                // FACT, not a CC: it carries no `connection`, so the CC builder
+                // below rendered "? → ?". Build the concise material summary
+                // instead (D5), mirroring the CC/event tooltip density. The
+                // source/target + linkType(verb) + asset all come from the same
+                // /api/threads payload the Worker's get_threads serves, so the
+                // human tooltip and the machine view carry the same fact.
+                if (evt.target.hasClass('thread-edge') || (d && d.kind === 'thread')) {
+                    const te = (typeof threadEdgeIndex !== 'undefined') ? threadEdgeIndex[d.threadKey] : null;
+                    if (te) {
+                        // te.source = use facility, te.target = production origin.
+                        const facility = (eventById[String(te.source)] && eventById[String(te.source)].name) || ('Event ' + te.source);
+                        const verb = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType))).join(' / ');
+                        const assets = Array.from(new Set(te.threads.map(t => t.asset).filter(Boolean)));
+                        const assetStr = assets.slice(0, 2).join(', ') + (assets.length > 2 ? ' +' + (assets.length - 2) : '');
+                        elEdgeTooltip.innerHTML = `${escapeHtml(truncate(facility, 28))} <strong>${escapeHtml(verb)}</strong> ${escapeHtml(assetStr)}<br><span style="opacity:0.6">material fact (not a CC)</span>`;
+                    } else {
+                        elEdgeTooltip.innerHTML = `<span style="opacity:0.6">material fact (not a CC)</span>`;
+                    }
+                    elEdgeTooltip.classList.add('visible');
+                    elEdgeTooltip.setAttribute('aria-hidden', 'false');
+                    return;
+                }
+                const conn = d && d.connection;
                 const srcName = conn && eventById[String(conn.source_event_id)] ? eventById[String(conn.source_event_id)].name : '?';
                 const tgtName = conn && eventById[String(conn.target_event_id)] ? eventById[String(conn.target_event_id)].name : '?';
                 const dirArrow = (conn && conn.direction === 'bidirectional') ? '↔' : '→';
