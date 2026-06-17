@@ -12022,7 +12022,7 @@
             } else {
                 j.typeOrder.forEach(lt => {
                     const recs = j.byType[lt];
-                    h += '<div class="atlas-stack-section-label material">' + escapeHtml(materialLinkTypeLabel(lt)) + ' — ' + recs.length + ' ' + (recs.length === 1 ? 'facility' : 'facilities') + '</div>';
+                    h += '<div class="atlas-stack-section-label material">' + escapeHtml(materialLinkTypeLabel(lt)) + ' — ' + recs.length + ' ' + (recs.length === 1 ? 'link' : 'links') + '</div>';
                     recs.forEach(t => {
                         const fId = String(t.sourceEventId);
                         const fName = (eventById[fId] && eventById[fId].name) || ('Event ' + fId);
