@@ -762,6 +762,39 @@
             border-color: var(--text-secondary);
         }
         .atlas-journeys-recall.visible { display: inline-flex; }
+        /* WS-9 — while the exit pill shows, lift the recall pill so the two
+           stack instead of overlapping (and clear of the timeline bar). */
+        .atlas-journeys-recall.stacked { bottom: 56px; }
+        /* WS-9 — exit-journey pill. Same family as the recall pill but in the
+           journey-green so "leave" reads distinct from "open more". */
+        .atlas-journey-exit {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 18px;
+            z-index: 91;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: rgba(45, 212, 191, 0.10);
+            border: 1px solid rgba(45, 212, 191, 0.45);
+            border-radius: var(--radius-md);
+            padding: 6px 14px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-journey-exit:hover {
+            opacity: 1;
+            background: rgba(45, 212, 191, 0.18);
+            border-color: #2DD4BF;
+        }
+        .atlas-journey-exit.visible { display: inline-flex; }
         .atlas-journeys-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -3465,6 +3498,7 @@
             position: relative;
             padding: 16px 44px 12px 18px;
             border-bottom: 1px solid var(--border-default);
+            flex-shrink: 0;
         }
         .atlas-trace-eyebrow {
             font-family: var(--font-mono);
@@ -3504,7 +3538,14 @@
             cursor: pointer;
         }
         .atlas-trace-close:hover { color: var(--text-primary); border-color: var(--border-default); }
+        /* WS-9 area E — bound the list to the panel's usable height (the
+           panel itself is max-height: calc(100vh - 120px)) so the last leg
+           is reachable by scrolling instead of running off-screen. flex
+           sizing + min-height:0 lets overflow-y actually clip. Mirrors the
+           event-detail panel body (flex: 1 1 auto). */
         .atlas-trace-body {
+            flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto;
             padding: 14px 18px 18px 18px;
         }
@@ -3516,6 +3557,21 @@
             color: var(--text-muted);
             margin: 4px 0 8px 0;
         }
+        /* WS-9 area D — depth-grouped legs. The sub-header names the step
+           (mirrors the canvas tiers) and child cards indent slightly so the
+           "via <intermediate>" sub-groups read as a second tier. No
+           connector lines. */
+        .atlas-journey-leg {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            margin: 14px 0 8px 0;
+            padding-left: 8px;
+            border-left: 2px solid rgba(45, 212, 191, 0.4);
+        }
+        .atlas-journey-leg-child { margin-left: 14px; }
         /* The selected event, sitting between its antecedents and what
            flows onward from it. */
         .atlas-trace-root {
@@ -3622,6 +3678,7 @@
             align-items: center;
             gap: 10px;
             padding: 12px 18px;
+            flex-shrink: 0;
             border-top: 1px solid var(--border-default);
             background: var(--surface-raised, #0f172a);
             border-bottom-left-radius: var(--weo-radius-lg, 12px);
@@ -3736,7 +3793,7 @@
         .atlas-thread-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         /* ---- Stack Journey panel ---- */
-        .atlas-stack-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-stack-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
         .atlas-stack-eyebrow {
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
             text-transform: uppercase; color: #818CF8;
@@ -3754,7 +3811,7 @@
         .atlas-stack-swatch.coordination { background: #2DD4BF; }
         .atlas-stack-swatch.material { background: transparent; border-top: 2px dashed #7C8A9E; height: 0; }
         .atlas-stack-swatch.capability { background: #F59E0B; }
-        .atlas-stack-body { overflow-y: auto; padding: 12px 18px 18px 18px; }
+        .atlas-stack-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 18px 18px 18px; }
         .atlas-stack-section-label {
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
             text-transform: uppercase; margin: 14px 0 8px 0;
@@ -3804,7 +3861,7 @@
         .atlas-stack-launch-btn { color: #818CF8 !important; }
 
         /* ---- Infrastructure-thread factual-link panel ---- */
-        .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); }
+        .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
         .atlas-thread-eyebrow {
             display: inline-flex; align-items: center; gap: 7px;
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em;
@@ -3819,7 +3876,7 @@
             margin-top: 8px; font-size: 11px; color: var(--text-secondary);
             line-height: 1.5;
         }
-        .atlas-thread-body { overflow-y: auto; padding: 14px 18px 18px 18px; }
+        .atlas-thread-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 14px 18px 18px 18px; }
         .atlas-thread-link-row {
             padding: 9px 11px; margin-bottom: 9px;
             border: 1px solid var(--border-primary);
@@ -4572,6 +4629,13 @@
                 <button id="atlas-journeys-recall" class="atlas-journeys-recall" type="button"
                         aria-label="Reopen guided journeys">Start here ▸</button>
 
+                <!-- WS-9 — Exit journey mode pill. Shown only while a journey
+                     owns the canvas; routes through exitJourney (positions
+                     restore, graph re-fits). Stacked below the recall pill so
+                     "Start here ▸" stays available for journey→journey. -->
+                <button id="atlas-journey-exit" class="atlas-journey-exit" type="button"
+                        aria-label="Exit journey mode">Exit journey mode ✕</button>
+
                 <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
                      shown alongside the visual reveal when a journey is triggered. -->
                 <div class="atlas-journey-readout" id="atlas-journey-readout" role="status" aria-live="polite">
@@ -4647,6 +4711,15 @@
                  atlasState.selectedThreadKey is set. -->
             <aside class="atlas-thread-panel" id="atlas-thread-panel" aria-hidden="true" aria-label="Infrastructure thread factual link" hidden>
                 <div id="atlas-thread-content"></div>
+            </aside>
+
+            <!-- WS-9 — Material journey hub panel. The dedicated legs panel
+                 for the material/threads journey (parallel to the trace and
+                 stack panels); populated by renderMaterialPanel when
+                 atlasState.materialRootId is set. Legs grouped by thread
+                 link-type. -->
+            <aside class="atlas-stack-panel atlas-material-panel" id="atlas-material-panel" aria-hidden="true" aria-label="Material journey" hidden>
+                <div id="atlas-material-content"></div>
             </aside>
 
             <aside id="atlas-topology" aria-label="Coordination topology">
@@ -5897,6 +5970,39 @@
                         style: {
                             'width': 6,
                             'z-index': 970
+                        }
+                    },
+                    {
+                        // WS-9 — journey root marker. Mirrors the side-panel
+                        // green root pill: a green ring + soft halo on the seed
+                        // node, label forced on so "where the journey starts"
+                        // is unmistakable on every layout.
+                        selector: 'node.journey-root',
+                        style: {
+                            'border-width': 4,
+                            'border-color': '#2DD4BF',
+                            'border-opacity': 1,
+                            'underlay-color': '#2DD4BF',
+                            'underlay-opacity': 0.28,
+                            'underlay-padding': 10,
+                            'text-opacity': 1,
+                            'font-weight': 'bold',
+                            'z-index': 990
+                        }
+                    },
+                    {
+                        // WS-9 — directional arrow on journey edges. Vertical
+                        // tier position encodes depth; the arrowhead encodes
+                        // flow (source = upstream, target = downstream). The
+                        // colour matches the edge so the cue reads as part of
+                        // the line, not an overlay.
+                        selector: 'edge.journey-edge',
+                        style: {
+                            'target-arrow-shape': 'triangle',
+                            'target-arrow-color': 'data(color)',
+                            'target-arrow-fill': 'filled',
+                            'arrow-scale': 1.25,
+                            'z-index': 968
                         }
                     },
                     {
@@ -8260,6 +8366,11 @@
             // line-opacity (the gradient stops stay; opacity is the cheap
             // multiplier).
             cy.on('mouseover', 'node', (evt) => {
+                // WS-9 area F — in journey mode the canvas belongs to the
+                // journey; an out-of-journey node must not steal focus. Tap
+                // still opens a node's data panel (handled below), only the
+                // hover spotlight is gated. Normal mode is untouched.
+                if (typeof inJourneyMode === 'function' && inJourneyMode()) return;
                 // DEF-046 — block all hover-driven opacity changes
                 // during Timeline empty-state. The hover spotlight
                 // sets opacity directly on every node/edge, bypassing
@@ -8891,6 +9002,40 @@
                 }
             }
 
+            // WS-9 area C — desktop/tablet journey insets. The journey panels
+            // are fixed overlays on the right and the readout banner sits on
+            // top; on >767 neither the tablet has-panel-open branch (event
+            // detail grid) nor the desktop full-canvas centring reserves space
+            // for them, so a journey slides under the banner and behind the
+            // panel. Measure the actual overlap against the canvas rect and
+            // shift the usable centre into the clear region. Mirrors the
+            // tablet/mobile inset pattern above.
+            if (window.innerWidth > 767 && typeof cy.container === 'function') {
+                var _cont = cy.container();
+                var cRect = _cont ? _cont.getBoundingClientRect() : null;
+                if (cRect) {
+                    var jp = document.querySelector('.atlas-trace-panel.open, .atlas-stack-panel.open, .atlas-material-panel.open, .atlas-thread-panel.open');
+                    if (jp) {
+                        var pRect = jp.getBoundingClientRect();
+                        // px of the canvas the panel covers on its right edge
+                        var coveredRight = Math.max(0, cRect.right - Math.max(cRect.left, pRect.left));
+                        if (coveredRight > 8) {
+                            usableW = Math.max(240, cw - coveredRight - 16);
+                            usableCx = usableW / 2;
+                        }
+                    }
+                    var rdt = document.getElementById('atlas-journey-readout');
+                    if (rdt && rdt.classList.contains('visible')) {
+                        var rRect = rdt.getBoundingClientRect();
+                        var coveredTop = Math.max(0, rRect.bottom - cRect.top);
+                        if (coveredTop > 8) {
+                            usableH = Math.max(200, ch - coveredTop - 12);
+                            usableCy = coveredTop + usableH / 2;
+                        }
+                    }
+                }
+            }
+
             // Scale padding proportionally to the smaller usable
             // dimension so it doesn't consume disproportionate space
             // on narrow viewports (iPad with panel: 348px usable).
@@ -8927,6 +9072,67 @@
                 easing: easing,
                 complete: opts.complete || (function() {})
             });
+        }
+
+        // =================================================================
+        // WS-9 — GUIDED-JOURNEY STRUCTURE (shared layout machinery)
+        //
+        // A journey re-lays ONLY its own sub-set as a rooted hierarchy so a
+        // human reads root → legs → direction at a glance. Non-journey nodes
+        // keep their fcose positions (dimmed). breadthfirst is built into
+        // Cytoscape core — no new dependency. exitJourney restores the moved
+        // nodes to their cached fcose positions.
+        // =================================================================
+        // IDs of every node a journey layout has displaced this session —
+        // restored from cachedNetworkPositions on exitJourney.
+        let _journeyMovedNodeIds = [];
+
+        function layoutJourneySubgraph(rootId, focusEles, opts) {
+            if (!cy || !focusEles || !focusEles.length) return;
+            opts = opts || {};
+            const rootNode = cy.getElementById(String(rootId));
+            // Track displaced nodes so exitJourney can put them back.
+            focusEles.nodes().forEach(n => {
+                if (_journeyMovedNodeIds.indexOf(n.id()) === -1) _journeyMovedNodeIds.push(n.id());
+            });
+            const layout = focusEles.layout({
+                name: 'breadthfirst',
+                roots: (rootNode && rootNode.length) ? rootNode : undefined,
+                directed: !!opts.directed,
+                grid: !!opts.grid,
+                circle: false,
+                animate: true,
+                animationDuration: 400,
+                spacingFactor: opts.spacingFactor || 1.2,
+                padding: 30,
+                avoidOverlap: true,
+                maximal: false
+            });
+            // Re-fit once the tiers settle, with the desktop/tablet/mobile
+            // insets fitToUsableViewport already understands.
+            layout.one('layoutstop', function() {
+                if (typeof fitToUsableViewport === 'function') {
+                    fitToUsableViewport(focusEles.nodes(), { padding: 90, duration: 360 });
+                }
+            });
+            layout.run();
+        }
+
+        // Gentle restore of every journey-displaced node to its cached
+        // fcose position. Called only on a full exit (not on journey-to-
+        // journey switches, where the next layout repositions its own set).
+        function restoreJourneyPositions() {
+            if (!cy) { _journeyMovedNodeIds = []; return; }
+            if (!_journeyMovedNodeIds.length) return;
+            if (!Object.keys(cachedNetworkPositions).length) { _journeyMovedNodeIds = []; return; }
+            _journeyMovedNodeIds.forEach(id => {
+                const n = cy.getElementById(id);
+                const pos = cachedNetworkPositions[id];
+                if (n && n.length && pos) {
+                    n.animate({ position: { x: pos.x, y: pos.y } }, { duration: 360, easing: 'ease-out' });
+                }
+            });
+            _journeyMovedNodeIds = [];
         }
 
         // Brief 3d patch — degree-aware canvas re-centring extracted
@@ -9104,12 +9310,13 @@
             if (wasOpen) {
                 setTimeout(() => {
                     if (!cy) return;
-                    // WS-3 — if a coordination-pathways trace has taken over
-                    // the canvas, leave its highlight + framing intact. The
-                    // trace owns the camera and the trace-* classes now; the
-                    // heavy panel-close refit/opacity-snap below would clobber
-                    // both. Clear the close flag so filters work again later.
-                    if (atlasState.traceRootId) { panelClosingInProgress = false; return; }
+                    // WS-3/WS-9 — if any journey owns the canvas, leave its
+                    // highlight + framing intact. The journey owns the camera
+                    // and the trace-*/stack-* classes now; the heavy panel-
+                    // close refit/opacity-snap below would clobber both. The
+                    // journey's own untuck re-frames it. Clear the close flag
+                    // so filters work again later.
+                    if (typeof inJourneyMode === 'function' && inJourneyMode()) { panelClosingInProgress = false; return; }
                     cy.resize();
                     // V8 — symmetric reverse of the open path's
                     // applyPanelSelectionHighlight, which adds
@@ -10332,14 +10539,20 @@
         // Brief 3d — also handles the new CC panel via selectedConnectionId.
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            // WS-3 — the trace overlay sits on top, so Escape dismisses it
-            // first (returning to the event panel underneath, if any).
-            if (atlasState.traceRootId) {
-                setAtlasState({ traceRootId: null });
-                return;
-            }
+            // WS-9 area F — inverted precedence: a DATA panel opened over a
+            // journey closes first and the journey survives; only once no data
+            // panel is open does Escape exit the journey itself.
             if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                 setAtlasState({ selectedEventId: null, selectedConnectionId: null });
+                return;
+            }
+            if (atlasState.selectedThreadKey) {
+                setAtlasState({ selectedThreadKey: null });
+                return;
+            }
+            if (typeof inJourneyMode === 'function' && inJourneyMode()) {
+                exitJourney();
+                return;
             }
         });
 
@@ -11048,7 +11261,7 @@
         // One hop card — two events + the CC's type and confidence. The
         // event names deep-link to their detail panels (existing #event=
         // convention); the hop body steps the stepper to this hop.
-        function renderTraceHop(c, idx) {
+        function renderTraceHop(c, idx, child) {
             const typeNum = Number(c.connection_type);
             const colour = CC_TYPE_COLOUR[typeNum] || '#94A3B8';
             const typeName = c.connection_type_name || CC_TYPE_NAME[typeNum] || ('Type ' + typeNum);
@@ -11059,7 +11272,8 @@
             const src = eventById[srcId], tgt = eventById[tgtId];
             const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
             const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
-            let h = `<div class="atlas-trace-hop" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
+            const childCls = child ? ' atlas-journey-leg-child' : '';
+            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
             h += '<div class="atlas-trace-hop-endpoints">';
             h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
             h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
@@ -11087,22 +11301,69 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-trace-close" aria-label="Close pathways trace">&times;</button>';
             h += '<div class="atlas-trace-eyebrow">Coordination pathways</div>';
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
-            // Guide note — verbatim from WS-3 §3.
-            h += '<p class="atlas-trace-guide">Trace how events link through the connections between them. Pick an event and follow the chain it forms.</p>';
+            // Guide note — states what the trace IS (a downstream cascade),
+            // no circular "follow the chain it forms" phrasing.
+            h += '<p class="atlas-trace-guide">How this event cascades into the ones downstream of it. Each step is a single coordination connection — follow them in sequence and the chain speaks for itself.</p>';
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
             if (!traceHops.length) {
                 h += '<div class="atlas-trace-empty">This event forms no directional coordination pathway — it has no Policy Cascade, Funding Flow, Regulatory Enablement, or Response connection to step through. Bidirectional connections (Joint Issuance, Framework Family, Parallel Policy) do not form a chain.</div>';
             } else {
+                // Global hop index (stepper order = upstream then downstream)
+                // so depth-grouped cards keep their original step numbers.
+                const hopIndex = new Map();
+                traceHops.forEach((c, i) => hopIndex.set(c.connection_id, i));
+
                 if (upstream.length) {
                     h += '<div class="atlas-trace-section-label">Leads to this event</div>';
-                    upstream.forEach((c, i) => { h += renderTraceHop(c, i); });
+                    upstream.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
                 }
                 h += '<div class="atlas-trace-root"><span class="atlas-trace-root-dot"></span><span class="atlas-trace-root-name">' + escapeHtml(truncate(rootName, 36)) + '</span></div>';
+
                 if (downstream.length) {
-                    h += '<div class="atlas-trace-section-label">Flows onward from here</div>';
-                    downstream.forEach((c, i) => { h += renderTraceHop(c, upstream.length + i); });
+                    // WS-9 area D — regroup downstream hops by BFS depth from
+                    // the root (the same depth the canvas layout tiers by), so
+                    // the panel reads top-to-bottom like the graph. Step 1 is
+                    // "direct from <root>"; deeper steps are sub-grouped per
+                    // intermediate ("via <name>").
+                    const rid = String(rootId);
+                    const depthMap = {}; depthMap[rid] = 0;
+                    downstream.forEach(c => {
+                        const s = String(c.source_event_id), t = String(c.target_event_id);
+                        if (depthMap[s] == null) depthMap[s] = 0;
+                        if (depthMap[t] == null) depthMap[t] = depthMap[s] + 1;
+                    });
+                    const ordinals = ['', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
+                    const stepWord = (n) => (ordinals[n] ? ordinals[n] + ' step' : 'Step ' + n);
+                    const nameOf = (id) => {
+                        const ev = eventById[String(id)];
+                        return ev && ev.name ? truncate(ev.name, 28) : ('Event ' + id);
+                    };
+
+                    // Step 1 — hops whose source is the root.
+                    const step1 = downstream.filter(c => String(c.source_event_id) === rid);
+                    if (step1.length) {
+                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(1)) + ' — direct from ' + escapeHtml(truncate(rootName, 28)) + '</div>';
+                        step1.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
+                    }
+
+                    // Deeper steps — one sub-group per intermediate source,
+                    // ordered by depth then by first appearance.
+                    const deeper = downstream.filter(c => String(c.source_event_id) !== rid);
+                    const order = [];
+                    const bySource = {};
+                    deeper.forEach(c => {
+                        const s = String(c.source_event_id);
+                        if (!bySource[s]) { bySource[s] = { depth: (depthMap[s] || 1) + 1, hops: [] }; order.push(s); }
+                        bySource[s].hops.push(c);
+                    });
+                    order.sort((a, b) => bySource[a].depth - bySource[b].depth);
+                    order.forEach(s => {
+                        const g = bySource[s];
+                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(g.depth)) + ' — via ' + escapeHtml(nameOf(s)) + '</div>';
+                        g.hops.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id), true); });
+                    });
                 }
             }
             h += '</div>';
@@ -11129,34 +11390,40 @@
                 nodeIds.add(String(c.source_event_id));
                 nodeIds.add(String(c.target_event_id));
             });
+            const rootId = String(atlasState.traceRootId);
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
-                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge');
+                    // WS-9 — journey-edge adds the source→target arrowhead so
+                    // the cascade direction is unmistakable (CCs are directional).
+                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge journey-edge');
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
                 });
+                // WS-9 — mark the seed node so the green root reads like the
+                // side-panel root pill.
+                const rootNode = cy.getElementById(rootId);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
             });
-            // Frame the chain (fall back to the root if the chain is empty).
-            const focusEles = nodeIds.size
+            // WS-9 — re-lay the chain as a rooted, directed hierarchy so the
+            // root sits at the top and each leg tiers downstream. The fit
+            // runs on layoutstop inside the helper.
+            const focusNodes = nodeIds.size
                 ? cy.nodes().filter(n => nodeIds.has(n.id()))
-                : cy.getElementById(String(atlasState.traceRootId));
-            if (focusEles && focusEles.length) {
-                if (typeof fitToUsableViewport === 'function') {
-                    fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
-                } else {
-                    cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
-                }
+                : cy.getElementById(rootId);
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes.union(cy.edges('.trace-edge'));
+                layoutJourneySubgraph(rootId, focusEles, { directed: true, spacingFactor: 1.3 });
             }
         }
 
         function clearTraceHighlight() {
             if (!cy) return;
-            cy.elements().removeClass('trace-dim trace-edge trace-node trace-current');
+            cy.elements().removeClass('trace-dim trace-edge trace-node trace-current journey-root journey-edge');
             // Restore degree-driven base opacities, then re-apply any active
             // filter dimming so the canvas returns to its pre-trace state.
             if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
@@ -11197,7 +11464,9 @@
         function wireTracePanelInteractions() {
             initTooltips();
             const closeBtn = elTraceContent.querySelector('#atlas-trace-close');
-            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ traceRootId: null }));
+            // WS-9 area F — route the ✕ through exitJourney so positions
+            // restore and the graph re-fits, not just a state null.
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
 
             // Event-name deep-links — open the event's detail panel (this
             // closes the trace via the mutual-exclusion rule in
@@ -11276,7 +11545,10 @@
         const elThreadContent = document.getElementById('atlas-thread-content');
         const elStackPanel   = document.getElementById('atlas-stack-panel');
         const elStackContent = document.getElementById('atlas-stack-content');
+        const elMaterialPanel = document.getElementById('atlas-material-panel');
+        const elMaterialContent = document.getElementById('atlas-material-content');
         let threadLayerOn = false;
+        let materialJourney = null;   // WS-9 — built by renderMaterialPanel
 
         function threadCyId(key) { return 'thread-' + key.replace('|', '-'); }
 
@@ -11613,11 +11885,15 @@
             stackJourney.material.forEach(te => { nodeIds.add(te.source); nodeIds.add(te.target); });
             wpNodeIds.forEach(id => nodeIds.add(id));
 
+            const rootId = String(stackJourney.rootId);
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
-                    if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination');
+                    // journey-edge arrows ride only on the directional CC hops;
+                    // material (thread) hops keep their production→use source
+                    // chevron via the stack-material rule below.
+                    if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination journey-edge');
                     else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material');
                 });
                 cy.nodes().forEach(n => {
@@ -11626,16 +11902,23 @@
                         if (wpNodeIds.has(n.id())) n.addClass('stack-waypoint');
                     }
                 });
+                const rootNode = cy.getElementById(rootId);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
             });
-            const focusEles = cy.nodes().filter(n => nodeIds.has(n.id()));
-            if (focusEles && focusEles.length) {
-                if (typeof fitToUsableViewport === 'function') fitToUsableViewport(focusEles, { padding: 90, duration: 360 });
-                else cy.animate({ fit: { eles: focusEles, padding: 90 }, duration: 360 });
+            // WS-9 — hub-and-spoke: the event genuinely is the hub, so an
+            // undirected breadthfirst tiers the (mostly single) ring of
+            // joints around it. grid:true wraps a wide tier legibly.
+            const focusNodes = cy.nodes().filter(n => nodeIds.has(n.id()));
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes
+                    .union(cy.edges('.stack-coordination'))
+                    .union(cy.edges('.stack-material'));
+                layoutJourneySubgraph(rootId, focusEles, { directed: false, grid: true, spacingFactor: 1.4 });
             }
         }
         function clearStackHighlight() {
             if (!cy) return;
-            cy.elements().removeClass('trace-dim trace-node stack-coordination stack-material stack-waypoint');
+            cy.elements().removeClass('trace-dim trace-node stack-coordination stack-material stack-waypoint journey-root journey-edge');
             // stack-material forced thread edges visible; restore the toggle's
             // intent once the journey closes.
             if (!threadLayerOn) cy.edges('.thread-edge').removeClass('thread-visible');
@@ -11645,7 +11928,7 @@
 
         function wireStackPanelInteractions() {
             const closeBtn = elStackContent.querySelector('#atlas-stack-close');
-            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ stackRootId: null }));
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
             elStackContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
                 const open = (e) => {
                     e.stopPropagation();
@@ -11686,6 +11969,210 @@
             }
         }
 
+        // ----- Material Journey (infrastructure-thread hub) ---------------
+        // WS-9 — the material/threads journey gets a dedicated legs panel,
+        // parallel to trace and stack. The root event is the production-origin
+        // hub (e.g. NVIDIA accelerators); its inbound thread records are the
+        // legs — the facilities that deploy / train on / are powered by the
+        // hub's assets. Grouped by thread link-type (not BFS depth — the
+        // journey is hub-and-spoke, one tier, so link-type is the meaningful
+        // axis). The canvas is laid out hub-and-spoke with the green root.
+        function buildMaterialJourney(rootId) {
+            rootId = String(rootId);
+            const recs = (threadsByEvent[rootId] || [])
+                .filter(t => String(t.targetEventId) === rootId);
+            const byType = {}; const typeOrder = [];
+            recs.forEach(t => {
+                const lt = t.linkType || 'other';
+                if (!byType[lt]) { byType[lt] = []; typeOrder.push(lt); }
+                byType[lt].push(t);
+            });
+            const nodeIds = new Set([rootId]);
+            const edgeKeys = new Set();
+            recs.forEach(t => {
+                const s = String(t.sourceEventId);
+                nodeIds.add(s);
+                edgeKeys.add(s + '|' + rootId);
+            });
+            return { rootId, recs, byType, typeOrder, nodeIds, edgeKeys };
+        }
+
+        function materialLinkTypeLabel(lt) {
+            const phrase = THREAD_LINKTYPE_PHRASE[lt] || lt;
+            return phrase.charAt(0).toUpperCase() + phrase.slice(1);
+        }
+
+        function renderMaterialPanel(rootId) {
+            const root = eventById[String(rootId)];
+            const rootName = (root && root.name) || ('Event ' + rootId);
+            const j = buildMaterialJourney(rootId);
+            materialJourney = j;
+
+            let h = '';
+            h += '<div class="atlas-stack-header">';
+            h += '<button class="atlas-trace-close" type="button" id="atlas-material-close" aria-label="Close material journey">&times;</button>';
+            h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
+            h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
+            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each leg is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a Coordination Connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += '</div>';
+
+            h += '<div class="atlas-stack-body">';
+            if (!j.recs.length) {
+                h += '<div class="atlas-trace-empty">This event is the production-origin of no infrastructure thread we can trace — no facility is documented deploying, training on, powering, or fabricating from its assets.</div>';
+            } else {
+                j.typeOrder.forEach(lt => {
+                    const recs = j.byType[lt];
+                    h += '<div class="atlas-stack-section-label material">' + escapeHtml(materialLinkTypeLabel(lt)) + ' — ' + recs.length + ' ' + (recs.length === 1 ? 'link' : 'links') + '</div>';
+                    recs.forEach(t => {
+                        const fId = String(t.sourceEventId);
+                        const fName = (eventById[fId] && eventById[fId].name) || ('Event ' + fId);
+                        const key = fId + '|' + j.rootId;
+                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '">';
+                        h += '<div class="atlas-stack-hop-endpoints">';
+                        h += '<span class="atlas-stack-evt" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
+                        h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
+                        h += '<span class="atlas-stack-asset">' + escapeHtml(t.asset || '—') + '</span>';
+                        h += '</div>';
+                        h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind material">Material fact</span>';
+                        h += '<span class="atlas-stack-asset">' + escapeHtml(materialLinkTypeLabel(lt)) + (t.field ? ' · ' + escapeHtml(t.field) : '') + '</span></div>';
+                        h += '</div>';
+                    });
+                });
+            }
+            h += '</div>';
+            elMaterialContent.innerHTML = h;
+        }
+
+        // Paint the hub: dim everything, surface the root + spoke facilities +
+        // the inbound thread edges (kept in their production→use chevron form),
+        // then lay them out hub-and-spoke with the green root.
+        function highlightMaterialJourney(rootId) {
+            if (!cy || !materialJourney) return;
+            const j = materialJourney;
+            const rid = String(rootId);
+            const threadIds = new Set(Array.from(j.edgeKeys).map(k => threadCyId(k)));
+            cy.batch(() => {
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().addClass('trace-dim');
+                cy.edges().forEach(e => {
+                    if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
+                });
+                cy.nodes().forEach(n => {
+                    if (j.nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
+                });
+                const rootNode = cy.getElementById(rid);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+            });
+            const focusNodes = cy.nodes().filter(n => j.nodeIds.has(n.id()));
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes.union(cy.edges('.stack-material'));
+                layoutJourneySubgraph(rid, focusEles, { directed: false, grid: true, spacingFactor: 1.5 });
+            }
+        }
+        function clearMaterialHighlight() {
+            if (!cy) return;
+            cy.elements().removeClass('trace-dim trace-node stack-material journey-root journey-edge');
+            if (!threadLayerOn) cy.edges('.thread-edge').removeClass('thread-visible');
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+        }
+
+        function wireMaterialPanelInteractions() {
+            const closeBtn = elMaterialContent.querySelector('#atlas-material-close');
+            if (closeBtn) closeBtn.addEventListener('click', () => exitJourney());
+            elMaterialContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
+                const open = (e) => {
+                    e.stopPropagation();
+                    const id = el.getAttribute('data-material-event');
+                    if (id) setAtlasState({ selectedEventId: id, selectedConnectionId: null });
+                };
+                el.addEventListener('click', open);
+                el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') open(e); });
+            });
+            // A leg deep-links to its factual-link panel (the single pair).
+            elMaterialContent.querySelectorAll('.atlas-stack-hop.material').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target.closest('.atlas-stack-evt')) return;
+                    const key = el.getAttribute('data-thread-key');
+                    if (key) setAtlasState({ selectedThreadKey: key });
+                });
+            });
+        }
+
+        function openMaterialPanel(rootId) {
+            if (!elMaterialPanel || !elMaterialContent) return;
+            renderMaterialPanel(rootId);
+            elMaterialPanel.hidden = false;
+            elMaterialPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            highlightMaterialJourney(rootId);
+            wireMaterialPanelInteractions();
+        }
+        function closeMaterialPanel() {
+            if (!elMaterialPanel) return;
+            elMaterialPanel.classList.remove('open');
+            elMaterialPanel.setAttribute('aria-hidden', 'true');
+            elMaterialPanel.hidden = true;
+            materialJourney = null;
+            clearMaterialHighlight();
+            if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
+                applyPanelSelectionHighlight();
+            }
+        }
+
+        // ----- Journey tuck/untuck (data panel overlays a live journey) ---
+        // WS-9 area F — when a data panel (event / CC / factual link) opens
+        // from within a journey, the journey panel tucks away (DOM hidden,
+        // state + canvas intact); when the data panel closes, the journey
+        // untucks — re-rendered, re-highlighted and re-framed. So clicking a
+        // journey node opens its data panel and closing it returns to the
+        // journey.
+        function tuckTracePanel() {
+            if (!elTracePanel) return;
+            elTracePanel.classList.remove('open');
+            elTracePanel.setAttribute('aria-hidden', 'true');
+            elTracePanel.hidden = true;
+        }
+        function untuckTracePanel() {
+            if (!elTracePanel || !atlasState.traceRootId) return;
+            renderTracePanel(atlasState.traceRootId);
+            elTracePanel.hidden = false;
+            elTracePanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elTracePanel.classList.add('open'));
+            highlightTraceChain();
+            wireTracePanelInteractions();
+        }
+        function tuckStackPanel() {
+            if (!elStackPanel) return;
+            elStackPanel.classList.remove('open');
+            elStackPanel.setAttribute('aria-hidden', 'true');
+            elStackPanel.hidden = true;
+        }
+        function untuckStackPanel() {
+            if (!elStackPanel || !atlasState.stackRootId) return;
+            renderStackPanel(atlasState.stackRootId);
+            elStackPanel.hidden = false;
+            elStackPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elStackPanel.classList.add('open'));
+            highlightStackJourney();
+            wireStackPanelInteractions();
+        }
+        function tuckMaterialPanel() {
+            if (!elMaterialPanel) return;
+            elMaterialPanel.classList.remove('open');
+            elMaterialPanel.setAttribute('aria-hidden', 'true');
+            elMaterialPanel.hidden = true;
+        }
+        function untuckMaterialPanel() {
+            if (!elMaterialPanel || !atlasState.materialRootId) return;
+            renderMaterialPanel(atlasState.materialRootId);
+            elMaterialPanel.hidden = false;
+            elMaterialPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            highlightMaterialJourney(atlasState.materialRootId);
+            wireMaterialPanelInteractions();
+        }
+
         // ----- State subscribers (mutually exclusive overlays) ------------
         function syncThreadPanelOnState(state, prev) {
             const changed = state.selectedThreadKey !== prev.selectedThreadKey;
@@ -11711,17 +12198,53 @@
 
         function syncStackPanelOnState(state, prev) {
             const changed = state.stackRootId !== prev.stackRootId;
-            const advanced =
-                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
-                (state.traceRootId && state.traceRootId !== prev.traceRootId);
-            if (state.stackRootId && advanced) {
+            // WS-9 area F — only a competing JOURNEY pre-empts the stack
+            // journey; a data panel tucks it instead (below).
+            const journeyAdvanced =
+                (state.traceRootId && state.traceRootId !== prev.traceRootId) ||
+                (state.materialRootId && state.materialRootId !== prev.materialRootId);
+            if (state.stackRootId && journeyAdvanced) {
                 atlasState.stackRootId = null;
                 closeStackPanel();
                 return;
             }
-            if (!changed) return;
-            if (state.stackRootId) openStackPanel(state.stackRootId);
-            else closeStackPanel();
+            if (changed) {
+                if (state.stackRootId) openStackPanel(state.stackRootId);
+                else closeStackPanel();
+                return;
+            }
+            if (state.stackRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckStackPanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckStackPanel);
+            }
+        }
+
+        function syncMaterialPanelOnState(state, prev) {
+            const changed = state.materialRootId !== prev.materialRootId;
+            // WS-9 area F — only a competing JOURNEY pre-empts the material
+            // journey; a data panel (incl. the per-pair factual link reached
+            // by clicking a leg) tucks it instead (below).
+            const journeyAdvanced =
+                (state.traceRootId && state.traceRootId !== prev.traceRootId) ||
+                (state.stackRootId && state.stackRootId !== prev.stackRootId);
+            if (state.materialRootId && journeyAdvanced) {
+                atlasState.materialRootId = null;
+                closeMaterialPanel();
+                return;
+            }
+            if (changed) {
+                if (state.materialRootId) openMaterialPanel(state.materialRootId);
+                else closeMaterialPanel();
+                return;
+            }
+            if (state.materialRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckMaterialPanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckMaterialPanel);
+            }
         }
 
         // Atlas brief 3a: superseded by atlasRenderPanel — remove on 3a sign-off.
@@ -11882,6 +12405,9 @@
             // mutually exclusive with the other overlays.
             selectedThreadKey: null,
             stackRootId: null,
+            // WS-9 — root of an open material/threads journey (hub panel).
+            // Mutually exclusive with the other journeys.
+            materialRootId: null,
             _lastThreadKey: null,
             layoutName: 'fcose',
             // Brief 3e §2 — layout mode: 'network' (force-directed,
@@ -12921,23 +13447,29 @@
         // selected event's panel highlight is applied.
         function syncTraceOnState(state, prev) {
             const traceChanged = state.traceRootId !== prev.traceRootId;
-            // A detail panel was navigated to (e.g. clicking an event name
-            // inside the trace) while a trace was showing → the trace yields
-            // to it. Direct-clear avoids a second dispatch.
-            const selectionAdvanced =
-                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
-                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
-                // WS-5 — opening a thread or a stack journey also pre-empts a trace.
-                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
-                (state.stackRootId && state.stackRootId !== prev.stackRootId);
-            if (state.traceRootId && selectionAdvanced) {
+            // WS-9 area F — only a competing JOURNEY pre-empts the trace.
+            // A data panel (event / CC / factual link) no longer closes it —
+            // it tucks (below) so the journey survives the data panel.
+            const journeyAdvanced =
+                (state.stackRootId && state.stackRootId !== prev.stackRootId) ||
+                (state.materialRootId && state.materialRootId !== prev.materialRootId);
+            if (state.traceRootId && journeyAdvanced) {
                 atlasState.traceRootId = null;
                 closeTracePanel();
                 return;
             }
-            if (!traceChanged) return;
-            if (state.traceRootId) openTracePanel(state.traceRootId);
-            else closeTracePanel();
+            if (traceChanged) {
+                if (state.traceRootId) openTracePanel(state.traceRootId);
+                else closeTracePanel();
+                return;
+            }
+            // Trace persists — tuck/untuck around a data panel.
+            if (state.traceRootId) {
+                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
+                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
+                if (dataOpen && !dataWasOpen) tuckTracePanel();
+                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckTracePanel);
+            }
         }
 
         function syncDetailPanelOnState(state, prev) {
@@ -13094,16 +13626,116 @@
             if (banner) banner.classList.remove('visible');
         }
 
-        // Material journey visual — reveal the thread layer and recentre on
-        // the hub. Reuses the existing layer toggle + event selection, so it
-        // introduces no new graph-state that could leak into the other modes.
-        function focusEventThreads(eventId) {
-            eventId = String(eventId);
-            if (typeof setThreadLayerVisible === 'function') setThreadLayerVisible(true);
-            const tbtn = document.getElementById('atlas-thread-toggle');
-            if (tbtn) { tbtn.classList.add('active'); tbtn.setAttribute('aria-pressed', 'true'); }
-            setAtlasState({ selectedEventId: eventId, selectedConnectionId: null });
-            setTimeout(() => { if (typeof recentreOnEvent === 'function') recentreOnEvent(eventId); }, 140);
+        // WS-9 — true whenever any of the three journeys owns the canvas.
+        function inJourneyMode() {
+            return !!(atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId);
+        }
+
+        // WS-9 area C — re-frame the active journey (no re-layout) so the fit
+        // is right whether or not the readout banner is showing. All three
+        // journeys tag their focus nodes with .trace-node, so one selector
+        // covers every mode.
+        function refitActiveJourney() {
+            if (!cy || !inJourneyMode()) return;
+            const nodes = cy.nodes('.trace-node');
+            if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
+                fitToUsableViewport(nodes, { padding: 90, duration: 320 });
+            }
+        }
+        // Re-fit when a journey panel finishes opening/closing — the panel
+        // overlay width (and the readout banner) only settle on transitionend.
+        function wireJourneyPanelRefit() {
+            ['atlas-trace-panel', 'atlas-stack-panel', 'atlas-material-panel', 'atlas-thread-panel'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('transitionend', (e) => {
+                    // One re-fit per transition (opacity fires once); guard so
+                    // the simultaneous transform transition doesn't double-run.
+                    if (e.propertyName !== 'opacity') return;
+                    refitActiveJourney();
+                });
+            });
+        }
+
+        // WS-9 — tear down whichever journey currently owns the canvas WITHOUT
+        // restoring fcose positions. Used when switching journey→journey: the
+        // incoming layout repositions its own set, and closing in-line (rather
+        // than via the subscriber dispatch) guarantees the old journey's shared
+        // class removal runs BEFORE the new journey paints, which subscriber
+        // ordering across three panels can't otherwise guarantee.
+        function teardownActiveJourney() {
+            if (atlasState.traceRootId)    { atlasState.traceRootId = null;    closeTracePanel(); }
+            if (atlasState.stackRootId)    { atlasState.stackRootId = null;    closeStackPanel(); }
+            if (atlasState.materialRootId) { atlasState.materialRootId = null; closeMaterialPanel(); }
+        }
+
+        // WS-9 area F — the single exit path. Every way out of a journey (the
+        // exit pill, each panel's ✕, and Escape-with-no-data-panel) routes
+        // here so the canvas always returns to its pre-journey state:
+        // positions restored, classes/markers cleared, hover re-enabled
+        // (implicit once inJourneyMode() is false), chrome hidden, graph
+        // re-fit.
+        function exitJourney() {
+            if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
+            const hadDetail = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            // Null journey + selection state directly (no re-dispatch loop).
+            atlasState.traceRootId = null;
+            atlasState.stackRootId = null;
+            atlasState.materialRootId = null;
+            // Close every overlay (idempotent).
+            closeTracePanel();
+            closeStackPanel();
+            closeMaterialPanel();
+            if (atlasState.selectedThreadKey) {
+                atlasState._lastThreadKey = atlasState.selectedThreadKey;
+                atlasState.selectedThreadKey = null;
+                closeThreadPanel();
+            }
+            if (hadDetail) {
+                atlasState.selectedEventId = null;
+                atlasState.selectedConnectionId = null;
+                closePanel();   // owns its own refit (journey guard now off)
+            }
+            // Clear any lingering journey canvas classes + restore opacities.
+            if (cy) {
+                cy.elements().removeClass('trace-dim trace-node trace-edge trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+            }
+            restoreJourneyPositions();
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+            hideJourneyReadout();
+            hideExitPill();
+            // Fit back to the full graph once positions settle — unless
+            // closePanel already owns the refit for a just-closed detail panel.
+            if (cy && !hadDetail) {
+                setTimeout(() => {
+                    if (cy && typeof fitToUsableViewport === 'function') {
+                        fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420 });
+                    }
+                }, 380);
+            }
+        }
+
+        // Exit pill — shown only while a journey owns the canvas. Lives in the
+        // recall pill's visual family; stacked above the "Start here ▸" recall
+        // pill (which stays available so a journey can switch to another
+        // journey without exiting first).
+        function showExitPill() {
+            const pill = document.getElementById('atlas-journey-exit');
+            if (pill) pill.classList.add('visible');
+            const recall = document.getElementById('atlas-journeys-recall');
+            if (recall) recall.classList.add('stacked');
+        }
+        function hideExitPill() {
+            const pill = document.getElementById('atlas-journey-exit');
+            if (pill) pill.classList.remove('visible');
+            const recall = document.getElementById('atlas-journeys-recall');
+            if (recall) recall.classList.remove('stacked');
+        }
+        // Subscriber — keep the exit pill in lockstep with journey mode.
+        function syncExitPill() {
+            if (inJourneyMode()) showExitPill();
+            else hideExitPill();
         }
 
         function runGuidedJourney(id) {
@@ -13112,16 +13744,21 @@
             // Session action — collapse to the pill so the strip returns on the
             // next clean load; do NOT set the persistent collapsed flag.
             collapseGuidedToPill();
+            // Switching journey→journey: close the current one first so its
+            // class removal can't clobber the incoming layout.
+            teardownActiveJourney();
+            // Clear any open data panel so the new journey starts clean.
+            const base = { selectedEventId: null, selectedConnectionId: null, selectedThreadKey: null,
+                           traceRootId: null, stackRootId: null, materialRootId: null };
             switch (j.mode) {
                 case 'trace':
-                    setAtlasState({ stackRootId: null, selectedThreadKey: null, traceRootId: String(j.root) });
+                    setAtlasState(Object.assign({}, base, { traceRootId: String(j.root) }));
                     break;
                 case 'threads':
-                    setAtlasState({ traceRootId: null, stackRootId: null, selectedThreadKey: null });
-                    focusEventThreads(j.root);
+                    setAtlasState(Object.assign({}, base, { materialRootId: String(j.root) }));
                     break;
                 case 'stack':
-                    setAtlasState({ traceRootId: null, selectedThreadKey: null, stackRootId: String(j.root) });
+                    setAtlasState(Object.assign({}, base, { stackRootId: String(j.root) }));
                     break;
                 default:
                     console.warn('[WEO Atlas] unknown guided journey mode:', j.mode);
@@ -13198,6 +13835,9 @@
             if (recall) recall.addEventListener('click', showGuidedStrip);
             const rdis = document.getElementById('atlas-journey-readout-dismiss');
             if (rdis) rdis.addEventListener('click', hideJourneyReadout);
+            // WS-9 area F — the exit pill is the primary way out of a journey.
+            const exit = document.getElementById('atlas-journey-exit');
+            if (exit) exit.addEventListener('click', exitJourney);
         }
 
         // -----------------------------------------------------------------
@@ -13224,6 +13864,8 @@
                 subscribeAtlasState(syncThreadPanelOnState);
                 subscribeAtlasState(syncStackPanelOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
+                subscribeAtlasState(syncMaterialPanelOnState);
+                subscribeAtlasState(syncExitPill);
                 subscribeAtlasState(syncUrlHash);
 
                 // Subscribers don't fire on init (no setAtlasState call) —
@@ -13291,6 +13933,7 @@
                 // other deep-link active), show the dismissible entry cards.
                 await loadGuidedJourneys();
                 wireGuidedJourneys();
+                wireJourneyPanelRefit();
                 if (guidedBootJourney && guidedJourneyById(guidedBootJourney)) {
                     setTimeout(() => runGuidedJourney(guidedBootJourney), 650);
                 } else if (!atlasState.selectedEventId && !atlasState.selectedConnectionId && !atlasState.traceRootId) {
