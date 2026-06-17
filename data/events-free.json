@@ -1,66 +1,67 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 159,
+    "total_events": 171,
     "sample_events": 6,
-    "standard_events": 153,
-    "last_updated": "2026-06-03",
+    "standard_events": 165,
+    "last_updated": "2026-06-17",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
-        "Eastern": 45,
-        "Western": 96,
+        "Eastern": 48,
+        "Western": 105,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 141,
+        "T3": 153,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
         "Coordination": 29,
-        "Policy": 41,
-        "Corporate": 46
+        "Policy": 46,
+        "Corporate": 53
       },
       "by_confidence": {
-        "A": 155,
+        "A": 167,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 86,
+        "basel5": 93,
         "keohane": 28,
-        "pisa5": 26,
+        "pisa5": 31,
         "routeBased": 19,
         "oep": 6,
         "piet": 4
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 46,
-        "Semiconductors & Equipment": 30,
-        "AI Software & Platforms": 59,
-        "Mining & Critical Minerals": 5,
+        "Cloud, Data Centres & Connectivity Infrastructure": 47,
+        "Semiconductors & Equipment": 34,
+        "AI Software & Platforms": 60,
+        "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
-        "Trade & Logistics": 1
+        "Trade & Logistics": 1,
+        "Unknown": 3
       },
       "by_version": {
         "1.2": 45,
         "1.3": 11,
-        "1.1": 60,
+        "1.1": 61,
         "1.4": 1,
-        "1.0": 41,
+        "1.0": 52,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-03",
-    "lastAudit": "2026-06-03",
+    "versionDate": "2026-06-17",
+    "lastAudit": "2026-06-17",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 159,
+    "event_count": 171,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -68,6 +69,33 @@
     "wer": {
       "value": 6.6,
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
+    },
+    "source_durability": {
+      "total_sources": 1492,
+      "preserved": 1462,
+      "preservation_rate": 0.98,
+      "by_status": {
+        "captured": 1435,
+        "recovered": 21,
+        "existing": 6,
+        "no_capture": 20,
+        "dead_source": 1,
+        "retry_pending": 9
+      },
+      "by_layer": {
+        "events": {
+          "total": 907,
+          "preserved": 881
+        },
+        "connections": {
+          "total": 397,
+          "preserved": 393
+        },
+        "actors": {
+          "total": 188,
+          "preserved": 188
+        }
+      }
     },
     "tier": "free"
   },
@@ -573,7 +601,7 @@
           "rationale": "Affects manufacturing decisions by TSMC, Samsung, Intel globally; restricts China expansion"
         }
       ],
-      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Buildout). Section 103 guardrails explicitly prohibit funded entities from China expansion, creating binding cross-bloc operating restrictions. Meets multiple Tier 2 criteria with explicit China targeting: dependency reduction language referencing Taiwan/China risk; national security and China co-mention in White House Fact Sheet; supply chain resilience framed around China concerns. Funding conditions create between-bloc fragmentation through explicit prohibitions on recipient operations in countries of concern.",
+      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Buildout). The CHIPS and Science Act conditions its manufacturing incentives on Section 103 guardrails that prohibit funded entities from expanding capacity in countries of concern — a binding cross-bloc operating restriction. The programme's supporting documentation frames it explicitly around China: dependency-reduction language cites Taiwan and China risk, national-security justifications co-name China in the White House Fact Sheet, and supply-chain resilience is defined against Chinese concentration. The resulting fragmentation is structural — domestic buildout fenced off from the opposing bloc by statutory condition.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -946,7 +974,7 @@
           "rationale": "Affects AI chip supply chains across multiple Western nations"
         }
       ],
-      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). Export licensing controls on gallium, germanium, and related compounds affecting over 90% of global gallium supply and approximately 60% of germanium supply per MOFCOM Announcement No. 23 of 2023. Estimated $3B+ supply impact. Explicit-Targeting test fails — Announcement No. 23 is application-agnostic with no named country or bloc. Multiple other-bloc governments issued documented policy responses to the controls, demonstrating cross-bloc fragmentation impact.",
+      "tierRationale": "Tier 2: Between-Bloc Fragmentation (Restriction — Impact-Demonstrated). MOFCOM Announcement No. 23 of 2023 names no country or bloc — the licensing regime is application-agnostic on its face. With China holding over 90% of global gallium and roughly 60% of germanium supply, the controls drew formal policy responses from multiple other-bloc governments. The cross-bloc fragmentation is therefore demonstrated through documented reaction rather than asserted through targeting language — the distinguishing feature of the Impact-Demonstrated route.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -1972,7 +2000,10 @@
           "sources": [
             {
               "citation": "Yotta NM1 facility specifications",
-              "type": "corroborating"
+              "type": "corroborating",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -2915,7 +2946,10 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -2964,7 +2998,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "76",
@@ -3018,7 +3060,21 @@
         "current": true
       },
       "version": "1.2",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA A100",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "78",
@@ -3083,7 +3139,10 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         },
@@ -3634,7 +3693,6 @@
         "current": true
       },
       "version": "1.2",
-      "f1_annotation": "F1 qualification via Top500 pathway (#219 at first entry June 2024); currently #323 (November 2025)",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -3852,7 +3910,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GH200 Grace Hopper",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "101",
@@ -4255,6 +4321,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "166",
+          "linkType": "deploys",
+          "asset": "Cambricon SiYuan",
+          "field": "description"
+        }
       ]
     },
     {
@@ -4533,7 +4607,15 @@
       "scope": "United Kingdom (national AI research resource)",
       "sources": 3,
       "corroborating": 1,
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GH200 Grace Hopper",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "126",
@@ -4571,9 +4653,20 @@
           "sources": [
             {
               "citation": "Event description — documented in WEO event canonical JSON",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200",
+          "field": "description"
         }
       ]
     },
@@ -4602,7 +4695,15 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms"
+      "industryPrimary": "AI Software & Platforms",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "trains_on",
+          "asset": "NVIDIA H100",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "128",
@@ -4659,7 +4760,10 @@
           "sources": [
             {
               "citation": "China Mobile corporate communications — cold-plate liquid cooling (冷板式液冷), PUE 1.15, 69% green electricity",
-              "type": "corroborating"
+              "type": "corroborating",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         }
@@ -5046,11 +5150,17 @@
           "sources": [
             {
               "citation": "ICPE/DREAL Auvergne-Rhône-Alpes environmental authorisation — STMicroelectronics Crolles",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             },
             {
               "citation": "BImSchG permits, Landesdirektion Sachsen — Infineon Technologies Dresden",
-              "type": "primary"
+              "type": "primary",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-08",
+              "snapshotUrl": "https://web.archive.org/web/20260608/"
             }
           ]
         }
@@ -5068,13 +5178,13 @@
       "date": "29 August 2023",
       "location": "Shanghai, China (SMIC fab); Shenzhen, China (HiSilicon design)",
       "scope": "China (SMIC: Shanghai; Huawei HiSilicon: Shenzhen)",
-      "description": "SMIC’s achievement of 7nm-class semiconductor manufacturing using its N+2 process node, demonstrated via Huawei’s Kirin 9000s system-on-chip deployed in the Mate 60 Pro smartphone. First non-Western foundry to demonstrate 7nm-class production capability using DUV lithography without access to EUV equipment.",
+      "description": "SMIC’s advancement of DUV-only semiconductor manufacturing through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class, Mate 60 Pro, 2023) and the Kirin 9030 (N+3, 5nm-class, Mate 80 Pro Max, 2025). Both process nodes confirmed by independent TechInsights physical teardown. First non-Western foundry to achieve 5nm-class DUV production without EUV access, at time of assessment.",
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
       "ai_connection_pathway": "oep",
       "industryPrimary": "Semiconductors & Equipment",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 2,
       "checkpoints": {
         "ai": true,
@@ -5083,7 +5193,7 @@
         "current": true,
         "aiDetail": "OEP (Pathway A — Strong)"
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "142",
@@ -5164,6 +5274,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI250X",
+          "field": "description"
+        }
       ]
     },
     {
@@ -5224,6 +5342,14 @@
               "snapshotUrl": "https://web.archive.org/web/20260429043333/https://hpc.llnl.gov/sites/default/files/El-Cap-Fun-Facts.pdf"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI300A",
+          "field": "description"
         }
       ]
     },
@@ -5709,6 +5835,14 @@
             }
           ]
         }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H200",
+          "field": "description"
+        }
       ]
     },
     {
@@ -5805,10 +5939,19 @@
               "citation": "About Amazon — AWS WUE and seasonal water profile",
               "type": "PRIMARY",
               "url": "https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster",
-              "captureStatus": "capture_failed",
-              "accessDate": "2026-05-04"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616014333/https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "199",
+          "linkType": "deploys",
+          "asset": "Amazon Trainium2",
+          "field": "description"
         }
       ]
     },
@@ -5935,7 +6078,7 @@
               "url": "https://w.media/ytl-power-completes-nvidia-powered-ai-data-centre-in-johor/",
               "captureStatus": "captured",
               "accessDate": "2026-05-08",
-              "snapshotUrl": "https://web.archive.org/web/20260508/https://w.media/ytl-power-completes-nvidia-powered-ai-data-centre-in-johor/"
+              "snapshotUrl": "http://web.archive.org/web/20260508083835/https://w.media/ytl-power-completes-nvidia-powered-ai-data-centre-in-johor/"
             },
             {
               "citation": "YTL Power International press release (October 2025)",
@@ -5946,6 +6089,14 @@
               "snapshotUrl": "https://web.archive.org/web/20251209203012/https://www.ytlpowerinternational.com/press-releases/malaysia-accelerates-sovereign-ai-ambition-nvidia-and-ytl-brief-prime-minister-anwar-ibrahim-at-apec-summit/"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200 Grace Blackwell",
+          "field": "description"
         }
       ]
     },
@@ -5986,12 +6137,17 @@
             {
               "citation": "新华网宁夏 — 中金数据 zero-carbon base",
               "type": "corroborating",
-              "url": "http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html"
+              "url": "http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260513070717/http://nx.news.cn/20250509/f07332e669434fca8ae2b7ba03ab417f/c.html"
             },
             {
               "citation": "State Grid Ningxia 330kV substation EIA filing",
               "type": "primary",
-              "url": "http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html"
+              "url": "http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html",
+              "captureStatus": "retry_pending",
+              "accessDate": "2026-06-07"
             }
           ]
         },
@@ -6004,7 +6160,10 @@
             {
               "citation": "中卫市数据局 CPPCC response — binding PUE/WUE limits",
               "type": "primary",
-              "url": "https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html"
+              "url": "https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260607083156/https://www.nxzw.gov.cn/zwgk/bmxxgkml/syjshdsjfzj/fdzdgknr_50309/jyta_50325/202509/t20250924_5035851.html"
             }
           ]
         },
@@ -6018,12 +6177,18 @@
             {
               "citation": "水利部黄河水利委员会 — drought documentation",
               "type": "corroborating",
-              "url": "http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html"
+              "url": "http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260513071515/http://www.yrcc.gov.cn/xwdt/lylw/202505/t20250530_442511.html"
             },
             {
               "citation": "沙坡头区水务局 — Yellow River water allocation constraints",
               "type": "primary",
-              "url": "https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html"
+              "url": "https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606161433/https://www.spt.gov.cn/xxgk/bmxxgkml/sptqswj/fdzdgknr_51443/bmxzwj_51469/202604/t20260410_5214358.html"
             }
           ]
         }
@@ -6041,6 +6206,7 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
+      "geographic_context": "Operates within the NDRC-designated Gui'an Data Centre Cluster (贵安数据中心集群), one of eight national hub nodes under the 东数西算 programme (发改高技〔2021〕709号). The programme designates the geographic cluster zone; Huawei Cloud is the largest commercial operator within it, not a named programme component.",
       "description": "Huawei Cloud's globally largest intelligent computing centre, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
@@ -6066,7 +6232,10 @@
             {
               "citation": "贵州日报 — 500kV substation 4,000 MW capacity",
               "type": "corroborating",
-              "url": "https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html"
+              "url": "https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260513073446/https://www.ddcpc.cn/detail/d_guizhou/11515117136145.html"
             }
           ]
         },
@@ -6080,7 +6249,10 @@
             {
               "citation": "北极星环保网 — Gui'an upstream water source analysis",
               "type": "corroborating",
-              "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
+              "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260615205136/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
             }
           ]
         }
@@ -6130,7 +6302,9 @@
             {
               "citation": "庆阳市发改委 project approval with PUE mandate",
               "type": "primary",
-              "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
+              "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421",
+              "captureStatus": "retry_pending",
+              "accessDate": "2026-06-07"
             }
           ]
         },
@@ -6144,9 +6318,20 @@
             {
               "citation": "民族先锋报 — Qingyang extreme water scarcity classification",
               "type": "corroborating",
-              "url": "http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
+              "url": "http://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616013755/https://szb1.mzxsb.com/mzxsb/20251015/html/content_20251015003003.htm"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "176",
+          "linkType": "deploys",
+          "asset": "Enflame S60",
+          "field": "description"
         }
       ]
     },
@@ -6186,7 +6371,10 @@
             {
               "citation": "GOV.UK Delivering AI Growth Zones Policy Paper",
               "type": "primary",
-              "url": "https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones"
+              "url": "https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606155729/https://www.gov.uk/government/publications/delivering-ai-growth-zones/delivering-ai-growth-zones"
             }
           ]
         },
@@ -6199,7 +6387,10 @@
             {
               "citation": "UK Find a Tender — Culham Campus Heat Network",
               "type": "primary",
-              "url": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d"
+              "url": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606155622/https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-05945d"
             }
           ]
         },
@@ -6212,7 +6403,10 @@
             {
               "citation": "UKTN — Culham AIGZ CTO Interview",
               "type": "primary",
-              "url": "https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204"
+              "url": "https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606160205/https://www.uktech.news/ai/exciting-plans-ahead-for-culham-britains-first-ai-growth-zone-says-uk-atomic-energy-authority-cto-20250204"
             }
           ]
         },
@@ -6226,7 +6420,10 @@
             {
               "citation": "GOV.UK — AI Growth Zones Launch Press Release",
               "type": "primary",
-              "url": "https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change"
+              "url": "https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-16",
+              "snapshotUrl": "https://web.archive.org/web/20260616013731/https://www.gov.uk/government/news/government-fires-starting-gun-on-ai-growth-zones-to-turbocharge-plan-for-change"
             }
           ]
         }
@@ -6357,7 +6554,10 @@
             {
               "citation": "WRI Aqueduct Water Risk Atlas V4.0",
               "type": "primary",
-              "url": "https://www.wri.org/aqueduct"
+              "url": "https://www.wri.org/aqueduct",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260610014514/https://www.wri.org/aqueduct"
             }
           ]
         }
@@ -6392,7 +6592,21 @@
       },
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [],
-      "aiConnectionPathway": "oep"
+      "aiConnectionPathway": "oep",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "181",
+          "linkType": "deploys",
+          "asset": "MetaX C500",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "167",
+          "linkType": "deploys",
+          "asset": "Biren BR100/BR106",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "171",
@@ -6431,12 +6645,29 @@
             {
               "citation": "CWW — facility specifications and power capacity",
               "type": "primary",
-              "url": "http://cww.net.cn/article?id=602183"
+              "url": "http://cww.net.cn/article?id=602183",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606160749/https://cww.net.cn/article?id=602183"
             }
           ]
         }
       ],
-      "aiConnectionPathway": "oep"
+      "aiConnectionPathway": "oep",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "181",
+          "linkType": "deploys",
+          "asset": "MetaX C500",
+          "field": "description"
+        },
+        {
+          "targetEventId": "191",
+          "linkType": "deploys",
+          "asset": "Hygon DCU",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "172",
@@ -6474,9 +6705,20 @@
             {
               "citation": "SoftBank Corp. / Sharp Corp. MoU Press Release (7 June 2024)",
               "type": "PRIMARY",
-              "url": "https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/"
+              "url": "https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606155950/https://www.softbank.jp/en/corp/news/press/sbkk/2024/20240607_01/"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA Blackwell",
+          "field": "description"
         }
       ]
     },
@@ -6506,7 +6748,15 @@
       },
       "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "environmentalNexusTags": []
+      "environmentalNexusTags": [],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "174",
@@ -6545,12 +6795,18 @@
             {
               "citation": "DCD — Naver Launches 270MW Data Centre Campus in Sejong",
               "type": "CORROBORATING",
-              "url": "https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/"
+              "url": "https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260607013330/https://www.datacenterdynamics.com/en/news/naver-launches-270mw-data-center-campus-in-sejong-south-korea/"
             },
             {
               "citation": "Korea Times — Operation Efficiency at Core of AI Infrastructure (October 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
+              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260607013110/https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
             }
           ]
         },
@@ -6563,17 +6819,26 @@
             {
               "citation": "Naver Corp. — TCFD Climate Disclosure 2024",
               "type": "PRIMARY",
-              "url": "https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df"
+              "url": "https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20251009001131/https://www.navercorp.com/api/article/download/d5a77423-433f-4a5b-adc4-a15873c7c0df"
             },
             {
               "citation": "Naver Corp. — TCFD Report 2022",
               "type": "PRIMARY",
-              "url": "https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377"
+              "url": "https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606155852/https://www.navercorp.com/api/article/download/c17482c3-8f86-41c6-aba4-469796415377"
             },
             {
               "citation": "Korea Times — NAMU III Cooling and 240-Day Air Cooling (October 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
+              "url": "https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260607013110/https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
             }
           ]
         }
@@ -6661,7 +6926,27 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2"
+      "version": "1.2",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H200",
+          "field": "description"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA B200",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "178",
@@ -6689,7 +6974,21 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB200",
+          "field": "investment"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA GB300",
+          "field": "investment"
+        }
+      ]
     },
     {
       "id": "179",
@@ -6717,7 +7016,15 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "180",
@@ -6745,7 +7052,15 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.0",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "181",
@@ -6802,12 +7117,18 @@
             {
               "citation": "Teslarati — Musk reveals power needs (June 2024)",
               "type": "CORROBORATING",
-              "url": "https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/"
+              "url": "https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260607083153/https://www.teslarati.com/musk-tesla-supercomputing-130mw-power/"
             },
             {
               "citation": "TechCrunch — Tesla’s Dojo, a timeline (September 2025)",
               "type": "CORROBORATING",
-              "url": "https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/"
+              "url": "https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260524015435/https://techcrunch.com/2025/09/02/teslas-dojo-a-timeline/"
             }
           ]
         },
@@ -6820,12 +7141,18 @@
             {
               "citation": "Tom’s Hardware — Supermicro CEO endorses liquid cooling (July 2024)",
               "type": "CORROBORATING",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months"
+              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20260606160126/https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musks-liquid-cooled-gigafactory-data-centers-get-a-plug-from-supermicro-ceo-tesla-and-xais-new-supercomputers-will-have-350000-nvidia-gpus-both-will-be-online-within-months"
             },
             {
               "citation": "Datacenters.com — Texas Water Crisis (July 2025)",
               "type": "CORROBORATING",
-              "url": "https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource"
+              "url": "https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-07",
+              "snapshotUrl": "http://web.archive.org/web/20250718175242/https://www.datacenters.com/news/texas-water-crisis-the-impact-of-data-center-developments-on-a-fragile-resource"
             }
           ]
         }
@@ -6840,7 +7167,15 @@
         "current": true,
         "aiDetail": "Option A (≥10% AI-designated capacity — ~50,000 H100 GPUs, 10× the 5,000+ threshold)"
       },
-      "version": "1.1"
+      "version": "1.1",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "183",
@@ -6920,10 +7255,73 @@
       "sources": 2,
       "corroborating": 3,
       "confidence": "A",
-      "aiConnectionPathway": "option_g",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-02",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, graphite, and rare earth elements with documented applications across AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, anode and cathode materials for server power systems, and permanent magnets for hard drive actuators and cooling fan motors.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The instrument governs battery mineral and critical component supply chains for clean vehicle tax credit eligibility. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power systems and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register — IRA Section 30D FEOC Final Rule (89 FR 37706)",
+                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09038/section-30d-new-clean-vehicle-credit",
+                "type": "PRIMARY"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
       "checkpoints": {
         "ai": true,
-        "aiDetail": "Option G (lithium, cobalt, graphite, REE — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (4 materials — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -6949,6 +7347,587 @@
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "188",
+      "name": "EU Critical Raw Materials Act",
+      "lat": 50.8503,
+      "lng": 4.3517,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "23 May 2024",
+      "location": "European Union",
+      "scope": "European Union (27 Member States, extraterritorial reach)",
+      "description": "Regulation (EU) 2024/1252 establishes a framework for secure and sustainable supply of critical raw materials across the European Union, designating 17 strategic and 34 critical raw materials including gallium, germanium, lithium, cobalt, rare earth elements, and graphite. The European Critical Raw Materials Board coordinates binding extraction, processing, and recycling benchmarks with a single-country concentration cap.",
+      "investment": "€22.5 billion across 47 Strategic Projects (March 2025). At least 10% EU extraction, 40% processing, 25% recycling of annual consumption by 2030; 65% single-country cap.",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "gallium",
+            "registerVerified": true,
+            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
+          },
+          {
+            "name": "germanium",
+            "registerVerified": true,
+            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
+          },
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Gallium, germanium, lithium, cobalt, rare earth elements, and graphite with documented applications across AI infrastructure — compound semiconductors for data centre networking, fibre optic signal amplification, battery storage for uninterruptible power supply and grid-scale energy storage, and permanent magnets for server hardware components.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              },
+              {
+                "id": "TRACE-C1-2",
+                "desc": "EUR-Lex — Regulation (EU) 2024/1252 Annexes I and II",
+                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "accessDate": "2026-06-16"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The regulation establishes supply-chain benchmarks for critical raw materials across the green and digital transitions. The AI infrastructure connection operates through the regulated materials' documented applications in semiconductor fabrication, data centre power systems, and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "EUR-Lex — Regulation (EU) 2024/1252 (full text)",
+                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
+                "accessDate": "2026-06-16"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "189",
+      "name": "US DPA Title III Battery Minerals Determination",
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "31 March 2022",
+      "location": "United States",
+      "scope": "United States (domestic production authority)",
+      "description": "Presidential Determination No. 2022-11 invokes Defence Production Act Title III authorities for domestic production of five battery minerals — lithium, nickel, cobalt, graphite, and manganese. The Department of Defense serves as executing authority through feasibility studies and modernisation projects.",
+      "investment": "DPA Fund authority for five battery minerals; individual project grants under congressional appropriations (no consolidated programme total documented).",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, and graphite with documented applications in AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, and anode materials for server power systems.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The Presidential Determination invokes defence production authority for domestic mining and processing of battery minerals essential to national defence. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power and energy storage systems.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register — Presidential Determination No. 2022-11",
+                "url": "https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20251219195834/https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
+                "accessDate": "2026-06-16"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (3 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "190",
+      "name": "Australia Critical Minerals Production Tax Incentive",
+      "lat": -35.2809,
+      "lng": 149.13,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "14 February 2025",
+      "location": "Australia",
+      "scope": "Australia (domestic minerals processing)",
+      "description": "The Critical Minerals Production Tax Incentive provides a 10% refundable tax offset for eligible costs of processing 31 designated critical minerals in Australia. Enacted under the Future Made in Australia legislative framework, the CMPTI operationalises the 2023 Critical Minerals Strategy through a legislated fiscal mechanism.",
+      "investment": "A$7 billion (1 July 2027 – 30 June 2040).",
+      "domain": "Trade",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 0,
+      "confidence": "A",
+      "aiConnectionPathway": "trace",
+      "trace": {
+        "assessmentDate": "2026-06-04",
+        "registerVersion": "V1",
+        "conditionsMet": 2,
+        "conditionsRequired": 2,
+        "confidence": "Supply-Chain-Verified",
+        "result": "PASS (Both conditions — Supply-Chain-Verified)",
+        "materials": [
+          {
+            "name": "lithium",
+            "registerVerified": true,
+            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
+          },
+          {
+            "name": "cobalt",
+            "registerVerified": true,
+            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
+          },
+          {
+            "name": "rare earth elements",
+            "registerVerified": true,
+            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
+          },
+          {
+            "name": "graphite",
+            "registerVerified": true,
+            "application": "Li-ion battery anode material (natural and synthetic)"
+          },
+          {
+            "name": "gallium",
+            "registerVerified": true,
+            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
+          },
+          {
+            "name": "germanium",
+            "registerVerified": true,
+            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
+          }
+        ],
+        "conditions": [
+          {
+            "factor": "AI Infrastructure Materials",
+            "pass": true,
+            "rationale": "Lithium, cobalt, rare earth elements, graphite, gallium, and germanium with documented applications across AI infrastructure — battery storage for data centre power systems, compound semiconductors for networking and signal processing, fibre optic amplification, and permanent magnets for server hardware components.",
+            "sources": [
+              {
+                "id": "TRACE-C1-1",
+                "desc": "WEO AI-Critical Materials Register",
+                "url": "https://warmthengine.com/research/methodology/materials-register/",
+                "type": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "factor": "AI Connection Basis",
+            "pass": true,
+            "rationale": "The legislation provides a refundable tax offset for domestic processing of designated critical minerals. The AI infrastructure connection operates through the incentivised materials' documented applications in semiconductor fabrication, data centre energy storage, and computing hardware.",
+            "sources": [
+              {
+                "id": "TRACE-C2-1",
+                "desc": "Federal Register of Legislation — Future Made in Australia Act 2025",
+                "url": "https://www.legislation.gov.au/C2025A00009/latest/text",
+                "type": "PRIMARY",
+                "captureStatus": "recovered",
+                "snapshotUrl": "http://web.archive.org/web/20260606155911/https://www.legislation.gov.au/C2025A00009/latest/text",
+                "accessDate": "2026-06-16"
+              }
+            ]
+          }
+        ],
+        "excludedInstrumentCheck": {
+          "generalIndustrialPolicy": false,
+          "broadEconomicStimulus": false,
+          "multiSectorFramework": false
+        }
+      },
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "191",
+      "name": "Hygon DCU Series",
+      "lat": 39.1,
+      "lng": 117.16,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "22 November 2023",
+      "location": "Tianjin, China",
+      "scope": "Mainland China (domestic AI compute market)",
+      "description": "Hygon Information Technology's DCU series comprises three generations of GPGPU-architecture AI accelerators in mass production for training and inference workloads, operating within a CUDA-compatible software ecosystem supporting deployment across Chinese AI infrastructure.",
+      "investment": "2024 revenue RMB 9.162B (+52.4% YoY); gross margin 63.72%; current generation FP16 49 TFLOPS",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "GPGPU AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 1,
+      "corroborating": 7,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "192",
+      "name": "Kunlunxin P800",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "1 March 2024",
+      "location": "Beijing, China",
+      "scope": "Mainland China (domestic AI compute market)",
+      "description": "Kunlunxin's P800, a third-generation AI accelerator based on the proprietary XPU-P architecture, entered mass production in 2024. A Baidu subsidiary, Kunlunxin develops purpose-built AI training and inference processors for the Chinese domestic market.",
+      "investment": "2024 revenue ~RMB 2B (net loss ~RMB 200M); Baidu 57.67% shareholding; 69,000 units shipped — second among Chinese AI chip producers per IDC 2024",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "193",
+      "name": "Tianshu Zhixin GPU Series",
+      "lat": 31.2304,
+      "lng": 121.4737,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "15 November 2023",
+      "location": "Shanghai, China",
+      "scope": "Mainland China (domestic AI infrastructure)",
+      "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tian'ai series for AI training and the Zhikai series for inference, listing on HKEX in January 2026. The Tian'ai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
+      "investment": "2025 revenue RMB 1.034B (+91.6% YoY); gross margin 54.0%; 52,000+ GPUs deployed to 290+ customers as of mid-2025",
+      "domain": "Technology",
+      "industry_tags": {
+        "primary": "Semiconductors & Equipment",
+        "secondary": [],
+        "primary_evidence": "GPGPU AI accelerator design with training and inference product lines — Priority Group 1 semiconductor/GPU keyword match",
+        "review_flags": []
+      },
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "194",
+      "name": "South Korea AI Basic Act (Law No. 20676)",
+      "lat": 37.5665,
+      "lng": 126.978,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "21 January 2025",
+      "location": "Seoul, South Korea",
+      "scope": "South Korea (extraterritorial application)",
+      "description": "South Korea's Framework Act on the Development of Artificial Intelligence (Law No. 20676) is the first comprehensive AI regulatory statute in the Asia-Pacific region at time of enactment. It imposes risk-based obligations on AI operators, establishes an AI Safety Institute under MSIT authority, and mandates transparency and disclosure requirements.",
+      "investment": "Regulatory framework (administrative fines up to KRW 30M / ~US$21,000 per violation via MSIT corrective-order enforcement); 10²⁶ FLOPs high-performance AI threshold (Enforcement Decree).",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 7,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "195",
+      "name": "UK Compute Roadmap (CP 1352)",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "17 July 2025",
+      "location": "London, United Kingdom",
+      "scope": "United Kingdom",
+      "description": "The UK government published the Compute Roadmap (CP 1352), a national AI compute strategy committing up to £2 billion to expand sovereign compute capacity from 2026–27 to 2029–30. Ten actions cover AI Research Resource expansion targeting a twentyfold increase by 2030, a new Edinburgh national supercomputer service, AI Growth Zone coordination, and international compute partnerships including EuroHPC membership.",
+      "investment": "Up to £2B (2026–30); £1B+ AIRR expansion; £750M Edinburgh supercomputer; 6GW data centre capacity target by 2030",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 9,
+      "corroborating": 5,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (100% AI compute content — £2B commitment, exceeds $100M threshold)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "196",
+      "name": "NVIDIA AI Accelerator Series",
+      "lat": 37.3541,
+      "lng": -121.9552,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "20 September 2022",
+      "location": "Santa Clara, California, USA",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "NVIDIA's data-centre accelerator line, spanning the Hopper and Blackwell generations, built around the Transformer Engine for large language model workloads and the CUDA software ecosystem. Deployed by every major hyperscaler, the line is the dominant global platform for AI training and inference.",
+      "investment": "FY2025 Data Centre segment revenue ~US$115.2B (up 142%); an estimated 70–95% share of the AI accelerator market",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "197",
+      "name": "AMD Instinct Series",
+      "lat": 37.3875,
+      "lng": -121.976,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "06 December 2023",
+      "location": "Santa Clara, California, USA",
+      "scope": "United States (global AI hardware supply chain)",
+      "description": "AMD's Instinct accelerator line, built on the CDNA architecture and paired with the open-source ROCm software stack as the principal alternative to NVIDIA's CUDA ecosystem. The MI300X generation carries 192GB of HBM3 memory for large-model training and inference.",
+      "investment": "FY2024 Data Centre segment revenue US$12.6B (up 94%), with Instinct GPU sales a named growth driver",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "198",
+      "name": "Google TPU Series",
+      "lat": 37.422,
+      "lng": -122.0841,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "29 August 2023",
+      "location": "Mountain View, California, USA",
+      "scope": "United States (global Google Cloud reach)",
+      "description": "Google's Tensor Processing Unit line, the custom AI accelerator on which Google trains and serves its own Gemini frontier models. Unlike merchant silicon, TPUs are not sold as discrete hardware; they are consumed exclusively as Google Cloud compute services, spanning the v5e and v5p generations.",
+      "investment": "Google Cloud segment revenue ~US$43.1B FY2024; TPU fleet committed to Cloud and internal Gemini training not separately disclosed",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "199",
+      "name": "Amazon Trainium Series",
+      "lat": 47.6155,
+      "lng": -122.3384,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "03 December 2024",
+      "location": "Seattle, Washington, USA",
+      "scope": "United States (global AWS reach)",
+      "description": "Amazon's Trainium line, AWS's custom AI training silicon offered only as rentable cloud capacity rather than sold as hardware, positioned as a cost-efficient alternative to GPU-based training. Trainium2 became available through EC2 Trn2 instances and anchors Anthropic's Project Rainier training cluster.",
+      "investment": "AWS segment revenue ~US$107.6B FY2024 (Trainium not separately disclosed); Project Rainier deployment of hundreds of thousands of Trainium2 chips for Anthropic",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,

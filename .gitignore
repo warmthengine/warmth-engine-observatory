@@ -17,6 +17,11 @@ connections-canonical*.json
 actors-canonical*.json
 actors-full.json
 
+# Premium analytical layers — KV-only, never to GitHub (defense-in-depth)
+topology.json
+capability_signatures.json
+scp_dimension_links.json
+
 # Cloudflare tooling
 .wrangler/
 wrangler.toml
