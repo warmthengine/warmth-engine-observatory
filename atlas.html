@@ -3494,6 +3494,22 @@
             transform: translateY(0);
             pointer-events: auto;
         }
+        /* WS-9 item 8 — each panel is a max-height-bounded flex column, but its
+           content is injected into a single wrapper div (#atlas-*-content) that
+           sat between the flex container and the scrollable .atlas-*-body,
+           breaking the flex chain so the body never clipped (cards bled off the
+           bottom with no scroll). Make the wrapper a flex column that fills the
+           panel so the body's flex:1 1 auto + min-height:0 + overflow-y:auto
+           can scroll and the last card stays reachable. */
+        #atlas-trace-content,
+        #atlas-stack-content,
+        #atlas-material-content,
+        #atlas-thread-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+        }
         .atlas-trace-header {
             position: relative;
             padding: 16px 44px 12px 18px;
