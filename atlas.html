@@ -4673,6 +4673,15 @@
                 <div id="atlas-thread-content"></div>
             </aside>
 
+            <!-- WS-9 — Material journey hub panel. The dedicated legs panel
+                 for the material/threads journey (parallel to the trace and
+                 stack panels); populated by renderMaterialPanel when
+                 atlasState.materialRootId is set. Legs grouped by thread
+                 link-type. -->
+            <aside class="atlas-stack-panel atlas-material-panel" id="atlas-material-panel" aria-hidden="true" aria-label="Material journey" hidden>
+                <div id="atlas-material-content"></div>
+            </aside>
+
             <aside id="atlas-topology" aria-label="Coordination topology">
                 <h2 class="topo-title"><span class="topo-title-dot" aria-hidden="true"></span>Coordination topology</h2>
                 <div class="topo-summary" id="topo-summary">— events · — CCs</div>
@@ -11466,7 +11475,10 @@
         const elThreadContent = document.getElementById('atlas-thread-content');
         const elStackPanel   = document.getElementById('atlas-stack-panel');
         const elStackContent = document.getElementById('atlas-stack-content');
+        const elMaterialPanel = document.getElementById('atlas-material-panel');
+        const elMaterialContent = document.getElementById('atlas-material-content');
         let threadLayerOn = false;
+        let materialJourney = null;   // WS-9 — built by renderMaterialPanel
 
         function threadCyId(key) { return 'thread-' + key.replace('|', '-'); }
 
@@ -11887,6 +11899,157 @@
             }
         }
 
+        // ----- Material Journey (infrastructure-thread hub) ---------------
+        // WS-9 — the material/threads journey gets a dedicated legs panel,
+        // parallel to trace and stack. The root event is the production-origin
+        // hub (e.g. NVIDIA accelerators); its inbound thread records are the
+        // legs — the facilities that deploy / train on / are powered by the
+        // hub's assets. Grouped by thread link-type (not BFS depth — the
+        // journey is hub-and-spoke, one tier, so link-type is the meaningful
+        // axis). The canvas is laid out hub-and-spoke with the green root.
+        function buildMaterialJourney(rootId) {
+            rootId = String(rootId);
+            const recs = (threadsByEvent[rootId] || [])
+                .filter(t => String(t.targetEventId) === rootId);
+            const byType = {}; const typeOrder = [];
+            recs.forEach(t => {
+                const lt = t.linkType || 'other';
+                if (!byType[lt]) { byType[lt] = []; typeOrder.push(lt); }
+                byType[lt].push(t);
+            });
+            const nodeIds = new Set([rootId]);
+            const edgeKeys = new Set();
+            recs.forEach(t => {
+                const s = String(t.sourceEventId);
+                nodeIds.add(s);
+                edgeKeys.add(s + '|' + rootId);
+            });
+            return { rootId, recs, byType, typeOrder, nodeIds, edgeKeys };
+        }
+
+        function materialLinkTypeLabel(lt) {
+            const phrase = THREAD_LINKTYPE_PHRASE[lt] || lt;
+            return phrase.charAt(0).toUpperCase() + phrase.slice(1);
+        }
+
+        function renderMaterialPanel(rootId) {
+            const root = eventById[String(rootId)];
+            const rootName = (root && root.name) || ('Event ' + rootId);
+            const j = buildMaterialJourney(rootId);
+            materialJourney = j;
+
+            let h = '';
+            h += '<div class="atlas-stack-header">';
+            h += '<button class="atlas-trace-close" type="button" id="atlas-material-close" aria-label="Close material journey">&times;</button>';
+            h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
+            h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
+            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each leg is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a Coordination Connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += '</div>';
+
+            h += '<div class="atlas-stack-body">';
+            if (!j.recs.length) {
+                h += '<div class="atlas-trace-empty">This event is the production-origin of no infrastructure thread we can trace — no facility is documented deploying, training on, powering, or fabricating from its assets.</div>';
+            } else {
+                j.typeOrder.forEach(lt => {
+                    const recs = j.byType[lt];
+                    h += '<div class="atlas-stack-section-label material">' + escapeHtml(materialLinkTypeLabel(lt)) + ' — ' + recs.length + ' ' + (recs.length === 1 ? 'facility' : 'facilities') + '</div>';
+                    recs.forEach(t => {
+                        const fId = String(t.sourceEventId);
+                        const fName = (eventById[fId] && eventById[fId].name) || ('Event ' + fId);
+                        const key = fId + '|' + j.rootId;
+                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '">';
+                        h += '<div class="atlas-stack-hop-endpoints">';
+                        h += '<span class="atlas-stack-evt" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
+                        h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
+                        h += '<span class="atlas-stack-asset">' + escapeHtml(t.asset || '—') + '</span>';
+                        h += '</div>';
+                        h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind material">Material fact</span>';
+                        h += '<span class="atlas-stack-asset">' + escapeHtml(materialLinkTypeLabel(lt)) + (t.field ? ' · ' + escapeHtml(t.field) : '') + '</span></div>';
+                        h += '</div>';
+                    });
+                });
+            }
+            h += '</div>';
+            elMaterialContent.innerHTML = h;
+        }
+
+        // Paint the hub: dim everything, surface the root + spoke facilities +
+        // the inbound thread edges (kept in their production→use chevron form),
+        // then lay them out hub-and-spoke with the green root.
+        function highlightMaterialJourney(rootId) {
+            if (!cy || !materialJourney) return;
+            const j = materialJourney;
+            const rid = String(rootId);
+            const threadIds = new Set(Array.from(j.edgeKeys).map(k => threadCyId(k)));
+            cy.batch(() => {
+                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().addClass('trace-dim');
+                cy.edges().forEach(e => {
+                    if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
+                });
+                cy.nodes().forEach(n => {
+                    if (j.nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
+                });
+                const rootNode = cy.getElementById(rid);
+                if (rootNode && rootNode.length) rootNode.removeClass('trace-dim').addClass('trace-node journey-root');
+            });
+            const focusNodes = cy.nodes().filter(n => j.nodeIds.has(n.id()));
+            if (focusNodes && focusNodes.length) {
+                const focusEles = focusNodes.union(cy.edges('.stack-material'));
+                layoutJourneySubgraph(rid, focusEles, { directed: false, grid: true, spacingFactor: 1.5 });
+            }
+        }
+        function clearMaterialHighlight() {
+            if (!cy) return;
+            cy.elements().removeClass('trace-dim trace-node stack-material journey-root journey-edge');
+            if (!threadLayerOn) cy.edges('.thread-edge').removeClass('thread-visible');
+            if (typeof restoreBaseOpacities === 'function') restoreBaseOpacities();
+            if (typeof applyFiltersToCytoscape === 'function') applyFiltersToCytoscape(atlasState);
+        }
+
+        function wireMaterialPanelInteractions() {
+            const closeBtn = elMaterialContent.querySelector('#atlas-material-close');
+            if (closeBtn) closeBtn.addEventListener('click', () => setAtlasState({ materialRootId: null }));
+            elMaterialContent.querySelectorAll('.atlas-stack-evt').forEach(el => {
+                const open = (e) => {
+                    e.stopPropagation();
+                    const id = el.getAttribute('data-material-event');
+                    if (id) setAtlasState({ selectedEventId: id, selectedConnectionId: null });
+                };
+                el.addEventListener('click', open);
+                el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') open(e); });
+            });
+            // A leg deep-links to its factual-link panel (the single pair).
+            elMaterialContent.querySelectorAll('.atlas-stack-hop.material').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target.closest('.atlas-stack-evt')) return;
+                    const key = el.getAttribute('data-thread-key');
+                    if (key) setAtlasState({ selectedThreadKey: key });
+                });
+            });
+        }
+
+        function openMaterialPanel(rootId) {
+            if (!elMaterialPanel || !elMaterialContent) return;
+            renderMaterialPanel(rootId);
+            elMaterialPanel.hidden = false;
+            elMaterialPanel.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            highlightMaterialJourney(rootId);
+            wireMaterialPanelInteractions();
+        }
+        function closeMaterialPanel() {
+            if (!elMaterialPanel) return;
+            elMaterialPanel.classList.remove('open');
+            elMaterialPanel.setAttribute('aria-hidden', 'true');
+            elMaterialPanel.hidden = true;
+            materialJourney = null;
+            clearMaterialHighlight();
+            if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
+                applyPanelSelectionHighlight();
+            }
+        }
+
         // ----- State subscribers (mutually exclusive overlays) ------------
         function syncThreadPanelOnState(state, prev) {
             const changed = state.selectedThreadKey !== prev.selectedThreadKey;
@@ -11923,6 +12086,28 @@
             if (!changed) return;
             if (state.stackRootId) openStackPanel(state.stackRootId);
             else closeStackPanel();
+        }
+
+        function syncMaterialPanelOnState(state, prev) {
+            const changed = state.materialRootId !== prev.materialRootId;
+            // Mirror the trace/stack mutual-exclusion: a competing overlay
+            // (event/CC/thread panel or another journey) pre-empts the
+            // material journey. (Area F upgrades this to a tuck/untuck so the
+            // journey survives a data panel; for now it yields like the others.)
+            const advanced =
+                (state.selectedEventId && state.selectedEventId !== prev.selectedEventId) ||
+                (state.selectedConnectionId && state.selectedConnectionId !== prev.selectedConnectionId) ||
+                (state.selectedThreadKey && state.selectedThreadKey !== prev.selectedThreadKey) ||
+                (state.traceRootId && state.traceRootId !== prev.traceRootId) ||
+                (state.stackRootId && state.stackRootId !== prev.stackRootId);
+            if (state.materialRootId && advanced) {
+                atlasState.materialRootId = null;
+                closeMaterialPanel();
+                return;
+            }
+            if (!changed) return;
+            if (state.materialRootId) openMaterialPanel(state.materialRootId);
+            else closeMaterialPanel();
         }
 
         // Atlas brief 3a: superseded by atlasRenderPanel — remove on 3a sign-off.
@@ -12083,6 +12268,9 @@
             // mutually exclusive with the other overlays.
             selectedThreadKey: null,
             stackRootId: null,
+            // WS-9 — root of an open material/threads journey (hub panel).
+            // Mutually exclusive with the other journeys.
+            materialRootId: null,
             _lastThreadKey: null,
             layoutName: 'fcose',
             // Brief 3e §2 — layout mode: 'network' (force-directed,
@@ -13295,16 +13483,21 @@
             if (banner) banner.classList.remove('visible');
         }
 
-        // Material journey visual — reveal the thread layer and recentre on
-        // the hub. Reuses the existing layer toggle + event selection, so it
-        // introduces no new graph-state that could leak into the other modes.
-        function focusEventThreads(eventId) {
-            eventId = String(eventId);
-            if (typeof setThreadLayerVisible === 'function') setThreadLayerVisible(true);
-            const tbtn = document.getElementById('atlas-thread-toggle');
-            if (tbtn) { tbtn.classList.add('active'); tbtn.setAttribute('aria-pressed', 'true'); }
-            setAtlasState({ selectedEventId: eventId, selectedConnectionId: null });
-            setTimeout(() => { if (typeof recentreOnEvent === 'function') recentreOnEvent(eventId); }, 140);
+        // WS-9 — true whenever any of the three journeys owns the canvas.
+        function inJourneyMode() {
+            return !!(atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId);
+        }
+
+        // WS-9 — tear down whichever journey currently owns the canvas WITHOUT
+        // restoring fcose positions. Used when switching journey→journey: the
+        // incoming layout repositions its own set, and closing in-line (rather
+        // than via the subscriber dispatch) guarantees the old journey's shared
+        // class removal runs BEFORE the new journey paints, which subscriber
+        // ordering across three panels can't otherwise guarantee.
+        function teardownActiveJourney() {
+            if (atlasState.traceRootId)    { atlasState.traceRootId = null;    closeTracePanel(); }
+            if (atlasState.stackRootId)    { atlasState.stackRootId = null;    closeStackPanel(); }
+            if (atlasState.materialRootId) { atlasState.materialRootId = null; closeMaterialPanel(); }
         }
 
         function runGuidedJourney(id) {
@@ -13313,16 +13506,21 @@
             // Session action — collapse to the pill so the strip returns on the
             // next clean load; do NOT set the persistent collapsed flag.
             collapseGuidedToPill();
+            // Switching journey→journey: close the current one first so its
+            // class removal can't clobber the incoming layout.
+            teardownActiveJourney();
+            // Clear any open data panel so the new journey starts clean.
+            const base = { selectedEventId: null, selectedConnectionId: null, selectedThreadKey: null,
+                           traceRootId: null, stackRootId: null, materialRootId: null };
             switch (j.mode) {
                 case 'trace':
-                    setAtlasState({ stackRootId: null, selectedThreadKey: null, traceRootId: String(j.root) });
+                    setAtlasState(Object.assign({}, base, { traceRootId: String(j.root) }));
                     break;
                 case 'threads':
-                    setAtlasState({ traceRootId: null, stackRootId: null, selectedThreadKey: null });
-                    focusEventThreads(j.root);
+                    setAtlasState(Object.assign({}, base, { materialRootId: String(j.root) }));
                     break;
                 case 'stack':
-                    setAtlasState({ traceRootId: null, selectedThreadKey: null, stackRootId: String(j.root) });
+                    setAtlasState(Object.assign({}, base, { stackRootId: String(j.root) }));
                     break;
                 default:
                     console.warn('[WEO Atlas] unknown guided journey mode:', j.mode);
@@ -13425,6 +13623,7 @@
                 subscribeAtlasState(syncThreadPanelOnState);
                 subscribeAtlasState(syncStackPanelOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
+                subscribeAtlasState(syncMaterialPanelOnState);
                 subscribeAtlasState(syncUrlHash);
 
                 // Subscribers don't fire on init (no setAtlasState call) —
