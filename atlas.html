@@ -9142,13 +9142,62 @@
                         duration: 360, easing: 'ease-out',
                         // WS-9 item 5 — exactly ONE viewport tween per entry:
                         // only after it settles is refit re-enabled.
-                        complete: function() { _journeyEntering = false; }
+                        complete: function() {
+                            _journeyEntering = false;
+                            // WS-9 item 6 — one-time directional pulse root→leaf.
+                            if (typeof runJourneyPulse === 'function') runJourneyPulse(rootId);
+                        }
                     });
                 } else {
                     _journeyEntering = false;
                 }
             });
             layout.run();
+        }
+
+        // WS-9 item 6 — one-time directional pulse on journey entry. After the
+        // tiers settle, a soft glow travels along the journey edges in BFS
+        // depth order (root → leg-1 → leg-2 …) and settles back into the static
+        // arrows. Not a permanent loop. The glow rides an overlay so it never
+        // disturbs the line's own colour/width, and self-cleans on completion.
+        function runJourneyPulse(rootId) {
+            if (!cy) return;
+            const root = cy.getElementById(String(rootId));
+            if (!root || !root.length) return;
+            const jEdges = cy.edges('.trace-edge, .journey-edge, .stack-coordination, .stack-material');
+            if (!jEdges.length) return;
+            const sub = cy.nodes('.trace-node').union(jEdges);
+            // Depth of each journey edge = BFS depth (from the root) of the node
+            // it leads to, so edges fire outward tier by tier.
+            const edgeDepth = {};
+            try {
+                sub.bfs({
+                    roots: root,
+                    directed: false,
+                    visit: function(v, e, u, i, depth) {
+                        if (e && edgeDepth[e.id()] == null) edgeDepth[e.id()] = depth;
+                    }
+                });
+            } catch (err) { return; }
+            const STAGGER = 130, RISE = 170, FALL = 260;
+            jEdges.forEach(function(e) {
+                const depth = edgeDepth[e.id()] || 1;
+                const colour = e.data('color') || '#2DD4BF';
+                setTimeout(function() {
+                    if (!e || !e.inside() || !inJourneyMode()) return;
+                    e.animate(
+                        { style: { 'overlay-color': colour, 'overlay-opacity': 0.45, 'overlay-padding': 7 } },
+                        { duration: RISE, easing: 'ease-out', complete: function() {
+                            e.animate(
+                                { style: { 'overlay-opacity': 0 } },
+                                { duration: FALL, easing: 'ease-out', complete: function() {
+                                    if (e && e.inside()) e.removeStyle('overlay-color overlay-opacity overlay-padding');
+                                } }
+                            );
+                        } }
+                    );
+                }, (depth - 1) * STAGGER);
+            });
         }
 
         // Gentle restore of every journey-displaced node to its cached
