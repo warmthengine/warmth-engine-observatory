@@ -3516,6 +3516,21 @@
             color: var(--text-muted);
             margin: 4px 0 8px 0;
         }
+        /* WS-9 area D — depth-grouped legs. The sub-header names the step
+           (mirrors the canvas tiers) and child cards indent slightly so the
+           "via <intermediate>" sub-groups read as a second tier. No
+           connector lines. */
+        .atlas-journey-leg {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            margin: 14px 0 8px 0;
+            padding-left: 8px;
+            border-left: 2px solid rgba(45, 212, 191, 0.4);
+        }
+        .atlas-journey-leg-child { margin-left: 14px; }
         /* The selected event, sitting between its antecedents and what
            flows onward from it. */
         .atlas-trace-root {
@@ -11160,7 +11175,7 @@
         // One hop card — two events + the CC's type and confidence. The
         // event names deep-link to their detail panels (existing #event=
         // convention); the hop body steps the stepper to this hop.
-        function renderTraceHop(c, idx) {
+        function renderTraceHop(c, idx, child) {
             const typeNum = Number(c.connection_type);
             const colour = CC_TYPE_COLOUR[typeNum] || '#94A3B8';
             const typeName = c.connection_type_name || CC_TYPE_NAME[typeNum] || ('Type ' + typeNum);
@@ -11171,7 +11186,8 @@
             const src = eventById[srcId], tgt = eventById[tgtId];
             const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
             const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
-            let h = `<div class="atlas-trace-hop" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
+            const childCls = child ? ' atlas-journey-leg-child' : '';
+            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
             h += '<div class="atlas-trace-hop-endpoints">';
             h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
             h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
@@ -11208,14 +11224,60 @@
             if (!traceHops.length) {
                 h += '<div class="atlas-trace-empty">This event forms no directional coordination pathway — it has no Policy Cascade, Funding Flow, Regulatory Enablement, or Response connection to step through. Bidirectional connections (Joint Issuance, Framework Family, Parallel Policy) do not form a chain.</div>';
             } else {
+                // Global hop index (stepper order = upstream then downstream)
+                // so depth-grouped cards keep their original step numbers.
+                const hopIndex = new Map();
+                traceHops.forEach((c, i) => hopIndex.set(c.connection_id, i));
+
                 if (upstream.length) {
                     h += '<div class="atlas-trace-section-label">Leads to this event</div>';
-                    upstream.forEach((c, i) => { h += renderTraceHop(c, i); });
+                    upstream.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
                 }
                 h += '<div class="atlas-trace-root"><span class="atlas-trace-root-dot"></span><span class="atlas-trace-root-name">' + escapeHtml(truncate(rootName, 36)) + '</span></div>';
+
                 if (downstream.length) {
-                    h += '<div class="atlas-trace-section-label">Flows onward from here</div>';
-                    downstream.forEach((c, i) => { h += renderTraceHop(c, upstream.length + i); });
+                    // WS-9 area D — regroup downstream hops by BFS depth from
+                    // the root (the same depth the canvas layout tiers by), so
+                    // the panel reads top-to-bottom like the graph. Step 1 is
+                    // "direct from <root>"; deeper steps are sub-grouped per
+                    // intermediate ("via <name>").
+                    const rid = String(rootId);
+                    const depthMap = {}; depthMap[rid] = 0;
+                    downstream.forEach(c => {
+                        const s = String(c.source_event_id), t = String(c.target_event_id);
+                        if (depthMap[s] == null) depthMap[s] = 0;
+                        if (depthMap[t] == null) depthMap[t] = depthMap[s] + 1;
+                    });
+                    const ordinals = ['', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
+                    const stepWord = (n) => (ordinals[n] ? ordinals[n] + ' step' : 'Step ' + n);
+                    const nameOf = (id) => {
+                        const ev = eventById[String(id)];
+                        return ev && ev.name ? truncate(ev.name, 28) : ('Event ' + id);
+                    };
+
+                    // Step 1 — hops whose source is the root.
+                    const step1 = downstream.filter(c => String(c.source_event_id) === rid);
+                    if (step1.length) {
+                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(1)) + ' — direct from ' + escapeHtml(truncate(rootName, 28)) + '</div>';
+                        step1.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
+                    }
+
+                    // Deeper steps — one sub-group per intermediate source,
+                    // ordered by depth then by first appearance.
+                    const deeper = downstream.filter(c => String(c.source_event_id) !== rid);
+                    const order = [];
+                    const bySource = {};
+                    deeper.forEach(c => {
+                        const s = String(c.source_event_id);
+                        if (!bySource[s]) { bySource[s] = { depth: (depthMap[s] || 1) + 1, hops: [] }; order.push(s); }
+                        bySource[s].hops.push(c);
+                    });
+                    order.sort((a, b) => bySource[a].depth - bySource[b].depth);
+                    order.forEach(s => {
+                        const g = bySource[s];
+                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(g.depth)) + ' — via ' + escapeHtml(nameOf(s)) + '</div>';
+                        g.hops.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id), true); });
+                    });
                 }
             }
             h += '</div>';
