@@ -8239,12 +8239,12 @@ function generateCCItemFreeTier(conn, displayEventId, displayEventName) {
   const typeTooltip = generateCCTypeTooltip(conn.connection_type, 'below');
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence_level, 'below');
 
-  let html = '<div class="cc-item-wrapper" data-type="' + conn.connection_type + '" data-connection-id="' + conn.connection_id + '">';
-  html += '<div class="cc-item expandable" role="button" tabindex="0" aria-expanded="false" data-navigate-to="' + displayEventId + '" data-locked-evidence="true">';
+  let html = '<div class="cc-item-wrapper" data-type="' + escA(conn.connection_type) + '" data-connection-id="' + escA(conn.connection_id) + '">';
+  html += '<div class="cc-item expandable" role="button" tabindex="0" aria-expanded="false" data-navigate-to="' + escA(displayEventId) + '" data-locked-evidence="true">';
   html += '<div class="cc-navigate-area">';
   html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.connection_type + '">' + typeInfo.name + '</span>' + typeTooltip + '</span>';
-  html += '<span class="cc-target" data-tooltip="Event ' + displayEventId + ': ' + displayEventName.replace(/"/g, '&quot;') + '"><span class="cc-target-id">Event ' + displayEventId + ':</span> ' + displayEventName + '</span>';
-  html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + conn.confidence_level + '</span>' + confidenceTooltip + '</span>';
+  html += '<span class="cc-target" data-tooltip="Event ' + escA(displayEventId) + ': ' + escA(displayEventName) + '"><span class="cc-target-id">Event ' + escH(displayEventId) + ':</span> ' + escH(displayEventName) + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + escH(conn.confidence_level) + '</span>' + confidenceTooltip + '</span>';
   html += '</div>';
   html += '<span class="cc-action-separator"></span>';
   html += '<span class="cc-expand-indicator" title="Evidence available with Analyst access">' + WEO_ICON_LOCK + '</span>';
@@ -8276,7 +8276,7 @@ function generateEvidencePanel(conn) {
   html += '<span class="cc-evidence-title">Evidence Detail</span>';
   html += '<span class="cc-methodology-badge">WEO CC</span>';
   if (detail.verified_date) {
-    html += '<span class="cc-evidence-verified">Verified: ' + detail.verified_date + '</span>';
+    html += '<span class="cc-evidence-verified">Verified: ' + escH(detail.verified_date) + '</span>';
   }
   html += '</div>';
   
@@ -8285,12 +8285,12 @@ function generateEvidencePanel(conn) {
   
   // Evidence summary (opening paragraph)
   if (conn.evidence_summary) {
-    html += '<p class="cc-evidence-summary">' + conn.evidence_summary + '</p>';
+    html += '<p class="cc-evidence-summary">' + escH(conn.evidence_summary) + '</p>';
   }
 
   // Primary documentation
   if (detail.primary_documentation) {
-    html += '<p>' + detail.primary_documentation + '</p>';
+    html += '<p>' + escH(detail.primary_documentation) + '</p>';
   }
 
   // Citation text (for Policy Cascade, Funding Flow)
@@ -8299,13 +8299,13 @@ function generateEvidencePanel(conn) {
     if (typeof detail.citation_text === 'object') {
       // Chinese/English pair
       if (detail.citation_text.chinese) {
-        html += '"' + detail.citation_text.chinese + '"';
+        html += '"' + escH(detail.citation_text.chinese) + '"';
       }
       if (detail.citation_text.english) {
-        html += '<span class="cc-citation-source">' + detail.citation_text.english + '</span>';
+        html += '<span class="cc-citation-source">' + escH(detail.citation_text.english) + '</span>';
       }
     } else {
-      html += '"' + detail.citation_text + '"';
+      html += '"' + escH(detail.citation_text) + '"';
     }
     html += '</div>';
   }
@@ -8315,16 +8315,16 @@ function generateEvidencePanel(conn) {
     const fb = detail.funding_breakdown;
     html += '<div class="cc-funding-grid">';
     if (fb.direct_grant) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Direct Grant</div><div class="cc-funding-value">' + fb.direct_grant + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Direct Grant</div><div class="cc-funding-value">' + escH(fb.direct_grant) + '</div></div>';
     }
     if (fb.loan_guarantee) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Loan/Guarantee</div><div class="cc-funding-value">' + fb.loan_guarantee + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Loan/Guarantee</div><div class="cc-funding-value">' + escH(fb.loan_guarantee) + '</div></div>';
     }
     if (fb.total_commitment) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Total Commitment</div><div class="cc-funding-value">' + fb.total_commitment + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Total Commitment</div><div class="cc-funding-value">' + escH(fb.total_commitment) + '</div></div>';
     }
     if (fb.percentage) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + fb.percentage + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + escH(fb.percentage) + '</div></div>';
     }
     html += '</div>';
   }
@@ -8351,7 +8351,7 @@ function generateEvidencePanel(conn) {
         html += '</div>';
         
         if (hasEvidence) {
-          html += '<div class="cc-criterion-evidence">' + c.evidence + '</div>';
+          html += '<div class="cc-criterion-evidence">' + escH(c.evidence) + '</div>';
         }
         
         html += '</div>';
@@ -8362,7 +8362,7 @@ function generateEvidencePanel(conn) {
     
     if (detail.criteria_score) {
       html += '<div class="cc-criteria-score">';
-      html += '<span class="cc-criteria-score-value">' + detail.criteria_score + '</span>';
+      html += '<span class="cc-criteria-score-value">' + escH(detail.criteria_score) + '</span>';
       html += '<span class="cc-criteria-score-label">criteria met</span>';
       html += '</div>';
     }
@@ -8370,12 +8370,12 @@ function generateEvidencePanel(conn) {
   
   // Framework relationship
   if (detail.framework_relationship) {
-    html += '<p><strong>Relationship:</strong> ' + detail.framework_relationship + '</p>';
+    html += '<p><strong>Relationship:</strong> ' + escH(detail.framework_relationship) + '</p>';
   }
 
   // Enabling relationship (for Regulatory Enablement)
   if (detail.enabling_relationship) {
-    html += '<p><strong>Enablement:</strong> ' + detail.enabling_relationship + '</p>';
+    html += '<p><strong>Enablement:</strong> ' + escH(detail.enabling_relationship) + '</p>';
   }
 
   // Award comparison cards (for Framework Family CHIPS Act subgroup)
@@ -8384,19 +8384,19 @@ function generateEvidencePanel(conn) {
 
     // Award A
     html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
-    html += '<div class="cc-funding-label">' + detail.award_a.recipient + '</div>';
-    html += '<div class="cc-funding-value">' + detail.award_a.award_amount + '</div>';
+    html += '<div class="cc-funding-label">' + escH(detail.award_a.recipient) + '</div>';
+    html += '<div class="cc-funding-value">' + escH(detail.award_a.award_amount) + '</div>';
     if (detail.award_a.focus) {
-        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_a.focus + '</div>';
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + escH(detail.award_a.focus) + '</div>';
     }
     html += '</div>';
 
     // Award B
     html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
-    html += '<div class="cc-funding-label">' + detail.award_b.recipient + '</div>';
-    html += '<div class="cc-funding-value">' + detail.award_b.award_amount + '</div>';
+    html += '<div class="cc-funding-label">' + escH(detail.award_b.recipient) + '</div>';
+    html += '<div class="cc-funding-value">' + escH(detail.award_b.award_amount) + '</div>';
     if (detail.award_b.focus) {
-        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_b.focus + '</div>';
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + escH(detail.award_b.focus) + '</div>';
     }
     html += '</div>';
 
@@ -8407,16 +8407,16 @@ function generateEvidencePanel(conn) {
   if (detail.hierarchical_relationship) {
     const hr = detail.hierarchical_relationship;
     if (typeof hr === 'object' && hr.parent && hr.child) {
-      html += '<p><strong>Parent:</strong> ' + hr.parent + '<br><strong>Child:</strong> ' + hr.child + '</p>';
+      html += '<p><strong>Parent:</strong> ' + escH(hr.parent) + '<br><strong>Child:</strong> ' + escH(hr.child) + '</p>';
     } else if (typeof hr === 'string') {
-      html += '<p><strong>Hierarchy:</strong> ' + hr + '</p>';
+      html += '<p><strong>Hierarchy:</strong> ' + escH(hr) + '</p>';
     }
   }
   
   // Bilateral statement (for CC-E Parallel Policy)
   if (detail.bilateral_statement) {
     html += '<div class="cc-citation">';
-    html += '"' + detail.bilateral_statement + '"';
+    html += '"' + escH(detail.bilateral_statement) + '"';
     html += '</div>';
   }
   
@@ -8448,7 +8448,7 @@ function generateEvidencePanel(conn) {
       
       html += '<div class="cc-vh-entry' + (isGenesis ? ' genesis' : '') + '" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
       html += '<div class="cc-vh-entry-header">';
-      html += '<span class="cc-vh-version">CC v' + entry.version + '</span>';
+      html += '<span class="cc-vh-version">CC v' + escH(entry.version) + '</span>';
       html += '<span class="cc-vh-date">' + formattedDate + '</span>';
       
       if (isGenesis) {
@@ -8457,7 +8457,7 @@ function generateEvidencePanel(conn) {
         if (entry.reviewTrigger) {
           // Strip methodology section reference for cleaner user display
           const displayTrigger = entry.reviewTrigger.replace(/§[\d.]+\s*/i, '');
-          html += '<span class="cc-vh-badge review-trigger">' + displayTrigger + '</span>';
+          html += '<span class="cc-vh-badge review-trigger">' + escH(displayTrigger) + '</span>';
         }
         if (entry.outcome === 'CC reinforced') {
           html += '<span class="cc-vh-badge reinforced">Reinforced</span>';
@@ -8469,17 +8469,17 @@ function generateEvidencePanel(conn) {
       
       html += '<div class="cc-vh-entry-detail">';
       if (entry.summary) {
-        html += '<div class="cc-vh-summary">' + entry.summary + '</div>';
+        html += '<div class="cc-vh-summary">' + escH(entry.summary) + '</div>';
       }
       html += '<div class="cc-vh-metrics">';
       if (entry.percentage) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Attribution:</span><span class="cc-vh-metric-value">' + entry.percentage + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Attribution:</span><span class="cc-vh-metric-value">' + escH(entry.percentage) + '</span></div>';
       }
       if (entry.sourceEventVersion) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Source:</span><span class="cc-vh-metric-value">v' + entry.sourceEventVersion + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Source:</span><span class="cc-vh-metric-value">v' + escH(entry.sourceEventVersion) + '</span></div>';
       }
       if (entry.targetEventVersion) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Target:</span><span class="cc-vh-metric-value">v' + entry.targetEventVersion + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Target:</span><span class="cc-vh-metric-value">v' + escH(entry.targetEventVersion) + '</span></div>';
       }
       html += '</div>';
       html += '</div>';
@@ -8498,7 +8498,7 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-name">Normative Reference</span>';
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
-    html += '<div class="cc-criterion-evidence">' + detail.normative_reference + '</div>';
+    html += '<div class="cc-criterion-evidence">' + escH(detail.normative_reference) + '</div>';
     html += '</div>';
   }
 
@@ -8509,7 +8509,7 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-name">Implementation Details</span>';
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
-    html += '<div class="cc-criterion-evidence">' + detail.implementation_mapping + '</div>';
+    html += '<div class="cc-criterion-evidence">' + escH(detail.implementation_mapping) + '</div>';
     html += '</div>';
   }
 
@@ -8526,9 +8526,9 @@ function generateEvidencePanel(conn) {
     html += '<div class="cc-sources-title">Sources</div>';
     detail.sources.forEach(function(source) {
       if (source.url) {
-        html += '<a class="cc-source-link" href="' + source.url + '" target="_blank" rel="noopener">' + source.desc + '</a>';
+        html += '<a class="cc-source-link" href="' + escA(source.url) + '" target="_blank" rel="noopener">' + escH(source.desc) + '</a>';
       } else {
-        html += '<span class="cc-source-link">' + source.desc + '</span>';
+        html += '<span class="cc-source-link">' + escH(source.desc) + '</span>';
       }
     });
     html += '</div>';
@@ -8548,10 +8548,10 @@ function generateCCItem(conn, displayEventId, displayEventName) {
   const typeTooltip = generateCCTypeTooltip(conn.connection_type, 'below');
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence_level, 'below');
   
-  let html = '<div class="cc-item-wrapper" data-type="' + conn.connection_type + '" data-connection-id="' + conn.connection_id + '">';
+  let html = '<div class="cc-item-wrapper" data-type="' + escA(conn.connection_type) + '" data-connection-id="' + escA(conn.connection_id) + '">';
 
   // Main CC item row
-  html += '<div class="cc-item' + (hasDetail ? ' expandable" role="button" tabindex="0" aria-expanded="false' : '') + '" data-navigate-to="' + displayEventId + '">';
+  html += '<div class="cc-item' + (hasDetail ? ' expandable" role="button" tabindex="0" aria-expanded="false' : '') + '" data-navigate-to="' + escA(displayEventId) + '">';
   
   if (hasDetail) {
     // Wrap navigable content in a container
@@ -8559,16 +8559,16 @@ function generateCCItem(conn, displayEventId, displayEventName) {
   }
   
   html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.connection_type + '">' + typeInfo.name + '</span>' + typeTooltip + '</span>';
-  html += '<span class="cc-target" data-tooltip="Event ' + displayEventId + ': ' + displayEventName.replace(/"/g, '&quot;') + '"><span class="cc-target-id">Event ' + displayEventId + ':</span> ' + displayEventName + '</span>';
-  html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + conn.confidence_level + '</span>' + confidenceTooltip + '</span>';
-  
+  html += '<span class="cc-target" data-tooltip="Event ' + escA(displayEventId) + ': ' + escA(displayEventName) + '"><span class="cc-target-id">Event ' + escH(displayEventId) + ':</span> ' + escH(displayEventName) + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence ' + confStyle.cssClass + '">' + escH(conn.confidence_level) + '</span>' + confidenceTooltip + '</span>';
+
   if (hasDetail) {
     html += '</div>'; // End cc-navigate-area
     html += '<span class="cc-action-separator"></span>';
     html += '<span class="cc-expand-indicator" title="View evidence details">▼</span>';
   } else if (conn.evidence_summary) {
     // Fallback to old tooltip for connections without detail
-    html += '<span class="cc-evidence-trigger">ⓘ<span class="cc-evidence-tooltip"><strong>Evidence</strong>' + conn.evidence_summary.replace(/"/g, '&quot;') + '</span></span>';
+    html += '<span class="cc-evidence-trigger">ⓘ<span class="cc-evidence-tooltip"><strong>Evidence</strong>' + escH(conn.evidence_summary) + '</span></span>';
   }
   
   html += '</div>';
@@ -9004,7 +9004,7 @@ function generateCCSection(eventId, showFullContent) {
       
       const icon = L.divIcon({
         className: 'custom-marker',
-        html: '<div class="marker-wrapper">' + starBadge + '<div class="marker' + sampleClass + '" data-event-id="' + event.id + '" style="border-color: ' + borderColor + '; border-style: ' + borderStyle + '; display: flex; align-items: center; justify-content: center;"><svg class="marker-icon"><use href="#' + getIconId(event.type) + '"/></svg></div></div>',
+        html: '<div class="marker-wrapper">' + starBadge + '<div class="marker' + sampleClass + '" data-event-id="' + escA(event.id) + '" style="border-color: ' + borderColor + '; border-style: ' + borderStyle + '; display: flex; align-items: center; justify-content: center;"><svg class="marker-icon"><use href="#' + getIconId(event.type) + '"/></svg></div></div>',
         iconSize: [markerSize, markerSize], iconAnchor: [markerAnchor, markerAnchor]
       });
       
@@ -9034,17 +9034,17 @@ function generateCCSection(eventId, showFullContent) {
           else if (dl.indexOf('trade') >= 0) domainClass = 'badge-domain-trade';
           else if (dl.indexOf('energy') >= 0) domainClass = 'badge-domain-energy';
         }
-        var domainBadge = domainClass ? '<span class="tooltip-badge ' + domainClass + '">' + event.domain + '</span>' : '';
+        var domainBadge = domainClass ? '<span class="tooltip-badge ' + domainClass + '">' + escH(event.domain) + '</span>' : '';
         var desigHtml = '';
         if (window._scpGetDesignation) {
           var di = window._scpGetDesignation(event.location);
           if (di) {
             var desigLabel = di.d === 'Part' ? 'Participant' : di.d;
             var desigCls = 'tooltip-desig-' + di.d.toLowerCase();
-            desigHtml = '<div class="tooltip-designation"><span class="tooltip-desig-icon">◈</span><span>Current designation: </span><span class="' + desigCls + '">' + desigLabel + '</span></div>';
+            desigHtml = '<div class="tooltip-designation"><span class="tooltip-desig-icon">◈</span><span>Current designation: </span><span class="' + desigCls + '">' + escH(desigLabel) + '</span></div>';
           }
         }
-        tooltip.innerHTML = '<div class="tooltip-title">' + event.name + '</div><div class="tooltip-meta"><span>' + event.type + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">' + tierIcon(event.tier) + 'T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + blocIcon(event.bloc) + event.bloc + '</span>' + domainBadge + '</div>' + desigHtml + '<div class="tooltip-hint">Click for details</div>';
+        tooltip.innerHTML = '<div class="tooltip-title">' + escH(event.name) + '</div><div class="tooltip-meta"><span>' + escH(event.type) + '</span></div><div class="tooltip-badges"><span class="tooltip-badge badge-t' + event.tier + '">' + tierIcon(event.tier) + 'T' + event.tier + '</span><span class="tooltip-badge badge-' + blocClass + '">' + blocIcon(event.bloc) + escH(event.bloc) + '</span>' + domainBadge + '</div>' + desigHtml + '<div class="tooltip-hint">Click for details</div>';
         tooltip.classList.add('visible');
         const point = map.latLngToContainerPoint(e.latlng);
         tooltip.style.left = (point.x + 20) + 'px';
@@ -9581,10 +9581,10 @@ function generateCCSection(eventId, showFullContent) {
       html += '<div class="shelf-row">';
       html += '<span class="shelf-label weo-info-trigger">Industry<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Industry Tags</div><div class="weo-tooltip-body"><strong>Primary:</strong> the industry this event\x27s provisions most directly address. <strong>Secondary:</strong> additional industries also addressed — click for detail.</div>' + methodLink('section-7-2') + '</span></span>';
       html += '<div class="shelf-badges">';
-      html += '<span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + tags.primary + '</div></span>';
+      html += '<span class="ind-tag-wrap"><span class="ind-tag ind-primary ' + getIndClass(tags.primary) + '" onclick="togglePrimaryName(this)">' + getIndAbbrev(tags.primary) + '</span><div class="ind-primary-popover">' + escH(tags.primary) + '</div></span>';
       for (var i = 0; i < tags.secondary.length; i++) {
         var s = tags.secondary[i];
-        html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + s.tag + '</div>' + s.mechanism + '</div></span>';
+        html += '<span class="ind-tag-wrap"><span class="ind-tag ind-secondary ' + getIndClass(s.tag) + '" onclick="toggleMechanism(this)">' + getIndAbbrev(s.tag) + '</span><div class="ind-mechanism-popover"><div class="mechanism-title">' + escH(s.tag) + '</div>' + escH(s.mechanism) + '</div></span>';
       }
       html += '</div></div>';
       // ENVIRONMENT row — conditional, only when ENT tags exist
@@ -9991,6 +9991,10 @@ function generateCCSection(eventId, showFullContent) {
     // Defined in this script block so the free/sample content builders have it in lexical
     // scope (mirrors the identical escH() in the later SCP script block ~L11856).
     function escH(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    // Attribute/URL-context escaper: unlike escH(), neutralises quotes so DB-derived values
+    // are safe inside double-quoted attributes (e.g. href="..."). Use for URL values; use
+    // encodeURIComponent() for id fragments concatenated into URLs.
+    function escA(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
     function generateFreeTierContent(event) {
       const blocClass = event.bloc === 'Cross-Bloc' ? 'cross-bloc' : event.bloc.toLowerCase();
@@ -10047,8 +10051,8 @@ function generateCCSection(eventId, showFullContent) {
       const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
       const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
         '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + blocBadgeText + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + event.domain + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + escH(event.domain) + '</span></div></div>' +
         connRow +
         '</div>';
 
@@ -10076,10 +10080,10 @@ function generateCCSection(eventId, showFullContent) {
       var freeTraceMatsHtml = '';
       if (event.aiConnectionPathway === 'trace' && event.trace && event.trace.materials) {
         freeTraceMatsHtml = '<div class="trace-materials-shelf" style="margin-top:0.375rem;">';
-        event.trace.materials.forEach(function(m) { freeTraceMatsHtml += '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; });
+        event.trace.materials.forEach(function(m) { freeTraceMatsHtml += '<div class="trace-material-chip">' + escH(m.name) + '<div class="trace-material-tooltip">' + escH(m.application) + '</div></div>'; });
         freeTraceMatsHtml += '</div>';
       }
-      const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + (cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : event.aiConnectionPathway === 'trace' ? 'TRACE' : 'OEP')) + '</span>' + freeTraceMatsHtml + '</div>' : '';
+      const freeAiConnectionSection = freeIsPietOrOep ? '<div style="margin-top: 12px;"><div style="margin-bottom: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div><span style="font-size: 0.8125rem; color: rgba(255,255,255,0.6);">' + escH(cp.aiDetail || (event.aiConnectionPathway === 'piet' ? 'PIET' : event.aiConnectionPathway === 'trace' ? 'TRACE' : 'OEP')) + '</span>' + freeTraceMatsHtml + '</div>' : '';
       // Pathway-specific checkpoint rows when the pathway object is available
       // at free tier (TRACE always; sample PIET). When absent, pwRows is null
       // and the generic rows stay at full strength as the trust signal.
@@ -10087,7 +10091,7 @@ function generateCCSection(eventId, showFullContent) {
       const freePwHtml = weoPathwayCheckpointHtml(freePwRows);
       const freeGenCls = freePwRows ? ' secondary' : '';
 
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + freePwHtml + '<div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationales</li><li>Extended Industry Tags</li><li>Coordination Connection Analysis</li><li>Atlas Structural Analysis</li><li>Source Documentation</li><li>Version History & Rolling Updates</li><li>Sovereign Capability Profiles — dimensional assessments, qualification analysis, constraint analysis, and severance frameworks</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div>' + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + freePwHtml + '<div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationales</li><li>Extended Industry Tags</li><li>Coordination Connection Analysis</li><li>Atlas Structural Analysis</li><li>Source Documentation</li><li>Version History & Rolling Updates</li><li>Sovereign Capability Profiles — dimensional assessments, qualification analysis, constraint analysis, and severance frameworks</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div>' + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<a href="atlas.html#event=' + encodeURIComponent(event.id) + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + encodeURIComponent(event.id) + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -10136,18 +10140,18 @@ function generateCCSection(eventId, showFullContent) {
           sourcesMarkup = generateVersionSourcesMarkup(update.sources);
         }
         
-        entriesHtml += '<article class="version-entry" data-version="' + versionNum + '"' + (isCurrent ? ' data-current="true"' : '') + '>' +
+        entriesHtml += '<article class="version-entry" data-version="' + escA(versionNum) + '"' + (isCurrent ? ' data-current="true"' : '') + '>' +
           '<div role="heading" aria-level="3">' +
-            '<button class="version-entry-header" aria-expanded="false" aria-controls="version-' + update.id + '-details" onclick="toggleVersionEntry(\'' + update.id + '\')">' +
-              '<span class="version-id">v' + versionNum + '</span>' +
+            '<button class="version-entry-header" aria-expanded="false" aria-controls="version-' + escA(update.id) + '-details" data-version-toggle="' + escA(update.id) + '">' +
+              '<span class="version-id">v' + escH(versionNum) + '</span>' +
               '<span class="version-date">' + formattedDate + '</span>' +
-              '<span class="version-headline">' + headline + '</span>' +
+              '<span class="version-headline">' + escH(headline) + '</span>' +
               '<svg class="chevron-small" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
             '</button>' +
           '</div>' +
-          '<div class="version-entry-panel" id="version-' + update.id + '-details" data-expanded="false">' +
+          '<div class="version-entry-panel" id="version-' + escA(update.id) + '-details" data-expanded="false">' +
             '<div class="version-entry-content">' +
-              '<div class="version-description"><p>' + update.description + '</p></div>' +
+              '<div class="version-description"><p>' + escH(update.description) + '</p></div>' +
               generateChangedFieldsMarkup(update.changedFields) +
               sourcesMarkup +
             '</div>' +
@@ -10164,8 +10168,8 @@ function generateCCSection(eventId, showFullContent) {
         genesisSourcesHtml += '<div class="version-sources"><div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Primary Sources</div>';
         event.primarySources.forEach(function(s) {
           genesisSourcesHtml += '<div class="version-source-item source-primary">' +
-            '<span class="version-source-type-badge">' + s.id + '</span>' +
-            '<a href="' + s.url + '" class="version-source-link" target="_blank" rel="noopener">' + s.desc + ' <span class="version-source-external-icon">↗</span></a>' +
+            '<span class="version-source-type-badge">' + escH(s.id) + '</span>' +
+            '<a href="' + escA(s.url) + '" class="version-source-link" target="_blank" rel="noopener">' + escH(s.desc) + ' <span class="version-source-external-icon">↗</span></a>' +
           '</div>';
         });
         genesisSourcesHtml += '</div>';
@@ -10174,8 +10178,8 @@ function generateCCSection(eventId, showFullContent) {
         genesisSourcesHtml += '<div class="version-sources" style="margin-top: 8px;"><div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Corroborating Sources</div>';
         event.corroboratingSources.forEach(function(s) {
           genesisSourcesHtml += '<div class="version-source-item source-corroborating">' +
-            '<span class="version-source-type-badge">' + s.id + '</span>' +
-            '<a href="' + s.url + '" class="version-source-link" target="_blank" rel="noopener">' + s.desc + ' <span class="version-source-external-icon">↗</span></a>' +
+            '<span class="version-source-type-badge">' + escH(s.id) + '</span>' +
+            '<a href="' + escA(s.url) + '" class="version-source-link" target="_blank" rel="noopener">' + escH(s.desc) + ' <span class="version-source-external-icon">↗</span></a>' +
           '</div>';
         });
         genesisSourcesHtml += '</div>';
@@ -10183,14 +10187,14 @@ function generateCCSection(eventId, showFullContent) {
       
       entriesHtml += '<article class="version-entry" data-version="1.0" data-genesis="true">' +
         '<div role="heading" aria-level="3">' +
-          '<button class="version-entry-header" aria-expanded="false" aria-controls="version-genesis-' + event.id + '-details" onclick="toggleVersionEntry(\'genesis-' + event.id + '\')">' +
+          '<button class="version-entry-header" aria-expanded="false" aria-controls="version-genesis-' + escA(event.id) + '-details" data-version-toggle="genesis-' + escA(event.id) + '">' +
             '<span class="version-id">v1.0</span>' +
             '<span class="version-date">' + formatVersionDate(genesisDate) + '</span>' +
             '<span class="version-headline">Initial database entry</span>' +
             '<svg class="chevron-small" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
           '</button>' +
         '</div>' +
-        '<div class="version-entry-panel" id="version-genesis-' + event.id + '-details" data-expanded="false">' +
+        '<div class="version-entry-panel" id="version-genesis-' + escA(event.id) + '-details" data-expanded="false">' +
           '<div class="version-entry-content">' +
             '<div class="version-description"><p>Event qualified and entered into WEO database. Assessment reflects qualification-time data.</p></div>' +
             genesisSourcesHtml +
@@ -10198,15 +10202,15 @@ function generateCCSection(eventId, showFullContent) {
         '</div>' +
       '</article>';
       
-      return '<div class="panel-section version-history-section" aria-labelledby="version-history-heading-' + event.id + '">' +
+      return '<div class="panel-section version-history-section" aria-labelledby="version-history-heading-' + escA(event.id) + '">' +
         '<div role="heading" aria-level="2">' +
-          '<button class="version-history-trigger" id="version-history-btn-' + event.id + '" aria-expanded="false" aria-controls="version-history-panel-' + event.id + '" onclick="toggleVersionHistory(\'' + event.id + '\')">' +
+          '<button class="version-history-trigger" id="version-history-btn-' + escA(event.id) + '" aria-expanded="false" aria-controls="version-history-panel-' + escA(event.id) + '" data-version-history-toggle="' + escA(event.id) + '">' +
             '<span class="title-text">Version History</span>' +
             '<span class="version-count-badge">' + versionCount + ' update' + (versionCount > 1 ? 's' : '') + '</span>' +
             '<svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
           '</button>' +
         '</div>' +
-        '<div class="version-history-panel" id="version-history-panel-' + event.id + '" data-expanded="false">' +
+        '<div class="version-history-panel" id="version-history-panel-' + escA(event.id) + '" data-expanded="false">' +
           '<div class="version-history-content' + (versionCount > 5 ? ' has-many-versions' : '') + '">' +
             entriesHtml +
           '</div>' +
@@ -10219,7 +10223,7 @@ function generateCCSection(eventId, showFullContent) {
       
       var html = '<div class="version-changed-fields"><span class="changed-label">Fields updated:</span>';
       changedFields.forEach(function(field) {
-        html += '<span class="changed-field-tag">' + field + '</span>';
+        html += '<span class="changed-field-tag">' + escH(field) + '</span>';
       });
       html += '</div>';
       return html;
@@ -10232,9 +10236,9 @@ function generateCCSection(eventId, showFullContent) {
       sources.forEach(function(source) {
         var sourceType = (source.type || 'PRIMARY').toLowerCase();
         html += '<div class="version-source-item source-' + sourceType + '">' +
-          '<span class="version-source-type-badge">' + (source.type || 'PRIMARY') + '</span>' +
-          '<a href="' + source.url + '" class="version-source-link" target="_blank" rel="noopener">' +
-            source.desc + ' <span class="version-source-external-icon">↗</span>' +
+          '<span class="version-source-type-badge">' + escH(source.type || 'PRIMARY') + '</span>' +
+          '<a href="' + escA(source.url) + '" class="version-source-link" target="_blank" rel="noopener">' +
+            escH(source.desc) + ' <span class="version-source-external-icon">↗</span>' +
           '</a>' +
           '<span class="version-source-date">' + formatVersionDate(source.date) + '</span>' +
         '</div>';
@@ -10277,6 +10281,17 @@ function generateCCSection(eventId, showFullContent) {
       button.setAttribute('aria-expanded', !isExpanded);
       panel.setAttribute('data-expanded', !isExpanded);
     }
+
+    // Delegated handler for version-history accordions. Replaces inline onclick="" so the
+    // DB-derived event/update ids ride data-* attributes instead of being concatenated into
+    // an inline JS string (removes the inline-handler injection surface).
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest) return;
+      var entryBtn = e.target.closest('[data-version-toggle]');
+      if (entryBtn) { toggleVersionEntry(entryBtn.getAttribute('data-version-toggle')); return; }
+      var historyBtn = e.target.closest('[data-version-history-toggle]');
+      if (historyBtn) { toggleVersionHistory(historyBtn.getAttribute('data-version-history-toggle')); return; }
+    });
 
     // Utility functions for VERSION HISTORY
     function formatVersionDate(dateString) {
@@ -10431,7 +10446,7 @@ function generateCCSection(eventId, showFullContent) {
 
       // Header version badge (must be declared before badgesHtml)
       const lastUpdateText = event.versionDate ? new Date(event.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
-      const headerVersionBadge = event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + event.version + (lastUpdateText ? ' • Updated ' + lastUpdateText : '') + '</span>' : '';
+      const headerVersionBadge = event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + escH(event.version) + (lastUpdateText ? ' • Updated ' + lastUpdateText : '') + '</span>' : '';
 
       // Zone 2 — grid rows
       const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
@@ -10440,42 +10455,42 @@ function generateCCSection(eventId, showFullContent) {
       const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
       const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
         '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + blocBadgeText + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + event.domain + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span></div></div>' +
+        '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + escH(event.domain) + '</span></div></div>' +
         connRow + headerVersionBadge +
         '</div>';
 
       let basel5Html = '';
       if (event.basel5 && event.basel5.length > 0) {
         basel5Html = event.basel5.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + escH(f.factor) + ':</strong> ' + escH(f.rationale) + '</span></div>';
         }).join('');
       }
       
       let keohaneHtml = '';
       if (event.keohane && event.keohane.length > 0) {
         keohaneHtml = event.keohane.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + escH(f.factor) + ':</strong> ' + escH(f.rationale) + '</span></div>';
         }).join('');
       }
       
       let pisa5Html = '';
       if (event.pisa5 && event.pisa5.length > 0) {
         pisa5Html = event.pisa5.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + escH(f.factor) + ':</strong> ' + escH(f.rationale) + '</span></div>';
         }).join('');
       }
       
       let routeBasedHtml = '';
       if (event.routeBased && event.routeBased.length > 0) {
         routeBasedHtml = event.routeBased.map(function(f) {
-          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + f.factor + ':</strong> ' + f.rationale + '</span></div>';
+          return '<div class="checkpoint"><span class="checkpoint-icon ' + (f.pass ? 'pass' : 'fail') + '">' + (f.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label"><strong>' + escH(f.factor) + ':</strong> ' + escH(f.rationale) + '</span></div>';
         }).join('');
       }
       
       let blocAnalysisHtml = '';
       if (event.blocAnalysis) {
-        blocAnalysisHtml = '<table class="bloc-table"><thead><tr><th>Bloc</th><th style="white-space:nowrap;">Involvement <span class="weo-info-trigger">\u24d8<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event\x27s implementation \u2014 who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div>' + methodLink('section-3-10') + '</span></span></th><th>Role</th></tr></thead><tbody>' + event.blocAnalysis.map(function(b) { return '<tr><td>' + b.bloc + '</td><td style="color:' + (b.involvement === 'Yes' ? '#22C55E' : '#94A3B8') + ';">' + b.involvement + '</td><td>' + b.role + '</td></tr>'; }).join('') + '</tbody></table>';
+        blocAnalysisHtml = '<table class="bloc-table"><thead><tr><th>Bloc</th><th style="white-space:nowrap;">Involvement <span class="weo-info-trigger">\u24d8<span class="weo-tooltip"><div class="weo-tooltip-title">Involvement</div><div class="weo-tooltip-body"><strong>Involvement</strong> records participation in the event\x27s implementation \u2014 who developed, enacted, funded, or governed it. Commercial distribution, platform hosting, or downstream adoption on other-bloc infrastructure is not classified as involvement.</div>' + methodLink('section-3-10') + '</span></span></th><th>Role</th></tr></thead><tbody>' + event.blocAnalysis.map(function(b) { return '<tr><td>' + escH(b.bloc) + '</td><td style="color:' + (b.involvement === 'Yes' ? '#22C55E' : '#94A3B8') + ';">' + escH(b.involvement) + '</td><td>' + escH(b.role) + '</td></tr>'; }).join('') + '</tbody></table>';
       }
       
       let sourcesHtml = '';
@@ -10501,18 +10516,18 @@ function generateCCSection(eventId, showFullContent) {
           currentUpdate.sources.forEach(function(s) {
             var typeClass = (s.type || 'PRIMARY').toLowerCase();
             sourcesHtml += '<div class="current-source-item">' +
-              '<span class="current-source-type-badge ' + typeClass + '">' + (s.type || 'PRIMARY') + '</span>' +
-              '<a href="' + s.url + '" class="current-source-link" target="_blank" rel="noopener">' + s.desc + ' <span class="current-source-external">↗</span></a>' +
+              '<span class="current-source-type-badge ' + typeClass + '">' + escH(s.type || 'PRIMARY') + '</span>' +
+              '<a href="' + escA(s.url) + '" class="current-source-link" target="_blank" rel="noopener">' + escH(s.desc) + ' <span class="current-source-external">↗</span></a>' +
             '</div>';
           });
         }
       } else {
         // No rolling updates (v1.0 only) - use traditional layout
         if (event.primarySources) {
-          sourcesHtml = '<div class="sources-section"><div class="sources-label">Primary Sources:</div>' + event.primarySources.map(function(s) { return '<div class="source-item"><span class="source-id">[' + s.id + ']</span><a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + '</a></div>'; }).join('') + '</div>';
+          sourcesHtml = '<div class="sources-section"><div class="sources-label">Primary Sources:</div>' + event.primarySources.map(function(s) { return '<div class="source-item"><span class="source-id">[' + escH(s.id) + ']</span><a href="' + escA(s.url) + '" target="_blank" rel="noopener">' + escH(s.desc) + '</a></div>'; }).join('') + '</div>';
         }
         if (event.corroboratingSources && event.corroboratingSources.length > 0) {
-          sourcesHtml += '<div class="sources-section" style="margin-top: 12px;"><div class="sources-label">Corroborating Sources:</div>' + event.corroboratingSources.map(function(s) { return '<div class="source-item"><span class="source-id">[' + s.id + ']</span><a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + '</a></div>'; }).join('') + '</div>';
+          sourcesHtml += '<div class="sources-section" style="margin-top: 12px;"><div class="sources-label">Corroborating Sources:</div>' + event.corroboratingSources.map(function(s) { return '<div class="source-item"><span class="source-id">[' + escH(s.id) + ']</span><a href="' + escA(s.url) + '" target="_blank" rel="noopener">' + escH(s.desc) + '</a></div>'; }).join('') + '</div>';
         }
       }
       
@@ -10550,15 +10565,15 @@ function generateCCSection(eventId, showFullContent) {
         var pietGatesDetailHtml = '';
         event.piet.gates.forEach(function(g) {
           var summaryText = g.summary || (g.rationale.length > 80 ? g.rationale.substring(0, 80) + '\u2026' : g.rationale);
-          pietGatesDetailHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (g.pass ? 'gate-pass' : 'gate-fail') + '">' + (g.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + g.factor + ':</span> <span class="gate-metric">' + summaryText + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
+          pietGatesDetailHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (g.pass ? 'gate-pass' : 'gate-fail') + '">' + (g.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + escH(g.factor) + ':</span> <span class="gate-metric">' + escH(summaryText) + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
           pietGatesDetailHtml += '<div class="piet-gate-evidence">';
-          if (g.evidence) { g.evidence.forEach(function(ev) { pietGatesDetailHtml += '<div class="piet-evidence-row"><span class="piet-evidence-label">' + ev.label + '</span><span class="piet-evidence-value">' + ev.value + '</span></div>'; }); }
-          pietGatesDetailHtml += '<div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + g.rationale + '</div></div>';
+          if (g.evidence) { g.evidence.forEach(function(ev) { pietGatesDetailHtml += '<div class="piet-evidence-row"><span class="piet-evidence-label">' + escH(ev.label) + '</span><span class="piet-evidence-value">' + escH(ev.value) + '</span></div>'; }); }
+          pietGatesDetailHtml += '<div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + escH(g.rationale) + '</div></div>';
         });
         var pietSourcesHtml = '';
         if (totalPietSources > 0) {
           var srcItems = '';
-          groupedPietSources.forEach(function(grp) { srcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>'; grp.sources.forEach(function(s) { srcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span><a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' \u2197</a></div>'; }); });
+          groupedPietSources.forEach(function(grp) { srcItems += '<div class="piet-source-gate-label">' + escH(grp.gate) + '</div>'; grp.sources.forEach(function(s) { srcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + escH(s.type) + '</span><a href="' + escA(s.url) + '" target="_blank" rel="noopener">' + escH(s.desc) + ' \u2197</a></div>'; }); });
           pietSourcesHtml = '<div class="piet-sources-footer"><span class="piet-sources-toggle" onclick="var l=this.nextElementSibling; l.classList.toggle(\'visible\'); this.textContent=l.classList.contains(\'visible\')?\'Sources (' + totalPietSources + ') \u25BE\':\'Sources (' + totalPietSources + ') \u25B8\';">Sources (' + totalPietSources + ') \u25B8</span><div class="piet-sources-list">' + srcItems + '</div></div>';
         }
         pietVerificationHtml = '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">PIET</span> \u00B7 ' + event.piet.gatesPassed + ' of ' + event.piet.gates.length + ' evidence pathways \u00B7 ' + event.piet.confidence + generateTooltip('piet', 'left') + t2Badge + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel">' + pietGatesDetailHtml + pietSourcesHtml + '</div></div>';
@@ -10571,15 +10586,15 @@ function generateCCSection(eventId, showFullContent) {
         var oepPwDetailHtml = '';
         event.oep.pathways.forEach(function(pw) {
           var summaryText = pw.summary || (pw.rationale.length > 80 ? pw.rationale.substring(0, 80) + '\u2026' : pw.rationale);
-          oepPwDetailHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (pw.pass ? 'gate-pass' : 'gate-fail') + '">' + (pw.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + pw.factor + ':</span> <span class="gate-metric">' + summaryText + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
+          oepPwDetailHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (pw.pass ? 'gate-pass' : 'gate-fail') + '">' + (pw.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + escH(pw.factor) + ':</span> <span class="gate-metric">' + escH(summaryText) + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
           oepPwDetailHtml += '<div class="piet-gate-evidence">';
-          if (pw.evidence) { pw.evidence.forEach(function(ev) { oepPwDetailHtml += '<div class="piet-evidence-row"><span class="piet-evidence-label">' + ev.label + '</span><span class="piet-evidence-value">' + ev.value + '</span></div>'; }); }
-          oepPwDetailHtml += '<div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + pw.rationale + '</div></div>';
+          if (pw.evidence) { pw.evidence.forEach(function(ev) { oepPwDetailHtml += '<div class="piet-evidence-row"><span class="piet-evidence-label">' + escH(ev.label) + '</span><span class="piet-evidence-value">' + escH(ev.value) + '</span></div>'; }); }
+          oepPwDetailHtml += '<div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + escH(pw.rationale) + '</div></div>';
         });
         var oepSourcesHtml = '';
         if (totalOepSources > 0) {
           var oepSrcItems = '';
-          groupedOepSources.forEach(function(grp) { oepSrcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>'; grp.sources.forEach(function(s) { oepSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span><a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' \u2197</a></div>'; }); });
+          groupedOepSources.forEach(function(grp) { oepSrcItems += '<div class="piet-source-gate-label">' + escH(grp.gate) + '</div>'; grp.sources.forEach(function(s) { oepSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + escH(s.type) + '</span><a href="' + escA(s.url) + '" target="_blank" rel="noopener">' + escH(s.desc) + ' \u2197</a></div>'; }); });
           oepSourcesHtml = '<div class="piet-sources-footer"><span class="piet-sources-toggle" onclick="var l=this.nextElementSibling; l.classList.toggle(\'visible\'); this.textContent=l.classList.contains(\'visible\')?\'Sources (' + totalOepSources + ') \u25BE\':\'Sources (' + totalOepSources + ') \u25B8\';">Sources (' + totalOepSources + ') \u25B8</span><div class="piet-sources-list">' + oepSrcItems + '</div></div>';
         }
         pietVerificationHtml += '<div class="piet-verification-subsection"><div class="piet-expand-trigger" onclick="this.classList.toggle(\'expanded\'); this.parentElement.querySelector(\'.piet-detail-panel\').classList.toggle(\'visible\');"><span class="badge-with-tooltip"><span class="piet-pathway-label">OEP</span> \u00B7 ' + event.oep.confidence + generateTooltip('oep', 'left') + '</span><span class="piet-expand-chevron">\u25B8</span></div><div class="piet-detail-panel">' + oepPwDetailHtml + oepSourcesHtml + '</div></div>';
@@ -10596,13 +10611,13 @@ function generateCCSection(eventId, showFullContent) {
         });
         var totalTraceSources = traceSrcIdx - 1;
         var traceMatsHtml = '<div class="trace-materials-shelf">';
-        event.trace.materials.forEach(function(m) { traceMatsHtml += '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; });
+        event.trace.materials.forEach(function(m) { traceMatsHtml += '<div class="trace-material-chip">' + escH(m.name) + '<div class="trace-material-tooltip">' + escH(m.application) + '</div></div>'; });
         traceMatsHtml += '</div>';
         var traceConditionsHtml = '';
         event.trace.conditions.forEach(function(c) {
           var summaryText = c.summary || (c.rationale.length > 80 ? c.rationale.substring(0, 80) + '\u2026' : c.rationale);
-          traceConditionsHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (c.pass ? 'gate-pass' : 'gate-fail') + '">' + (c.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + c.factor + ':</span> <span class="gate-metric">' + summaryText + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
-          traceConditionsHtml += '<div class="piet-gate-evidence"><div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + c.rationale + '</div></div>';
+          traceConditionsHtml += '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');"><span class="' + (c.pass ? 'gate-pass' : 'gate-fail') + '">' + (c.pass ? '\u2713' : '\u2717') + '</span><span><span class="gate-name">' + escH(c.factor) + ':</span> <span class="gate-metric">' + escH(summaryText) + '</span></span><span class="gate-detail-chevron">\u25B8</span></div>';
+          traceConditionsHtml += '<div class="piet-gate-evidence"><div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale \u25BE\':\'Full rationale \u25B8\';">Full rationale \u25B8</div><div class="piet-rationale-full">' + escH(c.rationale) + '</div></div>';
         });
         var traceExclHtml = '';
         if (false && event.trace.excludedInstrumentCheck) {
@@ -10617,10 +10632,10 @@ function generateCCSection(eventId, showFullContent) {
         if (totalTraceSources > 0) {
           var traceSrcItems = '';
           groupedTraceSources.forEach(function(grp) {
-            traceSrcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>';
+            traceSrcItems += '<div class="piet-source-gate-label">' + escH(grp.gate) + '</div>';
             grp.sources.forEach(function(s) {
-              var srcLink = s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' \u2197</a>' : '<span>' + s.desc + '</span>';
-              traceSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span>' + srcLink + '</div>';
+              var srcLink = s.url ? '<a href="' + escA(s.url) + '" target="_blank" rel="noopener">' + escH(s.desc) + ' \u2197</a>' : '<span>' + escH(s.desc) + '</span>';
+              traceSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + escH(s.type) + '</span>' + srcLink + '</div>';
             });
           });
           traceSourcesHtml = '<div class="piet-sources-footer"><span class="piet-sources-toggle" onclick="var l=this.nextElementSibling; l.classList.toggle(\'visible\'); this.textContent=l.classList.contains(\'visible\')?\'Sources (' + totalTraceSources + ') \u25BE\':\'Sources (' + totalTraceSources + ') \u25B8\';">Sources (' + totalTraceSources + ') \u25B8</span><div class="piet-sources-list">' + traceSrcItems + '</div></div>';
@@ -10651,17 +10666,17 @@ function generateCCSection(eventId, showFullContent) {
         const tiebreakerTooltip = generateTooltip('tiebreaker', 'left');
         let tbItems = '';
         event.tiebreaker.assessment.forEach(function(tb) {
-          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">' + tb.criterion.replace(/^TB\d+:\s*/, '') + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + tb.rationale + '</div>';
+          tbItems += '<div class="checkpoint"><span class="checkpoint-icon ' + (tb.pass ? 'pass' : 'fail') + '">' + (tb.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">' + escH(tb.criterion.replace(/^TB\d+:\s*/, '')) + '</span></div><div style="font-size:0.75rem;color:var(--text-secondary);margin-left:1.5rem;margin-bottom:0.5rem;">' + escH(tb.rationale) + '</div>';
         });
         tiebreakerHtml = '<div class="panel-section">' +
           '<button class="tiebreaker-trigger" aria-expanded="false" onclick="toggleTiebreaker(this)">' +
             '<span class="title-text">Human Review Assessment</span>' + tiebreakerTooltip +
-            '<span class="tiebreaker-result-badge">' + event.tiebreaker.result + '</span>' +
+            '<span class="tiebreaker-result-badge">' + escH(event.tiebreaker.result) + '</span>' +
             '<svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
           '</button>' +
           '<div class="tiebreaker-panel" data-expanded="false">' +
             '<div class="tiebreaker-content">' +
-              '<p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ' + event.tiebreaker.triggerReason + '</p>' +
+              '<p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ' + escH(event.tiebreaker.triggerReason) + '</p>' +
               '<div class="checkpoint-list">' + tbItems + '</div>' +
             '</div>' +
           '</div>' +
@@ -10705,14 +10720,14 @@ function generateCCSection(eventId, showFullContent) {
           event.ecosystemImplementation.map(function(ei) {
             var icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
             var color = ei.implemented ? '#2DD4BF' : '#94A3B8';
-            return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + ei.ecosystem + '</span>';
+            return '<span style="color:' + color + ';font-size:0.75rem;margin-right:0.75rem;white-space:nowrap;">' + icon + ' ' + escH(ei.ecosystem) + '</span>';
           }).join('') + '</div>';
         ecoImplPanelHtml = '<div style="margin-top:1rem;margin-bottom:1rem;padding:0.75rem 1rem;background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.2);border-radius:8px;">' +
           '<div style="font-size:0.75rem;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Cross-Ecosystem Implementation</div>' +
           event.ecosystemImplementation.map(function(ei) {
             var icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
             var nameColor = ei.implemented ? '#2DD4BF' : '#94A3B8';
-            return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:#CBD5E1;">' + (ei.evidence || '') + '</span></div>';
+            return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + escH(ei.ecosystem) + '</strong></span><span style="color:#CBD5E1;">' + escH(ei.evidence || '') + '</span></div>';
           }).join('') + '</div>';
       }
 
@@ -10726,7 +10741,7 @@ function generateCCSection(eventId, showFullContent) {
       const genCls = pwRows ? ' secondary' : '';
       const aiConnectionLabel = isPietOrOep ? '<div style="margin-top: 12px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.45);">AI Connection</div>' : '';
       
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Tier Classification</span>' + generateTooltip('tierSection', 'below') + '</div><div class="section-content">' + (event.tierRationale ? '<p>' + escH(event.tierRationale) + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + pwHtml + '<div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<a href="atlas.html#event=' + event.id + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + event.id + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-sample-badge" style="' + accessBadgeStyle + '">' + accessBadgeText + '</div><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div>' + basel5Section + keohaneSection + pisa5Section + tiebreakerHtml + routeBasedSection + (event.tierRationale || blocAnalysisHtml ? '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Tier Classification</span>' + generateTooltip('tierSection', 'below') + '</div><div class="section-content">' + (event.tierRationale ? '<p>' + escH(event.tierRationale) + '</p>' : '') + '</div>' + ecoImplPanelHtml + blocAnalysisHtml + '</div>' : '') + '<div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + aiCheckpointDiv + pwHtml + '<div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold Met</span></div><div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence Confirmed</span></div><div class="checkpoint' + genCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status Confirmed</span></div></div>' + aiConnectionLabel + pietVerificationHtml + '</div>' + (sourcesHtml ? '<div class="panel-section"><div class="section-title">Sources</div>' + sourcesHtml + '</div>' : '') + versionHistoryHtml + originalQualificationHtml + ccSectionHtml + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<a href="atlas.html#event=' + encodeURIComponent(event.id) + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + encodeURIComponent(event.id) + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     function openPanel(event) {
