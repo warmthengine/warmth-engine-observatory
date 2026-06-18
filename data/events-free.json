@@ -4,7 +4,7 @@
     "total_events": 171,
     "sample_events": 6,
     "standard_events": 165,
-    "last_updated": "2026-06-17",
+    "last_updated": "2026-06-18",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-17",
-    "lastAudit": "2026-06-17",
+    "versionDate": "2026-06-18",
+    "lastAudit": "2026-06-18",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 171,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -72,24 +72,23 @@
     },
     "source_durability": {
       "total_sources": 1492,
-      "preserved": 1462,
-      "preservation_rate": 0.98,
+      "preserved": 1485,
+      "preservation_rate": 0.995,
       "by_status": {
-        "captured": 1435,
+        "captured": 1458,
         "recovered": 21,
         "existing": 6,
-        "no_capture": 20,
-        "dead_source": 1,
-        "retry_pending": 9
+        "no_capture": 6,
+        "dead_source": 1
       },
       "by_layer": {
         "events": {
           "total": 907,
-          "preserved": 881
+          "preserved": 900
         },
         "connections": {
           "total": 397,
-          "preserved": 393
+          "preserved": 397
         },
         "actors": {
           "total": 188,
@@ -6146,8 +6145,9 @@
               "citation": "State Grid Ningxia 330kV substation EIA filing",
               "type": "primary",
               "url": "http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html",
-              "captureStatus": "retry_pending",
-              "accessDate": "2026-06-07"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-18",
+              "snapshotUrl": "https://web.archive.org/web/20260618124013/http://www.nx.sgcc.cn/html/main/col7/2026-04/23/20260423164701527992765_1.html"
             }
           ]
         },
@@ -6303,8 +6303,9 @@
               "citation": "庆阳市发改委 project approval with PUE mandate",
               "type": "primary",
               "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421",
-              "captureStatus": "retry_pending",
-              "accessDate": "2026-06-07"
+              "captureStatus": "captured",
+              "accessDate": "2026-06-18",
+              "snapshotUrl": "https://web.archive.org/web/20260618124152/https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
             }
           ]
         },
@@ -7307,7 +7308,7 @@
               {
                 "id": "TRACE-C2-1",
                 "desc": "Federal Register — IRA Section 30D FEOC Final Rule (89 FR 37706)",
-                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09038/section-30d-new-clean-vehicle-credit",
+                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09094/clean-vehicle-credits-under-sections-25e-and-30d-transfer-of-credits-critical-minerals-and-battery",
                 "type": "PRIMARY"
               }
             ]
