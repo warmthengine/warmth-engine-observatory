@@ -13892,10 +13892,18 @@
             }
             const n = root[0];
             const pos = n.renderedPosition();
-            const rh = n.renderedHeight();
             badge.style.display = 'block';
             badge.style.left = pos.x + 'px';
-            badge.style.top = (pos.y - rh / 2 - 9) + 'px';
+            // #216 item 1 — the journey root flips its name label ABOVE the node
+            // (.label-top), so a fixed node-top offset dropped the ROOT badge
+            // inside the label's line-box (the "burger" overlap). Lift the badge
+            // above the node's full label-inclusive rendered box instead, with a
+            // small gap. transform: translateY(-100%) means the CSS `top` is the
+            // badge's bottom edge, so this clears the label cleanly. Order
+            // top→bottom: ROOT badge → name label → node. Degrades safely when
+            // the label is below the node (y1 falls back to the node's top).
+            const labelBox = n.renderedBoundingBox({ includeLabels: true, includeOverlays: false });
+            badge.style.top = (labelBox.y1 - 4) + 'px';
         }
 
         // WS-9 area C — re-frame the active journey (no re-layout) so the fit
