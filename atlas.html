@@ -10367,7 +10367,7 @@
                 isDirectionalCC(c) &&
                 (String(c.source_event_id) === id || String(c.target_event_id) === id));
             if (hasDirectionalChain) {
-                html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;background:transparent;">';
+                html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
                 html += '</div>';
             }
@@ -10382,7 +10382,7 @@
             const hasThread = !!(threadsByEvent[id] && threadsByEvent[id].length);
             const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
             if (hasDirectionalChain || hasThread || hasMembership) {
-                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;background:transparent;">';
+                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack journey →</button>`;
                 html += '</div>';
             }
