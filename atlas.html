@@ -3914,15 +3914,21 @@
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
             text-transform: uppercase; margin: 14px 0 8px 0;
             padding-left: 8px; border-left: 3px solid var(--border-default);
+            /* Polish #225 Item C — flex the header so the label text and the ?
+               trigger are siblings with consistent breathing space whether or
+               not the (long) header wraps. The #224 6px horizontal margin
+               couldn't fix the VERTICAL cramping when the inline ? dropped onto
+               a wrapped line; flex + align-items:center keeps it clear. */
+            display: flex; align-items: center; gap: 8px;
         }
         .atlas-stack-section-label:first-child { margin-top: 2px; }
         .atlas-stack-section-label.coordination { color: #2DD4BF; border-left-color: #2DD4BF; }
         .atlas-stack-section-label.material { color: #9FB0C4; border-left-color: #7C8A9E; }
         .atlas-stack-section-label.capability { color: #F59E0B; border-left-color: #F59E0B; }
-        /* Polish #224 cluster 6b — the ? tooltip trigger on the stack-journey
-           section headers (Coordination joints / Material links / Capability
-           waypoints) sat hard against the label text; add a small gap. */
-        .atlas-stack-section-label .weo-info-trigger { margin-left: 6px; }
+        /* Polish #225 Item C — the #224 cluster 6b `.weo-info-trigger
+           { margin-left: 6px }` is removed: the label is now a flex line (above)
+           so the gap is handled by `gap`, and a horizontal margin can't address
+           the vertical cramping that remained when the header wrapped. */
         /* Hop card — left border colour-codes the kind so the three never
            blur into one running coordination narrative. */
         .atlas-stack-hop {
