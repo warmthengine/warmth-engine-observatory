@@ -3501,8 +3501,16 @@
             border-top: 1px solid var(--border-default);
             position: sticky;
             bottom: 0;
+            /* --surface-raised is fully opaque (#1E293B), so the bg already
+               occludes — the bleed was purely a stacking order problem. */
             background: var(--surface-raised);
-            z-index: 5;
+            /* Polish #225 Item B — the CC-V confidence chips render inside
+               .badge-with-tooltip (position:relative; z-index:100), whose
+               stacking context out-painted this sticky footer at z-index:5 —
+               chips (and their ? triggers) showed THROUGH it on scroll. Raise
+               above the chip wrappers (100) but below the mechanism popovers
+               (ENT 150 / industry 1000) so those still open over the footer. */
+            z-index: 110;
         }
         .atlas-panel-action-btn {
             flex: 1;
@@ -3906,15 +3914,21 @@
             font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
             text-transform: uppercase; margin: 14px 0 8px 0;
             padding-left: 8px; border-left: 3px solid var(--border-default);
+            /* Polish #225 Item C — flex the header so the label text and the ?
+               trigger are siblings with consistent breathing space whether or
+               not the (long) header wraps. The #224 6px horizontal margin
+               couldn't fix the VERTICAL cramping when the inline ? dropped onto
+               a wrapped line; flex + align-items:center keeps it clear. */
+            display: flex; align-items: center; gap: 8px;
         }
         .atlas-stack-section-label:first-child { margin-top: 2px; }
         .atlas-stack-section-label.coordination { color: #2DD4BF; border-left-color: #2DD4BF; }
         .atlas-stack-section-label.material { color: #9FB0C4; border-left-color: #7C8A9E; }
         .atlas-stack-section-label.capability { color: #F59E0B; border-left-color: #F59E0B; }
-        /* Polish #224 cluster 6b — the ? tooltip trigger on the stack-journey
-           section headers (Coordination joints / Material links / Capability
-           waypoints) sat hard against the label text; add a small gap. */
-        .atlas-stack-section-label .weo-info-trigger { margin-left: 6px; }
+        /* Polish #225 Item C — the #224 cluster 6b `.weo-info-trigger
+           { margin-left: 6px }` is removed: the label is now a flex line (above)
+           so the gap is handled by `gap`, and a horizontal margin can't address
+           the vertical cramping that remained when the header wrapped. */
         /* Hop card — left border colour-codes the kind so the three never
            blur into one running coordination narrative. */
         .atlas-stack-hop {
@@ -8900,6 +8914,19 @@
             // Single click on empty canvas closes whichever panel is open.
             cy.on('tap', (evt) => {
                 if (evt.target !== cy) return;
+                // Polish #225 Item 1 — empty-canvas tap must NOT clear the pinned
+                // selection mid-journey (that broke the persist invariant + lost
+                // the recall). During a journey: a foregrounded detail panel
+                // dismisses back to the journey; otherwise the tap is inert (exit
+                // is via the journey × / exit pill / Escape).
+                if (inJourneyMode()) {
+                    if ((atlasState.selectedEventId || atlasState.selectedConnectionId) && !atlasState._journeyForeground) {
+                        setAtlasState({ _journeyForeground: true });
+                        return;
+                    }
+                    if (atlasState.selectedThreadKey) { setAtlasState({ selectedThreadKey: null }); return; }
+                    return;
+                }
                 if (atlasState.selectedThreadKey) {
                     setAtlasState({ selectedThreadKey: null });
                     return;
@@ -9377,6 +9404,14 @@
         function layoutJourneySubgraph(rootId, focusEles, opts) {
             if (!cy || !focusEles || !focusEles.length) return;
             opts = opts || {};
+            // Polish #225 Item D — cancel any in-flight viewport tween (the
+            // panel-open recentreOnEvent that fires ~350ms after tapping an
+            // event) so the entry starts from a stable camera. Without this, a
+            // trace/stack launched mid-recentre showed the recentre finishing
+            // and THEN the journey fit — two moves. Now the single entry fit
+            // below is the only camera motion regardless of launch timing.
+            // (Layout node animation + the journey fit run after this, untouched.)
+            if (typeof cy.stop === 'function') cy.stop();
             // WS-9 item 5 — entry begins now; held until the single fit settles.
             _journeyEntering = true;
             const rootNode = cy.getElementById(String(rootId));
@@ -9399,6 +9434,14 @@
                 padding: 30,
                 avoidOverlap: true,
                 maximal: false,
+                // Polish #225 Item D — Cytoscape layouts default fit:true, so
+                // breadthfirst was framing the sub-set itself (tight, padding 30)
+                // DURING its animation, then layoutstop's fitToUsableViewport
+                // re-framed it (padding 120 + journey insets) — the two distinct
+                // camera moves QA saw as "animate in offset-to-the-side, flash,
+                // then shift" (~0.75s). fit:false makes the layout reposition
+                // nodes ONLY; the single viewport-aware fit below owns the camera.
+                fit: false,
                 // #216 item 2 — break exact tier collinearity. breadthfirst
                 // centres children under parents, so vertically-aligned and
                 // skip-level edges stack on one line. A small deterministic
@@ -9650,7 +9693,11 @@
             const closeBtn = elAtlasPanelContent.querySelector('#atlas-cc-panel-close');
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
-                    setAtlasState({ selectedConnectionId: null, selectedEventId: null });
+                    // Polish #225 Item 1 — during a journey the CC × returns the
+                    // journey to the foreground (selection persists); a genuine
+                    // close only when no journey owns the canvas.
+                    if (inJourneyMode()) setAtlasState({ _journeyForeground: true });
+                    else setAtlasState({ selectedConnectionId: null, selectedEventId: null });
                 });
             }
             elAtlasPanelContent.querySelectorAll('[data-cc-nav-event]').forEach(btn => {
@@ -10832,7 +10879,14 @@
             }
             const closeBtn = elAtlasPanelContent.querySelector('#atlas-panel-close');
             if (closeBtn) {
-                closeBtn.addEventListener('click', () => setAtlasState({ selectedEventId: null }));
+                closeBtn.addEventListener('click', () => {
+                    // Polish #225 Item 1 — × during a journey returns the journey
+                    // to the foreground (detail tucks; selection persists, no
+                    // closePanel mid-journey). A genuine close (clear selection)
+                    // only when no journey owns the canvas.
+                    if (inJourneyMode()) setAtlasState({ _journeyForeground: true });
+                    else setAtlasState({ selectedEventId: null });
+                });
             }
             // WS-3 — launch the coordination-pathways trace rooted at this
             // event. Clears the detail-panel selection (mutual exclusion).
@@ -10841,17 +10895,17 @@
                 traceLaunch.addEventListener('click', () => {
                     const id = traceLaunch.getAttribute('data-trace-launch');
                     if (!id) return;
-                    // Polish #224 cluster 3 — tuck the event/CC panel we trace
-                    // FROM instead of floating the journey over it (which made
-                    // the detail header + scrollbar bleed over the right panel).
-                    // Cache the selection, then clear it so launching the journey
-                    // closes the panel: exactly one panel owns the foreground.
-                    // The "◂ Event details" recall tab restores it (which tucks
-                    // the journey — symmetric). closePanel skips its refit while
-                    // a journey owns the camera, so there is no extra tween.
-                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
-                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
-                    setAtlasState({ traceRootId: id, selectedEventId: null, selectedConnectionId: null });
+                    // Polish #225 Item 1 (regression fix) — launch the journey
+                    // WITHOUT clearing the selection. The launching event/CC stays
+                    // the active context for the journey's duration: foreground =
+                    // journey, and the detail panel TUCKS (via syncDataPanel-
+                    // Foreground) rather than CLOSES. #224 cleared the selection,
+                    // which fired closePanel in the same dispatch; its restorative
+                    // teardown raced syncTraceOnState's freshly-applied highlight
+                    // ("everything bright / nodes won't open"). Keeping the
+                    // selection means closePanel never runs on launch → no race.
+                    // The "◂ Event details" recall tab brings the detail back.
+                    setAtlasState({ traceRootId: id, _journeyForeground: true });
                 });
             }
             // WS-5 — launch the Stack Journey rooted at this event.
@@ -10860,12 +10914,10 @@
                 stackLaunch.addEventListener('click', () => {
                     const id = stackLaunch.getAttribute('data-stack-launch');
                     if (!id) return;
-                    // Polish #224 cluster 3 — same tuck-to-recall as the trace
-                    // launch: cache + clear the detail selection so only the
-                    // stack journey shows (no bleed).
-                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
-                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
-                    setAtlasState({ stackRootId: id, selectedEventId: null, selectedConnectionId: null });
+                    // Polish #225 Item 1 — same as the trace launch: keep the
+                    // selection (foreground = journey, detail tucks). No
+                    // closePanel race on launch.
+                    setAtlasState({ stackRootId: id, _journeyForeground: true });
                 });
             }
             // Accordions
@@ -10959,19 +11011,31 @@
         // Brief 3d — also handles the new CC panel via selectedConnectionId.
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            // WS-9 area F — inverted precedence: a DATA panel opened over a
-            // journey closes first and the journey survives; only once no data
-            // panel is open does Escape exit the journey itself.
+            // WS-9 area F / Polish #225 Item 1 — inverted precedence, now via the
+            // foreground arbiter (the detail selection PERSISTS for the journey,
+            // so we no longer clear it to "close first"). During a journey:
+            // Escape dismisses a foregrounded detail panel back to the journey;
+            // with the journey already foreground (or only a thread panel up) it
+            // exits the journey itself.
+            if (typeof inJourneyMode === 'function' && inJourneyMode()) {
+                if ((atlasState.selectedEventId || atlasState.selectedConnectionId) && !atlasState._journeyForeground) {
+                    setAtlasState({ _journeyForeground: true });
+                    return;
+                }
+                if (atlasState.selectedThreadKey) {
+                    setAtlasState({ selectedThreadKey: null });
+                    return;
+                }
+                exitJourney();
+                return;
+            }
+            // No journey — classic close precedence.
             if (atlasState.selectedEventId || atlasState.selectedConnectionId) {
                 setAtlasState({ selectedEventId: null, selectedConnectionId: null });
                 return;
             }
             if (atlasState.selectedThreadKey) {
                 setAtlasState({ selectedThreadKey: null });
-                return;
-            }
-            if (typeof inJourneyMode === 'function' && inJourneyMode()) {
-                exitJourney();
                 return;
             }
         });
@@ -12637,6 +12701,29 @@
         // untucks — re-rendered, re-highlighted and re-framed. So clicking a
         // journey node opens its data panel and closing it returns to the
         // journey.
+        // Polish #225 Item 1 — tuck/untuck the #atlas-panel-v2 detail panel
+        // WITHOUT closing it. Mirrors tuckTracePanel for the data side: the
+        // launching selection stays set (no closePanel → no restorative
+        // teardown that used to race the journey highlight). Hiding the grid
+        // column (drop .has-panel-open) lets the canvas reclaim the space so
+        // the fixed journey overlay no longer bleeds over a half-open detail
+        // column. Presentation only — no selection change, no camera/opacity
+        // work (the journey owns the camera and the dim).
+        function tuckDataPanel() {
+            if (elAtlasMain) elAtlasMain.classList.remove('has-panel-open');
+            if (elAtlasPanel) elAtlasPanel.setAttribute('aria-hidden', 'true');
+        }
+        function untuckDataPanel() {
+            // Content was never cleared, so it reappears as-is — no re-render,
+            // no re-fit, no opacity rebuild.
+            if (elAtlasMain) elAtlasMain.classList.add('has-panel-open');
+            if (elAtlasPanel) elAtlasPanel.setAttribute('aria-hidden', 'false');
+        }
+        function tuckActiveJourneyPanel() {
+            if (atlasState.traceRootId) tuckTracePanel();
+            else if (atlasState.stackRootId) tuckStackPanel();
+            else if (atlasState.materialRootId) tuckMaterialPanel();
+        }
         function tuckTracePanel() {
             if (!elTracePanel) return;
             elTracePanel.classList.remove('open');
@@ -12731,10 +12818,11 @@
                 return;
             }
             if (state.stackRootId) {
-                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
-                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
-                if (dataOpen && !dataWasOpen) tuckStackPanel();
-                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckStackPanel);
+                // Polish #225 Item 1 — foreground-arbiter keyed (see syncTraceOnState).
+                const dataOver = dataPanelOverJourney(state);
+                const dataWasOver = dataPanelOverJourney(prev);
+                if (dataOver && !dataWasOver) tuckStackPanel();
+                else if (!dataOver && dataWasOver) requestAnimationFrame(untuckStackPanel);
             }
         }
 
@@ -12757,10 +12845,11 @@
                 return;
             }
             if (state.materialRootId) {
-                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
-                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
-                if (dataOpen && !dataWasOpen) tuckMaterialPanel();
-                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckMaterialPanel);
+                // Polish #225 Item 1 — foreground-arbiter keyed (see syncTraceOnState).
+                const dataOver = dataPanelOverJourney(state);
+                const dataWasOver = dataPanelOverJourney(prev);
+                if (dataOver && !dataWasOver) tuckMaterialPanel();
+                else if (!dataOver && dataWasOver) requestAnimationFrame(untuckMaterialPanel);
             }
         }
 
@@ -12925,6 +13014,15 @@
             // WS-9 — root of an open material/threads journey (hub panel).
             // Mutually exclusive with the other journeys.
             materialRootId: null,
+            // Polish #225 Item 1 — foreground arbiter for a journey launched
+            // FROM an event/CC panel. While a journey owns the canvas the
+            // launching selection PERSISTS (never nulled until exit), so this
+            // flag — not the presence of a selection — decides which of
+            // {journey panel, detail panel} is foreground; the other tucks.
+            // true = journey foreground (detail tucked); false = detail
+            // foreground (journey tucked). Meaningful only when inJourneyMode()
+            // AND a selectedEventId/selectedConnectionId exists.
+            _journeyForeground: false,
             _lastThreadKey: null,
             layoutName: 'fcose',
             // Brief 3e §2 — layout mode: 'network' (force-directed,
@@ -13164,11 +13262,16 @@
             // camera zoom-back. cleanupFinal clears this flag and calls
             // applyFiltersToCytoscape itself once the transition is done.
             if (panelClosingInProgress) return;
-            // WS-3 — while a coordination-pathways trace owns the canvas,
-            // the trace-dim / trace-edge / trace-node classes drive opacity.
-            // Skip filter dimming so the two systems don't fight; the trace
-            // restores filter state on close via clearTraceHighlight().
-            if (atlasState.traceRootId) return;
+            // WS-3 — while a journey owns the canvas, its trace-dim / trace-edge
+            // / trace-node (and stack/material) classes drive opacity. Skip
+            // filter dimming so the two systems don't fight; the journey restores
+            // filter state on close via clearTraceHighlight()/exitJourney().
+            // Polish #225 Item 1 — was traceRootId-only. The launching selection
+            // now PERSISTS for stack/material journeys too, so syncCytoscape-
+            // OnState's isClosing short-circuit (which used to spare them) no
+            // longer fires; without this broader bail the filter pass would
+            // clobber a stack/material journey's dim. Bail on ANY journey.
+            if (atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId) return;
             const { filters } = state;
             const active = hasAnyActiveFilter(filters);
             cy.batch(() => {
@@ -14007,12 +14110,16 @@
                 else closeTracePanel();
                 return;
             }
-            // Trace persists — tuck/untuck around a data panel.
+            // Trace persists — tuck/untuck around a data panel. Polish #225
+            // Item 1 — keyed off the foreground arbiter (the launching event/CC
+            // selection now persists for the journey, so raw "is a selection
+            // set" can't detect the transition); the thread panel still rides
+            // the classic open/closed model via dataPanelOverJourney.
             if (state.traceRootId) {
-                const dataOpen = !!(state.selectedEventId || state.selectedConnectionId || state.selectedThreadKey);
-                const dataWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId || prev.selectedThreadKey);
-                if (dataOpen && !dataWasOpen) tuckTracePanel();
-                else if (!dataOpen && dataWasOpen) requestAnimationFrame(untuckTracePanel);
+                const dataOver = dataPanelOverJourney(state);
+                const dataWasOver = dataPanelOverJourney(prev);
+                if (dataOver && !dataWasOver) tuckTracePanel();
+                else if (!dataOver && dataWasOver) requestAnimationFrame(untuckTracePanel);
             }
         }
 
@@ -14188,6 +14295,61 @@
         function inJourneyMode() {
             return !!(atlasState.traceRootId || atlasState.stackRootId || atlasState.materialRootId);
         }
+        // Polish #225 Item 1 — foreground predicates for the journey×detail
+        // coordination. These read a snapshot (state or prev) so subscribers can
+        // detect a foreground TRANSITION across one dispatch.
+        function stateInJourney(s) {
+            return !!(s && (s.traceRootId || s.stackRootId || s.materialRootId));
+        }
+        // True when the #atlas-panel-v2 event/CC detail panel is the foreground.
+        // Outside a journey it is simply "is a detail panel open". Inside one the
+        // selection persists, so the arbiter flag decides.
+        function eventCCForeground(s) {
+            if (!s || !(s.selectedEventId || s.selectedConnectionId)) return false;
+            if (stateInJourney(s)) return !s._journeyForeground;
+            return true;
+        }
+        // True when SOME data panel sits in the foreground over a journey — the
+        // event/CC detail panel (arbiter-gated, above) OR the lighter thread
+        // factual-link panel (still classic open/closed). Drives the journey
+        // panel's tuck/untuck so the journey yields whenever a data panel leads.
+        function dataPanelOverJourney(s) {
+            if (!s) return false;
+            if (s.selectedThreadKey) return true;
+            return eventCCForeground(s);
+        }
+        // Polish #225 Item 1 — keep the foreground arbiter honest. While a
+        // journey owns the canvas, a NEW/changed event-or-CC selection means the
+        // user explicitly picked something to inspect → the detail panel leads.
+        // Setting it here (one place) means every selection site — node tap, CC
+        // tap, panel deep-links — flips to the detail foreground without each
+        // having to know about the flag. Launch / dismiss paths keep the
+        // selection unchanged, so they set _journeyForeground via setAtlasState
+        // and this never overrides them. Mutates atlasState directly (no
+        // re-dispatch) so downstream subscribers in THIS dispatch see the flip
+        // while prev still holds the old value — exactly what the tuck
+        // transition detection needs. Registered FIRST.
+        function syncJourneyForegroundState(state, prev) {
+            if (!stateInJourney(state)) return;
+            const selChanged = state.selectedEventId !== prev.selectedEventId ||
+                               state.selectedConnectionId !== prev.selectedConnectionId;
+            if (selChanged && (state.selectedEventId || state.selectedConnectionId)) {
+                atlasState._journeyForeground = false;
+            }
+        }
+        // Polish #225 Item 1 — tuck/untuck the #atlas-panel-v2 detail panel as
+        // the arbiter flips, mirroring the journey-panel tuck in
+        // syncTraceOnState/syncStackPanelOnState/syncMaterialPanelOnState. Only
+        // active while a journey owns the canvas; outside one, openPanel/
+        // closePanel own .has-panel-open exactly as before.
+        function syncDataPanelForeground(state, prev) {
+            if (!stateInJourney(state)) return;
+            const fg = eventCCForeground(state);
+            const wasFg = eventCCForeground(prev);
+            if (fg === wasFg) return;
+            if (fg) untuckDataPanel();
+            else tuckDataPanel();
+        }
         // WS-9 item 3 — an edge that belongs to whichever journey owns the
         // canvas. Each journey kind tags its edges with one of these classes
         // (trace: trace-edge/journey-edge/trace-current; stack: stack-
@@ -14304,14 +14466,20 @@
             // fit is mooted (they guard on inJourneyMode(), false from here).
             _journeyEntering = false;
             const hadDetail = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            // Polish #225 Item 1 — is the detail panel actually occupying the
+            // grid right now (foreground = data)? If so closePanel (below) owns
+            // the exit refit; if it was tucked behind the journey (foreground =
+            // journey), closePanel sees wasOpen=false and skips its refit, so the
+            // full-graph fit at the end must cover it. Capture before teardown.
+            const detailWasShowing = hadDetail && !!(elAtlasMain && elAtlasMain.classList.contains('has-panel-open'));
             // Null journey + selection state directly (no re-dispatch loop).
             atlasState.traceRootId = null;
             atlasState.stackRootId = null;
             atlasState.materialRootId = null;
-            // Polish #224 cluster 3 — leaving the journey discards the tucked
-            // detail-panel memory and hides its recall tab.
-            atlasState._tuckedDataEvent = null;
-            atlasState._tuckedDataCC = null;
+            // Polish #225 Item 1 — leaving the journey clears the foreground
+            // arbiter and hides the recall tab. The selection itself is cleared
+            // below (hadDetail path), where closePanel's teardown IS wanted.
+            atlasState._journeyForeground = false;
             hideDataRecallTab();
             // Close every overlay (idempotent).
             closeTracePanel();
@@ -14341,9 +14509,11 @@
             // WS-9 item 7 — sequence: let the position-restore (≈360ms,
             // ease-out) finish, THEN run a single eased fit back to the full
             // graph so the exit reads as one continuous motion, not a jump.
-            // Skipped when closePanel already owns the refit for a just-closed
-            // detail panel.
-            if (cy && !hadDetail) {
+            // Polish #225 Item 1 — skipped only when closePanel already owns the
+            // refit (the detail panel was actually showing). When the detail was
+            // tucked behind the journey, closePanel skips its refit, so run it
+            // here — otherwise the camera would stay framed on the journey.
+            if (cy && !detailWasShowing) {
                 setTimeout(() => {
                     if (cy && typeof fitToUsableViewport === 'function') {
                         fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420, easing: 'ease-out' });
@@ -14374,16 +14544,16 @@
             else hideExitPill();
         }
 
-        // Polish #224 cluster 3 — detail-panel recall tab. When a journey is
-        // launched from an event/CC panel, that panel is tucked (its selection
-        // cached + cleared in the launch handler) so only the journey shows.
-        // This tab brings it back; restoring the selection re-opens the data
-        // panel, which tucks the journey via the existing selectedEventId-driven
-        // tuck/untuck — exactly one panel in the foreground, no bleed.
+        // Polish #225 Item 1 — detail-panel recall tab. When a journey is
+        // launched from an event/CC panel, that panel's selection PERSISTS but
+        // tucks (foreground = journey). This tab brings it back by flipping the
+        // foreground arbiter — exactly one panel in the foreground, no bleed,
+        // no closePanel race. (Was #224 cluster 3, which cached + cleared the
+        // selection; the cache is gone — the live selection is the source.)
         function showDataRecallTab() {
             const t = document.getElementById('atlas-data-recall');
             if (!t) return;
-            t.textContent = atlasState._tuckedDataCC ? '◂ Connection details' : '◂ Event details';
+            t.textContent = atlasState.selectedConnectionId ? '◂ Connection details' : '◂ Event details';
             t.classList.add('visible');
         }
         function hideDataRecallTab() {
@@ -14391,22 +14561,20 @@
             if (t) t.classList.remove('visible');
         }
         function recallDataPanel() {
-            const e = atlasState._tuckedDataEvent, c = atlasState._tuckedDataCC;
-            if (!e && !c) return;
-            // Re-select the tucked event/CC. syncDetailPanelOnState re-opens its
-            // panel and the journey subscribers tuck the journey (dataOpen &&
-            // !dataWasOpen), so the data panel becomes the sole foreground. The
-            // cache is kept so the tab works again after the data panel is
-            // closed and the journey returns.
-            if (e) setAtlasState({ selectedEventId: e, selectedConnectionId: null });
-            else setAtlasState({ selectedConnectionId: c, selectedEventId: null });
+            // Polish #225 Item 1 — bring the still-set launching detail panel
+            // back to the foreground by flipping the arbiter. syncDataPanel-
+            // Foreground untucks the detail panel and syncTraceOnState/etc tuck
+            // the journey — symmetric, with the journey's dim + camera untouched.
+            if (!inJourneyMode()) return;
+            if (!(atlasState.selectedEventId || atlasState.selectedConnectionId)) return;
+            setAtlasState({ _journeyForeground: false });
         }
         // Subscriber — the recall tab shows only while a journey owns the canvas,
-        // a tucked detail selection is remembered, and no data panel is open.
+        // the launching detail selection is still set, and the journey (not the
+        // detail panel) currently holds the foreground.
         function syncDataRecallTab() {
-            const hasCache = !!(atlasState._tuckedDataEvent || atlasState._tuckedDataCC);
-            const dataOpen = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
-            if (hasCache && inJourneyMode() && !dataOpen) showDataRecallTab();
+            const hasSel = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            if (inJourneyMode() && hasSel && atlasState._journeyForeground) showDataRecallTab();
             else hideDataRecallTab();
         }
 
@@ -14568,6 +14736,9 @@
                 buildFilterBar();
 
                 // Register subscribers AFTER initial DOM is built.
+                // Polish #225 Item 1 — FIRST so the foreground flip lands before
+                // any panel subscriber reads it this dispatch.
+                subscribeAtlasState(syncJourneyForegroundState);
                 subscribeAtlasState(syncCytoscapeOnState);
                 subscribeAtlasState(syncTopologyOnState);
                 subscribeAtlasState(syncFilterBarOnState);
@@ -14576,6 +14747,9 @@
                 subscribeAtlasState(syncStackPanelOnState);
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncMaterialPanelOnState);
+                // Polish #225 Item 1 — after the journey panels + detail panel
+                // have reacted, settle the detail panel's grid column.
+                subscribeAtlasState(syncDataPanelForeground);
                 subscribeAtlasState(syncExitPill);
                 subscribeAtlasState(syncDataRecallTab);
                 subscribeAtlasState(syncUrlHash);
