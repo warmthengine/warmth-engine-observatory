@@ -14650,7 +14650,7 @@
     var items=ordered.map(function(l){
       var href='/profiles/#'+encodeURIComponent(l.actor)+'-'+encodeURIComponent(l.dimension);
       var ent=(l.link_type==='qualifying_contributor'&&l.entity)?'<div class="weo-cap-entity">'+esc(l.entity)+'</div>':'';
-      return '<a class="weo-cap-badge" href="'+href+'"><div class="weo-cap-claim">'+claim(l)+'<span class="weo-cap-arrow">&#8594;</span></div>'+ent+'</a>';
+      return '<a class="weo-cap-badge" href="'+href+'" target="_blank" rel="noopener"><div class="weo-cap-claim">'+claim(l)+'<span class="weo-cap-arrow">&#8594;</span></div>'+ent+'</a>';
     }).join('');
     return '<div class="weo-cap-sec"><div class="weo-cap-eyebrow">Sovereign capability</div><div class="weo-cap-list">'+items+'</div></div>';
   }
