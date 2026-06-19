@@ -6043,6 +6043,24 @@
                         }
                     },
                     {
+                        // #216 item 7 (design B) — focal-node ring. Rings the
+                        // clicked non-root node inside a journey so a low-degree
+                        // node reads as the focus. Amber (never green — the root
+                        // owns green) and NO size change (node size encodes global
+                        // connectedness): a border + soft underlay halo, mirroring
+                        // the root's ring treatment in a distinct hue.
+                        selector: 'node.journey-focus',
+                        style: {
+                            'border-color': '#F59E0B',
+                            'border-width': 4,
+                            'border-opacity': 1,
+                            'underlay-color': '#F59E0B',
+                            'underlay-opacity': 0.3,
+                            'underlay-padding': 10,
+                            'z-index': 991
+                        }
+                    },
+                    {
                         // WS-9 — directional arrow on journey edges. Vertical
                         // tier position encodes depth; the arrowhead encodes
                         // flow (source = upstream, target = downstream). The
@@ -9625,7 +9643,7 @@
                         });
                         // Strip panel-* classes and compute final state.
                         cy.batch(() => {
-                            cy.elements().removeClass('panel-dim panel-focus panel-primary');
+                            cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
                         });
                         // V8b — re-run filter sync skipped in
                         // syncCytoscapeOnState during the close transition.
@@ -11643,7 +11661,7 @@
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     // WS-9 — journey-edge adds the source→target arrowhead so
@@ -12144,7 +12162,7 @@
 
             const rootId = String(stackJourney.rootId);
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     // journey-edge arrows ride only on the directional CC hops;
@@ -12320,7 +12338,7 @@
             const rid = String(rootId);
             const threadIds = new Set(Array.from(j.edgeKeys).map(k => threadCyId(k)));
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
@@ -13097,7 +13115,7 @@
             cy.batch(() => {
                 // Fix 2 — clear any residual panel-dimming classes
                 // so the stylesheet base rules reassert.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
                 cy.nodes().forEach(node => {
                     node.removeStyle('opacity');
                     node.removeStyle('z-index');
@@ -13214,10 +13232,16 @@
                     // no-op if no inline transition state is set.
                     n.removeStyle('transition-property');
                     n.removeStyle('transition-duration');
-                    n.removeClass('panel-dim panel-focus panel-primary');
+                    n.removeClass('panel-dim panel-focus panel-primary journey-focus');
                     if (focusNodes.contains(n)) {
                         if (primaryNodeIds.has(n.id())) {
                             n.addClass('panel-primary');
+                            // #216 item 7 (design B) — ring the focal node while a
+                            // journey owns the canvas, except the root (it keeps
+                            // green). Cleared wherever panel-primary is cleared.
+                            if (typeof inJourneyMode === 'function' && inJourneyMode() && !n.hasClass('journey-root')) {
+                                n.addClass('journey-focus');
+                            }
                         } else {
                             n.addClass('panel-focus');
                         }
