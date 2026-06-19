@@ -805,6 +805,38 @@
             border-color: #2DD4BF;
         }
         .atlas-journey-exit.visible { display: inline-flex; }
+        /* Polish #224 cluster 3 — detail-panel recall tab. Top-left, clear of
+           the centred journey readout and the right-side journey panel. Indigo
+           accent so it reads distinct from the journey-green chrome. */
+        .atlas-data-recall {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 96;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid #818CF8;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            padding: 7px 14px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0.95;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-data-recall:hover {
+            opacity: 1;
+            background: rgba(129, 140, 248, 0.16);
+            border-color: #818CF8;
+        }
+        .atlas-data-recall.visible { display: inline-flex; }
         .atlas-journeys-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -4693,6 +4725,14 @@
                      "Start here ▸" stays available for journey→journey. -->
                 <button id="atlas-journey-exit" class="atlas-journey-exit" type="button"
                         aria-label="Exit journey mode">Exit journey mode ✕</button>
+
+                <!-- Polish #224 cluster 3 — detail-panel recall tab. Shown only
+                     while a journey owns the canvas AND the event/CC panel it
+                     was launched from has been tucked. Click restores that panel
+                     (which tucks the journey — symmetric), so exactly one panel
+                     is ever in the foreground (no header/scrollbar bleed). -->
+                <button id="atlas-data-recall" class="atlas-data-recall" type="button"
+                        aria-label="Reopen detail panel">◂ Event details</button>
 
                 <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
                      shown alongside the visual reveal when a journey is triggered. -->
@@ -10794,20 +10834,32 @@
             if (traceLaunch) {
                 traceLaunch.addEventListener('click', () => {
                     const id = traceLaunch.getAttribute('data-trace-launch');
-                    // The trace floats over the still-open event panel; the
-                    // detail selection is left intact so closing the trace
-                    // returns the user to the event they traced from.
-                    if (id) setAtlasState({ traceRootId: id });
+                    if (!id) return;
+                    // Polish #224 cluster 3 — tuck the event/CC panel we trace
+                    // FROM instead of floating the journey over it (which made
+                    // the detail header + scrollbar bleed over the right panel).
+                    // Cache the selection, then clear it so launching the journey
+                    // closes the panel: exactly one panel owns the foreground.
+                    // The "◂ Event details" recall tab restores it (which tucks
+                    // the journey — symmetric). closePanel skips its refit while
+                    // a journey owns the camera, so there is no extra tween.
+                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
+                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
+                    setAtlasState({ traceRootId: id, selectedEventId: null, selectedConnectionId: null });
                 });
             }
-            // WS-5 — launch the Stack Journey rooted at this event. Floats
-            // over the open event panel (same pattern as the trace), so
-            // closing the journey returns to the event traced from.
+            // WS-5 — launch the Stack Journey rooted at this event.
             const stackLaunch = elAtlasPanelContent.querySelector('#atlas-stack-launch');
             if (stackLaunch) {
                 stackLaunch.addEventListener('click', () => {
                     const id = stackLaunch.getAttribute('data-stack-launch');
-                    if (id) setAtlasState({ stackRootId: id });
+                    if (!id) return;
+                    // Polish #224 cluster 3 — same tuck-to-recall as the trace
+                    // launch: cache + clear the detail selection so only the
+                    // stack journey shows (no bleed).
+                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
+                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
+                    setAtlasState({ stackRootId: id, selectedEventId: null, selectedConnectionId: null });
                 });
             }
             // Accordions
@@ -14250,6 +14302,11 @@
             atlasState.traceRootId = null;
             atlasState.stackRootId = null;
             atlasState.materialRootId = null;
+            // Polish #224 cluster 3 — leaving the journey discards the tucked
+            // detail-panel memory and hides its recall tab.
+            atlasState._tuckedDataEvent = null;
+            atlasState._tuckedDataCC = null;
+            hideDataRecallTab();
             // Close every overlay (idempotent).
             closeTracePanel();
             closeStackPanel();
@@ -14309,6 +14366,42 @@
         function syncExitPill() {
             if (inJourneyMode()) showExitPill();
             else hideExitPill();
+        }
+
+        // Polish #224 cluster 3 — detail-panel recall tab. When a journey is
+        // launched from an event/CC panel, that panel is tucked (its selection
+        // cached + cleared in the launch handler) so only the journey shows.
+        // This tab brings it back; restoring the selection re-opens the data
+        // panel, which tucks the journey via the existing selectedEventId-driven
+        // tuck/untuck — exactly one panel in the foreground, no bleed.
+        function showDataRecallTab() {
+            const t = document.getElementById('atlas-data-recall');
+            if (!t) return;
+            t.textContent = atlasState._tuckedDataCC ? '◂ Connection details' : '◂ Event details';
+            t.classList.add('visible');
+        }
+        function hideDataRecallTab() {
+            const t = document.getElementById('atlas-data-recall');
+            if (t) t.classList.remove('visible');
+        }
+        function recallDataPanel() {
+            const e = atlasState._tuckedDataEvent, c = atlasState._tuckedDataCC;
+            if (!e && !c) return;
+            // Re-select the tucked event/CC. syncDetailPanelOnState re-opens its
+            // panel and the journey subscribers tuck the journey (dataOpen &&
+            // !dataWasOpen), so the data panel becomes the sole foreground. The
+            // cache is kept so the tab works again after the data panel is
+            // closed and the journey returns.
+            if (e) setAtlasState({ selectedEventId: e, selectedConnectionId: null });
+            else setAtlasState({ selectedConnectionId: c, selectedEventId: null });
+        }
+        // Subscriber — the recall tab shows only while a journey owns the canvas,
+        // a tucked detail selection is remembered, and no data panel is open.
+        function syncDataRecallTab() {
+            const hasCache = !!(atlasState._tuckedDataEvent || atlasState._tuckedDataCC);
+            const dataOpen = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            if (hasCache && inJourneyMode() && !dataOpen) showDataRecallTab();
+            else hideDataRecallTab();
         }
 
         function runGuidedJourney(id) {
@@ -14428,6 +14521,9 @@
             // WS-9 area F — the exit pill is the primary way out of a journey.
             const exit = document.getElementById('atlas-journey-exit');
             if (exit) exit.addEventListener('click', exitJourney);
+            // Polish #224 cluster 3 — recall tab reopens a tucked detail panel.
+            const dataRecall = document.getElementById('atlas-data-recall');
+            if (dataRecall) dataRecall.addEventListener('click', recallDataPanel);
             // Polish #224 cluster 2b — the guided-journey chrome (Start-here
             // strip, recall pill, exit pill, readout banner) lives INSIDE
             // #atlas-network so its absolute positioning resolves against the
@@ -14440,7 +14536,7 @@
             // stopPropagation (not stopImmediatePropagation) preserves them.
             // pointer-events:auto + z-index (CSS) keep the pill the visual
             // hit-target; this guarantees the isolation the brief requires.
-            ['atlas-journeys', 'atlas-journeys-recall', 'atlas-journey-exit', 'atlas-journey-readout'].forEach(id => {
+            ['atlas-journeys', 'atlas-journeys-recall', 'atlas-journey-exit', 'atlas-journey-readout', 'atlas-data-recall'].forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
                 ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
@@ -14475,6 +14571,7 @@
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncMaterialPanelOnState);
                 subscribeAtlasState(syncExitPill);
+                subscribeAtlasState(syncDataRecallTab);
                 subscribeAtlasState(syncUrlHash);
 
                 // Subscribers don't fire on init (no setAtlasState call) —
