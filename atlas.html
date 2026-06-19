@@ -3643,6 +3643,8 @@
                         background var(--duration-fast) var(--ease-out);
         }
         .atlas-trace-hop:hover { border-color: rgba(45, 212, 191, 0.4); }
+        /* #216 item 10 (design E) — row highlighted from a canvas hover (mirror). */
+        .atlas-trace-hop.mirror-hover, .atlas-stack-hop.mirror-hover { background: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.45); }
         .atlas-trace-hop.current {
             border-color: #2DD4BF;
             background: rgba(45, 212, 191, 0.1);
@@ -6230,6 +6232,19 @@
                             'overlay-opacity': 0.5,
                             'overlay-padding': 6
                         }
+                    },
+                    {
+                        // #216 item 10 (design E) — transient panel<->canvas
+                        // hover mirror. Neutral grey so it's distinct from the
+                        // select overlay (item 6) and the amber focus ring
+                        // (item 7). Toggled from panel-row hover and, in reverse,
+                        // from the canvas hover handlers.
+                        selector: 'edge.mirror-hover',
+                        style: { 'overlay-color': '#CBD5E1', 'overlay-opacity': 0.3, 'overlay-padding': 5 }
+                    },
+                    {
+                        selector: 'node.mirror-hover',
+                        style: { 'overlay-color': '#CBD5E1', 'overlay-opacity': 0.22, 'overlay-padding': 6 }
                     },
                     {
                         // Phase 2 P1 (Batch 2b++) — class-rule safety net
@@ -11551,7 +11566,7 @@
             const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
             const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
             const childCls = child ? ' atlas-journey-leg-child' : '';
-            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
+            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-cy-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
             h += '<div class="atlas-trace-hop-endpoints">';
             h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
             h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
@@ -11582,6 +11597,7 @@
             // Guide note — states what the trace IS (a downstream cascade),
             // no circular "follow the chain it forms" phrasing.
             h += '<p class="atlas-trace-guide">How this event cascades into the ones downstream of it. Each step is a single coordination connection — follow them in sequence and the chain speaks for itself.</p>';
+            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
@@ -11747,6 +11763,41 @@
             }
         }
 
+        // #216 item 10 (design E) — panel<->canvas hover mirror + the shared
+        // kind legend rendered on every journey panel.
+        let _journeyMirrorCanvasWired = false;
+        function wireJourneyRowMirror(container) {
+            if (!container || !cy) return;
+            // panel row hover -> highlight the matching canvas element
+            container.querySelectorAll('[data-cy-id]').forEach(function (row) {
+                var id = row.getAttribute('data-cy-id');
+                if (!id) return;
+                row.addEventListener('mouseenter', function () { var e = cy.getElementById(id); if (e && e.length) e.addClass('mirror-hover'); });
+                row.addEventListener('mouseleave', function () { var e = cy.getElementById(id); if (e && e.length) e.removeClass('mirror-hover'); });
+            });
+            // canvas element hover -> highlight the matching panel row (register once)
+            if (_journeyMirrorCanvasWired) return;
+            _journeyMirrorCanvasWired = true;
+            var toggleRow = function (id, on) {
+                var sel;
+                try { sel = '[data-cy-id="' + (window.CSS && CSS.escape ? CSS.escape(String(id)) : String(id)) + '"]'; } catch (e) { return; }
+                [elTraceContent, elStackContent, elMaterialContent].forEach(function (c) {
+                    if (!c) return;
+                    var row; try { row = c.querySelector(sel); } catch (e) { row = null; }
+                    if (row) row.classList.toggle('mirror-hover', on);
+                });
+            };
+            cy.on('mouseover', 'node, edge', function (evt) { if (typeof inJourneyMode === 'function' && inJourneyMode()) toggleRow(evt.target.id(), true); });
+            cy.on('mouseout', 'node, edge', function (evt) { toggleRow(evt.target.id(), false); });
+        }
+        function journeyKindLegend() {
+            return '<div class="atlas-stack-legend">' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>' +
+                '</div>';
+        }
+
         function wireTracePanelInteractions() {
             initTooltips();
             const closeBtn = elTraceContent.querySelector('#atlas-trace-close');
@@ -11787,6 +11838,7 @@
                     trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
                 });
             }
+            wireJourneyRowMirror(elTraceContent);
         }
 
         function openTracePanel(rootId) {
@@ -12088,7 +12140,7 @@
             const srcId = String(c.source_event_id), tgtId = String(c.target_event_id);
             const srcName = (eventById[srcId] && eventById[srcId].name) || ('Event ' + srcId);
             const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
-            let h = '<div class="atlas-stack-hop coordination">';
+            let h = '<div class="atlas-stack-hop coordination" data-cy-id="' + escapeHtml(c.connection_id || '') + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             h += '<span class="atlas-stack-arrow" aria-hidden="true">→</span>';
@@ -12104,7 +12156,7 @@
             const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
             const verbs = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType)));
             const assets = Array.from(new Set(te.threads.map(t => t.asset)));
-            let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '">';
+            let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '" data-cy-id="' + threadCyId(te.key) + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
@@ -12116,7 +12168,7 @@
         }
         function renderStackWaypoint(link) {
             const evName = (eventById[String(link._eventId)] && eventById[String(link._eventId)].name) || ('Event ' + link._eventId);
-            let h = '<div class="atlas-stack-hop capability">';
+            let h = '<div class="atlas-stack-hop capability" data-cy-id="' + escapeHtml(String(link._eventId)) + '">';
             h += '<div class="atlas-stack-waypoint-label">' + escapeHtml(membershipWaypointLabel(link)) + '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind capability">Capability</span>';
             h += '<span class="atlas-stack-via">via <span class="atlas-stack-evt" data-stack-event="' + escapeHtml(String(link._eventId)) + '" role="button" tabindex="0">' + escapeHtml(truncate(evName, 26)) + '</span></span></div>';
@@ -12136,11 +12188,7 @@
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
             h += '<p class="atlas-stack-guide">The value chain around this event, across three different kinds of link. Each hop is labelled by what it is — coordination, material fact, and capability are <strong>not the same kind of claim</strong>. Read the chain; the inference is yours.</p>';
             // Kind legend so the distinctions are explicit before the list.
-            h += '<div class="atlas-stack-legend">';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>';
-            h += '</div>';
+            h += journeyKindLegend();   // #216 item 10 — shared with trace + material panels
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
@@ -12258,6 +12306,7 @@
                     trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
                 });
             }
+            wireJourneyRowMirror(elStackContent);
         }
 
         function openStackPanel(rootId) {
@@ -12326,6 +12375,7 @@
             h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
             h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each leg is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a Coordination Connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
@@ -12339,7 +12389,7 @@
                         const fId = String(t.sourceEventId);
                         const fName = (eventById[fId] && eventById[fId].name) || ('Event ' + fId);
                         const key = fId + '|' + j.rootId;
-                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '">';
+                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '" data-cy-id="' + threadCyId(key) + '">';
                         h += '<div class="atlas-stack-hop-endpoints">';
                         h += '<span class="atlas-stack-evt" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
                         h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
@@ -12415,6 +12465,7 @@
                     if (key) setAtlasState({ selectedThreadKey: key });
                 });
             });
+            wireJourneyRowMirror(elMaterialContent);
         }
 
         function openMaterialPanel(rootId) {
