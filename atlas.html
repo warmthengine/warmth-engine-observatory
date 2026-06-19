@@ -708,6 +708,9 @@
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
             padding: 12px 14px 14px;
             z-index: 90;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas;
+               event isolation in wireGuidedJourneys() stops bleed-through. */
+            pointer-events: auto;
             display: none;
         }
         .atlas-journeys.visible { display: block; }
@@ -743,23 +746,28 @@
             display: none;
             align-items: center;
             gap: 4px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-primary);
+            /* Polish #224 cluster 2c — stronger rest state so "Start here"
+               reads as an affordance, not a faint hint, before hover. */
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid var(--text-secondary);
             border-radius: var(--radius-md);
             padding: 6px 14px;
             font-family: var(--font-sans);
             font-size: 11px;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             cursor: pointer;
-            opacity: 0.7;
-            transition: opacity var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+            opacity: 0.95;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas. */
+            pointer-events: auto;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
         }
         .atlas-journeys-recall:hover {
             opacity: 1;
+            background: rgba(255, 255, 255, 0.14);
             color: var(--text-primary);
-            border-color: var(--text-secondary);
+            border-color: #2DD4BF;
         }
         .atlas-journeys-recall.visible { display: inline-flex; }
         /* WS-9 — while the exit pill shows, lift the recall pill so the two
@@ -787,6 +795,8 @@
             color: #2DD4BF;
             cursor: pointer;
             opacity: 0.9;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas. */
+            pointer-events: auto;
             transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
         }
         .atlas-journey-exit:hover {
@@ -8805,6 +8815,12 @@
             // same code path.
             cy.on('tap', 'node', (evt) => {
                 if (_cyMultitouch) return;
+                // Polish #224 cluster 2a — during a journey, ignore taps on any
+                // node that isn't part of it (no .trace-node class = dimmed).
+                // Mirrors the node hover guard; without it a dimmed node opens a
+                // panel and silently exits the journey (then triggers the
+                // cluster-1 camera race). Rule: nothing dimmed is clickable.
+                if (typeof inJourneyMode === 'function' && inJourneyMode() && !evt.target.hasClass('trace-node')) return;
                 const ev = evt.target.data('event');
                 if (ev) setAtlasState({ selectedEventId: String(ev.id), selectedConnectionId: null });
             });
@@ -8813,6 +8829,11 @@
             // exclusive with the event panel: opening one closes the other.
             cy.on('tap', 'edge', (evt) => {
                 if (_cyMultitouch) return;
+                // Polish #224 cluster 2a — during a journey, ignore taps on any
+                // edge not in it (mirrors the edge hover guard). A dimmed CC or
+                // thread line is non-interactive while a journey owns the
+                // canvas; only the journey's own edges respond.
+                if (typeof inJourneyMode === 'function' && inJourneyMode() && !isJourneyEdge(evt.target)) return;
                 const d = evt.target.data();
                 if (!d || !d.id) return;
                 // WS-5 — a thread edge is a material fact, not a CC: route it
@@ -14393,6 +14414,25 @@
             // WS-9 area F — the exit pill is the primary way out of a journey.
             const exit = document.getElementById('atlas-journey-exit');
             if (exit) exit.addEventListener('click', exitJourney);
+            // Polish #224 cluster 2b — the guided-journey chrome (Start-here
+            // strip, recall pill, exit pill, readout banner) lives INSIDE
+            // #atlas-network so its absolute positioning resolves against the
+            // canvas. Cytoscape binds tap/pan detection to that container, so a
+            // pointer event on a pill bubbles up and Cytoscape hit-tests the
+            // node/edge behind it — the click "bleeds through" (opens a panel,
+            // silently exits the journey). Stop these events at each pill so
+            // they never reach cy. The pills' own buttons/cards still get their
+            // clicks (those fire deeper, before the event bubbles to the pill);
+            // stopPropagation (not stopImmediatePropagation) preserves them.
+            // pointer-events:auto + z-index (CSS) keep the pill the visual
+            // hit-target; this guarantees the isolation the brief requires.
+            ['atlas-journeys', 'atlas-journeys-recall', 'atlas-journey-exit', 'atlas-journey-readout'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
+                    el.addEventListener(type, e => e.stopPropagation(), { passive: true });
+                });
+            });
         }
 
         // -----------------------------------------------------------------
