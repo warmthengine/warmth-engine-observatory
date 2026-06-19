@@ -12142,7 +12142,12 @@
                     // material (thread) hops keep their production→use source
                     // chevron via the stack-material rule below.
                     if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination journey-edge');
-                    else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material');
+                    // #216 item 5b — the thread (material) edges in the stack
+                    // journey need `thread-visible` too, else they stay
+                    // display:none (thread-edge is a hidden toggle layer) and
+                    // the stack shows the CC hop with no threads. Mirrors
+                    // highlightMaterialJourney, which already adds both.
+                    else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) {
