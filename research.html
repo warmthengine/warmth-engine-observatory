@@ -541,7 +541,53 @@
             font-weight: 500;
             color: var(--text-secondary);
         }
-        
+
+        /* Leading epistemic frame — sits above the card so posture is read first */
+        .zone-intro {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.7;
+            margin-bottom: var(--weo-space-lg);
+            max-width: 62ch;
+        }
+
+        /* Contents subtitle — subordinate: smaller, muted, second line */
+        .work-text { display: flex; flex-direction: column; gap: 0.1rem; }
+        .work-subtitle {
+            font-family: var(--weo-font-sans);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Part VI hinge -> Methodology Extensions (bridge colour: teal) */
+        .contents-list li.has-hinge { flex-wrap: wrap; }
+        .work-annotation {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--weo-accent-teal);
+            text-decoration: none;
+            padding: 0.05rem 0.4rem;
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: var(--weo-radius-sm);
+            background: rgba(45, 212, 191, 0.07);
+            white-space: nowrap;
+            transition: background-color var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out),
+                        color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .work-annotation:hover {
+            background: rgba(45, 212, 191, 0.14);
+            border-color: var(--weo-accent-teal);
+            color: #5EEAD4;
+        }
+        .work-annotation svg { width: 11px; height: 11px; }
+
         /* Link Button — Amber */
         .link-button {
             display: inline-flex;
@@ -575,6 +621,7 @@
             border-radius: var(--weo-radius-lg);
             padding: var(--weo-space-xl);
             margin-bottom: var(--weo-space-lg);
+            scroll-margin-top: var(--weo-space-xl);
         }
         
         .bridging-zone .zone-label--extensions {
@@ -855,7 +902,10 @@
         
         <!-- Zone A: Foundational Theoretical Research -->
         <div class="zone-label zone-label--foundational">Foundational Theoretical Research</div>
-        
+
+        <!-- Leading epistemic frame -->
+        <p class="zone-intro">An independent six-part theoretical series applying a novel analytical framework to the AI infrastructure build-out. It documents convergent patterns across technological, financial, and governance domains while holding open whether they reflect deliberate coordination or emergent adaptation.</p>
+
         <!-- Publication Card — The Warmth Engine Series -->
         <article class="publication-card">
             <h2 class="publication-title">The Warmth Engine Series: Analytical Prophecy and the Convergence of AI Sovereignty, Infrastructure Colonialism, and the Coordination Imperative</h2>
@@ -880,12 +930,45 @@
             <div class="contents-list">
                 <div class="contents-label">Contents</div>
                 <ol>
-                    <li><span class="work-title">Analytical Prophecy</span></li>
-                    <li><span class="work-title">The Hydra Testament</span></li>
-                    <li><span class="work-title">The Warmth Engine Testament</span></li>
-                    <li><span class="work-title">The Alexandria Testament</span></li>
-                    <li><span class="work-title">The Citadel</span></li>
-                    <li><span class="work-title">The Coordination Imperative</span></li>
+                    <li>
+                        <div class="work-text">
+                            <span class="work-title">Analytical Prophecy</span>
+                            <span class="work-subtitle">A Methodological Framework</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="work-text">
+                            <span class="work-title">The Hydra Testament</span>
+                            <span class="work-subtitle">Cryptocurrency as Systematic Preparation Apparatus</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="work-text">
+                            <span class="work-title">The Warmth Engine Testament</span>
+                            <span class="work-subtitle">Climate Emergency as AI Authorisation Apparatus</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="work-text">
+                            <span class="work-title">The Alexandria Testament</span>
+                            <span class="work-subtitle">Physical Infrastructure Colonialism as Control Apparatus</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="work-text">
+                            <span class="work-title">The Citadel</span>
+                            <span class="work-subtitle">Operational Convergence</span>
+                        </div>
+                    </li>
+                    <li class="has-hinge">
+                        <div class="work-text">
+                            <span class="work-title">The Coordination Imperative</span>
+                            <span class="work-subtitle">Computational Mutual Assured Destruction</span>
+                        </div>
+                        <a href="#methodology-extensions" class="work-annotation">operationalised in the Methodology Extensions
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                    </li>
                 </ol>
             </div>
             
@@ -904,7 +987,7 @@
         </section>
         
         <!-- Zone B: Methodology Extensions (Bridging Zone) -->
-        <div class="bridging-zone">
+        <div class="bridging-zone" id="methodology-extensions">
             <div class="zone-label zone-label--extensions">Methodology Extensions</div>
             
             <p class="bridging-note">These papers extend WEO methodology and operationalise C-MAD theory introduced in The Coordination Imperative (Part VI of The Warmth Engine Series).</p>

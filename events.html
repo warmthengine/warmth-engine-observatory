@@ -4223,11 +4223,22 @@ function toggleVersionEntry(updateId) {
   panel.setAttribute('data-expanded', !isExpanded);
 }
 
+// Delegated handler for version-history accordions. Replaces inline onclick="" so the
+// DB-derived event/update ids ride data-* attributes instead of being concatenated into
+// an inline JS string (removes the inline-handler injection surface).
+document.addEventListener('click', function(e) {
+  if (!e.target.closest) return;
+  var entryBtn = e.target.closest('[data-version-toggle]');
+  if (entryBtn) { toggleVersionEntry(entryBtn.getAttribute('data-version-toggle')); return; }
+  var historyBtn = e.target.closest('[data-version-history-toggle]');
+  if (historyBtn) { toggleVersionHistory(historyBtn.getAttribute('data-version-history-toggle')); return; }
+});
+
 function generateChangedFieldsMarkup(changedFields) {
   if (!changedFields || changedFields.length === 0) return '';
   var html = '<div class="version-changed-fields"><span class="changed-label">Fields updated:</span>';
   changedFields.forEach(function(field) {
-    html += '<span class="changed-field-tag">' + field + '</span>';
+    html += '<span class="changed-field-tag">' + esc(field) + '</span>';
   });
   html += '</div>';
   return html;
@@ -4239,8 +4250,8 @@ function generateVersionSourcesMarkup(sources) {
   sources.forEach(function(source) {
     var sourceType = (source.type || 'PRIMARY').toLowerCase();
     html += '<div class="version-source-item source-' + sourceType + '">' +
-      '<span class="version-source-type-badge">' + (source.type || 'PRIMARY') + '</span>' +
-      '<a href="' + source.url + '" class="version-source-link" target="_blank" rel="noopener">' + source.desc + ' ↗</a>' +
+      '<span class="version-source-type-badge">' + esc(source.type || 'PRIMARY') + '</span>' +
+      '<a href="' + esc(source.url) + '" class="version-source-link" target="_blank" rel="noopener">' + esc(source.desc) + ' ↗</a>' +
       '<span class="version-source-date">' + formatVersionDate(source.date) + '</span>' +
     '</div>';
   });
@@ -4272,18 +4283,18 @@ function generateVersionHistorySection(event, eventId) {
       sourcesMarkup = generateVersionSourcesMarkup(update.sources);
     }
     
-    entriesHtml += '<article class="version-entry" data-version="' + versionNum + '"' + (isCurrent ? ' data-current="true"' : '') + '>' +
+    entriesHtml += '<article class="version-entry" data-version="' + esc(versionNum) + '"' + (isCurrent ? ' data-current="true"' : '') + '>' +
       '<div role="heading" aria-level="3">' +
-        '<button class="version-entry-header" aria-expanded="false" aria-controls="version-' + update.id + '-details" onclick="toggleVersionEntry(\'' + update.id + '\')">' +
-          '<span class="version-id">v' + versionNum + '</span>' +
+        '<button class="version-entry-header" aria-expanded="false" aria-controls="version-' + esc(update.id) + '-details" data-version-toggle="' + esc(update.id) + '">' +
+          '<span class="version-id">v' + esc(versionNum) + '</span>' +
           '<span class="version-date">' + formattedDate + '</span>' +
-          '<span class="version-headline">' + headline + '</span>' +
+          '<span class="version-headline">' + esc(headline) + '</span>' +
           '<svg class="chevron-small" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
         '</button>' +
       '</div>' +
-      '<div class="version-entry-panel" id="version-' + update.id + '-details" data-expanded="false">' +
+      '<div class="version-entry-panel" id="version-' + esc(update.id) + '-details" data-expanded="false">' +
         '<div class="version-entry-content">' +
-          '<div class="version-description"><p>' + update.description + '</p></div>' +
+          '<div class="version-description"><p>' + esc(update.description) + '</p></div>' +
           generateChangedFieldsMarkup(update.changedFields) +
           sourcesMarkup +
         '</div>' +
@@ -4300,8 +4311,8 @@ function generateVersionHistorySection(event, eventId) {
     genesisSourcesHtml += '<div class="version-sources"><div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Primary Sources</div>';
     event.sources_primary.forEach(function(s) {
       genesisSourcesHtml += '<div class="version-source-item source-primary">' +
-        '<span class="version-source-type-badge">' + s.id + '</span>' +
-        '<a href="' + s.url + '" class="version-source-link" target="_blank" rel="noopener">' + s.desc + ' ↗</a>' +
+        '<span class="version-source-type-badge">' + esc(s.id) + '</span>' +
+        '<a href="' + esc(s.url) + '" class="version-source-link" target="_blank" rel="noopener">' + esc(s.desc) + ' ↗</a>' +
       '</div>';
     });
     genesisSourcesHtml += '</div>';
@@ -4310,8 +4321,8 @@ function generateVersionHistorySection(event, eventId) {
     genesisSourcesHtml += '<div class="version-sources" style="margin-top: 8px;"><div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Corroborating Sources</div>';
     event.sources_corroborating.forEach(function(s) {
       genesisSourcesHtml += '<div class="version-source-item source-corroborating">' +
-        '<span class="version-source-type-badge">' + s.id + '</span>' +
-        '<a href="' + s.url + '" class="version-source-link" target="_blank" rel="noopener">' + s.desc + ' ↗</a>' +
+        '<span class="version-source-type-badge">' + esc(s.id) + '</span>' +
+        '<a href="' + esc(s.url) + '" class="version-source-link" target="_blank" rel="noopener">' + esc(s.desc) + ' ↗</a>' +
       '</div>';
     });
     genesisSourcesHtml += '</div>';
@@ -4319,14 +4330,14 @@ function generateVersionHistorySection(event, eventId) {
   
   entriesHtml += '<article class="version-entry" data-version="1.0" data-genesis="true">' +
     '<div role="heading" aria-level="3">' +
-      '<button class="version-entry-header" aria-expanded="false" aria-controls="version-genesis-' + eventId + '-details" onclick="toggleVersionEntry(\'genesis-' + eventId + '\')">' +
+      '<button class="version-entry-header" aria-expanded="false" aria-controls="version-genesis-' + esc(eventId) + '-details" data-version-toggle="genesis-' + esc(eventId) + '">' +
         '<span class="version-id">v1.0</span>' +
         '<span class="version-date">' + formatVersionDate(genesisDate) + '</span>' +
         '<span class="version-headline">Initial database entry</span>' +
         '<svg class="chevron-small" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
       '</button>' +
     '</div>' +
-    '<div class="version-entry-panel" id="version-genesis-' + eventId + '-details" data-expanded="false">' +
+    '<div class="version-entry-panel" id="version-genesis-' + esc(eventId) + '-details" data-expanded="false">' +
       '<div class="version-entry-content">' +
         '<div class="version-description"><p>Event qualified and entered into WEO database.</p></div>' +
         genesisSourcesHtml +
@@ -4336,13 +4347,13 @@ function generateVersionHistorySection(event, eventId) {
   
   return '<div class="paid-section version-history-section">' +
     '<div role="heading" aria-level="2">' +
-      '<button class="version-history-trigger" id="version-history-btn-' + eventId + '" aria-expanded="false" aria-controls="version-history-panel-' + eventId + '" onclick="toggleVersionHistory(\'' + eventId + '\')">' +
+      '<button class="version-history-trigger" id="version-history-btn-' + esc(eventId) + '" aria-expanded="false" aria-controls="version-history-panel-' + esc(eventId) + '" data-version-history-toggle="' + esc(eventId) + '">' +
         '<span class="title-text">Version History</span>' +
         '<span class="version-count-badge">' + versionCount + ' update' + (versionCount > 1 ? 's' : '') + '</span>' +
         '<svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>' +
       '</button>' +
     '</div>' +
-    '<div class="version-history-panel" id="version-history-panel-' + eventId + '" data-expanded="false">' +
+    '<div class="version-history-panel" id="version-history-panel-' + esc(eventId) + '" data-expanded="false">' +
       '<div class="version-history-content' + (versionCount > 5 ? ' has-many-versions' : '') + '">' +
         entriesHtml +
       '</div>' +
@@ -4374,11 +4385,11 @@ function generateOriginalQualificationSection(event) {
   genesisContent += '<div class="genesis-item"><span class="genesis-label">Qualified via:</span> ' + qualificationFramework + '</div>';
 
   if (event.genesis.investment) {
-    genesisContent += '<div class="genesis-item"><span class="genesis-label">Original Investment:</span> ' + event.genesis.investment + '</div>';
+    genesisContent += '<div class="genesis-item"><span class="genesis-label">Original Investment:</span> ' + esc(event.genesis.investment) + '</div>';
   }
 
   if (event.genesis.description) {
-    genesisContent += '<div class="genesis-item genesis-description"><span class="genesis-label">Original Description:</span> ' + event.genesis.description + '</div>';
+    genesisContent += '<div class="genesis-item genesis-description"><span class="genesis-label">Original Description:</span> ' + esc(event.genesis.description) + '</div>';
   }
 
   return '<div class="original-qualification-section">' +
@@ -4467,7 +4478,7 @@ function generateEvidencePanel(conn) {
   html += '<span class="cc-evidence-title">Evidence Detail</span>';
   html += '<span class="cc-methodology-badge">WEO CC</span>';
   if (detail.verified_date) {
-    html += '<span class="cc-evidence-verified">Verified: ' + detail.verified_date + '</span>';
+    html += '<span class="cc-evidence-verified">Verified: ' + esc(detail.verified_date) + '</span>';
   }
   html += '</div>';
   
@@ -4476,12 +4487,12 @@ function generateEvidencePanel(conn) {
   
   // Evidence summary (opening paragraph)
   if (conn.evidence_summary || conn.evidence) {
-    html += '<p class="cc-evidence-summary">' + (conn.evidence_summary || conn.evidence) + '</p>';
+    html += '<p class="cc-evidence-summary">' + esc(conn.evidence_summary || conn.evidence) + '</p>';
   }
 
   // Primary documentation
   if (detail.primary_documentation) {
-    html += '<p>' + detail.primary_documentation + '</p>';
+    html += '<p>' + esc(detail.primary_documentation) + '</p>';
   }
 
   // Citation text (for Policy Cascade, Funding Flow)
@@ -4490,13 +4501,13 @@ function generateEvidencePanel(conn) {
     if (typeof detail.citation_text === 'object') {
       // Chinese/English pair
       if (detail.citation_text.chinese) {
-        html += '"' + detail.citation_text.chinese + '"';
+        html += '"' + esc(detail.citation_text.chinese) + '"';
       }
       if (detail.citation_text.english) {
-        html += '<span class="cc-citation-source">' + detail.citation_text.english + '</span>';
+        html += '<span class="cc-citation-source">' + esc(detail.citation_text.english) + '</span>';
       }
     } else {
-      html += '"' + detail.citation_text + '"';
+      html += '"' + esc(detail.citation_text) + '"';
     }
     html += '</div>';
   }
@@ -4506,16 +4517,16 @@ function generateEvidencePanel(conn) {
     const fb = detail.funding_breakdown;
     html += '<div class="cc-funding-grid">';
     if (fb.direct_grant) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Direct Grant</div><div class="cc-funding-value">' + fb.direct_grant + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Direct Grant</div><div class="cc-funding-value">' + esc(fb.direct_grant) + '</div></div>';
     }
     if (fb.loan_guarantee) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Loan/Guarantee</div><div class="cc-funding-value">' + fb.loan_guarantee + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Loan/Guarantee</div><div class="cc-funding-value">' + esc(fb.loan_guarantee) + '</div></div>';
     }
     if (fb.total_commitment) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Total Commitment</div><div class="cc-funding-value">' + fb.total_commitment + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Total Commitment</div><div class="cc-funding-value">' + esc(fb.total_commitment) + '</div></div>';
     }
     if (fb.percentage) {
-      html += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + fb.percentage + '</div></div>';
+      html += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + esc(fb.percentage) + '</div></div>';
     }
     html += '</div>';
   }
@@ -4542,7 +4553,7 @@ function generateEvidencePanel(conn) {
         html += '</div>';
         
         if (hasEvidence) {
-          html += '<div class="cc-criterion-evidence">' + c.evidence + '</div>';
+          html += '<div class="cc-criterion-evidence">' + esc(c.evidence) + '</div>';
         }
         
         html += '</div>';
@@ -4553,7 +4564,7 @@ function generateEvidencePanel(conn) {
     
     if (detail.criteria_score) {
       html += '<div class="cc-criteria-score">';
-      html += '<span class="cc-criteria-score-value">' + detail.criteria_score + '</span>';
+      html += '<span class="cc-criteria-score-value">' + esc(detail.criteria_score) + '</span>';
       html += '<span class="cc-criteria-score-label">criteria met</span>';
       html += '</div>';
     }
@@ -4561,12 +4572,12 @@ function generateEvidencePanel(conn) {
   
   // Framework relationship
   if (detail.framework_relationship) {
-    html += '<p><strong>Relationship:</strong> ' + detail.framework_relationship + '</p>';
+    html += '<p><strong>Relationship:</strong> ' + esc(detail.framework_relationship) + '</p>';
   }
 
   // Enabling relationship (for Regulatory Enablement)
   if (detail.enabling_relationship) {
-    html += '<p><strong>Enablement:</strong> ' + detail.enabling_relationship + '</p>';
+    html += '<p><strong>Enablement:</strong> ' + esc(detail.enabling_relationship) + '</p>';
   }
 
   // Award comparison cards (for Framework Family CHIPS Act subgroup)
@@ -4575,19 +4586,19 @@ function generateEvidencePanel(conn) {
 
     // Award A
     html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
-    html += '<div class="cc-funding-label">' + detail.award_a.recipient + '</div>';
-    html += '<div class="cc-funding-value">' + detail.award_a.award_amount + '</div>';
+    html += '<div class="cc-funding-label">' + esc(detail.award_a.recipient) + '</div>';
+    html += '<div class="cc-funding-value">' + esc(detail.award_a.award_amount) + '</div>';
     if (detail.award_a.focus) {
-        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_a.focus + '</div>';
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + esc(detail.award_a.focus) + '</div>';
     }
     html += '</div>';
 
     // Award B
     html += '<div class="cc-funding-item" style="grid-column: 1 / -1;">';
-    html += '<div class="cc-funding-label">' + detail.award_b.recipient + '</div>';
-    html += '<div class="cc-funding-value">' + detail.award_b.award_amount + '</div>';
+    html += '<div class="cc-funding-label">' + esc(detail.award_b.recipient) + '</div>';
+    html += '<div class="cc-funding-value">' + esc(detail.award_b.award_amount) + '</div>';
     if (detail.award_b.focus) {
-        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + detail.award_b.focus + '</div>';
+        html += '<div class="cc-funding-label" style="font-size: 0.8em; margin-top: 4px;">' + esc(detail.award_b.focus) + '</div>';
     }
     html += '</div>';
 
@@ -4598,16 +4609,16 @@ function generateEvidencePanel(conn) {
   if (detail.hierarchical_relationship) {
     const hr = detail.hierarchical_relationship;
     if (typeof hr === 'object' && hr.parent && hr.child) {
-      html += '<p><strong>Parent:</strong> ' + hr.parent + '<br><strong>Child:</strong> ' + hr.child + '</p>';
+      html += '<p><strong>Parent:</strong> ' + esc(hr.parent) + '<br><strong>Child:</strong> ' + esc(hr.child) + '</p>';
     } else if (typeof hr === 'string') {
-      html += '<p><strong>Hierarchy:</strong> ' + hr + '</p>';
+      html += '<p><strong>Hierarchy:</strong> ' + esc(hr) + '</p>';
     }
   }
   
   // Bilateral statement (for CC-E Parallel Policy)
   if (detail.bilateral_statement) {
     html += '<div class="cc-citation">';
-    html += '"' + detail.bilateral_statement + '"';
+    html += '"' + esc(detail.bilateral_statement) + '"';
     html += '</div>';
   }
   
@@ -4639,7 +4650,7 @@ function generateEvidencePanel(conn) {
       
       html += '<div class="cc-vh-entry' + (isGenesis ? ' genesis' : '') + '" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
       html += '<div class="cc-vh-entry-header">';
-      html += '<span class="cc-vh-version">CC v' + entry.version + '</span>';
+      html += '<span class="cc-vh-version">CC v' + esc(entry.version) + '</span>';
       html += '<span class="cc-vh-date">' + formattedDate + '</span>';
       
       if (isGenesis) {
@@ -4648,7 +4659,7 @@ function generateEvidencePanel(conn) {
         if (entry.reviewTrigger) {
           // Strip methodology section reference for cleaner user display
           const displayTrigger = entry.reviewTrigger.replace(/§[\d.]+\s*/i, '');
-          html += '<span class="cc-vh-badge review-trigger">' + displayTrigger + '</span>';
+          html += '<span class="cc-vh-badge review-trigger">' + esc(displayTrigger) + '</span>';
         }
         if (entry.outcome === 'CC reinforced') {
           html += '<span class="cc-vh-badge reinforced">Reinforced</span>';
@@ -4660,17 +4671,17 @@ function generateEvidencePanel(conn) {
       
       html += '<div class="cc-vh-entry-detail">';
       if (entry.summary) {
-        html += '<div class="cc-vh-summary">' + entry.summary + '</div>';
+        html += '<div class="cc-vh-summary">' + esc(entry.summary) + '</div>';
       }
       html += '<div class="cc-vh-metrics">';
       if (entry.percentage) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Attribution:</span><span class="cc-vh-metric-value">' + entry.percentage + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Attribution:</span><span class="cc-vh-metric-value">' + esc(entry.percentage) + '</span></div>';
       }
       if (entry.sourceEventVersion) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Source:</span><span class="cc-vh-metric-value">v' + entry.sourceEventVersion + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Source:</span><span class="cc-vh-metric-value">v' + esc(entry.sourceEventVersion) + '</span></div>';
       }
       if (entry.targetEventVersion) {
-        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Target:</span><span class="cc-vh-metric-value">v' + entry.targetEventVersion + '</span></div>';
+        html += '<div class="cc-vh-metric"><span class="cc-vh-metric-label">Target:</span><span class="cc-vh-metric-value">v' + esc(entry.targetEventVersion) + '</span></div>';
       }
       html += '</div>';
       html += '</div>';
@@ -4689,7 +4700,7 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-name">Normative Reference</span>';
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
-    html += '<div class="cc-criterion-evidence">' + detail.normative_reference + '</div>';
+    html += '<div class="cc-criterion-evidence">' + esc(detail.normative_reference) + '</div>';
     html += '</div>';
   }
 
@@ -4700,7 +4711,7 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-name">Implementation Details</span>';
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
-    html += '<div class="cc-criterion-evidence">' + detail.implementation_mapping + '</div>';
+    html += '<div class="cc-criterion-evidence">' + esc(detail.implementation_mapping) + '</div>';
     html += '</div>';
   }
 
@@ -4717,9 +4728,9 @@ function generateEvidencePanel(conn) {
     html += '<div class="cc-sources-title">Sources</div>';
     detail.sources.forEach(function(source) {
       if (source.url) {
-        html += '<a class="cc-source-link" href="' + source.url + '" target="_blank" rel="noopener">' + source.desc + '</a>';
+        html += '<a class="cc-source-link" href="' + esc(source.url) + '" target="_blank" rel="noopener">' + esc(source.desc) + '</a>';
       } else {
-        html += '<span class="cc-source-link">' + source.desc + '</span>';
+        html += '<span class="cc-source-link">' + esc(source.desc) + '</span>';
       }
     });
     html += '</div>';
@@ -4738,16 +4749,16 @@ function generateCCItem(conn, displayEventId, displayEventName, currentEventId) 
   const typeTooltip = generateCCTypeTooltip(conn.type, 'below');
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence, 'below');
   
-  let html = '<div class="cc-item-wrapper" data-type="' + conn.type + '" data-connection-id="' + conn.id + '">';
+  let html = '<div class="cc-item-wrapper" data-type="' + esc(conn.type) + '" data-connection-id="' + esc(conn.id) + '">';
 
   // Main CC item row
   html += '<div class="cc-item' + (hasDetail ? ' expandable" role="button" tabindex="0" aria-expanded="false' : '') + '">';
-  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + conn.typeName + '</span>' + typeTooltip + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + esc(conn.typeName) + '</span>' + typeTooltip + '</span>';
   
   // Event name is clickable to navigate to that event
-  html += '<span class="cc-event-name clickable" onclick="event.stopPropagation(); navigateToEventFromCC(\'' + displayEventId + '\', \'' + currentEventId + '\')" title="Click to view this event">Event ' + displayEventId + ': ' + displayEventName + '</span>';
+  html += '<span class="cc-event-name clickable" data-cc-navigate="' + esc(displayEventId) + '" data-cc-from="' + esc(currentEventId) + '" title="Click to view this event">Event ' + esc(displayEventId) + ': ' + esc(displayEventName) + '</span>';
   
-  html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + conn.confidence + '</span>' + confidenceTooltip + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + esc(conn.confidence) + '</span>' + confidenceTooltip + '</span>';
   
   if (hasDetail) {
     // Expand indicator toggles evidence panel
@@ -4774,6 +4785,15 @@ function navigateToEventFromCC(targetEventId, sourceEventId) {
   }
   openModal(targetEventId);
 }
+
+// Delegated handler for CC event-name navigation. Replaces inline onclick="" so the
+// DB-derived event ids ride data-* attributes instead of being concatenated into an
+// inline JS string (removes the inline-handler injection surface).
+document.addEventListener('click', function(e) {
+  if (!e.target.closest) return;
+  var nav = e.target.closest('[data-cc-navigate]');
+  if (nav) { navigateToEventFromCC(nav.getAttribute('data-cc-navigate'), nav.getAttribute('data-cc-from')); }
+});
 
 // Navigate back to previous event (clears navigation state)
 function navigateBackFromCC() {
@@ -4868,11 +4888,11 @@ function generateCCItemFreeTier(conn, displayEventId, displayEventName, currentE
   const typeTooltip = generateCCTypeTooltip(conn.type, 'below');
   const confidenceTooltip = generateCCConfidenceTooltip(conn.confidence, 'below');
 
-  let html = '<div class="cc-item-wrapper" data-type="' + conn.type + '" data-connection-id="' + conn.id + '">';
+  let html = '<div class="cc-item-wrapper" data-type="' + esc(conn.type) + '" data-connection-id="' + esc(conn.id) + '">';
   html += '<div class="cc-item expandable" role="button" tabindex="0" aria-expanded="false">';
-  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + conn.typeName + '</span>' + typeTooltip + '</span>';
-  html += '<span class="cc-event-name clickable" onclick="event.stopPropagation(); navigateToEventFromCC(\'' + displayEventId + '\', \'' + currentEventId + '\')" title="Click to view this event">Event ' + displayEventId + ': ' + displayEventName + '</span>';
-  html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + conn.confidence + '</span>' + confidenceTooltip + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-type-badge type-' + conn.type + '">' + esc(conn.typeName) + '</span>' + typeTooltip + '</span>';
+  html += '<span class="cc-event-name clickable" data-cc-navigate="' + esc(displayEventId) + '" data-cc-from="' + esc(currentEventId) + '" title="Click to view this event">Event ' + esc(displayEventId) + ': ' + esc(displayEventName) + '</span>';
+  html += '<span class="badge-with-tooltip"><span class="cc-confidence-badge ' + confidenceClass + '">' + esc(conn.confidence) + '</span>' + confidenceTooltip + '</span>';
   // Locked expand indicator — same toggle pattern as the paid version,
   // different glyph and target panel.
   html += '<span class="cc-expand-indicator" onclick="event.stopPropagation(); var w=this.closest(\'.cc-item-wrapper\'); w.classList.toggle(\'expanded\'); var ci=w.querySelector(\'.cc-item.expandable\'); if(ci) ci.setAttribute(\'aria-expanded\', w.classList.contains(\'expanded\'))" title="Evidence available with Analyst access">' + WEO_ICON_LOCK + '</span>';
@@ -5085,7 +5105,7 @@ const openModal = (id) => {
     const domainLabel = generateFieldLabel('Domain', 'domain', 'below');
     const connRow = isHighlyConnected(id) ? `<div class="z2-row">${generateFieldLabel('Connections', 'highlyConnected', 'below')}<div class="z2-badges"><span class="badge badge-highly-connected" onclick="scrollToModalSection('cc')">🔗 Highly Connected</span></div></div>` : '';
     const lastUpdateText = full && full.versionDate ? new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
-    const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${full.version}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
+    const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${esc(full.version)}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
     document.getElementById('modal-meta').innerHTML = `
         <div class="z2-rows" role="group" aria-label="Event classification">
           <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${esc(e.tier)}</span></div></div>
@@ -5130,10 +5150,10 @@ const openModal = (id) => {
     html += `
         <div class="detail-section">
             <div class="detail-section-title">Overview</div>
-            <div class="detail-prose">${e.description_brief}</div>
+            <div class="detail-prose">${esc(e.description_brief)}</div>
             <div class="detail-grid" style="margin-top:1rem;">
-                <div><div class="detail-label badge-with-tooltip">Scale${scaleTooltip}</div><div class="detail-value">${e.investment_scale}</div></div>
-                <div><div class="detail-label">Geographic Scope</div><div class="detail-value">${e.geographic_scope}</div></div>
+                <div><div class="detail-label badge-with-tooltip">Scale${scaleTooltip}</div><div class="detail-value">${esc(e.investment_scale)}</div></div>
+                <div><div class="detail-label">Geographic Scope</div><div class="detail-value">${esc(e.geographic_scope)}</div></div>
             </div>
         </div>
     `;
@@ -5150,7 +5170,7 @@ const openModal = (id) => {
                         ${full.basel_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
-                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${esc(f.factor)}:</span> <span class="basel-rationale">${esc(f.rationale)}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -5169,7 +5189,7 @@ const openModal = (id) => {
                         ${full.keohane_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
-                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${esc(f.factor)}:</span> <span class="basel-rationale">${esc(f.rationale)}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -5187,7 +5207,7 @@ const openModal = (id) => {
                         ${full.pisa5_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
-                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${esc(f.factor)}:</span> <span class="basel-rationale">${esc(f.rationale)}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -5202,17 +5222,17 @@ const openModal = (id) => {
                 <div class="paid-section">
                     <button class="tiebreaker-trigger" aria-expanded="false" onclick="toggleTiebreaker(this)">
                         <span class="title-text">Human Review Assessment</span>${tiebreakerTooltip}
-                        <span class="tiebreaker-result-badge">${full.tiebreaker.result}</span>
+                        <span class="tiebreaker-result-badge">${esc(full.tiebreaker.result)}</span>
                         <svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg>
                     </button>
                     <div class="tiebreaker-panel" data-expanded="false">
                         <div class="tiebreaker-content">
-                            <p style="font-size:0.8125rem;color:var(--weo-text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ${full.tiebreaker.triggerReason}</p>
+                            <p style="font-size:0.8125rem;color:var(--weo-text-secondary);margin-bottom:0.75rem;"><strong>Trigger:</strong> ${esc(full.tiebreaker.triggerReason)}</p>
                             <div class="basel-grid">
                                 ${full.tiebreaker.assessment.map(tb=>`
                                     <div class="basel-factor">
                                         <span class="basel-status ${tb.pass?'pass':'fail'}">${tb.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
-                                        <div><span class="basel-factor-name">${tb.criterion.replace(/^TB\d+:\s*/, '')}:</span> <span class="basel-rationale">${tb.rationale}</span></div>
+                                        <div><span class="basel-factor-name">${esc(tb.criterion.replace(/^TB\d+:\s*/, ''))}:</span> <span class="basel-rationale">${esc(tb.rationale)}</span></div>
                                     </div>
                                 `).join('')}
                             </div>
@@ -5241,7 +5261,7 @@ const openModal = (id) => {
                         ${full.route_based_factors.map(f=>`
                             <div class="basel-factor">
                                 <span class="basel-status ${f.pass?'pass':'fail'}">${f.pass?WEO_ICON_CHECK:WEO_ICON_CROSS}</span>
-                                <div><span class="basel-factor-name">${f.factor}:</span> <span class="basel-rationale">${f.rationale}</span></div>
+                                <div><span class="basel-factor-name">${esc(f.factor)}:</span> <span class="basel-rationale">${esc(f.rationale)}</span></div>
                             </div>
                         `).join('')}
                     </div>
@@ -5264,9 +5284,9 @@ const openModal = (id) => {
                     <tbody>
                         ${full.bloc_analysis.map(b => `
                             <tr style="border-bottom:1px solid rgba(51,65,85,0.5);">
-                                <td style="padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-secondary);">${b.bloc}</td>
-                                <td style="padding:0.5rem 1rem 0.5rem 0;color:${b.involvement === 'Yes' ? 'var(--weo-status-positive)' : 'var(--weo-text-muted)'};">${b.involvement}</td>
-                                <td style="padding:0.5rem 0;color:var(--weo-text-secondary);">${b.role || '—'}</td>
+                                <td style="padding:0.5rem 1rem 0.5rem 0;color:var(--weo-text-secondary);">${esc(b.bloc)}</td>
+                                <td style="padding:0.5rem 1rem 0.5rem 0;color:${b.involvement === 'Yes' ? 'var(--weo-status-positive)' : 'var(--weo-text-muted)'};">${esc(b.involvement)}</td>
+                                <td style="padding:0.5rem 0;color:var(--weo-text-secondary);">${esc(b.role || '—')}</td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -5283,7 +5303,7 @@ const openModal = (id) => {
                         const icon = ei.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS;
                         const nameColor = ei.implemented ? '#2DD4BF' : 'var(--weo-text-muted,#94A3B8)';
                         const evidenceColor = 'var(--weo-text-secondary,#CBD5E1)';
-                        return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + ei.ecosystem + '</strong></span><span style="color:' + evidenceColor + ';">' + (ei.evidence || '') + '</span></div>';
+                        return '<div style="display:grid;grid-template-columns:140px 1fr;gap:0.5rem;margin-bottom:0.375rem;font-size:0.8125rem;align-items:baseline;"><span style="color:' + nameColor + ';white-space:nowrap;">' + icon + ' <strong>' + esc(ei.ecosystem) + '</strong></span><span style="color:' + evidenceColor + ';">' + esc(ei.evidence || '') + '</span></div>';
                     }).join('')}
                 </div>
             `;
@@ -5292,7 +5312,7 @@ const openModal = (id) => {
         html += `
             <div class="paid-section">
                 <div class="paid-section-title section-title-with-tooltip">▼ Tier Classification${generateTooltip('tierSection', 'below')}</div>
-                <div class="detail-prose">${full.tier_rationale}</div>
+                <div class="detail-prose">${esc(full.tier_rationale)}</div>
                 ${ecoImplHtml}
                 ${blocAnalysisHtml}
             </div>
@@ -5370,30 +5390,30 @@ const openModal = (id) => {
                                 ${p.gates.map((g, gi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
                                         <span class="${g.pass ? 'gate-pass' : 'gate-fail'}">${g.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>
-                                        <span><span class="gate-name">${g.factor}:</span> <span class="gate-metric">${g.summary || g.rationale.substring(0, 80) + '…'}</span></span>
+                                        <span><span class="gate-name">${esc(g.factor)}:</span> <span class="gate-metric">${esc(g.summary || g.rationale.substring(0, 80) + '…')}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
                                     <div class="piet-gate-evidence">
                                         ${g.evidence ? g.evidence.map(ev => `
                                             <div class="piet-evidence-row">
-                                                <span class="piet-evidence-label">${ev.label}</span>
-                                                <span class="piet-evidence-value">${ev.value}</span>
+                                                <span class="piet-evidence-label">${esc(ev.label)}</span>
+                                                <span class="piet-evidence-value">${esc(ev.value)}</span>
                                             </div>
                                         `).join('') : ''}
                                         <div class="piet-rationale-toggle" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Hide full rationale ▾' : 'Full rationale ▸';">Full rationale ▸</div>
-                                        <div class="piet-rationale-full">${g.rationale}</div>
+                                        <div class="piet-rationale-full">${esc(g.rationale)}</div>
                                     </div>
                                 `).join('')}
                                 <div class="piet-sources-footer">
                                     <span class="piet-sources-toggle" onclick="this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Sources (${totalSources}) ▾' : 'Sources (${totalSources}) ▸';">Sources (${totalSources}) ▸</span>
                                     <div class="piet-sources-list">
                                         ${groupedSources.map(grp => `
-                                            <div class="piet-source-gate-label">${grp.gate}</div>
+                                            <div class="piet-source-gate-label">${esc(grp.gate)}</div>
                                             ${grp.sources.map(s => `
                                                 <div class="piet-source-item">
                                                     <span class="piet-source-num">[${s.num}]</span>
-                                                    <span class="piet-source-type ${s.type.toLowerCase()}">${s.type}</span>
-                                                    <a href="${s.url}" target="_blank" rel="noopener">${s.desc} ↗</a>
+                                                    <span class="piet-source-type ${s.type.toLowerCase()}">${esc(s.type)}</span>
+                                                    <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.desc)} ↗</a>
                                                 </div>
                                             `).join('')}
                                         `).join('')}
@@ -5423,18 +5443,18 @@ const openModal = (id) => {
                                 ${o.pathways.map((pw, pi) => `
                                     <div class="piet-gate-summary" onclick="this.classList.toggle('expanded');">
                                         <span class="${pw.pass ? 'gate-pass' : 'gate-fail'}">${pw.pass ? WEO_ICON_CHECK : WEO_ICON_CROSS}</span>
-                                        <span><span class="gate-name">${pw.factor}:</span> <span class="gate-metric">${pw.summary || pw.rationale.substring(0, 80) + '…'}</span></span>
+                                        <span><span class="gate-name">${esc(pw.factor)}:</span> <span class="gate-metric">${esc(pw.summary || pw.rationale.substring(0, 80) + '…')}</span></span>
                                         <span class="gate-detail-chevron">▸</span>
                                     </div>
                                     <div class="piet-gate-evidence">
                                         ${pw.evidence ? pw.evidence.map(ev => `
                                             <div class="piet-evidence-row">
-                                                <span class="piet-evidence-label">${ev.label}</span>
-                                                <span class="piet-evidence-value">${ev.value}</span>
+                                                <span class="piet-evidence-label">${esc(ev.label)}</span>
+                                                <span class="piet-evidence-value">${esc(ev.value)}</span>
                                             </div>
                                         `).join('') : ''}
                                         <div class="piet-rationale-toggle" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Hide full rationale ▾' : 'Full rationale ▸';">Full rationale ▸</div>
-                                        <div class="piet-rationale-full">${pw.rationale}</div>
+                                        <div class="piet-rationale-full">${esc(pw.rationale)}</div>
                                     </div>
                                 `).join('')}
                                 ${totalSources > 0 ? `
@@ -5442,12 +5462,12 @@ const openModal = (id) => {
                                     <span class="piet-sources-toggle" onclick="this.nextElementSibling.classList.toggle('visible'); this.textContent = this.nextElementSibling.classList.contains('visible') ? 'Sources (${totalSources}) ▾' : 'Sources (${totalSources}) ▸';">Sources (${totalSources}) ▸</span>
                                     <div class="piet-sources-list">
                                         ${groupedSources.map(grp => `
-                                            <div class="piet-source-gate-label">${grp.gate}</div>
+                                            <div class="piet-source-gate-label">${esc(grp.gate)}</div>
                                             ${grp.sources.map(s => `
                                                 <div class="piet-source-item">
                                                     <span class="piet-source-num">[${s.num}]</span>
-                                                    <span class="piet-source-type ${s.type.toLowerCase()}">${s.type}</span>
-                                                    <a href="${s.url}" target="_blank" rel="noopener">${s.desc} ↗</a>
+                                                    <span class="piet-source-type ${s.type.toLowerCase()}">${esc(s.type)}</span>
+                                                    <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.desc)} ↗</a>
                                                 </div>
                                             `).join('')}
                                         `).join('')}
@@ -5467,16 +5487,16 @@ const openModal = (id) => {
                             }
                         });
                         var tTotalSources = tSrcIdx - 1;
-                        var tMatChips = t.materials.map(function(m) { return '<div class="trace-material-chip">' + m.name + '<div class="trace-material-tooltip">' + m.application + '</div></div>'; }).join('');
+                        var tMatChips = t.materials.map(function(m) { return '<div class="trace-material-chip">' + esc(m.name) + '<div class="trace-material-tooltip">' + esc(m.application) + '</div></div>'; }).join('');
                         var tCondHtml = t.conditions.map(function(c) {
                             var summary = c.summary || (c.rationale.length > 80 ? c.rationale.substring(0, 80) + '…' : c.rationale);
                             return '<div class="piet-gate-summary" onclick="this.classList.toggle(\'expanded\');">'
                                 + '<span class="' + (c.pass ? 'gate-pass' : 'gate-fail') + '">' + (c.pass ? '✓' : '✗') + '</span>'
-                                + '<span><span class="gate-name">' + c.factor + ':</span> <span class="gate-metric">' + summary + '</span></span>'
+                                + '<span><span class="gate-name">' + esc(c.factor) + ':</span> <span class="gate-metric">' + esc(summary) + '</span></span>'
                                 + '<span class="gate-detail-chevron">▸</span></div>'
                                 + '<div class="piet-gate-evidence">'
                                 + '<div class="piet-rationale-toggle" onclick="event.stopPropagation(); var p=this.nextElementSibling; p.classList.toggle(\'visible\'); this.textContent=p.classList.contains(\'visible\')?\'Hide full rationale ▾\':\'Full rationale ▸\';">Full rationale ▸</div>'
-                                + '<div class="piet-rationale-full">' + c.rationale + '</div></div>';
+                                + '<div class="piet-rationale-full">' + esc(c.rationale) + '</div></div>';
                         }).join('');
                         var tExclHtml = '';
                         if (false && t.excludedInstrumentCheck) {
@@ -5491,10 +5511,10 @@ const openModal = (id) => {
                         var tSrcItems = '';
                         if (tTotalSources > 0) {
                             tGroupedSources.forEach(function(grp) {
-                                tSrcItems += '<div class="piet-source-gate-label">' + grp.gate + '</div>';
+                                tSrcItems += '<div class="piet-source-gate-label">' + esc(grp.gate) + '</div>';
                                 grp.sources.forEach(function(s) {
-                                    var lnk = s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.desc + ' ↗</a>' : '<span>' + s.desc + '</span>';
-                                    tSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + s.type + '</span>' + lnk + '</div>';
+                                    var lnk = s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.desc) + ' ↗</a>' : '<span>' + esc(s.desc) + '</span>';
+                                    tSrcItems += '<div class="piet-source-item"><span class="piet-source-num">[' + s.num + ']</span><span class="piet-source-type ' + s.type.toLowerCase() + '">' + esc(s.type) + '</span>' + lnk + '</div>';
                                 });
                             });
                         }
@@ -5543,8 +5563,8 @@ const openModal = (id) => {
                     ${currentUpdate.sources.map(s => {
                         const typeClass = (s.type || 'PRIMARY').toLowerCase();
                         return `<div class="current-source-item">
-                            <span class="current-source-type-badge ${typeClass}">${s.type || 'PRIMARY'}</span>
-                            <a href="${s.url}" class="current-source-link" target="_blank" rel="noopener">${s.desc} <span class="current-source-external">↗</span></a>
+                            <span class="current-source-type-badge ${typeClass}">${esc(s.type || 'PRIMARY')}</span>
+                            <a href="${esc(s.url)}" class="current-source-link" target="_blank" rel="noopener">${esc(s.desc)} <span class="current-source-external">↗</span></a>
                         </div>`;
                     }).join('')}
                 `;
@@ -5566,9 +5586,9 @@ const openModal = (id) => {
                         <ul class="source-list">
                             ${full.sources_primary.map(s=>`
                                 <li class="source-item">
-                                    <span class="source-id">[${s.id}]</span>
-                                    <span class="source-desc">${s.desc}</span>
-                                    <a href="${s.url}" class="source-url" target="_blank" rel="noopener noreferrer">↗</a>
+                                    <span class="source-id">[${esc(s.id)}]</span>
+                                    <span class="source-desc">${esc(s.desc)}</span>
+                                    <a href="${esc(s.url)}" class="source-url" target="_blank" rel="noopener noreferrer">↗</a>
                                 </li>
                             `).join('')}
                         </ul>
@@ -5579,9 +5599,9 @@ const openModal = (id) => {
                         <ul class="source-list">
                             ${full.sources_corroborating.map(s=>`
                                 <li class="source-item">
-                                    <span class="source-id">[${s.id}]</span>
-                                    <span class="source-desc">${s.desc}</span>
-                                    <a href="${s.url}" class="source-url" target="_blank" rel="noopener noreferrer">↗</a>
+                                    <span class="source-id">[${esc(s.id)}]</span>
+                                    <span class="source-desc">${esc(s.desc)}</span>
+                                    <a href="${esc(s.url)}" class="source-url" target="_blank" rel="noopener noreferrer">↗</a>
                                 </li>
                             `).join('')}
                         </ul>
