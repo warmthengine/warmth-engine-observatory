@@ -14652,7 +14652,7 @@
       var ent=(l.link_type==='qualifying_contributor'&&l.entity)?'<div class="weo-cap-entity">'+esc(l.entity)+'</div>':'';
       return '<a class="weo-cap-badge" href="'+href+'" target="_blank" rel="noopener"><div class="weo-cap-claim">'+claim(l)+'<span class="weo-cap-arrow">&#8594;</span></div>'+ent+'</a>';
     }).join('');
-    return '<div class="weo-cap-sec"><div class="weo-cap-eyebrow">Sovereign capability</div><div class="weo-cap-list">'+items+'</div></div>';
+    return '<div class="weo-cap-sec"><div class="weo-cap-eyebrow">Sovereign capability <span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Sovereign capability</div><div class="weo-tooltip-body">Which Sovereign Capability Profile dimension(s) this event contributes to, and whether it is the sole basis, one of several, or contributory evidence for the actor\'s standing in that dimension.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></div><div class="weo-cap-list">'+items+'</div></div>';
   }
   function html(eventId){
     if(ready)return badgeHtml(eventId);
