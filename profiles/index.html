@@ -594,7 +594,7 @@ if(navToggle&&navLinks){
     }
     return {met:met,dot:dot,qhl:qhl,con:con};
   }
-  function evLink(id){return '<a class="weo-dr-evlink" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles">View event '+esc(id)+' &#8594;</a>';}
+  function evLink(id){return '<a class="weo-dr-evlink" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles" target="_blank" rel="noopener">View event '+esc(id)+' &#8594;</a>';}
   function render(actorUc,dn){
     var k=parseInt(dn.slice(1),10)-1;
     var details=document.getElementById(actorUc.toLowerCase());
