@@ -9390,6 +9390,14 @@
         function layoutJourneySubgraph(rootId, focusEles, opts) {
             if (!cy || !focusEles || !focusEles.length) return;
             opts = opts || {};
+            // Polish #225 Item D — cancel any in-flight viewport tween (the
+            // panel-open recentreOnEvent that fires ~350ms after tapping an
+            // event) so the entry starts from a stable camera. Without this, a
+            // trace/stack launched mid-recentre showed the recentre finishing
+            // and THEN the journey fit — two moves. Now the single entry fit
+            // below is the only camera motion regardless of launch timing.
+            // (Layout node animation + the journey fit run after this, untouched.)
+            if (typeof cy.stop === 'function') cy.stop();
             // WS-9 item 5 — entry begins now; held until the single fit settles.
             _journeyEntering = true;
             const rootNode = cy.getElementById(String(rootId));
@@ -9412,6 +9420,14 @@
                 padding: 30,
                 avoidOverlap: true,
                 maximal: false,
+                // Polish #225 Item D — Cytoscape layouts default fit:true, so
+                // breadthfirst was framing the sub-set itself (tight, padding 30)
+                // DURING its animation, then layoutstop's fitToUsableViewport
+                // re-framed it (padding 120 + journey insets) — the two distinct
+                // camera moves QA saw as "animate in offset-to-the-side, flash,
+                // then shift" (~0.75s). fit:false makes the layout reposition
+                // nodes ONLY; the single viewport-aware fit below owns the camera.
+                fit: false,
                 // #216 item 2 — break exact tier collinearity. breadthfirst
                 // centres children under parents, so vertically-aligned and
                 // skip-level edges stack on one line. A small deterministic
