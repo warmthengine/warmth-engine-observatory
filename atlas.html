@@ -10295,6 +10295,14 @@
             }
             html += '</section>';
 
+            // Polish #224 cluster 5 — Sovereign Capability renders immediately
+            // after the Coordination Connections block (its sibling outward
+            // structural link) and before §8 Tier. #216 item 15 had already
+            // lifted it out of the sticky action-footer region (killing the
+            // cap-badge bleed over the "View on Map" button); this seats it
+            // beside CC per the brief's intended section order.
+            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+
             // §8 — Tier Classification (collapsible; smart-default open
             // when (a) the section actually has tier rationale data to
             // show AND (b) tier !== 3 because non-T3 events have higher
@@ -10424,12 +10432,6 @@
                 });
                 html += '</div></div>';
             }
-
-            // #216 item 15 — Sovereign Capability is the last relationship
-            // block: after the analysis sections (incl. Coordination
-            // Connections) and BEFORE the upgrade-CTA. It previously rendered
-            // in the sticky footer below, after the CTA.
-            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
             // §16 — Upgrade CTA (Brief 3b.2 §16). Free, non-sample only.
             // Wrapped in .atlas-supporter-locked so it auto-hides on
