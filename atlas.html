@@ -5056,6 +5056,15 @@
             title: 'Tier Classification',
             body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor from at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
           },
+          // #216 item 9 — journey-panel section-header tooltips (design D).
+          infraThread: {
+            title: 'Infrastructure Thread (material fact)',
+            body: 'A sourced material fact: the same physical asset — a chip generation, system, or facility — documented both at its production-origin event and at the facility that deploys, trains on, powers, or fabricates from it. Not a Coordination Connection: no relationship type and no confidence grade, only the documented hardware link.'
+          },
+          scpMembership: {
+            title: 'Capability Waypoint (SCP dimension)',
+            body: 'A Sovereign Capability Profile dimension this event contributes to. SCP membership records which of the capability dimensions — AI Chip Design, Advanced Fabrication, Critical Equipment, AI Compute, Frontier Models, AI Regulation, Sovereign Investment — an actor establishes through this event.'
+          },
           // CC Type Tooltips (7 types)
           ccTypes: {
             1: { title: 'Policy Cascade', body: 'A higher-authority event mandates, directs, or creates implementation requirements for a lower-level event. <strong>Direction:</strong> Parent → Child (hierarchical). <strong>Evidence:</strong> Child event explicitly cites parent as legal/policy basis. <strong>Min. Confidence:</strong> CC-V.' },
@@ -5081,6 +5090,8 @@
           checkpoints:       'section-3-5',
           basel5:            'section-4-4',
           cc:                'section-9-1',
+          infraThread:       null,
+          scpMembership:     'section-5-3',
           keohane:           'section-4-2',
           pisa5:             'section-4-9',
           routeBased:        'section-4-8',
@@ -12138,15 +12149,15 @@
                 h += '<div class="atlas-trace-empty">This event sits at no value chain we can trace — it has no directional coordination link, no infrastructure thread, and no capability membership to walk.</div>';
             } else {
                 if (j.coordination.length) {
-                    h += '<div class="atlas-stack-section-label coordination">Coordination joints — Coordination Connections</div>';
+                    h += '<div class="atlas-stack-section-label coordination">Coordination joints — Coordination Connections ' + generateTooltip('cc', 'below') + '</div>';
                     j.coordination.forEach(c => { h += renderStackHopCC(c); });
                 }
                 if (j.material.length) {
-                    h += '<div class="atlas-stack-section-label material">Material links — infrastructure threads (sourced facts)</div>';
+                    h += '<div class="atlas-stack-section-label material">Material links — infrastructure threads (sourced facts) ' + generateTooltip('infraThread', 'below') + '</div>';
                     j.material.forEach(te => { h += renderStackHopThread(te); });
                 }
                 if (j.capability.length) {
-                    h += '<div class="atlas-stack-section-label capability">Capability waypoints — SCP dimension membership</div>';
+                    h += '<div class="atlas-stack-section-label capability">Capability waypoints — SCP dimension membership ' + generateTooltip('scpMembership', 'below') + '</div>';
                     j.capability.forEach(l => { h += renderStackWaypoint(l); });
                 }
             }
@@ -12239,6 +12250,14 @@
                     if (key) setAtlasState({ selectedThreadKey: key });
                 });
             });
+            // #216 item 9 — wire the methodology ? tooltips on the section
+            // headers (mirrors the trace panel; stack/material panels lacked it).
+            if (!window.matchMedia('(hover: none)').matches) {
+                elStackContent.querySelectorAll('.weo-info-trigger').forEach(function(trigger) {
+                    trigger.addEventListener('mouseenter', function() { showTooltip(trigger); activeTooltipTrigger = trigger; });
+                    trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
+                });
+            }
         }
 
         function openStackPanel(rootId) {
