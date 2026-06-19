@@ -1449,19 +1449,7 @@
         "current": true
       },
       "version": "1.2",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Certification operational — AWS, Anthropic, Google Cloud, Microsoft, Darktrace through ANAB/UKAS-accredited bodies"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "Adopted as GB/T 45081-2024; certification through SGS China, BSI China, Amtivo, TÜV Rheinland"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "21",
@@ -3824,19 +3812,7 @@
         "current": true
       },
       "version": "1.2",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": false,
-          "evidence": "Western-aligned UNIDO members participate through institutional membership; no US-centred ecosystem operational engagement"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "MIIT bilateral partnership with institutional hosting at SAIRI; ministerial-level governance operational"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "99",
@@ -3944,19 +3920,7 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "ANAB accredited 9 US certification bodies; UKAS and RvA accreditation operational in UK and Netherlands"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese accreditation or certification body activity verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "102",
@@ -4118,19 +4082,7 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Normative dependency via 42001 certification ecosystem; ANSI, BSI, DIN national catalogue adoption"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese national standard adoption verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "108",
@@ -4567,19 +4519,7 @@
       "scope": "International (ISO/IEC member nations)",
       "sources": 2,
       "corroborating": 2,
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Emerging adoption — AvISO use during 42001 certification, Intertek Academy training, ITCERTS assessor examination"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese adoption or operational use verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "125",
@@ -6206,7 +6146,6 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
-      "geographic_context": "Operates within the NDRC-designated Gui'an Data Centre Cluster (贵安数据中心集群), one of eight national hub nodes under the 东数西算 programme (发改高技〔2021〕709号). The programme designates the geographic cluster zone; Huawei Cloud is the largest commercial operator within it, not a named programme component.",
       "description": "Huawei Cloud's globally largest intelligent computing centre, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
@@ -7257,69 +7196,6 @@
       "corroborating": 3,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-02",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, graphite, and rare earth elements with documented applications across AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, anode and cathode materials for server power systems, and permanent magnets for hard drive actuators and cooling fan motors.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The instrument governs battery mineral and critical component supply chains for clean vehicle tax credit eligibility. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power systems and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register — IRA Section 30D FEOC Final Rule (89 FR 37706)",
-                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09094/clean-vehicle-credits-under-sections-25e-and-30d-transfer-of-credits-critical-minerals-and-battery",
-                "type": "PRIMARY"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (4 materials — Supply-Chain-Verified)",
@@ -7378,91 +7254,6 @@
       "corroborating": 1,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "gallium",
-            "registerVerified": true,
-            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
-          },
-          {
-            "name": "germanium",
-            "registerVerified": true,
-            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
-          },
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Gallium, germanium, lithium, cobalt, rare earth elements, and graphite with documented applications across AI infrastructure — compound semiconductors for data centre networking, fibre optic signal amplification, battery storage for uninterruptible power supply and grid-scale energy storage, and permanent magnets for server hardware components.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "TRACE-C1-2",
-                "desc": "EUR-Lex — Regulation (EU) 2024/1252 Annexes I and II",
-                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The regulation establishes supply-chain benchmarks for critical raw materials across the green and digital transitions. The AI infrastructure connection operates through the regulated materials' documented applications in semiconductor fabrication, data centre power systems, and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "EUR-Lex — Regulation (EU) 2024/1252 (full text)",
-                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
@@ -7493,67 +7284,6 @@
       "corroborating": 1,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, and graphite with documented applications in AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, and anode materials for server power systems.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The Presidential Determination invokes defence production authority for domestic mining and processing of battery minerals essential to national defence. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power and energy storage systems.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register — Presidential Determination No. 2022-11",
-                "url": "https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20251219195834/https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (3 materials — Supply-Chain-Verified)",
@@ -7584,82 +7314,6 @@
       "corroborating": 0,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          },
-          {
-            "name": "gallium",
-            "registerVerified": true,
-            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
-          },
-          {
-            "name": "germanium",
-            "registerVerified": true,
-            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, rare earth elements, graphite, gallium, and germanium with documented applications across AI infrastructure — battery storage for data centre power systems, compound semiconductors for networking and signal processing, fibre optic amplification, and permanent magnets for server hardware components.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The legislation provides a refundable tax offset for domestic processing of designated critical minerals. The AI infrastructure connection operates through the incentivised materials' documented applications in semiconductor fabrication, data centre energy storage, and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register of Legislation — Future Made in Australia Act 2025",
-                "url": "https://www.legislation.gov.au/C2025A00009/latest/text",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606155911/https://www.legislation.gov.au/C2025A00009/latest/text",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
@@ -7684,12 +7338,6 @@
       "description": "Hygon Information Technology's DCU series comprises three generations of GPGPU-architecture AI accelerators in mass production for training and inference workloads, operating within a CUDA-compatible software ecosystem supporting deployment across Chinese AI infrastructure.",
       "investment": "2024 revenue RMB 9.162B (+52.4% YoY); gross margin 63.72%; current generation FP16 49 TFLOPS",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "GPGPU AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
-        "review_flags": []
-      },
       "environmentalNexusTags": [],
       "sources": 1,
       "corroborating": 7,
@@ -7717,12 +7365,6 @@
       "description": "Kunlunxin's P800, a third-generation AI accelerator based on the proprietary XPU-P architecture, entered mass production in 2024. A Baidu subsidiary, Kunlunxin develops purpose-built AI training and inference processors for the Chinese domestic market.",
       "investment": "2024 revenue ~RMB 2B (net loss ~RMB 200M); Baidu 57.67% shareholding; 69,000 units shipped — second among Chinese AI chip producers per IDC 2024",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
-        "review_flags": []
-      },
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 6,
@@ -7750,12 +7392,6 @@
       "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tian'ai series for AI training and the Zhikai series for inference, listing on HKEX in January 2026. The Tian'ai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
       "investment": "2025 revenue RMB 1.034B (+91.6% YoY); gross margin 54.0%; 52,000+ GPUs deployed to 290+ customers as of mid-2025",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "GPGPU AI accelerator design with training and inference product lines — Priority Group 1 semiconductor/GPU keyword match",
-        "review_flags": []
-      },
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 1,
