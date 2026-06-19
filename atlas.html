@@ -6054,7 +6054,17 @@
                             'target-arrow-color': 'data(color)',
                             'target-arrow-fill': 'filled',
                             'arrow-scale': 1.25,
-                            'z-index': 968
+                            'z-index': 968,
+                            // #216 item 2 — the breadthfirst tier layout puts
+                            // sibling/skip-level edges on one line, where a plain
+                            // bezier (no parallel multi-edge) draws them straight
+                            // and they mask one another. unbundled-bezier + a
+                            // per-edge control-point distance (set by
+                            // fanJourneyEdges) bows shared-corridor edges onto
+                            // distinct arcs so every leg stays distinguishable.
+                            'curve-style': 'unbundled-bezier',
+                            'control-point-distances': 'data(cpd)',
+                            'control-point-weights': 0.5
                         }
                     },
                     {
@@ -9186,6 +9196,36 @@
         // of the entry fit (that overlap caused the janky flash / disappear).
         let _journeyEntering = false;
 
+        // #216 item 2 — assign each journey edge a control-point distance that
+        // fans edges sharing an endpoint onto distinct arcs. The busiest hubs
+        // claim their incident edges first, and an edge is bowed by only one
+        // endpoint, so a shared edge is never double-offset. Distances are
+        // position-independent, so this runs before the layout animates. An
+        // edge that shares no endpoint with a sibling keeps cpd ~0 (straight).
+        function fanJourneyEdges() {
+            if (!cy) return;
+            const jE = cy.edges('.journey-edge');
+            jE.forEach(e => e.data('cpd', 0));
+            const STEP = 24;
+            const nodes = jE.connectedNodes().toArray().sort((a, b) =>
+                b.connectedEdges('.journey-edge').length - a.connectedEdges('.journey-edge').length);
+            nodes.forEach(node => {
+                const inc = node.connectedEdges('.journey-edge').toArray().filter(e => e.data('cpd') === 0);
+                if (inc.length < 2) return;
+                inc.sort((a, b) => {
+                    const fa = a.source().id() === node.id() ? a.target().id() : a.source().id();
+                    const fb = b.source().id() === node.id() ? b.target().id() : b.source().id();
+                    return fa < fb ? -1 : fa > fb ? 1 : 0;
+                });
+                const k = inc.length;
+                inc.forEach((e, i) => {
+                    let off = (i - (k - 1) / 2) * STEP;
+                    if (e.target().id() === node.id()) off = -off;   // open the fan on the hub side
+                    e.data('cpd', off || 0.01);
+                });
+            });
+        }
+
         function layoutJourneySubgraph(rootId, focusEles, opts) {
             if (!cy || !focusEles || !focusEles.length) return;
             opts = opts || {};
@@ -9196,6 +9236,9 @@
             focusEles.nodes().forEach(n => {
                 if (_journeyMovedNodeIds.indexOf(n.id()) === -1) _journeyMovedNodeIds.push(n.id());
             });
+            // #216 item 2 — bow shared-corridor journey edges apart before the
+            // layout animates, so masked legs are visible the moment tiers land.
+            fanJourneyEdges();
             const layout = focusEles.layout({
                 name: 'breadthfirst',
                 roots: (rootNode && rootNode.length) ? rootNode : undefined,
@@ -9207,7 +9250,23 @@
                 spacingFactor: opts.spacingFactor || 1.2,
                 padding: 30,
                 avoidOverlap: true,
-                maximal: false
+                maximal: false,
+                // #216 item 2 — break exact tier collinearity. breadthfirst
+                // centres children under parents, so vertically-aligned and
+                // skip-level edges stack on one line. A small deterministic
+                // offset (wider across the tier than along depth) gives each
+                // edge its own bearing without disturbing the root→legs→depth
+                // reading. Keyed on node id so re-entry reproduces the layout;
+                // the root stays anchored.
+                transform: function (node, position) {
+                    if (rootNode && rootNode.length && node.id() === rootNode.id()) return position;
+                    const id = node.id();
+                    let h = 0;
+                    for (let c = 0; c < id.length; c++) h = (h * 31 + id.charCodeAt(c)) >>> 0;
+                    position.x += ((h % 9) - 4) * 6;
+                    position.y += ((Math.floor(h / 9) % 5) - 2) * 4;
+                    return position;
+                }
             });
             // Re-fit once the tiers settle, with the desktop/tablet/mobile
             // insets fitToUsableViewport already understands. WS-9 item 4 —
