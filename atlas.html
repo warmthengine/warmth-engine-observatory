@@ -11973,6 +11973,7 @@
                 // wouldn't otherwise show.
                 cy.edges('.thread-edge').forEach(e => {
                     e.removeStyle('width'); e.removeStyle('opacity');
+                    e.removeClass('atlas-selected');   // #216 item 8 — drop a prior thread's select overlay
                     if (!threadLayerOn && e.id() !== id) e.removeClass('thread-visible');
                 });
                 const e = cy.getElementById(id);
@@ -11982,6 +11983,11 @@
                     e.addClass('thread-visible');
                     e.style('width', 2.6);
                     e.style('opacity', 0.95);
+                    // #216 item 8 (design C) — same whitish-green select overlay
+                    // as a CC (item 6) so CC and thread selection read alike. The
+                    // inline width above keeps the thread's thinner line; the
+                    // overlay is the select cue. Cleared in clearThreadHighlight.
+                    e.addClass('atlas-selected');
                 }
             });
         }
@@ -11991,6 +11997,7 @@
             if (e && e.length) {
                 e.removeStyle('width');
                 e.removeStyle('opacity');
+                e.removeClass('atlas-selected');   // #216 item 8 — clear the select overlay
                 if (!threadLayerOn) e.removeClass('thread-visible');
             }
         }
