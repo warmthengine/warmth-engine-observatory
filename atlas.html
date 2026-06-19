@@ -11748,21 +11748,37 @@
         function highlightTraceChain(skipLayout) {
             if (!cy) return;
             const edgeIds = new Set(traceHops.map(c => c.connection_id));
+            const rootId = String(atlasState.traceRootId);
+            // Polish #224 cluster 4 — the focus-node set MUST contain every
+            // endpoint of every rendered trace edge. The journey layout only
+            // repositions this set, so an edge whose far endpoint is absent
+            // from it is left pointing at that node's stale fcose position —
+            // the "dangling line into the void". We seed from the hop event
+            // ids, then fold in each trace edge's ACTUAL canvas endpoints as it
+            // is marked; an edge missing a real endpoint node is omitted
+            // outright (never drawn one-sided).
             const nodeIds = new Set();
+            nodeIds.add(rootId);
             traceHops.forEach(c => {
                 nodeIds.add(String(c.source_event_id));
                 nodeIds.add(String(c.target_event_id));
             });
-            const rootId = String(atlasState.traceRootId);
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
+                    if (!edgeIds.has(e.id())) return;
+                    // Cluster 4 — omit any trace edge missing a real endpoint,
+                    // and guarantee both present endpoints join the focus set.
+                    const s = e.source(), t = e.target();
+                    if (s.empty() || t.empty()) return;
                     // WS-9 — journey-edge adds the source→target arrowhead so
                     // the cascade direction is unmistakable (CCs are directional).
-                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge journey-edge');
+                    e.removeClass('trace-dim').addClass('trace-edge journey-edge');
+                    nodeIds.add(s.id());
+                    nodeIds.add(t.id());
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
@@ -11780,9 +11796,7 @@
             // WS-9 — re-lay the chain as a rooted, directed hierarchy so the
             // root sits at the top and each leg tiers downstream. The fit
             // runs on layoutstop inside the helper.
-            const focusNodes = nodeIds.size
-                ? cy.nodes().filter(n => nodeIds.has(n.id()))
-                : cy.getElementById(rootId);
+            const focusNodes = cy.nodes().filter(n => nodeIds.has(n.id()));
             if (focusNodes && focusNodes.length) {
                 const focusEles = focusNodes.union(cy.edges('.trace-edge'));
                 // WS-9 item 11 — on untuck the nodes are still in their journey
