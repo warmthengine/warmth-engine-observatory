@@ -8679,9 +8679,9 @@
                         const verb = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType))).join(' / ');
                         const assets = Array.from(new Set(te.threads.map(t => t.asset).filter(Boolean)));
                         const assetStr = assets.slice(0, 2).join(', ') + (assets.length > 2 ? ' +' + (assets.length - 2) : '');
-                        elEdgeTooltip.innerHTML = `${escapeHtml(truncate(facility, 28))} <strong>${escapeHtml(verb)}</strong> ${escapeHtml(assetStr)}<br><span style="opacity:0.6">material fact (not a CC)</span>`;
+                        elEdgeTooltip.innerHTML = `${escapeHtml(truncate(facility, 28))} <strong>${escapeHtml(verb)}</strong> ${escapeHtml(assetStr)}<br><span style="opacity:0.6">material fact</span>`;
                     } else {
-                        elEdgeTooltip.innerHTML = `<span style="opacity:0.6">material fact (not a CC)</span>`;
+                        elEdgeTooltip.innerHTML = `<span style="opacity:0.6">material fact</span>`;
                     }
                     elEdgeTooltip.classList.add('visible');
                     elEdgeTooltip.setAttribute('aria-hidden', 'false');
@@ -10383,7 +10383,7 @@
             const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
             if (hasDirectionalChain || hasThread || hasMembership) {
                 html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;">';
-                html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack journey →</button>`;
+                html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack →</button>`;
                 html += '</div>';
             }
 
@@ -11596,7 +11596,7 @@
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
             // Guide note — states what the trace IS (a downstream cascade),
             // no circular "follow the chain it forms" phrasing.
-            h += '<p class="atlas-trace-guide">How this event cascades into the ones downstream of it. Each step is a single coordination connection — follow them in sequence and the chain speaks for itself.</p>';
+            h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence.</p>';
             h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
@@ -12186,7 +12186,7 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-stack-close" aria-label="Close stack journey">&times;</button>';
             h += '<div class="atlas-stack-eyebrow">Stack journey</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
-            h += '<p class="atlas-stack-guide">The value chain around this event, across three different kinds of link. Each hop is labelled by what it is — coordination, material fact, and capability are <strong>not the same kind of claim</strong>. Read the chain; the inference is yours.</p>';
+            h += '<p class="atlas-stack-guide">The coordination, material, and capability links around this event. Each is labelled by kind — a coordination connection, a material fact, and a capability contribution are <strong>different classes of claim</strong>.</p>';
             // Kind legend so the distinctions are explicit before the list.
             h += journeyKindLegend();   // #216 item 10 — shared with trace + material panels
             h += '</div>';
@@ -12374,7 +12374,7 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-material-close" aria-label="Close material journey">&times;</button>';
             h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
-            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each leg is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a Coordination Connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each link is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a coordination connection: no relationship type, no confidence grade. Production → use.</p>';
             h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
