@@ -5708,7 +5708,13 @@ const openModal = (id) => {
         if (ccSectionHtml) {
             html += ccSectionHtml;
         }
-        
+
+        // #216 item 15 — SCP block is the last relationship block: after the
+        // Coordination Connections section and BEFORE the upgrade-CTA. The
+        // public (free non-sample) view previously rendered it after the
+        // subscribe block; sample/authenticated paths render it below (no CTA).
+        if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+
         // UPGRADE CTA for non-sample, non-authenticated events
         if (!isAuthenticated) {
             html += `
@@ -5743,7 +5749,10 @@ const openModal = (id) => {
     // Uses `id` (the modal parameter) since freeEvents records key
     // off `event_id` rather than `id`.
     // WS-2b — subject-implicit Sovereign capability badge (free membership fact).
-    if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+    // #216 item 15 — the free (non-sample) path renders this above, before the
+    // CTA; here it covers only the sample/authenticated paths (which have no
+    // CTA), so the badge always sits after Coordination Connections.
+    if (showFullContent && window.WEOCapBadge) html += WEOCapBadge.html(id);
 
     html += '<div class="modal-cross-links" style="display:flex;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(51,65,85,0.5);">';
     html += '<a href="atlas.html#event=' + esc(id) + '" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:rgba(30,41,59,0.8);border:1px solid rgba(51,65,85,0.6);border-radius:6px;color:#94A3B8;font-size:13px;text-decoration:none;transition:all 0.15s ease;" onmouseover="this.style.borderColor=\'rgba(45,212,191,0.4)\';this.style.color=\'#E2E8F0\'" onmouseout="this.style.borderColor=\'rgba(51,65,85,0.6)\';this.style.color=\'#94A3B8\'">View in Atlas →</a>';

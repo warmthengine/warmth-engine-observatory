@@ -10319,6 +10319,12 @@
                 html += '</div></div>';
             }
 
+            // #216 item 15 — Sovereign Capability is the last relationship
+            // block: after the analysis sections (incl. Coordination
+            // Connections) and BEFORE the upgrade-CTA. It previously rendered
+            // in the sticky footer below, after the CTA.
+            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+
             // §16 — Upgrade CTA (Brief 3b.2 §16). Free, non-sample only.
             // Wrapped in .atlas-supporter-locked so it auto-hides on
             // authenticated sessions; sample events skip render entirely
@@ -10371,9 +10377,6 @@
                 html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
                 html += '</div>';
             }
-
-            // WS-2b — subject-implicit Sovereign capability badge (free membership fact).
-            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
             // WS-5 — Stack Journey launcher. Offered when this event sits on
             // ANY traceable value chain: a directional CC, an infrastructure
