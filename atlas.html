@@ -9364,6 +9364,12 @@
             if (!cy) return;
             const node = cy.getElementById(String(eventId));
             if (!node || !node.length) return;
+            // #216 item 4 — this recentre is scheduled on the same 350ms tick
+            // as openPanel's post-transition cy.resize(), so it can race ahead
+            // and frame against a stale canvas width (node shoved off-centre).
+            // Sync the size first so fitToUsableViewport reads the settled
+            // usable width and centres the focal node in the clear region.
+            cy.resize();
             const degree = node.data('degree') || 0;
             const currentZoom = cy.zoom();
             // Clear any prior edge selection
@@ -9383,6 +9389,20 @@
                     padding: 80,
                     duration: 300,
                     maxAbsoluteZoom: 2.5,
+                    complete: () => applyPanelSelectionHighlight()
+                });
+            } else if (inJourneyMode()) {
+                // #216 item 4 — inside a journey, framing the node's GLOBAL
+                // closed neighbourhood pulls in off-journey nodes scattered
+                // across the canvas, so the camera zooms out (~0.46) and the
+                // clicked node lands small and off to one side, partly under
+                // the detail panel. Magnify the focal node itself; the
+                // panel-aware inset / shrunk canvas centres it in the region
+                // the detail panel leaves clear, so it is never occluded.
+                fitToUsableViewport(node, {
+                    padding: 90,
+                    duration: 400,
+                    maxAbsoluteZoom: 1.7,
                     complete: () => applyPanelSelectionHighlight()
                 });
             } else {
