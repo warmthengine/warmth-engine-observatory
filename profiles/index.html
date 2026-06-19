@@ -595,6 +595,11 @@ if(navToggle&&navLinks){
     return {met:met,dot:dot,qhl:qhl,con:con};
   }
   function evLink(id){return '<a class="weo-dr-evlink" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles" target="_blank" rel="noopener">View event '+esc(id)+' &#8594;</a>';}
+  // #216 item 17 — lightweight methodology ? tooltip for the drawer. Reuses the
+  // page's .weo-info-trigger component + document-delegated tooltip handler.
+  function drTip(title,body,anchor){
+    return ' <span class="weo-info-trigger">?<span class="weo-tooltip"><div class="weo-tooltip-title">'+title+'</div><div class="weo-tooltip-body">'+body+'</div>'+(anchor?'<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#'+anchor+'" target="_blank" rel="noopener">&sect; View in Methodology &#8594;</a></div>':'')+'</span></span>';
+  }
   function render(actorUc,dn){
     var k=parseInt(dn.slice(1),10)-1;
     var details=document.getElementById(actorUc.toLowerCase());
@@ -604,19 +609,20 @@ if(navToggle&&navLinks){
     var d=domDetail(details,k);
     var cell=(ready&&byCell)?(byCell[actorUc+'|'+dn]||{qc:[],ca:[]}):{qc:[],ca:[]};
     // header
-    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>';
+    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>'+drTip('SCP dimension '+(k+1),'SCP Dimension '+(k+1)+': '+esc(DIM[k])+'. One of the seven Sovereign Capability Profile dimensions assessed per actor.','section-5-3');
     var tag='';
     if(cell.qc.length===1)tag='<span class="weo-dr-tag sole">Sole basis (current corpus)</span>';
     else if(cell.qc.length>1)tag='<span class="weo-dr-tag helps">Helps establish &middot; one of '+cell.qc.length+'</span>';
     else if(cell.ca.length)tag='<span class="weo-dr-tag contrib">Contributory evidence</span>';
-    elMeta.innerHTML='<span>'+esc(actorName)+'</span><span class="weo-dr-status '+(d.met?'met':'not')+'">'+(d.met?'MET':'NOT MET')+'</span>'+tag;
+    if(tag)tag+=drTip('Evidence standard','How catalogued events support this dimension: <strong>Sole basis</strong> — one qualifying event; <strong>Helps establish</strong> — one of several; <strong>Contributory</strong> — capability-area evidence only.','section-5-3-4');
+    elMeta.innerHTML='<span>'+esc(actorName)+'</span><span class="weo-dr-status '+(d.met?'met':'not')+'">'+(d.met?'MET':'NOT MET')+'</span>'+drTip('Dimension status','<strong>MET / NOT MET</strong> is the binary SCP assessment: whether this actor meets the qualification standard for this dimension.','section-5-3-2')+tag;
     // body
     var h='';
     if(d.met&&d.qhl){h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Qualification</div><div class="weo-dr-qhl">'+esc(d.qhl)+(d.con?'<div class="weo-dr-con">'+d.con+'</div>':'')+'</div></div>';}
     else if(d.con){h+='<div class="weo-dr-sec"><div class="weo-dr-qhl"><div class="weo-dr-con" style="margin-top:0">'+d.con+'</div></div></div>';}
     if(d.met){
       // establishing evidence (qualifying_contributor)
-      h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Establishing evidence</div>';
+      h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Establishing evidence'+drTip('Establishing evidence','Qualifying-contributor events — catalogued events that provide a qualifying basis for this dimension.','section-5-3-4')+'</div>';
       if(cell.qc.length){
         h+=cell.qc.map(function(l){
           return '<div class="weo-dr-ev">'+(l.entity?'<div class="weo-dr-ent">'+esc(l.entity)+'</div>':'')+evLink(l.event_id)+'</div>';
@@ -626,7 +632,7 @@ if(navToggle&&navLinks){
       h+='</div>';
       // contributory evidence (capability_area)
       if(cell.ca.length){
-        h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Contributory evidence</div>';
+        h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Contributory evidence'+drTip('Contributory evidence','Capability-area events — catalogued events that contribute to, but do not by themselves establish, this dimension.','section-5-3-4')+'</div>';
         h+=cell.ca.map(function(l){
           return '<div class="weo-dr-ev"><div class="weo-dr-contriblabel">Contributing</div>'+evLink(l.event_id)+'</div>';
         }).join('');
