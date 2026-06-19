@@ -3501,8 +3501,16 @@
             border-top: 1px solid var(--border-default);
             position: sticky;
             bottom: 0;
+            /* --surface-raised is fully opaque (#1E293B), so the bg already
+               occludes — the bleed was purely a stacking order problem. */
             background: var(--surface-raised);
-            z-index: 5;
+            /* Polish #225 Item B — the CC-V confidence chips render inside
+               .badge-with-tooltip (position:relative; z-index:100), whose
+               stacking context out-painted this sticky footer at z-index:5 —
+               chips (and their ? triggers) showed THROUGH it on scroll. Raise
+               above the chip wrappers (100) but below the mechanism popovers
+               (ENT 150 / industry 1000) so those still open over the footer. */
+            z-index: 110;
         }
         .atlas-panel-action-btn {
             flex: 1;
