@@ -3643,6 +3643,8 @@
                         background var(--duration-fast) var(--ease-out);
         }
         .atlas-trace-hop:hover { border-color: rgba(45, 212, 191, 0.4); }
+        /* #216 item 10 (design E) — row highlighted from a canvas hover (mirror). */
+        .atlas-trace-hop.mirror-hover, .atlas-stack-hop.mirror-hover { background: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.45); }
         .atlas-trace-hop.current {
             border-color: #2DD4BF;
             background: rgba(45, 212, 191, 0.1);
@@ -5056,6 +5058,15 @@
             title: 'Tier Classification',
             body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor from at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
           },
+          // #216 item 9 — journey-panel section-header tooltips (design D).
+          infraThread: {
+            title: 'Infrastructure Thread (material fact)',
+            body: 'A sourced material fact: the same physical asset — a chip generation, system, or facility — documented both at its production-origin event and at the facility that deploys, trains on, powers, or fabricates from it. Not a Coordination Connection: no relationship type and no confidence grade, only the documented hardware link.'
+          },
+          scpMembership: {
+            title: 'Capability Waypoint (SCP dimension)',
+            body: 'A Sovereign Capability Profile dimension this event contributes to. SCP membership records which of the capability dimensions — AI Chip Design, Advanced Fabrication, Critical Equipment, AI Compute, Frontier Models, AI Regulation, Sovereign Investment — an actor establishes through this event.'
+          },
           // CC Type Tooltips (7 types)
           ccTypes: {
             1: { title: 'Policy Cascade', body: 'A higher-authority event mandates, directs, or creates implementation requirements for a lower-level event. <strong>Direction:</strong> Parent → Child (hierarchical). <strong>Evidence:</strong> Child event explicitly cites parent as legal/policy basis. <strong>Min. Confidence:</strong> CC-V.' },
@@ -5081,6 +5092,8 @@
           checkpoints:       'section-3-5',
           basel5:            'section-4-4',
           cc:                'section-9-1',
+          infraThread:       null,
+          scpMembership:     'section-5-3',
           keohane:           'section-4-2',
           pisa5:             'section-4-9',
           routeBased:        'section-4-8',
@@ -6043,6 +6056,24 @@
                         }
                     },
                     {
+                        // #216 item 7 (design B) — focal-node ring. Rings the
+                        // clicked non-root node inside a journey so a low-degree
+                        // node reads as the focus. Amber (never green — the root
+                        // owns green) and NO size change (node size encodes global
+                        // connectedness): a border + soft underlay halo, mirroring
+                        // the root's ring treatment in a distinct hue.
+                        selector: 'node.journey-focus',
+                        style: {
+                            'border-color': '#F59E0B',
+                            'border-width': 4,
+                            'border-opacity': 1,
+                            'underlay-color': '#F59E0B',
+                            'underlay-opacity': 0.3,
+                            'underlay-padding': 10,
+                            'z-index': 991
+                        }
+                    },
+                    {
                         // WS-9 — directional arrow on journey edges. Vertical
                         // tier position encodes depth; the arrowhead encodes
                         // flow (source = upstream, target = downstream). The
@@ -6054,7 +6085,17 @@
                             'target-arrow-color': 'data(color)',
                             'target-arrow-fill': 'filled',
                             'arrow-scale': 1.25,
-                            'z-index': 968
+                            'z-index': 968,
+                            // #216 item 2 — the breadthfirst tier layout puts
+                            // sibling/skip-level edges on one line, where a plain
+                            // bezier (no parallel multi-edge) draws them straight
+                            // and they mask one another. unbundled-bezier + a
+                            // per-edge control-point distance (set by
+                            // fanJourneyEdges) bows shared-corridor edges onto
+                            // distinct arcs so every leg stays distinguishable.
+                            'curve-style': 'unbundled-bezier',
+                            'control-point-distances': 'data(cpd)',
+                            'control-point-weights': 0.5
                         }
                     },
                     {
@@ -6180,8 +6221,30 @@
                             'width': 4,
                             'opacity': 1,
                             'line-opacity': 1,
-                            'z-index': 10
+                            'z-index': 10,
+                            // #216 item 6 (design A) — a whitish-green overlay
+                            // makes the selected line unmistakable even where CC
+                            // colours are similar (the coordination journey).
+                            // Distinct from the entry pulse and the pure-green
+                            // root, so the root keeps its dominance. Cleared with
+                            // the class on deselect. (Shared by item 8 threads.)
+                            'overlay-color': '#A7F3E4',
+                            'overlay-opacity': 0.5,
+                            'overlay-padding': 6
                         }
+                    },
+                    {
+                        // #216 item 10 (design E) — transient panel<->canvas
+                        // hover mirror. Neutral grey so it's distinct from the
+                        // select overlay (item 6) and the amber focus ring
+                        // (item 7). Toggled from panel-row hover and, in reverse,
+                        // from the canvas hover handlers.
+                        selector: 'edge.mirror-hover',
+                        style: { 'overlay-color': '#CBD5E1', 'overlay-opacity': 0.3, 'overlay-padding': 5 }
+                    },
+                    {
+                        selector: 'node.mirror-hover',
+                        style: { 'overlay-color': '#CBD5E1', 'overlay-opacity': 0.22, 'overlay-padding': 6 }
                     },
                     {
                         // Phase 2 P1 (Batch 2b++) — class-rule safety net
@@ -8616,9 +8679,9 @@
                         const verb = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType))).join(' / ');
                         const assets = Array.from(new Set(te.threads.map(t => t.asset).filter(Boolean)));
                         const assetStr = assets.slice(0, 2).join(', ') + (assets.length > 2 ? ' +' + (assets.length - 2) : '');
-                        elEdgeTooltip.innerHTML = `${escapeHtml(truncate(facility, 28))} <strong>${escapeHtml(verb)}</strong> ${escapeHtml(assetStr)}<br><span style="opacity:0.6">material fact (not a CC)</span>`;
+                        elEdgeTooltip.innerHTML = `${escapeHtml(truncate(facility, 28))} <strong>${escapeHtml(verb)}</strong> ${escapeHtml(assetStr)}<br><span style="opacity:0.6">material fact</span>`;
                     } else {
-                        elEdgeTooltip.innerHTML = `<span style="opacity:0.6">material fact (not a CC)</span>`;
+                        elEdgeTooltip.innerHTML = `<span style="opacity:0.6">material fact</span>`;
                     }
                     elEdgeTooltip.classList.add('visible');
                     elEdgeTooltip.setAttribute('aria-hidden', 'false');
@@ -9186,6 +9249,36 @@
         // of the entry fit (that overlap caused the janky flash / disappear).
         let _journeyEntering = false;
 
+        // #216 item 2 — assign each journey edge a control-point distance that
+        // fans edges sharing an endpoint onto distinct arcs. The busiest hubs
+        // claim their incident edges first, and an edge is bowed by only one
+        // endpoint, so a shared edge is never double-offset. Distances are
+        // position-independent, so this runs before the layout animates. An
+        // edge that shares no endpoint with a sibling keeps cpd ~0 (straight).
+        function fanJourneyEdges() {
+            if (!cy) return;
+            const jE = cy.edges('.journey-edge');
+            jE.forEach(e => e.data('cpd', 0));
+            const STEP = 24;
+            const nodes = jE.connectedNodes().toArray().sort((a, b) =>
+                b.connectedEdges('.journey-edge').length - a.connectedEdges('.journey-edge').length);
+            nodes.forEach(node => {
+                const inc = node.connectedEdges('.journey-edge').toArray().filter(e => e.data('cpd') === 0);
+                if (inc.length < 2) return;
+                inc.sort((a, b) => {
+                    const fa = a.source().id() === node.id() ? a.target().id() : a.source().id();
+                    const fb = b.source().id() === node.id() ? b.target().id() : b.source().id();
+                    return fa < fb ? -1 : fa > fb ? 1 : 0;
+                });
+                const k = inc.length;
+                inc.forEach((e, i) => {
+                    let off = (i - (k - 1) / 2) * STEP;
+                    if (e.target().id() === node.id()) off = -off;   // open the fan on the hub side
+                    e.data('cpd', off || 0.01);
+                });
+            });
+        }
+
         function layoutJourneySubgraph(rootId, focusEles, opts) {
             if (!cy || !focusEles || !focusEles.length) return;
             opts = opts || {};
@@ -9196,6 +9289,9 @@
             focusEles.nodes().forEach(n => {
                 if (_journeyMovedNodeIds.indexOf(n.id()) === -1) _journeyMovedNodeIds.push(n.id());
             });
+            // #216 item 2 — bow shared-corridor journey edges apart before the
+            // layout animates, so masked legs are visible the moment tiers land.
+            fanJourneyEdges();
             const layout = focusEles.layout({
                 name: 'breadthfirst',
                 roots: (rootNode && rootNode.length) ? rootNode : undefined,
@@ -9207,7 +9303,23 @@
                 spacingFactor: opts.spacingFactor || 1.2,
                 padding: 30,
                 avoidOverlap: true,
-                maximal: false
+                maximal: false,
+                // #216 item 2 — break exact tier collinearity. breadthfirst
+                // centres children under parents, so vertically-aligned and
+                // skip-level edges stack on one line. A small deterministic
+                // offset (wider across the tier than along depth) gives each
+                // edge its own bearing without disturbing the root→legs→depth
+                // reading. Keyed on node id so re-entry reproduces the layout;
+                // the root stays anchored.
+                transform: function (node, position) {
+                    if (rootNode && rootNode.length && node.id() === rootNode.id()) return position;
+                    const id = node.id();
+                    let h = 0;
+                    for (let c = 0; c < id.length; c++) h = (h * 31 + id.charCodeAt(c)) >>> 0;
+                    position.x += ((h % 9) - 4) * 6;
+                    position.y += ((Math.floor(h / 9) % 5) - 2) * 4;
+                    return position;
+                }
             });
             // Re-fit once the tiers settle, with the desktop/tablet/mobile
             // insets fitToUsableViewport already understands. WS-9 item 4 —
@@ -9305,6 +9417,12 @@
             if (!cy) return;
             const node = cy.getElementById(String(eventId));
             if (!node || !node.length) return;
+            // #216 item 4 — this recentre is scheduled on the same 350ms tick
+            // as openPanel's post-transition cy.resize(), so it can race ahead
+            // and frame against a stale canvas width (node shoved off-centre).
+            // Sync the size first so fitToUsableViewport reads the settled
+            // usable width and centres the focal node in the clear region.
+            cy.resize();
             const degree = node.data('degree') || 0;
             const currentZoom = cy.zoom();
             // Clear any prior edge selection
@@ -9324,6 +9442,20 @@
                     padding: 80,
                     duration: 300,
                     maxAbsoluteZoom: 2.5,
+                    complete: () => applyPanelSelectionHighlight()
+                });
+            } else if (inJourneyMode()) {
+                // #216 item 4 — inside a journey, framing the node's GLOBAL
+                // closed neighbourhood pulls in off-journey nodes scattered
+                // across the canvas, so the camera zooms out (~0.46) and the
+                // clicked node lands small and off to one side, partly under
+                // the detail panel. Magnify the focal node itself; the
+                // panel-aware inset / shrunk canvas centres it in the region
+                // the detail panel leaves clear, so it is never occluded.
+                fitToUsableViewport(node, {
+                    padding: 90,
+                    duration: 400,
+                    maxAbsoluteZoom: 1.7,
                     complete: () => applyPanelSelectionHighlight()
                 });
             } else {
@@ -9537,7 +9669,7 @@
                         });
                         // Strip panel-* classes and compute final state.
                         cy.batch(() => {
-                            cy.elements().removeClass('panel-dim panel-focus panel-primary');
+                            cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
                         });
                         // V8b — re-run filter sync skipped in
                         // syncCytoscapeOnState during the close transition.
@@ -10187,6 +10319,12 @@
                 html += '</div></div>';
             }
 
+            // #216 item 15 — Sovereign Capability is the last relationship
+            // block: after the analysis sections (incl. Coordination
+            // Connections) and BEFORE the upgrade-CTA. It previously rendered
+            // in the sticky footer below, after the CTA.
+            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+
             // §16 — Upgrade CTA (Brief 3b.2 §16). Free, non-sample only.
             // Wrapped in .atlas-supporter-locked so it auto-hides on
             // authenticated sessions; sample events skip render entirely
@@ -10235,13 +10373,10 @@
                 isDirectionalCC(c) &&
                 (String(c.source_event_id) === id || String(c.target_event_id) === id));
             if (hasDirectionalChain) {
-                html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;background:transparent;">';
+                html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
                 html += '</div>';
             }
-
-            // WS-2b — subject-implicit Sovereign capability badge (free membership fact).
-            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
             // WS-5 — Stack Journey launcher. Offered when this event sits on
             // ANY traceable value chain: a directional CC, an infrastructure
@@ -10250,8 +10385,8 @@
             const hasThread = !!(threadsByEvent[id] && threadsByEvent[id].length);
             const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
             if (hasDirectionalChain || hasThread || hasMembership) {
-                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;background:transparent;">';
-                html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack journey →</button>`;
+                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;">';
+                html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack →</button>`;
                 html += '</div>';
             }
 
@@ -11434,7 +11569,7 @@
             const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
             const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
             const childCls = child ? ' atlas-journey-leg-child' : '';
-            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
+            let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-cy-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
             h += '<div class="atlas-trace-hop-endpoints">';
             h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
             h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
@@ -11464,7 +11599,8 @@
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
             // Guide note — states what the trace IS (a downstream cascade),
             // no circular "follow the chain it forms" phrasing.
-            h += '<p class="atlas-trace-guide">How this event cascades into the ones downstream of it. Each step is a single coordination connection — follow them in sequence and the chain speaks for itself.</p>';
+            h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence.</p>';
+            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
@@ -11555,7 +11691,7 @@
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     // WS-9 — journey-edge adds the source→target arrowhead so
@@ -11630,6 +11766,41 @@
             }
         }
 
+        // #216 item 10 (design E) — panel<->canvas hover mirror + the shared
+        // kind legend rendered on every journey panel.
+        let _journeyMirrorCanvasWired = false;
+        function wireJourneyRowMirror(container) {
+            if (!container || !cy) return;
+            // panel row hover -> highlight the matching canvas element
+            container.querySelectorAll('[data-cy-id]').forEach(function (row) {
+                var id = row.getAttribute('data-cy-id');
+                if (!id) return;
+                row.addEventListener('mouseenter', function () { var e = cy.getElementById(id); if (e && e.length) e.addClass('mirror-hover'); });
+                row.addEventListener('mouseleave', function () { var e = cy.getElementById(id); if (e && e.length) e.removeClass('mirror-hover'); });
+            });
+            // canvas element hover -> highlight the matching panel row (register once)
+            if (_journeyMirrorCanvasWired) return;
+            _journeyMirrorCanvasWired = true;
+            var toggleRow = function (id, on) {
+                var sel;
+                try { sel = '[data-cy-id="' + (window.CSS && CSS.escape ? CSS.escape(String(id)) : String(id)) + '"]'; } catch (e) { return; }
+                [elTraceContent, elStackContent, elMaterialContent].forEach(function (c) {
+                    if (!c) return;
+                    var row; try { row = c.querySelector(sel); } catch (e) { row = null; }
+                    if (row) row.classList.toggle('mirror-hover', on);
+                });
+            };
+            cy.on('mouseover', 'node, edge', function (evt) { if (typeof inJourneyMode === 'function' && inJourneyMode()) toggleRow(evt.target.id(), true); });
+            cy.on('mouseout', 'node, edge', function (evt) { toggleRow(evt.target.id(), false); });
+        }
+        function journeyKindLegend() {
+            return '<div class="atlas-stack-legend">' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>' +
+                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>' +
+                '</div>';
+        }
+
         function wireTracePanelInteractions() {
             initTooltips();
             const closeBtn = elTraceContent.querySelector('#atlas-trace-close');
@@ -11670,6 +11841,7 @@
                     trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
                 });
             }
+            wireJourneyRowMirror(elTraceContent);
         }
 
         function openTracePanel(rootId) {
@@ -11867,6 +12039,7 @@
                 // wouldn't otherwise show.
                 cy.edges('.thread-edge').forEach(e => {
                     e.removeStyle('width'); e.removeStyle('opacity');
+                    e.removeClass('atlas-selected');   // #216 item 8 — drop a prior thread's select overlay
                     if (!threadLayerOn && e.id() !== id) e.removeClass('thread-visible');
                 });
                 const e = cy.getElementById(id);
@@ -11876,6 +12049,11 @@
                     e.addClass('thread-visible');
                     e.style('width', 2.6);
                     e.style('opacity', 0.95);
+                    // #216 item 8 (design C) — same whitish-green select overlay
+                    // as a CC (item 6) so CC and thread selection read alike. The
+                    // inline width above keeps the thread's thinner line; the
+                    // overlay is the select cue. Cleared in clearThreadHighlight.
+                    e.addClass('atlas-selected');
                 }
             });
         }
@@ -11885,6 +12063,7 @@
             if (e && e.length) {
                 e.removeStyle('width');
                 e.removeStyle('opacity');
+                e.removeClass('atlas-selected');   // #216 item 8 — clear the select overlay
                 if (!threadLayerOn) e.removeClass('thread-visible');
             }
         }
@@ -11964,7 +12143,7 @@
             const srcId = String(c.source_event_id), tgtId = String(c.target_event_id);
             const srcName = (eventById[srcId] && eventById[srcId].name) || ('Event ' + srcId);
             const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
-            let h = '<div class="atlas-stack-hop coordination">';
+            let h = '<div class="atlas-stack-hop coordination" data-cy-id="' + escapeHtml(c.connection_id || '') + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             h += '<span class="atlas-stack-arrow" aria-hidden="true">→</span>';
@@ -11980,7 +12159,7 @@
             const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
             const verbs = Array.from(new Set(te.threads.map(t => THREAD_LINKTYPE_PHRASE[t.linkType] || t.linkType)));
             const assets = Array.from(new Set(te.threads.map(t => t.asset)));
-            let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '">';
+            let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '" data-cy-id="' + threadCyId(te.key) + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
@@ -11992,7 +12171,7 @@
         }
         function renderStackWaypoint(link) {
             const evName = (eventById[String(link._eventId)] && eventById[String(link._eventId)].name) || ('Event ' + link._eventId);
-            let h = '<div class="atlas-stack-hop capability">';
+            let h = '<div class="atlas-stack-hop capability" data-cy-id="' + escapeHtml(String(link._eventId)) + '">';
             h += '<div class="atlas-stack-waypoint-label">' + escapeHtml(membershipWaypointLabel(link)) + '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind capability">Capability</span>';
             h += '<span class="atlas-stack-via">via <span class="atlas-stack-evt" data-stack-event="' + escapeHtml(String(link._eventId)) + '" role="button" tabindex="0">' + escapeHtml(truncate(evName, 26)) + '</span></span></div>';
@@ -12010,13 +12189,9 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-stack-close" aria-label="Close stack journey">&times;</button>';
             h += '<div class="atlas-stack-eyebrow">Stack journey</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
-            h += '<p class="atlas-stack-guide">The value chain around this event, across three different kinds of link. Each hop is labelled by what it is — coordination, material fact, and capability are <strong>not the same kind of claim</strong>. Read the chain; the inference is yours.</p>';
+            h += '<p class="atlas-stack-guide">The coordination, material, and capability links around this event. Each is labelled by kind — a coordination connection, a material fact, and a capability contribution are <strong>different classes of claim</strong>.</p>';
             // Kind legend so the distinctions are explicit before the list.
-            h += '<div class="atlas-stack-legend">';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>';
-            h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>';
-            h += '</div>';
+            h += journeyKindLegend();   // #216 item 10 — shared with trace + material panels
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
@@ -12025,15 +12200,15 @@
                 h += '<div class="atlas-trace-empty">This event sits at no value chain we can trace — it has no directional coordination link, no infrastructure thread, and no capability membership to walk.</div>';
             } else {
                 if (j.coordination.length) {
-                    h += '<div class="atlas-stack-section-label coordination">Coordination joints — Coordination Connections</div>';
+                    h += '<div class="atlas-stack-section-label coordination">Coordination joints — Coordination Connections ' + generateTooltip('cc', 'below') + '</div>';
                     j.coordination.forEach(c => { h += renderStackHopCC(c); });
                 }
                 if (j.material.length) {
-                    h += '<div class="atlas-stack-section-label material">Material links — infrastructure threads (sourced facts)</div>';
+                    h += '<div class="atlas-stack-section-label material">Material links — infrastructure threads (sourced facts) ' + generateTooltip('infraThread', 'below') + '</div>';
                     j.material.forEach(te => { h += renderStackHopThread(te); });
                 }
                 if (j.capability.length) {
-                    h += '<div class="atlas-stack-section-label capability">Capability waypoints — SCP dimension membership</div>';
+                    h += '<div class="atlas-stack-section-label capability">Capability waypoints — SCP dimension membership ' + generateTooltip('scpMembership', 'below') + '</div>';
                     j.capability.forEach(l => { h += renderStackWaypoint(l); });
                 }
             }
@@ -12056,14 +12231,19 @@
 
             const rootId = String(stackJourney.rootId);
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     // journey-edge arrows ride only on the directional CC hops;
                     // material (thread) hops keep their production→use source
                     // chevron via the stack-material rule below.
                     if (ccIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-coordination journey-edge');
-                    else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material');
+                    // #216 item 5b — the thread (material) edges in the stack
+                    // journey need `thread-visible` too, else they stay
+                    // display:none (thread-edge is a hidden toggle layer) and
+                    // the stack shows the CC hop with no threads. Mirrors
+                    // highlightMaterialJourney, which already adds both.
+                    else if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) {
@@ -12121,6 +12301,15 @@
                     if (key) setAtlasState({ selectedThreadKey: key });
                 });
             });
+            // #216 item 9 — wire the methodology ? tooltips on the section
+            // headers (mirrors the trace panel; stack/material panels lacked it).
+            if (!window.matchMedia('(hover: none)').matches) {
+                elStackContent.querySelectorAll('.weo-info-trigger').forEach(function(trigger) {
+                    trigger.addEventListener('mouseenter', function() { showTooltip(trigger); activeTooltipTrigger = trigger; });
+                    trigger.addEventListener('mouseleave', function() { if (!tooltipOverlay.matches(':hover')) hideTooltip(); });
+                });
+            }
+            wireJourneyRowMirror(elStackContent);
         }
 
         function openStackPanel(rootId) {
@@ -12188,7 +12377,8 @@
             h += '<button class="atlas-trace-close" type="button" id="atlas-material-close" aria-label="Close material journey">&times;</button>';
             h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
-            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each leg is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a Coordination Connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each link is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a coordination connection: no relationship type, no confidence grade. Production → use.</p>';
+            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
@@ -12202,7 +12392,7 @@
                         const fId = String(t.sourceEventId);
                         const fName = (eventById[fId] && eventById[fId].name) || ('Event ' + fId);
                         const key = fId + '|' + j.rootId;
-                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '">';
+                        h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '" data-cy-id="' + threadCyId(key) + '">';
                         h += '<div class="atlas-stack-hop-endpoints">';
                         h += '<span class="atlas-stack-evt" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
                         h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
@@ -12227,7 +12417,7 @@
             const rid = String(rootId);
             const threadIds = new Set(Array.from(j.edgeKeys).map(k => threadCyId(k)));
             cy.batch(() => {
-                cy.elements().removeClass('panel-dim panel-focus panel-primary trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
                     if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
@@ -12278,6 +12468,7 @@
                     if (key) setAtlasState({ selectedThreadKey: key });
                 });
             });
+            wireJourneyRowMirror(elMaterialContent);
         }
 
         function openMaterialPanel(rootId) {
@@ -13004,7 +13195,7 @@
             cy.batch(() => {
                 // Fix 2 — clear any residual panel-dimming classes
                 // so the stylesheet base rules reassert.
-                cy.elements().removeClass('panel-dim panel-focus panel-primary');
+                cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
                 cy.nodes().forEach(node => {
                     node.removeStyle('opacity');
                     node.removeStyle('z-index');
@@ -13121,10 +13312,16 @@
                     // no-op if no inline transition state is set.
                     n.removeStyle('transition-property');
                     n.removeStyle('transition-duration');
-                    n.removeClass('panel-dim panel-focus panel-primary');
+                    n.removeClass('panel-dim panel-focus panel-primary journey-focus');
                     if (focusNodes.contains(n)) {
                         if (primaryNodeIds.has(n.id())) {
                             n.addClass('panel-primary');
+                            // #216 item 7 (design B) — ring the focal node while a
+                            // journey owns the canvas, except the root (it keeps
+                            // green). Cleared wherever panel-primary is cleared.
+                            if (typeof inJourneyMode === 'function' && inJourneyMode() && !n.hasClass('journey-root')) {
+                                n.addClass('journey-focus');
+                            }
                         } else {
                             n.addClass('panel-focus');
                         }
@@ -13892,10 +14089,18 @@
             }
             const n = root[0];
             const pos = n.renderedPosition();
-            const rh = n.renderedHeight();
             badge.style.display = 'block';
             badge.style.left = pos.x + 'px';
-            badge.style.top = (pos.y - rh / 2 - 9) + 'px';
+            // #216 item 1 — the journey root flips its name label ABOVE the node
+            // (.label-top), so a fixed node-top offset dropped the ROOT badge
+            // inside the label's line-box (the "burger" overlap). Lift the badge
+            // above the node's full label-inclusive rendered box instead, with a
+            // small gap. transform: translateY(-100%) means the CSS `top` is the
+            // badge's bottom edge, so this clears the label cleanly. Order
+            // top→bottom: ROOT badge → name label → node. Degrades safely when
+            // the label is below the node (y1 falls back to the node's top).
+            const labelBox = n.renderedBoundingBox({ includeLabels: true, includeOverlays: false });
+            badge.style.top = (labelBox.y1 - 4) + 'px';
         }
 
         // WS-9 area C — re-frame the active journey (no re-layout) so the fit
@@ -14448,9 +14653,9 @@
     var items=ordered.map(function(l){
       var href='/profiles/#'+encodeURIComponent(l.actor)+'-'+encodeURIComponent(l.dimension);
       var ent=(l.link_type==='qualifying_contributor'&&l.entity)?'<div class="weo-cap-entity">'+esc(l.entity)+'</div>':'';
-      return '<a class="weo-cap-badge" href="'+href+'"><div class="weo-cap-claim">'+claim(l)+'<span class="weo-cap-arrow">&#8594;</span></div>'+ent+'</a>';
+      return '<a class="weo-cap-badge" href="'+href+'" target="_blank" rel="noopener"><div class="weo-cap-claim">'+claim(l)+'<span class="weo-cap-arrow">&#8594;</span></div>'+ent+'</a>';
     }).join('');
-    return '<div class="weo-cap-sec"><div class="weo-cap-eyebrow">Sovereign capability</div><div class="weo-cap-list">'+items+'</div></div>';
+    return '<div class="weo-cap-sec"><div class="weo-cap-eyebrow">Sovereign capability <span class="weo-info-trigger">?<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Sovereign capability</div><div class="weo-tooltip-body">Which Sovereign Capability Profile dimension(s) this event contributes to, and whether it is the sole basis, one of several, or contributory evidence for the actor\'s standing in that dimension.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-5-3" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></span></div><div class="weo-cap-list">'+items+'</div></div>';
   }
   function html(eventId){
     if(ready)return badgeHtml(eventId);
