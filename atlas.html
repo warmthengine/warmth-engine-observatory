@@ -708,6 +708,9 @@
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
             padding: 12px 14px 14px;
             z-index: 90;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas;
+               event isolation in wireGuidedJourneys() stops bleed-through. */
+            pointer-events: auto;
             display: none;
         }
         .atlas-journeys.visible { display: block; }
@@ -743,23 +746,28 @@
             display: none;
             align-items: center;
             gap: 4px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-primary);
+            /* Polish #224 cluster 2c — stronger rest state so "Start here"
+               reads as an affordance, not a faint hint, before hover. */
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid var(--text-secondary);
             border-radius: var(--radius-md);
             padding: 6px 14px;
             font-family: var(--font-sans);
             font-size: 11px;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             cursor: pointer;
-            opacity: 0.7;
-            transition: opacity var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+            opacity: 0.95;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas. */
+            pointer-events: auto;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
         }
         .atlas-journeys-recall:hover {
             opacity: 1;
+            background: rgba(255, 255, 255, 0.14);
             color: var(--text-primary);
-            border-color: var(--text-secondary);
+            border-color: #2DD4BF;
         }
         .atlas-journeys-recall.visible { display: inline-flex; }
         /* WS-9 — while the exit pill shows, lift the recall pill so the two
@@ -787,6 +795,8 @@
             color: #2DD4BF;
             cursor: pointer;
             opacity: 0.9;
+            /* Polish #224 cluster 2b — explicit hit-target above the cy canvas. */
+            pointer-events: auto;
             transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
         }
         .atlas-journey-exit:hover {
@@ -795,6 +805,38 @@
             border-color: #2DD4BF;
         }
         .atlas-journey-exit.visible { display: inline-flex; }
+        /* Polish #224 cluster 3 — detail-panel recall tab. Top-left, clear of
+           the centred journey readout and the right-side journey panel. Indigo
+           accent so it reads distinct from the journey-green chrome. */
+        .atlas-data-recall {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 96;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border-primary);
+            border-left: 3px solid #818CF8;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            padding: 7px 14px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0.95;
+            transition: opacity var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+        }
+        .atlas-data-recall:hover {
+            opacity: 1;
+            background: rgba(129, 140, 248, 0.16);
+            border-color: #818CF8;
+        }
+        .atlas-data-recall.visible { display: inline-flex; }
         .atlas-journeys-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -3869,6 +3911,10 @@
         .atlas-stack-section-label.coordination { color: #2DD4BF; border-left-color: #2DD4BF; }
         .atlas-stack-section-label.material { color: #9FB0C4; border-left-color: #7C8A9E; }
         .atlas-stack-section-label.capability { color: #F59E0B; border-left-color: #F59E0B; }
+        /* Polish #224 cluster 6b — the ? tooltip trigger on the stack-journey
+           section headers (Coordination joints / Material links / Capability
+           waypoints) sat hard against the label text; add a small gap. */
+        .atlas-stack-section-label .weo-info-trigger { margin-left: 6px; }
         /* Hop card — left border colour-codes the kind so the three never
            blur into one running coordination narrative. */
         .atlas-stack-hop {
@@ -4683,6 +4729,14 @@
                      "Start here ▸" stays available for journey→journey. -->
                 <button id="atlas-journey-exit" class="atlas-journey-exit" type="button"
                         aria-label="Exit journey mode">Exit journey mode ✕</button>
+
+                <!-- Polish #224 cluster 3 — detail-panel recall tab. Shown only
+                     while a journey owns the canvas AND the event/CC panel it
+                     was launched from has been tucked. Click restores that panel
+                     (which tucks the journey — symmetric), so exactly one panel
+                     is ever in the foreground (no header/scrollbar bleed). -->
+                <button id="atlas-data-recall" class="atlas-data-recall" type="button"
+                        aria-label="Reopen detail panel">◂ Event details</button>
 
                 <!-- WS-8 — Guided-journey readout. The approved descriptive answer,
                      shown alongside the visual reveal when a journey is triggered. -->
@@ -8805,6 +8859,12 @@
             // same code path.
             cy.on('tap', 'node', (evt) => {
                 if (_cyMultitouch) return;
+                // Polish #224 cluster 2a — during a journey, ignore taps on any
+                // node that isn't part of it (no .trace-node class = dimmed).
+                // Mirrors the node hover guard; without it a dimmed node opens a
+                // panel and silently exits the journey (then triggers the
+                // cluster-1 camera race). Rule: nothing dimmed is clickable.
+                if (typeof inJourneyMode === 'function' && inJourneyMode() && !evt.target.hasClass('trace-node')) return;
                 const ev = evt.target.data('event');
                 if (ev) setAtlasState({ selectedEventId: String(ev.id), selectedConnectionId: null });
             });
@@ -8813,6 +8873,11 @@
             // exclusive with the event panel: opening one closes the other.
             cy.on('tap', 'edge', (evt) => {
                 if (_cyMultitouch) return;
+                // Polish #224 cluster 2a — during a journey, ignore taps on any
+                // edge not in it (mirrors the edge hover guard). A dimmed CC or
+                // thread line is non-interactive while a journey owns the
+                // canvas; only the journey's own edges respond.
+                if (typeof inJourneyMode === 'function' && inJourneyMode() && !isJourneyEdge(evt.target)) return;
                 const d = evt.target.data();
                 if (!d || !d.id) return;
                 // WS-5 — a thread edge is a material fact, not a CC: route it
@@ -9116,6 +9181,16 @@
         function fitToUsableViewport(eles, opts) {
             if (!cy || !eles || !eles.length) return;
             opts = opts || {};
+            // Polish #224 cluster 1 — claim the camera for this tween, and
+            // record an inert-by-default fit count so QA can assert that a
+            // single user action drives exactly one programmatic fit. The
+            // counter/log only run when window.__weoFitDebug is truthy.
+            _cameraBusy = true;
+            var _fitToken = ++_cameraFitToken;
+            if (window.__weoFitDebug) {
+                window.__weoFitCount = (window.__weoFitCount || 0) + 1;
+                try { console.log('[weo-fit]', window.__weoFitCount, (opts.label || '(unlabelled)'), 'eles=' + (eles && eles.length)); } catch (_e) {}
+            }
             var duration = opts.duration || 400;
             var easing = opts.easing || 'ease-out';
             var padding = opts.padding || 80;
@@ -9222,12 +9297,21 @@
                 y: usableCy - bbCy * zoom
             };
 
+            // Polish #224 cluster 1 — release the camera when this tween ends,
+            // but only if no newer fit has claimed it since (token check), then
+            // run the caller's own completion. cy.animate's complete does not
+            // fire if a later animation interrupts this one, but that later fit
+            // sets _cameraBusy=true + a fresh token, so the flag stays correct.
+            var _userComplete = opts.complete || function() {};
             cy.animate({
                 zoom: zoom,
                 pan: pan,
                 duration: duration,
                 easing: easing,
-                complete: opts.complete || (function() {})
+                complete: function() {
+                    if (_fitToken === _cameraFitToken) _cameraBusy = false;
+                    _userComplete();
+                }
             });
         }
 
@@ -9248,6 +9332,17 @@
         // the panel's transitionend can't stack a second viewport tween on top
         // of the entry fit (that overlap caused the janky flash / disappear).
         let _journeyEntering = false;
+        // Polish #224 cluster 1 — one camera tween per action. EVERY
+        // programmatic viewport fit (journey entry, openPanel/recentre,
+        // openCCPanel, refit) sets _cameraBusy for the life of its animation
+        // and clears it on complete; while set, refitActiveJourney and any
+        // racing fit bail, so a single selection can never resolve to two
+        // stacked tweens (the zoom "double-take"). _cameraFitToken guards the
+        // clear against an interrupting fit: only the latest fit's complete
+        // callback may release the flag, so a fit that gets superseded mid-
+        // animation can't prematurely clear a newer fit's claim.
+        let _cameraBusy = false;
+        let _cameraFitToken = 0;
 
         // #216 item 2 — assign each journey edge a control-point distance that
         // fans edges sharing an endpoint onto distinct arcs. The busiest hubs
@@ -9519,12 +9614,27 @@
                 cy.resize();
                 const edge = cy.getElementById(cc.connection_id);
                 if (edge && edge.length) {
-                    const endpoints = edge.source().union(edge.target());
-                    fitToUsableViewport(endpoints, {
-                        padding: 100,
-                        duration: 300,
-                        complete: () => applyPanelSelectionHighlight()
-                    });
+                    // Polish #224 cluster 1 — guard the target: frame only the
+                    // endpoints actually present on the canvas. If a CC's far
+                    // endpoint isn't rendered (filtered out, or a dangling edge),
+                    // its source()/target() collection would yield a degenerate
+                    // box and frame dead space. Fit whatever endpoints exist;
+                    // if none, just apply the selection highlight (no fit).
+                    // maxAbsoluteZoom caps the close-up on two adjacent nodes
+                    // (it also restores the in-journey cap the now-removed
+                    // duplicate fit in syncDetailPanelOnState used to provide).
+                    const endpoints = edge.source().union(edge.target()).filter(n => n.inside());
+                    if (endpoints.nonempty()) {
+                        fitToUsableViewport(endpoints, {
+                            padding: 100,
+                            duration: 300,
+                            maxAbsoluteZoom: 1.8,
+                            label: 'openCCPanel',
+                            complete: () => applyPanelSelectionHighlight()
+                        });
+                    } else {
+                        applyPanelSelectionHighlight();
+                    }
                 }
                 resolveLabelsWithModeCap();
                 syncSampleOverlays();
@@ -10189,6 +10299,14 @@
             }
             html += '</section>';
 
+            // Polish #224 cluster 5 — Sovereign Capability renders immediately
+            // after the Coordination Connections block (its sibling outward
+            // structural link) and before §8 Tier. #216 item 15 had already
+            // lifted it out of the sticky action-footer region (killing the
+            // cap-badge bleed over the "View on Map" button); this seats it
+            // beside CC per the brief's intended section order.
+            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
+
             // §8 — Tier Classification (collapsible; smart-default open
             // when (a) the section actually has tier rationale data to
             // show AND (b) tier !== 3 because non-T3 events have higher
@@ -10318,12 +10436,6 @@
                 });
                 html += '</div></div>';
             }
-
-            // #216 item 15 — Sovereign Capability is the last relationship
-            // block: after the analysis sections (incl. Coordination
-            // Connections) and BEFORE the upgrade-CTA. It previously rendered
-            // in the sticky footer below, after the CTA.
-            if (window.WEOCapBadge) html += WEOCapBadge.html(id);
 
             // §16 — Upgrade CTA (Brief 3b.2 §16). Free, non-sample only.
             // Wrapped in .atlas-supporter-locked so it auto-hides on
@@ -10728,20 +10840,32 @@
             if (traceLaunch) {
                 traceLaunch.addEventListener('click', () => {
                     const id = traceLaunch.getAttribute('data-trace-launch');
-                    // The trace floats over the still-open event panel; the
-                    // detail selection is left intact so closing the trace
-                    // returns the user to the event they traced from.
-                    if (id) setAtlasState({ traceRootId: id });
+                    if (!id) return;
+                    // Polish #224 cluster 3 — tuck the event/CC panel we trace
+                    // FROM instead of floating the journey over it (which made
+                    // the detail header + scrollbar bleed over the right panel).
+                    // Cache the selection, then clear it so launching the journey
+                    // closes the panel: exactly one panel owns the foreground.
+                    // The "◂ Event details" recall tab restores it (which tucks
+                    // the journey — symmetric). closePanel skips its refit while
+                    // a journey owns the camera, so there is no extra tween.
+                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
+                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
+                    setAtlasState({ traceRootId: id, selectedEventId: null, selectedConnectionId: null });
                 });
             }
-            // WS-5 — launch the Stack Journey rooted at this event. Floats
-            // over the open event panel (same pattern as the trace), so
-            // closing the journey returns to the event traced from.
+            // WS-5 — launch the Stack Journey rooted at this event.
             const stackLaunch = elAtlasPanelContent.querySelector('#atlas-stack-launch');
             if (stackLaunch) {
                 stackLaunch.addEventListener('click', () => {
                     const id = stackLaunch.getAttribute('data-stack-launch');
-                    if (id) setAtlasState({ stackRootId: id });
+                    if (!id) return;
+                    // Polish #224 cluster 3 — same tuck-to-recall as the trace
+                    // launch: cache + clear the detail selection so only the
+                    // stack journey shows (no bleed).
+                    atlasState._tuckedDataEvent = atlasState.selectedEventId || null;
+                    atlasState._tuckedDataCC = atlasState.selectedConnectionId || null;
+                    setAtlasState({ stackRootId: id, selectedEventId: null, selectedConnectionId: null });
                 });
             }
             // Accordions
@@ -11682,21 +11806,37 @@
         function highlightTraceChain(skipLayout) {
             if (!cy) return;
             const edgeIds = new Set(traceHops.map(c => c.connection_id));
+            const rootId = String(atlasState.traceRootId);
+            // Polish #224 cluster 4 — the focus-node set MUST contain every
+            // endpoint of every rendered trace edge. The journey layout only
+            // repositions this set, so an edge whose far endpoint is absent
+            // from it is left pointing at that node's stale fcose position —
+            // the "dangling line into the void". We seed from the hop event
+            // ids, then fold in each trace edge's ACTUAL canvas endpoints as it
+            // is marked; an edge missing a real endpoint node is omitted
+            // outright (never drawn one-sided).
             const nodeIds = new Set();
+            nodeIds.add(rootId);
             traceHops.forEach(c => {
                 nodeIds.add(String(c.source_event_id));
                 nodeIds.add(String(c.target_event_id));
             });
-            const rootId = String(atlasState.traceRootId);
             cy.batch(() => {
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
                 cy.edges().forEach(e => {
+                    if (!edgeIds.has(e.id())) return;
+                    // Cluster 4 — omit any trace edge missing a real endpoint,
+                    // and guarantee both present endpoints join the focus set.
+                    const s = e.source(), t = e.target();
+                    if (s.empty() || t.empty()) return;
                     // WS-9 — journey-edge adds the source→target arrowhead so
                     // the cascade direction is unmistakable (CCs are directional).
-                    if (edgeIds.has(e.id())) e.removeClass('trace-dim').addClass('trace-edge journey-edge');
+                    e.removeClass('trace-dim').addClass('trace-edge journey-edge');
+                    nodeIds.add(s.id());
+                    nodeIds.add(t.id());
                 });
                 cy.nodes().forEach(n => {
                     if (nodeIds.has(n.id())) n.removeClass('trace-dim').addClass('trace-node');
@@ -11714,9 +11854,7 @@
             // WS-9 — re-lay the chain as a rooted, directed hierarchy so the
             // root sits at the top and each leg tiers downstream. The fit
             // runs on layoutstop inside the helper.
-            const focusNodes = nodeIds.size
-                ? cy.nodes().filter(n => nodeIds.has(n.id()))
-                : cy.getElementById(rootId);
+            const focusNodes = cy.nodes().filter(n => nodeIds.has(n.id()));
             if (focusNodes && focusNodes.length) {
                 const focusEles = focusNodes.union(cy.edges('.trace-edge'));
                 // WS-9 item 11 — on untuck the nodes are still in their journey
@@ -13935,19 +14073,14 @@
             } else if (state.selectedConnectionId) {
                 const cc = allConnections.find(c => c.connection_id === state.selectedConnectionId);
                 if (cc) openCCPanel(cc);
-                // WS-9 item 11 — magnify a CC clicked within a journey (the
-                // journey panel tucks; this brings the local hop forward). Wait
-                // for the panel reflow, then frame the CC's two endpoints.
-                if (cy && typeof inJourneyMode === 'function' && inJourneyMode()) {
-                    const edge = cy.getElementById(String(state.selectedConnectionId));
-                    if (edge && edge.length) {
-                        setTimeout(() => {
-                            if (cy && edge.inside() && typeof fitToUsableViewport === 'function') {
-                                fitToUsableViewport(edge.connectedNodes(), { padding: 80, duration: 380, maxAbsoluteZoom: 1.8, easing: 'ease-out' });
-                            }
-                        }, 350);
-                    }
-                }
+                // Polish #224 cluster 1 — the in-journey CC "magnify" second fit
+                // was removed. openCCPanel already frames the CC's two endpoints
+                // (now with a zoom ceiling, see openCCPanel), so scheduling
+                // another fitToUsableViewport here stacked a second tween on the
+                // same ~2 nodes ~0ms later — the CC-click double-take. One fit
+                // per action: openCCPanel's endpoints fit is the single source,
+                // and refitActiveJourney already bails while a data panel (this
+                // CC) is open, so the journey refit can't fire here either.
             } else {
                 // Brief 3b.1 §3.1 fix — was checking elDetailPanel
                 // (legacy brief-1c panel) which never gets the .open
@@ -14109,11 +14242,14 @@
         // covers every mode.
         function refitActiveJourney() {
             if (!cy || !inJourneyMode()) return;
-            // WS-9 item 5 — never re-fit mid-entry; the single entry fit
-            // (layoutstop) owns the camera until it settles. Without this the
-            // panel's opacity transitionend fired a second fit during the
-            // layout animation, stacking viewport tweens (the janky flash).
-            if (_journeyEntering) return;
+            // WS-9 item 5 / Polish #224 cluster 1 — never re-fit mid-entry or
+            // while another camera tween is in flight. The active fit (entry
+            // layoutstop, or a selection's openPanel/openCCPanel fit) owns the
+            // camera until it settles; without this guard the panel's opacity
+            // transitionend stacked a second fit on top of it — the "double-
+            // take". _journeyEntering covers the pre-fit layout animation
+            // window; _cameraBusy covers any fit tween already running.
+            if (_journeyEntering || _cameraBusy) return;
             // WS-9 item 11 — while a data panel is open over the journey, that
             // panel owns the camera (the clicked node/CC is magnified). Don't
             // let the journey-panel tuck transitionend yank the camera back to
@@ -14124,7 +14260,7 @@
                 // WS-9 item 4 — same comfortable framing as the entry fit.
                 fitToUsableViewport(nodes, {
                     padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
-                    duration: 320
+                    duration: 320, label: 'refitActiveJourney'
                 });
             }
         }
@@ -14172,6 +14308,11 @@
             atlasState.traceRootId = null;
             atlasState.stackRootId = null;
             atlasState.materialRootId = null;
+            // Polish #224 cluster 3 — leaving the journey discards the tucked
+            // detail-panel memory and hides its recall tab.
+            atlasState._tuckedDataEvent = null;
+            atlasState._tuckedDataCC = null;
+            hideDataRecallTab();
             // Close every overlay (idempotent).
             closeTracePanel();
             closeStackPanel();
@@ -14231,6 +14372,42 @@
         function syncExitPill() {
             if (inJourneyMode()) showExitPill();
             else hideExitPill();
+        }
+
+        // Polish #224 cluster 3 — detail-panel recall tab. When a journey is
+        // launched from an event/CC panel, that panel is tucked (its selection
+        // cached + cleared in the launch handler) so only the journey shows.
+        // This tab brings it back; restoring the selection re-opens the data
+        // panel, which tucks the journey via the existing selectedEventId-driven
+        // tuck/untuck — exactly one panel in the foreground, no bleed.
+        function showDataRecallTab() {
+            const t = document.getElementById('atlas-data-recall');
+            if (!t) return;
+            t.textContent = atlasState._tuckedDataCC ? '◂ Connection details' : '◂ Event details';
+            t.classList.add('visible');
+        }
+        function hideDataRecallTab() {
+            const t = document.getElementById('atlas-data-recall');
+            if (t) t.classList.remove('visible');
+        }
+        function recallDataPanel() {
+            const e = atlasState._tuckedDataEvent, c = atlasState._tuckedDataCC;
+            if (!e && !c) return;
+            // Re-select the tucked event/CC. syncDetailPanelOnState re-opens its
+            // panel and the journey subscribers tuck the journey (dataOpen &&
+            // !dataWasOpen), so the data panel becomes the sole foreground. The
+            // cache is kept so the tab works again after the data panel is
+            // closed and the journey returns.
+            if (e) setAtlasState({ selectedEventId: e, selectedConnectionId: null });
+            else setAtlasState({ selectedConnectionId: c, selectedEventId: null });
+        }
+        // Subscriber — the recall tab shows only while a journey owns the canvas,
+        // a tucked detail selection is remembered, and no data panel is open.
+        function syncDataRecallTab() {
+            const hasCache = !!(atlasState._tuckedDataEvent || atlasState._tuckedDataCC);
+            const dataOpen = !!(atlasState.selectedEventId || atlasState.selectedConnectionId);
+            if (hasCache && inJourneyMode() && !dataOpen) showDataRecallTab();
+            else hideDataRecallTab();
         }
 
         function runGuidedJourney(id) {
@@ -14350,6 +14527,28 @@
             // WS-9 area F — the exit pill is the primary way out of a journey.
             const exit = document.getElementById('atlas-journey-exit');
             if (exit) exit.addEventListener('click', exitJourney);
+            // Polish #224 cluster 3 — recall tab reopens a tucked detail panel.
+            const dataRecall = document.getElementById('atlas-data-recall');
+            if (dataRecall) dataRecall.addEventListener('click', recallDataPanel);
+            // Polish #224 cluster 2b — the guided-journey chrome (Start-here
+            // strip, recall pill, exit pill, readout banner) lives INSIDE
+            // #atlas-network so its absolute positioning resolves against the
+            // canvas. Cytoscape binds tap/pan detection to that container, so a
+            // pointer event on a pill bubbles up and Cytoscape hit-tests the
+            // node/edge behind it — the click "bleeds through" (opens a panel,
+            // silently exits the journey). Stop these events at each pill so
+            // they never reach cy. The pills' own buttons/cards still get their
+            // clicks (those fire deeper, before the event bubbles to the pill);
+            // stopPropagation (not stopImmediatePropagation) preserves them.
+            // pointer-events:auto + z-index (CSS) keep the pill the visual
+            // hit-target; this guarantees the isolation the brief requires.
+            ['atlas-journeys', 'atlas-journeys-recall', 'atlas-journey-exit', 'atlas-journey-readout', 'atlas-data-recall'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
+                    el.addEventListener(type, e => e.stopPropagation(), { passive: true });
+                });
+            });
         }
 
         // -----------------------------------------------------------------
@@ -14378,6 +14577,7 @@
                 subscribeAtlasState(syncDetailPanelOnState);
                 subscribeAtlasState(syncMaterialPanelOnState);
                 subscribeAtlasState(syncExitPill);
+                subscribeAtlasState(syncDataRecallTab);
                 subscribeAtlasState(syncUrlHash);
 
                 // Subscribers don't fire on init (no setAtlasState call) —

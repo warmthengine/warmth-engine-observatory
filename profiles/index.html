@@ -600,6 +600,26 @@ if(navToggle&&navLinks){
   function drTip(title,body,anchor){
     return ' <span class="weo-info-trigger">?<span class="weo-tooltip"><div class="weo-tooltip-title">'+title+'</div><div class="weo-tooltip-body">'+body+'</div>'+(anchor?'<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#'+anchor+'" target="_blank" rel="noopener">&sect; View in Methodology &#8594;</a></div>':'')+'</span></span>';
   }
+  // Polish #224 cluster 6a — mirror the matrix pill's per-dimension tooltip
+  // (title + body + methodology anchor) into the drawer's dimension ?, so it
+  // deep-links to that dimension's own section (#section-5-3-d{n}) and reads
+  // the same definition as the pills rather than a generic #section-5-3 — one
+  // source of truth, no re-authored copy. Read from the DOM once per dimension.
+  var _dimTipCache={};
+  function dimPillTip(k){
+    if(_dimTipCache[k]!==undefined)return _dimTipCache[k];
+    var res=null,pill=document.querySelector('.pills-grid .pill[data-dim="'+k+'"]');
+    if(pill&&pill.parentNode){
+      var tip=pill.parentNode.querySelector('.weo-tooltip');
+      if(tip){
+        var tEl=tip.querySelector('.weo-tooltip-title'),bEl=tip.querySelector('.weo-tooltip-body'),aEl=tip.querySelector('.weo-tooltip-method-link a'),anchor='';
+        if(aEl){var hp=aEl.getAttribute('href')||'',hi=hp.indexOf('#');if(hi>=0)anchor=hp.slice(hi+1);}
+        res={title:(tEl?tEl.innerHTML:esc(DIM[k])),body:(bEl?bEl.innerHTML:''),anchor:(anchor||'section-5-3-d'+(k+1))};
+      }
+    }
+    if(!res)res={title:esc(DIM[k]),body:'One of the seven Sovereign Capability Profile dimensions assessed per actor.',anchor:'section-5-3-d'+(k+1)};
+    _dimTipCache[k]=res;return res;
+  }
   function render(actorUc,dn){
     var k=parseInt(dn.slice(1),10)-1;
     var details=document.getElementById(actorUc.toLowerCase());
@@ -609,12 +629,17 @@ if(navToggle&&navLinks){
     var d=domDetail(details,k);
     var cell=(ready&&byCell)?(byCell[actorUc+'|'+dn]||{qc:[],ca:[]}):{qc:[],ca:[]};
     // header
-    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>'+drTip('SCP dimension '+(k+1),'SCP Dimension '+(k+1)+': '+esc(DIM[k])+'. One of the seven Sovereign Capability Profile dimensions assessed per actor.','section-5-3');
+    var _dt=dimPillTip(k);
+    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>'+drTip(_dt.title,_dt.body,_dt.anchor);
     var tag='';
     if(cell.qc.length===1)tag='<span class="weo-dr-tag sole">Sole basis (current corpus)</span>';
     else if(cell.qc.length>1)tag='<span class="weo-dr-tag helps">Helps establish &middot; one of '+cell.qc.length+'</span>';
     else if(cell.ca.length)tag='<span class="weo-dr-tag contrib">Contributory evidence</span>';
-    if(tag)tag+=drTip('Evidence standard','How catalogued events support this dimension: <strong>Sole basis</strong> — one qualifying event; <strong>Helps establish</strong> — one of several; <strong>Contributory</strong> — capability-area evidence only.','section-5-3-4');
+    // Polish #224 cluster 6a — the evidence-standard tooltip on this tag was a
+    // duplicate of the contributory-evidence section tooltip (both → §5.3.4);
+    // removed per the brief. The tag text itself (Sole basis / Helps establish
+    // / Contributory) stays, and the in-context Establishing/Contributory
+    // section tooltips below explain the evidence taxonomy.
     elMeta.innerHTML='<span>'+esc(actorName)+'</span><span class="weo-dr-status '+(d.met?'met':'not')+'">'+(d.met?'MET':'NOT MET')+'</span>'+drTip('Dimension status','<strong>MET / NOT MET</strong> is the binary SCP assessment: whether this actor meets the qualification standard for this dimension.','section-5-3-2')+tag;
     // body
     var h='';
