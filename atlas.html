@@ -12337,48 +12337,49 @@
         // hop tagged by what it is. Surfaces; never narrates a conclusion.
         function buildStackJourney(rootId) {
             rootId = String(rootId);
-            // (1) Coordination — the directional CC chain (WS-3 reuse).
+            // (1) Coordination — the directional CC chain (unchanged; a relation,
+            //     so legitimately multi-hop).
             const { upstream, downstream } = buildTraceChain(rootId);
             const coordination = upstream.concat(downstream);
-            const scope = new Set([rootId]);
-            coordination.forEach(c => { scope.add(String(c.source_event_id)); scope.add(String(c.target_event_id)); });
 
-            // (2) Material — BFS over thread edges from every in-scope event,
-            // so a facility → chip → foundry chain is followed if it exists.
+            // (2) Material — the root's OWN infrastructure threads only. Polish
+            //     #226 Item 3: was a BFS that re-frontiered every endpoint,
+            //     fanning facility → shared chip hub → every sibling deployer.
+            //     The hub now appears only as the far endpoint of the root's own
+            //     thread (a pivot into its own material journey); we do not
+            //     expand through it. threadsByEvent is indexed under BOTH thread
+            //     endpoints, so this finds the root's thread whether it is the
+            //     source or the target.
             const material = [];
             const seenThread = new Set();
-            const seenNode = new Set(scope);
-            let frontier = Array.from(scope);
-            let guard = 0;
-            while (frontier.length && guard++ < 30) {
-                const next = [];
-                frontier.forEach(ev => {
-                    (threadsByEvent[ev] || []).forEach(t => {
-                        const key = String(t.sourceEventId) + '|' + String(t.targetEventId);
-                        if (!seenThread.has(key) && threadEdgeIndex[key]) {
-                            seenThread.add(key);
-                            material.push(threadEdgeIndex[key]);
-                        }
-                        [String(t.sourceEventId), String(t.targetEventId)].forEach(n => {
-                            scope.add(n);
-                            if (!seenNode.has(n)) { seenNode.add(n); next.push(n); }
-                        });
-                    });
-                });
-                frontier = next;
-            }
+            (threadsByEvent[rootId] || []).forEach(t => {
+                const key = String(t.sourceEventId) + '|' + String(t.targetEventId);
+                if (!seenThread.has(key) && threadEdgeIndex[key]) {
+                    seenThread.add(key);
+                    material.push(threadEdgeIndex[key]);
+                }
+            });
 
-            // (3) Capability — membership waypoints for any in-scope event.
+            // (3) Capability — the root's OWN SCP memberships only (Polish #226
+            //     Item 3: was every in-scope event, which the BFS had inflated
+            //     to all siblings).
             const capability = [];
             const seenCap = new Set();
-            scope.forEach(ev => {
-                (membershipByEvent[ev] || []).forEach(l => {
-                    const k = ev + '|' + l.actor + '|' + l.dimension + '|' + l.link_type;
-                    if (seenCap.has(k)) return;
-                    seenCap.add(k);
-                    capability.push(Object.assign({ _eventId: ev }, l));
-                });
+            (membershipByEvent[rootId] || []).forEach(l => {
+                const k = rootId + '|' + l.actor + '|' + l.dimension + '|' + l.link_type;
+                if (seenCap.has(k)) return;
+                seenCap.add(k);
+                capability.push(Object.assign({ _eventId: rootId }, l));
             });
+
+            // scope — nodes this stack legitimately touches (root + CC-chain
+            // endpoints + the root's own thread endpoints). No longer the fan
+            // vehicle; highlightStackJourney rebuilds its node set from the three
+            // arrays above, so this is now informational only.
+            const scope = new Set([rootId]);
+            coordination.forEach(c => { scope.add(String(c.source_event_id)); scope.add(String(c.target_event_id)); });
+            (threadsByEvent[rootId] || []).forEach(t => { scope.add(String(t.sourceEventId)); scope.add(String(t.targetEventId)); });
+
             return { rootId, coordination, material, capability, scope };
         }
 
