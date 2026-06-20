@@ -4644,6 +4644,28 @@
         @media (orientation: landscape) {
             .atlas-landscape-hint { display: none !important; }
         }
+        /* Polish #226 Item 4 — journeys are Network-view only. Subtle note shown
+           in place of the guided-journey strip in Timeline / Connectedness.
+           Mirrors .atlas-landscape-hint; absolute within #atlas-network so it
+           sits where the strip does. */
+        .atlas-journeys-mode-note {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 11px;
+            color: #94A3B8;
+            z-index: 90;
+            text-align: center;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: atlas-hint-fadeInUp 300ms ease-out;
+        }
 
 
     </style>
@@ -4729,6 +4751,11 @@
                     </div>
                     <div class="atlas-journeys-cards" id="atlas-journeys-cards"></div>
                 </div>
+
+                <!-- Polish #226 Item 4 — journeys are Network-view only. Shown by
+                     syncJourneyChromeOnMode when the strip is suppressed in
+                     Timeline / Connectedness; hidden by default. -->
+                <div id="atlas-journeys-mode-note" class="atlas-journeys-mode-note" style="display:none">Journeys are available in Network view only</div>
 
                 <!-- WS-8 — Recall pill. When the strip is collapsed (dismissed
                      ✕, journey launched, or view switch) this re-opens it. Lives
@@ -6574,8 +6601,15 @@
                 resizeTimer = setTimeout(() => {
                     if (!cy) return;
                     cy.resize();
-                    const { width } = getCanvasDimensions();
-                    cy.fit(undefined, Math.max(30, Math.min(80, width * 0.04)));
+                    // Polish #226 Item 2 — a resize mid-journey reframes the
+                    // journey, not a whole-graph fit of all nodes (which a tab-
+                    // return OS resize otherwise triggered, zooming the journey out).
+                    if (inJourneyMode()) {
+                        refitJourney();
+                    } else {
+                        const { width } = getCanvasDimensions();
+                        cy.fit(undefined, Math.max(30, Math.min(80, width * 0.04)));
+                    }
                     resolveLabelsWithModeCap();
                 }, 300);
             });
@@ -6588,12 +6622,25 @@
                 setTimeout(() => {
                     if (!cy) return;
                     cy.resize();
-                    cy.animate({ fit: { padding: 40 }, duration: 300, easing: 'ease-out' });
+                    // Polish #226 Item 2 — journey-aware breakpoint refit.
+                    if (inJourneyMode()) refitJourney();
+                    else cy.animate({ fit: { padding: 40 }, duration: 300, easing: 'ease-out' });
                     resolveLabelsWithModeCap();
                 }, 350);
             };
             if (bpQuery.addEventListener) bpQuery.addEventListener('change', onBpChange);
             else if (bpQuery.addListener) bpQuery.addListener(onBpChange);
+
+            // Polish #226 Item 2 — direct tab-return guard. Opening a "View …"
+            // link spawns a second tab; returning to the Atlas tab can fire an
+            // OS resize that frames the whole graph, zooming the journey out. On
+            // re-show, if a journey owns the canvas, resize + reframe it directly.
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && cy && inJourneyMode()) {
+                    cy.resize();
+                    refitJourney();
+                }
+            });
 
             wireInteractions();
             wireReLayoutButton();
@@ -7996,6 +8043,11 @@
                     if (playbackPlaying) stopPlayback();
                     document.querySelectorAll('.atlas-mode-btn').forEach(b =>
                         b.classList.toggle('active', b.dataset.mode === mode));
+                    // Polish #226 Item 4 — journeys are Network-view only. Leaving
+                    // Network exits any active journey first (skipFit so the
+                    // incoming layout owns the camera). Operator-confirmed: exit,
+                    // not block.
+                    if (mode !== 'network' && inJourneyMode()) exitJourney({ skipFit: true });
                     setAtlasState({ layoutMode: mode });
                     // Invalidate the timeline cache when leaving timeline
                     // mode (positions may change on subsequent return).
@@ -9484,6 +9536,22 @@
             layout.run();
         }
 
+        // Polish #226 Item 2 — frame the active journey's node set, not the
+        // whole graph. _journeyMovedNodeIds is the journey-type-agnostic
+        // displaced-node set, populated by layoutJourneySubgraph for trace /
+        // stack / material. Fit params match layoutJourneySubgraph's layoutstop
+        // fit (padding 120, cap ratio 0.14, zoom ceiling 1.5) so the framing
+        // reproduces the journey's original camera. Used by the resize / bp /
+        // tab-return handlers so a journey is never whole-graph-fit.
+        function refitJourney() {
+            if (!cy || !inJourneyMode()) return;
+            const nodes = cy.collection();
+            _journeyMovedNodeIds.forEach(id => { const n = cy.getElementById(id); if (n && n.length) nodes.merge(n); });
+            if (nodes.length && typeof fitToUsableViewport === 'function') {
+                fitToUsableViewport(nodes, { padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5 });
+            }
+        }
+
         // WS-9 item 6 — one-time directional pulse on journey entry. After the
         // tiers settle, a soft glow travels along the journey edges in BFS
         // depth order (root → leg-1 → leg-2 …) and settles back into the static
@@ -10895,6 +10963,22 @@
                 traceLaunch.addEventListener('click', () => {
                     const id = traceLaunch.getAttribute('data-trace-launch');
                     if (!id) return;
+                    // Polish #226 Item 4 — journeys are Network-view only. If the
+                    // detail panel was opened in Timeline / Connectedness, switch
+                    // to Network first (mirrors the mode toggle: active button +
+                    // activateNetworkMode restores cached positions synchronously),
+                    // then launch on the next frame so the journey lays out against
+                    // settled network positions.
+                    if (atlasState.layoutMode !== 'network') {
+                        document.querySelectorAll('.atlas-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'network'));
+                        setAtlasState({ layoutMode: 'network' });
+                        if (typeof activateNetworkMode === 'function') activateNetworkMode();
+                        requestAnimationFrame(() => {
+                            if (inJourneyMode()) teardownActiveJourney();
+                            setAtlasState({ traceRootId: id, _journeyForeground: true });
+                        });
+                        return;
+                    }
                     // Polish #225 Item 1 (regression fix) — launch the journey
                     // WITHOUT clearing the selection. The launching event/CC stays
                     // the active context for the journey's duration: foreground =
@@ -10905,6 +10989,12 @@
                     // ("everything bright / nodes won't open"). Keeping the
                     // selection means closePanel never runs on launch → no race.
                     // The "◂ Event details" recall tab brings the detail back.
+                    // Polish #226 Item 1 — if this launch re-roots from inside an
+                    // existing journey, tear that one down first (mirrors
+                    // runGuidedJourney) so the new layout can't stack on the prior
+                    // chain's classes, positions and panel state. Gated on
+                    // inJourneyMode() so the no-prior-journey launch is unchanged.
+                    if (inJourneyMode()) teardownActiveJourney();
                     setAtlasState({ traceRootId: id, _journeyForeground: true });
                 });
             }
@@ -10914,9 +11004,23 @@
                 stackLaunch.addEventListener('click', () => {
                     const id = stackLaunch.getAttribute('data-stack-launch');
                     if (!id) return;
+                    // Polish #226 Item 4 — Network-view only; switch to Network
+                    // first if needed, then launch next frame (see trace launch).
+                    if (atlasState.layoutMode !== 'network') {
+                        document.querySelectorAll('.atlas-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'network'));
+                        setAtlasState({ layoutMode: 'network' });
+                        if (typeof activateNetworkMode === 'function') activateNetworkMode();
+                        requestAnimationFrame(() => {
+                            if (inJourneyMode()) teardownActiveJourney();
+                            setAtlasState({ stackRootId: id, _journeyForeground: true });
+                        });
+                        return;
+                    }
                     // Polish #225 Item 1 — same as the trace launch: keep the
                     // selection (foreground = journey, detail tucks). No
                     // closePanel race on launch.
+                    // Polish #226 Item 1 — re-root teardown (see trace launch above).
+                    if (inJourneyMode()) teardownActiveJourney();
                     setAtlasState({ stackRootId: id, _journeyForeground: true });
                 });
             }
@@ -12293,48 +12397,49 @@
         // hop tagged by what it is. Surfaces; never narrates a conclusion.
         function buildStackJourney(rootId) {
             rootId = String(rootId);
-            // (1) Coordination — the directional CC chain (WS-3 reuse).
+            // (1) Coordination — the directional CC chain (unchanged; a relation,
+            //     so legitimately multi-hop).
             const { upstream, downstream } = buildTraceChain(rootId);
             const coordination = upstream.concat(downstream);
-            const scope = new Set([rootId]);
-            coordination.forEach(c => { scope.add(String(c.source_event_id)); scope.add(String(c.target_event_id)); });
 
-            // (2) Material — BFS over thread edges from every in-scope event,
-            // so a facility → chip → foundry chain is followed if it exists.
+            // (2) Material — the root's OWN infrastructure threads only. Polish
+            //     #226 Item 3: was a BFS that re-frontiered every endpoint,
+            //     fanning facility → shared chip hub → every sibling deployer.
+            //     The hub now appears only as the far endpoint of the root's own
+            //     thread (a pivot into its own material journey); we do not
+            //     expand through it. threadsByEvent is indexed under BOTH thread
+            //     endpoints, so this finds the root's thread whether it is the
+            //     source or the target.
             const material = [];
             const seenThread = new Set();
-            const seenNode = new Set(scope);
-            let frontier = Array.from(scope);
-            let guard = 0;
-            while (frontier.length && guard++ < 30) {
-                const next = [];
-                frontier.forEach(ev => {
-                    (threadsByEvent[ev] || []).forEach(t => {
-                        const key = String(t.sourceEventId) + '|' + String(t.targetEventId);
-                        if (!seenThread.has(key) && threadEdgeIndex[key]) {
-                            seenThread.add(key);
-                            material.push(threadEdgeIndex[key]);
-                        }
-                        [String(t.sourceEventId), String(t.targetEventId)].forEach(n => {
-                            scope.add(n);
-                            if (!seenNode.has(n)) { seenNode.add(n); next.push(n); }
-                        });
-                    });
-                });
-                frontier = next;
-            }
+            (threadsByEvent[rootId] || []).forEach(t => {
+                const key = String(t.sourceEventId) + '|' + String(t.targetEventId);
+                if (!seenThread.has(key) && threadEdgeIndex[key]) {
+                    seenThread.add(key);
+                    material.push(threadEdgeIndex[key]);
+                }
+            });
 
-            // (3) Capability — membership waypoints for any in-scope event.
+            // (3) Capability — the root's OWN SCP memberships only (Polish #226
+            //     Item 3: was every in-scope event, which the BFS had inflated
+            //     to all siblings).
             const capability = [];
             const seenCap = new Set();
-            scope.forEach(ev => {
-                (membershipByEvent[ev] || []).forEach(l => {
-                    const k = ev + '|' + l.actor + '|' + l.dimension + '|' + l.link_type;
-                    if (seenCap.has(k)) return;
-                    seenCap.add(k);
-                    capability.push(Object.assign({ _eventId: ev }, l));
-                });
+            (membershipByEvent[rootId] || []).forEach(l => {
+                const k = rootId + '|' + l.actor + '|' + l.dimension + '|' + l.link_type;
+                if (seenCap.has(k)) return;
+                seenCap.add(k);
+                capability.push(Object.assign({ _eventId: rootId }, l));
             });
+
+            // scope — nodes this stack legitimately touches (root + CC-chain
+            // endpoints + the root's own thread endpoints). No longer the fan
+            // vehicle; highlightStackJourney rebuilds its node set from the three
+            // arrays above, so this is now informational only.
+            const scope = new Set([rootId]);
+            coordination.forEach(c => { scope.add(String(c.source_event_id)); scope.add(String(c.target_event_id)); });
+            (threadsByEvent[rootId] || []).forEach(t => { scope.add(String(t.sourceEventId)); scope.add(String(t.targetEventId)); });
+
             return { rootId, coordination, material, capability, scope };
         }
 
@@ -14451,6 +14556,7 @@
             if (atlasState.traceRootId)    { atlasState.traceRootId = null;    closeTracePanel(); }
             if (atlasState.stackRootId)    { atlasState.stackRootId = null;    closeStackPanel(); }
             if (atlasState.materialRootId) { atlasState.materialRootId = null; closeMaterialPanel(); }
+            hideJourneyReadout();   // Polish #226 Item 1 — clear the prior journey's callout/machine-call so it can't go stale on a journey→journey switch
         }
 
         // WS-9 area F — the single exit path. Every way out of a journey (the
@@ -14459,7 +14565,12 @@
         // positions restored, classes/markers cleared, hover re-enabled
         // (implicit once inJourneyMode() is false), chrome hidden, graph
         // re-fit.
-        function exitJourney() {
+        function exitJourney(opts) {
+            // Polish #226 Item 4 — opts.skipFit suppresses the terminal full-graph
+            // fit so a mode-switch exit doesn't fight the incoming Timeline /
+            // Connectedness layout (which then owns the camera). Defaults off
+            // everywhere else, so every other exit path is byte-for-byte unchanged.
+            opts = opts || {};
             if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
             // WS-9 item 7 — leaving entry mode: clear the entry guard so the
             // exit's own fit is never blocked, and any in-flight entry pulse /
@@ -14513,7 +14624,7 @@
             // refit (the detail panel was actually showing). When the detail was
             // tucked behind the journey, closePanel skips its refit, so run it
             // here — otherwise the camera would stay framed on the journey.
-            if (cy && !detailWasShowing) {
+            if (cy && !detailWasShowing && !opts.skipFit) {
                 setTimeout(() => {
                     if (cy && typeof fitToUsableViewport === 'function') {
                         fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420, easing: 'ease-out' });
@@ -14542,6 +14653,33 @@
         function syncExitPill() {
             if (inJourneyMode()) showExitPill();
             else hideExitPill();
+        }
+
+        // Polish #226 Item 4 — journeys are Network-view only. Suppress all
+        // guided-journey chrome (strip + "Start here ▸" recall pill) outside
+        // Network and show a subtle note; restore on return. The Exit pill and
+        // readout track inJourneyMode() via syncExitPill / exitJourney, so they
+        // need no handling here. The strip is shown via the `.visible` class on a
+        // `display:none` base, so clearing the inline display can't force-open a
+        // dismissed strip. On the transition back INTO Network the strip was
+        // collapsed on the way out, so re-offer the recall pill (unless the strip
+        // is already open) — gated to the transition so a normal in-Network
+        // dispatch never pops the pill over an open strip.
+        function syncJourneyChromeOnMode(state, previous) {
+            const networkMode = (state.layoutMode === 'network');
+            const strip  = document.getElementById('atlas-journeys');
+            const recall = document.getElementById('atlas-journeys-recall');
+            const note   = document.getElementById('atlas-journeys-mode-note');
+            if (note) note.style.display = networkMode ? 'none' : '';
+            if (!networkMode) {
+                if (strip)  strip.style.display = 'none';
+                if (recall) recall.classList.remove('visible');
+                return;
+            }
+            if (strip) strip.style.display = '';
+            const cameFromOtherMode = !!(previous && previous.layoutMode && previous.layoutMode !== 'network');
+            const stripOpen = !!(strip && strip.classList.contains('visible'));
+            if (cameFromOtherMode && !stripOpen && typeof showRecallPill === 'function') showRecallPill();
         }
 
         // Polish #225 Item 1 — detail-panel recall tab. When a journey is
@@ -14623,6 +14761,12 @@
         // never touches the persistent flag; only dismissGuidedCards() does.
         function showRecallPill() {
             if (!guidedJourneys.length) return;   // no journeys built → never surface the pill
+            // Polish #226 Item 4 — journey chrome is Network-view only. Gate here
+            // so the activate{Timeline,Connectedness}Mode → collapseGuidedToPill
+            // path can't re-surface the pill outside Network after the mode
+            // subscriber has hidden it. (Default layoutMode is 'network', so
+            // first-load + in-Network behaviour is unchanged.)
+            if (atlasState.layoutMode !== 'network') return;
             const pill = document.getElementById('atlas-journeys-recall');
             if (pill) pill.classList.add('visible');
         }
@@ -14751,6 +14895,7 @@
                 // have reacted, settle the detail panel's grid column.
                 subscribeAtlasState(syncDataPanelForeground);
                 subscribeAtlasState(syncExitPill);
+                subscribeAtlasState(syncJourneyChromeOnMode);   // Polish #226 Item 4 — journeys Network-view only
                 subscribeAtlasState(syncDataRecallTab);
                 subscribeAtlasState(syncUrlHash);
 
