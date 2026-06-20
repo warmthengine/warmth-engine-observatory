@@ -6574,8 +6574,15 @@
                 resizeTimer = setTimeout(() => {
                     if (!cy) return;
                     cy.resize();
-                    const { width } = getCanvasDimensions();
-                    cy.fit(undefined, Math.max(30, Math.min(80, width * 0.04)));
+                    // Polish #226 Item 2 — a resize mid-journey reframes the
+                    // journey, not a whole-graph fit of all nodes (which a tab-
+                    // return OS resize otherwise triggered, zooming the journey out).
+                    if (inJourneyMode()) {
+                        refitJourney();
+                    } else {
+                        const { width } = getCanvasDimensions();
+                        cy.fit(undefined, Math.max(30, Math.min(80, width * 0.04)));
+                    }
                     resolveLabelsWithModeCap();
                 }, 300);
             });
@@ -6588,12 +6595,25 @@
                 setTimeout(() => {
                     if (!cy) return;
                     cy.resize();
-                    cy.animate({ fit: { padding: 40 }, duration: 300, easing: 'ease-out' });
+                    // Polish #226 Item 2 — journey-aware breakpoint refit.
+                    if (inJourneyMode()) refitJourney();
+                    else cy.animate({ fit: { padding: 40 }, duration: 300, easing: 'ease-out' });
                     resolveLabelsWithModeCap();
                 }, 350);
             };
             if (bpQuery.addEventListener) bpQuery.addEventListener('change', onBpChange);
             else if (bpQuery.addListener) bpQuery.addListener(onBpChange);
+
+            // Polish #226 Item 2 — direct tab-return guard. Opening a "View …"
+            // link spawns a second tab; returning to the Atlas tab can fire an
+            // OS resize that frames the whole graph, zooming the journey out. On
+            // re-show, if a journey owns the canvas, resize + reframe it directly.
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && cy && inJourneyMode()) {
+                    cy.resize();
+                    refitJourney();
+                }
+            });
 
             wireInteractions();
             wireReLayoutButton();
@@ -9482,6 +9502,22 @@
                 }
             });
             layout.run();
+        }
+
+        // Polish #226 Item 2 — frame the active journey's node set, not the
+        // whole graph. _journeyMovedNodeIds is the journey-type-agnostic
+        // displaced-node set, populated by layoutJourneySubgraph for trace /
+        // stack / material. Fit params match layoutJourneySubgraph's layoutstop
+        // fit (padding 120, cap ratio 0.14, zoom ceiling 1.5) so the framing
+        // reproduces the journey's original camera. Used by the resize / bp /
+        // tab-return handlers so a journey is never whole-graph-fit.
+        function refitJourney() {
+            if (!cy || !inJourneyMode()) return;
+            const nodes = cy.collection();
+            _journeyMovedNodeIds.forEach(id => { const n = cy.getElementById(id); if (n && n.length) nodes.merge(n); });
+            if (nodes.length && typeof fitToUsableViewport === 'function') {
+                fitToUsableViewport(nodes, { padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5 });
+            }
         }
 
         // WS-9 item 6 — one-time directional pulse on journey entry. After the
