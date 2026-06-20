@@ -11891,8 +11891,9 @@
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
             // Guide note — states what the trace IS (a downstream cascade),
             // no circular "follow the chain it forms" phrasing.
-            h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence.</p>';
-            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
+            h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence. Pathways follow the directional coordination lineage (Policy Cascade, Funding Flow, Regulatory Enablement, Response). Bidirectional links — Framework Family and Parallel Policy peers — aren\'t part of a directed chain; they appear in the event\'s details and in the Stack.</p>';
+            // Pathways is a directed walk by definition — legend shows only the directed-CC row.
+            h += journeyKindLegend({ directed: true, directedText: '→ directed coordination' });
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
@@ -12099,12 +12100,21 @@
             cy.on('mouseover', 'node, edge', function (evt) { if (typeof inJourneyMode === 'function' && inJourneyMode()) toggleRow(evt.target.id(), true); });
             cy.on('mouseout', 'node, edge', function (evt) { toggleRow(evt.target.id(), false); });
         }
-        function journeyKindLegend() {
-            return '<div class="atlas-stack-legend">' +
-                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>Coordination (CC)</span>' +
-                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>' +
-                '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>' +
-                '</div>';
+        // Per-instance kind legend (#216 item 10; 1.11.2 differentiated): show
+        // only the claim-classes actually present, and split coordination by
+        // glyph — → directed CC (types 1/3/4/5) vs ↔ peer CC (types 2/6/7).
+        // Pathways passes { directed:true } (a directed walk by definition); the
+        // stack derives flags from its own arrays; the material journey shows
+        // material only. No args → all rows (back-compat).
+        function journeyKindLegend(opts) {
+            opts = opts || { directed: true, peer: true, material: true, capability: true };
+            const directedText = opts.directedText || '→ directed CC';
+            let h = '<div class="atlas-stack-legend">';
+            if (opts.directed)   h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>' + directedText + '</span>';
+            if (opts.peer)       h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>↔ peer CC</span>';
+            if (opts.material)   h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>';
+            if (opts.capability) h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>';
+            return h + '</div>';
         }
 
         function wireTracePanelInteractions() {
@@ -12397,10 +12407,17 @@
         // hop tagged by what it is. Surfaces; never narrates a conclusion.
         function buildStackJourney(rootId) {
             rootId = String(rootId);
-            // (1) Coordination — the directional CC chain (unchanged; a relation,
-            //     so legitimately multi-hop).
-            const { upstream, downstream } = buildTraceChain(rootId);
-            const coordination = upstream.concat(downstream);
+            // (1) Coordination — the event's OWN CCs, ALL seven types, depth-1
+            //     (parity with worker buildEventStack 1.11.2). NOT the multi-hop
+            //     directional chain — that stays in Trace; buildTraceChain is NOT
+            //     removed, just no longer called for the stack. Each entry is the
+            //     raw CC (connection_id / connection_type / source_event_id /
+            //     target_event_id / confidence_level / direction), so the render +
+            //     highlight paths are untouched. allConnections is already
+            //     dangling-guarded at load; the eventById guard mirrors the worker.
+            const coordination = allConnections.filter(c =>
+                (String(c.source_event_id) === rootId || String(c.target_event_id) === rootId) &&
+                eventById[String(c.source_event_id)] && eventById[String(c.target_event_id)]);
 
             // (2) Material — the root's OWN infrastructure threads only. Polish
             //     #226 Item 3: was a BFS that re-frontiered every endpoint,
@@ -12453,7 +12470,9 @@
             let h = '<div class="atlas-stack-hop coordination" data-cy-id="' + escapeHtml(c.connection_id || '') + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
-            h += '<span class="atlas-stack-arrow" aria-hidden="true">→</span>';
+            // Directional CC types (1/3/4/5) read →; bidirectional/sibling (2/6/7) read ↔.
+            const ccGlyph = TRACE_DIRECTIONAL_TYPES.has(typeNum) ? '→' : '↔';
+            h += '<span class="atlas-stack-arrow" aria-hidden="true">' + ccGlyph + '</span>';
             h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
             h += '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind coordination">Coordination</span><span class="atlas-stack-type"><span class="atlas-stack-type-dot" style="background:' + colour + '"></span>' + escapeHtml(typeName) + '</span></div>';
@@ -12497,8 +12516,11 @@
             h += '<div class="atlas-stack-eyebrow">Stack journey</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
             h += '<p class="atlas-stack-guide">The coordination, material, and capability links around this event. Each is labelled by kind — a coordination connection, a material fact, and a capability contribution are <strong>different classes of claim</strong>.</p>';
-            // Kind legend so the distinctions are explicit before the list.
-            h += journeyKindLegend();   // #216 item 10 — shared with trace + material panels
+            // Kind legend — per-instance: only the classes this stack contains,
+            // coordination split into → directed CC vs ↔ peer CC (1.11.2).
+            const hasDirCC = j.coordination.some(c => TRACE_DIRECTIONAL_TYPES.has(Number(c.connection_type)));
+            const hasPeerCC = j.coordination.some(c => !TRACE_DIRECTIONAL_TYPES.has(Number(c.connection_type)));
+            h += journeyKindLegend({ directed: hasDirCC, peer: hasPeerCC, material: j.material.length > 0, capability: j.capability.length > 0 });
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
@@ -12685,7 +12707,8 @@
             h += '<div class="atlas-stack-eyebrow">Material journey · infrastructure threads</div>';
             h += '<h2 class="atlas-trace-title">' + escapeHtml(rootName) + '</h2>';
             h += '<p class="atlas-stack-guide">Where this hub’s hardware is deployed. Each link is a <strong>sourced material fact</strong> — the same asset documented at this event and at the facility that uses it. Not a coordination connection: no relationship type, no confidence grade. Production → use.</p>';
-            h += journeyKindLegend();   // #216 item 10 (design E) — colour legend on every journey panel
+            // Material journey is material-only — legend shows just that row.
+            h += journeyKindLegend({ material: true });
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
