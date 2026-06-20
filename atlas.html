@@ -10905,6 +10905,12 @@
                     // ("everything bright / nodes won't open"). Keeping the
                     // selection means closePanel never runs on launch → no race.
                     // The "◂ Event details" recall tab brings the detail back.
+                    // Polish #226 Item 1 — if this launch re-roots from inside an
+                    // existing journey, tear that one down first (mirrors
+                    // runGuidedJourney) so the new layout can't stack on the prior
+                    // chain's classes, positions and panel state. Gated on
+                    // inJourneyMode() so the no-prior-journey launch is unchanged.
+                    if (inJourneyMode()) teardownActiveJourney();
                     setAtlasState({ traceRootId: id, _journeyForeground: true });
                 });
             }
@@ -10917,6 +10923,8 @@
                     // Polish #225 Item 1 — same as the trace launch: keep the
                     // selection (foreground = journey, detail tucks). No
                     // closePanel race on launch.
+                    // Polish #226 Item 1 — re-root teardown (see trace launch above).
+                    if (inJourneyMode()) teardownActiveJourney();
                     setAtlasState({ stackRootId: id, _journeyForeground: true });
                 });
             }
@@ -14451,6 +14459,7 @@
             if (atlasState.traceRootId)    { atlasState.traceRootId = null;    closeTracePanel(); }
             if (atlasState.stackRootId)    { atlasState.stackRootId = null;    closeStackPanel(); }
             if (atlasState.materialRootId) { atlasState.materialRootId = null; closeMaterialPanel(); }
+            hideJourneyReadout();   // Polish #226 Item 1 — clear the prior journey's callout/machine-call so it can't go stale on a journey→journey switch
         }
 
         // WS-9 area F — the single exit path. Every way out of a journey (the
