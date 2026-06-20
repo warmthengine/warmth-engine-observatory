@@ -4644,6 +4644,28 @@
         @media (orientation: landscape) {
             .atlas-landscape-hint { display: none !important; }
         }
+        /* Polish #226 Item 4 — journeys are Network-view only. Subtle note shown
+           in place of the guided-journey strip in Timeline / Connectedness.
+           Mirrors .atlas-landscape-hint; absolute within #atlas-network so it
+           sits where the strip does. */
+        .atlas-journeys-mode-note {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 11px;
+            color: #94A3B8;
+            z-index: 90;
+            text-align: center;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: atlas-hint-fadeInUp 300ms ease-out;
+        }
 
 
     </style>
@@ -4729,6 +4751,11 @@
                     </div>
                     <div class="atlas-journeys-cards" id="atlas-journeys-cards"></div>
                 </div>
+
+                <!-- Polish #226 Item 4 — journeys are Network-view only. Shown by
+                     syncJourneyChromeOnMode when the strip is suppressed in
+                     Timeline / Connectedness; hidden by default. -->
+                <div id="atlas-journeys-mode-note" class="atlas-journeys-mode-note" style="display:none">Journeys are available in Network view only</div>
 
                 <!-- WS-8 — Recall pill. When the strip is collapsed (dismissed
                      ✕, journey launched, or view switch) this re-opens it. Lives
@@ -8016,6 +8043,11 @@
                     if (playbackPlaying) stopPlayback();
                     document.querySelectorAll('.atlas-mode-btn').forEach(b =>
                         b.classList.toggle('active', b.dataset.mode === mode));
+                    // Polish #226 Item 4 — journeys are Network-view only. Leaving
+                    // Network exits any active journey first (skipFit so the
+                    // incoming layout owns the camera). Operator-confirmed: exit,
+                    // not block.
+                    if (mode !== 'network' && inJourneyMode()) exitJourney({ skipFit: true });
                     setAtlasState({ layoutMode: mode });
                     // Invalidate the timeline cache when leaving timeline
                     // mode (positions may change on subsequent return).
@@ -10931,6 +10963,22 @@
                 traceLaunch.addEventListener('click', () => {
                     const id = traceLaunch.getAttribute('data-trace-launch');
                     if (!id) return;
+                    // Polish #226 Item 4 — journeys are Network-view only. If the
+                    // detail panel was opened in Timeline / Connectedness, switch
+                    // to Network first (mirrors the mode toggle: active button +
+                    // activateNetworkMode restores cached positions synchronously),
+                    // then launch on the next frame so the journey lays out against
+                    // settled network positions.
+                    if (atlasState.layoutMode !== 'network') {
+                        document.querySelectorAll('.atlas-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'network'));
+                        setAtlasState({ layoutMode: 'network' });
+                        if (typeof activateNetworkMode === 'function') activateNetworkMode();
+                        requestAnimationFrame(() => {
+                            if (inJourneyMode()) teardownActiveJourney();
+                            setAtlasState({ traceRootId: id, _journeyForeground: true });
+                        });
+                        return;
+                    }
                     // Polish #225 Item 1 (regression fix) — launch the journey
                     // WITHOUT clearing the selection. The launching event/CC stays
                     // the active context for the journey's duration: foreground =
@@ -10956,6 +11004,18 @@
                 stackLaunch.addEventListener('click', () => {
                     const id = stackLaunch.getAttribute('data-stack-launch');
                     if (!id) return;
+                    // Polish #226 Item 4 — Network-view only; switch to Network
+                    // first if needed, then launch next frame (see trace launch).
+                    if (atlasState.layoutMode !== 'network') {
+                        document.querySelectorAll('.atlas-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'network'));
+                        setAtlasState({ layoutMode: 'network' });
+                        if (typeof activateNetworkMode === 'function') activateNetworkMode();
+                        requestAnimationFrame(() => {
+                            if (inJourneyMode()) teardownActiveJourney();
+                            setAtlasState({ stackRootId: id, _journeyForeground: true });
+                        });
+                        return;
+                    }
                     // Polish #225 Item 1 — same as the trace launch: keep the
                     // selection (foreground = journey, detail tucks). No
                     // closePanel race on launch.
@@ -14505,7 +14565,12 @@
         // positions restored, classes/markers cleared, hover re-enabled
         // (implicit once inJourneyMode() is false), chrome hidden, graph
         // re-fit.
-        function exitJourney() {
+        function exitJourney(opts) {
+            // Polish #226 Item 4 — opts.skipFit suppresses the terminal full-graph
+            // fit so a mode-switch exit doesn't fight the incoming Timeline /
+            // Connectedness layout (which then owns the camera). Defaults off
+            // everywhere else, so every other exit path is byte-for-byte unchanged.
+            opts = opts || {};
             if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
             // WS-9 item 7 — leaving entry mode: clear the entry guard so the
             // exit's own fit is never blocked, and any in-flight entry pulse /
@@ -14559,7 +14624,7 @@
             // refit (the detail panel was actually showing). When the detail was
             // tucked behind the journey, closePanel skips its refit, so run it
             // here — otherwise the camera would stay framed on the journey.
-            if (cy && !detailWasShowing) {
+            if (cy && !detailWasShowing && !opts.skipFit) {
                 setTimeout(() => {
                     if (cy && typeof fitToUsableViewport === 'function') {
                         fitToUsableViewport(cy.nodes(), { padding: 60, duration: 420, easing: 'ease-out' });
@@ -14588,6 +14653,33 @@
         function syncExitPill() {
             if (inJourneyMode()) showExitPill();
             else hideExitPill();
+        }
+
+        // Polish #226 Item 4 — journeys are Network-view only. Suppress all
+        // guided-journey chrome (strip + "Start here ▸" recall pill) outside
+        // Network and show a subtle note; restore on return. The Exit pill and
+        // readout track inJourneyMode() via syncExitPill / exitJourney, so they
+        // need no handling here. The strip is shown via the `.visible` class on a
+        // `display:none` base, so clearing the inline display can't force-open a
+        // dismissed strip. On the transition back INTO Network the strip was
+        // collapsed on the way out, so re-offer the recall pill (unless the strip
+        // is already open) — gated to the transition so a normal in-Network
+        // dispatch never pops the pill over an open strip.
+        function syncJourneyChromeOnMode(state, previous) {
+            const networkMode = (state.layoutMode === 'network');
+            const strip  = document.getElementById('atlas-journeys');
+            const recall = document.getElementById('atlas-journeys-recall');
+            const note   = document.getElementById('atlas-journeys-mode-note');
+            if (note) note.style.display = networkMode ? 'none' : '';
+            if (!networkMode) {
+                if (strip)  strip.style.display = 'none';
+                if (recall) recall.classList.remove('visible');
+                return;
+            }
+            if (strip) strip.style.display = '';
+            const cameFromOtherMode = !!(previous && previous.layoutMode && previous.layoutMode !== 'network');
+            const stripOpen = !!(strip && strip.classList.contains('visible'));
+            if (cameFromOtherMode && !stripOpen && typeof showRecallPill === 'function') showRecallPill();
         }
 
         // Polish #225 Item 1 — detail-panel recall tab. When a journey is
@@ -14669,6 +14761,12 @@
         // never touches the persistent flag; only dismissGuidedCards() does.
         function showRecallPill() {
             if (!guidedJourneys.length) return;   // no journeys built → never surface the pill
+            // Polish #226 Item 4 — journey chrome is Network-view only. Gate here
+            // so the activate{Timeline,Connectedness}Mode → collapseGuidedToPill
+            // path can't re-surface the pill outside Network after the mode
+            // subscriber has hidden it. (Default layoutMode is 'network', so
+            // first-load + in-Network behaviour is unchanged.)
+            if (atlasState.layoutMode !== 'network') return;
             const pill = document.getElementById('atlas-journeys-recall');
             if (pill) pill.classList.add('visible');
         }
@@ -14797,6 +14895,7 @@
                 // have reacted, settle the detail panel's grid column.
                 subscribeAtlasState(syncDataPanelForeground);
                 subscribeAtlasState(syncExitPill);
+                subscribeAtlasState(syncJourneyChromeOnMode);   // Polish #226 Item 4 — journeys Network-view only
                 subscribeAtlasState(syncDataRecallTab);
                 subscribeAtlasState(syncUrlHash);
 
