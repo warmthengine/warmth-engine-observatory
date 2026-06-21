@@ -359,6 +359,7 @@
         .bar-fill.api { background: var(--ana-api); }
         .bar-fill.client { background: var(--ana-api); }
         .bar-fill.country { background: var(--weo-accent-primary); }
+        .bar-fill.status { background: var(--ana-mcp); }
         .bar-fill.diag { background: rgba(251, 191, 36, 0.7); }
         .bar-count {
             font-family: var(--weo-font-mono); font-size: 0.75rem;
@@ -695,6 +696,14 @@
         </div>
     </div>
 
+    <!-- HTTP status row -->
+    <div class="panels-row">
+        <div class="panel">
+            <div class="panel-title">HTTP Status · 200 / 406</div>
+            <div id="statusPanel"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <div class="page-footer">
         <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
@@ -984,6 +993,7 @@
         renderBars('apiClientPanel', agg.api_by_client, 'api');
         renderBars('uaPanel', agg.by_ua, 'diag');
         renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp');
+        renderBars('statusPanel', agg.by_status, 'status');
 
         // Hourly chart
         lastHourData = agg.by_hour;
@@ -995,7 +1005,8 @@
             mcp: 0, api: 0, authenticated: 0, self: 0,
             by_country: {}, by_endpoint: {}, by_client: {}, by_hour: {},
             mcp_by_client: {}, api_by_client: {},
-            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {}
+            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {},
+            by_status: {}
         };
         dates.forEach(function(d) {
             var day = rawData[d];
@@ -1014,6 +1025,7 @@
             merge(result.by_method, day.by_method);
             merge(result.by_tool, day.by_tool);
             merge(result.by_mcp_client_named, day.by_mcp_client_named);
+            merge(result.by_status, day.by_status);
             // mcp_client_names (array) is handled separately in render()
         });
         return result;
@@ -1096,6 +1108,28 @@
         });
     }
 
+    // ISO 3166-1 alpha-2 → display name (country panel only; raw code is the fallback).
+    var COUNTRY_NAMES = {
+        AD: 'Andorra', AE: 'United Arab Emirates', AR: 'Argentina', AT: 'Austria',
+        AU: 'Australia', BD: 'Bangladesh', BE: 'Belgium', BG: 'Bulgaria', BH: 'Bahrain',
+        BR: 'Brazil', CA: 'Canada', CH: 'Switzerland', CL: 'Chile', CN: 'China',
+        CO: 'Colombia', CR: 'Costa Rica', CY: 'Cyprus', CZ: 'Czechia', DE: 'Germany',
+        DK: 'Denmark', DO: 'Dominican Republic', DZ: 'Algeria', EC: 'Ecuador', EE: 'Estonia',
+        EG: 'Egypt', ES: 'Spain', FI: 'Finland', FR: 'France', GB: 'United Kingdom',
+        GE: 'Georgia', GR: 'Greece', GT: 'Guatemala', HK: 'Hong Kong', HR: 'Croatia',
+        HU: 'Hungary', ID: 'Indonesia', IE: 'Ireland', IL: 'Israel', IN: 'India',
+        IQ: 'Iraq', IR: 'Iran', IS: 'Iceland', IT: 'Italy', JO: 'Jordan', JP: 'Japan',
+        KE: 'Kenya', KR: 'South Korea', KW: 'Kuwait', KZ: 'Kazakhstan', LB: 'Lebanon',
+        LK: 'Sri Lanka', LT: 'Lithuania', LU: 'Luxembourg', LV: 'Latvia', MA: 'Morocco',
+        MX: 'Mexico', MY: 'Malaysia', NG: 'Nigeria', NL: 'Netherlands', NO: 'Norway',
+        NP: 'Nepal', NZ: 'New Zealand', OM: 'Oman', PA: 'Panama', PE: 'Peru',
+        PH: 'Philippines', PK: 'Pakistan', PL: 'Poland', PT: 'Portugal', QA: 'Qatar',
+        RO: 'Romania', RS: 'Serbia', RU: 'Russia', SA: 'Saudi Arabia', SE: 'Sweden',
+        SG: 'Singapore', SI: 'Slovenia', SK: 'Slovakia', TH: 'Thailand', TN: 'Tunisia',
+        TR: 'Türkiye', TW: 'Taiwan', UA: 'Ukraine', US: 'United States', UY: 'Uruguay',
+        VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa', XX: 'Unknown'
+    };
+
     function renderBars(containerId, data, colorClass) {
         var container = document.getElementById(containerId);
         if (!container) return;
@@ -1111,10 +1145,12 @@
         sorted.slice(0, 10).forEach(function(item) {
             var label = item[0];
             var count = item[1];
+            // Country panel only: show full name, fall back to the raw code. Every other panel unchanged.
+            var displayLabel = (colorClass === 'country' && COUNTRY_NAMES[label]) ? COUNTRY_NAMES[label] : label;
             var pct = Math.max(2, count / maxVal * 100);
             html +=
                 '<div class="bar-row">' +
-                    '<div class="bar-label" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</div>' +
+                    '<div class="bar-label" title="' + escapeHtml(displayLabel) + '">' + escapeHtml(displayLabel) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
                 '</div>';
