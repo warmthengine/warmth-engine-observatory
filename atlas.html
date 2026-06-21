@@ -9605,7 +9605,43 @@
                     _journeyEntering = false;
                 }
             });
-            layout.run();
+            // PR-1 F1 (ROOT CAUSE) — contain a cytoscape layout throw. On journey
+            // RE-ROOT this directed breadthfirst run intermittently throws inside
+            // cytoscape's depth sort: the new root's pathway can include nodes
+            // reachable only AGAINST edge direction (upstream CCs into the root),
+            // which a directed BFS cannot depth-assign, and the prior journey's
+            // in-flight layout/tween makes it timing-dependent (a FRESH launch of
+            // the same subgraph does not throw). An UNCAUGHT throw here aborted the
+            // whole setAtlasState dispatch AND the trace/stack-launch handler, so
+            // the detail panel never tucked and BLED THROUGH the pathways overlay —
+            // the true cause of the re-root bleed. #232's A1 (idempotent
+            // syncDataPanelForeground) cannot fix it: the throw aborts the dispatch
+            // before that subscriber runs (instrumentation showed zero has-panel-
+            // open toggles + this exception). Containing it lets the dispatch + the
+            // tuck complete; fall back to an UNDIRECTED breadthfirst (reaches every
+            // node → no unreachable-depth crash) so the re-rooted journey still
+            // tiers instead of half-rendering, then frame.
+            try {
+                layout.run();
+            } catch (errPrimary) {
+                if (window.console && console.warn) console.warn('[WEO Atlas] directed journey layout threw; retrying undirected:', errPrimary && errPrimary.message);
+                try {
+                    focusEles.layout({
+                        name: 'breadthfirst', directed: false, circle: false,
+                        animate: false, fit: false, spacingFactor: opts.spacingFactor || 1.2,
+                        padding: 30, avoidOverlap: true, maximal: false
+                    }).run();
+                } catch (errFallback) {
+                    if (window.console && console.warn) console.warn('[WEO Atlas] undirected journey-layout fallback also threw; keeping current positions:', errFallback && errFallback.message);
+                }
+                _journeyEntering = false;
+                if (typeof fitToUsableViewport === 'function') {
+                    fitToUsableViewport(focusEles.nodes(), {
+                        padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
+                        duration: 360, easing: 'ease-out'
+                    });
+                }
+            }
         }
 
         // Polish #226 Item 2 — frame the active journey's node set, not the
@@ -14660,7 +14696,15 @@
             // panel owns the camera (the clicked node/CC is magnified). Don't
             // let the journey-panel tuck transitionend yank the camera back to
             // the whole journey; the untuck (data panel closed) re-frames it.
-            if (atlasState.selectedEventId || atlasState.selectedConnectionId || atlasState.selectedThreadKey) return;
+            // PR-1 F2 — gate on the FOREGROUND arbiter, not raw selection. When the
+            // detail panel is TUCKED (journey foreground, _journeyForeground=true),
+            // the selection PERSISTS but the journey owns the camera and must
+            // re-frame. The old raw-selection guard bailed here, so pressing the
+            // detail ✕ in a journey (which tucks, keeping the selection) left the
+            // camera stuck at the node's localised zoom. dataPanelOverJourney is
+            // true only while a data panel actually LEADS (detail foreground OR
+            // thread panel) — exactly when the panel owns the camera and we bail.
+            if (dataPanelOverJourney(atlasState)) return;
             const nodes = cy.nodes('.trace-node');
             if (nodes && nodes.length && typeof fitToUsableViewport === 'function') {
                 // WS-9 item 4 — same comfortable framing as the entry fit.
