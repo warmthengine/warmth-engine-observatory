@@ -821,9 +821,11 @@
             border-left: 3px solid #818CF8;
             border-radius: var(--radius-md);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            padding: 7px 14px;
+            /* Polish (post-1.11.2) B3 — slightly larger; this is the only route
+               back to the detail panel in the tucked-pathways view. */
+            padding: 8px 16px;
             font-family: var(--font-sans);
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 0.04em;
             color: var(--text-primary);
             cursor: pointer;
@@ -3905,9 +3907,12 @@
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 10.5px; color: var(--text-muted);
         }
+        /* Polish (post-1.11.2) B2 — the →/↔ glyph is the ONLY differentiator
+           between the two identical-teal coordination legend rows, so enlarge it. */
+        .atlas-stack-legend-glyph { font-size: 15px; line-height: 1; font-weight: 600; }
         .atlas-stack-swatch { width: 14px; height: 3px; border-radius: 2px; flex-shrink: 0; }
         .atlas-stack-swatch.coordination { background: #2DD4BF; }
-        .atlas-stack-swatch.material { background: transparent; border-top: 2px dashed #7C8A9E; height: 0; }
+        .atlas-stack-swatch.material { background: transparent; border-top: 2px dotted #5A6678; height: 0; }
         .atlas-stack-swatch.capability { background: #F59E0B; }
         .atlas-stack-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 18px 18px 18px; }
         .atlas-stack-section-label {
@@ -4651,7 +4656,14 @@
         .atlas-journeys-mode-note {
             position: absolute;
             left: 50%;
-            bottom: 18px;
+            /* Polish (post-1.11.2) B4 — lowered from 18px so the note clears the
+               Timeline x-axis year labels, which sit just above (axis box at
+               bottom:30px; labels ~bottom:36-49px). The bottom band is cramped
+               (axis + scrubber occupy it), so 4px centres the pill in the margin
+               below the labels with a few px of clearance each side. One shared
+               rule → identical position in Timeline and Connectedness, so
+               toggling modes produces no positional jump. */
+            bottom: 4px;
             transform: translateX(-50%);
             background: rgba(30, 41, 59, 0.95);
             border: 1px solid rgba(96, 165, 250, 0.3);
@@ -5045,8 +5057,11 @@
         // =================================================================
         // Muted neutral plumbing tone — deliberately OUTSIDE the CC palette
         // (CC_TYPE_COLOUR above) so a thread can never be mistaken for a
-        // typed coordination edge. Slate, low saturation.
-        const THREAD_LINE_COLOUR = '#7C8A9E';
+        // typed coordination edge. Slate, low saturation. Polish (post-1.11.2)
+        // A4 [D2] — darkened from #7C8A9E to separate by VALUE from Parallel
+        // Policy (#94A3B8, a lighter slate); paired with a dotted line-style
+        // below so threads and PP CC lines never read alike on the canvas.
+        const THREAD_LINE_COLOUR = '#5A6678';
         // linkType → plain-language verb for the factual-link panel
         // ("[facility] deploys [asset]"). Subject is the source event; the
         // asset originates at the target event. production → use.
@@ -6059,9 +6074,55 @@
                         }
                     },
                     {
+                        // Polish (post-1.11.2) A3 [D1] — directional CC types get a
+                        // target-end arrowhead UNIFORMLY across all views (macro,
+                        // neighbourhood, pathways, stack). 1 = Policy Cascade,
+                        // 4 = Regulatory Enablement, 5 = Response (3 = Funding Flow
+                        // already arrowed above). Matches TRACE_DIRECTIONAL_TYPES
+                        // = {1,3,4,5}; the non-directional peers {2,6,7} below stay
+                        // clean. Replaces the old journey-edge blanket triangle,
+                        // which arrowed peers on an arbitrary stored target end.
+                        selector: 'edge[ccType = 1]',
+                        style: {
+                            'target-arrow-shape': 'triangle',
+                            'arrow-scale': 1.1
+                        }
+                    },
+                    {
+                        selector: 'edge[ccType = 4]',
+                        style: {
+                            'target-arrow-shape': 'triangle',
+                            'arrow-scale': 1.1
+                        }
+                    },
+                    {
+                        selector: 'edge[ccType = 5]',
+                        style: {
+                            'target-arrow-shape': 'triangle',
+                            'arrow-scale': 1.1
+                        }
+                    },
+                    {
                         // Type 6 Framework Family is undirected-by-methodology
                         // per brief §7.4.
                         selector: 'edge[ccType = 6]',
+                        style: {
+                            'target-arrow-shape': 'none'
+                        }
+                    },
+                    {
+                        // Polish (post-1.11.2) A3 [D1] — non-directional siblings
+                        // carry NO arrowhead, mirroring Type 6. 2 = Joint Issuance,
+                        // 7 = Parallel Policy. Default is already 'none', but stating
+                        // it makes the peer set {2,6,7} explicit and immune to any
+                        // later inherited target-arrow-shape.
+                        selector: 'edge[ccType = 2]',
+                        style: {
+                            'target-arrow-shape': 'none'
+                        }
+                    },
+                    {
+                        selector: 'edge[ccType = 7]',
                         style: {
                             'target-arrow-shape': 'none'
                         }
@@ -6176,7 +6237,16 @@
                         // the line, not an overlay.
                         selector: 'edge.journey-edge',
                         style: {
-                            'target-arrow-shape': 'triangle',
+                            // Polish (post-1.11.2) A3 [D1] — target-arrow-shape
+                            // removed here. journey-edge tags EVERY journey CC
+                            // (directional AND peer), so forcing a triangle put
+                            // arrowheads on non-directional peers (Parallel Policy
+                            // etc.) pointing at an arbitrary stored target. With it
+                            // gone, the per-type edge[ccType=N] rules above govern
+                            // the shape (directional {1,3,4,5} → triangle, peers
+                            // {2,6,7} → none); no later selector sets it, so the
+                            // per-type value persists. The arrow still renders at
+                            // the journey colour/scale below wherever it applies.
                             'target-arrow-color': 'data(color)',
                             'target-arrow-fill': 'filled',
                             'arrow-scale': 1.25,
@@ -6199,10 +6269,11 @@
                         // edges. Four cues hold it visually apart from BOTH
                         // CC solid (Verified/Established) and CC dashed
                         // (Analytical, line-dash [6,4]): (1) muted slate tone
-                        // outside the CC palette; (2) a finer, sparser dash
-                        // [2,5] distinct from the CC-A dash; (3) thinner weight;
-                        // (4) an OPEN 'vee' chevron — not the CC filled
-                        // triangle — sitting at the source (use) end so it
+                        // outside the CC palette; (2) Polish (post-1.11.2) A4 [D2]
+                        // — a DOTTED line-style, categorically distinct from any
+                        // dashed CC line and from the lighter Parallel-Policy slate;
+                        // (3) thinner weight; (4) an OPEN 'vee' chevron — not the CC
+                        // filled triangle — sitting at the source (use) end so it
                         // reads production → use, clearly NOT a CC arrow.
                         // Hidden by default via display:none — threads are a
                         // separate toggle layer revealed only on demand.
@@ -6212,8 +6283,7 @@
                             'width': 1.4,
                             'line-fill': 'solid',
                             'line-color': THREAD_LINE_COLOUR,
-                            'line-style': 'dashed',
-                            'line-dash-pattern': [2, 5],
+                            'line-style': 'dotted',
                             'opacity': 0.5,
                             'curve-style': 'bezier',
                             'control-point-step-size': 18,
@@ -6253,8 +6323,10 @@
                             'opacity': 1,
                             'width': 2.6,
                             'line-color': THREAD_LINE_COLOUR,
-                            'line-style': 'dashed',
-                            'line-dash-pattern': [2, 5],
+                            // Polish (post-1.11.2) A4 [D2] — dotted to match the
+                            // thread-edge rule; keeps the material hop visually a
+                            // different KIND from the solid stack-coordination CC.
+                            'line-style': 'dotted',
                             'source-arrow-color': THREAD_LINE_COLOUR,
                             'z-index': 962
                         }
@@ -11858,14 +11930,18 @@
             const dashed = conf === 'CC-A' ? ' dashed' : '';
             const srcId = String(c.source_event_id), tgtId = String(c.target_event_id);
             const src = eventById[srcId], tgt = eventById[tgtId];
-            const srcName = src && src.name ? truncate(src.name, 30) : ('Event ' + srcId);
-            const tgtName = tgt && tgt.name ? truncate(tgt.name, 30) : ('Event ' + tgtId);
+            // Polish (post-1.11.2) B1 — keep the full (untruncated) name for the
+            // native hover title; the visible span stays truncated.
+            const srcFull = src && src.name ? src.name : ('Event ' + srcId);
+            const tgtFull = tgt && tgt.name ? tgt.name : ('Event ' + tgtId);
+            const srcName = truncate(srcFull, 30);
+            const tgtName = truncate(tgtFull, 30);
             const childCls = child ? ' atlas-journey-leg-child' : '';
             let h = `<div class="atlas-trace-hop${childCls}" data-cc-id="${escapeHtml(c.connection_id || '')}" data-cy-id="${escapeHtml(c.connection_id || '')}" data-hop-index="${idx}">`;
             h += '<div class="atlas-trace-hop-endpoints">';
-            h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
+            h += `<span class="atlas-trace-evt" title="${escapeHtml(srcFull)}" data-trace-event="${escapeHtml(srcId)}" role="button" tabindex="0">${escapeHtml(srcName)}</span>`;
             h += '<span class="atlas-trace-arrow" aria-hidden="true">→</span>';
-            h += `<span class="atlas-trace-evt" data-trace-event="${escapeHtml(tgtId)}" role="button" tabindex="0">${escapeHtml(tgtName)}</span>`;
+            h += `<span class="atlas-trace-evt" title="${escapeHtml(tgtFull)}" data-trace-event="${escapeHtml(tgtId)}" role="button" tabindex="0">${escapeHtml(tgtName)}</span>`;
             h += '</div>';
             h += '<div class="atlas-trace-hop-meta">';
             h += `<span class="atlas-trace-type"><span class="atlas-trace-type-dot" style="background:${colour}"></span>${escapeHtml(typeName)}</span>`;
@@ -11893,7 +11969,7 @@
             // no circular "follow the chain it forms" phrasing.
             h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence. Pathways follow the directional coordination lineage (Policy Cascade, Funding Flow, Regulatory Enablement, Response). Bidirectional links — Framework Family and Parallel Policy peers — aren\'t part of a directed chain; they appear in the event\'s details and in the Stack.</p>';
             // Pathways is a directed walk by definition — legend shows only the directed-CC row.
-            h += journeyKindLegend({ directed: true, directedText: '→ directed coordination' });
+            h += journeyKindLegend({ directed: true, directedText: '<span class="atlas-stack-legend-glyph">→</span> directed coordination' });
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
@@ -11909,7 +11985,7 @@
                     h += '<div class="atlas-trace-section-label">Leads to this event</div>';
                     upstream.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
                 }
-                h += '<div class="atlas-trace-root"><span class="atlas-trace-root-dot"></span><span class="atlas-trace-root-name">' + escapeHtml(truncate(rootName, 36)) + '</span></div>';
+                h += '<div class="atlas-trace-root"><span class="atlas-trace-root-dot"></span><span class="atlas-trace-root-name" title="' + escapeHtml(rootName) + '">' + escapeHtml(truncate(rootName, 36)) + '</span></div>';
 
                 if (downstream.length) {
                     // WS-9 area D — regroup downstream hops by BFS depth from
@@ -11934,7 +12010,7 @@
                     // Step 1 — hops whose source is the root.
                     const step1 = downstream.filter(c => String(c.source_event_id) === rid);
                     if (step1.length) {
-                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(1)) + ' — direct from ' + escapeHtml(truncate(rootName, 28)) + '</div>';
+                        h += '<div class="atlas-journey-leg" title="' + escapeHtml(rootName) + '">' + escapeHtml(stepWord(1)) + ' — direct from ' + escapeHtml(truncate(rootName, 28)) + '</div>';
                         step1.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id)); });
                     }
 
@@ -11951,7 +12027,8 @@
                     order.sort((a, b) => bySource[a].depth - bySource[b].depth);
                     order.forEach(s => {
                         const g = bySource[s];
-                        h += '<div class="atlas-journey-leg">' + escapeHtml(stepWord(g.depth)) + ' — via ' + escapeHtml(nameOf(s)) + '</div>';
+                        const viaFull = (eventById[String(s)] && eventById[String(s)].name) || ('Event ' + s);
+                        h += '<div class="atlas-journey-leg" title="' + escapeHtml(viaFull) + '">' + escapeHtml(stepWord(g.depth)) + ' — via ' + escapeHtml(nameOf(s)) + '</div>';
                         g.hops.forEach((c) => { h += renderTraceHop(c, hopIndex.get(c.connection_id), true); });
                     });
                 }
@@ -11995,6 +12072,17 @@
                 // don't fight over opacity.
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
+                // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
+                // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
+                // match classes before surfacing the journey. Those classes carry
+                // their own opacity rule (a deliberate "safety net" at
+                // node.atlas-filtered-out, opacity 0.12 / edge 0.06), so clearing
+                // the inline alone left filter-dimmed journey nodes dark. With
+                // both gone, the journey's trace-dim / trace-node / stack-* classes
+                // fully govern opacity. (Rebuilt on exit by applyFiltersToCytoscape.)
+                cy.elements().removeClass('atlas-filtered-out atlas-filter-match');
+                cy.nodes().removeStyle('opacity').removeStyle('text-opacity');
+                cy.edges().removeStyle('opacity').removeStyle('line-opacity');
                 cy.edges().forEach(e => {
                     if (!edgeIds.has(e.id())) return;
                     // Cluster 4 — omit any trace edge missing a real endpoint,
@@ -12108,10 +12196,10 @@
         // material only. No args → all rows (back-compat).
         function journeyKindLegend(opts) {
             opts = opts || { directed: true, peer: true, material: true, capability: true };
-            const directedText = opts.directedText || '→ directed CC';
+            const directedText = opts.directedText || '<span class="atlas-stack-legend-glyph">→</span> directed CC';
             let h = '<div class="atlas-stack-legend">';
             if (opts.directed)   h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>' + directedText + '</span>';
-            if (opts.peer)       h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span>↔ peer CC</span>';
+            if (opts.peer)       h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch coordination"></span><span class="atlas-stack-legend-glyph">↔</span> peer CC</span>';
             if (opts.material)   h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch material"></span>Material fact (thread)</span>';
             if (opts.capability) h += '<span class="atlas-stack-legend-item"><span class="atlas-stack-swatch capability"></span>Capability (SCP)</span>';
             return h + '</div>';
@@ -12469,11 +12557,11 @@
             const tgtName = (eventById[tgtId] && eventById[tgtId].name) || ('Event ' + tgtId);
             let h = '<div class="atlas-stack-hop coordination" data-cy-id="' + escapeHtml(c.connection_id || '') + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
-            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
+            h += '<span class="atlas-stack-evt" title="' + escapeHtml(srcName) + '" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             // Directional CC types (1/3/4/5) read →; bidirectional/sibling (2/6/7) read ↔.
             const ccGlyph = TRACE_DIRECTIONAL_TYPES.has(typeNum) ? '→' : '↔';
             h += '<span class="atlas-stack-arrow" aria-hidden="true">' + ccGlyph + '</span>';
-            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
+            h += '<span class="atlas-stack-evt" title="' + escapeHtml(tgtName) + '" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
             h += '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind coordination">Coordination</span><span class="atlas-stack-type"><span class="atlas-stack-type-dot" style="background:' + colour + '"></span>' + escapeHtml(typeName) + '</span></div>';
             h += '</div>';
@@ -12487,9 +12575,9 @@
             const assets = Array.from(new Set(te.threads.map(t => t.asset)));
             let h = '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(te.key) + '" data-cy-id="' + threadCyId(te.key) + '">';
             h += '<div class="atlas-stack-hop-endpoints">';
-            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
+            h += '<span class="atlas-stack-evt" title="' + escapeHtml(srcName) + '" data-stack-event="' + escapeHtml(srcId) + '" role="button" tabindex="0">' + escapeHtml(truncate(srcName, 28)) + '</span>';
             h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
-            h += '<span class="atlas-stack-evt" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
+            h += '<span class="atlas-stack-evt" title="' + escapeHtml(tgtName) + '" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
             h += '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind material">Material fact</span><span class="atlas-stack-asset">' + escapeHtml(verbs.join(' / ')) + ' · ' + escapeHtml(assets.join(', ')) + '</span></div>';
             h += '</div>';
@@ -12500,7 +12588,7 @@
             let h = '<div class="atlas-stack-hop capability" data-cy-id="' + escapeHtml(String(link._eventId)) + '">';
             h += '<div class="atlas-stack-waypoint-label">' + escapeHtml(membershipWaypointLabel(link)) + '</div>';
             h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind capability">Capability</span>';
-            h += '<span class="atlas-stack-via">via <span class="atlas-stack-evt" data-stack-event="' + escapeHtml(String(link._eventId)) + '" role="button" tabindex="0">' + escapeHtml(truncate(evName, 26)) + '</span></span></div>';
+            h += '<span class="atlas-stack-via">via <span class="atlas-stack-evt" title="' + escapeHtml(evName) + '" data-stack-event="' + escapeHtml(String(link._eventId)) + '" role="button" tabindex="0">' + escapeHtml(truncate(evName, 26)) + '</span></span></div>';
             return h + '</div>';
         }
 
@@ -12562,6 +12650,17 @@
             cy.batch(() => {
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
+                // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
+                // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
+                // match classes before surfacing the journey. Those classes carry
+                // their own opacity rule (a deliberate "safety net" at
+                // node.atlas-filtered-out, opacity 0.12 / edge 0.06), so clearing
+                // the inline alone left filter-dimmed journey nodes dark. With
+                // both gone, the stack-coordination / stack-material / trace-node
+                // classes fully govern. (Rebuilt on exit by applyFiltersToCytoscape.)
+                cy.elements().removeClass('atlas-filtered-out atlas-filter-match');
+                cy.nodes().removeStyle('opacity').removeStyle('text-opacity');
+                cy.edges().removeStyle('opacity').removeStyle('line-opacity');
                 cy.edges().forEach(e => {
                     // journey-edge arrows ride only on the directional CC hops;
                     // material (thread) hops keep their production→use source
@@ -12724,7 +12823,7 @@
                         const key = fId + '|' + j.rootId;
                         h += '<div class="atlas-stack-hop material" data-thread-key="' + escapeHtml(key) + '" data-cy-id="' + threadCyId(key) + '">';
                         h += '<div class="atlas-stack-hop-endpoints">';
-                        h += '<span class="atlas-stack-evt" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
+                        h += '<span class="atlas-stack-evt" title="' + escapeHtml(fName) + '" data-material-event="' + escapeHtml(fId) + '" role="button" tabindex="0">' + escapeHtml(truncate(fName, 28)) + '</span>';
                         h += '<span class="atlas-stack-arrow material" aria-hidden="true">⇢</span>';
                         h += '<span class="atlas-stack-asset">' + escapeHtml(t.asset || '—') + '</span>';
                         h += '</div>';
@@ -12749,6 +12848,17 @@
             cy.batch(() => {
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
                 cy.elements().addClass('trace-dim');
+                // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
+                // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
+                // match classes before surfacing the journey. Those classes carry
+                // their own opacity rule (a deliberate "safety net" at
+                // node.atlas-filtered-out, opacity 0.12 / edge 0.06), so clearing
+                // the inline alone left filter-dimmed journey nodes dark. With
+                // both gone, the journey's trace-dim / trace-node / stack-material
+                // classes fully govern. (Rebuilt on exit by applyFiltersToCytoscape.)
+                cy.elements().removeClass('atlas-filtered-out atlas-filter-match');
+                cy.nodes().removeStyle('opacity').removeStyle('text-opacity');
+                cy.edges().removeStyle('opacity').removeStyle('line-opacity');
                 cy.edges().forEach(e => {
                     if (threadIds.has(e.id())) e.removeClass('trace-dim').addClass('stack-material thread-visible');
                 });
@@ -14470,12 +14580,18 @@
         // syncTraceOnState/syncStackPanelOnState/syncMaterialPanelOnState. Only
         // active while a journey owns the canvas; outside one, openPanel/
         // closePanel own .has-panel-open exactly as before.
-        function syncDataPanelForeground(state, prev) {
+        function syncDataPanelForeground(state) {
             if (!stateInJourney(state)) return;
-            const fg = eventCCForeground(state);
-            const wasFg = eventCCForeground(prev);
-            if (fg === wasFg) return;
-            if (fg) untuckDataPanel();
+            // Polish (post-1.11.2) A1 — idempotent: always assert the correct
+            // panel state for the CURRENT state instead of acting only on a seen
+            // foreground delta. On a re-root (or any launch where an intermediate
+            // dispatch already flipped _journeyForeground) the delta was spent
+            // before this subscriber ran, so the old `if (fg === wasFg) return;`
+            // guard skipped the tuck and left the grid detail panel bleeding over
+            // the journey overlay. tuck/untuck toggle a single class, so
+            // re-asserting an already-correct state is a no-op (fires no
+            // transition) — the bleed case is corrected on the next dispatch.
+            if (eventCCForeground(state)) untuckDataPanel();
             else tuckDataPanel();
         }
         // WS-9 item 3 — an edge that belongs to whichever journey owns the
