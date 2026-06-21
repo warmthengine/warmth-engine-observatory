@@ -1096,6 +1096,28 @@
         });
     }
 
+    // ISO 3166-1 alpha-2 → display name (country panel only; raw code is the fallback).
+    var COUNTRY_NAMES = {
+        AD: 'Andorra', AE: 'United Arab Emirates', AR: 'Argentina', AT: 'Austria',
+        AU: 'Australia', BD: 'Bangladesh', BE: 'Belgium', BG: 'Bulgaria', BH: 'Bahrain',
+        BR: 'Brazil', CA: 'Canada', CH: 'Switzerland', CL: 'Chile', CN: 'China',
+        CO: 'Colombia', CR: 'Costa Rica', CY: 'Cyprus', CZ: 'Czechia', DE: 'Germany',
+        DK: 'Denmark', DO: 'Dominican Republic', DZ: 'Algeria', EC: 'Ecuador', EE: 'Estonia',
+        EG: 'Egypt', ES: 'Spain', FI: 'Finland', FR: 'France', GB: 'United Kingdom',
+        GE: 'Georgia', GR: 'Greece', GT: 'Guatemala', HK: 'Hong Kong', HR: 'Croatia',
+        HU: 'Hungary', ID: 'Indonesia', IE: 'Ireland', IL: 'Israel', IN: 'India',
+        IQ: 'Iraq', IR: 'Iran', IS: 'Iceland', IT: 'Italy', JO: 'Jordan', JP: 'Japan',
+        KE: 'Kenya', KR: 'South Korea', KW: 'Kuwait', KZ: 'Kazakhstan', LB: 'Lebanon',
+        LK: 'Sri Lanka', LT: 'Lithuania', LU: 'Luxembourg', LV: 'Latvia', MA: 'Morocco',
+        MX: 'Mexico', MY: 'Malaysia', NG: 'Nigeria', NL: 'Netherlands', NO: 'Norway',
+        NP: 'Nepal', NZ: 'New Zealand', OM: 'Oman', PA: 'Panama', PE: 'Peru',
+        PH: 'Philippines', PK: 'Pakistan', PL: 'Poland', PT: 'Portugal', QA: 'Qatar',
+        RO: 'Romania', RS: 'Serbia', RU: 'Russia', SA: 'Saudi Arabia', SE: 'Sweden',
+        SG: 'Singapore', SI: 'Slovenia', SK: 'Slovakia', TH: 'Thailand', TN: 'Tunisia',
+        TR: 'Türkiye', TW: 'Taiwan', UA: 'Ukraine', US: 'United States', UY: 'Uruguay',
+        VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa', XX: 'Unknown'
+    };
+
     function renderBars(containerId, data, colorClass) {
         var container = document.getElementById(containerId);
         if (!container) return;
@@ -1111,10 +1133,12 @@
         sorted.slice(0, 10).forEach(function(item) {
             var label = item[0];
             var count = item[1];
+            // Country panel only: show full name, fall back to the raw code. Every other panel unchanged.
+            var displayLabel = (colorClass === 'country' && COUNTRY_NAMES[label]) ? COUNTRY_NAMES[label] : label;
             var pct = Math.max(2, count / maxVal * 100);
             html +=
                 '<div class="bar-row">' +
-                    '<div class="bar-label" title="' + escapeHtml(label) + '">' + escapeHtml(label) + '</div>' +
+                    '<div class="bar-label" title="' + escapeHtml(displayLabel) + '">' + escapeHtml(displayLabel) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
                 '</div>';
