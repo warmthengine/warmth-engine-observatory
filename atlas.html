@@ -4655,16 +4655,16 @@
            sits where the strip does. */
         .atlas-journeys-mode-note {
             position: absolute;
-            left: 50%;
-            /* Polish (post-1.11.2) B4 — lowered from 18px so the note clears the
-               Timeline x-axis year labels, which sit just above (axis box at
-               bottom:30px; labels ~bottom:36-49px). The bottom band is cramped
-               (axis + scrubber occupy it), so 4px centres the pill in the margin
-               below the labels with a few px of clearance each side. One shared
-               rule → identical position in Timeline and Connectedness, so
-               toggling modes produces no positional jump. */
-            bottom: 4px;
-            transform: translateX(-50%);
+            /* F6 (post-#233 redo) — moved from centre-bottom to top-left.
+               The bottom band is cramped (Timeline axis + scrubber) and the
+               Connectedness circle nodes can crowd centre; the top-left corner
+               clears the timeline axis (bottom), sits outside the inscribed
+               Connectedness circle, and stays left of the topology side panel
+               (right). No journey exists in these modes, so no recall-pill
+               collision. One shared rule → identical position in Timeline and
+               Connectedness, so toggling modes produces no positional jump. */
+            top: 16px;
+            left: 16px;
             background: rgba(30, 41, 59, 0.95);
             border: 1px solid rgba(96, 165, 250, 0.3);
             border-radius: 8px;
@@ -10707,18 +10707,28 @@
             const hasDirectionalChain = allConnections.some(c =>
                 isDirectionalCC(c) &&
                 (String(c.source_event_id) === id || String(c.target_event_id) === id));
+            // WS-5 — Stack Journey is offered when this event sits on ANY
+            // traceable value chain: a directional CC, an infrastructure
+            // thread, or a capability membership. Computed up here (ahead of
+            // the trace block) so the shared "Journeys" heading below can gate
+            // on the same superset that governs the two launchers.
+            const hasThread = !!(threadsByEvent[id] && threadsByEvent[id].length);
+            const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
+            // Section heading over the in-atlas journey launchers, matching the
+            // PRIMARY / BLOC ANALYSIS / SIGNIFICANCE / SOURCES section labels.
+            // Gated on the superset so it shows whenever EITHER launcher does
+            // (directional chain → pathways button; thread/membership → stack
+            // button). View buttons below are external nav, deliberately excluded.
+            if (hasDirectionalChain || hasThread || hasMembership) {
+                html += '<div class="atlas-panel-section-title">Journeys</div>';
+            }
             if (hasDirectionalChain) {
                 html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
                 html += '</div>';
             }
 
-            // WS-5 — Stack Journey launcher. Offered when this event sits on
-            // ANY traceable value chain: a directional CC, an infrastructure
-            // thread, or a capability membership. The fusion walks all three
-            // and labels every hop by kind.
-            const hasThread = !!(threadsByEvent[id] && threadsByEvent[id].length);
-            const hasMembership = !!(membershipByEvent[id] && membershipByEvent[id].length);
+            // WS-5 — Stack Journey launcher (membership/thread/chain — see above).
             if (hasDirectionalChain || hasThread || hasMembership) {
                 html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack →</button>`;
