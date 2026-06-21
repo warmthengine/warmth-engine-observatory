@@ -359,7 +359,6 @@
         .bar-fill.api { background: var(--ana-api); }
         .bar-fill.client { background: var(--ana-api); }
         .bar-fill.country { background: var(--weo-accent-primary); }
-        .bar-fill.status { background: var(--ana-mcp); }
         .bar-fill.diag { background: rgba(251, 191, 36, 0.7); }
         .bar-count {
             font-family: var(--weo-font-mono); font-size: 0.75rem;
@@ -696,14 +695,6 @@
         </div>
     </div>
 
-    <!-- HTTP status row -->
-    <div class="panels-row">
-        <div class="panel">
-            <div class="panel-title">HTTP Status · 200 / 406</div>
-            <div id="statusPanel"></div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <div class="page-footer">
         <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
@@ -993,7 +984,6 @@
         renderBars('apiClientPanel', agg.api_by_client, 'api');
         renderBars('uaPanel', agg.by_ua, 'diag');
         renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp');
-        renderBars('statusPanel', agg.by_status, 'status');
 
         // Hourly chart
         lastHourData = agg.by_hour;
@@ -1005,8 +995,7 @@
             mcp: 0, api: 0, authenticated: 0, self: 0,
             by_country: {}, by_endpoint: {}, by_client: {}, by_hour: {},
             mcp_by_client: {}, api_by_client: {},
-            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {},
-            by_status: {}
+            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {}
         };
         dates.forEach(function(d) {
             var day = rawData[d];
@@ -1025,7 +1014,6 @@
             merge(result.by_method, day.by_method);
             merge(result.by_tool, day.by_tool);
             merge(result.by_mcp_client_named, day.by_mcp_client_named);
-            merge(result.by_status, day.by_status);
             // mcp_client_names (array) is handled separately in render()
         });
         return result;
