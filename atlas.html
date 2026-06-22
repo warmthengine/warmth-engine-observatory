@@ -3809,6 +3809,11 @@
             text-align: center;
         }
         @media (max-width: 767px) {
+            /* MOB Phase A — the trace panel becomes the same bottom sheet as the
+               detail panel (#atlas-panel-v2): peek/full/drag/pull-down-dismiss,
+               height pinned to window.innerHeight by JS (setSheetState). Transform
+               is owned by inline JS; the .open class no longer drives position on
+               phone (the desktop .open rule lives outside this media query). */
             .atlas-trace-panel {
                 top: auto;
                 bottom: 0;
@@ -3816,11 +3821,57 @@
                 right: 0;
                 width: 100%;
                 max-width: 100%;
-                max-height: 72vh;
-                border-radius: var(--weo-radius-lg, 12px) var(--weo-radius-lg, 12px) 0 0;
+                max-height: 100vh;
+                max-height: 100dvh;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+                z-index: 600;
+                opacity: 1;
                 transform: translateY(100%);
+                transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1);
+                pointer-events: auto;
             }
-            .atlas-trace-panel.open { transform: translateY(0); }
+            .atlas-trace-panel.open { opacity: 1; }
+            .atlas-trace-panel.state-full { border-radius: 0; }
+            .atlas-trace-panel.state-peek { overflow-y: hidden; }
+            /* Drag-grip pill (the journey aside has no handle element). */
+            .atlas-trace-panel::before {
+                content: '';
+                position: absolute;
+                top: 8px; left: 50%;
+                transform: translateX(-50%);
+                width: 40px; height: 4px;
+                border-radius: 2px;
+                background: #475569;
+                z-index: 2;
+                pointer-events: none;
+            }
+            /* Cockpit — on phone the trace stepper (Prev/Next + step counter)
+               moves up to sit directly under the header so it's reachable in the
+               peek strip; the scrollable body grows below it (flex order). */
+            .atlas-trace-panel .atlas-trace-stepper {
+                order: 1;
+                border-top: none;
+                border-bottom: 1px solid var(--border-default);
+                border-radius: 0;
+            }
+            .atlas-trace-panel .atlas-trace-body { order: 2; }
+            /* In peek only the cockpit (header + stepper) shows — collapse the
+               scroll body and the long guide note so the strip stays compact. */
+            .atlas-trace-panel.state-peek .atlas-trace-body,
+            .atlas-trace-panel.state-peek .atlas-trace-guide {
+                visibility: hidden;
+                height: 0;
+                margin: 0;
+                overflow: hidden;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            /* MOB Phase A — the cockpit ✕ (→ exitJourney) replaces the floating
+               exit pill on phone; the bottom pager is relocated above. The recall
+               pill is kept as the journeys re-entry (it sits behind the z-600
+               sheet while a journey is active). */
+            .atlas-journey-exit { display: none !important; }
         }
 
         /* =================================================================
@@ -4033,13 +4084,44 @@
         .atlas-thread-jumps { display: flex; flex-direction: column; gap: 7px; }
 
         @media (max-width: 767px) {
+            /* MOB Phase A — stack / thread / material panels become the same
+               bottom sheet as the detail panel (peek/full/drag/dismiss, height
+               pinned by JS). .atlas-stack-panel also matches #atlas-material-panel.
+               Transform is owned by inline JS; .open no longer drives position. */
             .atlas-stack-panel, .atlas-thread-panel {
                 top: auto; bottom: 0; left: 0; right: 0;
-                width: 100%; max-width: 100%; max-height: 72vh;
-                border-radius: var(--weo-radius-lg, 12px) var(--weo-radius-lg, 12px) 0 0;
+                width: 100%; max-width: 100%;
+                max-height: 100vh; max-height: 100dvh;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+                z-index: 600;
+                opacity: 1;
                 transform: translateY(100%);
+                transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1);
+                pointer-events: auto;
             }
-            .atlas-stack-panel.open, .atlas-thread-panel.open { transform: translateY(0); }
+            .atlas-stack-panel.open, .atlas-thread-panel.open { opacity: 1; }
+            .atlas-stack-panel.state-full, .atlas-thread-panel.state-full { border-radius: 0; }
+            .atlas-stack-panel.state-peek, .atlas-thread-panel.state-peek { overflow-y: hidden; }
+            .atlas-stack-panel::before, .atlas-thread-panel::before {
+                content: '';
+                position: absolute;
+                top: 8px; left: 50%;
+                transform: translateX(-50%);
+                width: 40px; height: 4px;
+                border-radius: 2px;
+                background: #475569;
+                z-index: 2;
+                pointer-events: none;
+            }
+            .atlas-stack-panel.state-peek .atlas-stack-body,
+            .atlas-thread-panel.state-peek .atlas-thread-body {
+                visibility: hidden;
+                height: 0;
+                overflow: hidden;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
         }
 
         /* --- §13 Standing disclaimer --- */
@@ -4472,6 +4554,23 @@
             }
             .atlas-panel-v2.state-full .atlas-panel-swipe-hint {
                 display: none;
+            }
+            /* MOB Phase A — "← Back to journey" bar at the top of a detail/CC
+               sheet drilled into from a journey (rendered only on phone + in a
+               journey). Visible in peek (it is not a .atlas-panel-section). */
+            .atlas-detail-back {
+                display: block;
+                width: 100%;
+                padding: 11px 16px;
+                background: rgba(45, 212, 191, 0.08);
+                border: none;
+                border-bottom: 1px solid var(--border-default);
+                color: #2DD4BF;
+                font-family: var(--font-sans);
+                font-size: 12px;
+                letter-spacing: 0.04em;
+                text-align: left;
+                cursor: pointer;
             }
             /* Escape / reset-view button — always accessible on mobile,
                even when the graph has been panned into empty space. */
@@ -8224,6 +8323,28 @@
 
             function isMobile() { return window.innerWidth <= 767; }
 
+            // MOB Phase A — the bottom sheet is no longer a single element. The
+            // detail/CC panel (#atlas-panel-v2) and the four journey panels all
+            // share one peek/full/drag/dismiss grammar; `activeSheetEl` is whichever
+            // sheet currently owns the screen. Each sheet declares its own scroll
+            // body so the full-state "swipe-up scrolls content, not sheet"
+            // disambiguation works per panel (journey bodies are nested, distinct
+            // from #atlas-panel-content). All of this is inert off-phone (every
+            // entry point is gated on isMobile()).
+            var SHEET_IDS = ['atlas-panel-v2', 'atlas-trace-panel', 'atlas-stack-panel', 'atlas-thread-panel', 'atlas-material-panel'];
+            var SHEET_SCROLL = {
+                'atlas-panel-v2': '#atlas-panel-content',
+                'atlas-trace-panel': '.atlas-trace-body',
+                'atlas-stack-panel': '.atlas-stack-body',
+                'atlas-thread-panel': '.atlas-thread-body',
+                'atlas-material-panel': '.atlas-stack-body'   // material renders .atlas-stack-body
+            };
+            var activeSheetEl = document.getElementById('atlas-panel-v2');
+            function sheetScrollBody(el) {
+                if (!el) return null;
+                return el.querySelector(SHEET_SCROLL[el.id] || '#atlas-panel-content');
+            }
+
             // Target translateY (px) for each state, relative to window.innerHeight.
             function translateForState(state) {
                 var h = window.innerHeight;
@@ -8269,11 +8390,16 @@
 
             // Drives all state transitions on mobile. Uses inline transform so
             // CSS !important rules can't fight the live drag position.
-            window.setSheetState = function(newState) {
+            window.setSheetState = function(newState, el) {
                 if (!isMobile()) return;
-                var panel = document.getElementById('atlas-panel-v2');
+                var panel = el || activeSheetEl || document.getElementById('atlas-panel-v2');
                 if (!panel) return;
-                var panelContent = document.getElementById('atlas-panel-content');
+                // Only OPENING a sheet makes it the active sheet; closing must NOT
+                // repoint activeSheetEl, or a tuck/close of one sheet (e.g. the
+                // detail panel during a journey launch) would steal the pointer
+                // from another sheet that is actually open.
+                if (newState !== 'closed') activeSheetEl = panel;
+                var panelContent = sheetScrollBody(panel);
 
                 // Reset content scroll immediately — prevents grey gap
                 // (panel background showing through scrolled content area).
@@ -8314,23 +8440,68 @@
             };
 
             window.getSheetState = function() { return sheetState; };
+            window.getActiveSheet = function() { return activeSheetEl; };
 
-            var panel = document.getElementById('atlas-panel-v2');
-            if (!panel) return;
+            // MOB Phase A — open `el` as the active sheet, collapsing whatever
+            // sheet currently owns the screen FIRST (mutual exclusion: never two
+            // sheets visible). The outgoing sheet's transform is driven off-screen
+            // directly (not via its close path) so its DOM/selection state is left
+            // for its own reducer/tuck logic to manage.
+            window.activateSheet = function(el, entryState) {
+                if (!isMobile() || !el) return;
+                if (activeSheetEl && activeSheetEl !== el && sheetState !== 'closed') {
+                    var out = activeSheetEl;
+                    out.classList.remove('state-peek', 'state-half', 'state-full');
+                    out.style.transition = EASING;
+                    out.style.transform = 'translateY(' + window.innerHeight + 'px)';
+                    out.style.height = '';
+                }
+                activeSheetEl = el;
+                // Mutual exclusion with the guided-journey picker: a journey sheet
+                // must never coexist with the Start-here strip (screenshot-2).
+                if (el.id !== 'atlas-panel-v2') {
+                    var picker = document.getElementById('atlas-journeys');
+                    if (picker) picker.classList.remove('visible');
+                }
+                window.setSheetState(entryState || 'peek', el);
+            };
+            // Drive one sheet closed and restore the detail panel as the default
+            // active sheet (called from the journey close paths).
+            window.releaseSheet = function(el) {
+                if (!isMobile()) return;
+                if (el) window.setSheetState('closed', el);   // closes el (does not repoint activeSheetEl)
+                activeSheetEl = document.getElementById('atlas-panel-v2');
+            };
+            // §5 logic proof — a sheet is "open" iff it carries a state-* class
+            // (setSheetState adds exactly one for peek/full, removes all for
+            // closed). The mutual-exclusion invariant is getActiveSheets().length<=1.
+            window.getActiveSheets = function() {
+                return SHEET_IDS.filter(function(id) {
+                    var el = document.getElementById(id);
+                    return el && (el.classList.contains('state-peek') ||
+                                  el.classList.contains('state-half') ||
+                                  el.classList.contains('state-full'));
+                });
+            };
 
-            panel.addEventListener('touchstart', function(e) {
+            var detailSheet = document.getElementById('atlas-panel-v2');
+            if (!detailSheet) return;
+
+            function onSheetTouchStart(e) {
                 if (!isMobile()) return;
                 touchStartY = e.touches[0].clientY;
                 touchStartTime = Date.now();
                 dragActive = false;
-            }, { passive: true });
+            }
 
             // Non-passive so e.preventDefault() blocks page scroll during drag.
-            panel.addEventListener('touchmove', function(e) {
+            function onSheetTouchMove(e) {
                 if (!isMobile() || sheetState === 'closed') return;
+                var panel = activeSheetEl;
+                if (!panel) return;
                 var deltaY = e.touches[0].clientY - touchStartY;
-                var panelContent = document.getElementById('atlas-panel-content');
-                var contentScrolled = panelContent && panelContent.scrollTop > 0;
+                var body = sheetScrollBody(panel);
+                var contentScrolled = body && body.scrollTop > 0;
 
                 // In full state: upward swipes and any swipe while content is
                 // scrolled should scroll the content, not drag the panel.
@@ -8342,14 +8513,14 @@
                     dragStartTranslate = translateForState(sheetState);
                     // Reset content scroll at drag start so the header is always
                     // visible (no grey gap from previously-scrolled content).
-                    if (panelContent) panelContent.scrollTop = 0;
+                    if (body) body.scrollTop = 0;
                     panel.style.transition = 'none';
                 }
 
                 var t = Math.max(0, dragStartTranslate + deltaY);
                 panel.style.transform = 'translateY(' + t + 'px)';
                 e.preventDefault();
-            }, { passive: false });
+            }
 
             function finishDrag(e) {
                 if (!isMobile() || !dragActive) return;
@@ -8369,33 +8540,51 @@
                     targetState = sheetState; // snap back
                 }
 
-                // Do NOT clear panel.style.transform here — setSheetState
+                // Do NOT clear the inline transform here — setSheetState
                 // animates from the current inline position to the target.
                 window.setSheetState(targetState);
 
                 if (targetState === 'closed') {
-                    var closeBtn = document.getElementById('atlas-panel-close') ||
-                                   document.getElementById('atlas-cc-panel-close');
+                    // Click the ACTIVE sheet's own close control so the right
+                    // teardown runs (detail: selection / _journeyForeground;
+                    // journey ✕: exitJourney with position restore + refit).
+                    var el = activeSheetEl;
+                    var closeBtn = el && el.querySelector('#atlas-panel-close, #atlas-cc-panel-close, #atlas-trace-close, #atlas-stack-close, #atlas-thread-close, #atlas-material-close');
                     if (closeBtn) closeBtn.click();
                 }
             }
 
-            panel.addEventListener('touchend', finishDrag, { passive: true });
-
-            panel.addEventListener('touchcancel', function() {
+            function onSheetTouchCancel() {
                 if (!isMobile()) return;
                 if (dragActive) {
                     dragActive = false;
                     window.setSheetState(sheetState); // snap back
                 }
-            }, { passive: true });
+            }
 
             // Tap on the peek strip → full (half state skipped on mobile).
-            panel.addEventListener('click', function(e) {
+            // Exclude close ✕ and the cockpit step buttons: a tap on Prev/Next
+            // must step the journey while staying in peek, not expand to full.
+            function onSheetPeekClick(e) {
                 if (!isMobile()) return;
                 if (sheetState !== 'peek') return;
-                if (e.target.closest('.atlas-panel-close')) return;
+                if (e.target.closest('.atlas-panel-close, .atlas-trace-close, .atlas-trace-step-btn')) return;
                 window.setSheetState('full');
+            }
+
+            // Wire the same drag grammar to every sheet aside. Only the active
+            // sheet receives touches (the others are hidden), so the handlers
+            // read activeSheetEl for the live transform target.
+            function wireSheetDrag(panel) {
+                panel.addEventListener('touchstart', onSheetTouchStart, { passive: true });
+                panel.addEventListener('touchmove', onSheetTouchMove, { passive: false });
+                panel.addEventListener('touchend', finishDrag, { passive: true });
+                panel.addEventListener('touchcancel', onSheetTouchCancel, { passive: true });
+                panel.addEventListener('click', onSheetPeekClick);
+            }
+            SHEET_IDS.forEach(function(id) {
+                var p = document.getElementById(id);
+                if (p) wireSheetDrag(p);
             });
 
             // Re-anchor escape button on every visual viewport move/resize
@@ -9264,9 +9453,11 @@
             if (elAtlasMain && !wasOpen) {
                 elAtlasMain.classList.add('has-panel-open');
             }
-            // DEF-040 V2 §1d — bottom-sheet entry state on mobile.
-            if (window.setSheetState && window.innerWidth <= 767) {
-                window.setSheetState('peek');
+            // DEF-040 V2 §1d — bottom-sheet entry state on mobile. MOB Phase A:
+            // activateSheet makes the detail panel the active sheet, collapsing
+            // any journey sheet beneath it (drill-replace — never two sheets).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elAtlasPanel, 'peek');
             }
             // Hide timeline axes when panel opens to avoid domain band
             // confusion from viewport zoom. Restored in closePanel.
@@ -9876,9 +10067,11 @@
             if (elAtlasMain && !wasOpen) {
                 elAtlasMain.classList.add('has-panel-open');
             }
-            // DEF-040 V2 §1d — bottom-sheet entry state on mobile.
-            if (window.setSheetState && window.innerWidth <= 767) {
-                window.setSheetState('peek');
+            // DEF-040 V2 §1d — bottom-sheet entry state on mobile. MOB Phase A:
+            // activateSheet makes the detail panel the active sheet, collapsing
+            // any journey sheet beneath it (drill-replace — never two sheets).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elAtlasPanel, 'peek');
             }
             // Hide timeline axes when CC panel opens.
             if (atlasState.layoutMode === 'timeline') {
@@ -9941,6 +10134,10 @@
                     else setAtlasState({ selectedConnectionId: null, selectedEventId: null });
                 });
             }
+            // MOB Phase A — explicit "← Back to journey" (phone): returns to the
+            // journey (detail tucks, journey resurfaces — same as the × in-journey).
+            const backBtnCC = elAtlasPanelContent.querySelector('#atlas-detail-back');
+            if (backBtnCC) backBtnCC.addEventListener('click', () => setAtlasState({ _journeyForeground: true }));
             elAtlasPanelContent.querySelectorAll('[data-cc-nav-event]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const evId = btn.getAttribute('data-cc-nav-event');
@@ -9955,8 +10152,10 @@
             if (elAtlasMain) {
                 elAtlasMain.classList.remove('has-panel-open');
             }
-            // DEF-040 V2 §1d — clear bottom-sheet state on close.
-            if (window.setSheetState) window.setSheetState('closed');
+            // DEF-040 V2 §1d — clear bottom-sheet state on close. MOB Phase A:
+            // close the detail sheet explicitly and restore it as the default
+            // active sheet (a still-active journey resurfaces via its untuck).
+            if (window.setSheetState) window.setSheetState('closed', elAtlasPanel);
             // Restore timeline axes on panel close.
             if (atlasState.layoutMode === 'timeline') {
                 ['atlas-timeline-axis', 'atlas-timeline-domains', 'atlas-playback'].forEach(function(id) {
@@ -10260,6 +10459,15 @@
         // Brief 3d — CC inspection panel renderer. Shares the right-side
         // panel container with the event panel; toggled via the
         // `selectedConnectionId` state field.
+        // MOB Phase A — on phone, a detail/CC panel opened from within a journey
+        // shows an explicit "← Back to journey" affordance (the sheet replaced the
+        // journey; this returns to it). Empty off-phone / outside a journey, so
+        // desktop and non-journey opens are byte-identical.
+        function atlasDetailBackBar() {
+            if (window.innerWidth > 767) return '';
+            if (typeof inJourneyMode !== 'function' || !inJourneyMode()) return '';
+            return '<button class="atlas-detail-back" type="button" id="atlas-detail-back" aria-label="Back to journey">← Back to journey</button>';
+        }
         function atlasRenderCCPanel(cc) {
             if (!cc) return '<div class="atlas-panel-section">Connection not found.</div>';
             const typeNum = Number(cc.connection_type);
@@ -10278,6 +10486,7 @@
 
             // Header
             let html = '';
+            html += atlasDetailBackBar();
             html += '<header class="atlas-panel-header atlas-cc-panel-header" id="atlas-cc-header">';
             html += '<button class="atlas-panel-close" type="button" id="atlas-cc-panel-close" aria-label="Close connection details">&times;</button>';
             // Confidence pill — same component as the event panel pill,
@@ -10382,6 +10591,7 @@
             //   - Version chip moved out of the header into the new
             //     §15 Version History accordion
             let html = '';
+            html += atlasDetailBackBar();
             html += '<header class="atlas-panel-header" id="atlas-section-header">';
             html += '<button class="atlas-panel-close" type="button" id="atlas-panel-close" aria-label="Close event details">&times;</button>';
             if (event.confidence) {
@@ -11176,6 +11386,10 @@
                     else setAtlasState({ selectedEventId: null });
                 });
             }
+            // MOB Phase A — explicit "← Back to journey" (phone): returns to the
+            // journey (detail tucks, journey resurfaces — same as the × in-journey).
+            const backBtn = elAtlasPanelContent.querySelector('#atlas-detail-back');
+            if (backBtn) backBtn.addEventListener('click', () => setAtlasState({ _journeyForeground: true }));
             // WS-3 — launch the coordination-pathways trace rooted at this
             // event. Clears the detail-panel selection (mutual exclusion).
             const traceLaunch = elAtlasPanelContent.querySelector('#atlas-trace-launch');
@@ -11993,6 +12207,10 @@
         // canvas (-1 = whole chain shown, no single hop singled out).
         let traceHops = [];
         let traceStepIndex = -1;
+        // MOB Phase A — preserve the trace step across a drill (tap a journey
+        // node → detail → back). untuck re-renders and resets traceStepIndex, so
+        // we stash it on tuck and restore it after the re-render.
+        let _savedTraceStep = -1;
         // WS-5 — the assembled fusion path (coordination/material/capability)
         // for the currently-open Stack Journey, null when none is open.
         let stackJourney = null;
@@ -12404,6 +12622,11 @@
             elTracePanel.setAttribute('aria-hidden', 'false');
             // rAF so the .open transition runs from the hidden state.
             requestAnimationFrame(() => elTracePanel.classList.add('open'));
+            // MOB Phase A — on phone the journey panel IS the bottom sheet;
+            // activate it at peek (collapsing any prior sheet).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elTracePanel, 'peek');
+            }
             highlightTraceChain();
             wireTracePanelInteractions();
         }
@@ -12412,7 +12635,11 @@
             if (!elTracePanel) return;
             elTracePanel.classList.remove('open');
             elTracePanel.setAttribute('aria-hidden', 'true');
-            elTracePanel.hidden = true;
+            if (window.innerWidth <= 767 && window.releaseSheet) {
+                window.releaseSheet(elTracePanel);   // slide off-screen; keep in DOM for the transition
+            } else {
+                elTracePanel.hidden = true;
+            }
             traceHops = [];
             traceStepIndex = -1;
             clearTraceHighlight();
@@ -12627,6 +12854,11 @@
             elThreadPanel.hidden = false;
             elThreadPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elThreadPanel.classList.add('open'));
+            // MOB Phase A — on phone the journey panel IS the bottom sheet;
+            // activate it at peek (collapsing any prior sheet).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elThreadPanel, 'peek');
+            }
             highlightThread(threadKey);
             wireThreadPanelInteractions();
         }
@@ -12635,7 +12867,11 @@
             const prevKey = atlasState._lastThreadKey;
             elThreadPanel.classList.remove('open');
             elThreadPanel.setAttribute('aria-hidden', 'true');
-            elThreadPanel.hidden = true;
+            if (window.innerWidth <= 767 && window.releaseSheet) {
+                window.releaseSheet(elThreadPanel);   // slide off-screen; keep in DOM for the transition
+            } else {
+                elThreadPanel.hidden = true;
+            }
             if (prevKey) clearThreadHighlight(prevKey);
         }
 
@@ -12896,6 +13132,11 @@
             elStackPanel.hidden = false;
             elStackPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elStackPanel.classList.add('open'));
+            // MOB Phase A — on phone the journey panel IS the bottom sheet;
+            // activate it at peek (collapsing any prior sheet).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elStackPanel, 'peek');
+            }
             highlightStackJourney();
             wireStackPanelInteractions();
         }
@@ -12903,7 +13144,11 @@
             if (!elStackPanel) return;
             elStackPanel.classList.remove('open');
             elStackPanel.setAttribute('aria-hidden', 'true');
-            elStackPanel.hidden = true;
+            if (window.innerWidth <= 767 && window.releaseSheet) {
+                window.releaseSheet(elStackPanel);   // slide off-screen; keep in DOM for the transition
+            } else {
+                elStackPanel.hidden = true;
+            }
             stackJourney = null;
             clearStackHighlight();
             if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
@@ -13068,6 +13313,11 @@
             elMaterialPanel.hidden = false;
             elMaterialPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            // MOB Phase A — on phone the journey panel IS the bottom sheet;
+            // activate it at peek (collapsing any prior sheet).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elMaterialPanel, 'peek');
+            }
             highlightMaterialJourney(rootId);
             wireMaterialPanelInteractions();
         }
@@ -13075,7 +13325,11 @@
             if (!elMaterialPanel) return;
             elMaterialPanel.classList.remove('open');
             elMaterialPanel.setAttribute('aria-hidden', 'true');
-            elMaterialPanel.hidden = true;
+            if (window.innerWidth <= 767 && window.releaseSheet) {
+                window.releaseSheet(elMaterialPanel);   // slide off-screen; keep in DOM for the transition
+            } else {
+                elMaterialPanel.hidden = true;
+            }
             materialJourney = null;
             clearMaterialHighlight();
             if (cy && (atlasState.selectedEventId || atlasState.selectedConnectionId)) {
@@ -13101,12 +13355,22 @@
         function tuckDataPanel() {
             if (elAtlasMain) elAtlasMain.classList.remove('has-panel-open');
             if (elAtlasPanel) elAtlasPanel.setAttribute('aria-hidden', 'true');
+            // MOB Phase A — drive the detail sheet off-screen; the journey sheet
+            // it sat over re-raises via its untuck (one sheet at a time).
+            if (window.innerWidth <= 767 && window.setSheetState) {
+                window.setSheetState('closed', elAtlasPanel);
+            }
         }
         function untuckDataPanel() {
             // Content was never cleared, so it reappears as-is — no re-render,
             // no re-fit, no opacity rebuild.
             if (elAtlasMain) elAtlasMain.classList.add('has-panel-open');
             if (elAtlasPanel) elAtlasPanel.setAttribute('aria-hidden', 'false');
+            // MOB Phase A — re-raise the detail sheet (collapses the journey
+            // sheet beneath it).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elAtlasPanel, 'peek');
+            }
         }
         function tuckActiveJourneyPanel() {
             if (atlasState.traceRootId) tuckTracePanel();
@@ -13115,6 +13379,7 @@
         }
         function tuckTracePanel() {
             if (!elTracePanel) return;
+            _savedTraceStep = traceStepIndex;   // MOB Phase A — restore on untuck (drill → back)
             elTracePanel.classList.remove('open');
             elTracePanel.setAttribute('aria-hidden', 'true');
             elTracePanel.hidden = true;
@@ -13125,11 +13390,18 @@
             elTracePanel.hidden = false;
             elTracePanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elTracePanel.classList.add('open'));
+            // MOB Phase A — re-raise the journey sheet (collapses the detail
+            // sheet it was drilled into).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elTracePanel, 'peek');
+            }
             // WS-9 item 11 — returning from a data panel: re-apply the journey
             // highlight WITHOUT re-laying out (nodes are still in place); the
             // panel re-open transitionend re-fits the camera to the journey.
             highlightTraceChain(true);
             wireTracePanelInteractions();
+            // MOB Phase A — restore the step the user was on before the drill.
+            if (_savedTraceStep >= 0 && typeof setTraceStep === 'function') setTraceStep(_savedTraceStep);
         }
         function tuckStackPanel() {
             if (!elStackPanel) return;
@@ -13143,6 +13415,11 @@
             elStackPanel.hidden = false;
             elStackPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elStackPanel.classList.add('open'));
+            // MOB Phase A — re-raise the journey sheet (collapses the detail
+            // sheet it was drilled into).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elStackPanel, 'peek');
+            }
             // WS-9 item 11 — re-apply highlight without re-layout; refit via
             // the panel re-open transitionend.
             highlightStackJourney(true);
@@ -13160,6 +13437,11 @@
             elMaterialPanel.hidden = false;
             elMaterialPanel.setAttribute('aria-hidden', 'false');
             requestAnimationFrame(() => elMaterialPanel.classList.add('open'));
+            // MOB Phase A — re-raise the journey sheet (collapses the detail
+            // sheet it was drilled into).
+            if (window.activateSheet && window.innerWidth <= 767) {
+                window.activateSheet(elMaterialPanel, 'peek');
+            }
             // WS-9 item 11 — re-apply highlight without re-layout; refit via
             // the panel re-open transitionend.
             highlightMaterialJourney(atlasState.materialRootId, true);
@@ -14934,6 +15216,10 @@
             // everywhere else, so every other exit path is byte-for-byte unchanged.
             opts = opts || {};
             if (!inJourneyMode() && !atlasState.selectedThreadKey) return;
+            // MOB Phase A (A1) — exiting removes the journey overlay; arm the
+            // ghost-click swallow so the synthesized post-tap click can't select
+            // a node on the now-exposed canvas.
+            if (window._armGhostGuard) window._armGhostGuard();
             // WS-9 item 7 — leaving entry mode: clear the entry guard so the
             // exit's own fit is never blocked, and any in-flight entry pulse /
             // fit is mooted (they guard on inJourneyMode(), false from here).
@@ -15081,6 +15367,10 @@
         function runGuidedJourney(id) {
             const j = guidedJourneyById(id);
             if (!j) return;
+            // MOB Phase A (A1) — launching collapses the picker; arm the ghost-click
+            // swallow so the synthesized post-tap click can't land on the canvas
+            // behind where the card was.
+            if (window._armGhostGuard) window._armGhostGuard();
             // Session action — collapse to the pill so the strip returns on the
             // next clean load; do NOT set the persistent collapsed flag.
             collapseGuidedToPill();
@@ -15222,7 +15512,46 @@
                 ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
                     el.addEventListener(type, e => e.stopPropagation(), { passive: true });
                 });
+                // MOB Phase A (A1) — a tap on chrome that DISMISSES its own overlay
+                // (a journey card collapses the picker; the exit pill ends the
+                // journey) leaves the canvas exposed; ~300ms later the browser's
+                // synthesized compatibility mouse-click lands there and cytoscape
+                // fires tap → "click-through". The passive stopPropagation above
+                // can't cancel that synthesized click. Arm a one-shot swallow on
+                // touchend so the ghost is eaten.
+                el.addEventListener('touchend', function() {
+                    if (window._armGhostGuard) window._armGhostGuard();
+                }, { passive: true });
             });
+
+            // A1 — the one-shot ghost-click swallow. Armed (phone only) by the
+            // chrome touchend above and by exitJourney / runGuidedJourney. While
+            // armed (~450ms) it cancels, in the CAPTURE phase before cytoscape's
+            // container handler runs, the synthesized compatibility mouse events
+            // (mousedown/up/click + pointer events whose pointerType is 'mouse')
+            // on the cy container. Real touch taps (pointerType 'touch' / touch*
+            // events) are untouched — a bare-canvas tap still selects and an
+            // in-journey node tap still drills. Targeted, not a global tap kill.
+            (function wireGhostGuard() {
+                if (window._ghostGuardWired) return;
+                window._ghostGuardWired = true;
+                window._ghostGuardUntil = 0;
+                window._armGhostGuard = function() {
+                    if (window.innerWidth <= 767) window._ghostGuardUntil = Date.now() + 450;
+                };
+                const net = document.getElementById('atlas-network');
+                if (!net) return;
+                function ghostSwallow(e) {
+                    if (window.innerWidth > 767) return;
+                    if (Date.now() >= (window._ghostGuardUntil || 0)) return;
+                    if (e.type.indexOf('pointer') === 0 && e.pointerType && e.pointerType !== 'mouse') return;
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                }
+                ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click'].forEach(function(t) {
+                    net.addEventListener(t, ghostSwallow, true);  // capture
+                });
+            })();
         }
 
         // -----------------------------------------------------------------
