@@ -10009,25 +10009,35 @@
                     // so filters work again later.
                     if (typeof inJourneyMode === 'function' && inJourneyMode()) { panelClosingInProgress = false; return; }
                     cy.resize();
-                    // V8 — symmetric reverse of the open path's
+                    // V8/V12 — symmetric reverse of the open path's
                     // applyPanelSelectionHighlight, which adds
                     // panel-dim/focus/primary atomically at zoom-in
-                    // complete (T=400 on open). Here the classes are
-                    // stripped atomically at zoom-back complete (T=750
-                    // on close).
+                    // complete (T=400 on open). On close the classes are
+                    // stripped atomically and the rest-of-filter set is
+                    // re-highlighted — but V12 moves that whole block OUT
+                    // of the camera's complete callback (where it ran at
+                    // ~T=750, a visible second flash after the zoom-back
+                    // had already settled) to run CONCURRENTLY with the
+                    // camera zoom-back. startRehighlightFade() fires at
+                    // T=350 with a 400ms fade matched to the camera, so
+                    // both conclude together at ~T=750. cleanupFinal is
+                    // now teardown-only. Every V8–V11 protection below is
+                    // retained verbatim, just relocated from T=750 to T=350.
                     //
-                    // Wrapped in a single cy.batch() so nodes, edges,
-                    // and labels all change in one render frame.
-                    // Without this batch, Cytoscape's per-element
-                    // commits could spread across multiple frames,
-                    // causing visible stagger between icons, CC lines,
-                    // and event titles (especially noticeable in
-                    // Timeline and Connectedness modes where elements
-                    // bunch close together).
-                    const cleanupFinal = () => {
+                    // The strip is wrapped in a single cy.batch() so nodes,
+                    // edges, and labels all change in one render frame.
+                    // Without this batch, Cytoscape's per-element commits
+                    // could spread across multiple frames, causing visible
+                    // stagger between icons, CC lines, and event titles
+                    // (especially noticeable in Timeline and Connectedness
+                    // modes where elements bunch close together).
+                    const startRehighlightFade = () => {
                         if (!cy) return;
-                        // V8b+ — close transition complete; re-enable
-                        // applyFiltersToCytoscape for all callers.
+                        // V8b — clear the closing flag momentarily so our OWN
+                        // deliberate applyFiltersToCytoscape below is not
+                        // blocked (it early-returns while the flag is set).
+                        // Re-armed at the end of this function for the
+                        // duration of the concurrent camera+fade.
                         panelClosingInProgress = false;
                         // V11 — suppress stylesheet transitions for the
                         // duration of the close animation. The base node
@@ -10047,7 +10057,7 @@
                         //       with explicit text-opacity:0 overrides).
                         // Suppressing transitions here means only V10's
                         // JavaScript animate drives opacity. Re-enabled in
-                        // the 260ms setTimeout below.
+                        // cleanupFinal once the camera+fade have settled.
                         cy.elements().style('transition-duration', '0ms');
                         // V10 — snapshot pre-strip opacities. applyPanel-
                         // SelectionHighlight uses class-based opacity only
@@ -10072,17 +10082,17 @@
                         });
                         // V8b — re-run filter sync skipped in
                         // syncCytoscapeOnState during the close transition.
+                        // (Flag cleared above so this deliberate call runs.)
                         applyFiltersToCytoscape(atlasState);
                         // V10b — apply mode label cap synchronously,
                         // before any render. restoreBaseOpacities (called
                         // inside applyFiltersToCytoscape) sets text-opacity:1
                         // on label-always nodes before the per-mode cap
                         // (Connectedness top-N, Timeline cap, collision
-                        // resolver) has run. With resolveLabelsWithModeCap
-                        // deferred to 260ms, there was a visible flash of
-                        // excess labels between strip and cap. Moving it
-                        // here means text-opacity is correct before the
-                        // first render frame after cleanupFinal fires.
+                        // resolver) has run. Without this synchronous call
+                        // there is a visible flash of excess labels between
+                        // strip and cap. Running it here means text-opacity
+                        // is correct before the first render frame.
                         resolveLabelsWithModeCap();
                         // Read final targets into a second map before
                         // the reset loop — necessary because the reset
@@ -10103,35 +10113,46 @@
                         // "final state" frame is painted before the animation
                         // begins. V9b used rAF here, which created exactly
                         // that intermediate frame — causing the visible pulse.
+                        // V12 — duration is 400ms (matched to the camera zoom-
+                        // back dispatched immediately after this function) so
+                        // the fade concludes at the same instant the camera
+                        // settles, rather than starting only once it has.
                         cy.elements().forEach(ele => {
                             const from = snapOp.get(ele.id());
                             const to = targetOp.get(ele.id());
                             ele.style('opacity', from);
-                            if (Math.abs(from - to) > 0.005) {
-                                ele.animate(
-                                    { style: { opacity: to } },
-                                    { duration: 250, easing: 'ease-out' }
-                                );
-                            }
+                            // V12 — collect opacity AND line-opacity into a
+                            // SINGLE animate per element. Two separate
+                            // ele.animate() calls queue by default in Cytoscape
+                            // (the second waits for the first to finish), so
+                            // an edge's line-opacity would chain ~400ms behind
+                            // its opacity — the edges would re-brighten only
+                            // after the camera had settled, the exact lag this
+                            // fix removes for nodes. One combined animation
+                            // keeps opacity and line-opacity in lockstep, both
+                            // concluding with the camera at ~T=750.
+                            const toStyle = {};
+                            if (Math.abs(from - to) > 0.005) { toStyle.opacity = to; }
                             if (ele.isEdge()) {
                                 const fromL = snapLineOp.get(ele.id());
                                 const toL = targetLineOp.get(ele.id());
                                 ele.style('line-opacity', fromL);
-                                if (Math.abs(fromL - toL) > 0.005) {
-                                    ele.animate(
-                                        { style: { 'line-opacity': toL } },
-                                        { duration: 250, easing: 'ease-out' }
-                                    );
-                                }
+                                if (Math.abs(fromL - toL) > 0.005) { toStyle['line-opacity'] = toL; }
+                            }
+                            if (Object.keys(toStyle).length) {
+                                ele.animate(
+                                    { style: toStyle },
+                                    { duration: 400, easing: 'ease-out' }
+                                );
                             }
                         });
-                        // V8b++ — re-arm the closing flag after the
-                        // animate loop so any mouseout/hover event that
-                        // fires during the 250ms opacity animation is
-                        // blocked from calling applyFiltersToCytoscape.
-                        // Without this, mouseout (triggered by the node
-                        // position changes from the camera zoom-back)
-                        // calls restoreBaseOpacities mid-animation, which:
+                        // V8b++ — re-arm the closing flag after the animate
+                        // loop so any mouseout/hover event that fires during
+                        // the concurrent camera+fade is blocked from calling
+                        // applyFiltersToCytoscape. Without this, mouseout
+                        // (triggered by the node position changes from the
+                        // camera zoom-back) calls restoreBaseOpacities mid-
+                        // animation, which:
                         //   (a) sets ALL label-always nodes to text-opacity:1
                         //       before AABB re-hides them → label flash in
                         //       Network mode (no allowSet, all get text-
@@ -10140,37 +10161,44 @@
                         //       have running animates → disrupts the opacity
                         //       fade, causing the overshoot-then-snap the
                         //       user sees in all modes.
-                        // The flag is cleared in the setTimeout below once
-                        // the 250ms animation has settled.
+                        // The flag is cleared in cleanupFinal once the camera
+                        // transition (and the matched 400ms fade) have settled.
                         panelClosingInProgress = true;
-                        // Overlays after opacity fade settles.
-                        // resolveLabelsWithModeCap already ran above;
-                        // only DOM sample overlays need the deferred call.
-                        setTimeout(() => {
-                            if (!cy) return;
-                            // Re-enable stylesheet transitions before
-                            // the deferred label re-evaluation so hover
-                            // and filter transitions work normally again.
-                            cy.elements().removeStyle('transition-duration');
-                            panelClosingInProgress = false;
-                            // Deferred re-evaluation at final base opacities
-                            // (after dim nodes have completed their 250ms
-                            // animate). Catches any label-always nodes that
-                            // were excluded from the synchronous AABB pass
-                            // because they were below the 0.1 opacity filter
-                            // while still at their panel-dim from-values.
-                            resolveLabelsWithModeCap();
-                            syncSampleOverlays();
-                        }, 260);
                     };
+
+                    // V12 — teardown only. Runs when the camera zoom-back
+                    // completes (~T=750), by which point the concurrent
+                    // re-highlight fade started in startRehighlightFade has
+                    // also concluded (both 400ms from T=350).
+                    const cleanupFinal = () => {
+                        if (!cy) return;
+                        // Re-enable stylesheet transitions before the deferred
+                        // label re-evaluation so hover and filter transitions
+                        // work normally again (suppressed in startRehighlightFade
+                        // for the close animation).
+                        cy.elements().removeStyle('transition-duration');
+                        // Close transition complete; re-enable
+                        // applyFiltersToCytoscape for all callers.
+                        panelClosingInProgress = false;
+                        // Deferred re-evaluation at final base opacities (after
+                        // dim nodes have completed their fade). Catches any
+                        // label-always nodes that were excluded from the
+                        // synchronous AABB pass because they were below the 0.1
+                        // opacity filter while still at their panel-dim from-values.
+                        resolveLabelsWithModeCap();
+                        syncSampleOverlays();
+                    };
+
+                    // V12 — start the re-highlight fade NOW, concurrent with
+                    // the camera zoom-back dispatched below. Both run 400ms
+                    // and settle together at ~T=750.
+                    startRehighlightFade();
 
                     if (atlasState.layoutMode === 'connectedness') {
                         anchorConnectednessCentre({ animated: true });
-                        // anchorConnectednessCentre uses cy.animate
-                        // internally with duration: 400 — match that
-                        // here so cleanupFinal fires after the camera
-                        // transition ends (V8b: cleanupFinal handles
-                        // the atomic panel-* strip + filter resync).
+                        // anchorConnectednessCentre uses cy.animate internally
+                        // with duration: 400 — match that here so cleanupFinal
+                        // (teardown) fires after the camera transition ends.
                         setTimeout(cleanupFinal, 400);
                     } else if (atlasState.layoutMode === 'timeline') {
                         // V2 fix Bug 3 (DEF-047) — Timeline post-panel-
@@ -10192,7 +10220,10 @@
                                 complete: cleanupFinal
                             });
                         } else {
-                            cleanupFinal();
+                            // No event nodes to fit → no camera animate. Still
+                            // let the concurrent fade run its 400ms before the
+                            // teardown re-enables transitions / clears the flag.
+                            setTimeout(cleanupFinal, 400);
                         }
                     } else {
                         // V3 fix R1 (DEF-047) — Network panel-close must
