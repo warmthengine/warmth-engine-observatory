@@ -9590,9 +9590,26 @@
             // hub-and-spoke journey can't over-zoom and push legs off-screen.
             layout.one('layoutstop', function() {
                 if (typeof fitToUsableViewport === 'function') {
+                    // B6 (re-root left-shift) — reconcile cytoscape's CACHED
+                    // container size before the entry fit measures it. When this
+                    // journey re-roots FROM an open detail panel, tuckDataPanel
+                    // dropped .has-panel-open and the grid widened the canvas, but
+                    // cytoscape still holds the narrow (panel-present) width its
+                    // last cy.resize() captured (openPanel resizes on a 350ms
+                    // timer at the narrow width; nothing resizes after the tuck).
+                    // Instrumented: at this point the container is already settled
+                    // wide (rect 940) yet cy.width() reads the stale 800, so the
+                    // fit framed the journey into the left portion and the entry-
+                    // fit guard suppressed the corrective refit. cy.resize() is the
+                    // canonical reconcile — a no-op when the size is unchanged
+                    // (normal no-panel entry), so it adds no second fit/tween and
+                    // leaves that path's framing byte-identical. layoutstop fires
+                    // after the 400ms layout animation (> the 350ms grid tween), so
+                    // the container is reliably settled when we read it.
+                    if (typeof cy.resize === 'function') cy.resize();
                     fitToUsableViewport(focusEles.nodes(), {
                         padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
-                        duration: 360, easing: 'ease-out',
+                        duration: 360, easing: 'ease-out', label: 'journeyEntryFit',
                         // WS-9 item 5 — exactly ONE viewport tween per entry:
                         // only after it settles is refit re-enabled.
                         complete: function() {
@@ -9634,12 +9651,36 @@
                 } catch (errFallback) {
                     if (window.console && console.warn) console.warn('[WEO Atlas] undirected journey-layout fallback also threw; keeping current positions:', errFallback && errFallback.message);
                 }
-                _journeyEntering = false;
                 if (typeof fitToUsableViewport === 'function') {
-                    fitToUsableViewport(focusEles.nodes(), {
-                        padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
-                        duration: 360, easing: 'ease-out'
-                    });
+                    // B6 (re-root left-shift) — unlike the primary path (whose fit
+                    // runs at layoutstop, ~400ms in, after the 200ms grid tween has
+                    // settled), this fallback layout is synchronous (animate:false),
+                    // so it would frame WHILE the detail-panel tuck's grid transition
+                    // is still widening the canvas. cy.width() — and even a cy.resize()
+                    // right here — would read the narrow panel-present width and shift
+                    // the journey left (China Interim re-root hits this path).
+                    // Defer one grid-transition past the tuck (mirrors openPanel's
+                    // 350ms post-transition resize convention; --duration-normal is
+                    // 200ms), THEN reconcile the cached size and frame. Hold
+                    // _journeyEntering across the wait so a stray panel transitionend
+                    // can't slip a refitActiveJourney in at the stale width.
+                    setTimeout(function() {
+                        // Bail if the user exited during the wait — exitJourney owns
+                        // the camera then, and its fit must not be fought. Always
+                        // release the entry guard either way.
+                        if (typeof inJourneyMode === 'function' && !inJourneyMode()) {
+                            _journeyEntering = false;
+                            return;
+                        }
+                        if (typeof cy.resize === 'function') cy.resize();
+                        fitToUsableViewport(focusEles.nodes(), {
+                            padding: 120, paddingCapRatio: 0.14, maxAbsoluteZoom: 1.5,
+                            duration: 360, easing: 'ease-out', label: 'journeyEntryFitFallback',
+                            complete: function() { _journeyEntering = false; }
+                        });
+                    }, 350);
+                } else {
+                    _journeyEntering = false;
                 }
             }
         }
