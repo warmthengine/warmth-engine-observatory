@@ -14056,6 +14056,25 @@
                     }
                 });
             });
+
+            // Item 1 (RE-OPEN) — mirror the sample-overlay gold glows to each
+            // node's resolved band opacity. The glow <div>s are DOM siblings of
+            // the canvas (buildSampleOverlays), so the atlas-cb-* opacity the
+            // batch above wrote to each node never reaches them: the filter pass
+            // (applyFiltersToCytoscape) last set them to match ? 1 : 0.12 — blind
+            // to the selection band. Without this, an in-filter NON-neighbour
+            // (atlas-cb-context, node 0.4) keeps a full-bright 1.0 glow that masks
+            // the dim, erasing the clicked-neighbourhood differential. Confirmed
+            // live on #tier=2&event=06: sampled nodes 14 & 22 read 0.4 on canvas
+            // yet 1.0 glow. Resolver-active (both-active, non-journey) case only —
+            // the no-filter / journey paths keep their own overlay sync via
+            // restoreBaseOpacities (→ baseOpacity). numericStyle reads the
+            // post-batch computed opacity so the glow matches its node exactly.
+            if (resolverActive) {
+                sampleOverlays.forEach(({ node, el }) => {
+                    el.style.opacity = String(node.numericStyle('opacity'));
+                });
+            }
         }
 
         // Patch 8 §2 — near no-op. The new dimming pattern affects
