@@ -6504,12 +6504,26 @@
                         style: { 'opacity': 1, 'text-opacity': 0, 'transition-duration': '0ms' }
                     },
                     {
+                        // Item 1 (final) — DESATURATE, don't just dim. Opacity-only
+                        // reduction on saturated domain colours over the near-black
+                        // canvas didn't register (failed twice). The context tier
+                        // overrides the radial-gradient fill with a flat neutral grey
+                        // (background-fill: solid is REQUIRED — a bare background-color
+                        // is ignored while the base node keeps background-fill:
+                        // radial-gradient) AND greys border-color so the T2 red /
+                        // bloc-coloured (incl. orange-dashed) ring desaturates with the
+                        // body — otherwise the bright ring cancels the effect, the
+                        // node-fix analogue of the gold-glow masking. Opacity rises to
+                        // 0.5: grey already recesses it, so no need to crush opacity.
                         selector: 'node.atlas-cb-context',
-                        style: { 'opacity': 0.4, 'text-opacity': 0, 'transition-duration': '0ms' }
+                        style: { 'opacity': 0.5, 'text-opacity': 0, 'background-fill': 'solid', 'background-color': '#6B7280', 'border-color': '#6B7280', 'transition-duration': '0ms' }
                     },
                     {
+                        // Excluded tier — darker grey than context, low opacity kept
+                        // (0.12 already ghosted). The opacity gap (context 0.5 vs
+                        // excluded 0.12) keeps the two grey tiers distinguishable.
                         selector: 'node.atlas-cb-excluded',
-                        style: { 'opacity': 0.12, 'text-opacity': 0, 'transition-duration': '0ms' }
+                        style: { 'opacity': 0.12, 'text-opacity': 0, 'background-fill': 'solid', 'background-color': '#4B5563', 'border-color': '#4B5563', 'transition-duration': '0ms' }
                     },
                     {
                         // Bright incident/focus edges — the links you clicked to see.
@@ -6521,13 +6535,20 @@
                     },
                     {
                         // Context-to-context edges (both endpoints in-filter, neither
-                        // in the clicked neighbourhood) — present but recessive.
+                        // in the clicked neighbourhood) — present but recessive. Item 1
+                        // (final): overrides the CC-type colour with flat grey
+                        // (line-fill: solid is REQUIRED — line-color is ignored while
+                        // the base edge keeps line-fill: linear-gradient; the arrowhead
+                        // colour is greyed too, else directional context arrows stay
+                        // type-coloured). Losing the CC-type colour while recessive is
+                        // the intended trade-off — colour becomes the focus signal.
                         selector: 'edge.atlas-cb-context',
-                        style: { 'opacity': 0.3, 'line-opacity': 0.3, 'transition-duration': '0ms' }
+                        style: { 'opacity': 0.35, 'line-opacity': 0.35, 'line-fill': 'solid', 'line-color': '#6B7280', 'target-arrow-color': '#6B7280', 'transition-duration': '0ms' }
                     },
                     {
+                        // Excluded edges — darker grey, low opacity kept (0.06).
                         selector: 'edge.atlas-cb-excluded',
-                        style: { 'opacity': 0.06, 'line-opacity': 0.06, 'transition-duration': '0ms' }
+                        style: { 'opacity': 0.06, 'line-opacity': 0.06, 'line-fill': 'solid', 'line-color': '#374151', 'target-arrow-color': '#374151', 'transition-duration': '0ms' }
                     },
                     {
                         // DEF-047 (V2) — Domain band rectangles for
