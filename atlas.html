@@ -6476,80 +6476,13 @@
                             'line-opacity': 1
                         }
                     },
-                    // ===========================================================
-                    // PR-2 — COMBINED FILTER+SELECTION OPACITY RESOLVER
-                    //
-                    // The atlas-cb-* ("combined-band") classes are the SINGLE
-                    // channel for the both-active case (a filter active AND a node
-                    // selected). applyPanelSelectionHighlight is the sole writer —
-                    // it assigns exactly ONE cb class per element from the merged
-                    // (filter, selection) state, so the old class-order war
-                    // (atlas-filter-match opacity:1 beating panel-dim) can't recur.
-                    // Declared AFTER panel-* (≈6000) and the atlas-filter-* classes
-                    // above, so wherever a cb class is present it wins by cytoscape
-                    // declaration order — no reorder of the existing stylesheet, and
-                    // they're applied ONLY in the both-active, non-journey case.
-                    // Five node bands collapse to four opacity levels (no fourth
-                    // band): focus/primary 1.0, context 0.4 (in-filter non-neighbour
-                    // AND cross-tier out-of-filter neighbour), excluded 0.12.
-                    // Text-opacity tracks the band; only the primary is labelled
-                    // (matching the existing selection look — neighbours stay
-                    // unlabelled so the panel's anchor is unambiguous).
-                    {
-                        selector: 'node.atlas-cb-primary',
-                        style: { 'opacity': 1, 'text-opacity': 1, 'z-index': 999, 'transition-duration': '0ms' }
-                    },
-                    {
-                        selector: 'node.atlas-cb-focus',
-                        style: { 'opacity': 1, 'text-opacity': 0, 'transition-duration': '0ms' }
-                    },
-                    {
-                        // Item 1 (final) — DESATURATE, don't just dim. Opacity-only
-                        // reduction on saturated domain colours over the near-black
-                        // canvas didn't register (failed twice). The context tier
-                        // overrides the radial-gradient fill with a flat neutral grey
-                        // (background-fill: solid is REQUIRED — a bare background-color
-                        // is ignored while the base node keeps background-fill:
-                        // radial-gradient) AND greys border-color so the T2 red /
-                        // bloc-coloured (incl. orange-dashed) ring desaturates with the
-                        // body — otherwise the bright ring cancels the effect, the
-                        // node-fix analogue of the gold-glow masking. Opacity rises to
-                        // 0.5: grey already recesses it, so no need to crush opacity.
-                        selector: 'node.atlas-cb-context',
-                        style: { 'opacity': 0.5, 'text-opacity': 0, 'background-fill': 'solid', 'background-color': '#6B7280', 'border-color': '#6B7280', 'transition-duration': '0ms' }
-                    },
-                    {
-                        // Excluded tier — darker grey than context, low opacity kept
-                        // (0.12 already ghosted). The opacity gap (context 0.5 vs
-                        // excluded 0.12) keeps the two grey tiers distinguishable.
-                        selector: 'node.atlas-cb-excluded',
-                        style: { 'opacity': 0.12, 'text-opacity': 0, 'background-fill': 'solid', 'background-color': '#4B5563', 'border-color': '#4B5563', 'transition-duration': '0ms' }
-                    },
-                    {
-                        // Bright incident/focus edges — the links you clicked to see.
-                        // Kept bright even when the far endpoint is out-of-filter
-                        // (cross-tier rule): a real CC line terminating at a legibly
-                        // dimmed node.
-                        selector: 'edge.atlas-cb-bright',
-                        style: { 'opacity': 0.85, 'line-opacity': 0.85, 'transition-duration': '0ms' }
-                    },
-                    {
-                        // Context-to-context edges (both endpoints in-filter, neither
-                        // in the clicked neighbourhood) — present but recessive. Item 1
-                        // (final): overrides the CC-type colour with flat grey
-                        // (line-fill: solid is REQUIRED — line-color is ignored while
-                        // the base edge keeps line-fill: linear-gradient; the arrowhead
-                        // colour is greyed too, else directional context arrows stay
-                        // type-coloured). Losing the CC-type colour while recessive is
-                        // the intended trade-off — colour becomes the focus signal.
-                        selector: 'edge.atlas-cb-context',
-                        style: { 'opacity': 0.35, 'line-opacity': 0.35, 'line-fill': 'solid', 'line-color': '#6B7280', 'target-arrow-color': '#6B7280', 'transition-duration': '0ms' }
-                    },
-                    {
-                        // Excluded edges — darker grey, low opacity kept (0.06).
-                        selector: 'edge.atlas-cb-excluded',
-                        style: { 'opacity': 0.06, 'line-opacity': 0.06, 'line-fill': 'solid', 'line-color': '#374151', 'target-arrow-color': '#374151', 'transition-duration': '0ms' }
-                    },
+                    // PR-2's atlas-cb-* combined-band rules (node primary/focus/
+                    // context/excluded + edge bright/context/excluded, incl. #239's
+                    // grey desaturation) were removed here: the three-tier filter+
+                    // selection resolver is gone, replaced by the binary panel-*/dim
+                    // path (see applyPanelSelectionHighlight). No element is assigned a
+                    // cb class any more. The CB_CLASSES const and its defensive
+                    // removeClass() calls are kept as harmless stale-state cleanup.
                     {
                         // DEF-047 (V2) — Domain band rectangles for
                         // Timeline mode. Path 2A: uniform fill, very
@@ -13963,18 +13896,14 @@
 
             if (focusNodes.length === 0) return;
 
-            // PR-2 — both-active resolver gate. When a filter is active (and no
-            // journey owns the canvas), each event node/edge gets exactly ONE
-            // combined-band class instead of the binary panel-focus/panel-dim, so
-            // the clicked neighbourhood reads against a 0.4 filter-context tier
-            // rather than every filtered node staying equally bright. In-filter
-            // membership is read off the atlas-filter-match / atlas-filtered-out
-            // classes the filter pass already set (current as long as the filter
-            // is unchanged). Journey mode and the no-filter case keep the original
-            // binary path untouched.
-            const resolverActive = hasAnyActiveFilter(atlasState.filters) &&
-                !(typeof inJourneyMode === 'function' && inJourneyMode());
-
+            // Binary focus/dim model. The PR-2 three-tier combined-band resolver
+            // (focus / context / excluded) is removed: filter + selection now
+            // behaves identically to a no-filter selection — the clicked
+            // neighbourhood vivid, EVERYTHING else dimmed uniformly via panel-dim,
+            // with no grey "context" middle tier. The only filter-specific
+            // behaviour is on deselect (cleanupFinal re-runs applyFiltersToCytoscape,
+            // restoring the filter highlight). The atlas-cb-* classes are no longer
+            // applied anywhere (their CSS is now dead).
             cy.batch(() => {
                 // Fix 2 — use addClass/removeClass instead of .style().
                 // Class-based styles are defined in the Cytoscape
@@ -14009,25 +13938,20 @@
                     n.removeStyle('transition-duration');
                     n.removeClass('panel-dim panel-focus panel-primary journey-focus');
                     n.removeClass(CB_CLASSES);
+                    // Pause the filter while a selection is active (§4). The
+                    // filter pass marks in-filter nodes atlas-filter-match
+                    // (opacity 1) / out-of-filter atlas-filtered-out (0.12);
+                    // both rules are declared AFTER panel-* so they'd WIN the
+                    // cytoscape declaration-order tiebreak and keep an in-filter
+                    // non-neighbour fully lit despite its panel-dim class (the
+                    // class-order war PR-2 worked around). Stripping them here
+                    // lets the binary panel-* opacity govern uniformly. Deselect
+                    // re-asserts the filter via cleanupFinal → applyFiltersTo-
+                    // Cytoscape. Safe: the only logic readers of these classes
+                    // (hover spotlight) early-return while a panel is open.
+                    n.removeClass('atlas-filter-match atlas-filtered-out');
                     const inFocus = focusNodes.contains(n);
                     const isPrimary = primaryNodeIds.has(n.id());
-                    // PR-2 resolver — event nodes only (bands stay scaffolding and
-                    // keep the binary path below). One band class per node.
-                    if (resolverActive && n.data('event')) {
-                        const inFilter = n.hasClass('atlas-filter-match');
-                        if (isPrimary) {
-                            n.addClass('atlas-cb-primary');
-                        } else if (inFocus && inFilter) {
-                            n.addClass('atlas-cb-focus');           // in-filter neighbour → full
-                        } else if (inFocus) {
-                            n.addClass('atlas-cb-context');         // cross-tier neighbour → 0.4
-                        } else if (inFilter) {
-                            n.addClass('atlas-cb-context');         // filter-context → 0.4
-                        } else {
-                            n.addClass('atlas-cb-excluded');        // out-of-filter, off-focus → 0.12
-                        }
-                        return;
-                    }
                     if (inFocus) {
                         if (isPrimary) {
                             n.addClass('panel-primary');
@@ -14052,24 +13976,10 @@
                     e.removeStyle('transition-duration');
                     e.removeClass('panel-dim panel-focus');
                     e.removeClass(CB_CLASSES);
+                    // Pause the filter on edges too (see node loop) so panel-*
+                    // governs; restored on deselect by applyFiltersToCytoscape.
+                    e.removeClass('atlas-filter-match atlas-filtered-out');
                     const inFocusEdge = focusEdges.contains(e);
-                    // PR-2 resolver — CC edges only (thread edges run their own
-                    // toggle/highlight, like the filter pass which skips them).
-                    if (resolverActive && !e.hasClass('thread-edge')) {
-                        const bright = inFocusEdge ||
-                            (focusNodes.contains(e.source()) && focusNodes.contains(e.target()));
-                        if (bright) {
-                            // incident to the clicked node (or between two focus
-                            // nodes) → bright, regardless of the far endpoint's
-                            // filter status.
-                            e.addClass('atlas-cb-bright');
-                        } else if (e.source().hasClass('atlas-filter-match') && e.target().hasClass('atlas-filter-match')) {
-                            e.addClass('atlas-cb-context');         // context↔context → 0.3
-                        } else {
-                            e.addClass('atlas-cb-excluded');        // excluded → 0.06
-                        }
-                        return;
-                    }
                     if (inFocusEdge) {
                         e.addClass('panel-focus');
                     } else {
@@ -14078,20 +13988,20 @@
                 });
             });
 
-            // Item 1 (RE-OPEN) — mirror the sample-overlay gold glows to each
-            // node's resolved band opacity. The glow <div>s are DOM siblings of
-            // the canvas (buildSampleOverlays), so the atlas-cb-* opacity the
-            // batch above wrote to each node never reaches them: the filter pass
-            // (applyFiltersToCytoscape) last set them to match ? 1 : 0.12 — blind
-            // to the selection band. Without this, an in-filter NON-neighbour
-            // (atlas-cb-context, node 0.4) keeps a full-bright 1.0 glow that masks
-            // the dim, erasing the clicked-neighbourhood differential. Confirmed
-            // live on #tier=2&event=06: sampled nodes 14 & 22 read 0.4 on canvas
-            // yet 1.0 glow. Resolver-active (both-active, non-journey) case only —
-            // the no-filter / journey paths keep their own overlay sync via
-            // restoreBaseOpacities (→ baseOpacity). numericStyle reads the
-            // post-batch computed opacity so the glow matches its node exactly.
-            if (resolverActive) {
+            // Item 1 (#238) — mirror the sample-overlay gold glows to each node's
+            // post-batch opacity whenever a filter is active. The glow <div>s are
+            // DOM siblings of the canvas (buildSampleOverlays), so the panel-dim
+            // opacity the batch above wrote to each node never reaches them: the
+            // filter pass (applyFiltersToCytoscape) last set every in-filter glow
+            // to 1.0. Without this, an in-filter NON-neighbour — now panel-dim
+            // (0.08) under the binary model — would keep a full-bright 1.0 glow
+            // that masks the dim, re-creating a visibly "lit" tier among the
+            // dimmed nodes (the masking #238 fixed). The no-filter selection and
+            // journey paths keep their own overlay sync via restoreBaseOpacities
+            // (→ baseOpacity) and stay untouched. numericStyle reads the post-batch
+            // (binary) opacity so each glow matches its node exactly.
+            if (hasAnyActiveFilter(atlasState.filters) &&
+                !(typeof inJourneyMode === 'function' && inJourneyMode())) {
                 sampleOverlays.forEach(({ node, el }) => {
                     el.style.opacity = String(node.numericStyle('opacity'));
                 });
