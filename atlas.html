@@ -3971,7 +3971,16 @@
         .atlas-stack-asset { color: var(--text-secondary); }
         .atlas-stack-waypoint-label { font-size: 12px; color: var(--text-primary); font-weight: 500; }
         .atlas-stack-via { color: var(--text-muted); }
-        .atlas-stack-launch-btn { color: #818CF8 !important; }
+        /* Item 3 — journey launchers: white body text (from .atlas-panel-action-btn)
+           with a coloured left-border accent echoing the journey panel's kind
+           labels. Coordination = teal #2DD4BF (the coordination journey colour);
+           stack = amber #FBBF24 (the START HERE "ALL LAYERS"/stack journey colour,
+           GUIDED_COLOURS.stack). The old #818CF8 body colour (actually the MATERIAL
+           hue) read as a state rather than a category. */
+        .atlas-trace-launch-btn { border-left: 3px solid #2DD4BF; }
+        .atlas-stack-launch-btn { border-left: 3px solid #FBBF24; }
+        .atlas-trace-launch-btn:hover { border-left-color: #2DD4BF; }
+        .atlas-stack-launch-btn:hover { border-left-color: #FBBF24; }
 
         /* ---- Infrastructure-thread factual-link panel ---- */
         .atlas-thread-header { position: relative; padding: 16px 44px 12px 18px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
@@ -4643,6 +4652,14 @@
             0%, 100% { transform: translateY(0); }
             50%       { transform: translateY(-4px); }
         }
+        /* Item 4 — opacity-only fade for the top-left journeys-mode note.
+           atlas-hint-fadeInUp carries a translate(-50%, 10px) tuned for the
+           centre-bottom landscape hint; on a top-left pill that slide reads as
+           the text flying in from off-frame. This note just fades, no movement. */
+        @keyframes atlas-note-fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         @media (min-width: 768px) {
             .atlas-landscape-hint { display: none !important; }
         }
@@ -4676,7 +4693,7 @@
             pointer-events: none;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            animation: atlas-hint-fadeInUp 300ms ease-out;
+            animation: atlas-note-fadeIn 300ms ease-out;
         }
 
 
@@ -10815,17 +10832,22 @@
             // (directional chain → pathways button; thread/membership → stack
             // button). View buttons below are external nav, deliberately excluded.
             if (hasDirectionalChain || hasThread || hasMembership) {
-                html += '<div class="atlas-panel-section-title">Journeys</div>';
+                // Item 5 — inset the heading 24px to line its left edge up with
+                // the other section titles (PRIMARY / SIGNIFICANCE / SOURCES),
+                // which sit inside the 24px-padded content column. This heading
+                // rides with the full-bleed sticky actions block, so it needs the
+                // inset applied directly.
+                html += '<div class="atlas-panel-section-title" style="padding-left:24px;padding-right:24px;">Journeys</div>';
             }
             if (hasDirectionalChain) {
                 html += '<div class="atlas-panel-actions" id="atlas-trace-actions" style="border-top:none;padding-bottom:0;">';
-                html += `<button class="atlas-panel-action-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
+                html += `<button class="atlas-panel-action-btn atlas-trace-launch-btn" type="button" id="atlas-trace-launch" data-trace-launch="${escapeHtml(id)}">⟿ Trace coordination pathways →</button>`;
                 html += '</div>';
             }
 
             // WS-5 — Stack Journey launcher (membership/thread/chain — see above).
             if (hasDirectionalChain || hasThread || hasMembership) {
-                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:0;padding-bottom:0;">';
+                html += '<div class="atlas-panel-actions" id="atlas-stack-actions" style="border-top:none;padding-top:6px;padding-bottom:0;">';
                 html += `<button class="atlas-panel-action-btn atlas-stack-launch-btn" type="button" id="atlas-stack-launch" data-stack-launch="${escapeHtml(id)}">▤ Trace the stack →</button>`;
                 html += '</div>';
             }
