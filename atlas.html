@@ -6459,6 +6459,59 @@
                             'line-opacity': 1
                         }
                     },
+                    // ===========================================================
+                    // PR-2 — COMBINED FILTER+SELECTION OPACITY RESOLVER
+                    //
+                    // The atlas-cb-* ("combined-band") classes are the SINGLE
+                    // channel for the both-active case (a filter active AND a node
+                    // selected). applyPanelSelectionHighlight is the sole writer —
+                    // it assigns exactly ONE cb class per element from the merged
+                    // (filter, selection) state, so the old class-order war
+                    // (atlas-filter-match opacity:1 beating panel-dim) can't recur.
+                    // Declared AFTER panel-* (≈6000) and the atlas-filter-* classes
+                    // above, so wherever a cb class is present it wins by cytoscape
+                    // declaration order — no reorder of the existing stylesheet, and
+                    // they're applied ONLY in the both-active, non-journey case.
+                    // Five node bands collapse to four opacity levels (no fourth
+                    // band): focus/primary 1.0, context 0.4 (in-filter non-neighbour
+                    // AND cross-tier out-of-filter neighbour), excluded 0.12.
+                    // Text-opacity tracks the band; only the primary is labelled
+                    // (matching the existing selection look — neighbours stay
+                    // unlabelled so the panel's anchor is unambiguous).
+                    {
+                        selector: 'node.atlas-cb-primary',
+                        style: { 'opacity': 1, 'text-opacity': 1, 'z-index': 999, 'transition-duration': '0ms' }
+                    },
+                    {
+                        selector: 'node.atlas-cb-focus',
+                        style: { 'opacity': 1, 'text-opacity': 0, 'transition-duration': '0ms' }
+                    },
+                    {
+                        selector: 'node.atlas-cb-context',
+                        style: { 'opacity': 0.4, 'text-opacity': 0, 'transition-duration': '0ms' }
+                    },
+                    {
+                        selector: 'node.atlas-cb-excluded',
+                        style: { 'opacity': 0.12, 'text-opacity': 0, 'transition-duration': '0ms' }
+                    },
+                    {
+                        // Bright incident/focus edges — the links you clicked to see.
+                        // Kept bright even when the far endpoint is out-of-filter
+                        // (cross-tier rule): a real CC line terminating at a legibly
+                        // dimmed node.
+                        selector: 'edge.atlas-cb-bright',
+                        style: { 'opacity': 0.85, 'line-opacity': 0.85, 'transition-duration': '0ms' }
+                    },
+                    {
+                        // Context-to-context edges (both endpoints in-filter, neither
+                        // in the clicked neighbourhood) — present but recessive.
+                        selector: 'edge.atlas-cb-context',
+                        style: { 'opacity': 0.3, 'line-opacity': 0.3, 'transition-duration': '0ms' }
+                    },
+                    {
+                        selector: 'edge.atlas-cb-excluded',
+                        style: { 'opacity': 0.06, 'line-opacity': 0.06, 'transition-duration': '0ms' }
+                    },
                     {
                         // DEF-047 (V2) — Domain band rectangles for
                         // Timeline mode. Path 2A: uniform fill, very
@@ -10044,6 +10097,7 @@
                         // Strip panel-* classes and compute final state.
                         cy.batch(() => {
                             cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
+                            cy.elements().removeClass(CB_CLASSES);   // PR-2 — clear combined bands on close
                         });
                         // V8b — re-run filter sync skipped in
                         // syncCytoscapeOnState during the close transition.
@@ -12158,6 +12212,7 @@
                 // Clear any panel-selection emphasis so the two systems
                 // don't fight over opacity.
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current journey-root journey-edge');
+                cy.elements().removeClass(CB_CLASSES);   // PR-2 — combined bands never coexist with a journey
                 cy.elements().addClass('trace-dim');
                 // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
                 // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
@@ -12736,6 +12791,7 @@
             const rootId = String(stackJourney.rootId);
             cy.batch(() => {
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass(CB_CLASSES);   // PR-2 — combined bands never coexist with a journey
                 cy.elements().addClass('trace-dim');
                 // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
                 // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
@@ -12934,6 +12990,7 @@
             const threadIds = new Set(Array.from(j.edgeKeys).map(k => threadCyId(k)));
             cy.batch(() => {
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus trace-edge trace-node trace-current stack-coordination stack-material stack-waypoint journey-root journey-edge');
+                cy.elements().removeClass(CB_CLASSES);   // PR-2 — combined bands never coexist with a journey
                 cy.elements().addClass('trace-dim');
                 // Polish (post-1.11.2) A2 — clear BOTH the filter pass's inline
                 // opacity/text-opacity AND its atlas-filtered-out / atlas-filter-
@@ -13571,6 +13628,10 @@
         const FILTER_OPACITY_EDGE_HIDDEN = 0.06;
         const FILTER_OPACITY_NODE_VISIBLE = 1.0;
         const FILTER_OPACITY_EDGE_VISIBLE = 0.85;
+        // PR-2 — the single-channel combined-band class set. applyPanelSelection-
+        // Highlight is the sole writer; every reset path also strips these so a
+        // both-active state never leaks a stale band into filter-only/base.
+        const CB_CLASSES = 'atlas-cb-primary atlas-cb-focus atlas-cb-context atlas-cb-excluded atlas-cb-bright';
 
         function applyFiltersToCytoscape(state) {
             if (!cy) return;
@@ -13607,6 +13668,9 @@
                     // degree-driven base.
                     cy.elements('.atlas-filtered-out').removeClass('atlas-filtered-out');
                     cy.elements('.atlas-filter-match').removeClass('atlas-filter-match');
+                    // PR-2 — filter cleared: drop any combined-band classes so the
+                    // both-active resolver can't leak a 0.4 context dim into base.
+                    cy.elements().removeClass(CB_CLASSES);
                     restoreBaseOpacities();
                     return;
                 }
@@ -13762,6 +13826,9 @@
                 // Fix 2 — clear any residual panel-dimming classes
                 // so the stylesheet base rules reassert.
                 cy.elements().removeClass('panel-dim panel-focus panel-primary journey-focus');
+                // PR-2 — also drop combined-band classes (selection cleared while a
+                // filter was active routes here when no panel is open).
+                cy.elements().removeClass(CB_CLASSES);
                 cy.nodes().forEach(node => {
                     node.removeStyle('opacity');
                     node.removeStyle('z-index');
@@ -13809,7 +13876,14 @@
             if (!cy) return;
             const hasEvent = !!atlasState.selectedEventId;
             const hasCC = !!atlasState.selectedConnectionId;
-            if (!hasEvent && !hasCC) return;
+            if (!hasEvent && !hasCC) {
+                // No selection — clear any combined-band classes left from a
+                // prior both-active state so filter-only / base styling governs.
+                if (cy.$('.atlas-cb-context, .atlas-cb-excluded, .atlas-cb-bright, .atlas-cb-focus, .atlas-cb-primary').nonempty()) {
+                    cy.elements().removeClass(CB_CLASSES);
+                }
+                return;
+            }
 
             let focusNodes = cy.collection();
             let focusEdges = cy.collection();
@@ -13846,6 +13920,18 @@
 
             if (focusNodes.length === 0) return;
 
+            // PR-2 — both-active resolver gate. When a filter is active (and no
+            // journey owns the canvas), each event node/edge gets exactly ONE
+            // combined-band class instead of the binary panel-focus/panel-dim, so
+            // the clicked neighbourhood reads against a 0.4 filter-context tier
+            // rather than every filtered node staying equally bright. In-filter
+            // membership is read off the atlas-filter-match / atlas-filtered-out
+            // classes the filter pass already set (current as long as the filter
+            // is unchanged). Journey mode and the no-filter case keep the original
+            // binary path untouched.
+            const resolverActive = hasAnyActiveFilter(atlasState.filters) &&
+                !(typeof inJourneyMode === 'function' && inJourneyMode());
+
             cy.batch(() => {
                 // Fix 2 — use addClass/removeClass instead of .style().
                 // Class-based styles are defined in the Cytoscape
@@ -13879,8 +13965,28 @@
                     n.removeStyle('transition-property');
                     n.removeStyle('transition-duration');
                     n.removeClass('panel-dim panel-focus panel-primary journey-focus');
-                    if (focusNodes.contains(n)) {
-                        if (primaryNodeIds.has(n.id())) {
+                    n.removeClass(CB_CLASSES);
+                    const inFocus = focusNodes.contains(n);
+                    const isPrimary = primaryNodeIds.has(n.id());
+                    // PR-2 resolver — event nodes only (bands stay scaffolding and
+                    // keep the binary path below). One band class per node.
+                    if (resolverActive && n.data('event')) {
+                        const inFilter = n.hasClass('atlas-filter-match');
+                        if (isPrimary) {
+                            n.addClass('atlas-cb-primary');
+                        } else if (inFocus && inFilter) {
+                            n.addClass('atlas-cb-focus');           // in-filter neighbour → full
+                        } else if (inFocus) {
+                            n.addClass('atlas-cb-context');         // cross-tier neighbour → 0.4
+                        } else if (inFilter) {
+                            n.addClass('atlas-cb-context');         // filter-context → 0.4
+                        } else {
+                            n.addClass('atlas-cb-excluded');        // out-of-filter, off-focus → 0.12
+                        }
+                        return;
+                    }
+                    if (inFocus) {
+                        if (isPrimary) {
                             n.addClass('panel-primary');
                             // #216 item 7 (design B) — ring the focal node while a
                             // journey owns the canvas, except the root (it keeps
@@ -13902,7 +14008,26 @@
                     e.removeStyle('transition-property');
                     e.removeStyle('transition-duration');
                     e.removeClass('panel-dim panel-focus');
-                    if (focusEdges.contains(e)) {
+                    e.removeClass(CB_CLASSES);
+                    const inFocusEdge = focusEdges.contains(e);
+                    // PR-2 resolver — CC edges only (thread edges run their own
+                    // toggle/highlight, like the filter pass which skips them).
+                    if (resolverActive && !e.hasClass('thread-edge')) {
+                        const bright = inFocusEdge ||
+                            (focusNodes.contains(e.source()) && focusNodes.contains(e.target()));
+                        if (bright) {
+                            // incident to the clicked node (or between two focus
+                            // nodes) → bright, regardless of the far endpoint's
+                            // filter status.
+                            e.addClass('atlas-cb-bright');
+                        } else if (e.source().hasClass('atlas-filter-match') && e.target().hasClass('atlas-filter-match')) {
+                            e.addClass('atlas-cb-context');         // context↔context → 0.3
+                        } else {
+                            e.addClass('atlas-cb-excluded');        // excluded → 0.06
+                        }
+                        return;
+                    }
+                    if (inFocusEdge) {
                         e.addClass('panel-focus');
                     } else {
                         e.addClass('panel-dim');
