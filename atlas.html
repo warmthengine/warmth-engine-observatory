@@ -773,6 +773,18 @@
         /* WS-9 — while the exit pill shows, lift the recall pill so the two
            stack instead of overlapping (and clear of the timeline bar). */
         .atlas-journeys-recall.stacked { bottom: 56px; }
+        @media (max-width: 767px) {
+            /* MOB A-3 Item 1 — hit-buffer: extend the recall pill's tap area ~10px
+               so a near-miss (edge-flesh) tap lands on the pill, not the canvas
+               beneath. The pseudo-element is part of the button, so taps on it
+               dispatch to the button (whose events are stopped from reaching cy). */
+            .atlas-journeys-recall::before {
+                content: '';
+                position: absolute;
+                inset: -10px;
+                pointer-events: auto;
+            }
+        }
         /* WS-9 — exit-journey pill. Same family as the recall pill but in the
            journey-green so "leave" reads distinct from "open more". */
         .atlas-journey-exit {
@@ -15605,6 +15617,16 @@
                 if (!el) return;
                 ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
                     el.addEventListener(type, e => e.stopPropagation(), { passive: true });
+                });
+                // MOB A-3 Item 1 — the real-iOS trace showed the START-HERE leak is
+                // HOVER, not a click: the pill (position:absolute INSIDE #atlas-network)
+                // bubbles its synthesized mouseover/mousemove up to the cy container,
+                // where cy's hover hit-tests the node BENEATH the pill and labels it.
+                // The list above never covered the hover/move events. Stop them at the
+                // pill too — PHONE-ONLY so desktop hover stays byte-identical.
+                // stopPropagation (not Immediate) preserves the pill's own :hover/click.
+                ['pointerover', 'pointermove', 'pointerup', 'mouseover', 'mousemove', 'mouseup'].forEach(type => {
+                    el.addEventListener(type, e => { if (window.innerWidth <= 767) e.stopPropagation(); }, { passive: true });
                 });
                 // MOB Phase A (A1) — a tap on chrome that DISMISSES its own overlay
                 // (a journey card collapses the picker; the exit pill ends the
