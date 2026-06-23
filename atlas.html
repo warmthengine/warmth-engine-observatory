@@ -7075,6 +7075,7 @@
                 applyPostLayoutPipeline();
                 cacheNetworkPositions();
             });
+            if (window._dbgLog) window._dbgLog('RELAYOUT prm=' + prefersReducedMotion() + ' animationDuration=600 (UNGATED)');
             layout.run();
         }
 
@@ -9624,6 +9625,7 @@
                 x: targetX - nodePos.x * zoom,
                 y: targetY - nodePos.y * zoom
             };
+            if (window._dbgLog) window._dbgLog('CTR  prm=' + prefersReducedMotion() + ' in=' + duration + ' applied=' + camDur(duration));
             cy.animate({
                 pan: targetPan,
                 zoom: zoom,
@@ -9783,6 +9785,7 @@
             // fire if a later animation interrupts this one, but that later fit
             // sets _cameraBusy=true + a fresh token, so the flag stays correct.
             var _userComplete = opts.complete || function() {};
+            if (window._dbgLog) window._dbgLog('FIT  prm=' + prefersReducedMotion() + ' in=' + duration + ' applied=' + camDur(duration) + ' lbl=' + (opts.label || '?'));
             cy.animate({
                 zoom: zoom,
                 pan: pan,
@@ -9875,6 +9878,7 @@
             // #216 item 2 — bow shared-corridor journey edges apart before the
             // layout animates, so masked legs are visible the moment tiers land.
             fanJourneyEdges();
+            if (window._dbgLog) window._dbgLog('JNY-LAYOUT prm=' + prefersReducedMotion() + ' animate=true animationDuration=400 (UNGATED)');
             const layout = focusEles.layout({
                 name: 'breadthfirst',
                 roots: (rootNode && rootNode.length) ? rootNode : undefined,
@@ -10082,6 +10086,7 @@
             if (!cy) { _journeyMovedNodeIds = []; return; }
             if (!_journeyMovedNodeIds.length) return;
             if (!Object.keys(cachedNetworkPositions).length) { _journeyMovedNodeIds = []; return; }
+            if (window._dbgLog) window._dbgLog('EXIT-RESTORE prm=' + prefersReducedMotion() + ' nodeAnim duration=360 (UNGATED) n=' + _journeyMovedNodeIds.length);
             _journeyMovedNodeIds.forEach(id => {
                 const n = cy.getElementById(id);
                 const pos = cachedNetworkPositions[id];
