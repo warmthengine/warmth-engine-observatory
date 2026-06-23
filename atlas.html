@@ -773,6 +773,18 @@
         /* WS-9 — while the exit pill shows, lift the recall pill so the two
            stack instead of overlapping (and clear of the timeline bar). */
         .atlas-journeys-recall.stacked { bottom: 56px; }
+        @media (max-width: 767px) {
+            /* MOB A-3 Item 1 — hit-buffer: extend the recall pill's tap area ~10px
+               so a near-miss (edge-flesh) tap lands on the pill, not the canvas
+               beneath. The pseudo-element is part of the button, so taps on it
+               dispatch to the button (whose events are stopped from reaching cy). */
+            .atlas-journeys-recall::before {
+                content: '';
+                position: absolute;
+                inset: -10px;
+                pointer-events: auto;
+            }
+        }
         /* WS-9 — exit-journey pill. Same family as the recall pill but in the
            journey-green so "leave" reads distinct from "open more". */
         .atlas-journey-exit {
@@ -939,6 +951,10 @@
                -text / -machine classes). Desktop keeps the banner unchanged. */
             .atlas-journey-readout { display: none !important; }
             .atlas-journey-folded-narrative {
+                /* A-3 Item 3 — a step darker than the sheet body (--surface-raised)
+                   using an existing token, so the narrative + machine-call read as a
+                   distinct stratum beneath the journey-type intro. No new colour. */
+                background: var(--bg-primary);
                 padding: 12px 14px 14px;
                 border-left: 3px solid var(--jcolour, #2DD4BF);
                 border-bottom: 1px solid var(--border-default);
@@ -4568,23 +4584,7 @@
             .atlas-panel-v2.state-full .atlas-panel-swipe-hint {
                 display: none;
             }
-            /* MOB Phase A — "← Back to journey" bar at the top of a detail/CC
-               sheet drilled into from a journey (rendered only on phone + in a
-               journey). Visible in peek (it is not a .atlas-panel-section). */
-            .atlas-detail-back {
-                display: block;
-                width: 100%;
-                padding: 11px 16px;
-                background: rgba(45, 212, 191, 0.08);
-                border: none;
-                border-bottom: 1px solid var(--border-default);
-                color: #2DD4BF;
-                font-family: var(--font-sans);
-                font-size: 12px;
-                letter-spacing: 0.04em;
-                text-align: left;
-                cursor: pointer;
-            }
+            /* MOB A-3 Item 2 — "← Back to journey" bar removed (× only). */
             /* Escape / reset-view button — always accessible on mobile,
                even when the graph has been panned into empty space. */
             #atlas-escape-btn {
@@ -10201,14 +10201,13 @@
                     // Polish #225 Item 1 — during a journey the CC × returns the
                     // journey to the foreground (selection persists); a genuine
                     // close only when no journey owns the canvas.
-                    if (inJourneyMode()) setAtlasState({ _journeyForeground: true });
-                    else setAtlasState({ selectedConnectionId: null, selectedEventId: null });
+                    if (inJourneyMode()) {
+                        setAtlasState({ _journeyForeground: true });
+                        // MOB A-3 Item 2 — phone: re-frame the WHOLE journey (laptop parity).
+                        if (window.innerWidth <= 767) setTimeout(refitJourney, 420);
+                    } else setAtlasState({ selectedConnectionId: null, selectedEventId: null });
                 });
             }
-            // MOB Phase A — explicit "← Back to journey" (phone): returns to the
-            // journey (detail tucks, journey resurfaces — same as the × in-journey).
-            const backBtnCC = elAtlasPanelContent.querySelector('#atlas-detail-back');
-            if (backBtnCC) backBtnCC.addEventListener('click', () => setAtlasState({ _journeyForeground: true }));
             elAtlasPanelContent.querySelectorAll('[data-cc-nav-event]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const evId = btn.getAttribute('data-cc-nav-event');
@@ -10534,10 +10533,11 @@
         // shows an explicit "← Back to journey" affordance (the sheet replaced the
         // journey; this returns to it). Empty off-phone / outside a journey, so
         // desktop and non-journey opens are byte-identical.
+        // MOB A-3 Item 2 — the phone "← Back to journey" bar is removed; the event/CC
+        // × is now the only way back and it re-frames the whole journey (laptop
+        // parity). No-op stub so the call sites stay harmless.
         function atlasDetailBackBar() {
-            if (window.innerWidth > 767) return '';
-            if (typeof inJourneyMode !== 'function' || !inJourneyMode()) return '';
-            return '<button class="atlas-detail-back" type="button" id="atlas-detail-back" aria-label="Back to journey">← Back to journey</button>';
+            return '';
         }
         function atlasRenderCCPanel(cc) {
             if (!cc) return '<div class="atlas-panel-section">Connection not found.</div>';
@@ -11453,14 +11453,16 @@
                     // to the foreground (detail tucks; selection persists, no
                     // closePanel mid-journey). A genuine close (clear selection)
                     // only when no journey owns the canvas.
-                    if (inJourneyMode()) setAtlasState({ _journeyForeground: true });
-                    else setAtlasState({ selectedEventId: null });
+                    if (inJourneyMode()) {
+                        setAtlasState({ _journeyForeground: true });
+                        // MOB A-3 Item 2 — on phone, re-frame the WHOLE journey back to
+                        // its launch view (matches the laptop ×). Deferred past the
+                        // sheet resurface so refitJourney's inset reads the journey
+                        // sheet at peek, not the closing detail sheet.
+                        if (window.innerWidth <= 767) setTimeout(refitJourney, 420);
+                    } else setAtlasState({ selectedEventId: null });
                 });
             }
-            // MOB Phase A — explicit "← Back to journey" (phone): returns to the
-            // journey (detail tucks, journey resurfaces — same as the × in-journey).
-            const backBtn = elAtlasPanelContent.querySelector('#atlas-detail-back');
-            if (backBtn) backBtn.addEventListener('click', () => setAtlasState({ _journeyForeground: true }));
             // WS-3 — launch the coordination-pathways trace rooted at this
             // event. Clears the detail-panel selection (mutual exclusion).
             const traceLaunch = elAtlasPanelContent.querySelector('#atlas-trace-launch');
@@ -15616,6 +15618,16 @@
                 ['pointerdown', 'mousedown', 'touchstart', 'click', 'wheel'].forEach(type => {
                     el.addEventListener(type, e => e.stopPropagation(), { passive: true });
                 });
+                // MOB A-3 Item 1 — the real-iOS trace showed the START-HERE leak is
+                // HOVER, not a click: the pill (position:absolute INSIDE #atlas-network)
+                // bubbles its synthesized mouseover/mousemove up to the cy container,
+                // where cy's hover hit-tests the node BENEATH the pill and labels it.
+                // The list above never covered the hover/move events. Stop them at the
+                // pill too — PHONE-ONLY so desktop hover stays byte-identical.
+                // stopPropagation (not Immediate) preserves the pill's own :hover/click.
+                ['pointerover', 'pointermove', 'pointerup', 'mouseover', 'mousemove', 'mouseup'].forEach(type => {
+                    el.addEventListener(type, e => { if (window.innerWidth <= 767) e.stopPropagation(); }, { passive: true });
+                });
                 // MOB Phase A (A1) — a tap on chrome that DISMISSES its own overlay
                 // (a journey card collapses the picker; the exit pill ends the
                 // journey) leaves the canvas exposed; ~300ms later the browser's
@@ -15657,7 +15669,20 @@
                     // the dead-button bug confirmed on real iOS. The cytoscape graph
                     // renders to <canvas> layers; every overlay control is a
                     // non-canvas element, so a canvas-target test excludes them all.
-                    if (!e.target || e.target.tagName !== 'CANVAS') return;
+                    if (!e.target || e.target.tagName !== 'CANVAS') {
+                        // A-3 Item 1 (instrument) — armed but NOT swallowed because
+                        // the target isn't the <canvas>. Log ONLY canvas-area
+                        // (#atlas-network) non-chrome targets, so the iOS trace shows
+                        // whether the START-HERE tooltip leak rides a non-canvas hover
+                        // target (e.g. the container / a cy layer wrapper) — confirming
+                        // whether the swallow's target test must broaden. ?dbg-gated.
+                        if (window._dbgLog && e.target && e.target.closest &&
+                            e.target.closest('#atlas-network') &&
+                            !e.target.closest('#atlas-journeys, #atlas-journeys-recall, #atlas-journey-exit, #atlas-journey-readout, #atlas-data-recall')) {
+                            window._dbgLog('-- guard SKIP non-canvas ' + e.type + ' tgt=' + (e.target.tagName + (e.target.id ? '#' + e.target.id : '')) + (e.pointerType ? ' pt=' + e.pointerType : ''));
+                        }
+                        return;
+                    }
                     if (window._dbgLog) window._dbgLog('!! GHOST-SWALLOW ' + e.type + ' tgt=' + ((e.target && (e.target.id || (e.target.className && e.target.className.toString && e.target.className.toString()))) || '?') + (e.pointerType ? ' pt=' + e.pointerType : ''));
                     e.stopImmediatePropagation();
                     e.preventDefault();
