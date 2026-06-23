@@ -932,6 +932,19 @@
             transition: color var(--duration-fast) var(--ease-out);
         }
         .atlas-journey-readout-dismiss:hover { color: var(--text-primary); }
+        @media (max-width: 767px) {
+            /* MOB A-2 (#247) — Option A: no separate top narrative panel on phone.
+               Its description + machine-call fold into the journey sheet's
+               full-state body (rendered via journeyNarrativeHtml, reusing the
+               -text / -machine classes). Desktop keeps the banner unchanged. */
+            .atlas-journey-readout { display: none !important; }
+            .atlas-journey-folded-narrative {
+                padding: 12px 14px 14px;
+                border-left: 3px solid var(--jcolour, #2DD4BF);
+                border-bottom: 1px solid var(--border-default);
+            }
+            .atlas-journey-folded-narrative .atlas-journey-readout-machine { margin-top: 7px; }
+        }
 
         /* --- Main split: canvas + (panel) + topology ---
            Brief 3a — the panel reflows the canvas (it's a grid sibling,
@@ -12397,6 +12410,7 @@
             h += '</div>';
 
             h += '<div class="atlas-trace-body">';
+            h += journeyNarrativeHtml(rootId);   // MOB A-2 — folded narrative (phone, full-state)
             if (!traceHops.length) {
                 h += '<div class="atlas-trace-empty">This event forms no directional coordination pathway — it has no Policy Cascade, Funding Flow, Regulatory Enablement, or Response connection to step through. Bidirectional connections (Joint Issuance, Framework Family, Parallel Policy) do not form a chain.</div>';
             } else {
@@ -13055,6 +13069,7 @@
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
+            h += journeyNarrativeHtml(rootId);   // MOB A-2 — folded narrative (phone, full-state)
             const empty = !j.coordination.length && !j.material.length && !j.capability.length;
             if (empty) {
                 h += '<div class="atlas-trace-empty">This event sits at no value chain we can trace — it has no directional coordination link, no infrastructure thread, and no capability membership to walk.</div>';
@@ -13264,6 +13279,7 @@
             h += '</div>';
 
             h += '<div class="atlas-stack-body">';
+            h += journeyNarrativeHtml(rootId);   // MOB A-2 — folded narrative (phone, full-state)
             if (!j.recs.length) {
                 h += '<div class="atlas-trace-empty">This event is the production-origin of no infrastructure thread we can trace — no facility is documented deploying, training on, powering, or fabricating from its assets.</div>';
             } else {
@@ -15002,6 +15018,11 @@
         // =================================================================
         const GUIDED_COLOURS = { coordination: '#2DD4BF', material: '#818CF8', stack: '#FBBF24' };
         const GUIDED_LABELS = { coordination: 'COORDINATION', material: 'HARDWARE', stack: 'ALL LAYERS' };
+        // MOB A-2 (#247) — on phone the top narrative banner is hidden and its
+        // description + machine-call fold into the journey sheet's full-state body.
+        // Holds the active GUIDED journey's narrative; null when none owns the
+        // canvas. Set in runGuidedJourney (before render), cleared in hideJourneyReadout.
+        let _guidedNarrative = null;
         // WS-9 item 2 — the dismiss flag is bumped to a -v2 key so any value an
         // earlier build wrongly wrote on journey launch / load is ignored. That
         // guarantees a fresh visitor (and anyone affected by that regression)
@@ -15082,6 +15103,20 @@
         function hideJourneyReadout() {
             const banner = document.getElementById('atlas-journey-readout');
             if (banner) banner.classList.remove('visible');
+            _guidedNarrative = null;   // MOB A-2 — clear the folded narrative on exit / journey switch
+        }
+        // MOB A-2 (#247) — the folded narrative block rendered at the top of a
+        // journey sheet's full-state body on phone. Reuses the readout's own
+        // -text / -machine classes (no new design); empty off-phone or when no
+        // guided narrative matches this root.
+        function journeyNarrativeHtml(rootId) {
+            if (window.innerWidth > 767) return '';
+            if (!_guidedNarrative || _guidedNarrative.root !== String(rootId)) return '';
+            var h = '<div class="atlas-journey-folded-narrative" style="--jcolour:' + _guidedNarrative.colour + '">';
+            h += '<span class="atlas-journey-readout-text">' + escapeHtml(_guidedNarrative.text) + '</span>';
+            if (_guidedNarrative.machine) h += '<span class="atlas-journey-readout-machine">' + escapeHtml(_guidedNarrative.machine) + '</span>';
+            h += '</div>';
+            return h;
         }
 
         // WS-9 — true whenever any of the three journeys owns the canvas.
@@ -15439,6 +15474,14 @@
             // Clear any open data panel so the new journey starts clean.
             const base = { selectedEventId: null, selectedConnectionId: null, selectedThreadKey: null,
                            traceRootId: null, stackRootId: null, materialRootId: null };
+            // MOB A-2 — stash the narrative BEFORE setAtlasState so the first panel
+            // render folds it in (and it survives untuck re-renders, keyed by root).
+            _guidedNarrative = {
+                root: String(j.root),
+                colour: GUIDED_COLOURS[j.substrate] || '#2DD4BF',
+                text: fillReadout(j.readout, guidedCounts(j)),
+                machine: (j.mcp && j.mcp.call) ? '↳ machine call: ' + j.mcp.call : ''
+            };
             switch (j.mode) {
                 case 'trace':
                     setAtlasState(Object.assign({}, base, { traceRootId: String(j.root) }));
