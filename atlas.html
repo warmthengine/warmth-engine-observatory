@@ -15607,11 +15607,23 @@
                     if (window.innerWidth > 767) return;
                     if (Date.now() >= (window._ghostGuardUntil || 0)) return;
                     if (e.type.indexOf('pointer') === 0 && e.pointerType && e.pointerType !== 'mouse') return;
+                    // #244 — only swallow a ghost that lands on the bare graph
+                    // CANVAS. The journey chrome (picker, cards, dismiss, recall /
+                    // exit pills, readout) lives INSIDE #atlas-network, so an armed
+                    // guard was swallowing those controls' OWN synthesized click —
+                    // the dead-button bug confirmed on real iOS. The cytoscape graph
+                    // renders to <canvas> layers; every overlay control is a
+                    // non-canvas element, so a canvas-target test excludes them all.
+                    if (!e.target || e.target.tagName !== 'CANVAS') return;
                     if (window._dbgLog) window._dbgLog('!! GHOST-SWALLOW ' + e.type + ' tgt=' + ((e.target && (e.target.id || (e.target.className && e.target.className.toString && e.target.className.toString()))) || '?') + (e.pointerType ? ' pt=' + e.pointerType : ''));
                     e.stopImmediatePropagation();
                     e.preventDefault();
                 }
-                ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click'].forEach(function(t) {
+                // Swallow the tap-ghost (down/up/click) AND the hover-ghost
+                // (move/over) — the latter is what flashes a CC tooltip on the
+                // exposed canvas after the picker collapses (#244 symptom 2). All
+                // are canvas-targeted + armed-window + mobile only (above).
+                ['pointerdown', 'pointerup', 'pointermove', 'pointerover', 'mousedown', 'mouseup', 'mousemove', 'mouseover', 'click'].forEach(function(t) {
                     net.addEventListener(t, ghostSwallow, true);  // capture
                 });
             })();
