@@ -8374,6 +8374,21 @@
                     window._dbgLog(type + ' [' + r + '] ' + tgt(e.target) + (e.pointerType ? ' pt=' + e.pointerType : '') + ' ' + guard());
                 }, true);
             });
+            // MOB A-4 Item B (instrument) — log every "?" / chip tap with its
+            // CONTAINER and whether a tooltip actually appears ~80ms later. The
+            // detail-panel "A" (in #atlas-panel-content) works; the journey "?" (in
+            // #atlas-trace/stack/material-content) is only wired for the detail
+            // container by initTooltips, so the trace should read container=journey
+            // + tooltip=NO — confirming a pre-existing wiring gap, not interception.
+            document.addEventListener('click', function(e) {
+                var trig = e.target && e.target.closest && e.target.closest('.weo-info-trigger, .atlas-chip-trigger');
+                if (!trig) return;
+                var cont = trig.closest('#atlas-panel-content, #atlas-trace-content, #atlas-stack-content, #atlas-material-content, #atlas-thread-content');
+                setTimeout(function() {
+                    var ov = document.getElementById('weo-tooltip-overlay');
+                    window._dbgLog('?? help-tap ' + ((trig.className || '').split(' ')[0]) + ' container=' + (cont ? cont.id : 'NONE') + ' tooltip=' + ((ov && ov.classList.contains('visible')) ? 'YES' : 'NO'));
+                }, 80);
+            }, true);
             if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
             window._dbgLog('?dbg overlay armed · iw=' + window.innerWidth + ' · tap START HERE, then screenshot');
         })();
@@ -9664,6 +9679,26 @@
                 } else if (sheetState === 'half') {
                     usableH = ch * 0.5;
                     usableCy = usableH / 2;
+                }
+                // MOB A-4 Item A — when re-tracing from an event panel, the
+                // "◂ Event details" recall tab (#atlas-data-recall) persists at the
+                // top-left (the way back to the drilled event), and the bottom-sheet
+                // inset above doesn't clear it, so the pathway's top-left node frames
+                // behind it. Inset the usable region from the TOP by the tab's
+                // footprint when visible — mirrors the readout inset below. Absent on
+                // the close-× path (tab not shown there), so that framing is unchanged.
+                var dataTab = document.getElementById('atlas-data-recall');
+                if (dataTab && dataTab.classList.contains('visible') && typeof cy.container === 'function') {
+                    var _dCont = cy.container();
+                    var _dcRect = _dCont ? _dCont.getBoundingClientRect() : null;
+                    if (_dcRect) {
+                        var dtRect = dataTab.getBoundingClientRect();
+                        var dCoveredTop = Math.max(0, dtRect.bottom - _dcRect.top);
+                        if (dCoveredTop > 8) {
+                            usableH = Math.max(160, usableH - dCoveredTop - 12);
+                            usableCy = dCoveredTop + usableH / 2;
+                        }
+                    }
                 }
             }
 
@@ -11191,6 +11226,35 @@
             if (tooltipTimeout) { clearTimeout(tooltipTimeout); tooltipTimeout = null; }
             if (tooltipOverlay) tooltipOverlay.classList.remove('visible');
             activeTooltipTrigger = null;
+        }
+        // MOB A-4 Item B (fix) — the journey panels (#atlas-trace/stack/material/
+        // thread-content) render "?" helps (.weo-info-trigger) but initTooltips wires
+        // only the DETAIL panel (elAtlasPanelContent), so on touch they had no tap
+        // path (instrument-confirmed: container=journey, tooltip=NO). Wire the journey
+        // containers to the SAME tap-to-toggle the detail "A" uses, via delegation so
+        // it catches "?"s rendered on each journey open. PHONE-ONLY (desktop
+        // byte-identical). Journey panels live in .atlas-main, OUTSIDE #atlas-network,
+        // so this can't reopen the START-HERE click-through.
+        function _wireJourneyTooltips() {
+            ['atlas-trace-content', 'atlas-stack-content', 'atlas-material-content', 'atlas-thread-content'].forEach(function(cid) {
+                var jc = document.getElementById(cid);
+                if (!jc || jc._tipWired) return;
+                jc._tipWired = true;
+                jc.addEventListener('click', function(e) {
+                    if (window.innerWidth > 767) return;   // phone only — desktop unchanged
+                    var trig = e.target.closest && e.target.closest('.weo-info-trigger');
+                    if (!trig) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var ov = document.getElementById('weo-tooltip-overlay');
+                    if (activeTooltipTrigger === trig && ov && ov.classList.contains('visible')) {
+                        hideTooltipImmediate();
+                    } else {
+                        showTooltip(trig);
+                        activeTooltipTrigger = trig;
+                    }
+                }, true);
+            });
         }
         function initTooltips() {
             if (tooltipsInitialized) return;
@@ -15588,6 +15652,7 @@
             try { localStorage.setItem(GUIDED_DISMISS_KEY, 'true'); } catch (e) {}
         }
         function wireGuidedJourneys() {
+            _wireJourneyTooltips();   // MOB A-4 Item B — wire journey-panel "?" tooltips for tap (phone)
             const dis = document.getElementById('atlas-journeys-dismiss');
             if (dis) dis.addEventListener('click', dismissGuidedCards);
             const recall = document.getElementById('atlas-journeys-recall');
