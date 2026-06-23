@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.3.0">
+    <meta name="weo-version" content="1.4.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -2523,7 +2523,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.4 · WEO v1.3.0</p>
+            <p class="footer-version">Methodology V1.4 · WEO v1.4.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
         </footer>
@@ -2758,7 +2758,11 @@
     if (!tbody) return;
     tbody.innerHTML = buildRows(actors);
 
-    var text = buildDisclaimerText(metadata);
+    // Actor count comes from the rendered roster (self-heals as actors are added);
+    // date + methodology fall back to static metadata when the API omits them.
+    var meta = Object.assign({}, SCP_BLOCS_FALLBACK.metadata, metadata || {});
+    if (actors && actors.length) meta.total_actors = actors.length;
+    var text = buildDisclaimerText(meta);
     if (text) {
       var el = document.getElementById('scp-disclaimer-date');
       if (el) el.textContent = text;
