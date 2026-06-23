@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="weo-version" content="1.3.0">
+<meta name="weo-version" content="1.4.0">
 <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
-<meta name="description" content="Nation-state AI infrastructure assessments across 14 actors and 7 dimensions. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment.">
+<meta name="description" content="Nation-state AI infrastructure assessments across 7 dimensions. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment.">
 <link rel="canonical" href="https://warmthengine.com/profiles/">
 <meta property="og:title" content="Sovereign Capability Profiles — Warmth Engine Observatory">
-<meta property="og:description" content="Which nations control the AI infrastructure stack? 14 actors assessed across 7 dimensions.">
+<meta property="og:description" content="Which nations control the AI infrastructure stack? Assessed across 7 dimensions.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://warmthengine.com/profiles/">
 <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Dataset","name":"WEO Sovereign Capability Profiles","description":"Nation-state AI infrastructure capability assessments across 7 dimensions for 14 actors, applying the Actor Designation Framework (PAA, AIK, ACS, Participant) with qualification headlines, constraint summaries, and Dimension Watch monitoring upcoming status changes.","url":"https://warmthengine.com/profiles/","license":"https://www.warmthengine.com/legal.html","creator":{"@type":"Organization","name":"Warmth Engine Observatory","url":"https://warmthengine.com"},"dateModified":"2026-06-06","inLanguage":"en-GB","isAccessibleForFree":true,"temporalCoverage":"2026-05-06/..","keywords":["sovereign capability profiles","AI infrastructure assessment","actor designation","PAA","AIK","ACS","7-dimension scoring","AI chip design","advanced fabrication","critical equipment","AI compute","frontier models","AI regulation","sovereign investment","Dimension Watch","geopolitical AI capability"]}
+{"@context":"https://schema.org","@type":"Dataset","name":"WEO Sovereign Capability Profiles","description":"Nation-state AI infrastructure capability assessments across 7 dimensions, applying the Actor Designation Framework (PAA, AIK, ACS, Participant) with qualification headlines, constraint summaries, and Dimension Watch monitoring upcoming status changes.","url":"https://warmthengine.com/profiles/","license":"https://www.warmthengine.com/legal.html","creator":{"@type":"Organization","name":"Warmth Engine Observatory","url":"https://warmthengine.com"},"dateModified":"2026-06-06","inLanguage":"en-GB","isAccessibleForFree":true,"temporalCoverage":"2026-05-06/..","keywords":["sovereign capability profiles","AI infrastructure assessment","actor designation","PAA","AIK","ACS","7-dimension scoring","AI chip design","advanced fabrication","critical equipment","AI compute","frontier models","AI regulation","sovereign investment","Dimension Watch","geopolitical AI capability"]}
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -332,7 +332,7 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a></div>
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
     <div class="snapshot-history"><div class="snapshot-title">Snapshot History</div><div class="snapshot-list"><div class="snapshot-item active"><div class="snapshot-date">6 May 2026</div><div class="snapshot-desc-row"><span class="snapshot-label">Initial register (2026.05.06-001) — 14 actors assessed</span><span class="snapshot-badge">Active</span></div></div></div></div>
-    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: 6 May 2026 &middot; Methodology V1.4 &middot; WEO v1.3.0</div>
+    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: 6 May 2026 &middot; Methodology V1.4 &middot; WEO v1.4.0</div>
     <p class="ftr-copy">&copy; 2026 Warmth Engine Observatory</p>
     <p class="ftr-legal"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
   </div>
@@ -512,6 +512,40 @@ if(navToggle&&navLinks){
 <script>(function(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>300)},{passive:true});btn.addEventListener('click',function(){var motion=window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';window.scrollTo({top:0,behavior:motion});});})();</script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
 <script>(function(){var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))})();</script>
+<script>
+/* Dynamic actor counts (Part 7C) — roster is static DOM with no fetch, so the
+   header, the three designation tallies, and the Participants toggle all read
+   their counts from the rendered .actor rows and self-heal when actors are added. */
+(function(){
+  function refresh(){
+    var body=document.querySelector('.matrix-body');
+    if(!body)return;
+    var all=body.querySelectorAll('details.actor');
+    var hdr=document.querySelector('.hdr-sub');
+    if(hdr)hdr.innerHTML='Actor Designation Framework &mdash; '+all.length+' actors assessed';
+    /* Each .grp header is followed by its actor rows until the next .grp or .part-group */
+    Array.prototype.forEach.call(body.querySelectorAll('.grp'),function(grp){
+      var n=0,el=grp.nextElementSibling;
+      while(el&&!el.classList.contains('grp')&&!el.classList.contains('part-group')){
+        if(el.tagName==='DETAILS'&&el.classList.contains('actor'))n++;
+        el=el.nextElementSibling;
+      }
+      var label=grp.firstChild;
+      if(label&&label.nodeType===3)label.nodeValue=label.nodeValue.replace(/\(\d+\)/,'('+n+')');
+    });
+    /* Participants nest inside .part-inner; update the toggle label number in place */
+    var inner=body.querySelector('.part-inner'),toggle=body.querySelector('.part-toggle');
+    if(inner&&toggle){
+      var pn=inner.querySelectorAll('details.actor').length;
+      Array.prototype.forEach.call(toggle.childNodes,function(node){
+        if(node.nodeType===3&&/Participants/.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/\d+/,pn);
+      });
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);
+  else refresh();
+})();
+</script>
 <!-- WS-2b — Per-cell capability evidence drawer. Hash #<ACTOR>-<Dn> (actor codes are GB, not UK). Reads the served /api/capability-links for event evidence; reuses the inlined per-dimension MET status / qualifying headline / constraint already on the page. Does NOT add a methodology element — the existing per-dimension method tooltips are preserved. -->
 <style>
 .weo-dr-scrim{position:fixed;inset:0;background:rgba(2,6,23,.55);opacity:0;visibility:hidden;transition:opacity var(--norm) var(--ease),visibility var(--norm) var(--ease);z-index:9998}
