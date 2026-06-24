@@ -1,46 +1,46 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 171,
+    "total_events": 174,
     "sample_events": 6,
-    "standard_events": 165,
-    "last_updated": "2026-06-18",
+    "standard_events": 168,
+    "last_updated": "2026-06-24",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 48,
-        "Western": 105,
+        "Western": 108,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 153,
+        "T3": 156,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 43,
+        "Infrastructure": 44,
         "Coordination": 29,
-        "Policy": 46,
-        "Corporate": 53
+        "Policy": 47,
+        "Corporate": 54
       },
       "by_confidence": {
-        "A": 167,
+        "A": 170,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 93,
+        "basel5": 94,
         "keohane": 28,
-        "pisa5": 31,
-        "routeBased": 19,
+        "pisa5": 32,
+        "routeBased": 20,
         "oep": 6,
         "piet": 4
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 47,
+        "Cloud, Data Centres & Connectivity Infrastructure": 49,
         "Semiconductors & Equipment": 34,
-        "AI Software & Platforms": 60,
+        "AI Software & Platforms": 61,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
@@ -54,14 +54,14 @@
         "1.3": 11,
         "1.1": 61,
         "1.4": 1,
-        "1.0": 52,
+        "1.0": 55,
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-18",
-    "lastAudit": "2026-06-18",
+    "versionDate": "2026-06-24",
+    "lastAudit": "2026-06-24",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 171,
+    "event_count": 174,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -71,24 +71,24 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1492,
-      "preserved": 1485,
+      "total_sources": 1529,
+      "preserved": 1522,
       "preservation_rate": 0.995,
       "by_status": {
-        "captured": 1458,
-        "recovered": 21,
-        "existing": 6,
+        "captured": 1493,
+        "recovered": 22,
+        "existing": 7,
         "no_capture": 6,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 907,
-          "preserved": 900
+          "total": 923,
+          "preserved": 916
         },
         "connections": {
-          "total": 397,
-          "preserved": 397
+          "total": 418,
+          "preserved": 418
         },
         "actors": {
           "total": 188,
@@ -7564,6 +7564,90 @@
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
       "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "200",
+      "name": "METI Specified Critical Cloud Programme (ESPA)",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "19 April 2024",
+      "location": "Japan",
+      "scope": "National (Japan); generative-AI cloud computing sector",
+      "description": "Japan's Ministry of Economy, Trade and Industry designated cloud computing programmes as specified critical products under the Economic Security Promotion Act (ESPA), establishing a certified-provider regime for domestic GPU cloud capacity used in generative-AI development.",
+      "investment": "Subsidy designation (up to JPY 72.5 billion across five certified providers; ESPA Article 9(4))",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "201",
+      "name": "Alps Supercomputer (CSCS / Swiss AI Initiative)",
+      "lat": 46.0101,
+      "lng": 8.96,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "June 2024",
+      "location": "Lugano, Switzerland",
+      "scope": "National research infrastructure (Switzerland); AI and scientific HPC",
+      "description": "Alps is the national supercomputer at the Swiss National Supercomputing Centre (CSCS), an HPE Cray EX254n system serving as the central compute infrastructure of the Swiss AI Initiative, supporting AI model training alongside large-scale scientific computing.",
+      "investment": "2,688 NVIDIA GH200 nodes (10,752 superchips); 434.9 PFLOP/s Rmax (No. 7, November 2024 TOP500); ~CHF 100M capital, ~CHF 37M annual operating",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 5,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "202",
+      "name": "xAI Grok-4 Frontier Reasoning Model",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "9 July 2025",
+      "location": "United States",
+      "scope": "Global API availability; US-developed frontier reasoning model",
+      "description": "xAI released Grok-4 on 9 July 2025, a frontier closed-source reasoning model with native tool use, code execution and web browsing. At release it set state-of-the-art results on several independent reasoning benchmarks and is available via the xAI API.",
+      "investment": "~200,000-GPU Colossus training cluster; HLE 50.7% (Grok-4 Heavy, text-only), USAMO'25 61.9%, ARC-AGI-2 15.9% (independently verified)",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 3,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
