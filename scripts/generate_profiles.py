@@ -419,10 +419,54 @@ HYDRATE_BLOCK = r"""<!-- Phase 1B/1C — Supporter live-auth hydrate. Mirrors th
       })
       .catch(function(e){console.warn('[WEO] Profiles hydrate skipped (fail-closed):',e.message);});
   }
+  // Exposed so the on-page supporter login control can re-hydrate same-tab
+  // (storage events don't fire in the tab that wrote the credential).
+  window._weoHydrateProfiles=hydrate;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hydrate);
   else hydrate();
   // cross-tab: re-run when supporter logs in on another tab (e.g. the homepage).
   window.addEventListener('storage',function(e){if(e.key===PW_KEY)hydrate();});
+})();
+</script>"""
+
+# On-page supporter sign-in control. Mirrors the homepage SCP login EXACTLY
+# (index.html checkAccess): authed /api/events fetch gated on
+# metadata.tier==='full', same keys (weo-supporter-password + weo-supporter-auth)
+# and same X-WEO-Password header — no second scheme. On success it stores the
+# credential and calls the existing #269 hydrate (window._weoHydrateProfiles) so
+# paid content unlocks live with no reload. UI only; bakes no paid data.
+LOGIN_BLOCK = r"""<script>
+(function(){
+  var PW_KEY='weo-supporter-password',AUTH_KEY='weo-supporter-auth';
+  var API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://localhost:8787/api':'https://warmthengine.com/api';
+  function $(id){return document.getElementById(id);}
+  function showAuthed(){var t=$('scp-cta-text'),f=$('scp-signin-form'),a=$('scp-signin-authed');if(t)t.hidden=true;if(f)f.hidden=true;if(a)a.hidden=false;}
+  function showLoggedOut(){var t=$('scp-cta-text'),a=$('scp-signin-authed');if(a)a.hidden=true;if(t)t.hidden=false;}
+  window.scpAccessOpen=function(){var t=$('scp-cta-text'),f=$('scp-signin-form');if(t)t.hidden=true;if(f){f.hidden=false;var i=$('scp-signin-input');if(i)i.focus();}};
+  window.scpAccessSubmit=function(){
+    var i=$('scp-signin-input'),err=$('scp-signin-error');if(!i)return;
+    var pw=i.value.trim();
+    if(!pw){i.classList.add('error');if(err)err.hidden=false;return;}
+    // Validate exactly the way the homepage does: authed /api/events, tier must be 'full'.
+    fetch(API+'/events',{headers:{'X-WEO-Password':pw},cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(data){
+        if(data&&data.metadata&&data.metadata.tier==='full'){
+          localStorage.setItem(AUTH_KEY,'true');
+          localStorage.setItem(PW_KEY,pw);
+          i.value='';i.classList.remove('error');if(err)err.hidden=true;
+          showAuthed();
+          if(typeof window._weoHydrateProfiles==='function')window._weoHydrateProfiles();
+        }else{i.classList.add('error');if(err)err.hidden=false;}
+      })
+      .catch(function(){i.classList.add('error');if(err)err.hidden=false;});
+  };
+  window.scpAccessSignout=function(){localStorage.removeItem(AUTH_KEY);localStorage.removeItem(PW_KEY);location.reload();};
+  function initCta(){if(localStorage.getItem(PW_KEY))showAuthed();else showLoggedOut();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initCta);else initCta();
+  // cross-tab: reflect signed-in state when the credential changes elsewhere
+  // (e.g. homepage login). The #269 listener handles the actual re-hydrate.
+  window.addEventListener('storage',function(e){if(e.key===PW_KEY){if(localStorage.getItem(PW_KEY))showAuthed();else showLoggedOut();}});
 })();
 </script>"""
 e = lambda s: H.escape(s or '', quote=True)
@@ -858,6 +902,25 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
 .ftr-copy{{font-size:11px;color:var(--t5);margin-top:8px}}
 .ftr-legal{{font-size:11px;margin-top:4px}} .ftr-legal a{{color:var(--t4);text-decoration:none}} .ftr-legal a:hover{{color:var(--link)}}
 
+/* Supporter sign-in control (anchored in the CTA box) — mirrors the homepage SCP login UI (amber accent). UI only; bakes no paid data. */
+.scp-signin-trigger{{background:none;border:none;padding:0;margin:0;color:#F59E0B;font:inherit;font-weight:480;cursor:pointer;text-decoration:underline;text-underline-offset:2px}}
+.scp-signin-trigger:hover{{color:#FBBF24}}
+.scp-signin-form{{margin-top:10px}}
+.scp-signin-label{{display:block;font-family:'Geist Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--t4);margin-bottom:5px}}
+.scp-signin-row{{display:flex;gap:8px;flex-wrap:wrap}}
+.scp-signin-input{{flex:1;min-width:160px;background:rgba(15,23,42,.6);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;color:var(--t1);font-size:13px}}
+.scp-signin-input:focus{{outline:none;border-color:#F59E0B}}
+.scp-signin-input.error{{border-color:#F87171}}
+.scp-signin-submit{{background:#F59E0B;color:#0F172A;border:none;border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer}}
+.scp-signin-submit:hover{{background:#FBBF24}}
+.scp-signin-error{{margin-top:6px;font-size:12px;color:#F87171}}
+.scp-signin-sub{{margin-top:8px;font-size:11px;color:var(--t4)}}
+.scp-signin-sub a{{color:#F59E0B;text-decoration:none}} .scp-signin-sub a:hover{{text-decoration:underline}}
+.scp-signin-authed{{font-size:12px;color:var(--t3)}}
+.scp-signin-check{{color:#2DD4BF;font-weight:700}}
+.scp-signout{{margin-left:8px;background:none;border:none;padding:0;color:var(--link);font:inherit;font-size:11px;cursor:pointer;text-decoration:underline}}
+.scp-signout:hover{{color:var(--link-hover)}}
+
 /* Scroll containers — inert on desktop, active on mobile */
 .matrix-scroll-wrap,.watch-scroll-wrap{{position:relative;overflow:hidden}}
 .scroll-fade{{position:absolute;top:0;bottom:0;width:28px;z-index:4;pointer-events:none;opacity:0;transition:opacity var(--norm) var(--ease)}}
@@ -995,12 +1058,25 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   {matrix_wrap}
   {watch}
   <div class="ftr">
-    <div class="ftr-cta">Full analysis and sources for all actors available with supporter access.</div>
+    <div class="ftr-cta" id="scp-cta">
+      <div class="scp-cta-text" id="scp-cta-text">Full analysis and sources for all actors available with supporter access. <button type="button" class="scp-signin-trigger" id="scp-signin-trigger" onclick="scpAccessOpen()">Supporter sign-in</button></div>
+      <div class="scp-signin-form" id="scp-signin-form" hidden>
+        <label class="scp-signin-label" for="scp-signin-input">Access Code</label>
+        <div class="scp-signin-row">
+          <input type="password" class="scp-signin-input" id="scp-signin-input" placeholder="Enter your access code" autocomplete="off" onkeydown="if(event.key==='Enter')scpAccessSubmit()">
+          <button type="button" class="scp-signin-submit" id="scp-signin-submit" onclick="scpAccessSubmit()">Unlock Access</button>
+        </div>
+        <div class="scp-signin-error" id="scp-signin-error" hidden>Invalid access code.</div>
+        <div class="scp-signin-sub">Not a supporter? <a href="/support.html">Subscribe here</a></div>
+      </div>
+      <div class="scp-signin-authed" id="scp-signin-authed" hidden><span class="scp-signin-check">&#10003;</span> Supporter access active — full analysis unlocked. <button type="button" class="scp-signout" id="scp-signout" onclick="scpAccessSignout()">Sign out</button></div>
+    </div>
     {snap_hist}
-    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad_fmt} &middot; Methodology V{mv} &middot; WEO v{WEO_VERSION}</div>
+    <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad_fmt}</div>
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
     <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a></div>
     <div class="ftr-links"><a href="https://warmthengine.com/mcp">MCP reference &rarr;</a><a href="/llms.txt">llms.txt &rarr;</a></div>
+    <div class="ftr-ver">Methodology V{mv} &middot; WEO v{WEO_VERSION}</div>
     <p class="ftr-copy">&copy; 2026 Warmth Engine Observatory</p>
     <p class="ftr-legal"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
   </div>
@@ -1184,6 +1260,7 @@ if(navToggle&&navLinks){{
 {DRAWER_BLOCK}
 
 {HYDRATE_BLOCK}
+{LOGIN_BLOCK}
 
 </body>
 </html>'''
