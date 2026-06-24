@@ -7059,6 +7059,12 @@
         // post-layout pipeline + cache refresh fire on layoutstop.
         function relayoutNetworkMode() {
             if (!cy) return;
+            // A re-lay rebuilds the whole graph, so it must exit any active
+            // journey first (skipFit: the fcose re-lay below owns the camera) —
+            // otherwise the journey overlay (panel, ROOT, edges) is left on a
+            // re-laid network. Mirrors the mode-switch exit at the
+            // .atlas-mode-btn handler ("exit, not block", operator-confirmed).
+            if (inJourneyMode()) exitJourney({ skipFit: true });
             hideTimelineUI();
             // DEF-047 — deactivate bands on Re-layout entry path.
             cy.nodes('.atlas-bg-band').removeClass('atlas-bg-band-active');
