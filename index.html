@@ -11684,6 +11684,15 @@ function generateCCSection(eventId, showFullContent) {
     var groups = {PAA:[],AIK:[],ACS:[],Part:[]};
     ACTORS.forEach(function(a) { groups[a.d].push(a); });
     var parts = groups.Part;
+    /* DSC-007 — Participant band only: order by met-dimension count desc, then
+       name asc (live met-count from the fetched object, never hardcoded). PAA/
+       AIK/ACS bands keep designation-priority order. Mirrors the profiles
+       generator's Participant comparator (single rule). */
+    parts.sort(function(a, b) {
+      var ma = a.dims.reduce(function(x, y) { return x + y; }, 0),
+          mb = b.dims.reduce(function(x, y) { return x + y; }, 0);
+      return (mb - ma) || (a.n < b.n ? -1 : a.n > b.n ? 1 : 0);
+    });
 
     var h = '', idx = 0;
 
