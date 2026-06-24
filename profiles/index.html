@@ -819,10 +819,11 @@ if(navToggle&&navLinks){
 
 <!-- Phase 1B/1C — Supporter live-auth hydrate. Mirrors the homepage SCP panel:
      if a supporter password is in localStorage (shared origin), fetch /api/actors
-     with the X-WEO-Password header and replace the baked Sources/Qualification/
-     Severance lock placeholders in place, plus feed the evidence drawer. No paid
-     data is baked into this file — it is fetched at runtime only. Fails closed on
-     401 / network error / missing fields (locks stay). -->
+     with the X-WEO-Password header and rebuild each actor's whole detail body so
+     it is content-identical to the homepage panel (full constraint on Not-Met
+     dims, full qualification on Met dims, Sources, AIK, severance), then feed the
+     evidence drawer. No paid data is baked into this file — it is fetched at
+     runtime only. Fails closed on 401 / network error (free locks stay). -->
 <script>
 (function(){
   var PW_KEY='weo-supporter-password';
@@ -849,22 +850,52 @@ if(navToggle&&navLinks){
     return '<details class="det-expand"><summary class="det-exp-trig">&#9656; Qualification</summary>'
       +'<div class="det-exp-body">'+esc(q)+'</div></details>';
   }
+  var DN=['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var DC=['hw','hw','hw','pl','pl','gv','gv'],DK=['D1','D2','D3','D4','D5','D6','D7'];
+  // Authed per-dimension render — content-identical to the homepage SCP panel's
+  // detailHTML (index.html ~:11810), expressed in the profiles page's own det-*
+  // markup. Same field logic as both the homepage and generate_profiles.py's
+  // detail() so the three surfaces never drift: Not-Met dims show the FULL
+  // constraint (falling back to constraint_headline only when constraint is
+  // absent), Met dims show qualification_headline + the full qualification, plus
+  // Sources, AIK chokepoint, and severance.
+  function detailHTML(actor){
+    var h='',id=esc(actor.id);
+    for(var i=0;i<7;i++){
+      var dim=(actor.dimensions&&actor.dimensions[DK[i]])||{};
+      var met=!!dim.met,con=dim.constraint||null,hl=dim.constraint_headline||null,
+          qhl=dim.qualification_headline||null,qual=dim.qualification||null;
+      h+='<div class="det-dim"><span class="det-dim-name"><span class="det-dot '+DC[i]+'"></span>'+DN[i]+'</span>';
+      h+='<span class="det-st '+(met?'det-met':'det-not')+'">'+(met?'Met':'Not Met')+'</span></div>';
+      if(met&&qhl)h+='<div class="det-qhl">'+esc(qhl)+'</div>';
+      if(met&&con)h+='<div class="det-con">'+esc(con)+'</div>';
+      else if(!met&&con)h+='<div class="det-con"><span class="det-con-label">Constraint:</span> '+esc(con)+'</div>';
+      else if(!met&&hl)h+='<div class="det-con"><span class="det-con-label">Constraint:</span> '+esc(hl)+'</div>';
+      if(met&&qual)h+=qualDetails(qual);
+      var sd=srcDetails(dim.sources);
+      if(sd)h+=sd;
+      else if(met||(!met&&(con||hl)))h+='<div class="det-lock" data-actor="'+id+'" data-dim="'+DK[i]+'">&#128274; Sources (supporter access)</div>';
+    }
+    if(actor.aik_profile&&actor.designation==='AIK'){
+      h+='<div class="det-aik"><div class="det-aik-label">Chokepoint Profile</div>';
+      h+='<div class="det-aik-nature">'+esc(actor.aik_profile.chokepoint_nature||'')+'</div>';
+      h+='<div class="det-aik-ent">'+esc(actor.aik_profile.key_entities||'')+'</div></div>';
+    }
+    if(actor.severance_detail)h+='<div class="det-sev"><strong>Severance:</strong> '+esc(actor.severance_detail)+'</div>';
+    else if(actor.designation==='PAA'||actor.designation==='AIK'||actor.designation==='ACS')
+      h+='<div class="det-lock" data-actor="'+id+'" data-kind="severance">&#128274; Severance analysis (supporter access)</div>';
+    return h;
+  }
   function applyMatrix(byId){
-    // Sources (+ Qualification) locks — keyed per dimension.
-    document.querySelectorAll('.det-lock[data-dim]').forEach(function(lock){
-      var a=byId[(lock.getAttribute('data-actor')||'').toUpperCase()]; if(!a||!a.dimensions)return;
-      var dim=a.dimensions[lock.getAttribute('data-dim')]; if(!dim)return;
-      var sd=srcDetails(dim.sources); if(!sd)return; // fail closed: no sources → keep lock
-      var tmp=document.createElement('div'); tmp.innerHTML=qualDetails(dim.qualification)+sd;
-      while(tmp.firstChild){ lock.parentNode.insertBefore(tmp.firstChild,lock); }
-      lock.parentNode.removeChild(lock);
-    });
-    // Severance locks — actor-level.
-    document.querySelectorAll('.det-lock[data-kind="severance"]').forEach(function(lock){
-      var a=byId[(lock.getAttribute('data-actor')||'').toUpperCase()]; if(!a||!a.severance_detail)return;
-      var div=document.createElement('div'); div.className='det-sev';
-      div.innerHTML='<strong>Severance:</strong> '+esc(a.severance_detail);
-      lock.parentNode.replaceChild(div,lock);
+    // Authenticated: rebuild each actor's WHOLE detail body from the /api/actors
+    // object so profiles is content-identical to the homepage panel — not just a
+    // lock swap (Phase 1 left the free constraint_headline / short text in place).
+    // Free responses (no sources/constraint) re-render to the same baked output,
+    // so this stays fail-closed.
+    Object.keys(byId).forEach(function(idUc){
+      var details=document.getElementById(idUc.toLowerCase()); if(!details)return;
+      var det=details.querySelector('.det'); if(!det)return;
+      det.innerHTML=detailHTML(byId[idUc]);
     });
   }
   function hydrate(){
