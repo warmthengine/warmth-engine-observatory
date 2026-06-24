@@ -629,7 +629,10 @@ def build_page(data):
         for a in g: matrix+=actor_row(a)
         if gk=='PAA':
             matrix+='<div class="paa-fold"><span class="paa-fold-label">Ecosystem anchors</span></div>'
-    parts=groups['Part']
+    # DSC-007 — Participant band only: met-dimension count desc, then name asc.
+    # Identical rule to the homepage panel (index.html). PAA/AIK/ACS keep
+    # designation-priority order.
+    parts=sorted(groups['Part'], key=lambda a:(-sum(a['dims']), a['n']))
     matrix+=f'<details class="part-group"><summary class="part-toggle"><span class="part-arr">&#9654;</span> {len(parts)} Participants</summary><div class="part-inner">'
     for a in parts: matrix+=actor_row(a)
     matrix+='</div></details></div>'
