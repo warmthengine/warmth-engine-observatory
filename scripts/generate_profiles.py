@@ -16,7 +16,415 @@ BL = {'PAA':'PAA','AIK':'AIK','ACS':'ACS','Part':'Part'}
 GN = {'PAA':'Principal AI Actors','AIK':'AI Infrastructure Keystones','ACS':'Advanced Capability States'}
 GC = ['Grade 1','Grade 2','Grade 3']
 GCLS = ['g1','g2','g3']
-WEO_VERSION = '1.3.0'
+WEO_VERSION = '1.4.0'
+
+# --- Verbatim static assets ported from the live v1.4.0 profiles page (2B reconciliation) ---
+# Part 7C dynamic actor/group counts (DOM self-heal), WS-2b evidence drawer, #269 live-auth hydrate.
+PART7C_BLOCK = r"""<script>
+/* Dynamic actor counts (Part 7C) — roster is static DOM with no fetch, so the
+   header, the three designation tallies, and the Participants toggle all read
+   their counts from the rendered .actor rows and self-heal when actors are added. */
+(function(){
+  function refresh(){
+    var body=document.querySelector('.matrix-body');
+    if(!body)return;
+    var all=body.querySelectorAll('details.actor');
+    var hdr=document.querySelector('.hdr-sub');
+    if(hdr)hdr.innerHTML='Actor Designation Framework &mdash; '+all.length+' actors assessed';
+    /* Each .grp header is followed by its actor rows until the next .grp or .part-group */
+    Array.prototype.forEach.call(body.querySelectorAll('.grp'),function(grp){
+      var n=0,el=grp.nextElementSibling;
+      while(el&&!el.classList.contains('grp')&&!el.classList.contains('part-group')){
+        if(el.tagName==='DETAILS'&&el.classList.contains('actor'))n++;
+        el=el.nextElementSibling;
+      }
+      var label=grp.firstChild;
+      if(label&&label.nodeType===3)label.nodeValue=label.nodeValue.replace(/\(\d+\)/,'('+n+')');
+    });
+    /* Participants nest inside .part-inner; update the toggle label number in place */
+    var inner=body.querySelector('.part-inner'),toggle=body.querySelector('.part-toggle');
+    if(inner&&toggle){
+      var pn=inner.querySelectorAll('details.actor').length;
+      Array.prototype.forEach.call(toggle.childNodes,function(node){
+        if(node.nodeType===3&&/Participants/.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/\d+/,pn);
+      });
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);
+  else refresh();
+})();
+</script>"""
+DRAWER_BLOCK = r"""<!-- WS-2b — Per-cell capability evidence drawer. Hash #<ACTOR>-<Dn> (actor codes are GB, not UK). Reads the served /api/capability-links for event evidence; reuses the inlined per-dimension MET status / qualifying headline / constraint already on the page. Does NOT add a methodology element — the existing per-dimension method tooltips are preserved. -->
+<style>
+.weo-dr-scrim{position:fixed;inset:0;background:rgba(2,6,23,.55);opacity:0;visibility:hidden;transition:opacity var(--norm) var(--ease),visibility var(--norm) var(--ease);z-index:9998}
+.weo-dr-scrim.open{opacity:1;visibility:visible}
+.weo-drawer{position:fixed;top:0;right:0;height:100%;width:440px;max-width:92vw;background:var(--raised);border-left:1px solid var(--border);box-shadow:-10px 0 44px rgba(0,0,0,.5);transform:translateX(100%);transition:transform var(--norm) var(--ease);z-index:9999;display:flex;flex-direction:column;overflow:hidden}
+.weo-drawer.open{transform:translateX(0)}
+.weo-dr-head{position:relative;padding:22px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.weo-dr-eyebrow{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5EEAD4;margin-bottom:8px}
+.weo-dr-title{font-size:18px;font-weight:580;color:var(--t1);line-height:1.3}
+.weo-dr-title .weo-dr-dn{color:var(--t5);font-family:'Geist Mono',monospace;font-size:13px;font-weight:500}
+.weo-dr-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px;font-size:12px;color:var(--t4)}
+.weo-dr-status{font-weight:600;letter-spacing:.03em}
+.weo-dr-status.met{color:#22C55E} .weo-dr-status.not{color:var(--part)}
+.weo-dr-tag{font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:10px;letter-spacing:.02em}
+.weo-dr-tag.sole{background:rgba(45,212,191,.14);color:#5EEAD4;border:1px solid rgba(45,212,191,.3)}
+.weo-dr-tag.helps{background:rgba(96,165,250,.14);color:#93C5FD;border:1px solid rgba(96,165,250,.3)}
+.weo-dr-tag.contrib{background:rgba(148,163,184,.14);color:var(--t3);border:1px solid rgba(148,163,184,.25)}
+.weo-dr-close{position:absolute;top:14px;right:16px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.5);border:1px solid var(--border);border-radius:6px;color:var(--t4);font-size:18px;line-height:1;cursor:pointer;transition:all var(--fast) var(--ease)}
+.weo-dr-close:hover{color:var(--t1);border-color:#60A5FA}
+.weo-dr-body{padding:18px 24px 30px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.weo-dr-sec{margin-bottom:20px}
+.weo-dr-sec-title{font-size:11px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.weo-dr-qhl{font-size:12.5px;color:var(--t3);line-height:1.55;padding:10px 12px;background:rgba(15,23,42,.4);border:1px solid rgba(255,255,255,.04);border-radius:var(--r-sm)}
+.weo-dr-con{font-size:12px;color:var(--t5);line-height:1.5;font-style:italic;margin-top:8px}
+.weo-dr-con b{font-style:normal;color:var(--t4);font-weight:600}
+.weo-dr-ev{padding:10px 12px;background:rgba(15,23,42,.45);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px}
+.weo-dr-ent{font-size:13px;font-weight:540;color:var(--t2);line-height:1.4;margin-bottom:5px}
+.weo-dr-evlink{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--link);text-decoration:none}
+.weo-dr-evlink:hover{color:var(--link-hover);text-decoration:underline}
+.weo-dr-contriblabel{font-size:10px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.weo-dr-empty{font-size:12px;color:var(--t5);line-height:1.55;font-style:italic}
+.weo-dr-lock{margin-top:10px;font-size:11px;color:var(--t5);line-height:1.55;padding:10px 12px;background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.12);border-radius:var(--r-sm)}
+.weo-dr-lock a{color:var(--link);text-decoration:none} .weo-dr-lock a:hover{text-decoration:underline}
+.weo-dr-contribrow{display:block;font-size:11px;color:var(--t5);line-height:1.5;padding:5px 10px;margin-bottom:5px;background:rgba(15,23,42,.3);border:1px solid rgba(255,255,255,.04);border-radius:var(--r-sm);text-decoration:none;transition:color var(--fast) var(--ease),border-color var(--fast) var(--ease)}
+.weo-dr-contribrow:hover{color:var(--t3);border-color:rgba(96,165,250,.3)}
+.weo-dr-cont-tag{font-weight:600;color:var(--t4);letter-spacing:.04em;font-size:9.5px;text-transform:uppercase}
+.weo-dr-cont-id{font-family:'Geist Mono',monospace;color:var(--t5);opacity:.7}
+.weo-dr-ev.weo-dr-hl,.weo-dr-contribrow.weo-dr-hl{animation:weoDrFlash 1.6s var(--ease)}
+@keyframes weoDrFlash{0%{box-shadow:0 0 0 2px rgba(96,165,250,.7)}100%{box-shadow:0 0 0 2px rgba(96,165,250,0)}}
+.weo-dr-supp .src-entry{margin-bottom:8px}
+.dot.weo-dr-dot-hl{transform:scale(1.45);box-shadow:0 0 12px rgba(255,255,255,.45)}
+@media(max-width:767px){.weo-drawer{width:100%;max-width:100%}}
+</style>
+<div class="weo-dr-scrim" id="weoDrScrim"></div>
+<aside class="weo-drawer" id="weoDrawer" role="dialog" aria-modal="true" aria-labelledby="weoDrTitle" tabindex="-1">
+  <div class="weo-dr-head">
+    <button class="weo-dr-close" id="weoDrClose" aria-label="Close evidence drawer">&times;</button>
+    <div class="weo-dr-eyebrow">Capability evidence</div>
+    <h2 class="weo-dr-title" id="weoDrTitle"></h2>
+    <div class="weo-dr-meta" id="weoDrMeta"></div>
+  </div>
+  <div class="weo-dr-body" id="weoDrBody"></div>
+</aside>
+<script>
+(function(){
+  var DIM=['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var API_BASE=(location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://localhost:8787/api':'https://warmthengine.com/api';
+  var API=API_BASE+'/capability-links';
+  var byCell=null,ready=false,current=null,lastFocus=null;
+  var evName=null;   // event_id (leading-zeros stripped) -> event name, from the free events feed
+  var fullById=null; // supporter actors payload keyed by uppercase id, fed by the 1B hydrate
+  function normId(x){var n=parseInt(x,10);return isNaN(n)?String(x):String(n);}
+  var scrim=document.getElementById('weoDrScrim'),drawer=document.getElementById('weoDrawer'),
+      elTitle=document.getElementById('weoDrTitle'),elMeta=document.getElementById('weoDrMeta'),
+      elBody=document.getElementById('weoDrBody'),elClose=document.getElementById('weoDrClose');
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function ingest(links){
+    byCell={};
+    links.forEach(function(l){
+      var k=l.actor+'|'+l.dimension,c=byCell[k]||(byCell[k]={qc:[],ca:[]});
+      (l.link_type==='qualifying_contributor'?c.qc:c.ca).push(l);
+    });
+    ready=true;
+    if(current)render(current.actor,current.dn);
+  }
+  // Extract the inlined free detail (status / qualifying headline / constraint) for actor x dimension index k.
+  function domDetail(details,k){
+    var dots=details.querySelectorAll('.row-dots .dot');
+    var dot=dots[k]||null;
+    var met=!!(dot&&dot.classList.contains('dot-met'));
+    var qhl='',con='';
+    var dims=details.querySelectorAll('.det .det-dim');
+    var start=dims[k];
+    if(start){
+      var n=start.nextElementSibling;
+      while(n&&!n.classList.contains('det-dim')){
+        if(n.classList.contains('det-qhl'))qhl=n.textContent.trim();
+        else if(n.classList.contains('det-con'))con=n.innerHTML.trim();
+        n=n.nextElementSibling;
+      }
+    }
+    return {met:met,dot:dot,qhl:qhl,con:con};
+  }
+  // Resolve an event_id to its free-feed name (gating: name only — never qualification_basis/rationale/note).
+  function evNm(id){return (evName&&evName[normId(id)])||null;}
+  // Establishing evidence — full prominent card link (named once the feed lands).
+  function evLink(id){var nm=evNm(id);var lbl=nm?(esc(nm)+' <span class="weo-dr-cont-id">&rarr; '+esc(id)+'</span>'):('View event '+esc(id));return '<a class="weo-dr-evlink" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles" target="_blank" rel="noopener">'+lbl+' &#8594;</a>';}
+  // Contributory evidence — compact, muted, named single-line row (present but subordinate).
+  function contribRow(id){var nm=evNm(id);return '<a class="weo-dr-contribrow" data-event-id="'+esc(id)+'" href="/events.html?event='+encodeURIComponent(id)+'&from=profiles" target="_blank" rel="noopener"><span class="weo-dr-cont-tag">Contributing</span> &middot; '+(nm?esc(nm):'Event '+esc(id))+' <span class="weo-dr-cont-id">&rarr; '+esc(id)+'</span></a>';}
+  // #216 item 17 — lightweight methodology ? tooltip for the drawer. Reuses the
+  // page's .weo-info-trigger component + document-delegated tooltip handler.
+  function drTip(title,body,anchor){
+    return ' <span class="weo-info-trigger">?<span class="weo-tooltip"><div class="weo-tooltip-title">'+title+'</div><div class="weo-tooltip-body">'+body+'</div>'+(anchor?'<div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#'+anchor+'" target="_blank" rel="noopener">&sect; View in Methodology &#8594;</a></div>':'')+'</span></span>';
+  }
+  // Polish #224 cluster 6a — mirror the matrix pill's per-dimension tooltip
+  // (title + body + methodology anchor) into the drawer's dimension ?, so it
+  // deep-links to that dimension's own section (#section-5-3-d{n}) and reads
+  // the same definition as the pills rather than a generic #section-5-3 — one
+  // source of truth, no re-authored copy. Read from the DOM once per dimension.
+  var _dimTipCache={};
+  function dimPillTip(k){
+    if(_dimTipCache[k]!==undefined)return _dimTipCache[k];
+    var res=null,pill=document.querySelector('.pills-grid .pill[data-dim="'+k+'"]');
+    if(pill&&pill.parentNode){
+      var tip=pill.parentNode.querySelector('.weo-tooltip');
+      if(tip){
+        var tEl=tip.querySelector('.weo-tooltip-title'),bEl=tip.querySelector('.weo-tooltip-body'),aEl=tip.querySelector('.weo-tooltip-method-link a'),anchor='';
+        if(aEl){var hp=aEl.getAttribute('href')||'',hi=hp.indexOf('#');if(hi>=0)anchor=hp.slice(hi+1);}
+        res={title:(tEl?tEl.innerHTML:esc(DIM[k])),body:(bEl?bEl.innerHTML:''),anchor:(anchor||'section-5-3-d'+(k+1))};
+      }
+    }
+    if(!res)res={title:esc(DIM[k]),body:'One of the seven Sovereign Capability Profile dimensions assessed per actor.',anchor:'section-5-3-d'+(k+1)};
+    _dimTipCache[k]=res;return res;
+  }
+  // Supporter source row (reuses the page's global .src-entry/.src-grade styling).
+  var DR_GC=['Grade 1','Grade 2','Grade 3'],DR_GCLS=['g1','g2','g3'];
+  function drSrc(label,o){
+    if(!o||!o.publisher)return '';
+    var gi=(o.grade||1)-1; if(gi<0||gi>2)gi=0;
+    var h='<div class="src-entry"><span class="src-label">'+esc(label)+'</span> ';
+    h+='<span class="src-grade '+DR_GCLS[gi]+'">'+DR_GC[gi]+'</span>';
+    h+=esc(o.publisher)+' &middot; '+esc(o.date||'');
+    if(o.url)h+=' <a href="'+esc(o.url)+'" target="_blank" rel="noopener" class="src-link">&#8599;</a>';
+    h+='<br><span class="src-fact">'+esc(o.qualifying_fact||'')+'</span></div>';
+    return h;
+  }
+  function render(actorUc,dn){
+    var k=parseInt(dn.slice(1),10)-1;
+    var details=document.getElementById(actorUc.toLowerCase());
+    if(!details||isNaN(k)||k<0||k>6)return false;
+    var nameEl=details.querySelector('.row-name');
+    var actorName=(nameEl&&(nameEl.getAttribute('title')||nameEl.textContent.trim()))||actorUc;
+    var d=domDetail(details,k);
+    var cell=(ready&&byCell)?(byCell[actorUc+'|'+dn]||{qc:[],ca:[]}):{qc:[],ca:[]};
+    // header
+    var _dt=dimPillTip(k);
+    elTitle.innerHTML=esc(DIM[k])+' <span class="weo-dr-dn">('+esc(dn)+')</span>'+drTip(_dt.title,_dt.body,_dt.anchor);
+    var tag='';
+    if(cell.qc.length===1)tag='<span class="weo-dr-tag sole">Sole basis (current corpus)</span>';
+    else if(cell.qc.length>1)tag='<span class="weo-dr-tag helps">Helps establish &middot; one of '+cell.qc.length+'</span>';
+    else if(cell.ca.length)tag='<span class="weo-dr-tag contrib">Contributory evidence</span>';
+    // Polish #224 cluster 6a — the evidence-standard tooltip on this tag was a
+    // duplicate of the contributory-evidence section tooltip (both → §5.3.4);
+    // removed per the brief. The tag text itself (Sole basis / Helps establish
+    // / Contributory) stays, and the in-context Establishing/Contributory
+    // section tooltips below explain the evidence taxonomy.
+    elMeta.innerHTML='<span>'+esc(actorName)+'</span><span class="weo-dr-status '+(d.met?'met':'not')+'">'+(d.met?'MET':'NOT MET')+'</span>'+drTip('Dimension status','<strong>MET / NOT MET</strong> is the binary SCP assessment: whether this actor meets the qualification standard for this dimension.','section-5-3-2')+tag;
+    // body
+    var h='';
+    if(d.met&&d.qhl){h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Qualification</div><div class="weo-dr-qhl">'+esc(d.qhl)+(d.con?'<div class="weo-dr-con">'+d.con+'</div>':'')+'</div></div>';}
+    else if(d.con){h+='<div class="weo-dr-sec"><div class="weo-dr-qhl"><div class="weo-dr-con" style="margin-top:0">'+d.con+'</div></div></div>';}
+    if(d.met){
+      // establishing evidence (qualifying_contributor)
+      h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Establishing evidence'+drTip('Establishing evidence','Qualifying-contributor events — catalogued events that provide a qualifying basis for this dimension.','section-5-3-4')+'</div>';
+      if(cell.qc.length){
+        h+=cell.qc.map(function(l){
+          return '<div class="weo-dr-ev" data-event-id="'+esc(l.event_id)+'">'+(l.entity?'<div class="weo-dr-ent">'+esc(l.entity)+'</div>':'')+evLink(l.event_id)+'</div>';
+        }).join('');
+      } else if(!ready){ h+='<div class="weo-dr-empty">Loading evidence&hellip;</div>'; }
+      else { h+='<div class="weo-dr-empty">Met, but no catalogued event currently provides a qualifying basis for this dimension. The qualification above stands on its own SCP assessment.</div>'; }
+      h+='</div>';
+      // contributory evidence (capability_area)
+      if(cell.ca.length){
+        h+='<div class="weo-dr-sec"><div class="weo-dr-sec-title">Contributory evidence'+drTip('Contributory evidence','Capability-area events — catalogued events that contribute to, but do not by themselves establish, this dimension.','section-5-3-4')+'</div>';
+        h+=cell.ca.map(function(l){ return contribRow(l.event_id); }).join('');
+        h+='</div>';
+      }
+      // 1C — supporter unlock: when the live actors payload is present for this
+      // cell, render the real qualification + sources in place of the lock.
+      // Fail-closed: no payload (free user / 401 / network) keeps the lock.
+      var fa=fullById&&fullById[actorUc.toUpperCase()];
+      var fdim=fa&&fa.dimensions&&fa.dimensions[dn];
+      if(fdim&&(fdim.qualification||fdim.sources)){
+        h+='<div class="weo-dr-sec weo-dr-supp"><div class="weo-dr-sec-title">Qualification rationale &amp; sources</div>';
+        if(fdim.qualification)h+='<div class="weo-dr-qhl">'+esc(fdim.qualification)+'</div>';
+        if(fdim.sources){
+          h+=drSrc('Primary',fdim.sources.primary)+drSrc('Corroborating',fdim.sources.corroborating);
+        }
+        h+='</div>';
+      } else {
+        h+='<div class="weo-dr-lock">Qualification basis, rationale, and full source analysis available with supporter access. <a href="/support.html">Subscribe &#8594;</a></div>';
+      }
+    } else {
+      h+='<div class="weo-dr-sec"><div class="weo-dr-empty">This dimension is not met for '+esc(actorName)+'. No qualifying or contributory event evidence is catalogued.</div></div>';
+    }
+    elBody.innerHTML=h;
+    elBody.scrollTop=0;
+    // context: open underlying actor row + highlight the cell's dot
+    var pg=details.closest('.part-group'); if(pg)pg.open=true;
+    details.open=true;
+    document.querySelectorAll('.dot.weo-dr-dot-hl').forEach(function(x){x.classList.remove('weo-dr-dot-hl');});
+    if(d.dot)d.dot.classList.add('weo-dr-dot-hl');
+    // 1D — highlight-on-arrival: when deep-linked from an event (#ACTOR-Dn-e<id>),
+    // scroll the matching evidence card into view and flash it once it exists.
+    if(current&&current.ev){
+      var card=null;
+      Array.prototype.some.call(elBody.querySelectorAll('[data-event-id]'),function(el){
+        if(normId(el.getAttribute('data-event-id'))===normId(current.ev)){card=el;return true;}return false;
+      });
+      if(card){
+        // Scroll once; re-apply the flash on every render (innerHTML rebuilds on
+        // each data feed land — caplinks / events / actors — would otherwise drop it).
+        if(!current.hlDone){
+          current.hlDone=true;
+          var mq=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+          try{card.scrollIntoView({behavior:mq?'auto':'smooth',block:'center'});}catch(e){try{card.scrollIntoView();}catch(e2){}}
+        }
+        card.classList.remove('weo-dr-hl');void card.offsetWidth;card.classList.add('weo-dr-hl');
+      }
+    }
+    return true;
+  }
+  function open(actorUc,dn,ev){
+    current={actor:actorUc,dn:dn,ev:ev||null,hlDone:false};
+    if(!render(actorUc,dn)){current=null;return;}
+    lastFocus=document.activeElement;
+    scrim.classList.add('open');drawer.classList.add('open');
+    drawer.focus();
+  }
+  function close(strip){
+    current=null;
+    scrim.classList.remove('open');drawer.classList.remove('open');
+    document.querySelectorAll('.dot.weo-dr-dot-hl').forEach(function(x){x.classList.remove('weo-dr-dot-hl');});
+    if(strip!==false&&/#[A-Za-z]+-D[1-7](?:-e[0-9]+)?$/.test(location.hash)){
+      history.replaceState(null,'',location.pathname+location.search);
+    }
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus();}catch(e){}}
+  }
+  function applyHash(){
+    var m=/^#([A-Za-z]{2,3})-(D[1-7])(?:-e([0-9]+))?$/.exec(location.hash);
+    if(m&&document.getElementById(m[1].toLowerCase())){open(m[1].toUpperCase(),m[2],m[3]||null);}
+    else{close(false);}
+  }
+  // Dot click → deep-link the cell (keeps browser history / back-forward working).
+  document.addEventListener('click',function(e){
+    var dot=e.target.closest&&e.target.closest('.row-dots .dot');
+    if(!dot)return;
+    var details=dot.closest('details.actor');var di=dot.getAttribute('data-di');
+    if(!details||di==null)return;
+    e.preventDefault();e.stopPropagation();
+    var hash='#'+details.id.toUpperCase()+'-D'+(parseInt(di,10)+1);
+    if(location.hash===hash)applyHash();else location.hash=hash;
+  },true);
+  elClose.addEventListener('click',function(){close(true);});
+  scrim.addEventListener('click',function(){close(true);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&drawer.classList.contains('open'))close(true);});
+  window.addEventListener('hashchange',applyHash);
+  fetch(API,{cache:'default'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.links)ingest(d.links);}).catch(function(){});
+  // 1D — free events feed → event_id→name map (names are free; paid card fields are never surfaced here).
+  fetch(API_BASE+'/events',{cache:'default'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d)return;var evs=d.events||d;if(!evs||!evs.length)return;
+    evName={};evs.forEach(function(ev){if(ev&&ev.id!=null&&ev.name)evName[normId(ev.id)]=ev.name;});
+    if(current)render(current.actor,current.dn);
+  }).catch(function(){});
+  // 1C bridge — the 1B hydrate calls this with the supporter actors payload so the
+  // drawer can swap its lock for the real qualification + sources.
+  window._weoApplyFullActors=function(byId){fullById=byId||null;if(current)render(current.actor,current.dn);};
+  applyHash();
+})();
+</script>"""
+HYDRATE_BLOCK = r"""<!-- Phase 1B/1C — Supporter live-auth hydrate. Mirrors the homepage SCP panel:
+     if a supporter password is in localStorage (shared origin), fetch /api/actors
+     with the X-WEO-Password header and rebuild each actor's whole detail body so
+     it is content-identical to the homepage panel (full constraint on Not-Met
+     dims, full qualification on Met dims, Sources, AIK, severance), then feed the
+     evidence drawer. No paid data is baked into this file — it is fetched at
+     runtime only. Fails closed on 401 / network error (free locks stay). -->
+<script>
+(function(){
+  var PW_KEY='weo-supporter-password';
+  var API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://localhost:8787/api':'https://warmthengine.com/api';
+  var GC=['Grade 1','Grade 2','Grade 3'],GCLS=['g1','g2','g3'];
+  function esc(s){if(s==null)return '';var d=document.createElement('div');d.textContent=String(s);return d.innerHTML;}
+  function srcRow(label,o){
+    if(!o||!o.publisher)return '';
+    var gi=(o.grade||1)-1; if(gi<0||gi>2)gi=0;
+    var h='<div class="src-entry"><span class="src-label">'+label+'</span> ';
+    h+='<span class="src-grade '+GCLS[gi]+'">'+GC[gi]+'</span>';
+    h+=esc(o.publisher)+' &middot; '+esc(o.date||'');
+    if(o.url)h+=' <a href="'+esc(o.url)+'" target="_blank" rel="noopener" class="src-link">&#8599;</a>';
+    h+='<br><span class="src-fact">'+esc(o.qualifying_fact||'')+'</span></div>';
+    return h;
+  }
+  function srcDetails(s){
+    if(!s||!s.primary||!s.primary.publisher)return '';
+    return '<details class="det-expand"><summary class="det-exp-trig">&#9432; Sources</summary>'
+      +'<div class="det-exp-body">'+srcRow('Primary',s.primary)+srcRow('Corroborating',s.corroborating)+'</div></details>';
+  }
+  function qualDetails(q){
+    if(!q)return '';
+    return '<details class="det-expand"><summary class="det-exp-trig">&#9656; Qualification</summary>'
+      +'<div class="det-exp-body">'+esc(q)+'</div></details>';
+  }
+  var DN=['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
+  var DC=['hw','hw','hw','pl','pl','gv','gv'],DK=['D1','D2','D3','D4','D5','D6','D7'];
+  // Authed per-dimension render — content-identical to the homepage SCP panel's
+  // detailHTML (index.html ~:11810), expressed in the profiles page's own det-*
+  // markup. Same field logic as both the homepage and generate_profiles.py's
+  // detail() so the three surfaces never drift: Not-Met dims show the FULL
+  // constraint (falling back to constraint_headline only when constraint is
+  // absent), Met dims show qualification_headline + the full qualification, plus
+  // Sources, AIK chokepoint, and severance.
+  function detailHTML(actor){
+    var h='',id=esc(actor.id);
+    for(var i=0;i<7;i++){
+      var dim=(actor.dimensions&&actor.dimensions[DK[i]])||{};
+      var met=!!dim.met,con=dim.constraint||null,hl=dim.constraint_headline||null,
+          qhl=dim.qualification_headline||null,qual=dim.qualification||null;
+      h+='<div class="det-dim"><span class="det-dim-name"><span class="det-dot '+DC[i]+'"></span>'+DN[i]+'</span>';
+      h+='<span class="det-st '+(met?'det-met':'det-not')+'">'+(met?'Met':'Not Met')+'</span></div>';
+      if(met&&qhl)h+='<div class="det-qhl">'+esc(qhl)+'</div>';
+      if(met&&con)h+='<div class="det-con">'+esc(con)+'</div>';
+      else if(!met&&con)h+='<div class="det-con"><span class="det-con-label">Constraint:</span> '+esc(con)+'</div>';
+      else if(!met&&hl)h+='<div class="det-con"><span class="det-con-label">Constraint:</span> '+esc(hl)+'</div>';
+      if(met&&qual)h+=qualDetails(qual);
+      var sd=srcDetails(dim.sources);
+      if(sd)h+=sd;
+      else if(met||(!met&&(con||hl)))h+='<div class="det-lock" data-actor="'+id+'" data-dim="'+DK[i]+'">&#128274; Sources (supporter access)</div>';
+    }
+    if(actor.aik_profile&&actor.designation==='AIK'){
+      h+='<div class="det-aik"><div class="det-aik-label">Chokepoint Profile</div>';
+      h+='<div class="det-aik-nature">'+esc(actor.aik_profile.chokepoint_nature||'')+'</div>';
+      h+='<div class="det-aik-ent">'+esc(actor.aik_profile.key_entities||'')+'</div></div>';
+    }
+    if(actor.severance_detail)h+='<div class="det-sev"><strong>Severance:</strong> '+esc(actor.severance_detail)+'</div>';
+    else if(actor.designation==='PAA'||actor.designation==='AIK'||actor.designation==='ACS')
+      h+='<div class="det-lock" data-actor="'+id+'" data-kind="severance">&#128274; Severance analysis (supporter access)</div>';
+    return h;
+  }
+  function applyMatrix(byId){
+    // Authenticated: rebuild each actor's WHOLE detail body from the /api/actors
+    // object so profiles is content-identical to the homepage panel — not just a
+    // lock swap (Phase 1 left the free constraint_headline / short text in place).
+    // Free responses (no sources/constraint) re-render to the same baked output,
+    // so this stays fail-closed.
+    Object.keys(byId).forEach(function(idUc){
+      var details=document.getElementById(idUc.toLowerCase()); if(!details)return;
+      var det=details.querySelector('.det'); if(!det)return;
+      det.innerHTML=detailHTML(byId[idUc]);
+    });
+  }
+  function hydrate(){
+    var pw=localStorage.getItem(PW_KEY);
+    if(!pw)return; // free user: locks stay, US sample stays visible
+    fetch(API+'/actors',{headers:{'X-WEO-Password':pw},cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(function(data){
+        if(!data||!data.actors||!data.actors.length)throw new Error('empty response');
+        var byId={}; data.actors.forEach(function(a){if(a&&a.id)byId[String(a.id).toUpperCase()]=a;});
+        applyMatrix(byId);
+        if(typeof window._weoApplyFullActors==='function')window._weoApplyFullActors(byId);
+        console.log('[WEO] Profiles hydrated from API (supporter), actors:',data.actors.length);
+      })
+      .catch(function(e){console.warn('[WEO] Profiles hydrate skipped (fail-closed):',e.message);});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hydrate);
+  else hydrate();
+  // cross-tab: re-run when supporter logs in on another tab (e.g. the homepage).
+  window.addEventListener('storage',function(e){if(e.key===PW_KEY)hydrate();});
+})();
+</script>"""
 e = lambda s: H.escape(s or '', quote=True)
 
 TOOLTIP_DIM = [
@@ -110,7 +518,7 @@ def detail(a):
             h+='<details class="det-expand"><summary class="det-exp-trig">&#9432; Sources</summary>'
             h+=f'<div class="det-exp-body">{src_html("Primary",a["src"][i],0)}{src_html("Corroborating",a["src"][i],5)}</div></details>'
         elif d or (not d and (a['con'][i] or a['hl'][i])):
-            h+='<div class="det-lock">&#128274; Sources (supporter access)</div>'
+            h+=f'<div class="det-lock" data-actor="{a["id"]}" data-dim="{DK[i]}">&#128274; Sources (supporter access)</div>'
     if a['aik'] and a['d']=='AIK':
         h+='<div class="det-aik"><div class="det-aik-label">Chokepoint Profile</div>'
         h+=f'<div class="det-aik-nature">{e(a["aik"].get("chokepoint_nature",""))}</div>'
@@ -118,7 +526,7 @@ def detail(a):
     if a['svd']:
         h+=f'<div class="det-sev"><strong>Severance:</strong> {e(a["svd"])}</div>'
     elif a['d'] in ('PAA','AIK','ACS'):
-        h+='<div class="det-lock">&#128274; Severance analysis (supporter access)</div>'
+        h+=f'<div class="det-lock" data-actor="{a["id"]}" data-kind="severance">&#128274; Severance analysis (supporter access)</div>'
     return h
 
 def actor_row(a):
@@ -257,10 +665,10 @@ def build_page(data):
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="weo-version" content="{WEO_VERSION}">
 <title>Sovereign Capability Profiles — AI Infrastructure Assessments | Warmth Engine Observatory</title>
-<meta name="description" content="Nation-state AI infrastructure assessments across 14 actors and 7 dimensions. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment.">
+<meta name="description" content="Nation-state AI infrastructure assessments across 7 dimensions. Chip design, fabrication, equipment, compute, frontier models, regulation, and sovereign investment.">
 <link rel="canonical" href="https://warmthengine.com/profiles/">
 <meta property="og:title" content="Sovereign Capability Profiles — Warmth Engine Observatory">
-<meta property="og:description" content="Which nations control the AI infrastructure stack? 14 actors assessed across 7 dimensions.">
+<meta property="og:description" content="Which nations control the AI infrastructure stack? Assessed across 7 dimensions.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://warmthengine.com/profiles/">
 <meta property="og:image" content="https://www.warmthengine.com/og-image.png">
@@ -271,7 +679,7 @@ def build_page(data):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Dataset","name":"WEO Sovereign Capability Profiles","description":"Nation-state AI infrastructure capability assessments across 7 dimensions for 14 actors, applying the Actor Designation Framework (PAA, AIK, ACS, Participant) with qualification headlines, constraint summaries, and Dimension Watch monitoring upcoming status changes.","url":"https://warmthengine.com/profiles/","license":"https://www.warmthengine.com/legal.html","creator":{{"@type":"Organization","name":"Warmth Engine Observatory","url":"https://warmthengine.com"}},"dateModified":"{td}","inLanguage":"en-GB","isAccessibleForFree":true,"temporalCoverage":"{ad}/..","keywords":["sovereign capability profiles","AI infrastructure assessment","actor designation","PAA","AIK","ACS","7-dimension scoring","AI chip design","advanced fabrication","critical equipment","AI compute","frontier models","AI regulation","sovereign investment","Dimension Watch","geopolitical AI capability"]}}
+{{"@context":"https://schema.org","@type":"Dataset","name":"WEO Sovereign Capability Profiles","description":"Nation-state AI infrastructure capability assessments across 7 dimensions, applying the Actor Designation Framework (PAA, AIK, ACS, Participant) with qualification headlines, constraint summaries, and Dimension Watch monitoring upcoming status changes.","url":"https://warmthengine.com/profiles/","license":"https://www.warmthengine.com/legal.html","creator":{{"@type":"Organization","name":"Warmth Engine Observatory","url":"https://warmthengine.com"}},"dateModified":"{td}","inLanguage":"en-GB","isAccessibleForFree":true,"temporalCoverage":"{ad}/..","keywords":["sovereign capability profiles","AI infrastructure assessment","actor designation","PAA","AIK","ACS","7-dimension scoring","AI chip design","advanced fabrication","critical equipment","AI compute","frontier models","AI regulation","sovereign investment","Dimension Watch","geopolitical AI capability"]}}
 </script>
 <style>
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
@@ -581,7 +989,7 @@ body{{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif
   {watch}
   <div class="ftr">
     <div class="ftr-cta">Full analysis and sources for all actors available with supporter access.</div>
-    <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a></div>
+    <div class="ftr-links"><a href="/">Explore the interactive map &rarr;</a><a href="/research/methodology/manual/">Methodology Manual &rarr;</a><a href="https://warmthengine.com/mcp">MCP reference &rarr;</a><a href="/llms.txt">llms.txt &rarr;</a></div>
     <p class="ftr-disc">Designation scores reflect assessed capabilities at the most recent evaluation date. They are not retrospective assessments of capabilities at the time each event in the database occurred.</p>
     {snap_hist}
     <div class="ftr-ver">SCP Register v1.0 &middot; Assessment: {ad_fmt} &middot; Methodology V{mv} &middot; WEO v{WEO_VERSION}</div>
@@ -764,6 +1172,11 @@ if(navToggle&&navLinks){{
 <script>(function(){{var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){{btn.classList.toggle('visible',window.scrollY>300)}},{{passive:true}});btn.addEventListener('click',function(){{var motion=window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth';window.scrollTo({{top:0,behavior:motion}});}});}})();</script>
 <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
 <script>(function(){{var v=document.querySelector('meta[name="weo-version"]');if(v)console.log('WEO v'+v.getAttribute('content'))}})();</script>
+{PART7C_BLOCK}
+{DRAWER_BLOCK}
+
+{HYDRATE_BLOCK}
+
 </body>
 </html>'''
 
