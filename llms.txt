@@ -1,0 +1,25 @@
+# Warmth Engine Observatory
+
+> AI-infrastructure coordination intelligence: a methodology-anchored, evidence-graded record of verified AI-infrastructure events, the typed Coordination Connections between them, and Sovereign Capability Profiles across geopolitical blocs.
+
+The corpus is built for machine consumers and served via an MCP server (JSON-RPC 2.0) and a REST API. Every classification traces to a published, DOI-registered methodology. Descriptive — recorded status and sourced facts, never inference.
+
+## Machine access
+
+- [MCP server](https://warmthengine.com/mcp): 15 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, and methodology lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
+- [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/health.
+
+## Methodology (peer-citable, Zenodo)
+
+- [WEO Methodology Manual](https://doi.org/10.5281/zenodo.18427565)
+- [WEO Methodology Rationale](https://doi.org/10.5281/zenodo.18427582)
+- [Towards Coordination Science (TCS)](https://doi.org/10.5281/zenodo.18427584)
+- [Tier-Crossing Dynamics (TCD)](https://doi.org/10.5281/zenodo.18427586)
+
+## Site
+
+- [Atlas](https://warmthengine.com/atlas.html): interactive map of the coordination corpus
+- [Profiles](https://warmthengine.com/profiles/): Sovereign Capability Profile actor pages
+- [Bloc register](https://warmthengine.com/blocs.html): geopolitical blocs underpinning SCP actor classification
+- [Support](https://warmthengine.com/support.html): access tiers and pricing
+- [warmthengine.com](https://warmthengine.com): main site

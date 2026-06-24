@@ -60,6 +60,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Machine-access surfaces -->
+  <url>
+    <loc>https://www.warmthengine.com/mcp</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- Self-hosted publications -->
   <url>
     <loc>https://www.warmthengine.com/research/methodology/manual/</loc>
