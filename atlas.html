@@ -9241,6 +9241,12 @@
             const escBtn = document.getElementById('atlas-escape-btn');
             if (escBtn) {
                 escBtn.addEventListener('click', function() {
+                    // Restore-full-default must include leaving any active
+                    // journey (this button's stated purpose). Tear it down first
+                    // (skipFit: the cy.fit below owns the camera), else the
+                    // journey overlay (panel, ROOT, edges) survives the reset.
+                    // Mirrors relayoutNetworkMode (7067) + mode-switch (8272).
+                    if (inJourneyMode()) exitJourney({ skipFit: true });
                     // Close any open panel.
                     if (typeof setAtlasState === 'function') {
                         setAtlasState({ selectedEventId: null, selectedConnectionId: null });
