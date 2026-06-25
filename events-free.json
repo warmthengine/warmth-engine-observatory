@@ -4,7 +4,7 @@
     "total_events": 174,
     "sample_events": 6,
     "standard_events": 168,
-    "last_updated": "2026-06-24",
+    "last_updated": "2026-06-25",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-24",
-    "lastAudit": "2026-06-24",
+    "versionDate": "2026-06-25",
+    "lastAudit": "2026-06-25",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 174,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -71,28 +71,28 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1529,
-      "preserved": 1522,
+      "total_sources": 1619,
+      "preserved": 1611,
       "preservation_rate": 0.995,
       "by_status": {
-        "captured": 1493,
+        "captured": 1573,
         "recovered": 22,
-        "existing": 7,
-        "no_capture": 6,
+        "existing": 16,
+        "no_capture": 7,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 923,
-          "preserved": 916
+          "total": 929,
+          "preserved": 922
         },
         "connections": {
           "total": 418,
           "preserved": 418
         },
         "actors": {
-          "total": 188,
-          "preserved": 188
+          "total": 272,
+          "preserved": 271
         }
       }
     },
@@ -823,7 +823,7 @@
       "date": "26 November 2024",
       "location": "Washington, DC, United States",
       "scope": "United States (Arizona, New Mexico, Ohio, Oregon)",
-      "description": "US Department of Commerce finalised CHIPS and Science Act incentives award to Intel Corporation, supporting commercial semiconductor manufacturing and advanced packaging across Arizona, New Mexico, Ohio, and Oregon. Largest domestic CHIPS Act award, reinforcing US-based leading-edge chip production capacity.",
+      "description": "US Department of Commerce finalised CHIPS and Science Act incentives award to Intel Corporation, supporting commercial semiconductor manufacturing and advanced packaging across Arizona, New Mexico, Ohio, and Oregon. Largest domestic CHIPS Act award at time of announcement, reinforcing US-based leading-edge chip production capacity.",
       "investment": "US$7.86 billion direct funding; US$100+ billion total investment",
       "domain": "Energy/Infrastructure",
       "sources": 3,
@@ -1319,7 +1319,7 @@
       "location": "Gaithersburg, Maryland, United States",
       "scope": "United States (headquartered at NIST); international coordination via AI Safety Institute Network",
       "description": "US Artificial Intelligence Safety Institute operating as federal research and standards-setting organisation within NIST. TRAINS Taskforce comprises DOD (CDAO, NSA), DOE (10 National Laboratories), DHS (CISA), and HHS (NIH) for national security AI testing.",
-      "investment": "US$10M initial funding (FY 2024); 280+ consortium members; 11 international partners; TRAINS Taskforce (Nov 2024)",
+      "investment": "US$10M initial funding (FY 2024); 280+ consortium members; 11 international partners; TRAINS Taskforce (November 2024)",
       "domain": "Technology",
       "sources": 3,
       "corroborating": 4,
@@ -1902,7 +1902,7 @@
       "location": "Brussels, Belgium",
       "scope": "European Union - 27 Member States, with extraterritorial application",
       "description": "World's first comprehensive horizontal legal framework regulating artificial intelligence, establishing risk-based rules for AI system development, deployment, and use. Article 5 prohibitions cover 8 prohibited AI practices including subliminal manipulation, social scoring, and certain biometric identification, with full regulatory enforcement operational.",
-      "investment": "N/A (Regulatory framework; penalties up to €35M or 7% global turnover, enforceable August 2, 2025)",
+      "investment": "N/A (Regulatory framework; penalties up to €35M or 7% global turnover, enforceable 2 August 2025)",
       "domain": "Technology",
       "sources": 3,
       "corroborating": 4,
@@ -2296,7 +2296,7 @@
       "location": "Singapore",
       "scope": "Singapore (city-state), with regional and global outreach",
       "description": "Singapore's second national AI strategy launched by DPM Lawrence Wong, outlining 15 courses of action across 3 systems and 10 enablers. Smart Nation 2.0 establishes framework for AI governance, infrastructure development, talent cultivation, and industry transformation.",
-      "investment": "S$1+ billion over 5 years (~US$744M); S$500M for AI compute; S$270M supercomputer (Oct 2024); S$120M AI for Science",
+      "investment": "S$1+ billion over 5 years (~US$744M); S$500M for AI compute; S$270M supercomputer (October 2024); S$120M AI for Science",
       "domain": "Technology",
       "sources": 4,
       "corroborating": 7,
@@ -3075,11 +3075,11 @@
       "date": "21 December 2023",
       "location": "Barcelona, Spain",
       "scope": "Spain (host) + Portugal, Turkey (consortium)",
-      "description": "EuroHPC MareNostrum 5 supercomputer hosted at Barcelona Supercomputing Center (BSC), Spain. MareNostrum 5 ranked 8th globally at time of implementation (November 2023), featuring heterogeneous architecture with dedicated AI accelerator partition designed specifically for large-scale generative AI model training.",
+      "description": "EuroHPC MareNostrum 5 supercomputer hosted at Barcelona Supercomputing Center (BSC), Spain. MareNostrum 5 ranked 8th globally at time of implementation (November 2023), featuring a heterogeneous architecture whose Accelerated Partition combines Intel Sapphire Rapids CPUs with NVIDIA H100 (Hopper) GPUs (1,120 nodes of four each), designed for large-scale generative AI model training.",
       "investment": "€202 million total (€151M EuroHPC JU); 314 Petaflops; Top500 #8 at implementation",
       "domain": "Energy/Infrastructure",
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 3,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3088,7 +3088,15 @@
         "current": true
       },
       "version": "1.1",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "79",
@@ -3518,11 +3526,11 @@
       "date": "13 June 2022",
       "location": "Kajaani, Finland",
       "scope": "EuroHPC JU (11-country consortium: Finland, Belgium, Czech Republic, Denmark, Estonia, Iceland, Netherlands, Norway, Poland, Sweden, Switzerland)",
-      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) pre-exascale supercomputer inaugurated in Kajaani, Finland. Third fastest supercomputer globally at implementation (November 2022 Top500). Hosted by CSC – IT Center for Science. AMD-based architecture with 379.70 PFlops peak performance. Supports European AI ecosystem development and scientific computing.",
-      "investment": "€202M total (€101M EuroHPC JU + €101M consortium); Top500 #3 at implementation (Nov 2022), currently #9 (Nov 2025)",
+      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) pre-exascale supercomputer inaugurated in Kajaani, Finland, hosted by CSC – IT Center for Science. Built on HPE Cray EX, its LUMI-G partition comprises 2,978 nodes with four AMD Instinct MI250X accelerators each. Third fastest globally at implementation (November 2022 TOP500); supports European AI and scientific computing.",
+      "investment": "€202M total (€101M EuroHPC JU + €101M consortium); TOP500 #3 at implementation (November 2022), #9 on the November 2025 TOP500",
       "domain": "Energy/Infrastructure",
-      "sources": 4,
-      "corroborating": 4,
+      "sources": 6,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3609,6 +3617,22 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429211357/https://www.top500.org/system/180048/"
+        },
+        {
+          "id": "P5",
+          "desc": "LUMI Documentation — LUMI-G GPU nodes (AMD Instinct MI250X)",
+          "url": "https://docs.lumi-supercomputer.eu/hardware/lumig/",
+          "accessDate": "2026-06-25",
+          "captureStatus": "existing",
+          "snapshotUrl": "https://web.archive.org/web/20260313225748/https://docs.lumi-supercomputer.eu/hardware/lumig/"
+        },
+        {
+          "id": "P6",
+          "desc": "LUMI — Full System Architecture Revealed",
+          "url": "https://lumi-supercomputer.eu/lumis-full-system-architecture-revealed/",
+          "accessDate": "2026-06-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260625113642/https://lumi-supercomputer.eu/lumis-full-system-architecture-revealed/"
         }
       ],
       "corroboratingSources": [
@@ -3642,6 +3666,14 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429102012/https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
+        },
+        {
+          "id": "C5",
+          "desc": "AMD ROCm Blogs — LUMI Supercomputer Case Study (AMD Instinct MI250X, 4 per LUMI-G node)",
+          "url": "https://rocm.blogs.amd.com/artificial-intelligence/gromacs-lumi-guide/README.html",
+          "accessDate": "2026-06-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260625113728/https://rocm.blogs.amd.com/artificial-intelligence/gromacs-lumi-guide/README.html"
         }
       ],
       "relatedEvents": [],
@@ -3653,6 +3685,14 @@
         }
       ],
       "versionDate": "2026-05-22",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI250X",
+          "field": "description"
+        }
+      ],
       "basel5_factors_met": 5
     },
     {
@@ -3668,7 +3708,7 @@
       "location": "Guimarães, Portugal",
       "scope": "EuroHPC JU (Portugal national system)",
       "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) petascale supercomputer inaugurated in Guimarães, Portugal. Hosted by University of Minho/MACC. ARM-based architecture pioneering European Processor Initiative (EPI) technology. First Top500 entry June 2024 (#219). Supports Portuguese AI research ecosystem and serves as EPI testbed.",
-      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); Top500 #219 at first entry (June 2024), currently #323 (Nov 2025)",
+      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); TOP500 #219 at first entry (June 2024), #323 on the November 2025 TOP500",
       "domain": "Energy/Infrastructure",
       "sources": 4,
       "corroborating": 3,
@@ -3770,7 +3810,7 @@
       "sources": 3,
       "corroborating": 1,
       "confidence": "A",
-      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on August 31, 2023.",
+      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on 31 August 2023.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -4541,7 +4581,7 @@
         "implemented": true,
         "current": true
       },
-      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
+      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility at time of implementation, ranked 11th globally on TOP500.",
       "investment": "£225M (~US$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
       "scope": "United Kingdom (national AI research resource)",
       "sources": 3,
@@ -4656,7 +4696,7 @@
       "date": "28 April 2024",
       "location": "Horinger New Area, Hohhot, Inner Mongolia, China",
       "scope": "China — national-scale AI training computing pool within East Data West Compute (东数西算) Inner Mongolia hub node. Single-facility scope under China Mobile operation.",
-      "description": "China Mobile Intelligent Computing Centre (Hohhot) is the largest single-body intelligent computing centre operated by a global telecoms operator. The facility deploys approximately 20,000 AI acceleration cards with 6.7 EFLOPS (FP16) intelligent computing power. AI chip localisation rate exceeds 85%, integrating 5 domestic chip architectures. Cold-plate liquid cooling achieves PUE of 1.15.",
+      "description": "China Mobile Intelligent Computing Centre (Hohhot) is the largest single-body intelligent computing centre operated by a global telecoms operator at time of implementation. The facility deploys approximately 20,000 AI acceleration cards with 6.7 EFLOPS (FP16) intelligent computing power. AI chip localisation rate exceeds 85%, integrating 5 domestic chip architectures. Cold-plate liquid cooling achieves PUE of 1.15.",
       "investment": "Smart computing project total investment RMB 4.66 billion (~US$640M). Part of China Mobile Hohhot data centre campus with overall campus infrastructure investment ~RMB 40 billion (~US$5.5 billion) since 2012. Regional electricity cost 0.365 RMB/kWh. Green electricity share ~80% (smart computing centre; 69% is 2024 full campus annual average).",
       "domain": "Energy/Infrastructure",
       "sources": 2,
@@ -4849,7 +4889,7 @@
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Energy & Power Infrastructure",
       "description": "Amazon's approximately US$500M anchor investment in X-energy's Series C-1 financing round to develop Xe-100 advanced small modular reactors and TRISO-X fuel for AI data centre power. Initial 320 MW deployment planned with Energy Northwest at Columbia Generating Station site, Washington state.",
-      "investment": "~US$500M Series C-1 (upsized to US$700M by Feb 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
+      "investment": "~US$500M Series C-1 (upsized to US$700M by February 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
       "scope": "United States (Washington state initial; national deployment target)",
       "checkpoints": {
         "ai": true,
@@ -5235,7 +5275,7 @@
       "date": "18 November 2024",
       "location": "Livermore, California, United States",
       "scope": "United States (NNSA classified network)",
-      "description": "World's fastest supercomputer at 1.742 exaFLOPS, deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
+      "description": "World's fastest supercomputer at time of implementation (1.742 exaFLOPS), deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
       "investment": "~US$600M; 1.742 exaFLOPS; 11,136 AMD MI300A APU nodes; TOP500 #1 (November 2024)",
       "domain": "Security",
       "sources": 2,
@@ -6146,7 +6186,7 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
-      "description": "Huawei Cloud's globally largest intelligent computing centre, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
+      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
       "sources": 1,
