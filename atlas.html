@@ -10184,16 +10184,26 @@
                     complete: () => applyPanelSelectionHighlight()
                 });
             } else {
-                // Connected node: frame the closed neighbourhood.
-                // Both peripherals (degree ≤ 2) and hubs compute
-                // freely — fitToUsableViewport is already device-aware
-                // (panel overlays + bottom sheets), and the
-                // includeLabels:false fix (§6.2) keeps small
-                // neighbourhoods from being framed around their label.
-                const neighbourhood = node.closedNeighborhood();
+                // Connected node: frame the COORDINATION neighbourhood only.
+                // closedNeighborhood() also pulls in thread-edge endpoints —
+                // producer events the layout places far away (thread edges are
+                // added after the initial fcose and excluded from re-layout:
+                // atlas.html:6871 / 7080), so they never sit near this node.
+                // Including them inflated the bounding box and zoomed the CC
+                // cluster out small (LUMI / Frontier / Leonardo symptom). Frame
+                // the node, its non-thread (coordination) edges, and only the
+                // nodes those reach. Thread-only events have degree 0
+                // (globalDegree counts CCs, §5765) so they route to the orphan
+                // branch above; the solo fallback here is a safety net. Still
+                // device-aware + includeLabels:false via fitToUsableViewport.
+                const ccEdges = node.connectedEdges().not('.thread-edge');
+                const neighbourhood = ccEdges.length
+                    ? node.union(ccEdges).union(ccEdges.connectedNodes())
+                    : node;                            // thread-only node: frame it alone
                 fitToUsableViewport(neighbourhood, {
                     padding: 80,
                     duration: 400,
+                    maxAbsoluteZoom: ccEdges.length ? undefined : 2.5,  // cap the solo case
                     label: 'recentre-neighbourhood',
                     complete: () => applyPanelSelectionHighlight()
                 });
