@@ -4,7 +4,7 @@
     "purpose": "Defines the operator-selected guided journeys ONCE. Consumed by atlas.html (clickable landing questions) and by the Worker MCP server (prompts + getting-started resource). Edit here only; the two surfaces read this file so they cannot drift.",
     "spec": "WS-8 Atlas Guided Journeys (WEO_WS8_ATLAS_GUIDED_JOURNEYS_BUILD_SPEC_V1.md); journeys from WEO_WS8_SELECTED_JOURNEYS_V1.md.",
     "discipline": "V1.4 methodology — question wording is RELATIONAL, readouts are DESCRIPTIVE (counts + named entities only, never causal/interpretive).",
-    "served_at": "https://www.warmthengine.com/guided-journeys.json (Pages). Worker fetches the www host directly — the apex 301-redirects to www.",
+    "served_at": "https://warmthengine.com/guided-journeys.json (Pages). Worker fetches the apex host directly; www 301-redirects to apex.",
     "counts": "Readout {placeholders} are filled by the LIVE journey at click time — never hard-code. B1 material = thread RECORDS (get_threads, ~19); C1 material = event-PAIRS (get_event_stack, ~15). The two counting methods differ deliberately.",
     "chain_dependency": "Journeys are pinned to stable anchor chains (E93 spine; E196 NVIDIA hub). A future loop that re-shapes these chains must refresh this file. Anchors chosen for durability per the curation pass.",
     "version": "1.0.2",
