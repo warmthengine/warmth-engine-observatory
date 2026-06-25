@@ -9323,6 +9323,7 @@
                 // cluster-1 camera race). Rule: nothing dimmed is clickable.
                 if (typeof inJourneyMode === 'function' && inJourneyMode() && !evt.target.hasClass('trace-node')) return;
                 const ev = evt.target.data('event');
+                if (window.__weoFitDebug) { try { console.log('[weo-tap] NODE id=' + (evt.target.id ? evt.target.id() : '?') + ' hasEvent=' + !!ev + ' degree=' + evt.target.data('degree') + ' multitouch=' + _cyMultitouch + ' inJourney=' + ((typeof inJourneyMode === 'function') && inJourneyMode())); } catch (_e) {} }
                 if (ev) setAtlasState({ selectedEventId: String(ev.id), selectedConnectionId: null });
             });
 
@@ -9337,6 +9338,7 @@
                 // canvas; only the journey's own edges respond.
                 if (typeof inJourneyMode === 'function' && inJourneyMode() && !isJourneyEdge(evt.target)) return;
                 const d = evt.target.data();
+                if (window.__weoFitDebug) { try { console.log('[weo-tap] EDGE id=' + (d && d.id) + ' thread=' + evt.target.hasClass('thread-edge')); } catch (_e) {} }
                 if (!d || !d.id) return;
                 // WS-5 — a thread edge is a material fact, not a CC: route it
                 // to the lightweight factual-link panel, never the CC panel.
@@ -9358,6 +9360,7 @@
             // Single click on empty canvas closes whichever panel is open.
             cy.on('tap', (evt) => {
                 if (evt.target !== cy) return;
+                if (window.__weoFitDebug) { try { console.log('[weo-tap] EMPTY-CANVAS (deselect path) selEvent=' + atlasState.selectedEventId + ' selCC=' + atlasState.selectedConnectionId + ' inJourney=' + inJourneyMode()); } catch (_e) {} }
                 // Polish #225 Item 1 — empty-canvas tap must NOT clear the pinned
                 // selection mid-journey (that broke the persist invariant + lost
                 // the recall). During a journey: a foregrounded detail panel
@@ -9796,6 +9799,7 @@
             // fire if a later animation interrupts this one, but that later fit
             // sets _cameraBusy=true + a fresh token, so the flag stays correct.
             var _userComplete = opts.complete || function() {};
+            if (window.__weoFitDebug) { try { console.log('[weo-fit] APPLY ' + (opts.label || '(unlabelled)') + ' eles=' + eles.length + ' computedZoom=' + zoom.toFixed(3) + ' currentZoom=' + cy.zoom().toFixed(3) + ' clamp=[' + cy.minZoom() + ',' + cy.maxZoom() + '] cw=' + cw + ' ch=' + ch + ' bb=' + Math.round(bb.w) + 'x' + Math.round(bb.h) + ' maxAbs=' + (opts.maxAbsoluteZoom || 'none')); } catch (_e) {} }
             cy.animate({
                 zoom: zoom,
                 pan: pan,
@@ -10143,6 +10147,7 @@
             cy.resize();
             const degree = node.data('degree') || 0;
             const currentZoom = cy.zoom();
+            if (window.__weoFitDebug) { try { console.log('[weo-recentre] id=' + eventId + ' degree=' + degree + ' mode=' + atlasState.layoutMode + ' inJourney=' + inJourneyMode() + ' currentZoom=' + currentZoom.toFixed(3)); } catch (_e) {} }
             // Clear any prior edge selection
             cy.edges('.atlas-selected').removeClass('atlas-selected');
             if (atlasState.layoutMode === 'timeline') {
@@ -10160,6 +10165,7 @@
                     padding: 80,
                     duration: 300,
                     maxAbsoluteZoom: 2.5,
+                    label: 'recentre-orphan',
                     complete: () => applyPanelSelectionHighlight()
                 });
             } else if (inJourneyMode()) {
@@ -10174,6 +10180,7 @@
                     padding: 90,
                     duration: 400,
                     maxAbsoluteZoom: 1.7,
+                    label: 'recentre-journey',
                     complete: () => applyPanelSelectionHighlight()
                 });
             } else {
@@ -10187,6 +10194,7 @@
                 fitToUsableViewport(neighbourhood, {
                     padding: 80,
                     duration: 400,
+                    label: 'recentre-neighbourhood',
                     complete: () => applyPanelSelectionHighlight()
                 });
             }
@@ -15054,6 +15062,7 @@
             // selection non-null → grid stays open, simple centre-pan
             // without zoom change).
             const panelWasOpen = !!(prev.selectedEventId || prev.selectedConnectionId);
+            if (window.__weoFitDebug) { try { console.log('[weo-sync] eventChanged=' + eventChanged + ' ccChanged=' + ccChanged + ' panelWasOpen=' + panelWasOpen + ' -> sel.event=' + state.selectedEventId + ' sel.cc=' + state.selectedConnectionId); } catch (_e) {} }
             // Brief 3d patch — selected-event spotlight. Restore the
             // prior event's degree-driven base opacity if we're moving
             // away from it (event A → event B, event A → CC, event A →
@@ -15072,6 +15081,7 @@
                     // if the node's degree-driven base opacity is low
                     // (e.g. a peripheral 1-CC event).
                     if (panelWasOpen) {
+                        if (window.__weoFitDebug) { try { console.log('[weo-sync] EVENT branch = animateToUsableCenter (PAN-ONLY, no zoom)'); } catch (_e) {} }
                         applyPanelSelectionHighlight();
                         const node = cy.getElementById(String(state.selectedEventId));
                         if (node && node.length) {
@@ -15091,12 +15101,14 @@
                         // Wait for the grid transition (≈200ms CSS) +
                         // openPanel's cy.resize() before fitting so the
                         // viewport reads the post-transition width.
+                        if (window.__weoFitDebug) { try { console.log('[weo-sync] EVENT branch = recentreOnEvent @350ms (FRESH, zoom-fit)'); } catch (_e) {} }
                         setTimeout(() => recentreOnEvent(String(state.selectedEventId)), 350);
                     }
                 }
             } else if (state.selectedConnectionId) {
                 const cc = allConnections.find(c => c.connection_id === state.selectedConnectionId);
                 if (cc) openCCPanel(cc);
+                if (window.__weoFitDebug) { try { console.log('[weo-sync] CC branch = openCCPanel (endpoint zoom-fit, always)'); } catch (_e) {} }
                 // Polish #224 cluster 1 — the in-journey CC "magnify" second fit
                 // was removed. openCCPanel already frames the CC's two endpoints
                 // (now with a zoom ceiling, see openCCPanel), so scheduling
@@ -15110,6 +15122,7 @@
                 // (legacy brief-1c panel) which never gets the .open
                 // class in the new flow, so closePanel() never ran.
                 // closePanel() is idempotent so always-call is safe.
+                if (window.__weoFitDebug) { try { console.log('[weo-sync] CLOSE branch = closePanel (overview refit)'); } catch (_e) {} }
                 closePanel();
             }
         }
