@@ -2,12 +2,13 @@
 
 > AI-infrastructure coordination intelligence: a methodology-anchored, evidence-graded record of verified AI-infrastructure events, the typed Coordination Connections between them, and Sovereign Capability Profiles across geopolitical blocs.
 
-The corpus is built for machine consumers and served via an MCP server (JSON-RPC 2.0) and a REST API. Every classification traces to a published, DOI-registered methodology. Descriptive — recorded status and sourced facts, never inference.
+The corpus is built for machine consumers and served via an MCP server (JSON-RPC 2.0) and a REST API. Every classification traces to a published, DOI-registered methodology. Evidence-based classification from primary sources with post-implementation verification - observable facts over inferred meaning.
 
 ## Machine access
 
 - [MCP server](https://warmthengine.com/mcp): 15 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, and methodology lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
 - [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/health.
+- Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription - see /support.
 
 ## Methodology (peer-citable, Zenodo)
 

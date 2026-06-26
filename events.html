@@ -3196,7 +3196,7 @@
           </div>
         <button class="supporter-access-btn" onclick="openAccessModal()">
             <span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-            <span class="text-locked">Supporter Access</span>
+            <span class="text-locked">Subscriber Access</span>
             <span class="text-unlocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Full Access</span>
           </button>
           </nav>
@@ -5754,7 +5754,7 @@ const openModal = (id) => {
                     </ul>
                     <button class="upgrade-button" onclick="closeModal(); window.location.href='support.html';">Subscribe for Full Access →</button>
                     <div style="margin-top:0.75rem;font-size:0.75rem;color:var(--weo-text-muted);">
-                        Already a subscriber? <a href="#" onclick="event.preventDefault(); closeModal(); openAccessModal();" style="color:#F59E0B;">Enter access code</a>
+                        Already a subscriber? <a href="#" onclick="event.preventDefault(); closeModal(); openAccessModal();" style="color:#F59E0B;">Enter access token</a>
                     </div>
                     <div style="margin-top:0.5rem;font-size:0.75rem;color:var(--weo-text-muted);">
                         ${WEO_ICON_STAR} See full analysis on sample events: 01, 04, 06, 14, 22, 91
@@ -6350,22 +6350,22 @@ if (navToggle && navLinks) {
     <div class="access-modal">
       <div id="accessLoginState">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Subscriber Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
           <div class="access-input-group">
-            <label class="access-input-label">Access Code</label>
-            <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access code" onkeydown="if(event.key==='Enter')checkAccess()">
+            <label class="access-input-label">Access Token</label>
+            <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access token" onkeydown="if(event.key==='Enter')checkAccess()">
           </div>
-          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access code.</span></div>
+          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access token.</span></div>
           <button class="access-submit" onclick="checkAccess()">Unlock Access</button>
         </div>
-        <div class="access-modal-footer">Not a supporter? <a href="support.html">Subscribe here</a></div>
+        <div class="access-modal-footer">Not a subscriber? <a href="support.html">Subscribe here</a></div>
       </div>
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Subscriber Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
