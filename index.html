@@ -6065,7 +6065,7 @@
   <!-- Supporter Access Button (Fixed Top Right) -->
   <button class="supporter-access-btn fixed-top-right" onclick="openAccessModal()">
     <span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-    <span class="text-locked">Supporter Access</span>
+    <span class="text-locked">Subscriber Access</span>
     <span class="text-unlocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Full Access</span>
   </button>
 
@@ -10090,7 +10090,7 @@ function generateCCSection(eventId, showFullContent) {
       const freePwHtml = weoPathwayCheckpointHtml(freePwRows);
       const freeGenCls = freePwRows ? ' secondary' : '';
 
-      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + freePwHtml + '<div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationales</li><li>Extended Industry Tags</li><li>Coordination Connection Analysis</li><li>Atlas Structural Analysis</li><li>Source Documentation</li><li>Version History & Rolling Updates</li><li>Sovereign Capability Profiles — dimensional assessments, qualification analysis, constraint analysis, and severance frameworks</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access code</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div>' + '<a href="atlas.html#event=' + encodeURIComponent(event.id) + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + encodeURIComponent(event.id) + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
+      return '<div class="panel-header">' + backButtonHtml + '<button class="panel-close" aria-label="Close" onclick="closePanel()">×</button><div class="panel-title" onclick="scrollPanelToTop()" style="cursor:pointer">' + escH(event.name) + '</div><div class="panel-subtitle">' + escH(event.type) + ' • ' + formatDateUK(event.date) + ' • ' + escH(event.location) + '</div>' + badgesHtml + '</div>' + buildIndustryShelfHtml(event.id) + '<div class="panel-body"><div class="panel-section"><div class="section-title">Overview</div><div class="section-content"><p>' + escH(event.description) + '</p></div><div style="margin-top: 16px;"><div class="data-row data-row-stacked"><span class="data-label badge-with-tooltip">Scale' + scaleTooltip + '</span><span class="data-value">' + escH(event.investment) + '</span></div><div class="data-row data-row-stacked"><span class="data-label">Geographic Scope</span><span class="data-value">' + escH(event.scope) + '</span></div></div></div><div class="panel-section"><div class="section-title-with-tooltip"><span class="section-title" style="margin-bottom: 0;">Verification</span>' + checkpointsTooltip + '</div><div class="data-row" style="margin-top: 12px;"><span class="data-label">Sources</span><span class="data-value">' + sourceTallyText + '</span></div><div class="data-row"><span class="data-label">Confidence</span><span class="data-value badge-with-tooltip">' + event.confidence + ' \u2014 ' + (event.confidence === 'A' ? 'High (90%+)' : event.confidence === 'B' ? 'Medium (70-90%)' : 'Moderate') + ' ' + confidenceTooltip + '</span></div><div class="checkpoint-list" style="margin-top: 12px;">' + freeAiCheckpointHtml + freePwHtml + '<div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.threshold ? 'pass' : 'fail') + '">' + (cp.threshold ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Quantitative Threshold</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.implemented ? 'pass' : 'fail') + '">' + (cp.implemented ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Implementation Evidence</span></div><div class="checkpoint' + freeGenCls + '"><span class="checkpoint-icon ' + (cp.current ? 'pass' : 'fail') + '">' + (cp.current ? WEO_ICON_CHECK : WEO_ICON_CROSS) + '</span><span class="checkpoint-label">Active Status</span></div></div>' + freeAiConnectionSection + '</div>' + significanceLockedHtml + methodologyLockedHtml + ccSectionHtml + (window.WEOCapBadge ? WEOCapBadge.html(event.id) : '') + '<div class="upgrade-cta"><div class="upgrade-cta-title"><span>' + WEO_ICON_LOCK + '</span> Unlock Full Analysis</div><ul class="upgrade-cta-list"><li>Qualification & Assessment Frameworks</li><li>Tier Classification Rationales</li><li>Extended Industry Tags</li><li>Coordination Connection Analysis</li><li>Atlas Structural Analysis</li><li>Source Documentation</li><li>Version History & Rolling Updates</li><li>Sovereign Capability Profiles — dimensional assessments, qualification analysis, constraint analysis, and severance frameworks</li><li>Priority access to new analytical capabilities as they deploy</li></ul><button class="upgrade-button" onclick="closePanel(); window.location.href=\'support.html\';">Subscribe for Full Access<span>→</span></button><div style="margin-top: 0.75rem; font-size: 0.75rem; color: #94A3B8;">Already a subscriber? <a href="#" onclick="event.preventDefault(); closePanel(); openAccessModal();" style="color: #F59E0B;">Enter access token</a></div><div class="sample-hint"><span>' + WEO_ICON_STAR + '</span> See full analysis on 6 sample events</div></div>' + '<a href="atlas.html#event=' + encodeURIComponent(event.id) + '" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="18" y2="4"/><line x1="12" y1="9" x2="6" y2="4"/><line x1="12" y1="15" x2="18" y2="20"/><line x1="12" y1="15" x2="6" y2="20"/></svg>View in Atlas</a><a href="events.html?event=' + encodeURIComponent(event.id) + '&from=map" class="view-full-details" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View in Events Database</a></div>';
     }
 
     // ========================================
@@ -11514,22 +11514,22 @@ function generateCCSection(eventId, showFullContent) {
     <div class="access-modal">
       <div id="accessLoginState">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>Subscriber Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body">
           <div class="access-input-group">
-            <label class="access-input-label">Access Code</label>
-            <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access code" onkeydown="if(event.key==='Enter')checkAccess()">
+            <label class="access-input-label">Access Token</label>
+            <input type="password" class="access-input" id="accessPasswordInput" placeholder="Enter your access token" onkeydown="if(event.key==='Enter')checkAccess()">
           </div>
-          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access code.</span></div>
+          <div class="access-error" id="accessError"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span>Invalid access token.</span></div>
           <button class="access-submit" onclick="checkAccess()">Unlock Access</button>
         </div>
-        <div class="access-modal-footer">Not a supporter? <a href="support.html">Subscribe here</a></div>
+        <div class="access-modal-footer">Not a subscriber? <a href="support.html">Subscribe here</a></div>
       </div>
       <div id="accessAuthState" style="display:none;">
         <div class="access-modal-header">
-          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Supporter Access</div>
+          <div class="access-modal-title"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Subscriber Access</div>
           <button class="access-modal-close" aria-label="Close" onclick="closeAccessModal()">×</button>
         </div>
         <div class="access-modal-body access-modal-authenticated">
@@ -11847,7 +11847,7 @@ function generateCCSection(eventId, showFullContent) {
         h += srcEntry('Corroborating', s[5], s[6], s[7], s[8], s[9]);
         h += '</div>';
       } else if (d || (!d && ((a.con && a.con[i]) || (a.hl && a.hl[i])))) {
-        h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Sources (supporter access)</div>';
+        h += '<div class="scp-src-lock" title="Subscriber access required">' + WEO_ICON_LOCK + ' Sources (subscriber access)</div>';
       }
     });
 
@@ -11862,7 +11862,7 @@ function generateCCSection(eventId, showFullContent) {
     if (a.svd) {
       h += '<div class="scp-sev"><strong class="scp-tip-trigger" data-scp-tip="severance">Severance:</strong> ' + escH(a.svd) + '</div>';
     } else if (a.d === 'PAA' || a.d === 'AIK' || a.d === 'ACS') {
-      h += '<div class="scp-src-lock" title="Supporter access required">' + WEO_ICON_LOCK + ' Severance analysis (supporter access)</div>';
+      h += '<div class="scp-src-lock" title="Subscriber access required">' + WEO_ICON_LOCK + ' Severance analysis (subscriber access)</div>';
     }
     h += '</div>';
     return h;
@@ -11952,7 +11952,7 @@ function generateCCSection(eventId, showFullContent) {
     btn.classList.add('active');
     btn.setAttribute('aria-expanded', 'true');
     if (statusActorRow) { statusActorRow.classList.add('active'); statusActorRow.setAttribute('aria-expanded', 'true'); }
-    /* Hide supporter access button (same pattern as event panel) */
+    /* Hide subscriber access button (same pattern as event panel) */
     var supBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
     if (supBtn) supBtn.classList.add('panel-open');
   }
@@ -11965,7 +11965,7 @@ function generateCCSection(eventId, showFullContent) {
     btn.setAttribute('aria-expanded', 'false');
     if (statusActorRow) { statusActorRow.classList.remove('active'); statusActorRow.setAttribute('aria-expanded', 'false'); }
     hideTooltipIfActive();
-    /* Show supporter access button again */
+    /* Show subscriber access button again */
     var supBtn = document.querySelector('.supporter-access-btn.fixed-top-right');
     if (supBtn) supBtn.classList.remove('panel-open');
   }

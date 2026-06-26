@@ -48,7 +48,7 @@
         {
           "@type": "Offer",
           "name": "Analyst",
-          "price": "10",
+          "price": "25",
           "priceCurrency": "USD",
           "description": "Analyst access — MCP programmatic access, event data, evidence, and analytical assessments via Model Context Protocol at warmthengine.com/mcp.",
           "additionalProperty": {
@@ -80,8 +80,7 @@
            This page provides:
            - Mission framing for support
            - Free vs Analyst tier comparison
-           - Ko-fi integration
-           - Crypto donation addresses
+           - Stripe subscription (Managed Payments)
            - Institutional enquiry contact
            
            Style: Systems Analyst | UK English | Accessible
@@ -662,12 +661,12 @@
             background: linear-gradient(135deg, var(--weo-surface-raised) 0%, var(--weo-sample-bg) 100%);
         }
         
-        /* Ko-fi Button */
-        .kofi-button {
+        /* Subscribe Button */
+        .subscribe-button {
             display: inline-flex;
             align-items: center;
             gap: var(--weo-space-sm);
-            background: #FF5E5B;
+            background: var(--weo-accent-primary);
             color: white;
             text-decoration: none;
             font-size: 0.875rem;
@@ -676,68 +675,12 @@
             border-radius: var(--weo-radius-md);
             transition: all var(--weo-duration-fast) var(--weo-ease-out);
         }
-        
-        .kofi-button:hover {
-            background: #E54542;
+
+        .subscribe-button:hover {
+            background: var(--weo-accent-hover);
             transform: translateY(-1px);
         }
-        
-        .kofi-button.secondary {
-            background: var(--weo-surface-overlay);
-            color: var(--weo-text-secondary);
-            border: 1px solid var(--weo-border-subtle);
-        }
-        
-        .kofi-button.secondary:hover {
-            background: var(--weo-border-primary);
-            color: var(--weo-text-primary);
-        }
-        
-        .kofi-button svg {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* Crypto Addresses */
-        .crypto-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--weo-space-sm);
-        }
-        
-        .crypto-item {
-            display: flex;
-            align-items: center;
-            gap: var(--weo-space-md);
-            padding: var(--weo-space-sm) var(--weo-space-md);
-            background: var(--weo-surface-overlay);
-            border-radius: var(--weo-radius-sm);
-        }
-        
-        .crypto-label {
-            font-family: var(--weo-font-mono);
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--weo-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            width: 40px;
-            flex-shrink: 0;
-        }
-        
-        .crypto-address {
-            font-family: var(--weo-font-mono);
-            font-size: 0.75rem;
-            color: var(--weo-text-tertiary);
-            word-break: break-all;
-        }
-        
-        .crypto-placeholder {
-            font-size: 0.75rem;
-            color: var(--weo-text-muted);
-            font-style: italic;
-        }
-        
+
         /* Institutional Section */
         .institutional-box {
             background: var(--weo-surface-base);
@@ -881,16 +824,6 @@
             .tier-card {
                 padding: var(--weo-space-md);
             }
-            
-            .crypto-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--weo-space-xs);
-            }
-            
-            .crypto-label {
-                width: auto;
-            }
         }
     
 /* Accessibility: Respect reduced motion preference */
@@ -1008,7 +941,7 @@
             <h2 class="section-title">Access Tiers</h2>
             <div class="card">
                 <div class="prose" style="margin-bottom: var(--weo-space-lg);">
-                    <p>WEO operates on a freemium model. Core access is free; supporters unlock the analytical layer.</p>
+                    <p>WEO operates on a freemium model. Core access is free; subscribers unlock the analytical layer.</p>
                 </div>
                 
                 <div class="tier-grid">
@@ -1069,8 +1002,7 @@
                         <div class="tier-badge">Recommended</div>
                         <div class="tier-name">Analyst</div>
                         <div class="tier-price">
-                            $10 <span class="period">/ month</span>
-                            <span class="alt-price">or $100/year (save $20)</span>
+                            $25 <span class="period">/ month</span>
                         </div>
                         <ul class="tier-features">
                             <li>
@@ -1200,7 +1132,7 @@
                     </li>
                 </ul>
                 <div class="prose">
-                    <p>Access tiers apply. Unauthenticated access returns free-tier data. For full analytical access, MCP agent operators can obtain an API token by contacting <a href="mailto:warmthengine@proton.me" style="color: #60a5fa; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">warmthengine@proton.me</a>. Tokens are passed as a URL parameter: <span style="font-family: 'Geist Mono', monospace; font-size: 0.8125rem; color: #94A3B8;">warmthengine.com/mcp?token=weo_xxx</span></p>
+                    <p>Full analytical access is by subscription. Obtain an access token from the Subscribe button above, then send it as an Authorization: Bearer weo_... header on the /mcp or REST endpoints - a ?token=weo_... query parameter also works. One token unlocks the full tier across MCP, the API, and the website.</p>
                     <p>Full tool reference (descriptions and input schemas): <a href="https://warmthengine.com/mcp" style="color: #60a5fa; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">warmthengine.com/mcp</a></p>
                 </div>
             </div>
@@ -1212,7 +1144,7 @@
             <div class="card">
                 <div class="support-options">
                     
-                    <!-- Ko-fi Monthly -->
+                    <!-- Subscription -->
                     <div class="support-option featured">
                         <div class="support-option-header">
                             <div class="support-option-icon">
@@ -1222,34 +1154,16 @@
                             <div class="support-option-badge">Full Access</div>
                         </div>
                         <div class="support-option-desc">
-                            $10/month via Ko-fi. Analyst access — qualification and assessment frameworks, tier classification rationales, extended industry tags, Coordination Connection analysis, Atlas structural analysis, source documentation, version history and rolling updates, Sovereign Capability Profiles with dimensional assessments, qualification analysis, constraint analysis, and severance frameworks, and priority access to new analytical capabilities, plus the full MCP tool suite including coordination-pathway, material-thread, and stack traversal. Cancel anytime.
+                            $25/month. Analyst access — qualification and assessment frameworks, tier classification rationales, extended industry tags, Coordination Connection analysis, Atlas structural analysis, source documentation, version history and rolling updates, Sovereign Capability Profiles with dimensional assessments, qualification analysis, constraint analysis, and severance frameworks, and priority access to new analytical capabilities, plus the full MCP tool suite including coordination-pathway, material-thread, and stack traversal.
                         </div>
                         <div class="support-option-note">
-                            After subscribing, you'll receive access credentials via the email associated with your Ko-fi account within 24 hours.
+                            After subscribing, your access token is issued instantly and emailed to you. Cancel anytime.
                         </div>
-                        <a href="https://ko-fi.com/warmthengine#tier17673996231870" class="kofi-button" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/></svg>
-                            Subscribe on Ko-fi
+                        <a href="https://buy.stripe.com/test_28E28l4pIa9g2Z40Q18Vi00" class="subscribe-button" target="_blank" rel="noopener noreferrer">
+                            Subscribe
                         </a>
                     </div>
-                    
-                    <!-- Ko-fi One-Time -->
-                    <div class="support-option">
-                        <div class="support-option-header">
-                            <div class="support-option-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                            </div>
-                            <div class="support-option-title">One-Time Donation</div>
-                        </div>
-                        <div class="support-option-desc">
-                            Support WEO's independence with a one-time contribution. One-time donations do not include Analyst tier access.
-                        </div>
-                        <a href="https://ko-fi.com/warmthengine" class="kofi-button secondary" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/></svg>
-                            Donate on Ko-fi
-                        </a>
-                    </div>
-                    
+
                 </div>
             </div>
         </section>
