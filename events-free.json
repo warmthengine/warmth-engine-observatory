@@ -4,7 +4,7 @@
     "total_events": 174,
     "sample_events": 6,
     "standard_events": 168,
-    "last_updated": "2026-06-25",
+    "last_updated": "2026-06-26",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -58,8 +58,8 @@
         "1.1.2": 1
       }
     },
-    "versionDate": "2026-06-25",
-    "lastAudit": "2026-06-25",
+    "versionDate": "2026-06-26",
+    "lastAudit": "2026-06-26",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 174,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -227,16 +227,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429130846/https://www.china-briefing.com/news/china-data-centers-new-cross-regional-plan-to-boost-computing-power-across-regions/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "03",
-          "relationship": "Both represent China's AI infrastructure investment strategy"
-        },
-        {
-          "id": "41",
-          "relationship": "Policy framework for EDWC expansion"
         }
       ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -498,12 +488,6 @@
           "snapshotUrl": "https://web.archive.org/web/20260429112834/https://vbe.academy/insights/post/austrian-standards-launches-first-european-certification-for-ethical-ai/"
         }
       ],
-      "relatedEvents": [
-        {
-          "id": "19",
-          "relationship": "Related ISO/IEC AI management standard"
-        }
-      ],
       "versionDate": "2026-03-04",
       "industryPrimary": "AI Software & Platforms",
       "industrySecondary": [],
@@ -708,12 +692,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429144840/https://www.datacenterdynamics.com/en/news/sk-hynix-secures-458m-in-chips-act-funding/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "10",
-          "relationship": "Coordinated export control strategy"
         }
       ],
       "versionDate": "2026-03-04",
@@ -1041,12 +1019,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429132441/https://www.clarkhill.com/news-events/news/china-hits-pause-on-rare-earth-export-controls-and-what-it-means-for-supply-chains/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "42",
-          "relationship": "Part of China Export Control Sequence"
         }
       ],
       "versionDate": "2026-03-11",
@@ -1659,12 +1631,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429110313/https://techinformed.com/microsoft-g42-announce-200-megawatt-uae-data-center-expansion/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "52",
-          "relationship": "GAIIP"
         }
       ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -3676,7 +3642,6 @@
           "snapshotUrl": "https://web.archive.org/web/20260625113728/https://rocm.blogs.amd.com/artificial-intelligence/gromacs-lumi-guide/README.html"
         }
       ],
-      "relatedEvents": [],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industrySecondary": [
         {
