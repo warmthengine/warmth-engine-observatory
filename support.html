@@ -585,82 +585,6 @@
             line-height: 1.5;
         }
         
-        /* Support Options Section */
-        .support-options {
-            display: flex;
-            flex-direction: column;
-            gap: var(--weo-space-lg);
-        }
-        
-        .support-option {
-            background: var(--weo-surface-base);
-            border: 1px solid var(--weo-border-primary);
-            border-radius: var(--weo-radius-md);
-            padding: var(--weo-space-lg);
-        }
-        
-        .support-option-header {
-            display: flex;
-            align-items: center;
-            gap: var(--weo-space-sm);
-            margin-bottom: var(--weo-space-md);
-        }
-        
-        .support-option-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--weo-surface-overlay);
-            border-radius: var(--weo-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--weo-text-tertiary);
-        }
-        
-        .support-option-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-        
-        .support-option-title {
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: var(--weo-text-primary);
-        }
-        
-        .support-option-desc {
-            font-size: 0.8125rem;
-            color: var(--weo-text-tertiary);
-            margin-bottom: var(--weo-space-md);
-            line-height: 1.6;
-        }
-        
-        .support-option-note {
-            font-size: 0.75rem;
-            color: var(--weo-text-muted);
-            margin-bottom: var(--weo-space-md);
-            padding: var(--weo-space-sm) var(--weo-space-md);
-            background: var(--weo-surface-overlay);
-            border-radius: var(--weo-radius-sm);
-            border-left: 2px solid var(--weo-bloc-cross);
-        }
-        
-        .support-option-badge {
-            font-size: 0.625rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--weo-sample-gold);
-            background: var(--weo-sample-glow);
-            padding: 2px 8px;
-            border-radius: var(--weo-radius-sm);
-        }
-        
-        .support-option.featured {
-            border-color: var(--weo-sample-gold);
-            background: linear-gradient(135deg, var(--weo-surface-raised) 0%, var(--weo-sample-bg) 100%);
-        }
-        
         /* Subscribe Button */
         .subscribe-button {
             display: inline-flex;
@@ -679,6 +603,20 @@
         .subscribe-button:hover {
             background: var(--weo-accent-hover);
             transform: translateY(-1px);
+        }
+
+        /* Subscribe button + fine print inside the Analyst tier card */
+        .tier-card .subscribe-button {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--weo-space-lg);
+        }
+
+        .tier-note {
+            font-size: 0.75rem;
+            color: var(--weo-text-tertiary);
+            text-align: center;
+            margin-top: var(--weo-space-sm);
         }
 
         /* Institutional Section */
@@ -1055,6 +993,8 @@
                                 Priority access to new analytical capabilities as they deploy
                             </li>
                         </ul>
+                        <a href="https://buy.stripe.com/test_28E28l4pIa9g2Z40Q18Vi00" class="subscribe-button" target="_blank" rel="noopener noreferrer">Subscribe</a>
+                        <p class="tier-note">Your access token is emailed instantly. Cancel anytime.</p>
                     </div>
                 </div>
             </div>
@@ -1138,36 +1078,6 @@
             </div>
         </section>
 
-        <!-- Support Options -->
-        <section class="section">
-            <h2 class="section-title">Support Options</h2>
-            <div class="card">
-                <div class="support-options">
-                    
-                    <!-- Subscription -->
-                    <div class="support-option featured">
-                        <div class="support-option-header">
-                            <div class="support-option-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                            </div>
-                            <div class="support-option-title">Monthly Membership</div>
-                            <div class="support-option-badge">Full Access</div>
-                        </div>
-                        <div class="support-option-desc">
-                            $25/month. Analyst access — qualification and assessment frameworks, tier classification rationales, extended industry tags, Coordination Connection analysis, Atlas structural analysis, source documentation, version history and rolling updates, Sovereign Capability Profiles with dimensional assessments, qualification analysis, constraint analysis, and severance frameworks, and priority access to new analytical capabilities, plus the full MCP tool suite including coordination-pathway, material-thread, and stack traversal.
-                        </div>
-                        <div class="support-option-note">
-                            After subscribing, your access token is issued instantly and emailed to you. Cancel anytime.
-                        </div>
-                        <a href="https://buy.stripe.com/test_28E28l4pIa9g2Z40Q18Vi00" class="subscribe-button" target="_blank" rel="noopener noreferrer">
-                            Subscribe
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        
         <!-- Institutional -->
         <section class="section">
             <h2 class="section-title">Institutional Enquiries</h2>
