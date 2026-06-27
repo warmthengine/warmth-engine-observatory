@@ -1,38 +1,38 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 174,
+    "total_events": 175,
     "sample_events": 6,
-    "standard_events": 168,
+    "standard_events": 169,
     "last_updated": "2026-06-27",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 48,
-        "Western": 108,
+        "Western": 109,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 156,
+        "T3": 157,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 44,
         "Coordination": 29,
-        "Policy": 47,
+        "Policy": 48,
         "Corporate": 54
       },
       "by_confidence": {
-        "A": 170,
+        "A": 171,
         "B": 4
       },
       "by_assessment_pathway": {
         "basel5": 94,
         "keohane": 28,
-        "pisa5": 32,
+        "pisa5": 33,
         "routeBased": 20,
         "oep": 6,
         "piet": 4
@@ -40,7 +40,7 @@
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 49,
         "Semiconductors & Equipment": 37,
-        "AI Software & Platforms": 61,
+        "AI Software & Platforms": 62,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 9,
         "Financial Services & Investment": 3,
@@ -53,14 +53,14 @@
         "1.3": 11,
         "1.1": 61,
         "1.4": 1,
-        "1.0": 55,
+        "1.0": 56,
         "1.1.2": 1
       }
     },
     "versionDate": "2026-06-27",
     "lastAudit": "2026-06-27",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 174,
+    "event_count": 175,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 47,
@@ -70,24 +70,24 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1637,
-      "preserved": 1628,
+      "total_sources": 1644,
+      "preserved": 1635,
       "preservation_rate": 0.995,
       "by_status": {
-        "captured": 1590,
+        "captured": 1593,
         "recovered": 22,
-        "existing": 16,
+        "existing": 20,
         "no_capture": 8,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 947,
-          "preserved": 939
+          "total": 951,
+          "preserved": 943
         },
         "connections": {
-          "total": 418,
-          "preserved": 418
+          "total": 421,
+          "preserved": 421
         },
         "actors": {
           "total": 272,
@@ -7664,6 +7664,34 @@
         "current": true
       },
       "version": "1.0"
+    },
+    {
+      "id": "203",
+      "name": "Spanish Agency for the Supervision of Artificial Intelligence (AESIA)",
+      "lat": 43.3623,
+      "lng": -8.4115,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "12 June 2024",
+      "location": "A Coruña, Spain",
+      "scope": "Spain (EU AI Act national authority)",
+      "description": "Spain's dedicated national AI supervisory authority, established by Real Decreto 729/2023 — the European Union's first such regulator at time of establishment. The A Coruña-seated agency became operational on 12 June 2024 with the constitution of its governing Consejo Rector under Director Ignasi Belda.",
+      "investment": "N/A (national supervisory authority; market-surveillance remit under the EU AI Act, no headline funding figure)",
+      "domain": "Technology",
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
     }
   ]
 }
