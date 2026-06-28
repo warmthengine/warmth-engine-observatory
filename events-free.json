@@ -1,48 +1,48 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 175,
+    "total_events": 178,
     "sample_events": 6,
-    "standard_events": 169,
+    "standard_events": 172,
     "last_updated": "2026-06-28",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
-        "Eastern": 48,
-        "Western": 109,
+        "Eastern": 49,
+        "Western": 111,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 157,
+        "T3": 160,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 44,
-        "Coordination": 29,
-        "Policy": 48,
-        "Corporate": 54
+        "Coordination": 30,
+        "Policy": 49,
+        "Corporate": 55
       },
       "by_confidence": {
-        "A": 171,
+        "A": 174,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 94,
-        "keohane": 28,
-        "pisa5": 33,
+        "basel5": 95,
+        "keohane": 29,
+        "pisa5": 34,
         "routeBased": 20,
         "oep": 6,
         "piet": 4
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 49,
+        "Cloud, Data Centres & Connectivity Infrastructure": 50,
         "Semiconductors & Equipment": 37,
-        "AI Software & Platforms": 62,
+        "AI Software & Platforms": 63,
         "Mining & Critical Minerals": 8,
-        "Defence & Aerospace": 9,
+        "Defence & Aerospace": 10,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
@@ -52,17 +52,17 @@
         "1.2": 32,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 57
+        "1.0": 60
       }
     },
     "versionDate": "2026-06-28",
     "lastAudit": "2026-06-28",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 175,
+    "event_count": 178,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
-    "ent_tagged_events": 47,
-    "ent_total_tags": 75,
+    "ent_tagged_events": 48,
+    "ent_total_tags": 76,
     "wer": {
       "value": 6.6,
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
@@ -7690,6 +7690,118 @@
       "version": "1.0",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": []
+    },
+    {
+      "id": "205",
+      "name": "Russia AI Liability Amendments (Federal Law 169-FZ)",
+      "lat": 55.7558,
+      "lng": 37.6173,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "5 January 2025",
+      "location": "Moscow, Russia",
+      "scope": "Russian Federation (ELR framework)",
+      "description": "Federal law amending Russia's Experimental Legal Regimes framework (258-FZ) with AI-specific provisions. Article 18.1 establishes a mandatory damages commission for AI-caused harm to life, health, or property, convened within 30 days. Point 13.2 introduces mandatory civil-liability insurance for AI-caused damages.",
+      "investment": "Regulatory framework (mandatory damages commission + civil-liability insurance for AI operators within ELR contexts). No dedicated financial allocation.",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "206",
+      "name": "CoreWeave UK Data Centres",
+      "lat": 51.12,
+      "lng": -0.18,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "October 2024",
+      "location": "Crawley, West Sussex, UK",
+      "scope": "United Kingdom — Crawley and London Docklands",
+      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking. CoreWeave sub-leases colocation space within existing host campuses.",
+      "investment": "£1B initial UK investment programme (total commitment £2.5B by September 2025).",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "Both facility locations — Crawley (Southern Water area) and London Docklands (Thames Water area) — are classified as serious water stress zones under the Environment Agency's 2021 water-stressed areas determination.",
+          "evidenceBasis": "Assessed",
+          "sources": [
+            {
+              "citation": "ENDS Report — Mapped: England's seriously water stressed regions",
+              "type": "Corroborating",
+              "url": "https://www.endsreport.com/article/1721177/mapped-englands-seriously-water-stressed-regions"
+            },
+            {
+              "citation": "GOV.UK — Water stressed areas: 2021 classification",
+              "type": "Corroborating",
+              "url": "https://www.gov.uk/government/publications/water-stressed-areas-2021-classification"
+            }
+          ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "H200",
+          "field": "description"
+        }
+      ],
+      "sources": 2,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "207",
+      "name": "NATO Defence Innovation Accelerator (DIANA)",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "19 June 2023",
+      "location": "London, United Kingdom (HQ)",
+      "scope": "NATO Alliance (32 member states)",
+      "description": "NATO body established to accelerate development and adoption of dual-use technologies for allied defence and security. Operates through 16 nationally designated accelerator sites and over 200 test centres across 32 NATO nations, running competitive challenge programmes with non-dilutive grants targeting AI, quantum technologies, and autonomous systems.",
+      "investment": "€100K–€300K non-dilutive grants per company; 150 innovators (2026 cohort); linked to €1B NATO Innovation Fund (24 allied nations).",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 6,
+      "corroborating": 10,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
     }
   ]
 }
