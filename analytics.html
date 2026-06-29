@@ -364,6 +364,12 @@
             font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-muted); min-width: 40px; text-align: right;
         }
+        /* Tool Calls log: middle column (client · country) for a per-call attribution row. */
+        .tcl-meta {
+            flex: 1; font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-secondary);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
 
         /* ========================================
            TZ TOGGLE (hourly panel)
@@ -652,6 +658,14 @@
         <div class="panel">
             <div class="panel-title">MCP Methods</div>
             <div id="methodsPanel"></div>
+        </div>
+    </div>
+
+    <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title">Tool Calls</div>
+            <div id="toolsCallLogPanel"></div>
         </div>
     </div>
 
@@ -985,6 +999,7 @@
         renderBars('apiClientPanel', agg.api_by_client, 'api');
         renderBars('uaPanel', agg.by_ua, 'diag');
         renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp');
+        renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
 
         // Hourly chart
         lastHourData = agg.by_hour;
@@ -996,7 +1011,8 @@
             mcp: 0, api: 0, authenticated: 0, self: 0,
             by_country: {}, by_endpoint: {}, by_client: {}, by_hour: {},
             mcp_by_client: {}, api_by_client: {},
-            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {}
+            by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {},
+            tools_call_log: []   // list, not a count-map — concatenated (not merged) below
         };
         dates.forEach(function(d) {
             var day = rawData[d];
@@ -1015,8 +1031,13 @@
             merge(result.by_method, day.by_method);
             merge(result.by_tool, day.by_tool);
             merge(result.by_mcp_client_named, day.by_mcp_client_named);
+            // tools_call_log is a list, not a count-map — concatenate, don't merge().
+            if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
         });
+        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~50.
+        result.tools_call_log.sort(function(a, b) { return (b.ts || '').localeCompare(a.ts || ''); });
+        result.tools_call_log = result.tools_call_log.slice(0, 50);
         return result;
     }
 
@@ -1142,6 +1163,45 @@
                     '<div class="bar-label" title="' + escapeHtml(displayLabel) + '">' + escapeHtml(displayLabel) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
+                '</div>';
+        });
+        container.innerHTML = html;
+    }
+
+    // Compact "Ns / Nm / Nh / Nd ago" from an ISO timestamp; '' if unparseable.
+    function relTime(ts) {
+        var then = new Date(ts).getTime();
+        if (isNaN(then)) return '';
+        var s = Math.max(0, Math.floor((Date.now() - then) / 1000));
+        if (s < 60) return s + 's ago';
+        var m = Math.floor(s / 60);
+        if (m < 60) return m + 'm ago';
+        var h = Math.floor(m / 60);
+        if (h < 24) return h + 'h ago';
+        return Math.floor(h / 24) + 'd ago';
+    }
+
+    // Per-call attribution list (not bars): one row per tools/call — tool · client · country · when.
+    // Read-only; reuses the .bar-row rhythm. `list` is already sorted newest-first + capped in aggregateDays.
+    function renderToolCallLog(containerId, list) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+        if (!list || list.length === 0) {
+            container.innerHTML = '<div class="empty-state">No tool calls yet</div>';
+            return;
+        }
+        var html = '';
+        list.slice(0, 50).forEach(function(rec) {
+            var tool = rec.tool || '(unknown)';
+            var client = rec.named_client || rec.client || 'unknown';
+            var code = rec.country || 'XX';
+            var country = COUNTRY_NAMES[code] || code;
+            var meta = client + ' · ' + country;
+            html +=
+                '<div class="bar-row">' +
+                    '<div class="bar-label" title="' + escapeHtml(tool) + '">' + escapeHtml(tool) + '</div>' +
+                    '<div class="tcl-meta" title="' + escapeHtml(meta) + '">' + escapeHtml(meta) + '</div>' +
+                    '<div class="bar-count">' + escapeHtml(relTime(rec.ts)) + '</div>' +
                 '</div>';
         });
         container.innerHTML = html;
