@@ -1,14 +1,22 @@
 # Warmth Engine Observatory
 
-> AI-infrastructure coordination intelligence: a methodology-anchored, evidence-graded record of verified AI-infrastructure events, the typed Coordination Connections between them, and Sovereign Capability Profiles across geopolitical blocs.
+> A Coordination Intelligence platform systematically tracking AI infrastructure coordination dynamics across geopolitical blocs through verified events, typed Coordination Connections, and Sovereign Capability Profiles.
 
-The corpus is built for machine consumers and served via an MCP server (JSON-RPC 2.0) and a REST API. Every classification traces to a published, DOI-registered methodology. Evidence-based classification from primary sources with post-implementation verification - observable facts over inferred meaning.
+The corpus is built for machine consumers and served via an MCP server (JSON-RPC 2.0) and a REST API. Every classification traces to a published, DOI-registered methodology. Evidence-based classification from primary sources with post-implementation verification — observable facts over inferred meaning.
+
+## What WEO tracks
+
+Events are classified through a five-stage pipeline by three orthogonal systems — Event Type (Coordination, Infrastructure, Policy, Corporate), Tier (Cross-Bloc, Between-Bloc, Intra-Bloc), and Domain (Energy/Infrastructure, Security, Technology, Trade) — with two analytical enrichment layers: Industry Tags and Environmental Nexus Tags. The Warmth Engine Ratio (WER) measures the balance between documented environmental resource demand (ENT-1) and documented environmental governance (ENT-5) across applicable events.
+
+Coordination Connections across seven defined types — including policy cascades, parallel policies, and funding flows — map documented relationships between events at three confidence levels (CC-V Verified, CC-E Established, CC-A Analytical).
+
+Sovereign Capability Profiles assess state actors across seven AI infrastructure dimensions through a three-gate designation framework producing four designations: Principal AI Actor (PAA), AI Infrastructure Keystone (AIK), Advanced Capability State (ACS), and Participant.
 
 ## Machine access
 
 - [MCP server](https://warmthengine.com/mcp): 15 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, and methodology lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
 - [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/health.
-- Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription - see /support.
+- Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription — see /support.
 
 ## Methodology (peer-citable, Zenodo)
 
@@ -19,8 +27,11 @@ The corpus is built for machine consumers and served via an MCP server (JSON-RPC
 
 ## Site
 
-- [Atlas](https://warmthengine.com/atlas.html): interactive map of the coordination corpus
-- [Profiles](https://warmthengine.com/profiles/): Sovereign Capability Profile actor pages
-- [Bloc register](https://warmthengine.com/blocs.html): geopolitical blocs underpinning SCP actor classification
+- [Atlas](https://warmthengine.com/atlas.html): network, timeline, and connectedness views of the coordination corpus with guided journeys across coordination, material, and stack substrates
+- [Events](https://warmthengine.com/events.html): verified event database with classification, enrichment layers, and Coordination Connection links
+- [Profiles](https://warmthengine.com/profiles/): Sovereign Capability Profile assessments with dimension scoring and Dimension Watch
+- [Bloc register](https://warmthengine.com/blocs.html): geopolitical bloc classifications underpinning the tier system
+- [Research](https://warmthengine.com/research.html): independent theoretical research and methodology extensions (Open Access, Zenodo)
+- [Methodology](https://warmthengine.com/methodology.html): five-stage pipeline overview with Manual and Rationale access
 - [Support](https://warmthengine.com/support.html): access tiers and pricing
 - [warmthengine.com](https://warmthengine.com): main site
