@@ -36,6 +36,7 @@ worker.js
 # OS artifacts
 .DS_Store
 **/.DS_Store
+__pycache__/
 
 # Backup and temporary files
 *.bak
