@@ -1,98 +1,95 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 171,
+    "total_events": 178,
     "sample_events": 6,
-    "standard_events": 165,
-    "last_updated": "2026-06-18",
+    "standard_events": 172,
+    "last_updated": "2026-06-30",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
-        "Eastern": 48,
-        "Western": 105,
+        "Eastern": 49,
+        "Western": 111,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 153,
+        "T3": 160,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 43,
-        "Coordination": 29,
-        "Policy": 46,
-        "Corporate": 53
+        "Infrastructure": 44,
+        "Coordination": 30,
+        "Policy": 49,
+        "Corporate": 55
       },
       "by_confidence": {
-        "A": 167,
+        "A": 174,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 93,
-        "keohane": 28,
-        "pisa5": 31,
-        "routeBased": 19,
+        "basel5": 95,
+        "keohane": 29,
+        "pisa5": 34,
+        "routeBased": 20,
         "oep": 6,
         "piet": 4
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 47,
-        "Semiconductors & Equipment": 34,
-        "AI Software & Platforms": 60,
+        "Cloud, Data Centres & Connectivity Infrastructure": 50,
+        "Semiconductors & Equipment": 37,
+        "AI Software & Platforms": 63,
         "Mining & Critical Minerals": 8,
-        "Defence & Aerospace": 9,
+        "Defence & Aerospace": 10,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
-        "Trade & Logistics": 1,
-        "Unknown": 3
+        "Trade & Logistics": 1
       },
       "by_version": {
-        "1.2": 45,
-        "1.3": 11,
-        "1.1": 61,
-        "1.4": 1,
-        "1.0": 52,
-        "1.1.2": 1
+        "1.2": 32,
+        "1.3": 5,
+        "1.1": 81,
+        "1.0": 60
       }
     },
-    "versionDate": "2026-06-18",
-    "lastAudit": "2026-06-18",
+    "versionDate": "2026-06-30",
+    "lastAudit": "2026-06-30",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 171,
+    "event_count": 178,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
-    "ent_tagged_events": 47,
-    "ent_total_tags": 75,
+    "ent_tagged_events": 48,
+    "ent_total_tags": 76,
     "wer": {
       "value": 6.6,
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1492,
-      "preserved": 1485,
-      "preservation_rate": 0.995,
+      "total_sources": 1658,
+      "preserved": 1647,
+      "preservation_rate": 0.993,
       "by_status": {
-        "captured": 1458,
-        "recovered": 21,
-        "existing": 6,
-        "no_capture": 6,
+        "captured": 1594,
+        "recovered": 26,
+        "existing": 27,
+        "no_capture": 10,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 907,
-          "preserved": 900
+          "total": 976,
+          "preserved": 966
         },
         "connections": {
-          "total": 397,
-          "preserved": 397
+          "total": 410,
+          "preserved": 410
         },
         "actors": {
-          "total": 188,
-          "preserved": 188
+          "total": 272,
+          "preserved": 271
         }
       }
     },
@@ -227,16 +224,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429130846/https://www.china-briefing.com/news/china-data-centers-new-cross-regional-plan-to-boost-computing-power-across-regions/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "03",
-          "relationship": "Both represent China's AI infrastructure investment strategy"
-        },
-        {
-          "id": "41",
-          "relationship": "Policy framework for EDWC expansion"
         }
       ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -498,12 +485,6 @@
           "snapshotUrl": "https://web.archive.org/web/20260429112834/https://vbe.academy/insights/post/austrian-standards-launches-first-european-certification-for-ethical-ai/"
         }
       ],
-      "relatedEvents": [
-        {
-          "id": "19",
-          "relationship": "Related ISO/IEC AI management standard"
-        }
-      ],
       "versionDate": "2026-03-04",
       "industryPrimary": "AI Software & Platforms",
       "industrySecondary": [],
@@ -710,12 +691,6 @@
           "snapshotUrl": "https://web.archive.org/web/20260429144840/https://www.datacenterdynamics.com/en/news/sk-hynix-secures-458m-in-chips-act-funding/"
         }
       ],
-      "relatedEvents": [
-        {
-          "id": "10",
-          "relationship": "Coordinated export control strategy"
-        }
-      ],
       "versionDate": "2026-03-04",
       "industryPrimary": "Semiconductors & Equipment",
       "industrySecondary": [
@@ -823,7 +798,7 @@
       "date": "26 November 2024",
       "location": "Washington, DC, United States",
       "scope": "United States (Arizona, New Mexico, Ohio, Oregon)",
-      "description": "US Department of Commerce finalised CHIPS and Science Act incentives award to Intel Corporation, supporting commercial semiconductor manufacturing and advanced packaging across Arizona, New Mexico, Ohio, and Oregon. Largest domestic CHIPS Act award, reinforcing US-based leading-edge chip production capacity.",
+      "description": "US Department of Commerce finalised CHIPS and Science Act incentives award to Intel Corporation, supporting commercial semiconductor manufacturing and advanced packaging across Arizona, New Mexico, Ohio, and Oregon. Largest domestic CHIPS Act award at time of announcement, reinforcing US-based leading-edge chip production capacity.",
       "investment": "US$7.86 billion direct funding; US$100+ billion total investment",
       "domain": "Energy/Infrastructure",
       "sources": 3,
@@ -1041,12 +1016,6 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429132441/https://www.clarkhill.com/news-events/news/china-hits-pause-on-rare-earth-export-controls-and-what-it-means-for-supply-chains/"
-        }
-      ],
-      "relatedEvents": [
-        {
-          "id": "42",
-          "relationship": "Part of China Export Control Sequence"
         }
       ],
       "versionDate": "2026-03-11",
@@ -1303,7 +1272,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1319,7 +1288,7 @@
       "location": "Gaithersburg, Maryland, United States",
       "scope": "United States (headquartered at NIST); international coordination via AI Safety Institute Network",
       "description": "US Artificial Intelligence Safety Institute operating as federal research and standards-setting organisation within NIST. TRAINS Taskforce comprises DOD (CDAO, NSA), DOE (10 National Laboratories), DHS (CISA), and HHS (NIH) for national security AI testing.",
-      "investment": "US$10M initial funding (FY 2024); 280+ consortium members; 11 international partners; TRAINS Taskforce (Nov 2024)",
+      "investment": "US$10M initial funding (FY 2024); 280+ consortium members; 11 international partners; TRAINS Taskforce (November 2024)",
       "domain": "Technology",
       "sources": 3,
       "corroborating": 4,
@@ -1330,7 +1299,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1342,10 +1311,10 @@
       "tier": 3,
       "type": "Policy",
       "sample": false,
-      "date": "14 February 2025",
+      "date": "2 November 2023",
       "location": "London, United Kingdom",
       "scope": "United Kingdom",
-      "description": "Rebranded from UK AI Safety Institute to UK AI Security Institute in February 2025. New mandate focuses on national security, counter-AI threats, criminal misuse prevention, and cyber defence.",
+      "description": "Established as the UK AI Safety Institute on 2 November 2023, announced at the inaugural AI Safety Summit. Renamed the UK AI Security Institute in February 2025; mandate shifted from AI safety to national security, counter-AI threats, criminal misuse prevention, and cyber defence.",
       "investment": "£100M+ initial investment; £8.5M annual funding (DSIT R&D Allocations)",
       "domain": "Security",
       "sources": 3,
@@ -1384,7 +1353,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.4",
+      "version": "1.2",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -1448,20 +1417,8 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Certification operational — AWS, Anthropic, Google Cloud, Microsoft, Darktrace through ANAB/UKAS-accredited bodies"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "Adopted as GB/T 45081-2024; certification through SGS China, BSI China, Amtivo, TÜV Rheinland"
-        }
-      ]
+      "version": "1.1",
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "21",
@@ -1514,8 +1471,8 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
-      "versionDate": "2026-03-04",
+      "version": "1.1",
+      "versionDate": "2026-01-15",
       "genesisDate": "2024-04-16",
       "genesis": {
         "description": "Microsoft invests $1.5B in G42 (UAE AI company), acquires minority stake, joins board. Partnership includes binding Intergovernmental Assurance Agreement (IGAA) developed with US and UAE governments establishing AI safety, cybersecurity, and export control standards.",
@@ -1673,12 +1630,6 @@
           "snapshotUrl": "https://web.archive.org/web/20260429110313/https://techinformed.com/microsoft-g42-announce-200-megawatt-uae-data-center-expansion/"
         }
       ],
-      "relatedEvents": [
-        {
-          "id": "52",
-          "relationship": "GAIIP"
-        }
-      ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industrySecondary": [
         {
@@ -1780,7 +1731,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -1914,7 +1865,7 @@
       "location": "Brussels, Belgium",
       "scope": "European Union - 27 Member States, with extraterritorial application",
       "description": "World's first comprehensive horizontal legal framework regulating artificial intelligence, establishing risk-based rules for AI system development, deployment, and use. Article 5 prohibitions cover 8 prohibited AI practices including subliminal manipulation, social scoring, and certain biometric identification, with full regulatory enforcement operational.",
-      "investment": "N/A (Regulatory framework; penalties up to €35M or 7% global turnover, enforceable August 2, 2025)",
+      "investment": "N/A (Regulatory framework; penalties up to €35M or 7% global turnover, enforceable 2 August 2025)",
       "domain": "Technology",
       "sources": 3,
       "corroborating": 4,
@@ -1925,7 +1876,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -2077,7 +2028,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2104,7 +2055,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2203,7 +2154,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "Financial Services & Investment"
     },
     {
@@ -2308,7 +2259,7 @@
       "location": "Singapore",
       "scope": "Singapore (city-state), with regional and global outreach",
       "description": "Singapore's second national AI strategy launched by DPM Lawrence Wong, outlining 15 courses of action across 3 systems and 10 enablers. Smart Nation 2.0 establishes framework for AI governance, infrastructure development, talent cultivation, and industry transformation.",
-      "investment": "S$1+ billion over 5 years (~US$744M); S$500M for AI compute; S$270M supercomputer (Oct 2024); S$120M AI for Science",
+      "investment": "S$1+ billion over 5 years (~US$744M); S$500M for AI compute; S$270M supercomputer (October 2024); S$120M AI for Science",
       "domain": "Technology",
       "sources": 4,
       "corroborating": 7,
@@ -2319,7 +2270,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -2364,7 +2315,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2445,7 +2396,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2563,7 +2514,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2833,7 +2784,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3031,7 +2982,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3058,7 +3009,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "infrastructureThreads": [
         {
@@ -3087,11 +3038,11 @@
       "date": "21 December 2023",
       "location": "Barcelona, Spain",
       "scope": "Spain (host) + Portugal, Turkey (consortium)",
-      "description": "EuroHPC MareNostrum 5 supercomputer hosted at Barcelona Supercomputing Center (BSC), Spain. MareNostrum 5 ranked 8th globally at time of implementation (November 2023), featuring heterogeneous architecture with dedicated AI accelerator partition designed specifically for large-scale generative AI model training.",
+      "description": "EuroHPC MareNostrum 5 supercomputer hosted at Barcelona Supercomputing Center (BSC), Spain. MareNostrum 5 ranked 8th globally at time of implementation (November 2023), featuring a heterogeneous architecture whose Accelerated Partition combines Intel Sapphire Rapids CPUs with NVIDIA H100 (Hopper) GPUs (1,120 nodes of four each), designed for large-scale generative AI model training.",
       "investment": "€202 million total (€151M EuroHPC JU); 314 Petaflops; Top500 #8 at implementation",
       "domain": "Energy/Infrastructure",
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 3,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3100,7 +3051,15 @@
         "current": true
       },
       "version": "1.1",
-      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        }
+      ]
     },
     {
       "id": "79",
@@ -3126,7 +3085,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3196,7 +3155,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.2",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -3287,7 +3246,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3314,7 +3273,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3341,7 +3300,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3530,11 +3489,11 @@
       "date": "13 June 2022",
       "location": "Kajaani, Finland",
       "scope": "EuroHPC JU (11-country consortium: Finland, Belgium, Czech Republic, Denmark, Estonia, Iceland, Netherlands, Norway, Poland, Sweden, Switzerland)",
-      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) pre-exascale supercomputer inaugurated in Kajaani, Finland. Third fastest supercomputer globally at implementation (November 2022 Top500). Hosted by CSC – IT Center for Science. AMD-based architecture with 379.70 PFlops peak performance. Supports European AI ecosystem development and scientific computing.",
-      "investment": "€202M total (€101M EuroHPC JU + €101M consortium); Top500 #3 at implementation (Nov 2022), currently #9 (Nov 2025)",
+      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) pre-exascale supercomputer inaugurated in Kajaani, Finland, hosted by CSC – IT Center for Science. Built on HPE Cray EX, its LUMI-G partition comprises 2,978 nodes with four AMD Instinct MI250X accelerators each. Third fastest globally at implementation (November 2022 TOP500); supports European AI and scientific computing.",
+      "investment": "€202M total (€101M EuroHPC JU + €101M consortium); TOP500 #3 at implementation (November 2022), #9 on the November 2025 TOP500",
       "domain": "Energy/Infrastructure",
-      "sources": 4,
-      "corroborating": 4,
+      "sources": 6,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3621,6 +3580,22 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429211357/https://www.top500.org/system/180048/"
+        },
+        {
+          "id": "P5",
+          "desc": "LUMI Documentation — LUMI-G GPU nodes (AMD Instinct MI250X)",
+          "url": "https://docs.lumi-supercomputer.eu/hardware/lumig/",
+          "accessDate": "2026-06-25",
+          "captureStatus": "existing",
+          "snapshotUrl": "https://web.archive.org/web/20260313225748/https://docs.lumi-supercomputer.eu/hardware/lumig/"
+        },
+        {
+          "id": "P6",
+          "desc": "LUMI — Full System Architecture Revealed",
+          "url": "https://lumi-supercomputer.eu/lumis-full-system-architecture-revealed/",
+          "accessDate": "2026-06-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260625113642/https://lumi-supercomputer.eu/lumis-full-system-architecture-revealed/"
         }
       ],
       "corroboratingSources": [
@@ -3654,9 +3629,16 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429102012/https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
+        },
+        {
+          "id": "C5",
+          "desc": "AMD ROCm Blogs — LUMI Supercomputer Case Study (AMD Instinct MI250X, 4 per LUMI-G node)",
+          "url": "https://rocm.blogs.amd.com/artificial-intelligence/gromacs-lumi-guide/README.html",
+          "accessDate": "2026-06-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260625113728/https://rocm.blogs.amd.com/artificial-intelligence/gromacs-lumi-guide/README.html"
         }
       ],
-      "relatedEvents": [],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "industrySecondary": [
         {
@@ -3665,6 +3647,14 @@
         }
       ],
       "versionDate": "2026-05-22",
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI250X",
+          "field": "description"
+        }
+      ],
       "basel5_factors_met": 5
     },
     {
@@ -3680,7 +3670,7 @@
       "location": "Guimarães, Portugal",
       "scope": "EuroHPC JU (Portugal national system)",
       "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) petascale supercomputer inaugurated in Guimarães, Portugal. Hosted by University of Minho/MACC. ARM-based architecture pioneering European Processor Initiative (EPI) technology. First Top500 entry June 2024 (#219). Supports Portuguese AI research ecosystem and serves as EPI testbed.",
-      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); Top500 #219 at first entry (June 2024), currently #323 (Nov 2025)",
+      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); TOP500 #219 at first entry (June 2024), #323 on the November 2025 TOP500",
       "domain": "Energy/Infrastructure",
       "sources": 4,
       "corroborating": 3,
@@ -3782,7 +3772,7 @@
       "sources": 3,
       "corroborating": 1,
       "confidence": "A",
-      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on August 31, 2023.",
+      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on 31 August 2023.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -3824,19 +3814,7 @@
         "current": true
       },
       "version": "1.2",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": false,
-          "evidence": "Western-aligned UNIDO members participate through institutional membership; no US-centred ecosystem operational engagement"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": true,
-          "evidence": "MIIT bilateral partnership with institutional hosting at SAIRI; ministerial-level governance operational"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "99",
@@ -3944,19 +3922,7 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "ANAB accredited 9 US certification bodies; UKAS and RvA accreditation operational in UK and Netherlands"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese accreditation or certification body activity verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "102",
@@ -4118,19 +4084,7 @@
         "current": true
       },
       "version": "1.0",
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Normative dependency via 42001 certification ecosystem; ANSI, BSI, DIN national catalogue adoption"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese national standard adoption verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "108",
@@ -4567,19 +4521,7 @@
       "scope": "International (ISO/IEC member nations)",
       "sources": 2,
       "corroborating": 2,
-      "industryPrimary": "AI Software & Platforms",
-      "ecosystemImplementation": [
-        {
-          "ecosystem": "US-centred",
-          "implemented": true,
-          "evidence": "Emerging adoption — AvISO use during 42001 certification, Intertek Academy training, ITCERTS assessor examination"
-        },
-        {
-          "ecosystem": "China-centred",
-          "implemented": false,
-          "evidence": "SAC P-member development participation; no Chinese adoption or operational use verified"
-        }
-      ]
+      "industryPrimary": "AI Software & Platforms"
     },
     {
       "id": "125",
@@ -4601,7 +4543,7 @@
         "implemented": true,
         "current": true
       },
-      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility, ranked 11th globally on TOP500.",
+      "description": "UK Government Isambard-AI Phase 2 supercomputer at the National Composites Centre, Bristol, delivering 5,448 NVIDIA GH200 Grace Hopper Superchips. Funded through UKRI/DSIT as part of the AI Research Resource (AIRR) programme. UK's most powerful public compute facility at time of implementation, ranked 11th globally on TOP500.",
       "investment": "£225M (~US$302M); 5,448 GH200 GPUs; 21+ ExaFLOPs AI performance",
       "scope": "United Kingdom (national AI research resource)",
       "sources": 3,
@@ -4716,7 +4658,7 @@
       "date": "28 April 2024",
       "location": "Horinger New Area, Hohhot, Inner Mongolia, China",
       "scope": "China — national-scale AI training computing pool within East Data West Compute (东数西算) Inner Mongolia hub node. Single-facility scope under China Mobile operation.",
-      "description": "China Mobile Intelligent Computing Centre (Hohhot) is the largest single-body intelligent computing centre operated by a global telecoms operator. The facility deploys approximately 20,000 AI acceleration cards with 6.7 EFLOPS (FP16) intelligent computing power. AI chip localisation rate exceeds 85%, integrating 5 domestic chip architectures. Cold-plate liquid cooling achieves PUE of 1.15.",
+      "description": "China Mobile Intelligent Computing Centre (Hohhot) is the largest single-body intelligent computing centre operated by a global telecoms operator at time of implementation. The facility deploys approximately 20,000 AI acceleration cards with 6.7 EFLOPS (FP16) intelligent computing power. AI chip localisation rate exceeds 85%, integrating 5 domestic chip architectures. Cold-plate liquid cooling achieves PUE of 1.15.",
       "investment": "Smart computing project total investment RMB 4.66 billion (~US$640M). Part of China Mobile Hohhot data centre campus with overall campus infrastructure investment ~RMB 40 billion (~US$5.5 billion) since 2012. Regional electricity cost 0.365 RMB/kWh. Green electricity share ~80% (smart computing centre; 69% is 2024 full campus annual average).",
       "domain": "Energy/Infrastructure",
       "sources": 2,
@@ -4909,7 +4851,7 @@
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Energy & Power Infrastructure",
       "description": "Amazon's approximately US$500M anchor investment in X-energy's Series C-1 financing round to develop Xe-100 advanced small modular reactors and TRISO-X fuel for AI data centre power. Initial 320 MW deployment planned with Energy Northwest at Columbia Generating Station site, Washington state.",
-      "investment": "~US$500M Series C-1 (upsized to US$700M by Feb 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
+      "investment": "~US$500M Series C-1 (upsized to US$700M by February 2025); 320 MW initial deployment (4 Xe-100 modules); 5 GW target by 2039",
       "scope": "United States (Washington state initial; national deployment target)",
       "checkpoints": {
         "ai": true,
@@ -5177,7 +5119,7 @@
       "date": "29 August 2023",
       "location": "Shanghai, China (SMIC fab); Shenzhen, China (HiSilicon design)",
       "scope": "China (SMIC: Shanghai; Huawei HiSilicon: Shenzhen)",
-      "description": "SMIC’s advancement of DUV-only semiconductor manufacturing through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class, Mate 60 Pro, 2023) and the Kirin 9030 (N+3, 5nm-class, Mate 80 Pro Max, 2025). Both process nodes confirmed by independent TechInsights physical teardown. First non-Western foundry to achieve 5nm-class DUV production without EUV access, at time of assessment.",
+      "description": "SMIC’s advancement of DUV-only semiconductor manufacturing through successive Huawei HiSilicon SoC generations: the Kirin 9000s (N+2, 7nm-class, Mate 60 Pro, 2023) and the Kirin 9030 (N+3, an enhanced 7nm-class node below 5nm-equivalent, Mate 80 Pro Max, 2025). Both process nodes confirmed by independent TechInsights physical teardown. Most-scaled DUV-only production node confirmed in a non-Western foundry at time of assessment, achieved without EUV access.",
       "investment": "N/A",
       "domain": "Technology",
       "confidence": "B",
@@ -5192,7 +5134,7 @@
         "current": true,
         "aiDetail": "OEP (Pathway A — Strong)"
       },
-      "version": "1.1"
+      "version": "1.0"
     },
     {
       "id": "142",
@@ -5295,7 +5237,7 @@
       "date": "18 November 2024",
       "location": "Livermore, California, United States",
       "scope": "United States (NNSA classified network)",
-      "description": "World's fastest supercomputer at 1.742 exaFLOPS, deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
+      "description": "World's fastest supercomputer at time of implementation (1.742 exaFLOPS), deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
       "investment": "~US$600M; 1.742 exaFLOPS; 11,136 AMD MI300A APU nodes; TOP500 #1 (November 2024)",
       "domain": "Security",
       "sources": 2,
@@ -6206,8 +6148,7 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
-      "geographic_context": "Operates within the NDRC-designated Gui'an Data Centre Cluster (贵安数据中心集群), one of eight national hub nodes under the 东数西算 programme (发改高技〔2021〕709号). The programme designates the geographic cluster zone; Huawei Cloud is the largest commercial operator within it, not a named programme component.",
-      "description": "Huawei Cloud's globally largest intelligent computing centre, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
+      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
       "sources": 1,
@@ -6443,7 +6384,7 @@
       "location": "Beijing, China",
       "scope": "Mainland China (domestic AI semiconductor sector)",
       "description": "Cambricon Technologies commenced volume production of the SiYuan 590 in Q3 2024, a 7nm chiplet-architecture AI training and inference chip fabricated on SMIC's N+2 process. Achieving approximately 80% of NVIDIA A100 inference performance, the chip is deployed across government cloud platforms and carrier intelligent computing centres in China.",
-      "investment": "RMB 1.174B revenue (2024); 65.56% YoY growth; cloud segment 11× growth; 512 TOPS INT8 / 256 TFLOPS FP16; single customer 79.15% of revenue",
+      "investment": "RMB 6.497B revenue (2025, +453.21%); net profit RMB 2.059B (first full-year profit); 512 TOPS INT8 / 256 TFLOPS FP16; single customer 79.15% of revenue (2024)",
       "domain": "Technology",
       "sources": 2,
       "corroborating": 2,
@@ -6886,7 +6827,7 @@
       "location": "Shanghai, China",
       "scope": "China (domestic AI chip design and production)",
       "description": "Enflame Technology’s S60 cloud AI inference chip, the company’s third-generation proprietary architecture, is manufactured by TSMC. The chip is deployed across sovereign intelligent computing facilities and cloud computing centres in China for AI inference workloads.",
-      "investment": "RMB 6B (~US$830M) IPO target (filed January 2026, not yet completed); RMB 722M 2024 revenue; ~70,000 S60 units shipped",
+      "investment": "RMB 6B (~US$830M) IPO target (cleared STAR listing-committee hearing 15 June 2026, listing pending); FY2024 revenue RMB 722.4M (audited); 9M 2025 revenue RMB 540.2M; ~70,000 S60 units shipped",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
@@ -7076,7 +7017,7 @@
       "location": "Shanghai, China",
       "scope": "Mainland China (domestic AI semiconductor sector)",
       "description": "MetaX Integrated Circuits commenced volume production of the C500 series GPGPU in February 2024, a 7nm AI accelerator with a CUDA-compatible MXMACA software stack certified in the Red Hat Ecosystem Catalogue. The chip is deployed across AI public computing platforms and telecom intelligent computing centres in China.",
-      "investment": "STAR Market IPO raised RMB 4.197 billion (~US$596M) (December 2025); RMB 743M revenue (2024); C500 contributes 97.28% of main business revenue; cumulative sales >25,000 GPU units by March 2025",
+      "investment": "STAR Market IPO raised RMB 4.197 billion (~US$596M) (December 2025); RMB 1.644B revenue (2025, +121.26%); net loss RMB 789M; C500 contributes 97.28% of main business revenue; cumulative sales >25,000 GPU units by March 2025",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
@@ -7257,69 +7198,6 @@
       "corroborating": 3,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-02",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, graphite, and rare earth elements with documented applications across AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, anode and cathode materials for server power systems, and permanent magnets for hard drive actuators and cooling fan motors.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The instrument governs battery mineral and critical component supply chains for clean vehicle tax credit eligibility. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power systems and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register — IRA Section 30D FEOC Final Rule (89 FR 37706)",
-                "url": "https://www.federalregister.gov/documents/2024/05/06/2024-09094/clean-vehicle-credits-under-sections-25e-and-30d-transfer-of-credits-critical-minerals-and-battery",
-                "type": "PRIMARY"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (4 materials — Supply-Chain-Verified)",
@@ -7378,91 +7256,6 @@
       "corroborating": 1,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "gallium",
-            "registerVerified": true,
-            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
-          },
-          {
-            "name": "germanium",
-            "registerVerified": true,
-            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
-          },
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Gallium, germanium, lithium, cobalt, rare earth elements, and graphite with documented applications across AI infrastructure — compound semiconductors for data centre networking, fibre optic signal amplification, battery storage for uninterruptible power supply and grid-scale energy storage, and permanent magnets for server hardware components.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              },
-              {
-                "id": "TRACE-C1-2",
-                "desc": "EUR-Lex — Regulation (EU) 2024/1252 Annexes I and II",
-                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The regulation establishes supply-chain benchmarks for critical raw materials across the green and digital transitions. The AI infrastructure connection operates through the regulated materials' documented applications in semiconductor fabrication, data centre power systems, and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "EUR-Lex — Regulation (EU) 2024/1252 (full text)",
-                "url": "https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606154647/https://eur-lex.europa.eu/eli/reg/2024/1252/oj/eng",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
@@ -7493,67 +7286,6 @@
       "corroborating": 1,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, and graphite with documented applications in AI data centre infrastructure — battery storage systems for uninterruptible power supply and grid-scale energy storage, and anode materials for server power systems.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The Presidential Determination invokes defence production authority for domestic mining and processing of battery minerals essential to national defence. The AI infrastructure connection operates through the controlled materials' documented applications in data centre power and energy storage systems.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register — Presidential Determination No. 2022-11",
-                "url": "https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20251219195834/https://www.federalregister.gov/documents/2022/04/06/2022-07421/presidential-determination-pursuant-to-section-303-of-the-defense-production-act-of-1950-as-amended",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (3 materials — Supply-Chain-Verified)",
@@ -7584,82 +7316,6 @@
       "corroborating": 0,
       "confidence": "A",
       "aiConnectionPathway": "trace",
-      "trace": {
-        "assessmentDate": "2026-06-04",
-        "registerVersion": "V1",
-        "conditionsMet": 2,
-        "conditionsRequired": 2,
-        "confidence": "Supply-Chain-Verified",
-        "result": "PASS (Both conditions — Supply-Chain-Verified)",
-        "materials": [
-          {
-            "name": "lithium",
-            "registerVerified": true,
-            "application": "Li-ion battery cells for data centre UPS, grid-scale energy storage"
-          },
-          {
-            "name": "cobalt",
-            "registerVerified": true,
-            "application": "Li-ion battery cathodes for data centre UPS and grid-scale storage"
-          },
-          {
-            "name": "rare earth elements",
-            "registerVerified": true,
-            "application": "NdFeB permanent magnets: HDD voice-coil actuators, server cooling fan motors, power conversion"
-          },
-          {
-            "name": "graphite",
-            "registerVerified": true,
-            "application": "Li-ion battery anode material (natural and synthetic)"
-          },
-          {
-            "name": "gallium",
-            "registerVerified": true,
-            "application": "GaN power semiconductors; GaAs compound semiconductors for RF/mmWave in DC networking"
-          },
-          {
-            "name": "germanium",
-            "registerVerified": true,
-            "application": "Fibre optic signal amplification (GeO₂ dopant); infrared optics; SiGe heterojunction transistors"
-          }
-        ],
-        "conditions": [
-          {
-            "factor": "AI Infrastructure Materials",
-            "pass": true,
-            "rationale": "Lithium, cobalt, rare earth elements, graphite, gallium, and germanium with documented applications across AI infrastructure — battery storage for data centre power systems, compound semiconductors for networking and signal processing, fibre optic amplification, and permanent magnets for server hardware components.",
-            "sources": [
-              {
-                "id": "TRACE-C1-1",
-                "desc": "WEO AI-Critical Materials Register",
-                "url": "https://warmthengine.com/research/methodology/materials-register/",
-                "type": "PRIMARY"
-              }
-            ]
-          },
-          {
-            "factor": "AI Connection Basis",
-            "pass": true,
-            "rationale": "The legislation provides a refundable tax offset for domestic processing of designated critical minerals. The AI infrastructure connection operates through the incentivised materials' documented applications in semiconductor fabrication, data centre energy storage, and computing hardware.",
-            "sources": [
-              {
-                "id": "TRACE-C2-1",
-                "desc": "Federal Register of Legislation — Future Made in Australia Act 2025",
-                "url": "https://www.legislation.gov.au/C2025A00009/latest/text",
-                "type": "PRIMARY",
-                "captureStatus": "recovered",
-                "snapshotUrl": "http://web.archive.org/web/20260606155911/https://www.legislation.gov.au/C2025A00009/latest/text",
-                "accessDate": "2026-06-16"
-              }
-            ]
-          }
-        ],
-        "excludedInstrumentCheck": {
-          "generalIndustrialPolicy": false,
-          "broadEconomicStimulus": false,
-          "multiSectorFramework": false
-        }
-      },
       "checkpoints": {
         "ai": true,
         "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
@@ -7682,14 +7338,9 @@
       "location": "Tianjin, China",
       "scope": "Mainland China (domestic AI compute market)",
       "description": "Hygon Information Technology's DCU series comprises three generations of GPGPU-architecture AI accelerators in mass production for training and inference workloads, operating within a CUDA-compatible software ecosystem supporting deployment across Chinese AI infrastructure.",
-      "investment": "2024 revenue RMB 9.162B (+52.4% YoY); gross margin 63.72%; current generation FP16 49 TFLOPS",
+      "investment": "2025 revenue RMB 14.377B (+56.92% YoY, audited); net profit RMB 2.545B; gross margin 63.72%; current generation FP16 49 TFLOPS",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "GPGPU AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
-        "review_flags": []
-      },
+      "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
       "sources": 1,
       "corroborating": 7,
@@ -7717,12 +7368,7 @@
       "description": "Kunlunxin's P800, a third-generation AI accelerator based on the proprietary XPU-P architecture, entered mass production in 2024. A Baidu subsidiary, Kunlunxin develops purpose-built AI training and inference processors for the Chinese domestic market.",
       "investment": "2024 revenue ~RMB 2B (net loss ~RMB 200M); Baidu 57.67% shareholding; 69,000 units shipped — second among Chinese AI chip producers per IDC 2024",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "AI accelerator chip design and mass production — Priority Group 1 semiconductor keyword match",
-        "review_flags": []
-      },
+      "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 6,
@@ -7747,15 +7393,10 @@
       "date": "15 November 2023",
       "location": "Shanghai, China",
       "scope": "Mainland China (domestic AI infrastructure)",
-      "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tian'ai series for AI training and the Zhikai series for inference, listing on HKEX in January 2026. The Tian'ai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
-      "investment": "2025 revenue RMB 1.034B (+91.6% YoY); gross margin 54.0%; 52,000+ GPUs deployed to 290+ customers as of mid-2025",
+      "description": "Tianshu Zhixin (Iluvatar CoreX) develops dual-line GPGPU products: the Tiangai (天垓) series for AI training and the Zhikai series for inference; it completed its HKEX listing on 8 January 2026 (HKEX: 9903). The Tiangai 100 was the first Chinese-designed 7nm cloud training GPU at time of its 2021 release.",
+      "investment": "FY2024 revenue RMB 540M (audited); H1 2025 revenue RMB 324M (+64% YoY); gross margin 54.0%; 52,000+ GPUs deployed to 290+ customers as of mid-2025",
       "domain": "Technology",
-      "industry_tags": {
-        "primary": "Semiconductors & Equipment",
-        "secondary": [],
-        "primary_evidence": "GPGPU AI accelerator design with training and inference product lines — Priority Group 1 semiconductor/GPU keyword match",
-        "review_flags": []
-      },
+      "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 1,
@@ -7839,7 +7480,7 @@
       "location": "Santa Clara, California, USA",
       "scope": "United States (global AI hardware supply chain)",
       "description": "NVIDIA's data-centre accelerator line, spanning the Hopper and Blackwell generations, built around the Transformer Engine for large language model workloads and the CUDA software ecosystem. Deployed by every major hyperscaler, the line is the dominant global platform for AI training and inference.",
-      "investment": "FY2025 Data Centre segment revenue ~US$115.2B (up 142%); an estimated 70–95% share of the AI accelerator market",
+      "investment": "FY2026 Data Centre segment revenue ~US$193.7B (up 68%); an estimated 70–95% share of the AI accelerator market",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
@@ -7866,8 +7507,8 @@
       "date": "06 December 2023",
       "location": "Santa Clara, California, USA",
       "scope": "United States (global AI hardware supply chain)",
-      "description": "AMD's Instinct accelerator line, built on the CDNA architecture and paired with the open-source ROCm software stack as the principal alternative to NVIDIA's CUDA ecosystem. The MI300X generation carries 192GB of HBM3 memory for large-model training and inference.",
-      "investment": "FY2024 Data Centre segment revenue US$12.6B (up 94%), with Instinct GPU sales a named growth driver",
+      "description": "AMD's Instinct accelerator line, built on the CDNA architecture and paired with the open-source ROCm software stack as the principal alternative to NVIDIA's CUDA ecosystem. The MI350 series (CDNA 4, TSMC N3P) carries 288GB of HBM3E memory, superseding the MI300X generation, for large-model training and inference.",
+      "investment": "FY2025 Data Centre segment revenue US$16.6B (up 32%).",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
@@ -7894,8 +7535,8 @@
       "date": "29 August 2023",
       "location": "Mountain View, California, USA",
       "scope": "United States (global Google Cloud reach)",
-      "description": "Google's Tensor Processing Unit line, the custom AI accelerator on which Google trains and serves its own Gemini frontier models. Unlike merchant silicon, TPUs are not sold as discrete hardware; they are consumed exclusively as Google Cloud compute services, spanning the v5e and v5p generations.",
-      "investment": "Google Cloud segment revenue ~US$43.1B FY2024; TPU fleet committed to Cloud and internal Gemini training not separately disclosed",
+      "description": "Google's Tensor Processing Unit line, the custom AI accelerator on which Google trains and serves its own Gemini frontier models. Unlike merchant silicon, TPUs are not sold as discrete hardware; they are consumed exclusively as Google Cloud compute services, spanning the v5e, v5p, Trillium (v6e), and Ironwood (v7) generations.",
+      "investment": "Google Cloud segment revenue ~US$58.7B FY2025 (up 36%); TPU fleet committed to Cloud and internal Gemini training not separately disclosed",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
@@ -7922,13 +7563,243 @@
       "date": "03 December 2024",
       "location": "Seattle, Washington, USA",
       "scope": "United States (global AWS reach)",
-      "description": "Amazon's Trainium line, AWS's custom AI training silicon offered only as rentable cloud capacity rather than sold as hardware, positioned as a cost-efficient alternative to GPU-based training. Trainium2 became available through EC2 Trn2 instances and anchors Anthropic's Project Rainier training cluster.",
-      "investment": "AWS segment revenue ~US$107.6B FY2024 (Trainium not separately disclosed); Project Rainier deployment of hundreds of thousands of Trainium2 chips for Anthropic",
+      "description": "Amazon's Trainium line, AWS's custom AI training silicon offered only as rentable cloud capacity rather than sold as hardware, positioned as a cost-efficient alternative to GPU-based training. The line spans Trainium2 (EC2 Trn2 instances) and Trainium3 (3nm, general availability December 2025).",
+      "investment": "AWS segment revenue ~US$128.7B FY2025 (up 20%) (Trainium not separately disclosed); Project Rainier deployment of hundreds of thousands of Trainium2 chips for Anthropic",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
       "sources": 2,
       "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "200",
+      "name": "METI Specified Critical Cloud Programme (ESPA)",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "19 April 2024",
+      "location": "Japan",
+      "scope": "National (Japan); generative-AI cloud computing sector",
+      "description": "Japan's Ministry of Economy, Trade and Industry designated cloud computing programmes as specified critical products under the Economic Security Promotion Act (ESPA), establishing a certified-provider regime for domestic GPU cloud capacity used in generative-AI development.",
+      "investment": "Subsidy designation (up to JPY 72.5 billion across five certified providers; ESPA Article 9(4))",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "201",
+      "name": "Alps Supercomputer (CSCS / Swiss AI Initiative)",
+      "lat": 46.0101,
+      "lng": 8.96,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "June 2024",
+      "location": "Lugano, Switzerland",
+      "scope": "National research infrastructure (Switzerland); AI and scientific HPC",
+      "description": "Alps is the national supercomputer at the Swiss National Supercomputing Centre (CSCS), an HPE Cray EX254n system serving as the central compute infrastructure of the Swiss AI Initiative, supporting AI model training alongside large-scale scientific computing.",
+      "investment": "2,688 NVIDIA GH200 nodes (10,752 superchips); 434.9 PFLOP/s Rmax (No. 7, November 2024 TOP500); ~CHF 100M capital, ~CHF 37M annual operating",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 5,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "202",
+      "name": "xAI Grok-4 Frontier Reasoning Model",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "9 July 2025",
+      "location": "United States",
+      "scope": "Global API availability; US-developed frontier reasoning model",
+      "description": "xAI released Grok-4 on 9 July 2025, a frontier closed-source reasoning model with native tool use, code execution and web browsing. At release it set state-of-the-art results on several independent reasoning benchmarks and is available via the xAI API.",
+      "investment": "~200,000-GPU Colossus training cluster; HLE 50.7% (Grok-4 Heavy, text-only), USAMO'25 61.9%, ARC-AGI-2 15.9% (independently verified)",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "203",
+      "name": "Spanish Agency for the Supervision of Artificial Intelligence (AESIA)",
+      "lat": 43.3623,
+      "lng": -8.4115,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "12 June 2024",
+      "location": "A Coruña, Spain",
+      "scope": "Spain (EU AI Act national authority)",
+      "description": "Spain's dedicated national AI supervisory authority, established by Real Decreto 729/2023 — the European Union's first such regulator at time of establishment. The A Coruña-seated agency became operational on 12 June 2024 with the constitution of its governing Consejo Rector under Director Ignasi Belda.",
+      "investment": "N/A (national supervisory authority; market-surveillance remit under the EU AI Act, no headline funding figure)",
+      "domain": "Technology",
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "205",
+      "name": "Russia AI Liability Amendments (Federal Law 169-FZ)",
+      "lat": 55.7558,
+      "lng": 37.6173,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "5 January 2025",
+      "location": "Moscow, Russia",
+      "scope": "Russian Federation (ELR framework)",
+      "description": "Federal law amending Russia's Experimental Legal Regimes framework (258-FZ) with AI-specific provisions. Article 18.1 establishes a mandatory damages commission for AI-caused harm to life, health, or property, convened within 30 days. Point 13.2 introduces mandatory civil-liability insurance for AI-caused damages.",
+      "investment": "Regulatory framework (mandatory damages commission + civil-liability insurance for AI operators within ELR contexts). No dedicated financial allocation.",
+      "domain": "Technology",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "206",
+      "name": "CoreWeave UK Data Centres",
+      "lat": 51.12,
+      "lng": -0.18,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "October 2024",
+      "location": "Crawley, West Sussex, UK",
+      "scope": "United Kingdom — Crawley and London Docklands",
+      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking. CoreWeave sub-leases colocation space within existing host campuses.",
+      "investment": "£1B initial UK investment programme (total commitment £2.5B by September 2025).",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-4",
+          "name": "Environmental Dependency",
+          "mechanism": "Both facility locations — Crawley (Southern Water area) and London Docklands (Thames Water area) — are classified as serious water stress zones under the Environment Agency's 2021 water-stressed areas determination.",
+          "evidenceBasis": "Assessed",
+          "sources": [
+            {
+              "citation": "ENDS Report — Mapped: England's seriously water stressed regions",
+              "type": "Corroborating",
+              "url": "https://www.endsreport.com/article/1721177/mapped-englands-seriously-water-stressed-regions",
+              "accessDate": "2026-06-29",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260629065159/https://www.endsreport.com/article/1721177/mapped-englands-seriously-water-stressed-regions"
+            },
+            {
+              "citation": "GOV.UK — Water stressed areas: 2021 classification",
+              "type": "Corroborating",
+              "url": "https://www.gov.uk/government/publications/water-stressed-areas-2021-classification",
+              "accessDate": "2026-06-29",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260629065613/https://www.gov.uk/government/publications/water-stressed-areas-2021-classification"
+            }
+          ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "H200",
+          "field": "description"
+        }
+      ],
+      "sources": 2,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "207",
+      "name": "NATO Defence Innovation Accelerator (DIANA)",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "19 June 2023",
+      "location": "London, United Kingdom (HQ)",
+      "scope": "NATO Alliance (32 member states)",
+      "description": "NATO body established to accelerate development and adoption of dual-use technologies for allied defence and security. Operates through 16 nationally designated accelerator sites and over 200 test centres across 32 NATO nations, running competitive challenge programmes with non-dilutive grants targeting AI, quantum technologies, and autonomous systems.",
+      "investment": "€100K–€300K non-dilutive grants per company; 150 innovators (2026 cohort); linked to €1B NATO Innovation Fund (24 allied nations).",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 6,
+      "corroborating": 10,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
