@@ -2035,6 +2035,8 @@
             margin: 0 0 10px 0;
             font-family: var(--font-mono);
         }
+        /* Dual-date header (§6): muted "· Updated: [versionDate]" portion of the panel subtitle. */
+        .atlas-panel-subtitle-updated { opacity: 0.65; font-weight: 400; }
         .atlas-panel-header-chips {
             display: flex;
             gap: 6px;
@@ -10774,10 +10776,21 @@
             }
             html += `<h2 class="atlas-panel-title" onclick="atlasScrollPanelToTop()" style="cursor:pointer">${escapeHtml(event.name || '')}</h2>`;
             const subtitleParts = [];
-            if (event.type) subtitleParts.push(event.type);
-            if (event.date) subtitleParts.push(formatDateLong(event.date));
-            if (event.location) subtitleParts.push(event.location);
-            html += `<div class="atlas-panel-subtitle">${escapeHtml(subtitleParts.join(' · ') || '—')}</div>`;
+            if (event.type) subtitleParts.push(escapeHtml(event.type));
+            // Dual-date header (§6): "Implemented: [date] · Updated: [versionDate]" when update
+            // history exists (full-tier — versionDate/rollingUpdates are premium); else plain date.
+            if (event.date) {
+                const implHtml = escapeHtml(formatDateLong(event.date));
+                if (event.versionDate && Array.isArray(event.rollingUpdates) && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0') {
+                    let updHtml = event.versionDate;
+                    try { updHtml = new Date(event.versionDate + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }); } catch(_e) {}
+                    subtitleParts.push('Implemented: ' + implHtml + '<span class="atlas-panel-subtitle-updated"> · Updated: ' + escapeHtml(updHtml) + '</span>');
+                } else {
+                    subtitleParts.push(implHtml);
+                }
+            }
+            if (event.location) subtitleParts.push(escapeHtml(event.location));
+            html += `<div class="atlas-panel-subtitle">${subtitleParts.join(' · ') || '—'}</div>`;
             html += '<div class="atlas-panel-header-chips">';
             const tierNum = Number(event.tier) || 3;
             const tierTip = weoTooltips.tier

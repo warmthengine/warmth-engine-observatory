@@ -1708,6 +1708,8 @@
       cursor: pointer;
     }
     .header-version-badge:hover { opacity: 1; }
+    /* Dual-date header (§6): muted "· Updated: [versionDate]" portion of the modal subtitle. */
+    .modal-subtitle-updated { opacity: 0.6; font-weight: 400; }
     .supporter-access-btn {
       display: inline-flex;
       align-items: center;
@@ -5099,15 +5101,28 @@ const openModal = (id) => {
     
     // Set subtitle with event type, date, and location (matching index.html format)
     const eventLocation = eventLocations[id] || '';
-    document.getElementById('modal-subtitle').textContent = e.event_type + ' • ' + formatDateUK(e.implementation_date) + (eventLocation ? ' • ' + eventLocation : '');
+    // Dual-date header (§6): when the event carries update history, show
+    // "Implemented: [date] · Updated: [versionDate]"; otherwise the implementation date alone.
+    // versionDate + rollingUpdates are premium-gated (not in the free whitelist), so the
+    // Updated portion only renders for full-tier viewers; free tier keeps the plain date.
+    const _implDateUK = formatDateUK(e.implementation_date);
+    const _hasUpdate = full && full.version && full.version !== '1.0' && full.versionDate && full.rollingUpdates && full.rollingUpdates.length > 0;
+    let _datePart;
+    if (_hasUpdate) {
+        const _updatedUK = new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+        _datePart = 'Implemented: ' + esc(_implDateUK) + '<span class="modal-subtitle-updated"> · Updated: ' + esc(_updatedUK) + '</span>';
+    } else {
+        _datePart = esc(_implDateUK);
+    }
+    document.getElementById('modal-subtitle').innerHTML = esc(e.event_type) + ' • ' + _datePart + (eventLocation ? ' • ' + esc(eventLocation) : '');
     
     // Zone 2 — grid rows
     const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
     const blocLabel = generateFieldLabel('Bloc', 'bloc', 'below');
     const domainLabel = generateFieldLabel('Domain', 'domain', 'below');
     const connRow = isHighlyConnected(id) ? `<div class="z2-row">${generateFieldLabel('Connections', 'highlyConnected', 'below')}<div class="z2-badges"><span class="badge badge-highly-connected" onclick="scrollToModalSection('cc')">🔗 Highly Connected</span></div></div>` : '';
-    const lastUpdateText = full && full.versionDate ? new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
-    const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${esc(full.version)}${lastUpdateText ? ' · Updated ' + lastUpdateText : ''}</span>` : '';
+    // Updated date now lives in the dual-date subtitle (§6); the badge is just the version chip.
+    const headerVersionBadge = full && full.rollingUpdates && full.rollingUpdates.length > 0 && full.version && full.version !== '1.0' ? `<span class="header-version-badge" onclick="scrollToModalSection('Version History')">v${esc(full.version)}</span>` : '';
     document.getElementById('modal-meta').innerHTML = `
         <div class="z2-rows" role="group" aria-label="Event classification">
           <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${esc(e.tier)}</span></div></div>

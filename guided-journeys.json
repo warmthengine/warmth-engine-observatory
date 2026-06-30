@@ -55,8 +55,8 @@
       "mode": "stack",
       "root": "196",
       "params": {},
-      "question": "Which export controls govern NVIDIA's accelerators, which AI systems run on them, and which national capabilities draw on them?",
-      "readout": "NVIDIA AI Accelerator Series — {coord} coordination hop (US BIS computing controls, CC-V), {mat} material links (9 chip generations, 15 Western facilities), {cap} capability contributions across the stack (D1/D4/D5/D6/D7; US/JP/EU/GB).",
+      "question": "Which AI systems run on NVIDIA's accelerators, and which national capabilities draw on them?",
+      "readout": "NVIDIA AI Accelerator Series — {mat} material links (9 chip generations, 15 Western facilities), {cap} capability contributions across the stack (D1/D4/D5/D6/D7; US/JP/EU/GB).",
       "count_source": "stack_counts",
       "mcp": {
         "tool": "get_event_stack",
