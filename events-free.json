@@ -1,38 +1,38 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 181,
+    "total_events": 185,
     "sample_events": 6,
-    "standard_events": 175,
-    "last_updated": "2026-06-30",
+    "standard_events": 179,
+    "last_updated": "2026-07-02",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 49,
-        "Western": 114,
+        "Western": 118,
         "Western-Led": 13,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 163,
+        "T3": 167,
         "T2": 17,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 44,
         "Coordination": 30,
-        "Policy": 52,
+        "Policy": 56,
         "Corporate": 55
       },
       "by_confidence": {
-        "A": 177,
+        "A": 181,
         "B": 4
       },
       "by_assessment_pathway": {
         "basel5": 95,
         "keohane": 29,
-        "pisa5": 37,
+        "pisa5": 41,
         "routeBased": 20,
         "oep": 6,
         "piet": 4
@@ -42,7 +42,7 @@
         "Semiconductors & Equipment": 37,
         "AI Software & Platforms": 63,
         "Mining & Critical Minerals": 8,
-        "Defence & Aerospace": 13,
+        "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
@@ -52,13 +52,13 @@
         "1.2": 32,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 63
+        "1.0": 67
       }
     },
-    "versionDate": "2026-06-30",
-    "lastAudit": "2026-06-30",
+    "versionDate": "2026-07-02",
+    "lastAudit": "2026-07-02",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 181,
+    "event_count": 185,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 48,
@@ -68,24 +68,24 @@
       "formula": "ENT-1 (33) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1658,
-      "preserved": 1647,
-      "preservation_rate": 0.993,
+      "total_sources": 1701,
+      "preserved": 1688,
+      "preservation_rate": 0.992,
       "by_status": {
-        "captured": 1594,
+        "captured": 1599,
         "recovered": 26,
-        "existing": 27,
-        "no_capture": 10,
+        "existing": 63,
+        "no_capture": 12,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 976,
-          "preserved": 966
+          "total": 1013,
+          "preserved": 1002
         },
         "connections": {
-          "total": 410,
-          "preserved": 410
+          "total": 416,
+          "preserved": 415
         },
         "actors": {
           "total": 272,
@@ -7732,7 +7732,7 @@
       "date": "October 2024",
       "location": "Crawley, West Sussex, UK",
       "scope": "United Kingdom — Crawley and London Docklands",
-      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking. CoreWeave sub-leases colocation space within existing host campuses.",
+      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking.",
       "investment": "£1B initial UK investment programme (total commitment £2.5B by September 2025).",
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -7890,6 +7890,118 @@
       "checkpoints": {
         "ai": true,
         "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "211",
+      "name": "UK Project ASGARD",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "May 2025",
+      "location": "United Kingdom",
+      "scope": "United Kingdom (national defence sector)",
+      "description": "UK Ministry of Defence programme deploying AI-enabled targeting and decision-support to land forces through the Dismounted Data System and the DDAD open framework. Prototype systems were tested at NATO Exercise Hedgehog in Estonia in May 2025, forming part of the wider Digital Targeting Web initiative across the Armed Forces.",
+      "investment": "Up to £86M DDS contract (£46M committed + £40M options); £180M ex-VAT DDAD framework ceiling (2025–2029); part of >£1B Digital Targeting Web programme",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "212",
+      "name": "Project Maven (Maven Smart System)",
+      "lat": 38.8719,
+      "lng": -77.0563,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "November 2023",
+      "location": "United States",
+      "scope": "United States (all military services; NATO adoption)",
+      "description": "US Department of Defense AI programme for military intelligence analysis and targeting, transitioned to a National Geospatial-Intelligence Agency Programme of Record in November 2023. Governed by the Chief Digital and Artificial Intelligence Office with Palantir Technologies as primary integration contractor, and adopted by NATO as MSS NATO in March 2025.",
+      "investment": "US$480M Palantir IDIQ (five-year, May 2024); US$795M Army MSS licences (May 2025); 20,000+ active users across 35+ tools and three security domains",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "213",
+      "name": "Helsing Eurofighter Cirra AI Integration",
+      "lat": 52.52,
+      "lng": 13.405,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "19 November 2025",
+      "location": "Germany",
+      "scope": "Germany (Luftwaffe Eurofighter fleet)",
+      "description": "German Bundeswehr procurement of AI-integrated electronic warfare for the Eurofighter EK programme, contracted 19 November 2025 with Bundestag approval. Helsing provides Cirra deep-learning software for real-time threat classification and emitter intent recognition, integrated with Saab's Arexis EW hardware platform. In development; in-service approximately 2030.",
+      "investment": "€258M (~US$299M) AI-inclusive order; 15 Luftwaffe Eurofighter EK aircraft; part of ~€549M total Arexis programme; integration 2025–2028",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "214",
+      "name": "DARPA Air Combat Evolution (ACE)",
+      "lat": 34.9054,
+      "lng": -117.8839,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "September 2023",
+      "location": "Edwards Air Force Base, California, United States",
+      "scope": "United States (DARPA / US Air Force)",
+      "description": "DARPA programme developing autonomous AI combat capabilities through human-machine collaborative dogfighting. Achieved the first autonomous AI-controlled F-16 engagement against a human pilot at Edwards Air Force Base in September 2023, using the X-62A VISTA test platform.",
+      "investment": "Multi-phase research programme (discrete budget not publicly disaggregated); 21 test flights; >100,000 lines of flight-critical software; four primary performer teams. Downstream CCA: ~US$1.39B FY2025",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 4,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
