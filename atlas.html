@@ -2861,6 +2861,9 @@
             color: #F1F5F9;
             font-variant-numeric: tabular-nums lining-nums;
         }
+        .cc-funding-item.response {
+            border-left-color: #F59E0B;
+        }
         .cc-citation {
             background: rgba(15, 23, 42, 0.8);
             border-left: 3px solid #2DD4BF;
@@ -5316,7 +5319,7 @@
             2: { title: 'Joint Issuance', body: 'Multiple distinct entities publish a single unified document that constitutes one coordinated policy act. <strong>Direction:</strong> Bidirectional (co-equal parties). <strong>Evidence:</strong> Single document with multiple issuing authorities. <strong>Min. Confidence:</strong> CC-V.' },
             3: { title: 'Funding Flow', body: 'Event A provides financial resources that directly enable or support Event B. <strong>Direction:</strong> Funder → Recipient. <strong>Evidence:</strong> Budget allocation document specifying recipient (≥10% attribution threshold). <strong>Min. Confidence:</strong> CC-V.' },
             4: { title: 'Regulatory Enablement', body: 'Event A creates the legal, regulatory, or procedural basis that makes Event B possible. <strong>Direction:</strong> Enabler → Enabled. <strong>Evidence:</strong> Event B cites Event A as enabling authority. <strong>Min. Confidence:</strong> CC-V or CC-E.' },
-            5: { title: 'Response', body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies trigger event + timing within 90 days. <strong>Min. Confidence:</strong> CC-E.' },
+            5: { title: 'Response', body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies trigger event + timing within domain-specific window (§9.4.1). <strong>Min. Confidence:</strong> CC-E.' },
             6: { title: 'Framework Family', body: 'Events are formally part of the same standards suite, regulatory family, or institutional framework. <strong>Direction:</strong> Bidirectional (sibling relationship). <strong>Evidence:</strong> Common numbering convention or explicit cross-reference in standards body documentation. <strong>Min. Confidence:</strong> CC-V.' },
             7: { title: 'Parallel Policy', body: 'Similar events occur in different jurisdictions without formal coordination. <strong>Direction:</strong> Varies. <strong>Evidence:</strong> Substantive similarity in policy design, scope, or targets + temporal proximity. <strong>Min. Confidence:</strong> CC-A (analyst assessment).' }
           },
@@ -12004,6 +12007,9 @@
                 }
                 h += '</div>';
             }
+            if (detail.trigger_attribution) {
+                h += '<div style="font-size: 10px; font-style: normal; letter-spacing: 0.04em; color: #94A3B8; margin-top: -8px; margin-bottom: 12px; padding-left: 19px;">— ' + escapeHtml(detail.trigger_attribution) + '</div>';
+            }
             if (detail.funding_breakdown) {
                 const fb = detail.funding_breakdown;
                 h += '<div class="cc-funding-grid">';
@@ -12011,6 +12017,18 @@
                 if (fb.loan_guarantee) h += '<div class="cc-funding-item"><div class="cc-funding-label">Loan/Guarantee</div><div class="cc-funding-value">' + escapeHtml(fb.loan_guarantee) + '</div></div>';
                 if (fb.total_commitment) h += '<div class="cc-funding-item"><div class="cc-funding-label">Total Commitment</div><div class="cc-funding-value">' + escapeHtml(fb.total_commitment) + '</div></div>';
                 if (fb.percentage) h += '<div class="cc-funding-item"><div class="cc-funding-label">Attribution</div><div class="cc-funding-value">' + escapeHtml(fb.percentage) + '</div></div>';
+                h += '</div>';
+            }
+            if (detail.response_metrics) {
+                const rm = detail.response_metrics;
+                h += '<div class="cc-funding-grid">';
+                if (rm.response_gap) h += '<div class="cc-funding-item response"><div class="cc-funding-label">Response Gap</div><div class="cc-funding-value">' + escapeHtml(rm.response_gap) + '</div></div>';
+                if (rm.domain_window) h += '<div class="cc-funding-item response"><div class="cc-funding-label">Domain Window</div><div class="cc-funding-value">' + escapeHtml(rm.domain_window) + '</div></div>';
+                if (rm.source_authority) h += '<div class="cc-funding-item response"><div class="cc-funding-label">Source Authority</div><div class="cc-funding-value">' + escapeHtml(rm.source_authority) + '</div></div>';
+                if (rm.window_status) {
+                    var wsColor = rm.window_status.toLowerCase().indexOf('within') >= 0 ? '#4ADE80' : '#F1F5F9';
+                    h += '<div class="cc-funding-item response"><div class="cc-funding-label">Window Status</div><div class="cc-funding-value" style="color: ' + wsColor + '">' + (rm.window_status.toLowerCase().indexOf('within') >= 0 ? '✓ ' : '') + escapeHtml(rm.window_status) + '</div></div>';
+                }
                 h += '</div>';
             }
             if (detail.criteria_assessment) {
@@ -12133,6 +12151,15 @@
                 h += '<span class="cc-criterion-expand">▼</span>';
                 h += '</div>';
                 h += '<div class="cc-criterion-evidence">' + escapeHtml(detail.implementation_mapping) + '</div>';
+                h += '</div>';
+            }
+            if (detail.confidence_rationale) {
+                h += '<div class="cc-criterion has-evidence" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
+                h += '<div class="cc-criterion-header">';
+                h += '<span class="cc-criterion-name">Confidence Rationale</span>';
+                h += '<span class="cc-criterion-expand">▼</span>';
+                h += '</div>';
+                h += '<div class="cc-criterion-evidence">' + escapeHtml(detail.confidence_rationale) + '</div>';
                 h += '</div>';
             }
             if (detail.cross_references) {
