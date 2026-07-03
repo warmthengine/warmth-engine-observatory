@@ -3492,7 +3492,10 @@
       color: #F1F5F9;
       font-variant-numeric: tabular-nums lining-nums;  /* Aligns numbers vertically */
     }
-    
+    .cc-funding-item.response {
+        border-left-color: #F59E0B;
+    }
+
     /* Citation Text */
     .cc-citation {
       background: rgba(15, 23, 42, 0.8);
@@ -8310,7 +8313,12 @@ function generateEvidencePanel(conn) {
     }
     html += '</div>';
   }
-  
+
+  // Trigger attribution (for Response)
+  if (detail.trigger_attribution) {
+    html += '<div style="font-size: 10px; font-style: normal; letter-spacing: 0.04em; color: #94A3B8; margin-top: -8px; margin-bottom: 12px; padding-left: 19px;">— ' + escH(detail.trigger_attribution) + '</div>';
+  }
+
   // Funding breakdown (for Funding Flow)
   if (detail.funding_breakdown) {
     const fb = detail.funding_breakdown;
@@ -8329,7 +8337,27 @@ function generateEvidencePanel(conn) {
     }
     html += '</div>';
   }
-  
+
+  // Response metrics (for Response)
+  if (detail.response_metrics) {
+    const rm = detail.response_metrics;
+    html += '<div class="cc-funding-grid">';
+    if (rm.response_gap) {
+      html += '<div class="cc-funding-item response"><div class="cc-funding-label">Response Gap</div><div class="cc-funding-value">' + escH(rm.response_gap) + '</div></div>';
+    }
+    if (rm.domain_window) {
+      html += '<div class="cc-funding-item response"><div class="cc-funding-label">Domain Window</div><div class="cc-funding-value">' + escH(rm.domain_window) + '</div></div>';
+    }
+    if (rm.source_authority) {
+      html += '<div class="cc-funding-item response"><div class="cc-funding-label">Source Authority</div><div class="cc-funding-value">' + escH(rm.source_authority) + '</div></div>';
+    }
+    if (rm.window_status) {
+      var wsColor = rm.window_status.toLowerCase().indexOf('within') >= 0 ? '#4ADE80' : '#F1F5F9';
+      html += '<div class="cc-funding-item response"><div class="cc-funding-label">Window Status</div><div class="cc-funding-value" style="color: ' + wsColor + '">' + (rm.window_status.toLowerCase().indexOf('within') >= 0 ? '✓ ' : '') + escH(rm.window_status) + '</div></div>';
+    }
+    html += '</div>';
+  }
+
   // Criteria assessment (for Parallel Policy) - with expandable evidence
   if (detail.criteria_assessment) {
     const ca = detail.criteria_assessment;
@@ -8511,6 +8539,17 @@ function generateEvidencePanel(conn) {
     html += '<span class="cc-criterion-expand">▼</span>';
     html += '</div>';
     html += '<div class="cc-criterion-evidence">' + escH(detail.implementation_mapping) + '</div>';
+    html += '</div>';
+  }
+
+  // Progressive disclosure: confidence rationale (for Response)
+  if (detail.confidence_rationale) {
+    html += '<div class="cc-criterion has-evidence" onclick="this.classList.toggle(\'expanded\')">';
+    html += '<div class="cc-criterion-header">';
+    html += '<span class="cc-criterion-name">Confidence Rationale</span>';
+    html += '<span class="cc-criterion-expand">▼</span>';
+    html += '</div>';
+    html += '<div class="cc-criterion-evidence">' + escH(detail.confidence_rationale) + '</div>';
     html += '</div>';
   }
 
@@ -9906,7 +9945,7 @@ function generateCCSection(eventId, showFullContent) {
         },
         5: {
           title: 'Response',
-          body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies trigger event + timing within 90 days. <strong>Min. Confidence:</strong> CC-E.'
+          body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies trigger event + timing within domain-specific window (§9.4.1). <strong>Min. Confidence:</strong> CC-E.'
         },
         6: {
           title: 'Framework Family',
