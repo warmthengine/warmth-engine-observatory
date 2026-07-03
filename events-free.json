@@ -1,45 +1,45 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 185,
+    "total_events": 188,
     "sample_events": 6,
-    "standard_events": 179,
-    "last_updated": "2026-07-02",
+    "standard_events": 182,
+    "last_updated": "2026-07-03",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
-        "Eastern": 49,
-        "Western": 118,
-        "Western-Led": 13,
+        "Eastern": 50,
+        "Western": 119,
+        "Western-Led": 14,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 167,
-        "T2": 17,
+        "T3": 169,
+        "T2": 18,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 44,
+        "Infrastructure": 45,
         "Coordination": 30,
-        "Policy": 56,
+        "Policy": 58,
         "Corporate": 55
       },
       "by_confidence": {
-        "A": 181,
+        "A": 184,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 95,
+        "basel5": 97,
         "keohane": 29,
-        "pisa5": 41,
+        "pisa5": 42,
         "routeBased": 20,
         "oep": 6,
-        "piet": 4
+        "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 50,
-        "Semiconductors & Equipment": 37,
+        "Cloud, Data Centres & Connectivity Infrastructure": 52,
+        "Semiconductors & Equipment": 38,
         "AI Software & Platforms": 63,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 17,
@@ -52,20 +52,20 @@
         "1.2": 32,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 67
+        "1.0": 70
       }
     },
-    "versionDate": "2026-07-02",
-    "lastAudit": "2026-07-02",
+    "versionDate": "2026-07-03",
+    "lastAudit": "2026-07-03",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 185,
+    "event_count": 188,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
-    "ent_tagged_events": 48,
-    "ent_total_tags": 76,
+    "ent_tagged_events": 49,
+    "ent_total_tags": 78,
     "wer": {
-      "value": 6.6,
-      "formula": "ENT-1 (33) ÷ ENT-5 (5)"
+      "value": 6.8,
+      "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
       "total_sources": 1701,
@@ -8002,6 +8002,140 @@
       "confidence": "A",
       "checkpoints": {
         "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "215",
+      "name": "MSU-270 Supercomputer",
+      "lat": 55.7039,
+      "lng": 37.5294,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "01 September 2023",
+      "location": "Moscow, Russia",
+      "scope": "Russia (Moscow State University)",
+      "description": "State-funded AI supercomputer at Moscow State University, operational from 1 September 2023, delivering 400 PFlops of FP16 compute capacity for large AI model training and validation across 55 research tasks spanning language models, materials science, and computational biology. Funded by Russian Government Order 687-r.",
+      "investment": "2.424 billion rubles (Government Order 687-r, Reserve Fund); 400 PFlops FP16; FP64 estimated ~21.5–29 PFlops",
+      "domain": "Technology",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 4,
+      "confidence": "A",
+      "aiConnectionPathway": "standard",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "217",
+      "name": "France AI Action Summit Investment Commitments",
+      "lat": 48.8396,
+      "lng": 2.3763,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "11 February 2025",
+      "location": "Paris, France (Station F / Élysée Palace)",
+      "scope": "France (national scope with international capital participation)",
+      "description": "Government-orchestrated aggregation of €109 billion in private and foreign AI infrastructure investment commitments, announced at the AI Action Summit at Station F on 10–11 February 2025. Commitments span data centre construction, sovereign compute, and AI ecosystem development across 35+ pre-qualified sites, with Campus IA joint venture at Fouju (1.4 GW) as the anchor project.",
+      "investment": "€109B announced (private/foreign capital); ~€20.8B concretised within 3 months; Fluidstack €10B withdrawn March 2026; Campus IA €8.5B first tranche (SIREN 943 352 161, constituted April 2025)",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Campus IA at Fouju requires 1.4 GW of power capacity; 35+ pre-qualified data centre sites create substantial electricity, cooling, and land resource demand for AI compute infrastructure.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+            },
+            {
+              "citation": "Industriel.net — Campus IA Fouju (1.4 GW)",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+            }
+          ]
+        },
+        {
+          "type": "ENT-2",
+          "name": "Environmental Enablement",
+          "mechanism": "France's nuclear-decarbonised electricity grid (67.1% nuclear, 95% CO₂-free, 21.7 gCO₂eq/kWh) is explicitly positioned by the Élysée as the first competitive advantage for AI infrastructure; Campus IA commits to water-free cooling and waste-heat recovery.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+            },
+            {
+              "citation": "Industriel.net — Campus IA waste-heat recovery",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+            }
+          ]
+        }
+      ],
+      "sources": 4,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "218",
+      "name": "Netherlands Semiconductor Equipment Export Controls (Regeling)",
+      "lat": 52.0705,
+      "lng": 4.3007,
+      "bloc": "Western-Led",
+      "tier": 2,
+      "type": "Policy",
+      "sample": false,
+      "date": "01 September 2023",
+      "location": "The Hague, Netherlands",
+      "scope": "Netherlands; controls semiconductor manufacturing equipment exports outside the EU",
+      "description": "Dutch ministerial regulation establishing an export licensing requirement for advanced semiconductor manufacturing equipment exported outside the European Union. Issued under EU Dual-Use Regulation 2021/821 via the Strategic Goods Decree. Primary controlled items include ASML DUV immersion lithography systems. Expanded three times through April 2025 to cover measurement, inspection, quantum computing, and additive manufacturing equipment.",
+      "investment": "Regulatory restriction (no direct budget); ASML China revenue guided to ~20% of 2025 net sales (from 36% in 2024)",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 5,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "piet",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "PIET (3/4 gates — Impact-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
