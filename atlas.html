@@ -2864,6 +2864,48 @@
         .cc-funding-item.response {
             border-left-color: #F59E0B;
         }
+        .cc-funding-item.joint-issuance {
+            border-left-color: #8B5CF6;
+        }
+        .cc-coissuer-container {
+            background: rgba(139, 92, 246, 0.06);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: var(--weo-radius-sm);
+            padding: 12px 14px;
+            margin: 16px 0;
+        }
+        .cc-coissuer-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #8B5CF6;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cc-coissuer-parties {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+        .cc-coissuer-party {
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: var(--weo-radius-sm);
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #C4B5FD;
+        }
+        .cc-coissuer-arrow {
+            color: #8B5CF6;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.7;
+        }
         .cc-citation {
             background: rgba(15, 23, 42, 0.8);
             border-left: 3px solid #2DD4BF;
@@ -12009,6 +12051,22 @@
             }
             if (detail.trigger_attribution) {
                 h += '<div style="font-size: 10px; font-style: normal; letter-spacing: 0.04em; color: #94A3B8; margin-top: -8px; margin-bottom: 12px; padding-left: 19px;">— ' + escapeHtml(detail.trigger_attribution) + '</div>';
+            }
+            if (detail.joint_parties && Array.isArray(detail.joint_parties)) {
+                h += '<div class="cc-coissuer-container">';
+                h += '<div class="cc-coissuer-label"><span>⇄</span> Co-issuers</div>';
+                h += '<div class="cc-coissuer-parties">';
+                detail.joint_parties.forEach(function(party, i) {
+                    if (i > 0) h += '<span class="cc-coissuer-arrow">⇄</span>';
+                    h += '<span class="cc-coissuer-party">' + escapeHtml(party) + '</span>';
+                });
+                h += '</div></div>';
+            }
+            if (detail.document_reference || detail.issuance_type) {
+                h += '<div class="cc-funding-grid">';
+                if (detail.document_reference) h += '<div class="cc-funding-item joint-issuance"><div class="cc-funding-label">Document Reference</div><div class="cc-funding-value" style="font-size: 11px;">' + escapeHtml(detail.document_reference) + '</div></div>';
+                if (detail.issuance_type) h += '<div class="cc-funding-item joint-issuance"><div class="cc-funding-label">Issuance Type</div><div class="cc-funding-value" style="font-size: 11px;">' + escapeHtml(detail.issuance_type) + '</div></div>';
+                h += '</div>';
             }
             if (detail.funding_breakdown) {
                 const fb = detail.funding_breakdown;
