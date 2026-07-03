@@ -3848,7 +3848,7 @@
       "location": "Jülich, Germany",
       "scope": "Pan-European (EuroHPC JU member states)",
       "description": "Europe's first exascale supercomputer becomes operational at Forschungszentrum Jülich, achieving 1 ExaFLOP/s performance and ranking #4 globally on TOP500 at time of implementation. GPU-accelerated booster module with 24,000 NVIDIA GH200 superchips designed for AI training and large-scale simulations.",
-      "investment": "€500 million total investment (EuroHPC JU 50%, German Federal BMBF 25%, NRW State 25%); ~24,000 NVIDIA GH200 Grace Hopper Superchips; ~16 MW power consumption",
+      "investment": "€500 million total investment (EuroHPC JU 50%, German Federal BMBF 25%, NRW State 25%); ~24,000 NVIDIA GH200 Grace Hopper Superchips; ~11 MW average power consumption",
       "domain": "Energy/Infrastructure",
       "sources": 2,
       "corroborating": 4,
