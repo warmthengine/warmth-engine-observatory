@@ -9615,6 +9615,7 @@ function generateCCSection(eventId, showFullContent) {
     function getIndTags(eventId) { return industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]}; }
     function getEntTags(eventId) { return entTagsData[eventId] || []; }
     var entTypeClass = {'ENT-1':'ent-1','ENT-2':'ent-2','ENT-3':'ent-3','ENT-4':'ent-4','ENT-5':'ent-5'};
+    var ENT_LABELS = {'ENT-1':'Resource Demand','ENT-2':'Environmental Enablement','ENT-3':'Environmental Consequence','ENT-4':'Environmental Dependency','ENT-5':'Environmental Coordination'};
     function buildEntBadgeHtml(tag) {
       var cls = entTypeClass[tag.type] || 'ent-2';
       var qualifiers = '';
@@ -9623,7 +9624,7 @@ function generateCCSection(eventId, showFullContent) {
       if (tag.riskIndex) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Risk: ' + tag.riskIndex + '</div>';
       if (tag.pathway) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Pathway: ' + tag.pathway + '</div>';
       if (tag.activationStatus) qualifiers += '<div style="margin-top:4px;font-size:0.625rem;color:#94A3B8;">Status: ' + tag.activationStatus + '</div>';
-      return '<span class="ind-tag-wrap"><span class="ent-tag ' + cls + '" onclick="toggleEntMechanism(this)">' + tag.name + '</span><div class="ent-mechanism-popover"><div class="ent-popover-title ' + cls + '">' + tag.name + '</div><div class="ent-popover-mechanism">' + tag.mechanism + '</div>' + qualifiers + '<div class="ent-popover-meta"><span class="ent-evidence-badge">' + (tag.evidenceBasis || 'Documented') + '</span></div></div></span>';
+      return '<span class="ind-tag-wrap"><span class="ent-tag ' + cls + '" onclick="toggleEntMechanism(this)">' + (ENT_LABELS[tag.type] || tag.name || tag.type || 'ENT') + '</span><div class="ent-mechanism-popover"><div class="ent-popover-title ' + cls + '">' + (ENT_LABELS[tag.type] || tag.name || tag.type || 'ENT') + '</div><div class="ent-popover-mechanism">' + tag.mechanism + '</div>' + qualifiers + '<div class="ent-popover-meta"><span class="ent-evidence-badge">' + (tag.evidenceBasis || 'Documented') + '</span></div></div></span>';
     }
     function buildIndustryShelfHtml(eventId) {
       var tags = getIndTags(eventId);
