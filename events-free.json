@@ -1,36 +1,36 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 187,
+    "total_events": 186,
     "sample_events": 6,
-    "standard_events": 181,
+    "standard_events": 180,
     "last_updated": "2026-07-03",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 49,
-        "Western": 119,
+        "Western": 118,
         "Western-Led": 14,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 168,
+        "T3": 167,
         "T2": 18,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 44,
+        "Infrastructure": 43,
         "Coordination": 30,
         "Policy": 58,
         "Corporate": 55
       },
       "by_confidence": {
-        "A": 183,
+        "A": 182,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 96,
+        "basel5": 95,
         "keohane": 29,
         "pisa5": 42,
         "routeBased": 20,
@@ -39,7 +39,7 @@
       },
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 51,
-        "Semiconductors & Equipment": 38,
+        "Semiconductors & Equipment": 37,
         "AI Software & Platforms": 63,
         "Mining & Critical Minerals": 8,
         "Defence & Aerospace": 17,
@@ -49,7 +49,7 @@
         "Trade & Logistics": 1
       },
       "by_version": {
-        "1.2": 32,
+        "1.2": 31,
         "1.3": 5,
         "1.1": 81,
         "1.0": 69
@@ -58,7 +58,7 @@
     "versionDate": "2026-07-03",
     "lastAudit": "2026-07-03",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 187,
+    "event_count": 186,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -68,11 +68,11 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1701,
-      "preserved": 1688,
+      "total_sources": 1684,
+      "preserved": 1671,
       "preservation_rate": 0.992,
       "by_status": {
-        "captured": 1599,
+        "captured": 1582,
         "recovered": 26,
         "existing": 63,
         "no_capture": 12,
@@ -80,12 +80,12 @@
       },
       "by_layer": {
         "events": {
-          "total": 1013,
-          "preserved": 1002
+          "total": 1006,
+          "preserved": 995
         },
         "connections": {
-          "total": 416,
-          "preserved": 415
+          "total": 406,
+          "preserved": 405
         },
         "actors": {
           "total": 272,
@@ -3656,33 +3656,6 @@
         }
       ],
       "basel5_factors_met": 5
-    },
-    {
-      "id": "92",
-      "name": "Deucalion Supercomputer",
-      "lat": 41.4433,
-      "lng": -8.2964,
-      "bloc": "Western",
-      "tier": 3,
-      "type": "Infrastructure",
-      "sample": false,
-      "date": "6 September 2023",
-      "location": "Guimarães, Portugal",
-      "scope": "EuroHPC JU (Portugal national system)",
-      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) petascale supercomputer inaugurated in Guimarães, Portugal. Hosted by University of Minho/MACC. ARM-based architecture pioneering European Processor Initiative (EPI) technology. First Top500 entry June 2024 (#219). Supports Portuguese AI research ecosystem and serves as EPI testbed.",
-      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); TOP500 #219 at first entry (June 2024), #323 on the November 2025 TOP500",
-      "domain": "Energy/Infrastructure",
-      "sources": 4,
-      "corroborating": 3,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.2",
-      "industryPrimary": "Semiconductors & Equipment"
     },
     {
       "id": "93",
