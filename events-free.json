@@ -8056,22 +8056,48 @@
       "environmentalNexusTags": [
         {
           "type": "ENT-1",
+          "name": "Resource Demand",
           "mechanism": "Campus IA at Fouju requires 1.4 GW of power capacity; 35+ pre-qualified data centre sites create substantial electricity, cooling, and land resource demand for AI compute infrastructure.",
           "evidenceBasis": "Documented",
           "sources": [
-            "P1",
-            "P4",
-            "C4"
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+            },
+            {
+              "citation": "Industriel.net — Campus IA Fouju (1.4 GW)",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+            }
           ]
         },
         {
           "type": "ENT-2",
+          "name": "Environmental Enablement",
           "mechanism": "France's nuclear-decarbonised electricity grid (67.1% nuclear, 95% CO₂-free, 21.7 gCO₂eq/kWh) is explicitly positioned by the Élysée as the first competitive advantage for AI infrastructure; Campus IA commits to water-free cooling and waste-heat recovery.",
           "evidenceBasis": "Documented",
           "sources": [
-            "P1",
-            "P4",
-            "C4"
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+            },
+            {
+              "citation": "Industriel.net — Campus IA waste-heat recovery",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+            }
           ]
         }
       ],
