@@ -1,38 +1,38 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 186,
+    "total_events": 189,
     "sample_events": 6,
-    "standard_events": 180,
-    "last_updated": "2026-07-03",
+    "standard_events": 183,
+    "last_updated": "2026-07-05",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 49,
-        "Western": 118,
+        "Western": 121,
         "Western-Led": 14,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 167,
+        "T3": 170,
         "T2": 18,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
         "Coordination": 30,
-        "Policy": 58,
-        "Corporate": 55
+        "Policy": 59,
+        "Corporate": 57
       },
       "by_confidence": {
-        "A": 182,
+        "A": 185,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 95,
+        "basel5": 97,
         "keohane": 29,
-        "pisa5": 42,
+        "pisa5": 43,
         "routeBased": 20,
         "oep": 6,
         "piet": 5
@@ -40,8 +40,8 @@
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 51,
         "Semiconductors & Equipment": 37,
-        "AI Software & Platforms": 63,
-        "Mining & Critical Minerals": 8,
+        "AI Software & Platforms": 64,
+        "Mining & Critical Minerals": 10,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
@@ -52,13 +52,13 @@
         "1.2": 31,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 69
+        "1.0": 72
       }
     },
-    "versionDate": "2026-07-03",
-    "lastAudit": "2026-07-03",
+    "versionDate": "2026-07-05",
+    "lastAudit": "2026-07-05",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 186,
+    "event_count": 189,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -8085,6 +8085,93 @@
         "current": true
       },
       "version": "1.0"
+    },
+    {
+      "id": "219",
+      "name": "Mistral AI Series C Funding Round",
+      "lat": 48.8566,
+      "lng": 2.3522,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "09 September 2025",
+      "location": "Paris, France",
+      "scope": "France (Western European AI ecosystem)",
+      "description": "Mistral AI, a French frontier large language model developer, closed a Series C funding round led by ASML Holding NV (Netherlands), which received a Strategic Committee seat occupied by CFO Roger Dassen. The partnership integrates Mistral's generative AI models into ASML's lithography product portfolio for software coding and systems development.",
+      "investment": "EUR 1.7B total raise; ASML EUR 1.3B anchor (~11% fully diluted); EUR 11.7B post-money valuation",
+      "domain": "Technology",
+      "sources": 1,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "220",
+      "name": "EO 14241 Immediate Measures to Increase American Mineral Production",
+      "lat": 38.8977,
+      "lng": -77.0365,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "20 March 2025",
+      "location": "Washington, DC, United States",
+      "scope": "United States (federal mineral production policy)",
+      "description": "Executive Order 14241, 'Immediate Measures to Increase American Mineral Production,' invokes DPA Titles III and VII to accelerate domestic mineral production and delegates Section 303 procurement authorities to the Secretary of Defense and DFC CEO for statutory critical minerals including rare earth elements, gallium, and germanium.",
+      "investment": "DPA Titles III and VII authority delegation; mineral scope via 30 USC 1606(a)(3) critical minerals list plus uranium, copper, potash, gold",
+      "domain": "Trade",
+      "sources": 2,
+      "corroborating": 0,
+      "confidence": "A",
+      "aiConnectionPathway": "option_g",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option G (rare earth elements, gallium, germanium — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "221",
+      "name": "DoD-MP Materials Rare Earth Partnership",
+      "lat": 35.4768,
+      "lng": -115.5325,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "10 July 2025",
+      "location": "Mountain Pass, California / Northlake, Texas, United States",
+      "scope": "United States (domestic rare earth supply chain)",
+      "description": "US Department of Defense partnership with MP Materials Corporation (NYSE: MP) under Defense Production Act Title III authorities. The DoD purchased convertible preferred stock, becoming MP Materials' largest shareholder at approximately 15%, and secured a 10-year NdFeB permanent magnet offtake agreement with a government-backed NdPr price floor.",
+      "investment": "$400M DoD equity investment; $150M OSC loan (Mountain Pass heavy REE separation); $110/kg NdPr price floor; 10-year offtake; 10X facility 10,000 MT NdFeB magnet capacity (commissioning 2028)",
+      "domain": "Trade",
+      "sources": 3,
+      "corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option E (MP Materials 10-K FY2025 mp-20251231.htm — Disclosure-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": []
     }
   ]
 }
