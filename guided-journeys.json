@@ -2,13 +2,14 @@
   "_meta": {
     "title": "WEO Atlas Guided Journeys — single source of truth",
     "purpose": "Defines the operator-selected guided journeys ONCE. Consumed by atlas.html (clickable landing questions) and by the Worker MCP server (prompts + getting-started resource). Edit here only; the two surfaces read this file so they cannot drift.",
-    "spec": "WS-8 Atlas Guided Journeys (WEO_WS8_ATLAS_GUIDED_JOURNEYS_BUILD_SPEC_V1.md); journeys from WEO_WS8_SELECTED_JOURNEYS_V1.md.",
+    "spec": "WS-8 Atlas Guided Journeys (WEO_WS8_ATLAS_GUIDED_JOURNEYS_BUILD_SPEC_V1.md); journeys from WEO_WS8_SELECTED_JOURNEYS_V1.md; corrections per Session J audit (7 July 2026).",
     "discipline": "V1.4 methodology — question wording is RELATIONAL, readouts are DESCRIPTIVE (counts + named entities only, never causal/interpretive).",
-    "served_at": "https://warmthengine.com/guided-journeys.json (Pages). Worker fetches the apex host directly; www 301-redirects to apex.",
-    "counts": "Readout {placeholders} are filled by the LIVE journey at click time — never hard-code. B1 material = thread RECORDS (get_threads, ~19); C1 material = event-PAIRS (get_event_stack, ~15). The two counting methods differ deliberately.",
-    "chain_dependency": "Journeys are pinned to stable anchor chains (E93 spine; E196 NVIDIA hub). A future loop that re-shapes these chains must refresh this file. Anchors chosen for durability per the curation pass.",
-    "version": "1.0.2",
-    "updated": "2026-06-17"
+    "served_at": "https://warmthengine.com/guided-journeys.json (Pages). Worker fetches the apex host directly; www 301-redirects to apex. No consumer reads a KV copy.",
+    "counts": "Readout {placeholders} are filled by the LIVE journey at click time — never hard-code. A2 counts downstream NODES (traverse_coordination descendants — identical set to the Atlas trace for this root). B1 counts thread RECORDS ({n}) and distinct facilities ({f}) from get_threads inbound[]. C1 uses get_event_stack counts verbatim ({coord}/{mat}/{cap}; material is event-PAIRS — the record-vs-pair distinction between B1 and C1 is deliberate).",
+    "traversal_note": "Journey shape is defined by mode + root only; each journey's named MCP call reproduces the rendered set exactly. There are no per-journey filter parameters — earlier params blocks documented filters neither the Atlas nor the Worker applied, and were removed in 1.0.3.",
+    "chain_dependency": "Journeys are pinned to stable anchor chains (E93 spine; E196 NVIDIA hub; E200→E177 METI funding spine). A future loop that re-shapes these chains must refresh this file. Anchors chosen for durability per the curation pass.",
+    "version": "1.0.3",
+    "updated": "2026-07-07"
   },
   "journeys": [
     {
@@ -18,14 +19,14 @@
       "title": "China generative-AI regulatory cascade",
       "mode": "trace",
       "root": "93",
-      "params": { "types": [1, 4], "direction": "downstream", "depth": 3 },
       "question": "What generative-AI services and rules cascade from China's Algorithm Recommendation Provisions?",
-      "readout": "China's foundational AI provisions — a regulatory-enablement chain (CC-V) feeding {n} downstream items, including Baidu ERNIE Bot, Doubao, the AI Content Labelling Measures, and TC260 security requirements.",
-      "count_source": "coordination_downstream_leaves",
+      "readout": "China's foundational AI provisions — a regulatory-enablement cascade (CC-V/CC-E) feeding {n} downstream provisions and services, running through the Interim Measures and Deep Synthesis provisions to Baidu ERNIE Bot, Doubao, the AI Content Labelling Measures, and TC260's security requirements.",
+      "count_source": "coordination_downstream_nodes",
+      "_fallback_readout": "China's foundational AI provisions — a regulatory-enablement cascade (CC-V/CC-E) terminating in {n} downstream services and rules: Baidu ERNIE Bot, Doubao, the AI Content Labelling Measures, and TC260's security requirements. (Use with count_source coordination_downstream_leaves if the Atlas guidedCounts addition is deferred.)",
       "mcp": {
         "tool": "traverse_coordination",
-        "arguments": { "mode": "descendants", "node_id": "E93", "cc_types": [1, 4], "max_depth": 3 },
-        "call": "traverse_coordination(mode=\"descendants\", node_id=\"E93\", cc_types=[1,4], max_depth=3)"
+        "arguments": { "mode": "descendants", "node_id": "E93" },
+        "call": "traverse_coordination(mode=\"descendants\", node_id=\"E93\")"
       },
       "deep_link": "#journey=coordination"
     },
@@ -36,9 +37,8 @@
       "title": "NVIDIA accelerator deployment hub",
       "mode": "threads",
       "root": "196",
-      "params": { "direction": "inbound" },
       "question": "Which supercomputers, data centres, and AI models run on NVIDIA's accelerators, and on which chip generation?",
-      "readout": "NVIDIA AI Accelerator Series — {n} material (deploys) links across 9 chip generations, from 15 Western facilities (Stargate, JUPITER, Isambard-AI, Fairwater, Tesla Cortex, Meta, EuroHPC Leonardo…).",
+      "readout": "NVIDIA AI Accelerator Series — {n} material (deploys / trains-on) links from {f} Western facilities (Stargate, JUPITER, Isambard-AI, Fairwater 2, Tesla Cortex, Meta, EuroHPC Leonardo…), spanning NVIDIA generations from A100 to GB300.",
       "count_source": "material_inbound_records",
       "mcp": {
         "tool": "get_threads",
@@ -51,17 +51,16 @@
       "id": "stack",
       "slot": "C1",
       "substrate": "stack",
-      "title": "NVIDIA accelerators across all layers",
+      "title": "Japan's subsidised GPU cloud across all layers",
       "mode": "stack",
-      "root": "196",
-      "params": {},
-      "question": "Which AI systems run on NVIDIA's accelerators, and which national capabilities draw on them?",
-      "readout": "NVIDIA AI Accelerator Series — {mat} material links (9 chip generations, 15 Western facilities), {cap} capability contributions across the stack (D1/D4/D5/D6/D7; US/JP/EU/GB).",
+      "root": "177",
+      "question": "Which coordination, hardware, and capability layers meet at Sakura Internet's Ishikari GPU cloud?",
+      "readout": "Sakura Internet Ishikari GPU Cloud — {coord} coordination connections (METI's Specified Critical Cloud funding flow, the ABCI 3.0 framework family, and parallel-policy peers), {mat} material link naming NVIDIA H100, H200 and B200, and {cap} capability waypoint (Japan, D4 AI compute).",
       "count_source": "stack_counts",
       "mcp": {
         "tool": "get_event_stack",
-        "arguments": { "event_id": "196" },
-        "call": "get_event_stack(event_id=\"196\")"
+        "arguments": { "event_id": "177" },
+        "call": "get_event_stack(event_id=\"177\")"
       },
       "deep_link": "#journey=stack"
     }
