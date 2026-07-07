@@ -164,7 +164,7 @@
             --cc-1: #3B82F6;
             --cc-2: #8B5CF6;
             --cc-3: #10B981;
-            --cc-4: #6366F1;
+            --cc-4: #A78BFA;
             --cc-5: #F59E0B;
             --cc-6: #EC4899;
             --cc-7: #94A3B8;
@@ -5216,7 +5216,7 @@
         // CC type → edge colour map (brief §5).
         // -----------------------------------------------------------------
         const CC_TYPE_COLOUR = {
-            1: '#3B82F6', 2: '#8B5CF6', 3: '#10B981', 4: '#6366F1',
+            1: '#3B82F6', 2: '#8B5CF6', 3: '#10B981', 4: '#A78BFA',
             5: '#F59E0B', 6: '#EC4899', 7: '#94A3B8'
         };
         const CC_TYPE_NAME = {
@@ -12147,8 +12147,9 @@
             }
             h += '</div>'; // /.cc-evidence-content
             // Verification History
-            if (Array.isArray(conn.verificationHistory) && conn.verificationHistory.length > 1) {
-                const vh = conn.verificationHistory;
+            const vhRaw = conn.verificationHistory || conn.verification_history;
+            if (Array.isArray(vhRaw) && vhRaw.length > 1) {
+                const vh = vhRaw;
                 const updateCount = vh.filter(v => !v.genesis).length;
                 h += '<div class="cc-verification-history" onclick="event.stopPropagation(); this.classList.toggle(\'expanded\')">';
                 h += '<div class="cc-verification-history-header">';
@@ -14085,15 +14086,15 @@
                 key: 'industry', label: 'Industry', kind: 'multi',
                 // Brief §7 question flagged: the canonical list (11 items)
                 // does not match the values present in the API. We follow
-                // the API's actual industry_primary values — see commit
+                // the corpus's actual industryPrimary values — see commit
                 // message and report-back.
                 optionsFn: () => {
                     const set = new Set(allEvents
-                        .map(e => e.industry_primary)
+                        .map(e => e.industryPrimary)
                         .filter(Boolean));
                     return [...set].sort().map(v => ({ v, label: v }));
                 },
-                countFn: v => allEvents.filter(e => e.industry_primary === v).length
+                countFn: v => allEvents.filter(e => e.industryPrimary === v).length
             },
             {
                 key: 'ent', label: 'ENT', kind: 'multi',
@@ -15295,12 +15296,20 @@
                         .filter(t => !sources.has(t)));
                     return { n: leaves.size };
                 }
+                if (j.count_source === 'coordination_downstream_nodes') {
+                    // distinct downstream targets in the trace chain — the same
+                    // set traverse_coordination(mode="descendants") returns.
+                    const { downstream } = buildTraceChain(j.root);
+                    const nodes = new Set(downstream.map(c => String(c.target_event_id)));
+                    return { n: nodes.size };
+                }
                 if (j.count_source === 'material_inbound_records') {
                     // get_threads(event).inbound — one record per asset/generation
-                    // deployed into this producer hub.
+                    // deployed into this producer hub; f = distinct carrier facilities.
                     const recs = (threadsByEvent[String(j.root)] || [])
                         .filter(t => String(t.targetEventId) === String(j.root));
-                    return { n: recs.length };
+                    const facilities = new Set(recs.map(t => String(t.sourceEventId)));
+                    return { n: recs.length, f: facilities.size };
                 }
                 if (j.count_source === 'stack_counts') {
                     const s = buildStackJourney(j.root);
