@@ -4,7 +4,7 @@
     "total_events": 189,
     "sample_events": 6,
     "standard_events": 183,
-    "last_updated": "2026-07-05",
+    "last_updated": "2026-07-08",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
@@ -55,8 +55,8 @@
         "1.0": 72
       }
     },
-    "versionDate": "2026-07-05",
-    "lastAudit": "2026-07-05",
+    "versionDate": "2026-07-08",
+    "lastAudit": "2026-07-08",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
     "event_count": 189,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
@@ -68,24 +68,24 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1684,
-      "preserved": 1671,
+      "total_sources": 1712,
+      "preserved": 1699,
       "preservation_rate": 0.992,
       "by_status": {
-        "captured": 1582,
-        "recovered": 26,
-        "existing": 63,
+        "captured": 1602,
+        "recovered": 32,
+        "existing": 65,
         "no_capture": 12,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 1006,
-          "preserved": 995
+          "total": 1028,
+          "preserved": 1017
         },
         "connections": {
-          "total": 406,
-          "preserved": 405
+          "total": 412,
+          "preserved": 411
         },
         "actors": {
           "total": 272,
@@ -8007,17 +8007,26 @@
             {
               "citation": "Élysée Palace — AI Action Summit summary",
               "type": "primary",
-              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000509/https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "accessDate": "2026-07-08"
             },
             {
               "citation": "MRAe — Campus IA environmental opinion",
               "type": "primary",
-              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-07-08"
             },
             {
               "citation": "Industriel.net — Campus IA Fouju (1.4 GW)",
               "type": "corroborating",
-              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000730/https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "accessDate": "2026-07-08"
             }
           ]
         },
@@ -8030,17 +8039,26 @@
             {
               "citation": "Élysée Palace — AI Action Summit summary",
               "type": "primary",
-              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f"
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000509/https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "accessDate": "2026-07-08"
             },
             {
               "citation": "MRAe — Campus IA environmental opinion",
               "type": "primary",
-              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe"
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-07-08"
             },
             {
               "citation": "Industriel.net — Campus IA waste-heat recovery",
               "type": "corroborating",
-              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/"
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000730/https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "accessDate": "2026-07-08"
             }
           ]
         }
