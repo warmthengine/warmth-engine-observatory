@@ -1,91 +1,91 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 178,
+    "total_events": 189,
     "sample_events": 6,
-    "standard_events": 172,
-    "last_updated": "2026-06-30",
+    "standard_events": 183,
+    "last_updated": "2026-07-08",
     "source": "Extracted from index.html (WEO Map v1.25+)",
     "statistics": {
       "by_bloc": {
         "Eastern": 49,
-        "Western": 111,
-        "Western-Led": 13,
+        "Western": 121,
+        "Western-Led": 14,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 160,
-        "T2": 17,
+        "T3": 170,
+        "T2": 18,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 44,
+        "Infrastructure": 43,
         "Coordination": 30,
-        "Policy": 49,
-        "Corporate": 55
+        "Policy": 59,
+        "Corporate": 57
       },
       "by_confidence": {
-        "A": 174,
+        "A": 185,
         "B": 4
       },
       "by_assessment_pathway": {
-        "basel5": 95,
+        "basel5": 97,
         "keohane": 29,
-        "pisa5": 34,
+        "pisa5": 43,
         "routeBased": 20,
         "oep": 6,
-        "piet": 4
+        "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 50,
+        "Cloud, Data Centres & Connectivity Infrastructure": 51,
         "Semiconductors & Equipment": 37,
-        "AI Software & Platforms": 63,
-        "Mining & Critical Minerals": 8,
-        "Defence & Aerospace": 10,
+        "AI Software & Platforms": 64,
+        "Mining & Critical Minerals": 10,
+        "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
         "Trade & Logistics": 1
       },
       "by_version": {
-        "1.2": 32,
+        "1.2": 31,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 60
+        "1.0": 72
       }
     },
-    "versionDate": "2026-06-30",
-    "lastAudit": "2026-06-30",
+    "versionDate": "2026-07-08",
+    "lastAudit": "2026-07-08",
     "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 178,
+    "event_count": 189,
     "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
     "ent_version": "1.0",
-    "ent_tagged_events": 48,
-    "ent_total_tags": 76,
+    "ent_tagged_events": 49,
+    "ent_total_tags": 78,
     "wer": {
-      "value": 6.6,
-      "formula": "ENT-1 (33) ÷ ENT-5 (5)"
+      "value": 6.8,
+      "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1658,
-      "preserved": 1647,
-      "preservation_rate": 0.993,
+      "total_sources": 1712,
+      "preserved": 1699,
+      "preservation_rate": 0.992,
       "by_status": {
-        "captured": 1594,
-        "recovered": 26,
-        "existing": 27,
-        "no_capture": 10,
+        "captured": 1602,
+        "recovered": 32,
+        "existing": 65,
+        "no_capture": 12,
         "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 976,
-          "preserved": 966
+          "total": 1028,
+          "preserved": 1017
         },
         "connections": {
-          "total": 410,
-          "preserved": 410
+          "total": 412,
+          "preserved": 411
         },
         "actors": {
           "total": 272,
@@ -3658,33 +3658,6 @@
       "basel5_factors_met": 5
     },
     {
-      "id": "92",
-      "name": "Deucalion Supercomputer",
-      "lat": 41.4433,
-      "lng": -8.2964,
-      "bloc": "Western",
-      "tier": 3,
-      "type": "Infrastructure",
-      "sample": false,
-      "date": "6 September 2023",
-      "location": "Guimarães, Portugal",
-      "scope": "EuroHPC JU (Portugal national system)",
-      "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) petascale supercomputer inaugurated in Guimarães, Portugal. Hosted by University of Minho/MACC. ARM-based architecture pioneering European Processor Initiative (EPI) technology. First Top500 entry June 2024 (#219). Supports Portuguese AI research ecosystem and serves as EPI testbed.",
-      "investment": "€20M total (€7M EuroHPC JU + €13M Portugal); TOP500 #219 at first entry (June 2024), #323 on the November 2025 TOP500",
-      "domain": "Energy/Infrastructure",
-      "sources": 4,
-      "corroborating": 3,
-      "confidence": "A",
-      "checkpoints": {
-        "ai": true,
-        "threshold": true,
-        "implemented": true,
-        "current": true
-      },
-      "version": "1.2",
-      "industryPrimary": "Semiconductors & Equipment"
-    },
-    {
       "id": "93",
       "name": "China Administrative Provisions on Algorithm Recommendation",
       "lat": 39.9042,
@@ -3875,7 +3848,7 @@
       "location": "Jülich, Germany",
       "scope": "Pan-European (EuroHPC JU member states)",
       "description": "Europe's first exascale supercomputer becomes operational at Forschungszentrum Jülich, achieving 1 ExaFLOP/s performance and ranking #4 globally on TOP500 at time of implementation. GPU-accelerated booster module with 24,000 NVIDIA GH200 superchips designed for AI training and large-scale simulations.",
-      "investment": "€500 million total investment (EuroHPC JU 50%, German Federal BMBF 25%, NRW State 25%); ~24,000 NVIDIA GH200 Grace Hopper Superchips; ~16 MW power consumption",
+      "investment": "€500 million total investment (EuroHPC JU 50%, German Federal BMBF 25%, NRW State 25%); ~24,000 NVIDIA GH200 Grace Hopper Superchips; ~11 MW average power consumption",
       "domain": "Energy/Infrastructure",
       "sources": 2,
       "corroborating": 4,
@@ -7732,7 +7705,7 @@
       "date": "October 2024",
       "location": "Crawley, West Sussex, UK",
       "scope": "United Kingdom — Crawley and London Docklands",
-      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking. CoreWeave sub-leases colocation space within existing host campuses.",
+      "description": "CoreWeave opened two data centres in the United Kingdom — Crawley (Digital Realty, October 2024) and London Docklands (Global Switch, December 2024) — equipped with NVIDIA H200 GPUs and Quantum-2 InfiniBand networking.",
       "investment": "£1B initial UK investment programme (total commitment £2.5B by September 2025).",
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -7808,6 +7781,415 @@
         "current": true
       },
       "version": "1.0"
+    },
+    {
+      "id": "208",
+      "name": "South Korea Defense AI Center",
+      "lat": 36.3504,
+      "lng": 127.3845,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "1 April 2024",
+      "location": "Daejeon, South Korea",
+      "scope": "South Korea (national defence sector)",
+      "description": "South Korea's Ministry of National Defense established the Defense AI Center at the Agency for Defense Development in Daejeon, with approximately 110 civilian researchers and active-duty military personnel focused on AI-based manned–unmanned teaming, battlefield situational awareness, and civilian-to-military AI technology transfer under the Defense Innovation 4.0 initiative.",
+      "investment": "~110 dedicated personnel (civilian researchers and active-duty military)",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 1,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "209",
+      "name": "UK Defence AI Centre (DAIC)",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "31 July 2022",
+      "location": "United Kingdom",
+      "scope": "United Kingdom (national defence sector)",
+      "description": "The UK Ministry of Defence established the Defence AI Centre, bringing together expertise from Defence Digital, DSTL, and DE&S Future Capability Group in a federated model. The centre achieved initial operating capability in April 2022 and became fully operational in July 2022, coordinating AI development, experimentation, and standards adoption across the defence enterprise.",
+      "investment": "400+ AI-centric projects across Defence",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 4,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "210",
+      "name": "US DoD AI Rapid Capabilities Cell",
+      "lat": 38.8711,
+      "lng": -77.0564,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "11 December 2024",
+      "location": "United States",
+      "scope": "United States (national defence sector)",
+      "description": "The Chief Digital and Artificial Intelligence Office established the AI Rapid Capabilities Cell in partnership with the Defense Innovation Unit to accelerate Department of Defense adoption of AI capabilities. The cell, replacing Task Force Lima, operates across four programme areas: frontier AI pilots, new and emerging company engagement, compute and sandbox infrastructure, and rapid user-centric experimentation.",
+      "investment": "$100M FY2024/FY2025: $35M frontier AI pilots; $40M new and emerging companies; $20M compute and sandbox; $5M rapid experimentation",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "211",
+      "name": "UK Project ASGARD",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "May 2025",
+      "location": "United Kingdom",
+      "scope": "United Kingdom (national defence sector)",
+      "description": "UK Ministry of Defence programme deploying AI-enabled targeting and decision-support to land forces through the Dismounted Data System and the DDAD open framework. Prototype systems were tested at NATO Exercise Hedgehog in Estonia in May 2025, forming part of the wider Digital Targeting Web initiative across the Armed Forces.",
+      "investment": "Up to £86M DDS contract (£46M committed + £40M options); £180M ex-VAT DDAD framework ceiling (2025–2029); part of >£1B Digital Targeting Web programme",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "212",
+      "name": "Project Maven (Maven Smart System)",
+      "lat": 38.8719,
+      "lng": -77.0563,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "November 2023",
+      "location": "United States",
+      "scope": "United States (all military services; NATO adoption)",
+      "description": "US Department of Defense AI programme for military intelligence analysis and targeting, transitioned to a National Geospatial-Intelligence Agency Programme of Record in November 2023. Governed by the Chief Digital and Artificial Intelligence Office with Palantir Technologies as primary integration contractor, and adopted by NATO as MSS NATO in March 2025.",
+      "investment": "US$480M Palantir IDIQ (five-year, May 2024); US$795M Army MSS licences (May 2025); 20,000+ active users across 35+ tools and three security domains",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "213",
+      "name": "Helsing Eurofighter Cirra AI Integration",
+      "lat": 52.52,
+      "lng": 13.405,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "19 November 2025",
+      "location": "Germany",
+      "scope": "Germany (Luftwaffe Eurofighter fleet)",
+      "description": "German Bundeswehr procurement of AI-integrated electronic warfare for the Eurofighter EK programme, contracted 19 November 2025 with Bundestag approval. Helsing provides Cirra deep-learning software for real-time threat classification and emitter intent recognition, integrated with Saab's Arexis EW hardware platform. In development; in-service approximately 2030.",
+      "investment": "€258M (~US$299M) AI-inclusive order; 15 Luftwaffe Eurofighter EK aircraft; part of ~€549M total Arexis programme; integration 2025–2028",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 2,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "214",
+      "name": "DARPA Air Combat Evolution (ACE)",
+      "lat": 34.9054,
+      "lng": -117.8839,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "September 2023",
+      "location": "Edwards Air Force Base, California, United States",
+      "scope": "United States (DARPA / US Air Force)",
+      "description": "DARPA programme developing autonomous AI combat capabilities through human-machine collaborative dogfighting. Achieved the first autonomous AI-controlled F-16 engagement against a human pilot at Edwards Air Force Base in September 2023, using the X-62A VISTA test platform.",
+      "investment": "Multi-phase research programme (discrete budget not publicly disaggregated); 21 test flights; >100,000 lines of flight-critical software; four primary performer teams. Downstream CCA: ~US$1.39B FY2025",
+      "domain": "Security",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "sources": 4,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "217",
+      "name": "France AI Action Summit Investment Commitments",
+      "lat": 48.8396,
+      "lng": 2.3763,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "11 February 2025",
+      "location": "Paris, France (Station F / Élysée Palace)",
+      "scope": "France (national scope with international capital participation)",
+      "description": "Government-orchestrated aggregation of €109 billion in private and foreign AI infrastructure investment commitments, announced at the AI Action Summit at Station F on 10–11 February 2025. Commitments span data centre construction, sovereign compute, and AI ecosystem development across 35+ pre-qualified sites, with Campus IA joint venture at Fouju (1.4 GW) as the anchor project.",
+      "investment": "€109B announced (private/foreign capital); ~€20.8B concretised within 3 months; Fluidstack €10B withdrawn March 2026; Campus IA €8.5B first tranche (SIREN 943 352 161, constituted April 2025)",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Campus IA at Fouju requires 1.4 GW of power capacity; 35+ pre-qualified data centre sites create substantial electricity, cooling, and land resource demand for AI compute infrastructure.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000509/https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "accessDate": "2026-07-08"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-07-08"
+            },
+            {
+              "citation": "Industriel.net — Campus IA Fouju (1.4 GW)",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000730/https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "accessDate": "2026-07-08"
+            }
+          ]
+        },
+        {
+          "type": "ENT-2",
+          "name": "Environmental Enablement",
+          "mechanism": "France's nuclear-decarbonised electricity grid (67.1% nuclear, 95% CO₂-free, 21.7 gCO₂eq/kWh) is explicitly positioned by the Élysée as the first competitive advantage for AI infrastructure; Campus IA commits to water-free cooling and waste-heat recovery.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "Élysée Palace — AI Action Summit summary",
+              "type": "primary",
+              "url": "https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000509/https://www.elysee.fr/emmanuel-macron/2025/02/11/business-day-du-sommet-pour-laction-sur-lintelligence-artificielle-a-station-f",
+              "accessDate": "2026-07-08"
+            },
+            {
+              "citation": "MRAe — Campus IA environmental opinion",
+              "type": "primary",
+              "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-07-08"
+            },
+            {
+              "citation": "Industriel.net — Campus IA waste-heat recovery",
+              "type": "corroborating",
+              "url": "https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260708000730/https://industriel.net/85-milliards-deuros-a-fouju-le-mega-data-center-ia-de-bpifrance-et-mistral-prend-forme/",
+              "accessDate": "2026-07-08"
+            }
+          ]
+        }
+      ],
+      "sources": 4,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "218",
+      "name": "Netherlands Semiconductor Equipment Export Controls (Regeling)",
+      "lat": 52.0705,
+      "lng": 4.3007,
+      "bloc": "Western-Led",
+      "tier": 2,
+      "type": "Policy",
+      "sample": false,
+      "date": "01 September 2023",
+      "location": "The Hague, Netherlands",
+      "scope": "Netherlands; controls semiconductor manufacturing equipment exports outside the EU",
+      "description": "Dutch ministerial regulation establishing an export licensing requirement for advanced semiconductor manufacturing equipment exported outside the European Union. Issued under EU Dual-Use Regulation 2021/821 via the Strategic Goods Decree. Primary controlled items include ASML DUV immersion lithography systems. Expanded three times through April 2025 to cover measurement, inspection, quantum computing, and additive manufacturing equipment.",
+      "investment": "Regulatory restriction (no direct budget); ASML China revenue guided to ~20% of 2025 net sales (from 36% in 2024)",
+      "domain": "Technology",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "sources": 5,
+      "corroborating": 1,
+      "confidence": "A",
+      "aiConnectionPathway": "piet",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "PIET (3/4 gates — Impact-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0"
+    },
+    {
+      "id": "219",
+      "name": "Mistral AI Series C Funding Round",
+      "lat": 48.8566,
+      "lng": 2.3522,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "09 September 2025",
+      "location": "Paris, France",
+      "scope": "France (Western European AI ecosystem)",
+      "description": "Mistral AI, a French frontier large language model developer, closed a Series C funding round led by ASML Holding NV (Netherlands), which received a Strategic Committee seat occupied by CFO Roger Dassen. The partnership integrates Mistral's generative AI models into ASML's lithography product portfolio for software coding and systems development.",
+      "investment": "EUR 1.7B total raise; ASML EUR 1.3B anchor (~11% fully diluted); EUR 11.7B post-money valuation",
+      "domain": "Technology",
+      "sources": 1,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "220",
+      "name": "EO 14241 Immediate Measures to Increase American Mineral Production",
+      "lat": 38.8977,
+      "lng": -77.0365,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "20 March 2025",
+      "location": "Washington, DC, United States",
+      "scope": "United States (federal mineral production policy)",
+      "description": "Executive Order 14241, 'Immediate Measures to Increase American Mineral Production,' invokes DPA Titles III and VII to accelerate domestic mineral production and delegates Section 303 procurement authorities to the Secretary of Defense and DFC CEO for statutory critical minerals including rare earth elements, gallium, and germanium.",
+      "investment": "DPA Titles III and VII authority delegation; mineral scope via 30 USC 1606(a)(3) critical minerals list plus uranium, copper, potash, gold",
+      "domain": "Trade",
+      "sources": 2,
+      "corroborating": 0,
+      "confidence": "A",
+      "aiConnectionPathway": "option_g",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option G (rare earth elements, gallium, germanium — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "221",
+      "name": "DoD-MP Materials Rare Earth Partnership",
+      "lat": 35.4768,
+      "lng": -115.5325,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "10 July 2025",
+      "location": "Mountain Pass, California / Northlake, Texas, United States",
+      "scope": "United States (domestic rare earth supply chain)",
+      "description": "US Department of Defense partnership with MP Materials Corporation (NYSE: MP) under Defense Production Act Title III authorities. The DoD purchased convertible preferred stock, becoming MP Materials' largest shareholder at approximately 15%, and secured a 10-year NdFeB permanent magnet offtake agreement with a government-backed NdPr price floor.",
+      "investment": "$400M DoD equity investment; $150M OSC loan (Mountain Pass heavy REE separation); $110/kg NdPr price floor; 10-year offtake; 10X facility 10,000 MT NdFeB magnet capacity (commissioning 2028)",
+      "domain": "Trade",
+      "sources": 3,
+      "corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option E (MP Materials 10-K FY2025 mp-20251231.htm — Disclosure-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": []
     }
   ]
 }
