@@ -6089,7 +6089,7 @@
       <div class="weo-status-wer-label weo-info-trigger" id="weo-wer-label-trigger">Warmth Engine Ratio<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Warmth Engine Ratio</div><div class="weo-tooltip-body">The ratio of environmental resource demand to environmental governance coordination across the event database. Calculated as Resource Demand tags ÷ Environmental Coordination tags.</div><div class="weo-tooltip-method-link"><a href="/research/methodology/manual/#section-8-5" target="_blank" rel="noopener">§ View in Methodology →</a></div></span></div>
       <div class="weo-status-wer-row">
         <span class="weo-status-wer-value" id="weo-wer-value">—</span>
-        <span class="weo-status-wer-backfill weo-info-trigger" id="weo-wer-backfill-trigger">backfill<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Backfill Phase</div><div class="weo-tooltip-body">Ratio reflects the observable landscape across the verified event database. Reported as provisional while the count of documented environmental governance events remains small.</div></span></span>
+        <span class="weo-status-wer-backfill weo-info-trigger" id="weo-wer-backfill-trigger">provisional<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Provisional</div><div class="weo-tooltip-body">Ratio reflects the observable landscape across the verified event database. Reported as provisional while the count of documented environmental governance events remains small.</div></span></span>
       </div>
     </div>
     <div class="weo-status-updated" id="weo-status-updated"></div>
@@ -9922,6 +9922,10 @@ function generateCCSection(eventId, showFullContent) {
       oep: {
         title: 'OEP — Operational Evidence Protocol',
         body: 'Qualification pathway for infrastructure events where official documentation is absent, generic, or application-agnostic. Establishes AI connection through operational evidence rather than stated intent. <strong>Technical Output Analysis:</strong> Confirmed AI workload capability. <strong>Product-Type Designation:</strong> Official classification as AI infrastructure. <strong>Hardware Deployment Evidence:</strong> Named AI-class hardware or facility designation. Any one confirmed pathway is sufficient. Confidence rated STRONG or PROBABLE.'
+      },
+      trace: {
+        title: 'TRACE — Supply-Chain Response Evidence',
+        body: 'Qualification pathway for policy events where the instrument controls, secures, subsidises, or stockpiles a documented AI infrastructure input material but contains no AI-specific language. Establishes AI connection through two conditions: the material must appear on the AI-Critical Materials Register (or satisfy documented causal-chain criteria), and the instrument text must address the material rather than AI.'
       },
       pietCheckpoint: {
         title: 'AI Connection via PIET',
