@@ -304,6 +304,36 @@
         .filter-select, .search-input { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); color: var(--weo-text-secondary); font-size: 0.8125rem; padding: var(--weo-space-xs) var(--weo-space-sm); }
         .search-input { min-width: 200px; color: var(--weo-text-primary); }
         .search-input::placeholder { color: var(--weo-text-muted); }
+        /* Clear-all — ported from atlas.html .filter-clear-all (Atlas vars mapped to --weo-* scheme).
+           Muted + inert when no filters are active; subtle red border when clearable. */
+        .filter-clear-all {
+            margin-left: 4px;
+            padding: 6px 10px;
+            background: transparent;
+            color: var(--weo-text-muted);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            font-family: var(--weo-font-sans);
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out),
+                        background var(--weo-duration-fast) var(--weo-ease-out);
+            white-space: nowrap;
+        }
+        .filter-clear-all:not([disabled]) {
+            color: #F87171;
+            border-color: rgba(248, 113, 113, 0.3);
+        }
+        .filter-clear-all:hover:not([disabled]) {
+            color: #F87171;
+            border-color: rgba(248, 113, 113, 0.5);
+            background: rgba(248, 113, 113, 0.06);
+        }
+        .filter-clear-all[disabled] {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
         .sample-legend { display: flex; align-items: center; gap: var(--weo-space-xs); margin-left: auto; font-size: 0.75rem; color: var(--weo-text-muted); }
         .sample-legend-icon { color: var(--weo-sample-gold); }
         .table-scroll-container { position: relative; }
@@ -3413,6 +3443,7 @@
                     <option value="ENT-5">Env. Coordination</option>
                 </select>
             </div>
+            <button type="button" class="filter-clear-all" id="events-clear-all-btn" disabled>× Clear</button>
             <input type="text" class="search-input" id="search-input" placeholder="Search events..." autocomplete="off">
             <div class="sample-legend"><span class="sample-legend-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255, 215, 0, 0.25)" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span>Sample events with full analysis</span></div>
         </div>
@@ -5092,6 +5123,16 @@ const applyFilters = () => {
         }
         return true;
     });
+
+    // Clear-all button — muted/disabled at defaults, active when any filter is set
+    // (mirrors the Atlas .filter-clear-all disabled-state behaviour).
+    var clearBtn = document.getElementById('events-clear-all-btn');
+    if (clearBtn) {
+        var anyActive = tier!=='all' || bloc!=='all' || domain!=='all' || type!=='all'
+            || entFilter!=='all' || search!=='' || selectedIndustries.length>0;
+        clearBtn.disabled = !anyActive;
+    }
+
     sortEvents(); renderTable();
 
     // Show empty state if no results
@@ -5112,6 +5153,25 @@ const applyFilters = () => {
     } else {
         if (emptyState) emptyState.style.display = 'none';
     }
+};
+
+// Reset every filter to its default and re-apply. Mirrors the Atlas × Clear
+// handler; reuses the existing per-filter reset idioms (industry-clear-btn).
+const clearAllFilters = () => {
+    document.getElementById('filter-tier').value = 'all';
+    document.getElementById('filter-bloc').value = 'all';
+    document.getElementById('filter-type').value = 'all';
+    document.getElementById('filter-domain').value = 'all';
+    document.getElementById('filter-ent').value = 'all';
+    document.getElementById('search-input').value = '';
+    // Industry is a checkbox dropdown, not a <select> — clear it the same way
+    // the dropdown's own "Clear all" control does.
+    var indDropdown = document.getElementById('industry-dropdown');
+    var indBtn = document.getElementById('industry-filter-btn');
+    if (indDropdown) indDropdown.querySelectorAll('input:checked').forEach(cb => cb.checked = false);
+    selectedIndustries = [];
+    if (indBtn) indBtn.innerHTML = 'All Industries <span class="filter-arrow">▼</span>';
+    applyFilters();
 };
 
 const MONTH_NAMES_UK = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -6011,6 +6071,7 @@ const closeModal = () => {
         document.getElementById(id).addEventListener('change', applyFilters)
     );
     document.getElementById('search-input').addEventListener('input', applyFilters);
+    document.getElementById('events-clear-all-btn').addEventListener('click', clearAllFilters);
     // Industry multi-select filter dropdown
     const indBtn = document.getElementById('industry-filter-btn');
     const indDropdown = document.getElementById('industry-dropdown');
