@@ -65,12 +65,12 @@ The WEO methodology is documented across four publications, all available on Zen
 
 ### Self-Hosted Documentation
 
-The V1.4 Manual and Rationale are self-hosted as navigable HTML with granular section anchoring:
+The V1.5 Manual and Rationale are self-hosted as navigable HTML with granular section anchoring:
 
-- **Manual:** [`warmthengine.com/research/methodology/manual/`](https://warmthengine.com/research/methodology/manual/) (448 section anchors)
-- **Rationale:** [`warmthengine.com/research/methodology/rationale/`](https://warmthengine.com/research/methodology/rationale/) (172 section anchors)
+- **Manual:** [`warmthengine.com/research/methodology/manual/`](https://warmthengine.com/research/methodology/manual/) (490 section anchors)
+- **Rationale:** [`warmthengine.com/research/methodology/rationale/`](https://warmthengine.com/research/methodology/rationale/) (193 section anchors)
 
-A semantic dictionary (`data/weo-methodology-map.json`) maps 166 WEO-specific terms to their methodology section anchors, serving both human tooltip navigation and the MCP `get_methodology` tool.
+A semantic dictionary (`data/weo-methodology-map.json`) maps 185 WEO-specific terms to their methodology section anchors, serving both human tooltip navigation and the MCP `get_methodology` tool.
 
 ---
 
@@ -94,11 +94,11 @@ warmth-engine-observatory/
 │   └── generate_profiles.py        # Profiles page generator (actors JSON → HTML)
 ├── data/
 │   ├── events-free.json            # Static fallback (free-tier event data)
-│   └── weo-methodology-map.json    # 166 term-to-anchor semantic mappings
+│   └── weo-methodology-map.json    # 185 term-to-anchor semantic mappings
 ├── research/
 │   └── methodology/
-│       ├── manual/                 # Self-hosted V1.4 Manual (HTML + PDF)
-│       └── rationale/              # Self-hosted V1.4 Rationale (HTML + PDF)
+│       ├── manual/                 # Self-hosted V1.5 Manual (HTML + PDF)
+│       └── rationale/              # Self-hosted V1.5 Rationale (HTML + PDF)
 ├── sitemap.xml                 # XML sitemap for search engines
 ├── robots.txt                  # Crawler directives
 ├── og-image.png                # Open Graph social preview image
