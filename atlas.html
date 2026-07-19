@@ -5349,7 +5349,7 @@
           // #216 item 9 — journey-panel section-header tooltips (design D).
           infraThread: {
             title: 'Infrastructure Thread (material fact)',
-            body: 'A sourced material fact: the same physical asset — a chip generation, system, or facility — documented both at its production-origin event and at the facility that deploys, trains on, powers, or fabricates from it. Not a Coordination Connection: no relationship type and no confidence grade, only the documented hardware link.'
+            body: 'A sourced material fact: the same physical asset — a chip generation, system, or facility — documented both at its production-origin event and at the facility that deploys, trains on, powers, or fabricates from it. Not a Coordination Connection: no relationship type and no confidence grade, only the documented material link.'
           },
           scpMembership: {
             title: 'Capability Waypoint (SCP dimension)',
@@ -13246,7 +13246,7 @@
             h += '<span class="atlas-stack-arrow" aria-hidden="true">' + ccGlyph + '</span>';
             h += '<span class="atlas-stack-evt" title="' + escapeHtml(tgtName) + '" data-stack-event="' + escapeHtml(tgtId) + '" role="button" tabindex="0">' + escapeHtml(truncate(tgtName, 28)) + '</span>';
             h += '</div>';
-            h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind coordination">Coordination</span><span class="atlas-stack-type"><span class="atlas-stack-type-dot" style="background:' + colour + '"></span>' + escapeHtml(typeName) + '</span></div>';
+            h += '<div class="atlas-stack-hop-meta"><span class="atlas-stack-kind coordination">Coordination</span><span class="atlas-stack-type"><span class="atlas-stack-type-dot" style="background:' + colour + '"></span>' + escapeHtml(typeName) + '</span><span class="badge-with-tooltip">' + generateCCTypeTooltip(typeNum, 'below') + '</span></div>';
             h += '</div>';
             return h;
         }
