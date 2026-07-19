@@ -1,0 +1,1133 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "register_version": "2026.05.06-001",
+    "methodology_version": "1.4",
+    "assessment_date": "2026-05-06",
+    "last_updated": "2026-06-26",
+    "total_actors": 20,
+    "batch": 2,
+    "designation_distribution": {
+      "PAA": 2,
+      "AIK": 3,
+      "ACS": 2,
+      "Participant": 13
+    },
+    "dimension_frequency": {
+      "D1": 2,
+      "D2": 5,
+      "D3": 8,
+      "D4": 3,
+      "D5": 2,
+      "D6": 8,
+      "D7": 14
+    },
+    "source_completeness": {
+      "fully_complete": 30,
+      "minor_gaps": 12,
+      "total_met_dimensions": 42,
+      "note": "All 42 MET dimensions have at least one confirmed source meeting the Grade standard. 12 entries are classified minor_gaps: 8 batch-1 entries with minor URL or verification gaps (non-blocking), plus the 4 batch-2 MET dimensions pending an editorial completeness pass."
+    },
+    "sample_actors": [
+      "us"
+    ]
+  },
+  "dimensions": {
+    "D1": {
+      "name": "AI Chip Design",
+      "category": "hardware",
+      "short_name": "Chip Design",
+      "description": "Designs and commercially sells training-class AI accelerators under domestic IP control."
+    },
+    "D2": {
+      "name": "Advanced Fabrication",
+      "category": "hardware",
+      "short_name": "Fabrication",
+      "description": "Operates production-capable semiconductor fabrication at process nodes of 7nm or below."
+    },
+    "D3": {
+      "name": "Critical Equipment",
+      "category": "hardware",
+      "short_name": "Equipment",
+      "description": "Hosts entities that design and manufacture globally essential semiconductor production equipment or sole-sourced subsystems for advanced fabrication."
+    },
+    "D4": {
+      "name": "AI Compute",
+      "category": "platform",
+      "short_name": "Compute",
+      "description": "Hosts hyperscale cloud providers operating AI training infrastructure sufficient to train current-generation frontier models, with compute physically on the actor's territory."
+    },
+    "D5": {
+      "name": "Frontier Models",
+      "category": "platform",
+      "short_name": "Models",
+      "description": "Hosts organisations developing state-of-the-art foundation models competitive with the current global frontier across multiple capability domains."
+    },
+    "D6": {
+      "name": "AI Regulation",
+      "category": "governance",
+      "short_name": "Regulation",
+      "description": "Enforces AI-relevant compliance frameworks with binding obligations for entities outside its own jurisdiction."
+    },
+    "D7": {
+      "name": "Sovereign Investment",
+      "category": "governance",
+      "short_name": "Investment",
+      "description": "Operates a national programme directing significant public capital toward AI compute, semiconductor fabrication, or AI-specific physical infrastructure at nationally transformative scale."
+    }
+  },
+  "designations": {
+    "PAA": {
+      "name": "Principal AI Actor",
+      "short": "PAA",
+      "description": "Ecosystem anchor: scores ≥3 dimensions across ≥2 capability categories, passes the per-PAA severance test, and holds at least one sustainable platform dimension.",
+      "gate_requirements": "Gate 1 (≥3 dimensions across ≥2 capability categories) + Gate 2 (per-PAA severance test PASS) + Gate 3 (≥1 sustainable platform dimension)"
+    },
+    "AIK": {
+      "name": "AI Infrastructure Keystone",
+      "short": "AIK",
+      "description": "Chokepoint leverage without ecosystem provision: scores ≥3 dimensions across ≥2 capability categories, passes the per-PAA severance test, but holds no sustainable platform dimension.",
+      "gate_requirements": "Gate 1 (≥3 dimensions across ≥2 capability categories) + Gate 2 (per-PAA severance test PASS) + Gate 3 (no sustainable platform dimension)"
+    },
+    "ACS": {
+      "name": "Advanced Capability State",
+      "short": "ACS",
+      "description": "Significant sovereign capabilities that cannot be sustained autonomously under withdrawal of a PAA’s ecosystem inputs: scores ≥3 dimensions across ≥2 capability categories but fails the per-PAA severance test.",
+      "gate_requirements": "Gate 1 (≥3 dimensions across ≥2 capability categories) + Gate 2 (per-PAA severance test FAIL)"
+    },
+    "Participant": {
+      "name": "Participant",
+      "short": "Participant",
+      "description": "Operates within ecosystem(s) shaped by PAAs and AIKs. Per-dimension data carries the analytical detail.",
+      "gate_requirements": "Gate 1 FAIL (<3 dimensions)"
+    }
+  },
+  "actors": [
+    {
+      "id": "US",
+      "name": "United States",
+      "score": 7,
+      "designation": "PAA",
+      "severance": "PASS",
+      "severance_detail": "All 7 dimensions sustainable under severance. Full-stack ecosystem anchor.",
+      "dimensions": {
+        "D1": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 2,
+              "type": "Audited financial filing",
+              "publisher": "NVIDIA (SEC 8-K Q4 FY2026)",
+              "date": "2026-Q4",
+              "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000019/q4fy26pr.htm",
+              "qualifying_fact": "Data Centre revenue $193.7 billion for FY2026, up 68%. Blackwell Ultra leading architecture across all customer categories.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-26",
+              "snapshotUrl": "https://archive.ph/JyOix"
+            },
+            "corroborating": {
+              "grade": 2,
+              "type": "Audited financial filing",
+              "publisher": "Amazon (SEC 8-K FY2025 Q4)",
+              "date": "2025-Q4",
+              "url": "https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000002/amzn-20251231xex991.htm",
+              "qualifying_fact": "Trainium fully subscribed with 1.4 million chips landed across all generations. Combined custom silicon annual revenue run rate over US$10 billion (Trainium, Graviton, Nitro).",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260509111651/https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000002/amzn-20251231xex991.htm"
+            }
+          },
+          "qualification_headline": "Three independent training-class accelerator programmes — NVIDIA Blackwell Ultra, AMD Instinct, Trainium — under US IP control",
+          "qualification": "NVIDIA Data Centre revenue reached US$193.7 billion (FY2026, up 68%) with Blackwell Ultra as leading architecture. Amazon deployed 1.4 million Trainium chips; combined custom silicon revenue exceeds US$10 billion annually. AMD ships the Instinct MI series. No other jurisdiction hosts more than one competitive programme."
+        },
+        "D2": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 2,
+              "type": "Audited financial filing",
+              "publisher": "Intel (SEC 8-K Q3 FY2025)",
+              "date": "2025-Q3",
+              "url": "https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000169/q325earningsrelease.htm",
+              "qualifying_fact": "Fab 52 fully operational, manufacturing Intel 18A wafers — most advanced logic wafers produced in the United States at time of assessment.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260509111706/https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000169/q325earningsrelease.htm"
+            },
+            "corroborating": {
+              "grade": 2,
+              "type": "Company press release",
+              "publisher": "TSMC",
+              "date": "2025-03",
+              "url": "https://pr.tsmc.com/english/news/3210",
+              "qualifying_fact": "TSMC Arizona site in volume production since late 2024.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051203/https://pr.tsmc.com/english/news/3210"
+            }
+          },
+          "qualification_headline": "Intel Fab 52 manufactures Intel 18A wafers and TSMC Arizona is in volume production, both operating on US territory",
+          "qualification": "Intel's Fab 52 is fully operational producing Intel 18A wafers — the most advanced logic process manufactured in the United States at time of assessment. TSMC's Arizona facility entered volume production in late 2024. Both sites operate on US soil under territorial jurisdiction regardless of corporate parent."
+        },
+        "D3": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 3,
+              "type": "Analytical/journalism",
+              "publisher": "247 Wall St citing SEMI",
+              "date": "2026-05",
+              "url": "https://247wallst.com/technology-3/2026/05/04/kla-is-gaining-share-as-ai-chip-complexity-drives-up-yield-costs/",
+              "qualifying_fact": "KLA increased metrology and inspection share from 72.6% in 2024 to 73.8% in 2025.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051343/https://247wallst.com/technology-3/2026/05/04/kla-is-gaining-share-as-ai-chip-complexity-drives-up-yield-costs/"
+            },
+            "corroborating": {
+              "grade": 2,
+              "type": "Company investor presentation",
+              "publisher": "KLA 2026 Investor Day",
+              "date": "2026-03",
+              "url": "https://ir.kla.com/news-events/press-releases/detail/512/kla-hosts-investor-day-announces-7-billion-share",
+              "qualifying_fact": "CEO: KLA is indispensable to advanced process control regardless of fab operator.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260609072415/https://ir.kla.com/news-events/press-releases/detail/512/kla-hosts-investor-day-announces-7-billion-share"
+            }
+          },
+          "qualification_headline": "KLA holds 73.8% of the global metrology and inspection market, described as indispensable to advanced process control",
+          "qualification": "KLA increased its metrology and inspection market share from 72.6% in 2024 to 73.8% in 2025. Applied Materials and Lam Research hold dominant positions in deposition and etch respectively. No advanced fabrication facility at any node operates without US-designed process control equipment."
+        },
+        "D4": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 2,
+              "type": "Company press release",
+              "publisher": "NVIDIA Newsroom (Colossus/Spectrum-X)",
+              "date": "2026-01",
+              "url": "https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus",
+              "qualifying_fact": "xAI Colossus: 100,000 NVIDIA Hopper GPUs, built in 122 days. Expanded to 555,000 GPUs at 2 GW.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260429085743/https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus"
+            },
+            "corroborating": {
+              "grade": 3,
+              "type": "Institutional benchmark",
+              "publisher": "Stanford HAI AI Index 2026",
+              "date": "2026",
+              "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance",
+              "qualifying_fact": "Anthropic, xAI, Google, OpenAI all occupy the top tier on Arena Elo.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051417/https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance"
+            }
+          },
+          "qualification_headline": "xAI Colossus comprises 100,000 GPUs expanded to 555,000 at 2 GW; multiple US hyperscalers train frontier models on US territory",
+          "qualification": "xAI's Colossus cluster operates 100,000 NVIDIA Hopper GPUs, built in 122 days, and expanded to 555,000 GPUs at 2 GW capacity. Anthropic, xAI, Google, and OpenAI all occupy the top tier on Arena Elo rankings. US territory hosts the largest concentration of frontier-class AI training infrastructure globally at time of assessment."
+        },
+        "D5": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 3,
+              "type": "Institutional benchmark",
+              "publisher": "Stanford HAI AI Index 2026",
+              "date": "2026",
+              "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance",
+              "qualifying_fact": "Frontier models gained 30 percentage points in a single year on Humanity's Last Exam.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051417/https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance"
+            },
+            "corroborating": {
+              "grade": 3,
+              "type": "Live benchmark aggregator",
+              "publisher": "Artificial Analysis / LMArena",
+              "date": "2026-05",
+              "url": "https://artificialanalysis.ai",
+              "qualifying_fact": "Multiple US-headquartered models (Anthropic, OpenAI, Google, xAI) at global frontier across reasoning, coding, and knowledge benchmarks.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051604/https://artificialanalysis.ai"
+            }
+          },
+          "qualification_headline": "Anthropic, OpenAI, Google, and xAI all occupy the top benchmark tier; no other jurisdiction hosts four frontier labs",
+          "qualification": "Stanford HAI's 2026 AI Index confirms Anthropic, xAI, Google, and OpenAI in the top Arena Elo tier. Frontier models gained 30 percentage points on Humanity's Last Exam in a single year. Multiple US-headquartered organisations hold frontier positions across reasoning, coding, and knowledge benchmarks."
+        },
+        "D6": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 1,
+              "type": "Government enforcement action",
+              "publisher": "US Department of Justice",
+              "date": "2025-11",
+              "url": "https://www.justice.gov/opa/pr/us-citizens-and-chinese-nationals-arrested-exporting-artificial-intelligence-technology",
+              "qualifying_fact": "Prosecution for conspiracy to violate export controls by illegally exporting advanced GPUs to the PRC.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510051830/https://www.justice.gov/opa/pr/us-citizens-and-chinese-nationals-arrested-exporting-artificial-intelligence-technology"
+            },
+            "corroborating": {
+              "grade": 1,
+              "type": "Government enforcement action",
+              "publisher": "US Department of Justice (Operation Gatekeeper)",
+              "date": "2025-12",
+              "url": "https://www.justice.gov/opa/pr/us-authorities-shut-down-major-china-linked-ai-tech-smuggling-network",
+              "qualifying_fact": "Conspiracy to export at least US$160 million in export-controlled NVIDIA H100 and H200 GPUs. Over US$50 million seized. Guilty pleas obtained.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260510052010/https://www.justice.gov/opa/pr/us-authorities-shut-down-major-china-linked-ai-tech-smuggling-network"
+            }
+          },
+          "qualification_headline": "Export controls enforced extraterritorially — Operation Gatekeeper prosecuted US$160 million GPU smuggling conspiracy",
+          "qualification": "The Department of Justice prosecuted conspiracy to export at least US$160 million in controlled GPUs destined for China. Operation Gatekeeper seized over US$50 million in NVIDIA H100 and H200 GPUs and obtained guilty pleas, demonstrating active extraterritorial enforcement of AI-relevant export control instruments."
+        },
+        "D7": {
+          "met": true,
+          "constraint": null,
+          "sources": {
+            "primary": {
+              "grade": 1,
+              "type": "Government programme tracker",
+              "publisher": "US Department of Commerce (CHIPS for America)",
+              "date": "2025-01",
+              "url": "https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning",
+              "qualifying_fact": "CHIPS for America awarded over $33 billion of the over $36 billion in proposed incentives funding.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260509112015/https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning"
+            },
+            "corroborating": {
+              "grade": 2,
+              "type": "Audited financial filing",
+              "publisher": "Intel (SEC 8-K)",
+              "date": "2025-08-27",
+              "url": "https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000135/intc-20250827.htm",
+              "qualifying_fact": "Intel received $5.695 billion in CHIPS incentives; issued 274.6M shares of common stock and a warrant.",
+              "captureStatus": "captured",
+              "accessDate": "2026-06-17",
+              "snapshotUrl": "https://web.archive.org/web/20260509112029/https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000135/intc-20250827.htm"
+            }
+          },
+          "qualification_headline": "CHIPS for America awarded over US$33 billion in fabrication incentives; Intel alone received US$5.7 billion",
+          "qualification": "The CHIPS for America programme awarded over US$33 billion of the US$36 billion in proposed incentives, directed at semiconductor fabrication on US territory. Intel received US$5.695 billion in CHIPS incentives and issued equity instruments. The programme is the largest single sovereign investment in domestic semiconductor manufacturing at time of assessment."
+        }
+      },
+      "sample": true
+    },
+    {
+      "id": "CN",
+      "name": "China",
+      "designation": "PAA",
+      "score": 6,
+      "severance": "PASS",
+      "dimensions": {
+        "D1": {
+          "met": true,
+          "qualification_headline": "Huawei's Ascend 910B/910C uses the domestically designed DaVinci architecture with confirmed commercial hyperscale deployment"
+        },
+        "D2": {
+          "met": true,
+          "qualification_headline": "SMIC produces 7nm-class wafers using multi-patterning DUV lithography; DUV-only fabrication with no EUV access"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "No Chinese tool globally non-substitutable at ≤7nm; all functions replaceable by US/Japan/Netherlands alternatives"
+        },
+        "D4": {
+          "met": true,
+          "qualification_headline": "Frontier training on Chinese territory via Ascend clusters and pre-restriction NVIDIA H800; Ascend performance gap persists"
+        },
+        "D5": {
+          "met": true,
+          "qualification_headline": "Alibaba and DeepSeek place in the top Arena Elo tier alongside US frontier labs across multiple capability domains"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "Article 49 extends jurisdiction to transfers outside China; REE extraterritorial controls exercised then suspended"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Big Fund III raised RMB 344 billion (US$47.5 billion) from 19 state-backed investors for semiconductor development"
+        }
+      }
+    },
+    {
+      "id": "JP",
+      "name": "Japan",
+      "designation": "AIK",
+      "score": 4,
+      "severance": "PASS",
+      "aik_profile": {
+        "chokepoint_nature": "Front-end process tools and materials",
+        "key_entities": "TEL coater/developer (~90–100% EUV), Lasertec actinic mask inspection (100%), SCREEN single-wafer cleans, Shin-Etsu/JSR/TOK/SUMCO materials"
+      },
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Only domestic training accelerator (PFN MN-Core 2) deployed in low thousands; Japan's own flagship HPC selects NVIDIA for AI workloads"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Zero ≤7nm fabs in volume manufacturing; Rapidus 2nm in pilot only, mass production targeted H2 FY2027"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "TEL holds ~100% EUV coater/developer share and Lasertec sole-sources actinic mask inspection; US-dependency exposure documented"
+        },
+        "D4": {
+          "met": true,
+          "qualification_headline": "SoftBank cluster delivers 13.7 ExaFLOPS on Japanese territory; domestically scaled but GPU procurement dependent on US ecosystem"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "No Japanese-developed model places in the global top tier on any canonical discriminating benchmark"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "FEFTA controls 23 types of advanced semiconductor manufacturing equipment; catch-all controls strengthened October 2025"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Japan's FY2026 semiconductor-and-AI budget nearly quadrupled to approximately ¥1.23 trillion; separately, cumulative state R&D backing for Rapidus reached ¥2.35 trillion"
+        }
+      }
+    },
+    {
+      "id": "KR",
+      "name": "South Korea",
+      "designation": "AIK",
+      "score": 4,
+      "severance": "PASS",
+      "aik_profile": {
+        "chokepoint_nature": "Memory packaging, fabrication, and sovereign equipment monopolies",
+        "key_entities": "HPSP sole-source high-pressure annealing, Hanmi 71.2% TC bonder share, Samsung Foundry 2nm GAA HVM"
+      },
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "All shipping Korean-designed accelerators are inference-only; training compute runs on imported NVIDIA silicon"
+        },
+        "D2": {
+          "met": true,
+          "qualification_headline": "Samsung Foundry produces at 3nm and commenced 2nm GAA mass production; fabrication dependent on imported ASML EUV equipment"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "HPSP is sole-source for high-pressure annealing and Hanmi holds 71.2% TC bonder share; FDPR and BIS exposure documented"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest coherent Korean-owned training cluster is ~4,000 GPUs; major facilities are US-hyperscaler-anchored"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Best Korean models score ~25-30 points below frontier flagships on aggregated capability leaderboards"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "AI Basic Act (Law 20676) Article 4(1) applies to acts conducted abroad affecting the Korean domestic market or users"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "KRW 10.1 trillion allocated in the 2026 AI budget; AI Growth Fund expanded to over KRW 150 trillion"
+        }
+      }
+    },
+    {
+      "id": "EU",
+      "name": "European Union",
+      "designation": "ACS",
+      "score": 4,
+      "severance": "FAIL",
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No EU entity designs a datacenter training accelerator; closest candidate (SiPearl Rhea1) is an HPC CPU for inference"
+        },
+        "D2": {
+          "met": true,
+          "qualification_headline": "Intel Fab 34 in Ireland is the first European facility using EUV in volume production; the facility is US-owned"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "ASML shipped 44 EUV systems as sole global supplier; Zeiss holds 100% EUV optics share — Cymer light source under US jurisdiction"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest EU-controlled coherent training cluster is ~1,016 H100s; frontier training requires 50,000-200,000+"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Mistral's best model scores 39/100 on composite intelligence index; frontier models score 57-61"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "EU AI Act Article 2(1)(c) applies to providers placing AI systems on the EU market regardless of establishment location"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "EuroHPC mandate expanded with AI Gigafactories programme; JUPITER operational at exascale, LUMI at pre-exascale"
+        }
+      }
+    },
+    {
+      "id": "TW",
+      "name": "Taiwan",
+      "designation": "ACS",
+      "score": 3,
+      "severance": "FAIL",
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Taiwan's ASIC design firms execute foreign clients' architectures; core accelerator IP remains abroad"
+        },
+        "D2": {
+          "met": true,
+          "qualification_headline": "TSMC operates 3nm volume production at Fab 18 with N2 GAA on roadmap; fabrication dependent on US-origin equipment and EDA tools"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "Gudeng Precision holds approximately 80% of the global EUV photomask pod market and is sole supplier to TSMC"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Aggregate national compute (~114 PFLOPS) is roughly two orders of magnitude below frontier-training scale"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "All domestic models are foreign-base fine-tunes; none rank on any global benchmark leaderboard"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "Export controls bind domestic exporters only; AI Basic Act is soft law with no extraterritorial reach"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "NT$30–31.1 billion first-year AI strategy allocation under NSTC; FY2026 budget at legislative risk, compute procures NVIDIA GPUs"
+        }
+      }
+    },
+    {
+      "id": "NL",
+      "name": "Netherlands",
+      "designation": "AIK",
+      "score": 3,
+      "severance": "PASS",
+      "aik_profile": {
+        "chokepoint_nature": "Core lithography integration and advanced packaging",
+        "key_entities": "ASML 100% EUV monopoly, ASM International (ALD/epi), Besi (hybrid bonding)"
+      },
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Dutch chip designers (NXP, Axelera) produce inference/edge silicon only; no training-class accelerator exists"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No ≤7nm fab on Dutch territory; NXP Nijmegen operates at 200mm (~140nm), slated for closure"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "ASML holds 100% EUV monopoly and Besi leads hybrid bonding from Dutch territory; Cymer and multiple US leverage vectors documented"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Nebius Group N.V. Dutch-domiciled; zero qualifying compute on Dutch territory (all operational in Finland)"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "GPT-NL targets Dutch-language sovereignty at ~1/100th frontier budget; no Dutch model ranks on global benchmarks"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "Strategic Goods Decree expanded semiconductor equipment export controls with national authorisation requirements"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Project Beethoven committed €2.51 billion to the Brainport Eindhoven chip ecosystem; AI Factory received €200 million"
+        }
+      }
+    },
+    {
+      "id": "FR",
+      "name": "France",
+      "designation": "Participant",
+      "score": 2,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "All French AI chip designs use licensed ARM architecture; no sovereign training-class accelerator exists"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Most advanced French volume node is 18nm FD-SOI; no FinFET or GAA fab exists at any node"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "Soitec's SOI substrates serve 22-90nm nodes, not ≤7nm FinFET/GAA process flows"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest sovereign cluster (Mistral Compute, ~13,800 GB300s) is commissioning, not operational"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Mistral scores ~35% below frontier on aggregate intelligence indices across key benchmarks"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "Exercises EU AI Act authority with demonstrated extraterritorial enforcement — CNIL fined Clearview AI €20 million"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "France 2030 provides a €54 billion investment envelope; national AI strategy spending totals €2.4 billion across two phases"
+        }
+      }
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "designation": "Participant",
+      "score": 2,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No German entity designs or markets a datacenter AI training accelerator; full NVIDIA dependency for all sovereign compute"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No fab on German territory produces at ≤7nm; Intel Magdeburg cancelled, ESMC Dresden targets ≥12nm only"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "Zeiss holds 100% EUV optics share and TRUMPF sole-sources EUV drive lasers; leverage operates through ASML, not independently"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest German-controlled AI cluster (~10,000 GPUs / 0.5 ExaFLOPS) is ~1/10th frontier training scale"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "No German-controlled entity produces a top-tier foundation model; Aleph Alpha absorbed by Canadian Cohere (90/10 split)"
+        },
+        "D6": {
+          "met": true,
+          "qualification_headline": "21st AWV amendment added AI systems and semiconductor technology to the national export control list in July 2024"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "JUPITER is genuine (~€250M national share) but not 'at scale'; collapsed Intel subsidy and foreign-controlled ESMC subsidy cannot be credited"
+        }
+      }
+    },
+    {
+      "id": "GB",
+      "name": "United Kingdom",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Sole UK AI accelerator designer (Graphcore) acquired by SoftBank July 2024; no IP-transfer restrictions imposed"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No UK fab operates at or below 7nm; domestic capacity limited to mature and compound semiconductor nodes"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "UK equipment firms serve advanced fabs but none is sole-sourced for ≤7nm lithographic fabrication"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "No UK-HQ provider operates frontier-training-class compute on UK soil at assessment date; Nscale flagship facility scheduled Q4 2026-Q1 2027"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "DeepMind IP owned by Alphabet (US); no independent UK lab ranks top-tier across broad reasoning benchmarks"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No AI-specific binding framework enacted; AISI evaluations voluntary; anticipated UK AI bill did not materialise"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "UK Compute Roadmap commits up to £2 billion for public AI compute infrastructure, confirmed by Parliament"
+        }
+      }
+    },
+    {
+      "id": "IN",
+      "name": "India",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No commercially marketed datacenter AI training accelerator with domestically controlled core microarchitectural IP"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No ≤7nm wafer fab on Indian territory; most advanced approved project (Tata Dholera) targets 28nm-110nm"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "No Indian sole-source position in the ≤7nm semiconductor equipment supply chain"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest sovereign compute allocation (4,096 H100s, IndiaAI Mission) empirically exercised; produced sub-frontier result"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Sole candidate (Sarvam-105B) trails absolute May 2026 frontier; independent evaluation limited"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No AI-specific statute in force; DPDPA core obligations delayed to May 2027; IT Rules 2026 limited to content moderation"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "IndiaAI Mission budgets Rs 10,372 crore across seven pillars with a 10,000 GPU target; compute runs on US ecosystem infrastructure"
+        }
+      }
+    },
+    {
+      "id": "IL",
+      "name": "Israel",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Habana Labs/Gaudi IP wholly owned by Intel US; no independent Israeli training-class accelerator programme remains"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Fab 28 runs Intel 7 (10nm-class DUV, no EUV); Fab 38 frozen since mid-2024 with no restart date"
+        },
+        "D3": {
+          "met": true,
+          "qualification_headline": "Nova holds sole-source metrology and Camtek is tool of reference for HBM4; limited to inspection, US-parented entities excluded"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Largest Israeli-controlled GPU clusters are an order of magnitude below frontier training scale"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "AI21 Jamba scores 40-50 percentage points behind frontier benchmarks; company has pivoted away from scale competition"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No enacted AI-specific law with extraterritorial reach; existing controls are privacy-based or dual-use export"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "~$140M deployed AI-specific capital over six years; two orders of magnitude below $1B-$10B+ peer programmes"
+        }
+      }
+    },
+    {
+      "id": "RU",
+      "name": "Russia",
+      "designation": "Participant",
+      "score": 0,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No domestically designed training-class accelerator in production; ARM/MIPS licenses revoked, foundry access severed"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Most advanced operational node is 90nm at Mikron; state roadmap targets 28nm no earlier than 2028-2030"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "Best domestic lithography tool operates at 350nm on 200mm wafers; no global supply role"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Total national AI compute 0.073 exaflops; largest cluster ~1,600 A100 nodes"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Flagship LLMs trail frontier by 34-55% on key benchmarks; two of three built on Chinese Qwen base weights"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No enacted AI-specific extraterritorial framework; enforcement model produces market exit, not foreign compliance"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "Executed federal AI spending ~$80-90M/year; announced budgets systematically revised downward 5-20×"
+        }
+      }
+    },
+    {
+      "id": "CA",
+      "name": "Canada",
+      "designation": "Participant",
+      "score": 0,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Tenstorrent redomiciled to Delaware 2023; no Canadian-controlled accelerator in volume production"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Zero front-end logic fabs at ≤7nm on Canadian territory; ecosystem is packaging and specialty nodes"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "US-parented entity (Teledyne Technologies); pellicle manufacturing credits to parent jurisdiction"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "No Canadian-HQ entity operates GPU clusters at frontier-training scale; all hyperscalers US-controlled"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Cohere ranks decisively second-tier on flagship cross-domain benchmarks (GPQA, Arena, SWE-bench)"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "AIDA died on the order paper January 2025; ECL export controls bind Canadian exporters only, no extraterritorial reach"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "~CAD $2.9B over five years (~0.02% GDP/yr); flagship SCIP supercomputer not yet operational"
+        }
+      }
+    },
+    {
+      "id": "MY",
+      "name": "Malaysia",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Domestic chip design is interface IP and custom ASICs, not merchant training-class AI accelerators"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Domestic fabrication is 200 mm at 90 nm; Malaysia's role is back-end assembly, not leading-edge production"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "Equipment makers in Malaysia are foreign-headquartered (Lam, ASML); no domestically-controlled advanced-equipment capability exists"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Operational AI compute is a 20-megawatt facility; no frontier-scale training runs at the assessment date"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Domestic models lead only the self-built MalayMMLU benchmark; none ranks top-tier on broadly-recognised leaderboards"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "A territorial chip-transit control that adopts United States export-regulation scope, without independent extraterritorial enforcement reach"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Budget 2026, enacted as Supply Act 2026, directs sovereign capital to a national AI and semiconductor programme"
+        }
+      }
+    },
+    {
+      "id": "SG",
+      "name": "Singapore",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No Singapore-domiciled designer of training-class AI accelerators; domestic AI-silicon is edge-focused"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "Domestic fabrication is mature- and specialty-node; no leading-edge production, new capacity not operational until 2028"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "Front-end equipment is a foreign oligopoly; Singapore's capability is back-end assembly and consumables, not advanced tools"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "On-territory training is sub-frontier (72 H100s); the frontier-scale build is sited off-territory in Johor"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Domestic models lead Southeast-Asian-language tasks on a foreign base; none ranks top-tier on general leaderboards"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "Voluntary soft-law AI governance; export controls bind domestically only, no extraterritorial reach"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Budget 2024 directs sovereign capital to a national AI programme, with a ring-fenced commitment to high-performance compute"
+        }
+      }
+    },
+    {
+      "id": "AE",
+      "name": "United Arab Emirates",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Domestic chip activity is inference- or design-only with foreign IP; no UAE merchant training-class accelerator"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No operational leading-edge (sub-7nm) fabrication; the UAE is import-dependent, prospective foreign fabs at feasibility stage"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "No UAE-headquartered advanced-equipment maker; the UAE procures foreign chips as a capital provider, EUV supplied solely by ASML"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "On-territory compute is sub-frontier; the flagship cluster is pre-operational and foreign-operated, frontier-scale G42 compute US-sited"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Domestically directed models, not top-tier; K2 Think V2 leads competition maths but trails on knowledge benchmarks"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No AI-specific extraterritorial authority; the extraterritorial instruments are child-safety and data-protection regimes, with no cross-border AI enforcement"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Abu Dhabi Law No. 3 of 2024 and the state vehicle MGX direct sovereign capital into a nationally-transformative AI programme"
+        }
+      }
+    },
+    {
+      "id": "SA",
+      "name": "Saudi Arabia",
+      "designation": "Participant",
+      "score": 1,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "No Saudi accelerator designer; the sole Riyadh design centre is Qualcomm's, and the sovereign chip programme was abandoned in 2026"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No fabrication at any node on Saudi territory; the Alat chip programme was abandoned in 2026"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "No Saudi-headquartered advanced-equipment maker; EUV is ASML-only and the major equipment is US, Dutch or Japanese"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "On-territory frontier-scale compute is under construction, not live; the operational clusters are academic HPC or inference-only"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "ALLaM is Saudi-controlled but Arabic-specialist — it tops an Arabic-only leaderboard, not top-tier across three general domains"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "No AI framework with extraterritorial reach; AI governance is non-binding and territorial, the draft Global AI Hub Law unenacted"
+        },
+        "D7": {
+          "met": true,
+          "qualification_headline": "Through HUMAIN, the Public Investment Fund directs sovereign capital into AI compute and infrastructure at nationally transformative scale"
+        }
+      }
+    },
+    {
+      "id": "CH",
+      "name": "Switzerland",
+      "designation": "Participant",
+      "score": 0,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "STMicroelectronics is foreign-incorporated and below leading-edge; indigenous ventures build design-automation tools, not training accelerators"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No sub-7 nm fabrication on Swiss territory; the most advanced Swiss-linked fabrication is located in France and Italy"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "Swiss advanced-equipment makers (VAT, Comet) are market-leading but substitutable, not sole sources of any sub-7 nm-essential component"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "The one frontier-scale system (Alps) is research-only; the commercially available platforms are well below frontier scale"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "A sovereign, fully-open model (Apertus-70B) with Swiss-controlled IP, but sub-frontier in capability and not top-tier on broad leaderboards"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "AI governance is sector-specific and applies primarily to state actors; extraterritorial reach is confined to general data protection, not AI"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "A discrete CHF 20 million grant (CHF 5 million in 2026), not a structural reorientation; no national AI programme"
+        }
+      }
+    },
+    {
+      "id": "BR",
+      "name": "Brazil",
+      "designation": "Participant",
+      "score": 0,
+      "severance": null,
+      "dimensions": {
+        "D1": {
+          "met": false,
+          "constraint_headline": "Domestic semiconductor activity is chip design and packaging, not training-accelerator design; no domestically-controlled accelerator designer"
+        },
+        "D2": {
+          "met": false,
+          "constraint_headline": "No sub-7 nm fabrication on Brazilian territory; the only foundry (CEITEC) tops out at 350 nm"
+        },
+        "D3": {
+          "met": false,
+          "constraint_headline": "No domestic advanced-equipment maker; the category is foreign-held (ASML, US, Japan), Brazil's footprint is design and packaging"
+        },
+        "D4": {
+          "met": false,
+          "constraint_headline": "Santos Dumont is a sub-frontier research HPC; the transformative buildout (Piauí) is foreign-operated and unbuilt"
+        },
+        "D5": {
+          "met": false,
+          "constraint_headline": "Sovereign, territorially-controlled model IP (Sabiá, SoberanIA), but sub-frontier and specialised to Brazilian-Portuguese domains"
+        },
+        "D6": {
+          "met": false,
+          "constraint_headline": "PL 2338 is unenacted and domestic-territorial, with no extraterritorial-scope provision; no demonstrated reach beyond Brazil"
+        },
+        "D7": {
+          "met": false,
+          "constraint_headline": "A genuine R$23 billion plan, but mostly credit and private/foreign-operated capital; the sovereign AI compute is research-grade, not transformative"
+        }
+      }
+    }
+  ],
+  "dimension_watch": [
+    {
+      "actor_id": "GB",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Probable MET",
+      "trigger": "Nscale Loughton 23,040-GPU cluster operational",
+      "timeline": "Q1 2027"
+    },
+    {
+      "actor_id": "FR",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Mistral Compute sustained frontier-class training runs",
+      "timeline": "Q3/Q4 2026"
+    },
+    {
+      "actor_id": "FR",
+      "dimension": "D5",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Mistral release closing approximately 35% frontier gap",
+      "timeline": "Unknown"
+    },
+    {
+      "actor_id": "KR",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Sovereign compute exceeding 50,000 GPUs",
+      "timeline": "2027–2028"
+    },
+    {
+      "actor_id": "IN",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Sovereign compute consolidation exceeding 50,000 GPUs",
+      "timeline": "2027–2028"
+    },
+    {
+      "actor_id": "IN",
+      "dimension": "D5",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Independent verification of Sarvam-105B benchmark claims",
+      "timeline": "Near-term"
+    },
+    {
+      "actor_id": "TW",
+      "dimension": "D7",
+      "current": "MET",
+      "expected_change": "At risk",
+      "trigger": "FY2026 budget blocked by opposition in Legislative Yuan",
+      "timeline": "Ongoing"
+    },
+    {
+      "actor_id": "DE",
+      "dimension": "D7",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "STACKIT and sovereign AI programme scaling",
+      "timeline": "End-2027+"
+    },
+    {
+      "actor_id": "IL",
+      "dimension": "D7",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Nagel Committee NIS 25 billion legislatively appropriated",
+      "timeline": "Unknown"
+    },
+    {
+      "actor_id": "CA",
+      "dimension": "D5",
+      "current": "NOT MET",
+      "expected_change": "Possible shift",
+      "trigger": "Cohere–Aleph Alpha merger closes and combined capability assessed",
+      "timeline": "Late 2026"
+    },
+    {
+      "actor_id": "CA",
+      "dimension": "D7",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "SCIP operational and Budget 2026 scales commitment",
+      "timeline": "2027–2028"
+    }
+  ]
+}

@@ -6320,7 +6320,7 @@
     <div class="scp-hdr">
       <div>
         <div class="scp-title">Sovereign Capability Profiles <span class="scp-tip-trigger" data-scp-tip="scp-overview" style="font-size:12px;opacity:0.5;cursor:pointer;">&#9432;</span></div>
-        <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">14</span> actors assessed</div>
+        <div class="scp-subtitle">Actor Designation Framework — <span id="scpCount">—</span> actors assessed</div>
         <a href="/profiles/" class="scp-profiles-link">View in Profiles →</a>
       </div>
       <button class="scp-close" id="scpClose" aria-label="Close">×</button>
@@ -11672,62 +11672,19 @@ function generateCCSection(eventId, showFullContent) {
   'use strict';
 
   /* ========================================
-     ACTOR DATA — static fallback
+     ACTOR DATA — API-first, static fallback
+     W-01 (19 July 2026): the fallback IS the served free-tier artefact
+     (/actors-free.json), not a hand-maintained copy. It cannot exceed the
+     free tier by construction and cannot drift from the SCP Register.
+     Mirrors FALLBACK_EVENTS pattern. Do not reintroduce an inline literal.
      ======================================== */
-  var SCP_FALLBACK_DATA = [
-    {id:'US',n:'United States',s:7,d:'PAA',dims:[1,1,1,1,1,1,1],
-     con:[null,null,null,null,null,null,null],
-     svd:'Full-stack ecosystem anchor.',
-     src:[[2,'NVIDIA (SEC 10-Q)','2025-Q3','Data Centre compute revenue $43.0B, up 56%. Blackwell Ultra leading architecture.','https://investor.nvidia.com/files/doc_financials/2026/q3/13e6981b-95ed-4aac-a602-ebc5865d0590.pdf',2,'Amazon (SEC 8-K)','2025-Q4','Trainium2 fully subscribed, 1.4M chips. Combined run rate over $10B.','https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000002/amzn-20251231xex991.htm'],[2,'Intel (SEC 8-K)','2025-Q3','Fab 52 fully operational. Intel 18A — most advanced logic wafers produced in the US.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000169/q325earningsrelease.htm',2,'TSMC','2025-03','Arizona site in volume production since late 2024.','https://pr.tsmc.com/english/news/3210'],[3,'247 Wall St/SEMI','2026-05','KLA metrology and inspection share 73.8% in 2025.','https://247wallst.com/technology-3/2026/05/04/kla-is-gaining-share-as-ai-chip-complexity-drives-up-yield-costs/',2,'KLA Investor Day','2026-03','KLA indispensable to advanced process control.','https://ir.kla.com/news-events/press-releases/detail/512/kla-hosts-investor-day-announces-7-billion-share'],[2,'NVIDIA Newsroom','2026-01','xAI Colossus: 100K GPUs, expanded to 555K at 2 GW.','https://nvidianews.nvidia.com/news/spectrum-x-ethernet-networking-xai-colossus',3,'Stanford HAI 2026','2026','Anthropic, xAI, Google, OpenAI all top tier on Arena Elo.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance'],[3,'Stanford HAI 2026','2026','Frontier models gained 30pp on Humanity\'s Last Exam.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance',3,'Artificial Analysis','2026-05','Multiple US models at global frontier across benchmarks.','https://artificialanalysis.ai'],[1,'US DOJ','2025-11','Prosecution for illegal GPU export to the PRC.','https://www.justice.gov/opa/pr/us-citizens-and-chinese-nationals-arrested-exporting-artificial-intelligence-technology',1,'US DOJ (Op. Gatekeeper)','2025-12','$160M in export-controlled GPUs seized. Guilty pleas.','https://www.justice.gov/opa/pr/us-authorities-shut-down-major-china-linked-ai-tech-smuggling-network'],[1,'Commerce Dept (CHIPS)','2025-01','CHIPS for America awarded over $33B of $36B proposed.','https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning',2,'Intel (SEC 8-K)','2025-08','Intel received $5.695B in CHIPS incentives.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086325000135/intc-20250827.htm']]},
-    {id:'CN',n:'China',s:6,d:'PAA',dims:[1,1,0,1,1,1,1],
-     con:[null,'DUV-only; no EUV access',null,'Ascend-based compute',null,null,null],
-     svd:'Equipment dependency does not collapse capability stack.',
-     src:[[3,'TechInsights','2024-10','Ascend 910B: DaVinci architecture, 32 AI cores, 256 TFLOPS FP16.','https://library.techinsights.com/hg-asset/23d95da6-7c04-4e9e-a82b-a6702a8757df',3,'SemiAnalysis','2025-04','384 Ascend 910C in all-to-all topology. Commercial deployment.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'TechInsights','2025-12','SMIC N+3 confirmed, scaled evolution of 7nm-class.','https://www.techinsights.com/blog/smic-n3-confirmed-kirin-9030-analysis-reveals-how-close-smic-5nm',3,"Tom's Hardware",'2024-11','SMIC N+1 fabrication, 7nm-class production node.','https://www.tomshardware.com/tech-industry/artificial-intelligence/huaweis-homegrown-ai-chip-examined-chinese-fab-smic-produced-ascend-910b-is-massively-different-from-the-tsmc-produced-ascend-910'],null,[2,'Alibaba (SEC 6-K)','2025-02','RMB 380B ($53B) in cloud/AI infrastructure over three years.','https://www.sec.gov/Archives/edgar/data/0001577552/000110465925016348/tm257405d1_6k.htm',3,'SemiAnalysis','2025-04','Frontier training demonstrated by DeepSeek V4-Pro, Kimi K2, Qwen3.','https://newsletter.semianalysis.com/p/huawei-ai-cloudmatrix-384-chinas-answer-to-nvidia-gb200-nvl72'],[3,'Stanford HAI 2026','2026','Alibaba (1,449 Elo) and DeepSeek (1,424) in top tier.','https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance',3,'LMArena','2026-05','Multiple Chinese models competitive with global frontier.','https://lmarena.ai'],[3,'Hogan Lovells','2024-12','Article 49: extraterritorial scope on dual-use items.','https://www.hoganlovells.com/en/publications/china-issues-the-regulations-on-the-export-control-of-dual-use-items',3,'White & Case','2025-10','MOFCOM exercised extraterritorial jurisdiction on REE controls.','https://www.whitecase.com/insight-alert/china-imposes-extraterritorial-jurisdiction-and-50-rule-export-controls-rare-earth'],[1,'SCIO/Xinhua (MIIT)','2026-01','6,000+ AI enterprises; core industry to exceed 1.2T yuan.','http://english.scio.gov.cn/pressroom/2026-01/22/content_118293752.html',3,'Reuters','2024-05','Big Fund III: RMB 344B ($47.5B), 19 state-backed investors.','https://www.reuters.com/technology/china-raises-47-bln-semiconductor-fund-boost-chip-industry-2024-05-27/']]},
-    {id:'JP',n:'Japan',s:4,d:'AIK',dims:[0,0,1,1,0,1,1],
-     con:[null,null,null,'GPU procurement via US ecosystem',null,null,null],
-     aik:{chokepoint_nature:'Front-end process tools and materials',key_entities:'TEL coater/developer (~90–100% EUV), Lasertec actinic mask inspection (100%), SCREEN single-wafer cleans, Shin-Etsu/JSR/TOK/SUMCO materials'},
-     svd:'D4 degrades under severance; not required for AIK.',
-     src:[null,null,[2,'TEL','2026','90% coater/developer share, ~100% for high-NA EUV.','https://www.tel.com/product/',2,'Lasertec','2026','World\'s first actinic EUV mask inspection. No competitor.','https://www.lasertec.co.jp/en/ir/individuals/creation.html'],[2,'SoftBank','2025-07','Exceeds 10,000 GPUs, delivering 13.7 ExaFLOPS.','https://www.softbank.jp/en/corp/news/press/sbkk/2025/20250723_01/',1,'METI','2025','Cloud Program under Economic Security Promotion Act.','https://www.meti.go.jp/english/policy/index_information_policy.html'],null,[3,'CSIS','2025-03','23 types of equipment added to FEFTA controls, July 2023.','https://www.csis.org/analysis/understanding-us-allies-current-legal-authority-implement-ai-and-semiconductor-export',3,'Chambers','2026','Catch-all Control strengthened. Effective October 2025.','https://chambers.com'],[3,'Japan Times','2025-12','AI budget quadrupled to ~\u00a51.23T ($7.9B).','https://www.japantimes.co.jp/business/2025/12/26/economy/ai-budget-support/',3,'Nikkei Asia','2026-04','Rapidus support: 2.35T yen total.','https://asia.nikkei.com/business/tech/semiconductors/japan-approves-additional-4bn-in-support-for-rapidus']]},
-    {id:'KR',n:'South Korea',s:4,d:'AIK',dims:[0,1,1,0,0,1,1],
-     con:[null,'Equipment dependency (ASML, TEL)',null,null,null,null,null],
-     aik:{chokepoint_nature:'Memory packaging, fabrication, and sovereign equipment monopolies',key_entities:'HPSP sole-source high-pressure annealing, Hanmi 71.2% TC bonder share, Samsung Foundry 2nm GAA HVM'},
-     svd:'D2 degrades but does not collapse.',
-     src:[null,[2,'Samsung Semiconductor','2026','3nm SF3 production, 2nm SF2 GAA on roadmap.','https://semiconductor.samsung.com/foundry/process-technology/',3,'TrendForce','2025-12','First 2nm GAA AP, mass production confirmed.','https://www.trendforce.com/news/2025/12/19/news-samsung-officially-unveils-exynos-2600-industry-first-2nm-gaa-ap-with-113-ai-performance-uplift/'],[3,'imec','2024-01','HPSP: world\'s first and only high-pressure annealing equipment.','https://www.imec-int.com/en/press/hpsp-expands-its-rd-capabilities-and-study-hpa-and-hpo',3,'TechInsights','2025','Hanmi 71.2% global TC bonder share.',null],null,null,[1,'CSET Georgetown','2026','AI Basic Act Art. 4(1): extraterritorial scope.','https://cset.georgetown.edu/wp-content/uploads/t0625_south_korea_ai_law_EN.pdf',3,'Cooley LLP','2026-01','Foreign providers above revenue/user thresholds must appoint domestic legal agent.','https://www.cooley.com/news/insight/2026/2026-01-27-south-koreas-ai-basic-act-overview-and-key-takeaways'],[1,'FSC','2025-09','AI Growth Fund expanded to 150T won.','https://fsc.go.kr/eng/pr010101/85267',1,'MOEF','2025-11','2026 AI budget: 10.1T won.','https://mpb.go.kr/web/main/file/download/uu/20251107224938_EABF4915-B9C5-4FA3-EDAA-C55AB77A7EA7']]},
-    {id:'NL',n:'Netherlands',s:3,d:'AIK',dims:[0,0,1,0,0,1,1],
-     con:[null,null,'Cymer subsidiary in San Diego',null,null,null,null],
-     aik:{chokepoint_nature:'Core lithography integration and advanced packaging',key_entities:'ASML 100% EUV monopoly, ASM International (ALD/epi), Besi (hybrid bonding)'},
-     svd:'Core ASML IP remains Dutch-controlled.',
-     src:[null,null,[2,'ASML (SEC 6-K)','2025-01','44 EUV systems, \u20ac28.3B net sales. Sole global supplier.','https://www.sec.gov/Archives/edgar/data/0000937966/000093796625000003/pressreleasequarterlyresul.htm',2,'Besi','2026-Q1','Hybrid bonding, 20 customers including TSMC.','https://www.besi.com/investors'],null,null,[1,'Staatsblad 2024, 261','2024','Strategic Goods Decree: semiconductor export controls.','https://zoek.officielebekendmakingen.nl/stb-2024-261.html',1,'Government.nl','2024-09','Expanded equipment export authorisation requirements.','https://www.government.nl/latest/news/2024/09/06/the-netherlands-expands-export-control-measure-advanced-semiconductor-manufacturing-equipment'],[1,'Government.nl','2024-03','Project Beethoven: \u20ac2.51B for Brainport Eindhoven.','https://www.government.nl/latest/news/2024/03/28/the-netherlands-to-invest-%E2%82%AC2.5-billion-to-strengthen-business-climate-for-chip-industry-in-brainport-eindhoven',1,'SURF','2025-10','AI Factory Groningen: \u20ac200M European funding.','https://www.surf.nl/en/news/netherlands-gets-ai-factory-european-funding-awarded']]},
-    {id:'EU',n:'European Union',s:4,d:'ACS',dims:[0,1,1,0,0,1,1],
-     con:[null,'Intel Fab 34 is US-owned','Cymer light source (US jurisdiction)',null,null,null,null],
-     svd:'D2 collapses on Intel withdrawal. US-ecosystem dependent.',
-     src:[null,[2,'Intel Newsroom','2023-09','First EUV HVM in Europe (Fab 34 Ireland).','https://newsroom.intel.com/manufacturing/new-fab-ireland-high-volume-production-intel-4-technology',2,'Intel (SEC 8-K)','2024-06','$18.4B invested in Fab 34.','https://www.sec.gov/Archives/edgar/data/0000050863/000005086324000103/a06042024form8-kex991.htm'],[2,'ASML (SEC 6-K)','2025-01','44 EUV systems, \u20ac28.3B. Sole global EUV supplier.','https://www.sec.gov/Archives/edgar/data/0000937966/000093796625000003/pressreleasequarterlyresul.htm',2,'Zeiss SMT','2026','100% market share for high-end AI chip lithography optics.','https://www.zeiss.com/semiconductor-manufacturing-technology/about-us.html'],null,null,[1,'EU AI Act (2024/1689)','2024','Art. 2(1)(c): extraterritorial scope.','https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',1,'European Commission','2025','Apple DMA €500M + Meta DMA €200M (23 Apr, ip_25_1085); X DSA €120M first-ever DSA decision (5 Dec, ip_25_2934).','https://ec.europa.eu/commission/presscorner/detail/en/ip_25_1085'],[1,'Council of EU (Reg. 2026/150)','2026-01','€4.12B committed for AI Gigafactories: ≤€1.9B Digital Europe + ≤€900M Horizon Europe + ≤€200M CEF-Digital.','https://www.consilium.europa.eu/en/press/press-releases/2026/01/16/artificial-intelligence-council-paves-the-way-for-the-creation-of-ai-gigafactories/',1,'EuroHPC JU','2025-09','JUPITER exascale operational Sep 2025; AI Factory programme hub live.','https://www.eurohpc-ju.europa.eu/ai-factories_en']]},
-    {id:'TW',n:'Taiwan',s:3,d:'ACS',dims:[0,1,1,0,0,0,1],
-     con:[null,'US equipment and EDA dependency',null,null,null,null,'Budget at risk (opposition block)'],
-     svd:'All MET dimensions coupled to US ecosystem.',
-     src:[null,[2,'TSMC','2024','3nm volume production at Fab 18.','https://pr.tsmc.com/english/news/2986',2,'TSMC / Focus Taiwan','2025-Q4','N2 GAA in volume production at Fab 22, Kaohsiung since Q4 2025. First TSMC departure from FinFET.','https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_2nm'],[3,'Taipei Times','2023-04','World\'s largest EUV pod supplier, 80% global share. TSMC sole supplier of EUV pods.','https://www.taipeitimes.com/News/biz/archives/2023/04/01/2003797091',2,'Gudeng Shareholder Letter FY2024','2024','High-NA EUV POD passed ASML certification. EUV series photomask carrier demand at new peaks.','https://www.gudeng.com/Page?itemid=16&mid=79'],null,null,null,[1,'NSTC','2025','National AI strategy programme.','https://ostp.nstc.gov.tw/PolicyContent.aspx?id=12',1,'Taipei Times','2024-11','NT$30B annual AI allocation confirmed; NSTC Minister quoted; 480 petaflops compute target.','https://www.taipeitimes.com/News/front/archives/2024/11/22/2003827297']]},
-    {id:'FR',n:'France',s:2,d:'Part',dims:[0,0,0,0,0,1,1],con:[],svd:null,
-     src:[null,null,null,null,null,[1,'EU AI Act','2024','Art. 2 extraterritorial scope. France as member state.','https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',1,'CNIL','2022-10','\u20ac20M fine against Clearview AI. \u20ac5.2M penalty May 2023.','https://www.cnil.fr/en/facial-recognition-20-million-euros-penalty-against-clearview-ai'],[1,'France 2030','2021','54B investment envelope incl. AI and semiconductor.','https://www.gouvernement.fr/france-2030',1,'Cour des comptes','2025-11','SNIA audit: Phase 1 \u20ac1.3B + Phase 2 \u20ac1.1B = \u20ac2.4B.','https://www.ccomptes.fr/fr/publications/la-strategie-nationale-pour-lintelligence-artificielle-consolider-les-succes-de-la']]},
-    {id:'DE',n:'Germany',s:2,d:'Part',dims:[0,0,1,0,0,1,0],
-     con:[null,null,'Zeiss/TRUMPF: subsystems within ASML system',null,null,null,null],svd:null,
-     src:[null,null,[2,'Zeiss SMT','2026','100% market share for EUV lithography optics.','https://www.zeiss.com/semiconductor-manufacturing-technology/about-us.html',2,'TRUMPF','2026','Sole source for EUV drive laser system.','https://www.trumpf.com/en_INT/products/lasers/euv-drive-laser/'],null,null,[1,'Bundesgesetzblatt','2024-07','21st AWV: AI and semiconductor added to export list.','https://www.recht.bund.de/bgbl/1/2024/243/VO',3,'Noerr LLP','2024-07','AI systems (4D1901b3) added to export controls.','https://www.noerr.com/en/insights/germany-expands-export-controls-on-emerging-technologies'],null]},
-    {id:'GB',n:'United Kingdom',s:1,d:'Part',dims:[0,0,0,0,0,0,1],con:[],svd:null,
-     src:[null,null,null,null,null,null,[1,'UK Gov','2025-07','Compute Roadmap: up to \u00a32B.','https://www.gov.uk/government/publications/uk-compute-roadmap/uk-compute-roadmap',1,'Hansard','2025-07','Technology Secretary confirmed \u00a32B in public compute.','https://hansard.parliament.uk/Commons/2025-07-21/debates/2507216000020/UKComputeRoadmap']]},
-    {id:'IN',n:'India',s:1,d:'Part',dims:[0,0,0,0,0,0,1],
-     con:[null,null,null,null,null,null,'Compute on foreign rails'],svd:null,
-     src:[null,null,null,null,null,null,[1,'PIB','2024','IndiaAI Mission: Rs 10,371.92 crore.','https://www.pib.gov.in/PressReleasePage.aspx?PRID=2012355',1,'PIB','2025','7 pillars; 10,000 GPUs; 12 indigenous models.','https://www.pib.gov.in/PressReleasePage.aspx?PRID=2097709']]},
-    {id:'IL',n:'Israel',s:1,d:'Part',dims:[0,0,1,0,0,0,0],
-     con:[null,null,'Inspection/metrology only (Nova, Camtek)',null,null,null,null],svd:null,
-     src:[null,null,[2,'Camtek (SEC 6-K)','2025-Q3','Tools of reference for HBM4. Revenue $495M.','https://www.sec.gov/Archives/edgar/data/0001109138/000117891325003712/zk2533966.htm',2,'Nova','2026-02','Revenue $880.6M, +31%. Record GAA/DRAM/packaging sales.','https://www.novami.com/investors/press-releases/nova-reports-fourth-quarter-and-record-full-year-2025-results/'],null,null,null,null]},
-    {id:'RU',n:'Russia',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]},
-    {id:'CA',n:'Canada',s:0,d:'Part',dims:[0,0,0,0,0,0,0],con:[],svd:null,src:[]}
-  ];
-  var ACTORS = SCP_FALLBACK_DATA;
+  var FALLBACK_ACTORS = '/actors-free.json';
+  var ACTORS = [];
+  var actorsState = 'loading';   /* loading | ready | failed */
 
   var DN =['AI Chip Design','Advanced Fabrication','Critical Equipment','AI Compute','Frontier Models','AI Regulation','Sovereign Investment'];
   var DS = ['Chip','Fab','Equip','Compute','Models','Reg','Invest'];
   var DC = ['hw','hw','hw','pl','pl','gv','gv'];
-  var DF = [2,5,8,3,2,8,10];
   var PC = {hw:'hw',pl:'pl',gv:'gv'};
   var BC = {PAA:'scp-badge-paa',AIK:'scp-badge-aik',ACS:'scp-badge-acs',Part:'scp-badge-part'};
   var BL = {PAA:'PAA',AIK:'AIK',ACS:'ACS',Part:'Part'};
@@ -11790,19 +11747,40 @@ function generateCCSection(eventId, showFullContent) {
   var rendered = false;
   var listenersAttached = false;
 
-  /* ---- Build pills ---- */
-  var ph = '';
-  DS.forEach(function(name, i) {
-    ph += '<span class="scp-pill ' + PC[DC[i]] + '" data-dim="' + i + '">';
-    ph += '<span class="scp-pill-dot"></span>' + name + ' <span class="scp-pill-ct">' + DF[i] + '</span>';
-    ph += '</span>';
-  });
-  pillsEl.innerHTML = ph;
+  /* ---- Dimension pills. Counts derived from ACTORS once loaded.
+     DF is the pre-load placeholder only — previously hardcoded at the
+     14-actor-era values (D7 showed 10 against a register value of 14).
+     paintPills() recomputes from live data on every applyActors() call. ---- */
+  var DF = [2,5,8,3,2,8,14];
+  function paintPills() {
+    var counts = DF;
+    if (ACTORS.length) {
+      counts = [0,0,0,0,0,0,0];
+      ACTORS.forEach(function(a) {
+        a.dims.forEach(function(d, i) { if (d) counts[i]++; });
+      });
+    }
+    var ph = '';
+    DS.forEach(function(name, i) {
+      ph += '<span class="scp-pill ' + PC[DC[i]] + '" data-dim="' + i + '">';
+      ph += '<span class="scp-pill-dot"></span>' + name + ' <span class="scp-pill-ct">' + counts[i] + '</span>';
+      ph += '</span>';
+    });
+    pillsEl.innerHTML = ph;
+  }
+  paintPills();
 
   /* ---- Build body ---- */
   function render() {
     if (rendered) return;
     rendered = true;
+
+    if (!ACTORS.length) {
+      bodyEl.innerHTML = (actorsState === 'failed')
+        ? '<div class="scp-src-lock">Actor data unavailable. Please try refreshing.</div>'
+        : '<div class="scp-src-lock">Loading actor profiles…</div>';
+      return;
+    }
 
     /* Rebuild groups from current ACTORS (refreshed on API load) */
     var groups = {PAA:[],AIK:[],ACS:[],Part:[]};
@@ -12036,13 +12014,14 @@ function generateCCSection(eventId, showFullContent) {
     });
   }
 
-  /* ---- Fetch actors from /api/actors, fall back to SCP_FALLBACK_DATA on error ---- */
+  /* ---- Fetch actors from /api/actors, fall back to the static free artefact ---- */
   function loadActorsData() {
     var apiBase = window.location.hostname === 'localhost'
       ? 'http://localhost:8787/api'
       : 'https://warmthengine.com/api';
     var pw = localStorage.getItem('weo-supporter-password') || null;
     var headers = pw ? { 'X-WEO-Password': pw } : {};
+
     fetch(apiBase + '/actors', { headers: headers, cache: pw ? 'no-store' : 'default' })
       .then(function(res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -12050,18 +12029,37 @@ function generateCCSection(eventId, showFullContent) {
       })
       .then(function(data) {
         if (!data.actors || !data.actors.length) throw new Error('empty response');
-        ACTORS = normalizeAPIActors(data);
-        console.log('[WEO] Actors loaded from API:', ACTORS.length, pw ? '(authenticated)' : '(public)');
-        var scpCountEl = document.getElementById('scpCount');
-        if (scpCountEl) scpCountEl.textContent = ACTORS.length;
-        rendered = false;
-        if (isOpen) render();
+        applyActors(data, 'API', pw);
       })
       .catch(function(err) {
-        console.warn('[WEO] Actors API failed, using static fallback:', err.message);
-        var scpCountElFb = document.getElementById('scpCount');
-        if (scpCountElFb) scpCountElFb.textContent = SCP_FALLBACK_DATA.length;
+        console.warn('[WEO] Actors API failed, trying static fallback:', err.message);
+        fetch(FALLBACK_ACTORS)
+          .then(function(res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function(data) {
+            if (!data.actors || !data.actors.length) throw new Error('empty fallback');
+            applyActors(data, 'fallback', null);
+          })
+          .catch(function(err2) {
+            console.error('[WEO] Actors fallback also failed:', err2.message);
+            actorsState = 'failed';
+            rendered = false;
+            if (isOpen) render();
+          });
       });
+  }
+
+  function applyActors(data, srcLabel, pw) {
+    ACTORS = normalizeAPIActors(data);
+    actorsState = 'ready';
+    console.log('[WEO] Actors loaded from ' + srcLabel + ':', ACTORS.length, pw ? '(authenticated)' : '(public)');
+    var scpCountEl = document.getElementById('scpCount');
+    if (scpCountEl) scpCountEl.textContent = ACTORS.length;
+    paintPills();
+    rendered = false;
+    if (isOpen) render();
   }
 
   /* ---- Open / Close ---- */
