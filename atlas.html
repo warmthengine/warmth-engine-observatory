@@ -5284,7 +5284,7 @@
         const weoTooltips = {
           tier: {
             title: 'Tier Classification',
-            body: '<strong>T1 (Cross-Bloc):</strong> Coordination with verified cross-bloc adoption or implementation by the principal AI actor from at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
+            body: '<strong>T1 (Cross-Bloc):</strong> Coordination with verified cross-bloc adoption or implementation by the principal AI actor of each of at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
           },
           confidence: {
             title: 'Source Confidence Rating',
@@ -5316,7 +5316,7 @@
           },
           bloc: {
             title: 'Bloc Classification',
-            body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Verified adoption or implementation by the principal AI actor from at least two distinct ecosystems. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
+            body: 'Classification per WEO Bloc Membership Register, based on demonstrated AI infrastructure coordination alignment applied at time of event verification. <strong>Western:</strong> Western Bloc nation(s). <strong>Eastern:</strong> Eastern Bloc nation(s). <strong>Cross-Bloc:</strong> Verified adoption or implementation by the principal AI actor of each of at least two distinct ecosystems. <strong>-Led:</strong> T2 fragmentation event led by named bloc.'
           },
           domain: {
             title: 'Domain Classification',
@@ -5344,7 +5344,7 @@
           },
           tierSection: {
             title: 'Tier Classification',
-            body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor from at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
+            body: 'Events are classified by coordination scale: <strong>T1 (Cross-Bloc)</strong> requires verified adoption by the principal AI actor of each of at least two distinct ecosystems. <strong>T2 (Between-Bloc)</strong> documents structural separation through restriction or parallel buildout. <strong>T3 (Intra-Bloc)</strong> captures coordination within a single bloc. The rationale below explains how this event was classified.'
           },
           // #216 item 9 — journey-panel section-header tooltips (design D).
           infraThread: {
@@ -5357,19 +5357,19 @@
           },
           // CC Type Tooltips (7 types)
           ccTypes: {
-            1: { title: 'Policy Cascade', body: 'A higher-authority event mandates, directs, or creates implementation requirements for a lower-level event. <strong>Direction:</strong> Parent → Child (hierarchical). <strong>Evidence:</strong> Child event explicitly cites parent as legal/policy basis. <strong>Min. Confidence:</strong> CC-V.' },
+            1: { title: 'Policy Cascade', body: 'A higher-authority event mandates, directs, or creates implementation requirements for a lower-level event. <strong>Direction:</strong> Parent → Child (hierarchical). <strong>Evidence:</strong> Child event cites parent as legal/policy basis, parent directive requiring implementation, or documented implementation relationship. <strong>Min. Confidence:</strong> CC-V or CC-E.' },
             2: { title: 'Joint Issuance', body: 'Multiple distinct entities publish a single unified document that constitutes one coordinated policy act. <strong>Direction:</strong> Bidirectional (co-equal parties). <strong>Evidence:</strong> Single document with multiple issuing authorities. <strong>Min. Confidence:</strong> CC-V.' },
             3: { title: 'Funding Flow', body: 'Event A provides financial resources that directly enable or support Event B. <strong>Direction:</strong> Funder → Recipient. <strong>Evidence:</strong> Budget allocation document specifying recipient (≥10% attribution threshold). <strong>Min. Confidence:</strong> CC-V.' },
             4: { title: 'Regulatory Enablement', body: 'Event A creates the legal, regulatory, or procedural basis that makes Event B possible. <strong>Direction:</strong> Enabler → Enabled. <strong>Evidence:</strong> Event B cites Event A as enabling authority. <strong>Min. Confidence:</strong> CC-V or CC-E.' },
-            5: { title: 'Response', body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies trigger event + timing within domain-specific window (§9.4.1). <strong>Min. Confidence:</strong> CC-E.' },
-            6: { title: 'Framework Family', body: 'Events are formally part of the same standards suite, regulatory family, or institutional framework. <strong>Direction:</strong> Bidirectional (sibling relationship). <strong>Evidence:</strong> Common numbering convention or explicit cross-reference in standards body documentation. <strong>Min. Confidence:</strong> CC-V.' },
-            7: { title: 'Parallel Policy', body: 'Similar events occur in different jurisdictions without formal coordination. <strong>Direction:</strong> Varies. <strong>Evidence:</strong> Substantive similarity in policy design, scope, or targets + temporal proximity. <strong>Min. Confidence:</strong> CC-A (analyst assessment).' }
+            5: { title: 'Response', body: 'Event B is a direct, deliberate reaction to Event A, taken with intent to counter, signal, or impose costs. <strong>Direction:</strong> Trigger → Response. <strong>Evidence:</strong> Official statement explicitly identifies the trigger event + timing within the applicable Response Band — calibrated to the response evidence type, up to 36 months. <strong>Min. Confidence:</strong> CC-E.' },
+            6: { title: 'Framework Family', body: 'Events are formally part of the same standards suite, regulatory family, or institutional framework. <strong>Direction:</strong> Bidirectional (siblings) or Parent → Member. <strong>Evidence:</strong> Common numbering convention, explicit cross-reference in standards body documentation, or a parent framework document naming both events as members. <strong>Min. Confidence:</strong> CC-V.' },
+            7: { title: 'Parallel Policy', body: 'Similar events occur in different jurisdictions without formal coordination. <strong>Direction:</strong> Varies. <strong>Evidence:</strong> Same policy mechanism with a documented shared characteristic (mandatory), plus at least two of: shared industry tag, comparable scope, temporal proximity. <strong>Confidence:</strong> CC-A (analytical) — the sole confidence level for this type.' }
           },
           // CC Confidence Level Tooltips
           ccConfidence: {
             'CC-V': { title: 'CC-V: Verified', body: 'Official document explicitly establishes the connection between events. <strong>Source requirement:</strong> Primary source directly links both events. This is the highest confidence level for Coordination Connections.' },
             'CC-E': { title: 'CC-E: Established', body: 'Authoritative statement documents the connection between events. <strong>Source requirement:</strong> 1 Primary + 2 Corroborating sources establish the link. Used when documentary evidence is strong but not from a single definitive source.' },
-            'CC-A': { title: 'CC-A: Analytical', body: 'Analyst assessment based on observable similarity between events. <strong>Evidence:</strong> Primary sources for each event + documented 4-criteria assessment (mechanism, target, scope, timing) with ≥3/4 threshold. Reserved for Parallel Policy connections where formal coordination documentation doesn\'t exist.' }
+            'CC-A': { title: 'CC-A: Analytical', body: 'Analyst assessment based on observable similarity between events. <strong>Evidence:</strong> Primary sources for each event + documented 4-criteria assessment (mechanism, industry, scope, timing) — mechanism similarity is mandatory, with at least 3 of 4 met overall. Reserved for Parallel Policy connections, where formal coordination documentation doesn\'t exist by definition.' }
           }
         };
 
