@@ -3370,6 +3370,7 @@
         </div>
 
         <div class="filters">
+            <div class="filter-group"><span class="filter-label">Tier</span><select class="filter-select" id="filter-tier"><option value="all">All Tiers</option><option value="1">T1 — Cross-Bloc</option><option value="2">T2 — Between-Bloc</option><option value="3">T3 — Intra-Bloc</option></select></div>
             <div class="filter-group"><span class="filter-label">Bloc</span>
                 <select class="filter-select" id="filter-bloc"><option value="all">All Blocs</option><option value="Western">Western</option><option value="Eastern">Eastern</option><option value="Cross-Bloc">Cross-Bloc</option><option value="Western-Led">Western-Led</option><option value="Eastern-Led">Eastern-Led</option></select>
             </div>
@@ -5066,12 +5067,14 @@ const renderTable = () => {
 };
 
 const applyFilters = () => {
+    const tier = document.getElementById('filter-tier').value;
     const bloc = document.getElementById('filter-bloc').value;
     const domain = document.getElementById('filter-domain').value;
     const type = document.getElementById('filter-type').value;
     const search = document.getElementById('search-input').value.toLowerCase();
     const entFilter = document.getElementById('filter-ent').value;
     filteredEvents = freeEvents.filter(e => {
+        if (tier!=='all' && String(e.tier)!==tier) return false;
         if (bloc!=='all' && e.bloc!==bloc) return false;
         if (domain!=='all' && e.domain!==domain) return false;
         if (type!=='all' && e.event_type!==type) return false;
@@ -5100,7 +5103,7 @@ const applyFilters = () => {
             el.className = 'empty-state';
             el.innerHTML = '<div class="empty-state-icon">\u2205</div>' +
                 '<div class="empty-state-title">No events match these filters</div>' +
-                '<div class="empty-state-hint">Try adjusting your tier, domain, or bloc filters</div>';
+                '<div class="empty-state-hint">Try adjusting your tier, bloc, type, domain, industry, or ENT filters</div>';
             var tableScroll = document.querySelector('.events-table-scroll') || document.querySelector('.table-scroll-container');
             if (tableScroll) tableScroll.parentNode.insertBefore(el, tableScroll.nextSibling);
             emptyState = el;
@@ -6004,7 +6007,7 @@ const closeModal = () => {
         setTimeout(updateTableScrollIndicators, 150);
     }
     
-    ['filter-bloc','filter-domain','filter-type','filter-ent'].forEach(id => 
+    ['filter-tier','filter-bloc','filter-domain','filter-type','filter-ent'].forEach(id =>
         document.getElementById(id).addEventListener('change', applyFilters)
     );
     document.getElementById('search-input').addEventListener('input', applyFilters);
