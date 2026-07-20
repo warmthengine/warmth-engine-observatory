@@ -729,6 +729,9 @@
                 <span class="meta-sep">·</span>
                 <a href="https://zenodo.org/doi/10.5281/zenodo.18427582" target="_blank" rel="noopener" class="version-link">V1.4 and earlier →</a>
             </div>
+            <div class="weo-errata-notice" style="margin-top:var(--weo-space-md);padding:var(--weo-space-sm) var(--weo-space-md);border-left:3px solid var(--weo-accent-primary);background:var(--weo-surface-raised);border-radius:var(--weo-radius-sm);font-size:0.85rem;line-height:1.45;color:var(--weo-text-secondary);">
+                V1.5 (DOI <a href="https://doi.org/10.5281/zenodo.21278281" target="_blank" rel="noopener">10.5281/zenodo.21278281</a>) — errata ER-001–ER-017 applied; last updated 21 July 2026. Errata: <a href="/research/methodology/errata/">/research/methodology/errata/</a>
+            </div>
         </header>
 
         <div class="weo-pub-layout">
@@ -1164,8 +1167,10 @@ creation requires some novel calibration.</p>
 review</li>
 <li>User feedback identifies practical improvements</li>
 </ol>
-<p>All methodology components include explicit confidence levels and
-validation commitments. Category Creator elements are flagged for
+<p>All methodology components carry an explicit confidence categorisation
+and validation commitments; Category Creator and Standard Practice
+components carry no confidence band by convention (§2.2). Category
+Creator elements are flagged for
 priority review as the evidence base matures. Version history and
 material changes are documented in methodology version notes.</p>
 <hr />
@@ -3856,9 +3861,10 @@ application. The 65% minimum confidence threshold (<em>Section 2.3</em>)
 is met.</p>
 <p><strong>Precedent Sources:</strong> - Bloomberg/Refinitiv deal
 tracking methodology (via §3.13) - WEO processing corpus: 17 corporate
-model events, 5 processing cycles (January–April 2026) - CC Type 7
-corporate product release exclusion (<em>Manual Section 9.4.3</em>;
-<em>Rationale §9.5.1</em>) — establishes precedent for
+model events, 5 processing cycles (January–April 2026) - CC corporate
+product release scope limitation — product releases outside Coordination
+Connection assessment across all seven CC types (<em>Manual Section
+9.1.8</em>; <em>Rationale §9.5.1</em>) — establishes precedent for
 event-type-specific treatment of corporate product releases within the
 existing methodology</p>
 <hr />
@@ -5047,7 +5053,7 @@ distinct scales of coordination dynamics:</p>
 <tr>
 <td><strong>T1</strong></td>
 <td>Cross-bloc (verified adoption or implementation by the principal AI
-actor from at least two distinct ecosystems)</td>
+actor of each of at least two distinct ecosystems)</td>
 <td>Multilateral trade/security analysis</td>
 </tr>
 <tr>
@@ -5066,7 +5072,7 @@ or regulatory barriers)</td>
 <h3 id="t1-cross-bloc-criteria">T1 Cross-Bloc Criteria</h3>
 <p><strong>Category:</strong> CATEGORY CREATOR (MEDIUM-HIGH 60–75%)</p>
 <p><strong>Requires ALL THREE:</strong> 1. Cross-bloc participation (the
-principal AI actor from at least two distinct ecosystems) 2.
+principal AI actor of each of at least two distinct ecosystems) 2.
 Binding/implemented status 3. Material integration</p>
 <p><strong>Operational Definitions:</strong></p>
 <table>
@@ -5086,7 +5092,7 @@ Binding/implemented status 3. Material integration</p>
 <tr>
 <td>Cross-bloc participation</td>
 <td>Verified cross-bloc adoption or implementation by the principal AI
-actor from at least two distinct ecosystems</td>
+actor of each of at least two distinct ecosystems</td>
 <td>National standards adoption, operational certification, or
 equivalent implementation evidence</td>
 </tr>
@@ -7079,7 +7085,7 @@ Qualification</h2>
 Dimension Qualification)</p>
 <p><strong>Category:</strong> ADAPTED (MEDIUM-HIGH 60–75%)</p>
 <p><strong>Rationale:</strong> WEO’s event verification and coordination
-connection standards (1 primary + 2 corroborating) are grounded in
+connection standards (2+ primary, or 1 primary + 2 corroborating) are grounded in
 journalism and research best practice (Reuters triangulation norm, AP
 verification standards). The dimension qualification evidence standard
 required separate research because structural capability claims are
@@ -8269,7 +8275,8 @@ environmental risk frameworks (ESRS double materiality). The ~35% novel
 element is the specific five-type taxonomy design.</p>
 <p><strong>Validation Commitment:</strong> Review distribution at
 150-event milestone. Reassess if any type falls below 2% of tagged
-events, ENT-1 exceeds 60%, or ENT-5 remains at zero beyond 2028.</p>
+events, ENT-1 exceeds 60%, or the ENT-5 count remains below the Manual
+§8.5 provisionality threshold (10) beyond 2028.</p>
 <hr />
 <h2 id="rationale-8-2">8.2 ENT as Analytical Enrichment Layer (Not
 Classification)</h2>
@@ -8480,10 +8487,10 @@ Research Group, Uptime Institute) converge on 100MW as the hyperscale
 classification boundary.</p>
 <p>The threshold captures a qualitative shift: facilities exceeding
 100MW typically interconnect directly to high-voltage transmission grid
-(115–230kV), a structural marker of environmental significance. Two
-alternative energy qualifiers (documented grid impact assessment,
-documented power purchase agreement) provide context-sensitive
-qualification below 100MW.</p>
+(115–230kV), a structural marker of environmental significance. A
+documented grid impact assessment provides context-sensitive
+qualification below 100MW; the power purchase agreement route carries its
+own ≥100MW dedicated-capacity floor (Manual §8.3.1).</p>
 <p>The ≥100MW energy threshold prevents trivial universality — without
 it, virtually every physical AI infrastructure event would qualify via
 the energy vector. The water, land, and minerals vectors do not need
@@ -9102,9 +9109,11 @@ infrastructure rather than deploying AI FOR environmental purposes.</li>
 ENT-2.</strong> Every broad ENT-5 event would also receive ENT-2 (since
 all events with environmental governance provisions also contain
 environmental language).</li>
-<li><strong>Medium scope</strong> produces the analytically productive
-~10:1 ENT-1/ENT-5 ratio quantifying the governance gap whilst
-acknowledging that governance response has begun.</li>
+<li><strong>Medium scope</strong> yields the corpus ratio between
+documented environmental resource demand (ENT-1) and documented
+environmental governance (ENT-5) — the Warmth Engine Ratio (Manual
+§8.5). The ratio is provisional while the ENT-5 count is below 10, and
+the scope acknowledges that governance response has begun.</li>
 </ul>
 <p><strong>Evidence Chain:</strong></p>
 <table>
@@ -9202,9 +9211,10 @@ identifies binding requirements across diverse governance architectures
 (EU statutory, Chinese administrative approval, Japanese benchmark,
 Singaporean capacity-gating, cross-cutting environmental
 legislation).</p>
-<p><strong>Validation Commitment:</strong> If ENT-5 remains at zero
-beyond 2028 despite documented regulatory maturation, reassess medium
-scope. Track regulatory pipeline: EU Data Centre Energy Efficiency
+<p><strong>Validation Commitment:</strong> If the ENT-5 count remains
+below the Manual §8.5 provisionality threshold (10) beyond 2028 despite
+documented regulatory maturation, reassess medium scope. Track
+regulatory pipeline: EU Data Centre Energy Efficiency
 Package, Japan Energy Saving Act PUE mandate (post-2029), Singapore
 Digital Infrastructure Act.</p>
 <p><strong>Category:</strong> STANDARD PRACTICE</p>
@@ -9781,7 +9791,7 @@ clause’s strategic-autonomy exception.</p>
 <tr>
 <td><strong>Type 1</strong></td>
 <td>Policy Cascade</td>
-<td>Event B cites Event A as legal/policy basis</td>
+<td>Higher-authority event mandates, directs, or creates implementation requirements (any one of three evidence routes suffices: citation, directive, or documented implementation)</td>
 <td>Chinese 1+N Framework, CSET policy analysis</td>
 </tr>
 <tr>
@@ -9817,8 +9827,7 @@ clause’s strategic-autonomy exception.</p>
 <tr>
 <td><strong>Type 7</strong></td>
 <td>Parallel Policy</td>
-<td>Substantive similarity without documented linkage (≥3/4
-criteria)</td>
+<td>Substantive similarity without documented linkage (Criterion 1 mechanism gate mandatory; total ≥3/4 criteria)</td>
 <td>Shipan &amp; Volden (2008), Gilardi &amp; Wasserfallen (2019)</td>
 </tr>
 </tbody>
@@ -9891,24 +9900,29 @@ Regulations</td>
 </table>
 <p><strong>Decision Rules:</strong></p>
 <ol type="1">
-<li><p><strong>≥2 AL difference</strong> → Policy Cascade</p>
+<li><p><strong>Language character governs:</strong> Where the source
+instrument directs, mandates, or requires implementation → Policy
+Cascade. Where it enables, authorises, appropriates, or creates
+permissions exercised by the target → Regulatory Enablement. Language
+character governs regardless of Authority Level difference.</p>
 <ul>
 <li>Example: Primary legislation (AL-3) → Agency implementation rule
-(AL-5)</li>
+(AL-5) = Policy Cascade where the legislation mandates; Regulatory
+Enablement where the legislation appropriates</li>
 </ul></li>
-<li><p><strong>1 AL difference</strong> → Examine language</p>
-<ul>
-<li>Mandatory language (“pursuant to,” “implementing,” 根据, 落实) →
-Policy Cascade</li>
-<li>Permissive language (“authorised under,” “enabled by,” 依照) →
-Regulatory Enablement</li>
-</ul></li>
-<li><p><strong>Same Level</strong> → Default to Regulatory Enablement
+<li><p><strong>Adjacent Levels (1 AL difference):</strong> Examine
+language — mandatory implementation language (“pursuant to,”
+“implementing,” 落实) → Policy Cascade; permissive language (“authorised
+under,” “enabled by,” 依照) → Regulatory Enablement</p></li>
+<li><p><strong>Same Level:</strong> Default to Regulatory Enablement
 unless explicit hierarchical language present</p></li>
-<li><p><strong>Cross-jurisdictional</strong> → International agreements
+<li><p><strong>Cross-Jurisdictional:</strong> International agreements
 (AL-1) creating national implementation (AL-3 to AL-5) = Policy
 Cascade</p></li>
 </ol>
+<p>根据 (gēnjù) and 依照 (yīzhào) are context-dependent between Policy
+Cascade and Regulatory Enablement — see Manual §9.2.1 (Type 1 linguistic
+markers) and the §9.4.1 根据-chain temporal accommodation.</p>
 <p><strong>Chinese Framework Equivalent:</strong></p>
 <table>
 <thead>
@@ -9943,10 +9957,17 @@ Cascade</p></li>
 </table>
 <p><strong>Document Type Hierarchy:</strong> 法律 (Law) &gt; 法规
 (Regulation) &gt; 规章 (Rule) &gt; 通知 (Notice) &gt; 意见 (Opinion)</p>
-<p><strong>≥2 AL Threshold Rationale:</strong> Clear hierarchy (2+ AL
-difference) provides unambiguous Policy Cascade classification. Adjacent
-ALs require linguistic marker analysis because hierarchy alone is
-insufficient to distinguish mandatory from permissive relationships.</p>
+<p><strong>Language-Character Rationale:</strong> Obligation character
+resides in the source instrument’s operative language, not in the
+Authority Level relationship. An instrument two or more levels above its
+target may either require implementation (Policy Cascade) or create
+authorities, pathways, and funding the target chooses to exercise
+(Regulatory Enablement); appropriating statutes are the canonical case.
+Language character therefore serves as the primary discriminator.
+Authority Levels structure the adjacent-level and same-level tests where
+source language is indeterminate. Adjacent ALs require linguistic marker
+analysis because hierarchy alone is insufficient to distinguish mandatory
+from permissive relationships.</p>
 <h3 id="type-6-framework-family-evidence-pathway-grounding">Type 6:
 Framework Family — Evidence Pathway Grounding</h3>
 <p><strong>Manual Section:</strong> 9.2.1</p>
@@ -11201,7 +11222,7 @@ sources):</strong></p>
 <td>根据</td>
 <td>gēnjù</td>
 <td>According to / Based on</td>
-<td>Policy Cascade</td>
+<td>Context-dependent — Policy Cascade or Regulatory Enablement (Manual §9.2.1 Note)</td>
 </tr>
 <tr>
 <td>落实</td>
@@ -11639,7 +11660,7 @@ diffusion.” <em>American Journal of Political Science</em>, 52(4),
 840-857.</li>
 <li>Mallinson, D. J. (2021). “Policy innovation adoption across the
 diffusion life course.” <em>Policy Studies Journal</em>, 49(2),
-335-358.</li>
+335-358. DOI: 10.1111/psj.12406.</li>
 </ul>
 <p><strong>Validation Commitment:</strong> The 100-event milestone
 commitment is fulfilled by the corpus audit (June 2026, 154 CCs across
