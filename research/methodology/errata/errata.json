@@ -1,0 +1,192 @@
+{
+  "schema": "weo-methodology-errata",
+  "methodologyVersion": "V1.5",
+  "batch": "W4 — V1.5 errata batch (ER-001–ER-017)",
+  "dateApplied": "2026-07-21",
+  "register": "WEO Methodology Errata Register — V1.5 publications",
+  "note": "Corrections to expression, not changes to methodology. The Manual's substantive provisions govern throughout.",
+  "documents": {
+    "manual": {
+      "title": "WEO Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "url": "https://warmthengine.com/research/methodology/manual/"
+    },
+    "rationale": {
+      "title": "WEO Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "url": "https://warmthengine.com/research/methodology/rationale/"
+    }
+  },
+  "errata": [
+    {
+      "id": "ER-001",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "§9.8.1 Connection Type Quick Reference — Decision Tree",
+      "nature": "Internal inconsistency (V1.5 conversion omission)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Policy Cascade / Regulatory Enablement branch is rebuilt to the §9.2.1 language-character test, and the unconditional \"(CC-V)\" labels are replaced with a documentary-character confidence note (CC-V / CC-E)."
+    },
+    {
+      "id": "ER-002",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§9.2 Type 1 — Authority Hierarchy grounding",
+      "nature": "Internal inconsistency across the publication pair (V1.5 conversion omission)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Decision Rules block is replaced with the V1.5 Manual §9.2.1 rules, the \"≥2 AL Threshold Rationale\" is recast as the Language-Character Rationale, and 根据 is removed from the mandatory-marker list with a context-dependency note added."
+    },
+    {
+      "id": "ER-003",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§9.4.3 CJK marker reference table",
+      "nature": "V1.5 conversion escape (superseded flat mapping)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The 根据 marker row is remapped from \"Policy Cascade\" to context-dependent between Policy Cascade and Regulatory Enablement (Manual §9.2.1 Note)."
+    },
+    {
+      "id": "ER-004",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§5.1 T1 derivation (three lines)",
+      "nature": "V1.5 conversion escape (propagation miss)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The superseded \"from at least two distinct ecosystems\" construction is corrected to \"of each of at least two distinct ecosystems\" at all three lines."
+    },
+    {
+      "id": "ER-005",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "§5.3",
+      "nature": "V1.5 conversion escape (conversion miss)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The same T1 \"from\" → \"of each of\" fix: the sentence is recast to \"requiring engagement by the principal AI actor of each of at least two distinct ecosystems\"."
+    },
+    {
+      "id": "ER-006",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§8.9 and §8.1",
+      "nature": "V1.5 conversion escape (neutral-WER reframe not propagated)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The stale ~10:1 governance-gap figure is replaced with the neutral corpus-ratio (Warmth Engine Ratio) expression, and two zero-baseline reassessment triggers are rebased to the Manual §8.5 provisionality threshold (ENT-5 count below 10)."
+    },
+    {
+      "id": "ER-007",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§8.5",
+      "nature": "V1.5 conversion escape (PPA floor not propagated)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The below-100MW claim is corrected: a grid impact assessment qualifies below 100MW, while the power purchase agreement route carries its own ≥100MW dedicated-capacity floor (Manual §8.3.1)."
+    },
+    {
+      "id": "ER-008",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§5.4.12",
+      "nature": "V1.5 conversion escape",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The evidence standard is corrected from a single disjunct to \"2+ primary, or 1 primary + 2 corroborating\"."
+    },
+    {
+      "id": "ER-009",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§9.2 overview table (Type 1 and Type 7 rows)",
+      "nature": "V1.5 conversion escape (Criterion 1 gate not reflected)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Type 1 cell is expanded to the three evidence routes (citation, directive, or documented implementation), and the Type 7 cell notes the mandatory Criterion 1 mechanism gate."
+    },
+    {
+      "id": "ER-010",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§3.13.1 precedent bullet",
+      "nature": "V1.5 conversion escape",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Type-7-only framing is corrected to the all-seven-CC-types scope limitation, with the cross-reference fixed to Manual §9.1.8."
+    },
+    {
+      "id": "ER-011",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "Chapter 3 Summary",
+      "nature": "V1.5 conversion escape (aspirational form not propagated)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The declarative financial-indices claim is corrected to the aspirational form: WEO \"aims to meet\" the verification rigour of major financial indices."
+    },
+    {
+      "id": "ER-012",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "Unified Index (C section)",
+      "nature": "Index omission",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "A \"Corporate Product Release Scope Limitation\" index row is added (Manual §9.1.8 / Rationale §9.5.1)."
+    },
+    {
+      "id": "ER-013",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "§9.2.1 framing sentences",
+      "nature": "Framing lag (contradicts Rule 1 in the same section)",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Decision Principle is recast to language-primacy with Authority Levels in the supporting role, and the trailing \"when distinguishing…\" clause is dropped."
+    },
+    {
+      "id": "ER-014",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "§3.6 Corporate event-type gloss",
+      "nature": "Framing lag",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The Corporate gloss is corrected to \"Private-sector entity action (unilateral or coordinated): disclosures, partnerships, market structure events\"."
+    },
+    {
+      "id": "ER-015",
+      "document": "Methodology Manual V1.5",
+      "doi": "10.5281/zenodo.21278280",
+      "section": "§3.15",
+      "nature": "Framing lag",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The uniform 6-month presupposition is qualified: \"6 months; 60 days for verified product releases under §3.9.2\"."
+    },
+    {
+      "id": "ER-016",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§2.5",
+      "nature": "Framing lag",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The universal confidence-levels claim is corrected: Category Creator and Standard Practice components carry no confidence band by convention (§2.2)."
+    },
+    {
+      "id": "ER-017",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "References (third Mallinson (2021) instance)",
+      "nature": "Citation completeness",
+      "dateIdentified": "2026-07-20",
+      "dateApplied": "2026-07-21",
+      "summary": "The DOI 10.1111/psj.12406 is appended to the third Mallinson (2021) citation, matching the two sibling instances."
+    }
+  ]
+}

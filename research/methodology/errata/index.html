@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
+    <meta property="og:image" content="https://warmthengine.com/og-image.png">
+    <link rel="canonical" href="https://warmthengine.com/research/methodology/errata/">
+    <meta property="og:url" content="https://warmthengine.com/research/methodology/errata/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="weo-version" content="1.4.0">
+    <title>WEO Methodology Errata — Warmth Engine Observatory</title>
+    <meta name="description" content="Errata and corrections to the WEO Methodology Manual and Rationale (V1.5). Corrections to expression, not changes to methodology — each entry aligns the published text with the methodology's own governing provision.">
+    <meta name="keywords" content="errata; corrections; methodology; WEO; coordination intelligence; version management">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="WEO Methodology Errata — Warmth Engine Observatory">
+    <meta property="og:description" content="Errata and corrections to the WEO Methodology Manual and Rationale (V1.5). Corrections to expression, not changes to methodology.">
+    <meta property="og:type" content="article">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WEO Methodology Errata — Warmth Engine Observatory">
+    <meta name="twitter:description" content="Errata and corrections to the WEO Methodology Manual and Rationale (V1.5). Corrections to expression, not changes to methodology.">
+    <meta name="twitter:image" content="https://warmthengine.com/og-image.png">
+
+    <!-- Structured Data — Methodology Errata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "WEO Methodology Errata",
+      "description": "Errata and corrections to the Warmth Engine Observatory Methodology Manual and Rationale (V1.5). These are corrections to expression, not changes to methodology: each entry aligns the published text with the methodology's own governing provision.",
+      "disambiguatingDescription": "A platform systematically tracking AI infrastructure coordination dynamics across geopolitical blocs. Not related to AI agent orchestration, enterprise workflow automation, autonomous task execution, cloud orchestration, DevOps automation, multi-agent workflow management, compute resource scheduling, thermal energy, Stirling engines, heat engines, or physical warmth/cooling systems.",
+      "url": "https://warmthengine.com/research/methodology/errata/",
+      "version": "V1.5",
+      "datePublished": "2026-07-21",
+      "inLanguage": "en-GB",
+      "author": {
+        "@type": "Person",
+        "name": "Warmth Engine",
+        "url": "https://warmthengine.com",
+        "email": "warmthengine@proton.me"
+      },
+      "publisher": {
+        "@type": "ResearchOrganization",
+        "name": "Warmth Engine Observatory",
+        "url": "https://warmthengine.com"
+      },
+      "isPartOf": {
+        "@type": "ScholarlyArticle",
+        "name": "Warmth Engine Observatory Methodology Manual",
+        "sameAs": "https://doi.org/10.5281/zenodo.18427565"
+      },
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://warmthengine.com/research/methodology/errata/errata.json"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #94A3B8;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-bloc-cross: #2DD4BF;
+            --weo-status-positive: #22C55E;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
+        button:focus-visible, a:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: 2px; }
+
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
+        }
+
+        /* Navigation */
+        .weo-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--weo-space-md) 0;
+            margin-bottom: var(--weo-space-xl);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+        .weo-nav-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-sm);
+            text-decoration: none;
+            color: var(--weo-text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-brand:hover { color: #2DD4BF; }
+        .weo-nav-logo {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--weo-font-mono);
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #2DD4BF;
+        }
+        .weo-nav-links {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-xs);
+        }
+        .weo-nav-links a {
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            color: var(--weo-text-tertiary);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-links a:hover { color: var(--weo-text-primary); background: rgba(59, 130, 246, 0.1); }
+        .weo-nav-links a.active { color: #2DD4BF; background: rgba(45, 212, 191, 0.1); }
+        .weo-nav-toggle {
+            display: none;
+            width: 32px;
+            height: 32px;
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .weo-nav-toggle span { display: block; width: 16px; height: 2px; background: var(--weo-text-tertiary); border-radius: 1px; transition: all var(--weo-duration-normal) var(--weo-ease-out); }
+        .weo-nav-toggle:hover { background: rgba(59, 130, 246, 0.2); border-color: #60A5FA; }
+        .weo-nav-toggle:hover span { background: var(--weo-text-primary); }
+        @media (max-width: 767px) {
+            .weo-nav { position: relative; }
+            .weo-nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.97);
+                border: 1px solid rgba(96, 165, 250, 0.2);
+                border-top: 2px solid rgba(96, 165, 250, 0.8);
+                border-radius: var(--weo-radius-md);
+                padding: var(--weo-space-sm);
+                margin-top: var(--weo-space-sm);
+                z-index: 100;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+            .weo-nav-links.open { display: flex; }
+            .weo-nav-links a { width: 100%; padding: var(--weo-space-sm) var(--weo-space-md); }
+            .weo-nav-toggle { display: flex; min-width: 44px; min-height: 44px; }
+        }
+
+        /* Page header */
+        .reg-header {
+            margin-bottom: var(--weo-space-xl);
+            padding: 1.75rem 2rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        .reg-pathway-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-family: var(--weo-font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2DD4BF;
+            background: rgba(45, 212, 191, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: var(--weo-radius-sm);
+            padding: 0.2rem 0.6rem;
+            margin-bottom: 0.875rem;
+        }
+
+        .reg-title {
+            font-size: 1.625rem;
+            font-weight: 700;
+            color: var(--weo-text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.625rem;
+            line-height: 1.25;
+        }
+
+        .reg-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem 0.75rem;
+            font-size: 0.8125rem;
+            color: var(--weo-text-tertiary);
+            margin-bottom: 1.125rem;
+        }
+
+        .reg-meta a { color: #60a5fa; text-decoration: none; }
+        .reg-meta a:hover { text-decoration: underline; }
+
+        .meta-sep { color: var(--weo-text-muted); }
+
+        .reg-intro {
+            font-size: 0.9375rem;
+            color: var(--weo-text-secondary);
+            line-height: 1.65;
+            border-top: 1px solid var(--weo-border-primary);
+            padding-top: 1rem;
+        }
+
+        .reg-intro + .reg-intro { border-top: none; padding-top: 0.75rem; }
+
+        .reg-intro strong { color: var(--weo-text-primary); }
+
+        .reg-intro a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .reg-intro a:hover { text-decoration: underline; }
+
+        /* Register table */
+        .reg-table-wrap {
+            overflow-x: auto;
+            border-radius: var(--weo-radius-lg);
+            border: 1px solid var(--weo-border-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            margin-bottom: var(--weo-space-xl);
+        }
+
+        .reg-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .reg-table thead {
+            background: var(--weo-surface-raised);
+        }
+
+        .reg-table th {
+            padding: 0.75rem 1rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--weo-text-muted);
+            text-align: left;
+            border-bottom: 1px solid var(--weo-border-primary);
+            white-space: nowrap;
+        }
+
+        .reg-table th:first-child { border-radius: var(--weo-radius-lg) 0 0 0; }
+        .reg-table th:last-child { border-radius: 0 var(--weo-radius-lg) 0 0; }
+
+        .reg-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        .reg-table tr:last-child td { border-bottom: none; }
+
+        .reg-table tbody tr:nth-child(even) td,
+        .reg-table tbody tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.018);
+        }
+
+        .reg-table tbody tr:hover td {
+            background: rgba(45, 212, 191, 0.04);
+        }
+
+        .er-id {
+            font-family: var(--weo-font-mono);
+            font-weight: 600;
+            color: var(--weo-text-primary);
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .doc-pill {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--weo-radius-sm);
+            white-space: nowrap;
+        }
+        .doc-pill.manual { color: #93C5FD; background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.25); }
+        .doc-pill.rationale { color: #5EEAD4; background: rgba(45, 212, 191, 0.1); border: 1px solid rgba(45, 212, 191, 0.25); }
+
+        .er-section { color: var(--weo-text-secondary); font-size: 0.85rem; white-space: nowrap; }
+        .er-nature { color: var(--weo-text-tertiary); font-size: 0.82rem; }
+        .er-summary { color: var(--weo-text-secondary); font-size: 0.875rem; min-width: 22rem; }
+        .er-date { color: var(--weo-text-tertiary); font-size: 0.8125rem; font-family: var(--weo-font-mono); white-space: nowrap; }
+
+        /* Maintenance note */
+        .reg-maintenance {
+            padding: 1.25rem 1.5rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-left: 3px solid var(--weo-border-subtle);
+            border-radius: var(--weo-radius-md);
+            margin-bottom: var(--weo-space-xl);
+        }
+
+        .reg-maintenance-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--weo-text-muted);
+            margin-bottom: 0.625rem;
+        }
+
+        .reg-maintenance p {
+            font-size: 0.875rem;
+            color: var(--weo-text-tertiary);
+            line-height: 1.6;
+        }
+        .reg-maintenance p + p { margin-top: 0.625rem; }
+        .reg-maintenance a { color: #60a5fa; text-decoration: none; }
+        .reg-maintenance a:hover { text-decoration: underline; }
+
+        /* Manual reference links */
+        .reg-refs { display: flex; flex-wrap: wrap; gap: var(--weo-space-sm); margin-bottom: var(--weo-space-md); }
+        .reg-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            color: var(--weo-text-muted);
+            text-decoration: none;
+            padding: 0.3rem 0.75rem;
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .reg-ref:hover { color: #60a5fa; border-color: #60a5fa; }
+
+        /* Footer */
+        .page-footer {
+            margin-top: var(--weo-space-sm);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
+            text-align: left;
+        }
+        .footer-text { font-size: 0.8125rem; color: var(--weo-text-muted); margin-bottom: 0.5rem; }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #60a5fa; }
+
+        /* Back to top */
+        .weo-back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
+            z-index: 100;
+            touch-action: manipulation;
+        }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
+        @media (max-width: 768px) {
+            .weo-back-to-top { width: 36px; height: 36px; }
+            .weo-back-to-top.visible { opacity: 0.5; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
+
+        <nav class="weo-nav">
+            <a href="/" class="weo-nav-brand">
+                <span class="weo-nav-logo">WEO</span>
+                <span>Warmth Engine Observatory</span>
+            </a>
+            <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="weo-nav-links" id="navLinks">
+                <a href="/">Map</a>
+                <a href="/atlas.html">Atlas</a>
+                <a href="/events.html">Events</a>
+                <a href="/profiles/">Profiles</a>
+                <a href="/blocs.html">Blocs</a>
+                <a href="/methodology.html" class="active">Methodology</a>
+                <a href="/research.html">Research</a>
+                <a href="/about.html">About</a>
+                <a href="/support.html">Support</a>
+            </div>
+        </nav>
+
+        <main>
+
+            <header class="reg-header">
+                <div class="reg-pathway-badge">Methodology · Errata &amp; Corrections</div>
+                <h1 class="reg-title">WEO Methodology Errata</h1>
+                <div class="reg-meta">
+                    <span>Warmth Engine Observatory</span>
+                    <span class="meta-sep">·</span>
+                    <span>Methodology V1.5</span>
+                    <span class="meta-sep">·</span>
+                    <span>Last updated 21 July 2026</span>
+                    <span class="meta-sep">·</span>
+                    <a href="/research/methodology/errata/errata.json">errata.json</a>
+                </div>
+                <p class="reg-intro">
+                    <strong>These are corrections to expression, not changes to methodology.</strong> Each entry aligns the published text with the methodology's own governing provision; the Manual's substantive provisions govern throughout. Both the pre-correction and post-correction states are preserved in the public archival record, and reversals — if any — are logged as new entries, never silent edits.
+                </p>
+                <p class="reg-intro">
+                    <strong>Qualification.</strong> An entry qualifies as an erratum only where the published text does not match the methodology's own governing provision — internal inconsistency, conversion omission, cross-reference error, or typographical error. Where a correction would require choosing between two defensible methodological readings, it is not an erratum and is routed to the Development Register.
+                </p>
+                <p class="reg-intro">
+                    This batch applies <strong>17 errata (ER-001–ER-017)</strong> across the two self-hosted publications — 7 in the Manual, 10 in the Rationale — recorded in the WEO Methodology Errata Register (V1.5 publications).
+                </p>
+            </header>
+
+            <div class="reg-refs">
+                <a class="reg-ref" href="/research/methodology/manual/">Methodology Manual V1.5 — DOI 10.5281/zenodo.21278280</a>
+                <a class="reg-ref" href="/research/methodology/rationale/">Methodology Rationale V1.5 — DOI 10.5281/zenodo.21278281</a>
+            </div>
+
+            <div class="reg-table-wrap">
+                <table class="reg-table" aria-label="WEO Methodology Errata Register — V1.5 applied errata">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Document</th>
+                            <th scope="col">Section</th>
+                            <th scope="col">Nature</th>
+                            <th scope="col">Correction</th>
+                            <th scope="col">Applied</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="ER-001">
+                            <td><span class="er-id">ER-001</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">§9.8.1</span></td>
+                            <td><span class="er-nature">Internal inconsistency (V1.5 conversion omission)</span></td>
+                            <td><span class="er-summary">The Policy Cascade / Regulatory Enablement branch of the §9.8.1 decision tree is rebuilt to the §9.2.1 language-character test, and the unconditional “(CC-V)” labels are replaced with a documentary-character confidence note (CC-V / CC-E).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-002">
+                            <td><span class="er-id">ER-002</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§9.2</span></td>
+                            <td><span class="er-nature">Internal inconsistency across the publication pair (V1.5 conversion omission)</span></td>
+                            <td><span class="er-summary">The Decision Rules block is replaced with the V1.5 Manual §9.2.1 rules, the “≥2 AL Threshold Rationale” is recast as the Language-Character Rationale, and 根据 is removed from the mandatory-marker list with a context-dependency note added.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-003">
+                            <td><span class="er-id">ER-003</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§9.4.3</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (superseded flat mapping)</span></td>
+                            <td><span class="er-summary">The 根据 marker row is remapped from “Policy Cascade” to context-dependent between Policy Cascade and Regulatory Enablement (Manual §9.2.1 Note).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-004">
+                            <td><span class="er-id">ER-004</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§5.1</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (propagation miss)</span></td>
+                            <td><span class="er-summary">The superseded “from at least two distinct ecosystems” construction is corrected to “of each of at least two distinct ecosystems” at all three lines.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-005">
+                            <td><span class="er-id">ER-005</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">§5.3</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (conversion miss)</span></td>
+                            <td><span class="er-summary">The same T1 construction fix: the sentence is recast to “requiring engagement by the principal AI actor of each of at least two distinct ecosystems”.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-006">
+                            <td><span class="er-id">ER-006</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§8.9, §8.1</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (neutral-WER reframe not propagated)</span></td>
+                            <td><span class="er-summary">The stale ~10:1 governance-gap figure is replaced with the neutral corpus-ratio (Warmth Engine Ratio) expression, and two zero-baseline reassessment triggers are rebased to the Manual §8.5 provisionality threshold (ENT-5 count below 10).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-007">
+                            <td><span class="er-id">ER-007</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§8.5</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (PPA floor not propagated)</span></td>
+                            <td><span class="er-summary">The below-100MW claim is corrected: a grid impact assessment qualifies below 100MW, while the power purchase agreement route carries its own ≥100MW dedicated-capacity floor (Manual §8.3.1).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-008">
+                            <td><span class="er-id">ER-008</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§5.4.12</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape</span></td>
+                            <td><span class="er-summary">The evidence standard is corrected from a single disjunct to “2+ primary, or 1 primary + 2 corroborating”.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-009">
+                            <td><span class="er-id">ER-009</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§9.2 table</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (Criterion 1 gate not reflected)</span></td>
+                            <td><span class="er-summary">The Type 1 cell is expanded to the three evidence routes (citation, directive, or documented implementation), and the Type 7 cell notes the mandatory Criterion 1 mechanism gate.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-010">
+                            <td><span class="er-id">ER-010</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§3.13.1</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape</span></td>
+                            <td><span class="er-summary">The Type-7-only framing is corrected to the all-seven-CC-types scope limitation, with the cross-reference fixed to Manual §9.1.8.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-011">
+                            <td><span class="er-id">ER-011</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">Ch. 3 Summary</span></td>
+                            <td><span class="er-nature">V1.5 conversion escape (aspirational form not propagated)</span></td>
+                            <td><span class="er-summary">The declarative financial-indices claim is corrected to the aspirational form: WEO “aims to meet” the verification rigour of major financial indices.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-012">
+                            <td><span class="er-id">ER-012</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">Unified Index</span></td>
+                            <td><span class="er-nature">Index omission</span></td>
+                            <td><span class="er-summary">A “Corporate Product Release Scope Limitation” index row is added (Manual §9.1.8 / Rationale §9.5.1).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-013">
+                            <td><span class="er-id">ER-013</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">§9.2.1</span></td>
+                            <td><span class="er-nature">Framing lag (contradicts Rule 1 in the same section)</span></td>
+                            <td><span class="er-summary">The Decision Principle is recast to language-primacy with Authority Levels in the supporting role, and the trailing “when distinguishing…” clause is dropped.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-014">
+                            <td><span class="er-id">ER-014</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">§3.6</span></td>
+                            <td><span class="er-nature">Framing lag</span></td>
+                            <td><span class="er-summary">The Corporate event-type gloss is corrected to “Private-sector entity action (unilateral or coordinated): disclosures, partnerships, market structure events”.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-015">
+                            <td><span class="er-id">ER-015</span></td>
+                            <td><span class="doc-pill manual">Manual</span></td>
+                            <td><span class="er-section">§3.15</span></td>
+                            <td><span class="er-nature">Framing lag</span></td>
+                            <td><span class="er-summary">The uniform 6-month presupposition is qualified: “6 months; 60 days for verified product releases under §3.9.2”.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-016">
+                            <td><span class="er-id">ER-016</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">§2.5</span></td>
+                            <td><span class="er-nature">Framing lag</span></td>
+                            <td><span class="er-summary">The universal confidence-levels claim is corrected: Category Creator and Standard Practice components carry no confidence band by convention (§2.2).</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                        <tr id="ER-017">
+                            <td><span class="er-id">ER-017</span></td>
+                            <td><span class="doc-pill rationale">Rationale</span></td>
+                            <td><span class="er-section">References</span></td>
+                            <td><span class="er-nature">Citation completeness</span></td>
+                            <td><span class="er-summary">The DOI 10.1111/psj.12406 is appended to the third Mallinson (2021) citation, matching the two sibling instances.</span></td>
+                            <td><span class="er-date">21 Jul 2026</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="reg-maintenance">
+                <div class="reg-maintenance-label">About this register</div>
+                <p>Errata are applied to the self-hosted HTML publications under the WEO Errata Application Protocol and governed by the Methodology Version Management System. At the next DOI publication, applied errata are folded into the new version and this list is reset. A machine-readable mirror of the applied errata is available at <a href="/research/methodology/errata/errata.json">errata.json</a>.</p>
+                <p>The published DOI versions on Zenodo record the state at publication; this page and the archival record together document every correction applied since.</p>
+            </div>
+
+        </main>
+
+        <footer class="page-footer">
+            <p class="footer-version">Errata Register · Methodology V1.5 · WEO v1.4.0</p>
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
+            <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+    // Navigation toggle (mobile)
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+    </script>
+
+    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <script>
+    (function() {
+        var btn = document.getElementById('backToTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function() {
+            btn.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        btn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+    </script>
+
+    <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
+</body>
+</html>

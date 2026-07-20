@@ -746,6 +746,9 @@
                 <span class="meta-sep">·</span>
                 <a href="https://zenodo.org/doi/10.5281/zenodo.18427565" target="_blank" rel="noopener" class="version-link">V1.4 and earlier →</a>
             </div>
+            <div class="weo-errata-notice" style="margin-top:var(--weo-space-md);padding:var(--weo-space-sm) var(--weo-space-md);border-left:3px solid var(--weo-accent-primary);background:var(--weo-surface-raised);border-radius:var(--weo-radius-sm);font-size:0.85rem;line-height:1.45;color:var(--weo-text-secondary);">
+                V1.5 (DOI <a href="https://doi.org/10.5281/zenodo.21278280" target="_blank" rel="noopener">10.5281/zenodo.21278280</a>) — errata ER-001–ER-017 applied; last updated 21 July 2026. Errata: <a href="/research/methodology/errata/">/research/methodology/errata/</a>
+            </div>
         </header>
 
         <div class="weo-pub-layout">
@@ -3881,8 +3884,9 @@ deployment (compute, networks, facilities)<br />
 </li>
 <li><strong>Policy</strong> - Regulations, laws, executive orders,
 governance frameworks</li>
-<li><strong>Corporate</strong> - Private sector coordination,
-partnerships, market structure events</li>
+<li><strong>Corporate</strong> - Private-sector entity action
+(unilateral or coordinated): disclosures, partnerships, market structure
+events</li>
 </ol>
 <h3 id="event-type-qualification-and-tier-applicability">Event Type
 Qualification and Tier Applicability</h3>
@@ -6177,9 +6181,10 @@ Updates)</h2>
 <p><strong>Purpose:</strong> Establish methodology for tracking,
 verifying, and incorporating event developments that occur after initial
 database qualification.</p>
-<p><strong>Core Principle:</strong> The same 6-month verification
-standard that governs initial qualification applies to all subsequent
-updates. Post-qualification developments must pass temporal verification
+<p><strong>Core Principle:</strong> The same verification standard that
+governs initial qualification (6 months; 60 days for verified product
+releases under §3.9.2) applies to all subsequent updates.
+Post-qualification developments must pass temporal verification
 before incorporation into qualified event data.</p>
 <hr />
 <h3 id="section-3-15-1">3.15.1 Rationale and Scope</h3>
@@ -6951,9 +6956,9 @@ finding: the event documents an implemented release, and subsequent
 retirement does not alter the record’s qualification.</p>
 <hr />
 <h2 id="summary">Summary</h2>
-<p><em>Chapter 3</em> establishes Gold Standard requirements ensuring
-WEO meets verification rigour of major financial indices. Key
-principles:</p>
+<p><em>Chapter 3</em> establishes Gold Standard requirements through
+which WEO aims to meet the verification rigour of major financial
+indices. Key principles:</p>
 <ol type="1">
 <li><strong>Source Hierarchy:</strong> Primary → Corroborating →
 Supplementary sources</li>
@@ -9487,8 +9492,8 @@ criteria inherently possesses coordination characteristics regardless of
 its qualification pathway.</p>
 <p><strong>T2 scope.</strong> The principal actor requirement does not
 extend to T2 Between-Bloc Fragmentation. T1 measures ecosystem-level
-integration, requiring principal actor engagement from at least two
-distinct ecosystems. T2 measures structural separation between blocs,
+integration, requiring engagement by the principal AI actor of each of
+at least two distinct ecosystems. T2 measures structural separation between blocs,
 where significance is determined by the structural effect rather than
 the identity of the actor creating it. Structural separation can
 originate from any actor with sufficient supply-chain leverage,
@@ -13295,14 +13300,14 @@ chooses to exercise (enabling but not mandating)</li>
 </ul>
 <h4 id="section-9-2-1-authority">Authority Hierarchy for Policy Cascade
 vs Regulatory Enablement</h4>
-<p><strong>Decision Principle:</strong> Policy Cascade applies when
-Source Event holds formal hierarchical authority over Target Event.
-Regulatory Enablement applies when Source Event creates permissions
-exercised by Target Event without hierarchical relationship.</p>
+<p><strong>Decision Principle:</strong> Policy Cascade applies where the
+source instrument directs or mandates the target; Regulatory Enablement
+applies where it creates permissions the target chooses to exercise.
+Authority Levels (AL-1 to AL-6) support the determination where source
+language is indeterminate.</p>
 <p><strong>Authority Hierarchy (Descending):</strong></p>
 <p>Authority Levels (AL-1 to AL-6) classify the binding force of source
-documents when distinguishing Policy Cascade from Regulatory
-Enablement.</p>
+documents.</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -15048,10 +15053,17 @@ four-criterion similarity rubric (§9.4.3) at CC-A confidence
    Apply Authority Hierarchy Test              Q3
    (§9.2.1)
         │
-        ├── ≥2 AL difference → POLICY CASCADE (CC-V)
-        ├── 1 AL + mandatory language → POLICY CASCADE (CC-V)
-        ├── 1 AL + permissive language → REGULATORY ENABLEMENT (CC-V/CC-E)
-        └── Same level → REGULATORY ENABLEMENT (CC-V/CC-E)
+        ├── Source instrument directs/mandates/requires implementation → POLICY CASCADE
+        ├── Source instrument enables/authorises/appropriates → REGULATORY ENABLEMENT
+        ├── Source language indeterminate, adjacent levels (1 AL): examine target's language
+        │     ├── Mandatory ("pursuant to," "implementing," 落实) → POLICY CASCADE
+        │     └── Permissive ("authorised under," "enabled by," 依照) → REGULATORY ENABLEMENT
+        ├── Same level → REGULATORY ENABLEMENT unless explicit hierarchical language present
+        ├── Cross-jurisdictional: AL-1 → national implementation (AL-3–AL-5) → POLICY CASCADE
+        └── Hierarchy unclear after the above → REGULATORY ENABLEMENT
+
+        Confidence (both types): direct citation by instrument number or title → CC-V;
+        evidence requiring interpretation of official sources → CC-E (§9.2.1, §9.3.2)
 
 ┌─────────────────────────────────────────────────────────────────┐
 │ Q3: Does Event A provide funding for Event B?                   │
@@ -15610,6 +15622,11 @@ References indicate document and section.</p>
 <td>Corporate Product Release Diagnostic</td>
 <td>§3.14.1</td>
 <td>§3.13.1</td>
+</tr>
+<tr>
+<td>Corporate Product Release Scope Limitation</td>
+<td>§9.1.8</td>
+<td>§9.5.1</td>
 </tr>
 <tr>
 <td>Corporate Strategic Disclosure (Option E)</td>
