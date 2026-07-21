@@ -8429,7 +8429,7 @@ function generateEvidencePanel(conn) {
     const ca = detail.criteria_assessment;
     html += '<div class="cc-criteria-grid">';
     
-    ['mechanism', 'target', 'scope', 'timing'].forEach(function(criterion) {
+    ['mechanism', 'industry', 'target', 'scope', 'timing'].forEach(function(criterion) {
       if (ca[criterion]) {
         const c = ca[criterion];
         const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');

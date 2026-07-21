@@ -1,46 +1,45 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 189,
+    "total_events": 192,
     "sample_events": 6,
-    "standard_events": 183,
-    "last_updated": "2026-07-08",
-    "source": "Extracted from index.html (WEO Map v1.25+)",
+    "standard_events": 186,
+    "last_updated": "2026-07-21",
     "statistics": {
       "by_bloc": {
-        "Eastern": 49,
-        "Western": 121,
+        "Eastern": 51,
+        "Western": 122,
         "Western-Led": 14,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 170,
+        "T3": 173,
         "T2": 18,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 43,
-        "Coordination": 30,
-        "Policy": 59,
-        "Corporate": 57
+        "Coordination": 31,
+        "Policy": 60,
+        "Corporate": 58
       },
       "by_confidence": {
-        "A": 185,
-        "B": 4
+        "A": 187,
+        "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 97,
-        "keohane": 29,
-        "pisa5": 43,
+        "basel5": 98,
+        "keohane": 30,
+        "pisa5": 44,
         "routeBased": 20,
         "oep": 6,
         "piet": 5
       },
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 51,
-        "Semiconductors & Equipment": 37,
-        "AI Software & Platforms": 64,
+        "Semiconductors & Equipment": 39,
+        "AI Software & Platforms": 65,
         "Mining & Critical Minerals": 10,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
@@ -52,14 +51,12 @@
         "1.2": 31,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 72
+        "1.0": 75
       }
     },
-    "versionDate": "2026-07-08",
-    "lastAudit": "2026-07-08",
-    "auditDescription": "Loop 16: 2 new events added (E166 Cambricon SiYuan 590, E167 Biren BR100/BR106). 0 CCs added. Metadata fully recomputed from event array.",
-    "event_count": 189,
-    "version_note": "V1.3: Principal actor framework + Level 5 operational evidence retrospective application. 12 T1 reclassifications (1 maintained T1, 5 reclassified to T3, 6 removed). 1 additional event removed (Level 5 failure). 9 CCs removed.",
+    "versionDate": "2026-07-21",
+    "lastAudit": "2026-07-21",
+    "event_count": 192,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -4254,6 +4251,12 @@
           "linkType": "deploys",
           "asset": "Cambricon SiYuan",
           "field": "description"
+        },
+        {
+          "targetEventId": "222",
+          "linkType": "deploys",
+          "asset": "Huawei Ascend",
+          "field": "description"
         }
       ]
     },
@@ -6169,6 +6172,14 @@
               "snapshotUrl": "https://web.archive.org/web/20260615205136/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "222",
+          "linkType": "deploys",
+          "asset": "Ascend NPU",
+          "field": "description"
         }
       ]
     },
@@ -8190,6 +8201,102 @@
       "version": "1.0",
       "industryPrimary": "Mining & Critical Minerals",
       "environmentalNexusTags": []
+    },
+    {
+      "id": "216",
+      "name": "ASEAN Guide on AI Governance and Ethics",
+      "lat": -6.1754,
+      "lng": 106.8272,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "2024-02-01",
+      "location": "ASEAN Secretariat, Jakarta, Indonesia",
+      "scope": "ASEAN member states (10 countries)",
+      "description": "Voluntary risk-based AI governance framework endorsed by all ten ASEAN member states through the Digital Ministers Meeting, establishing principles for transparency, fairness, accountability, and human-centricity in AI systems. The Guide references the Singapore Model AI Governance Framework and the OECD Recommendation on Artificial Intelligence.",
+      "investment": "Multi-nation coordination: 10 ASEAN member states; non-binding voluntary framework",
+      "domain": "Technology",
+      "sources": 5,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": []
+    },
+    {
+      "id": "222",
+      "name": "Huawei Ascend 910B/910C Production Ramp",
+      "lat": 22.5431,
+      "lng": 114.0579,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "2024",
+      "location": "Shenzhen, China",
+      "scope": "Mainland China (domestic deployment)",
+      "description": "Huawei's purpose-built AI training and inference NPU series designed on the Da Vinci architecture, fabricated at SMIC on a domestic N+2 process node using chiplet design with 53 billion transistors. Deployed across Chinese state-owned enterprise computing centres including China Mobile, China Telecom, and State Grid installations.",
+      "investment": "China Mobile procurement: ~1,800 Ascend 910B units + 200 Atlas 800 servers (~US$22M); State Grid Chongqing: 6 Atlas 910B servers, 19.2 PFLOPs",
+      "domain": "Technology",
+      "sources": 1,
+      "corroborating": 5,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true,
+        "aiDetail": "Option E (Huawei 2024 Annual Report — Disclosure-Verified, Confirmed, Operational)"
+      },
+      "version": "1.0",
+      "aiConnectionPathway": "option_e",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "141",
+          "linkType": "fabricated_at",
+          "asset": "SMIC N+2",
+          "field": "description"
+        }
+      ]
+    },
+    {
+      "id": "223",
+      "name": "China State-Funded Data Centre Foreign Chip Ban",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "2025-11-05",
+      "location": "Beijing, China",
+      "scope": "State-funded data centres, mainland China",
+      "description": "Chinese government directive banning foreign AI chips from state-funded data centres, requiring removal of installed foreign processors from projects less than 30% complete. The directive was communicated through informal regulatory channels without publicly gazetted documentation.",
+      "investment": "National-scope state-funded data centre AI chip procurement restriction; Nvidia FY2026 10-K confirms revenue impact from Chinese government restrictions on AI chip sales",
+      "domain": "Technology",
+      "sources": 1,
+      "corroborating": 6,
+      "confidence": "B",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": []
     }
   ]
 }
