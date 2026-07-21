@@ -8260,14 +8260,7 @@
       "aiConnectionPathway": "option_e",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "infrastructureThreads": [
-        {
-          "targetEventId": "141",
-          "linkType": "fabricated_at",
-          "asset": "SMIC N+2",
-          "field": "description"
-        }
-      ]
+      "infrastructureThreads": []
     },
     {
       "id": "223",
