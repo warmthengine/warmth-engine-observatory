@@ -12092,7 +12092,7 @@
             if (detail.criteria_assessment) {
                 const ca = detail.criteria_assessment;
                 h += '<div class="cc-criteria-grid">';
-                ['mechanism', 'target', 'scope', 'timing'].forEach(k => {
+                ['mechanism', 'industry', 'target', 'scope', 'timing'].forEach(k => {
                     if (!ca[k]) return;
                     const c = ca[k];
                     const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
