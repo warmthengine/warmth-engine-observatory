@@ -59,17 +59,26 @@
   <!-- Self-hosted publications -->
   <url>
     <loc>https://warmthengine.com/research/methodology/manual/</loc>
+    <lastmod>2026-07-21</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://warmthengine.com/research/methodology/rationale/</loc>
+    <lastmod>2026-07-21</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://warmthengine.com/research/methodology/materials-register/</loc>
+    <lastmod>2026-07-19</lastmod>
     <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://warmthengine.com/research/methodology/errata/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
