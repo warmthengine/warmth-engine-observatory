@@ -23,7 +23,7 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 - **Interactive Map** — Geographic visualisation of global AI infrastructure deployment
 - **Interactive Atlas** — Network, timeline, and connectedness analytical surface for exploring coordination topology and event relationships via Cytoscape.js
 - **Evidence-Based Verification** — Every event verified through primary and corroborating sources with gold standard evidentiary requirements
-- **Sovereign Capability Profiles** — 7-dimension framework assessing 14 state actors' sovereign control across the AI infrastructure stack, with four designation levels (PAA, AIK, ACS, Participant); includes qualification headlines, constraint summaries, sourced evidence, and severance analysis
+- **Sovereign Capability Profiles** — 7-dimension framework assessing 20 state actors' sovereign control across the AI infrastructure stack, with four designation levels (PAA, AIK, ACS, Participant); includes qualification headlines, constraint summaries, sourced evidence, and severance analysis
 - **Profiles Page** — Standalone `/profiles/` page rendering the full SCP panel with dimension filtering, actor detail expansion, and Dimension Watch table
 - **Dimension Watch** — Forward-looking monitoring table identifying actors approaching a designation status change at the next assessment cycle, with trigger conditions and timeline estimates
 - **Infrastructure Threads** — Factual cross-event links documenting where the same AI infrastructure asset (chip or accelerator, energy source, or fabrication facility) appears across multiple verified events, with four link types (fabricated_at, deploys, trains_on, powered_by); toggleable overlay on the Atlas and queryable via `get_threads`
@@ -72,6 +72,7 @@ The V1.5 Manual and Rationale are self-hosted as navigable HTML with granular se
 
 - **Manual:** [`warmthengine.com/research/methodology/manual/`](https://warmthengine.com/research/methodology/manual/) (490 section anchors)
 - **Rationale:** [`warmthengine.com/research/methodology/rationale/`](https://warmthengine.com/research/methodology/rationale/) (193 section anchors)
+- **Errata:** [`warmthengine.com/research/methodology/errata/`](https://warmthengine.com/research/methodology/errata/) — V1.5 Errata Register (expression corrections, with machine-readable `errata.json`)
 
 A semantic dictionary (`data/weo-methodology-map.json`) maps 185 WEO-specific terms to their methodology section anchors, serving both human tooltip navigation and the MCP `get_methodology` tool.
 
@@ -100,7 +101,9 @@ warmth-engine-observatory/
 │   └── weo-methodology-map.json    # 185 term-to-anchor semantic mappings
 ├── research/
 │   └── methodology/
+│       ├── errata/                 # V1.5 Errata Register (HTML + errata.json)
 │       ├── manual/                 # Self-hosted V1.5 Manual (HTML + PDF)
+│       ├── materials-register/     # AI-Critical Materials Register (HTML)
 │       └── rationale/              # Self-hosted V1.5 Rationale (HTML + PDF)
 ├── sitemap.xml                 # XML sitemap for search engines
 ├── robots.txt                  # Crawler directives
