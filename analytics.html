@@ -700,13 +700,15 @@
         </div>
     </div>
 
-    <!-- Diagnostic row: Unidentified UA + Named MCP Clients -->
+    <!-- Diagnostic panels (full-width, stacked) -->
     <div class="panels-row">
-        <div class="panel panel-diag">
+        <div class="panel panel-diag" style="grid-column:1/-1">
             <div class="panel-title panel-title-diag">Unidentified Clients · User-Agent</div>
             <div id="uaPanel"></div>
         </div>
-        <div class="panel">
+    </div>
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
             <div class="panel-title">Named MCP Clients</div>
             <div id="namedClientPanel"></div>
         </div>
