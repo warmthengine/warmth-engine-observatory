@@ -295,6 +295,9 @@
         .metric-delta.positive { color: var(--weo-status-positive); }
         .metric-delta.negative { color: var(--weo-status-negative); }
         .metric-delta.neutral { color: var(--weo-text-muted); }
+        .metric-delta .pit-label {
+            opacity: 0.6;
+        }
         .metric-stat {
             font-family: var(--weo-font-mono); font-size: 0.6875rem;
             color: var(--weo-text-muted); margin-top: 2px;
@@ -728,6 +731,8 @@
     var bkkMode = true;
     var lastHourData = null;
     var lastCsvData = null;
+    var lastRawData = null;
+    var lastRenderedDays = null;
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -810,6 +815,8 @@
             tzToggle.classList.toggle('bkk', bkkMode);
             if (hourlyTitle) hourlyTitle.textContent = 'Hourly Pattern · ' + (bkkMode ? 'BKK' : 'UTC');
             if (lastHourData) renderHourly(lastHourData);
+            // Re-render PIT delta labels in the new timezone
+            if (lastRawData) render(lastRawData, lastRenderedDays);
         });
     }
 
@@ -881,6 +888,8 @@
 
     // --- Rendering ---
     function render(rawData, days) {
+        lastRawData = rawData;
+        lastRenderedDays = days;
         // Filter to date-keyed entries only (YYYY-MM-DD) to ignore any top-level metadata keys
         var allDates = Object.keys(rawData).filter(function(k) {
             return /^\d{4}-\d{2}-\d{2}$/.test(k);
@@ -929,11 +938,27 @@
         document.getElementById('metricAuthSub').textContent = agg.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
         document.getElementById('metricTotalSub').textContent = days + 'd period';
 
-        // Deltas
-        setDelta('metricMcpDelta', agg.mcp, prior.mcp, hasPrior);
-        setDelta('metricApiDelta', agg.api, prior.api, hasPrior);
-        setDelta('metricAuthDelta', agg.authenticated, prior.authenticated, hasPrior);
-        setDelta('metricTotalDelta', total, priorTotal, hasPrior);
+        // Point-in-time deltas: prior period trimmed to current hour
+        var nowDt = new Date();
+        var currentHourUTC = nowDt.getUTCHours();
+        var hh = bkkMode
+            ? ((currentHourUTC + 7) % 24).toString().padStart(2, '0')
+            : currentHourUTC.toString().padStart(2, '0');
+        var mm = nowDt.getUTCMinutes().toString().padStart(2, '0');
+        var tzSuffix = bkkMode ? 'BKK' : 'UTC';
+        var timeLabel = hh + ':' + mm + ' ' + tzSuffix;
+        var pitPrior = computePriorAtTime(rawData, priorDates, currentHourUTC);
+        if (pitPrior) {
+            setDelta('metricMcpDelta', agg.mcp, pitPrior.mcp, hasPrior, timeLabel);
+            setDelta('metricApiDelta', agg.api, pitPrior.api, hasPrior, timeLabel);
+            setDelta('metricAuthDelta', agg.authenticated, pitPrior.auth, hasPrior, timeLabel);
+            setDelta('metricTotalDelta', total, pitPrior.total, hasPrior, timeLabel);
+        } else {
+            setDelta('metricMcpDelta', 0, null, false, '');
+            setDelta('metricApiDelta', 0, null, false, '');
+            setDelta('metricAuthDelta', 0, null, false, '');
+            setDelta('metricTotalDelta', 0, null, false, '');
+        }
 
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
@@ -1041,33 +1066,83 @@
         return result;
     }
 
-    function setDelta(elId, current, priorVal, hasPrior) {
+    // Point-in-time delta: compare current total against the prior period
+    // trimmed to the same wall-clock hour, so the comparison is moment-to-moment.
+    // Returns { total, mcp, api, auth } — mcp/api are proportional estimates
+    // (by_hour doesn't split by type); total is exact from hourly buckets.
+    function computePriorAtTime(rawData, priorDates, currentHourUTC) {
+        if (priorDates.length === 0) return null;
+
+        var fullMcp = 0, fullApi = 0, fullAuth = 0;
+        // All prior dates except the last: sum in full
+        for (var i = 0; i < priorDates.length - 1; i++) {
+            var day = rawData[priorDates[i]];
+            if (!day) continue;
+            fullMcp  += (day.mcp || 0);
+            fullApi  += (day.api || 0);
+            fullAuth += (day.authenticated || 0);
+        }
+        var fullTotal = fullMcp + fullApi;
+
+        // Last prior date: trim to hours 0..currentHourUTC via by_hour
+        var lastDay = rawData[priorDates[priorDates.length - 1]];
+        if (!lastDay) return { total: fullTotal, mcp: fullMcp, api: fullApi, auth: fullAuth };
+
+        var lastDayFullTotal = (lastDay.mcp || 0) + (lastDay.api || 0);
+        if (lastDayFullTotal === 0 || !lastDay.by_hour) {
+            return {
+                total: fullTotal + lastDayFullTotal,
+                mcp:   fullMcp  + (lastDay.mcp || 0),
+                api:   fullApi  + (lastDay.api || 0),
+                auth:  fullAuth + (lastDay.authenticated || 0)
+            };
+        }
+
+        // Sum hourly buckets through the current hour
+        var partialTotal = 0;
+        for (var h = 0; h <= currentHourUTC; h++) {
+            var key = h.toString().padStart(2, '0');
+            partialTotal += (lastDay.by_hour[key] || 0);
+        }
+
+        // Proportional split for MCP/API/Auth
+        var ratio = partialTotal / lastDayFullTotal;
+        return {
+            total: fullTotal + partialTotal,
+            mcp:   fullMcp  + Math.round((lastDay.mcp || 0) * ratio),
+            api:   fullApi  + Math.round((lastDay.api || 0) * ratio),
+            auth:  fullAuth + Math.round((lastDay.authenticated || 0) * ratio)
+        };
+    }
+
+    function setDelta(elId, current, pitPrior, hasPrior, timeLabel) {
         var el = document.getElementById(elId);
         if (!el) return;
-        if (!hasPrior) {
+        if (!hasPrior || pitPrior === null || pitPrior === undefined) {
             el.textContent = 'no prior data';
             el.className = 'metric-delta neutral';
             return;
         }
-        if (priorVal === 0 && current === 0) {
+        if (pitPrior === 0 && current === 0) {
             el.textContent = '';
             el.className = 'metric-delta neutral';
             return;
         }
-        if (priorVal === 0) {
-            el.textContent = '▲ new';
+        if (pitPrior === 0) {
+            el.innerHTML = '▲ new <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
             el.className = 'metric-delta positive';
             return;
         }
-        var pct = Math.round((current - priorVal) / priorVal * 100);
+        var pct = Math.round((current - pitPrior) / pitPrior * 100);
+        var sign = pct > 0 ? '+' : '';
         if (pct > 0) {
-            el.textContent = '▲ +' + pct + '% vs prior';
+            el.innerHTML = '▲ ' + sign + pct + '% <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
             el.className = 'metric-delta positive';
         } else if (pct < 0) {
-            el.textContent = '▼ ' + pct + '% vs prior';
+            el.innerHTML = '▼ ' + pct + '% <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
             el.className = 'metric-delta negative';
         } else {
-            el.textContent = '→ flat vs prior';
+            el.innerHTML = '→ flat <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
             el.className = 'metric-delta neutral';
         }
     }
