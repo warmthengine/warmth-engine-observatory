@@ -376,8 +376,42 @@
         /* Tool Calls log: the list runs to 200 rows — window it so the panel keeps its
            place in the page rhythm instead of pushing the rows below it off-screen. */
         #toolsCallLogPanel {
-            max-height: 480px;
+            max-height: 700px;
             overflow-y: auto;
+        }
+        /* Scroll affordance: fade the panel's bottom edge to its own background so an
+           overflowing list reads as continuing below the fold. Sits on the .panel wrapper
+           (not the scroll box) and is inert to pointer events, so it never blocks scrolling. */
+        .panel-scrollable {
+            position: relative;
+        }
+        .panel-scrollable::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            background: linear-gradient(to bottom, transparent, var(--weo-surface-raised));
+            pointer-events: none;
+            border-radius: 0 0 var(--weo-radius-lg) var(--weo-radius-lg);
+        }
+        /* Copy-all control in the Tool Calls title bar (mirrors the .tz-toggle idiom). */
+        .copy-btn {
+            font-family: var(--weo-font-mono);
+            font-size: 0.625rem;
+            color: var(--weo-text-secondary);
+            background: transparent;
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            padding: 2px 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .copy-btn:hover {
+            color: var(--weo-text-primary);
+            border-color: var(--weo-text-secondary);
         }
 
         /* ========================================
@@ -672,8 +706,8 @@
 
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
-        <div class="panel" style="grid-column:1/-1">
-            <div class="panel-title">Tool Calls</div>
+        <div class="panel panel-scrollable" style="grid-column:1/-1">
+            <div class="panel-title">Tool Calls <button class="copy-btn" onclick="copyToolCallLog()" title="Copy all tool calls to clipboard">Copy</button></div>
             <div id="toolsCallLogPanel"></div>
         </div>
     </div>
@@ -1290,6 +1324,35 @@
         });
         container.innerHTML = html;
     }
+
+    // Copy every rendered Tool Calls row as tab-separated text (tool · client/country · when),
+    // independent of scroll position. Exposed on window below: this script is an IIFE, so the
+    // inline onclick on the Copy button resolves against global scope, not this closure.
+    function copyToolCallLog() {
+        var panel = document.getElementById('toolsCallLogPanel');
+        if (!panel) return;
+        var rows = panel.querySelectorAll('.bar-row');
+        if (rows.length === 0) return;
+        var lines = [];
+        rows.forEach(function(row) {
+            var tool = row.querySelector('.bar-label');
+            var meta = row.querySelector('.tcl-meta');
+            var time = row.querySelector('.bar-count');
+            lines.push(
+                (tool ? tool.textContent.trim() : '') + '\t' +
+                (meta ? meta.textContent.trim() : '') + '\t' +
+                (time ? time.textContent.trim() : '')
+            );
+        });
+        var text = lines.join('\n');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.querySelector('.copy-btn');
+                if (btn) { btn.textContent = 'Copied'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
+            });
+        }
+    }
+    window.copyToolCallLog = copyToolCallLog;
 
     function renderHourly(hourData) {
         var chart = document.getElementById('hourlyChart');
