@@ -24,6 +24,7 @@ Sovereign Capability Profiles assess state actors across seven AI infrastructure
 - [WEO Methodology Rationale](https://doi.org/10.5281/zenodo.18427582)
 - [Towards Coordination Science (TCS)](https://doi.org/10.5281/zenodo.18427584)
 - [Tier-Crossing Dynamics (TCD)](https://doi.org/10.5281/zenodo.18427586)
+- [WEO Contribution Architecture](https://doi.org/10.5281/zenodo.21495917)
 
 ## Site
 
@@ -31,7 +32,7 @@ Sovereign Capability Profiles assess state actors across seven AI infrastructure
 - [Events](https://warmthengine.com/events.html): verified event database with classification, enrichment layers, and Coordination Connection links
 - [Profiles](https://warmthengine.com/profiles/): Sovereign Capability Profile assessments with dimension scoring and Dimension Watch
 - [Bloc register](https://warmthengine.com/blocs.html): geopolitical bloc classifications underpinning the tier system
-- [Research](https://warmthengine.com/research.html): independent theoretical research and methodology extensions (Open Access, Zenodo)
+- [Research](https://warmthengine.com/research.html): independent theoretical research, methodology extensions, and the platform Contribution Architecture (Open Access, Zenodo)
 - [Methodology](https://warmthengine.com/methodology.html): five-stage pipeline overview with Manual and Rationale access
 - [Support](https://warmthengine.com/support.html): access tiers and pricing
 - [warmthengine.com](https://warmthengine.com): main site
