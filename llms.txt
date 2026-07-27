@@ -18,6 +18,18 @@ Sovereign Capability Profiles assess state actors across seven AI infrastructure
 - [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/health.
 - Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription — see /support.
 
+## Data tiers
+
+Free (unauthenticated): the full shape of the corpus — every event's classification, description, investment picture, and Environmental Nexus Tags; every Coordination Connection's structural record; the complete coordination topology with traversal; capability signatures and event-to-dimension capability links; every actor's designation and seven-dimension heatmap; Infrastructure Threads; the Bloc Membership Register; and methodology resolution.
+
+Analyst (authenticated): adds the evidence layer — source URLs with archival snapshots, tier rationales, bloc analyses, significance framework assessments (Basel-5, Keohane, PISA-5, Route-Based), full SCP dimensional analyses (constraint, qualification, sources), CC evidence panels with criteria assessments, and version history.
+
+Free-tier responses on gated endpoints include a `full_tier` metadata block naming the withheld fields and the unlock path.
+
+Sample records return every field on both tiers as worked examples: events 01, 04, 06, 14, 22, 91; actor US (United States).
+
+Subscribe at [/support](https://warmthengine.com/support.html) (US$25/month). Institutional access by enquiry: warmthengine@proton.me.
+
 ## Methodology (peer-citable, Zenodo)
 
 - [WEO Methodology Manual](https://doi.org/10.5281/zenodo.18427565)
