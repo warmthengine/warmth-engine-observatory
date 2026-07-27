@@ -373,6 +373,12 @@
             color: var(--weo-text-secondary);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
+        /* Tool Calls log: the list runs to 200 rows — window it so the panel keeps its
+           place in the page rhythm instead of pushing the rows below it off-screen. */
+        #toolsCallLogPanel {
+            max-height: 480px;
+            overflow-y: auto;
+        }
 
         /* ========================================
            TZ TOGGLE (hourly panel)
@@ -529,7 +535,7 @@
            ======================================== */
         body { font-weight: 380; }
         .page-title, .metric-value { font-weight: 580; }
-        .panel-title, .metric-label, .bar-label, .bar-count,
+        .panel-title, .metric-label, .bar-label, .bar-count, .tcl-meta,
         .trend-date, .footer-badge, .range-btn { font-weight: 480; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1062,9 +1068,10 @@
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
         });
-        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~50.
+        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~200
+        // (matches the worker's per-day TOOLS_CALL_LOG_CAP; the panel scrolls rather than growing).
         result.tools_call_log.sort(function(a, b) { return (b.ts || '').localeCompare(a.ts || ''); });
-        result.tools_call_log = result.tools_call_log.slice(0, 50);
+        result.tools_call_log = result.tools_call_log.slice(0, 200);
         return result;
     }
 
@@ -1268,7 +1275,7 @@
             return;
         }
         var html = '';
-        list.slice(0, 50).forEach(function(rec) {
+        list.slice(0, 200).forEach(function(rec) {
             var tool = rec.tool || '(unknown)';
             var client = rec.named_client || rec.client || 'unknown';
             var code = rec.country || 'XX';
