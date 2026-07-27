@@ -82,4 +82,10 @@
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://warmthengine.com/research/contribution-architecture/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

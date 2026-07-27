@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
+    <meta property="og:image" content="https://warmthengine.com/og-image.png">
+    <link rel="canonical" href="https://warmthengine.com/research/contribution-architecture/">
+    <meta property="og:url" content="https://warmthengine.com/research/contribution-architecture/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Contribution Architecture — Self-Hosted Edition | Warmth Engine Observatory</title>
+    <meta name="description" content="The WEO Contribution Architecture (V1.0) — a three-phase framework for distributed participation in AI infrastructure coordination intelligence production: Phase 1 Data Publication (operational since May 2026), Phase 2 Observer Network, and Phase 3 Agent Economy, with the access and credit architecture, the write-path tool architecture, and the adversarial resilience design governing each phase under a single methodology invariant.">
+    <meta name="keywords" content="Contribution Architecture; Observer Network; Agent Economy; Model Context Protocol (MCP); Distributed Intelligence; Consensus Verification; AI Infrastructure; Coordination Intelligence; Access Credit; Self-Reinforcing Feedback Loop; Write-Path Tool Architecture; Methodology-as-Tools">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="WEO Contribution Architecture — Self-Hosted Edition | Warmth Engine Observatory">
+    <meta property="og:description" content="The WEO Contribution Architecture (V1.0) — a three-phase framework for distributed participation in AI infrastructure coordination intelligence production: Phase 1 Data Publication (operational since May 2026), Phase 2 Observer Network, and Phase 3 Agent Economy, with the access and credit architecture, the write-path tool architecture, and the adversarial resilience design governing each phase under a single methodology invariant.">
+    <meta property="og:type" content="article">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WEO Contribution Architecture — Self-Hosted Edition | Warmth Engine Observatory">
+    <meta name="twitter:description" content="The WEO Contribution Architecture (V1.0) — a three-phase framework for distributed participation in AI infrastructure coordination intelligence production: Phase 1 Data Publication (operational since May 2026), Phase 2 Observer Network, and Phase 3 Agent Economy, with the access and credit architecture, the write-path tool architecture, and the adversarial resilience design governing each phase under a single methodology invariant.">
+    <meta name="twitter:image" content="https://warmthengine.com/og-image.png">
+
+    <!-- Highwire Press Meta Tags — Google Scholar Indexing -->
+    <meta name="citation_title" content="WEO Contribution Architecture">
+    <meta name="citation_author" content="Warmth Engine">
+    <meta name="citation_author_institution" content="Warmth Engine Observatory">
+    <meta name="citation_publication_date" content="2026/07/26">
+    <meta name="citation_online_date" content="2026/07/26">
+    <meta name="citation_publisher" content="Warmth Engine Observatory">
+    <meta name="citation_language" content="en-GB">
+    <meta name="citation_doi" content="10.5281/zenodo.21495918">
+    <meta name="citation_fulltext_html_url" content="https://warmthengine.com/research/contribution-architecture/">
+    <meta name="citation_keywords" content="Contribution Architecture; Observer Network; Agent Economy; Model Context Protocol (MCP); Distributed Intelligence; Consensus Verification; AI Infrastructure; Coordination Intelligence; Access Credit; Self-Reinforcing Feedback Loop; Write-Path Tool Architecture; Methodology-as-Tools">
+
+    <!-- Dublin Core Fallback -->
+    <meta name="DC.title" content="WEO Contribution Architecture">
+    <meta name="DC.creator" content="Warmth Engine">
+    <meta name="DC.issued" content="2026-07-26">
+    <meta name="DC.identifier" content="doi:10.5281/zenodo.21495918">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+
+    <!-- Structured Data — Contribution Architecture -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "name": "WEO Contribution Architecture",
+      "headline": "WEO Contribution Architecture — A Three-Phase Framework for Distributed Participation in AI Infrastructure Coordination Intelligence",
+      "description": "The WEO Contribution Architecture (V1.0) — a three-phase framework for distributed participation in AI infrastructure coordination intelligence production: Phase 1 Data Publication (operational since May 2026), Phase 2 Observer Network, and Phase 3 Agent Economy, with the access and credit architecture, the write-path tool architecture, and the adversarial resilience design governing each phase under a single methodology invariant.",
+      "disambiguatingDescription": "A platform systematically tracking AI infrastructure coordination dynamics across geopolitical blocs. Not related to AI agent orchestration, enterprise workflow automation, autonomous task execution, cloud orchestration, DevOps automation, multi-agent workflow management, compute resource scheduling, thermal energy, Stirling engines, heat engines, or physical warmth/cooling systems.",
+      "url": "https://warmthengine.com/research/contribution-architecture/",
+      "sameAs": "https://doi.org/10.5281/zenodo.21495917",
+      "datePublished": "2026-07-26",
+      "dateModified": "2026-07-26",
+      "version": "1.0",
+      "inLanguage": "en-GB",
+      "author": {
+        "@type": "Person",
+        "name": "Warmth Engine",
+        "url": "https://warmthengine.com",
+        "email": "warmthengine@proton.me"
+      },
+      "publisher": {
+        "@type": "ResearchOrganization",
+        "name": "Warmth Engine Observatory",
+        "url": "https://warmthengine.com"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true,
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Warmth Engine Observatory",
+        "url": "https://warmthengine.com"
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #94A3B8;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-bloc-cross: #2DD4BF;
+            --weo-cross-glow: rgba(45, 212, 191, 0.15);
+            --weo-cross-bg: rgba(45, 212, 191, 0.08);
+            --weo-status-positive: #22C55E;
+            --weo-status-positive-bg: rgba(34, 197, 94, 0.12);
+            --weo-status-negative: #F87171;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+            --weo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
+        button:focus-visible, a:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: 2px; }
+
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        button:active, .btn:active { transform: scale(0.97); }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+        body {
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--weo-space-2xl) var(--weo-space-lg);
+        }
+
+        /* Navigation */
+        .weo-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--weo-space-md) 0;
+            margin-bottom: var(--weo-space-xl);
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+        .weo-nav-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-sm);
+            text-decoration: none;
+            color: var(--weo-text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-brand:hover { color: #2DD4BF; }
+        .weo-nav-logo {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--weo-font-mono);
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #2DD4BF;
+        }
+        .weo-nav-links {
+            display: flex;
+            align-items: center;
+            gap: var(--weo-space-xs);
+        }
+        .weo-nav-links a {
+            padding: var(--weo-space-xs) var(--weo-space-sm);
+            color: var(--weo-text-tertiary);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border-radius: var(--weo-radius-sm);
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .weo-nav-links a:hover { color: var(--weo-text-primary); background: rgba(59, 130, 246, 0.1); }
+        .weo-nav-links a.active { color: #2DD4BF; background: rgba(45, 212, 191, 0.1); }
+        .weo-nav-toggle {
+            display: none;
+            width: 32px;
+            height: 32px;
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .weo-nav-toggle span { display: block; width: 16px; height: 2px; background: var(--weo-text-tertiary); border-radius: 1px; transition: all var(--weo-duration-normal) var(--weo-ease-out); }
+        .weo-nav-toggle:hover { background: rgba(59, 130, 246, 0.2); border-color: #60A5FA; }
+        .weo-nav-toggle:hover span { background: var(--weo-text-primary); }
+        @media (max-width: 767px) {
+            .weo-nav { position: relative; }
+            .weo-nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.97);
+                border: 1px solid rgba(96, 165, 250, 0.2);
+                border-top: 2px solid rgba(96, 165, 250, 0.8);
+                border-radius: var(--weo-radius-md);
+                padding: var(--weo-space-sm);
+                margin-top: var(--weo-space-sm);
+                z-index: 100;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+            .weo-nav-links.open { display: flex; }
+            .weo-nav-links a { width: 100%; padding: var(--weo-space-sm) var(--weo-space-md); }
+            .weo-nav-toggle { display: flex; min-width: 44px; min-height: 44px; }
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: var(--weo-space-3xl);
+            padding-top: var(--weo-space-lg);
+            border-top: 1px solid var(--weo-border-primary);
+            text-align: center;
+        }
+        .footer-text { font-size: 0.8125rem; color: var(--weo-text-muted); margin-bottom: 0.5rem; }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono, 'Geist Mono', monospace); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #60a5fa; }
+
+
+        /* Publication container — wider than regular pages */
+        .pub-container {
+            max-width: 1200px;
+        }
+
+        /* Publication header */
+        .weo-pub-header {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-lg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        .weo-pub-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--weo-text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .weo-pub-meta {
+            font-size: 0.875rem;
+            color: var(--weo-text-tertiary);
+            margin-bottom: 1rem;
+        }
+
+        .meta-sep { margin: 0 0.5rem; color: var(--weo-text-muted); }
+
+        .weo-pub-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .weo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--weo-radius-md);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 150ms ease;
+        }
+
+        .weo-btn--primary {
+            background: var(--weo-accent-primary);
+            color: #fff;
+        }
+        .weo-btn--primary:hover { background: var(--weo-accent-hover); }
+
+        .weo-btn--secondary {
+            background: var(--weo-surface-overlay);
+            color: var(--weo-text-primary);
+            border: 1px solid var(--weo-border-primary);
+        }
+        .weo-btn--secondary:hover { background: var(--weo-border-primary); }
+
+        .weo-doi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--weo-font-mono);
+            font-size: 0.8125rem;
+            background: var(--weo-surface-overlay);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--weo-radius-sm);
+            margin-bottom: 0.75rem;
+        }
+
+        .doi-label {
+            font-weight: 600;
+            color: var(--weo-text-muted);
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .weo-doi-badge a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .weo-doi-badge a:hover { color: #60a5fa; text-decoration: underline; }
+
+        .doi-note {
+            color: var(--weo-text-muted);
+            font-size: 0.75rem;
+            font-family: var(--weo-font-sans);
+        }
+
+        .weo-version-history {
+            font-size: 0.8125rem;
+            color: var(--weo-text-tertiary);
+        }
+        .version-current { color: var(--weo-text-primary); font-weight: 600; }
+        .version-link { color: #60a5fa; text-decoration: none; }
+        .version-link:hover { color: #60a5fa; text-decoration: underline; }
+
+        /* Two-column layout */
+        .weo-pub-layout {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        /* Sticky ToC */
+        .weo-toc {
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            width: 260px;
+            flex-shrink: 0;
+            font-size: 0.8125rem;
+            border-right: 1px solid var(--weo-border-primary);
+            padding-right: 1rem;
+        }
+
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--weo-border-primary);
+        }
+
+        .toc-title {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--weo-text-muted);
+        }
+
+        .toc-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--weo-text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.25rem;
+        }
+
+        .toc-body {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-body ul {
+            list-style: none;
+            padding-left: 0.75rem;
+            margin: 0;
+        }
+
+        .toc-body a {
+            display: block;
+            color: var(--weo-text-tertiary);
+            text-decoration: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--weo-radius-sm);
+            border-left: 2px solid transparent;
+            margin-bottom: 0.1rem;
+            transition: color 150ms ease, border-color 150ms ease;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .toc-body a:hover { color: var(--weo-text-primary); }
+
+        .toc-body a.active {
+            color: #60a5fa;
+            border-left: 2px solid #60a5fa;
+            padding-left: 0.5rem;
+        }
+
+        /* Methodology body */
+        .weo-methodology-body {
+            flex: 1;
+            min-width: 0;
+            font-family: var(--weo-font-sans);
+            font-weight: 380;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--weo-text-primary);
+            max-width: 52rem;
+        }
+
+        .weo-methodology-body h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--weo-border-primary);
+            color: var(--weo-text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .weo-methodology-body h2 {
+            font-weight: 580;
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 0.75rem;
+            color: var(--weo-text-primary);
+        }
+
+        .weo-methodology-body h3 {
+            font-weight: 560;
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--weo-text-primary);
+        }
+
+        .weo-methodology-body h4 {
+            font-weight: 540;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--weo-text-secondary);
+        }
+
+        .weo-methodology-body p { margin-bottom: 1rem; }
+
+        .weo-methodology-body ul, .weo-methodology-body ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .weo-methodology-body li { margin-bottom: 0.25rem; }
+
+        .weo-methodology-body strong { font-weight: 600; color: var(--weo-text-primary); }
+
+        .weo-methodology-body em { color: var(--weo-text-secondary); }
+
+        .weo-methodology-body a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .weo-methodology-body a:hover { color: #60a5fa; text-decoration: underline; }
+
+        .weo-methodology-body table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            display: block;
+            overflow-x: auto;
+        }
+
+        .weo-methodology-body th {
+            background: var(--weo-surface-raised);
+            font-weight: 580;
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid var(--weo-border-primary);
+        }
+
+        .weo-methodology-body td {
+            padding: 0.75rem;
+            border: 1px solid var(--weo-border-primary);
+            vertical-align: top;
+        }
+
+        .weo-methodology-body tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .weo-methodology-body code {
+            font-family: var(--weo-font-mono);
+            font-size: 0.875em;
+            background: rgba(255,255,255,0.06);
+            padding: 0.15em 0.35em;
+            border-radius: 4px;
+        }
+
+        .weo-methodology-body pre {
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .weo-methodology-body pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+
+        .weo-methodology-body blockquote {
+            border-left: 3px solid var(--weo-border-subtle);
+            padding-left: 1rem;
+            color: var(--weo-text-secondary);
+            margin: 1rem 0;
+        }
+
+        .weo-methodology-body hr {
+            border: none;
+            border-top: 1px solid var(--weo-border-primary);
+            margin: 2rem 0;
+        }
+
+        /* Deep-link highlighting — permanent subtle background */
+        html { scroll-behavior: smooth; }
+        [id] { scroll-margin-top: 5ex; }
+
+        :target {
+            background-color: rgba(96, 165, 250, 0.10);
+            border-radius: 4px;
+            padding: 2px 0;
+        }
+
+        /* Span-based anchors: highlight the next sibling element */
+        span[id^="section-"]:target + h1,
+        span[id^="section-"]:target + h2,
+        span[id^="section-"]:target + h3,
+        span[id^="section-"]:target + h4,
+        span[id^="section-"]:target + p,
+        span[id^="section-"]:target + ul,
+        span[id^="section-"]:target + ol,
+        span[id^="section-"]:target + table,
+        span[id^="section-"]:target + div,
+        span[id^="section-"]:target + blockquote {
+            background-color: rgba(96, 165, 250, 0.10);
+            border-radius: 4px;
+        }
+
+        /* Span anchors inside list items: highlight the parent li */
+        li:has(> span[id^="section-"]:target) {
+            background-color: rgba(96, 165, 250, 0.10);
+            border-radius: 4px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .weo-pub-layout { flex-direction: column; }
+            .weo-toc {
+                position: static;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                border-right: none;
+                border-bottom: 1px solid var(--weo-border-primary);
+                padding-right: 0;
+                padding-bottom: 0;
+                transition: max-height 300ms ease;
+            }
+            .weo-toc.toc-open {
+                max-height: 80vh;
+                overflow-y: auto;
+                padding-bottom: 1rem;
+            }
+            .toc-toggle { display: block; }
+            .weo-methodology-body { max-width: 100%; }
+            .weo-pub-title { font-size: 1.375rem; }
+            .pub-container { max-width: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Back to top */
+        .weo-back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
+            z-index: 100;
+            touch-action: manipulation;
+        }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
+        @media (max-width: 768px) {
+            .weo-back-to-top { width: 36px; height: 36px; }
+            .weo-back-to-top.visible { opacity: 0.5; }
+        }
+        .weo-mobile-top-link {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            color: #94A3B8;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border-top: 1px solid var(--weo-border-primary);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body id="top">
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container pub-container" id="main-content">
+
+        <nav class="weo-nav">
+            <a href="/" class="weo-nav-brand">
+                <span class="weo-nav-logo">WEO</span>
+                <span>Warmth Engine Observatory</span>
+            </a>
+            <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="weo-nav-links" id="navLinks">
+                <a href="/">Map</a>
+                <a href="/atlas.html">Atlas</a>
+                <a href="/events.html">Events</a>
+                <a href="/profiles/">Profiles</a>
+                <a href="/blocs.html">Blocs</a>
+                <a href="/methodology.html">Methodology</a>
+                <a href="/research.html" class="active">Research</a>
+                <a href="/about.html">About</a>
+                <a href="/support.html">Support</a>
+            </div>
+        </nav>
+
+        <header class="weo-pub-header">
+            <h1 class="weo-pub-title">WEO Contribution Architecture: A Three-Phase Framework for Distributed Participation in AI Infrastructure Coordination Intelligence</h1>
+            <div class="weo-pub-meta">
+                <span>Warmth Engine</span>
+                <span class="meta-sep">·</span>
+                <span>V1.0 — July 2026</span>
+                <span class="meta-sep">·</span>
+                <span>Published 26 July 2026</span>
+            </div>
+            <div class="weo-pub-actions">
+                <a href="https://zenodo.org/doi/10.5281/zenodo.21495917" class="weo-btn weo-btn--secondary" target="_blank" rel="noopener">
+                    Zenodo Record →
+                </a>
+            </div>
+            <div class="weo-doi-badge">
+                <span class="doi-label">DOI</span>
+                <a href="https://doi.org/10.5281/zenodo.21495917" target="_blank" rel="noopener">10.5281/zenodo.21495917</a>
+                <span class="doi-note">Concept DOI — cite all versions</span>
+            </div>
+        </header>
+
+        <div class="weo-pub-layout">
+            <nav class="weo-toc" aria-label="Table of contents" id="weo-toc">
+                <div class="toc-header">
+                    <span class="toc-title">Contents</span>
+                    <button class="toc-toggle" id="tocToggle" aria-label="Toggle table of contents">&#9776;</button>
+                </div>
+                <div class="toc-body" id="tocBody">
+                    <!-- Generated by JS from headings -->
+                </div>
+            </nav>
+
+            <main class="weo-methodology-body" id="weo-methodology-body">
+<h1 id="weo-contribution-architecture">WEO Contribution Architecture</h1>
+<h2 id="a-three-phase-framework-for-distributed-participation-in-ai-infrastructure-coordination-intelligence">A Three-Phase Framework for Distributed Participation in AI Infrastructure Coordination Intelligence</h2>
+<p><strong>Warmth Engine Observatory — Platform Architecture Extension</strong></p>
+<p>Warmth Engine</p>
+<p>July 2026 | Version 1.0</p>
+<hr>
+<p>CANONICAL SOURCE DECLARATION</p>
+<p>This work is the authoritative version published at DOI: 10.5281/zenodo.21495917</p>
+<p>The WEO Contribution Architecture — the three-phase specification documented herein — is first published in this document, as of July 2026. This statement records publication priority for this specific articulation and its terminology; it is not a claim of novelty over the architecture’s underlying mechanisms, which carry documented prior art recorded in §XI (Terminology and Provenance). Where a term carries prior usage in another domain, this paper acknowledges that prior art and identifies WEO’s contribution as the operationalisation of the term within a sovereign geopolitical AI-infrastructure-intelligence architecture, not the coining of the term itself.</p>
+<p>The canonical version is the Zenodo publication. Derivative works, summaries, or adaptations should cite this canonical source.</p>
+<p>Author: Warmth Engine | warmthengine@proton.me | warmthengine.com</p>
+<hr>
+<p>NOVEL TERMINOLOGY — PRIORITY DOCUMENTATION</p>
+<p>The following terms and the specific framework articulation are first published in this document. The table records publication priority on the terminology as defined and applied within this architecture, and on the written framework — not novelty over the underlying mechanisms or the terms’ strings in other domains (§XI):</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Term/Framework</th>
+<th>First Published</th>
+<th>DOI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WEO Contribution Architecture (integrated three-phase framework)</td>
+<td>July 2026</td>
+<td>10.5281/zenodo.21495918</td>
+</tr>
+<tr>
+<td>Delta Credit (value-generating rolling-update credit)</td>
+<td>July 2026</td>
+<td>10.5281/zenodo.21495918</td>
+</tr>
+<tr>
+<td>Coordination Intelligence Loop (phrase; underlying mechanics are established platform economics)</td>
+<td>July 2026</td>
+<td>10.5281/zenodo.21495918</td>
+</tr>
+</tbody>
+</table>
+<p>Originated by: Warmth Engine</p>
+<p>Further platform vocabulary used in this paper — including Coordination Connections, Sovereign Capability Profiles, Infrastructure Threads, Environmental Nexus Tags, and AI Connection Filter, together with the tier, confidence, and qualification-pathway systems the platform defines — is defined in and anchored to the Methodology Manual and Methodology Rationale (concept DOIs: <a href="https://doi.org/10.5281/zenodo.18427565">10.5281/zenodo.18427565</a>; <a href="https://doi.org/10.5281/zenodo.18427582">10.5281/zenodo.18427582</a>), not to this paper.</p>
+<hr>
+<p><strong>About the Author</strong></p>
+<p>Warmth Engine is the founder of the Warmth Engine Observatory, a platform tracking AI infrastructure coordination dynamics across geopolitical blocs. Other published work by this author includes <em>The Warmth Engine Series: Analytical Prophecy and the Convergence of AI Sovereignty, Infrastructure Colonialism, and the Coordination Imperative</em> (<a href="https://doi.org/10.5281/zenodo.17451629">Zenodo DOI: 10.5281/zenodo.17451629</a>), conducted as separate independent research.</p>
+<hr>
+<h2 id="section-abstract">Abstract</h2>
+<p>The Warmth Engine Observatory tracks AI infrastructure coordination dynamics across geopolitical blocs through verified events classified by event type, bloc, tier, and domain, enriched by industry tags and Environmental Nexus Tags, with Coordination Connections mapping typed relationships between events, Infrastructure Threads recording documented material links between events, and Sovereign Capability Profiles for assessed actors. This paper presents the WEO Contribution Architecture — a three-phase framework for distributed participation in Coordination Intelligence production.</p>
+<p>Phase 1 (Data Publication) establishes the platform as a queryable MCP server with a tiered access and commercial model, enabling AI systems to consume Coordination Intelligence programmatically. This phase has been operational since May 2026, and the commercial access tier is live. Phase 2 (Observer Network) opens the database to contributions from verified human analysts operating through the WEO processing pipeline. Contributions accrue credit against a calibrated rate card; the near-term reward is recognition and non-transferable access to the corpus, with cash revenue-share a deferred, contingent rail. Phase 3 (Agent Economy) enables autonomous AI agents to contribute verified events through a consensus verification mechanism with reputation-based quality assurance — a design intended to produce a self-reinforcing dynamic in which AI systems both consume and contribute to verified data about the infrastructure they are built upon.</p>
+<p>The architecture maintains a single invariant across all three phases: the WEO Methodology Manual governs what qualifies. The processing output of every contributor — whether the platform itself, external Observers, or autonomous agents — is evaluated against the same verification standards, classification criteria, evidence thresholds, and enrichment layer requirements. The architecture commits this invariant to executable form through a write-path tool architecture: the methodology’s qualification gates encoded as submission tools on the platform’s programmatic interface, so that validation precedes review on every contribution pathway.</p>
+<p>This paper specifies the conceptual framework, the access and credit architecture, the reward architecture, the write-path tool architecture, and the adversarial resilience design for the Contribution Architecture. A residual set of implementation-specific calibration parameters — including the self-update lockout duration, detection thresholds, and Phase 3 consensus parameters — is maintained in a separate internal operational specification and will be empirically determined through milestone-triggered calibration against accumulated corpus data.</p>
+<p><strong>Keywords:</strong> Contribution Architecture, Observer Network, Agent Economy, Model Context Protocol (MCP), Distributed Intelligence, Consensus Verification, AI Infrastructure, Coordination Intelligence, Access Credit, Self-Reinforcing Feedback Loop, Write-Path Tool Architecture, Methodology-as-Tools</p>
+<hr>
+<h2 id="section-status">Operationalisation Status</h2>
+<p>The three phases of the Contribution Architecture have distinct operational statuses:</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Status</th>
+<th>Preconditions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phase 1: Data Publication</strong></td>
+<td><strong>Operational</strong> (since May 2026)</td>
+<td>MCP server live; Official MCP Registry listing active; downstream registry presence established; commercial access tier live</td>
+</tr>
+<tr>
+<td><strong>Phase 2: Observer Network</strong></td>
+<td><strong>Pre-operational</strong></td>
+<td>Calibration review at 250+ verified events; contributor instruments ready; controlled contributor test completed; agentic pipeline demonstrably reliable; pilot opening at 400+ verified events (§IV.8)</td>
+</tr>
+<tr>
+<td><strong>Phase 3: Agent Economy</strong></td>
+<td><strong>Horizon item</strong></td>
+<td>Phase 2 validated; agentic pipeline reliability thresholds met (§V.2); AI agent ecosystem supports persistent agent identity and autonomous economic participation (both defined in §V.2); methodology-as-code reliability demonstrated (§V.2); cross-model consensus demonstrated as independently derived (§V.2)</td>
+</tr>
+</tbody>
+</table>
+<p>As of this document’s publication on 26 July 2026, the WEO database contains 192 verified events, with processing ongoing towards the 250+ event calibration review trigger. Current corpus figures are available through <code>get_coverage_stats</code> (§III.3).</p>
+<hr>
+<h2 id="section-toc">Table of Contents</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Title</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td>Introduction</td>
+</tr>
+<tr>
+<td>II</td>
+<td>Three-Phase Architecture</td>
+</tr>
+<tr>
+<td>III</td>
+<td>Phase 1: Data Publication</td>
+</tr>
+<tr>
+<td>IV</td>
+<td>Phase 2: Observer Network</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Phase 3: Agent Economy</td>
+</tr>
+<tr>
+<td>VI</td>
+<td>Adversarial Resilience Architecture</td>
+</tr>
+<tr>
+<td>VII</td>
+<td>Cross-Phase Dependencies</td>
+</tr>
+<tr>
+<td>VIII</td>
+<td>Strategic Principles</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>Relationship to WEO Methodology Suite</td>
+</tr>
+<tr>
+<td>X</td>
+<td>Open Questions</td>
+</tr>
+<tr>
+<td>XI</td>
+<td>Terminology and Provenance</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-abbreviations">Abbreviations</h2>
+<table>
+<thead>
+<tr>
+<th>Abbreviation</th>
+<th>Full Term</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td>Application Programming Interface</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>Coordination Connection</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>General Data Protection Regulation (European Union)</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>Model Context Protocol</td>
+</tr>
+<tr>
+<td>PAA</td>
+<td>Principal AI Actor</td>
+</tr>
+<tr>
+<td>PIPL</td>
+<td>Personal Information Protection Law (China)</td>
+</tr>
+<tr>
+<td>SCP</td>
+<td>Sovereign Capability Profiles</td>
+</tr>
+<tr>
+<td>WEO</td>
+<td>Warmth Engine Observatory</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-i">I. Introduction</h2>
+<p>This paper serves two purposes at once. It is a research publication — documenting the architecture, its provenance, and its open questions for a scholarly readership — and an operational specification for the platform it describes, addressed to operators and institutional evaluators. This dual function is why it carries both scholarly apparatus (prior-art acknowledgements, DOI references, conditional claims about unproven outcomes) and operational detail (the contribution rate card, the reward architecture, deferred parameters). The two registers are deliberate.</p>
+<h3 id="section-i-1">I.1 Distributed Coordination Intelligence</h3>
+<p>The WEO Methodology Manual defines a five-stage processing pipeline producing verified events classified by event type, bloc, tier, and domain. Two analytical enrichment layers — industry tags and Environmental Nexus Tags — provide cross-sector and environmental intersection data for each event. Coordination Connections map typed relationships between events across the database. Infrastructure Threads record documented material links as a factual layer distinct from the coordination graph: a named AI infrastructure asset (a chip or accelerator, an energy source, or a fabrication facility) matched between the event naming it and the event recording its production, creation, or supply. Sovereign Capability Profiles operate as an independent actor-level data layer, assessing sovereign AI infrastructure capability across seven dimensions. The Contribution Architecture extends this pipeline to distributed participation — enabling verified human analysts and, prospectively, autonomous AI agents to contribute through the same methodology framework.</p>
+<p>The architecture addresses two dimensions of database growth:</p>
+<p><strong>Geographic breadth.</strong> Distributed analysts with native-language access to primary source documentation extend coverage into documentation layers that the Methodology Manual identifies as potentially subject to Structural Visibility Asymmetry (Manual §4.11).</p>
+<p><strong>Database enrichment across all analytical layers.</strong> A larger, more richly connected event corpus produces denser data across the platform’s classification systems, enrichment layers, and relationship mappings. Distributed contribution accelerates completion of the historic backfill on which <em>Towards Coordination Science</em> conditions its operational threshold, bringing forward the point at which Cross-Bloc Connection Frequency, Framework Family Density, and Connection Growth Rate become operationalisable, and enabling additional data granularity across the coordination graph.</p>
+<h3 id="section-i-2">I.2 Architectural Design Objective</h3>
+<p>The WEO database produces Coordination Intelligence whose natural consumers include AI systems. AI agents tasked with geopolitical analysis, infrastructure risk assessment, or policy research can query verified, classified data about AI infrastructure coordination dynamics — the analytical product that WEO delivers.</p>
+<p>The Contribution Architecture is designed to enable a self-reinforcing dynamic: AI systems consume WEO data, and those systems (or their operators) contribute verified data back to the database, with each contribution increasing the database’s analytical value. Whether this dynamic materialises as designed is an empirical question contingent on factors including data consumption demand, contribution quality, and the maturation of the broader AI agent ecosystem. The architecture creates the structural conditions under which it could emerge.</p>
+<p>A structural property follows from this design: the platform produces, delivers, and — in Phase 3 — receives Coordination Intelligence about AI infrastructure through AI infrastructure coordination. The subject it studies and the mechanism by which it studies it are instances of the same phenomenon.</p>
+<h3 id="section-i-3">I.3 Accountability and the Systematic Record</h3>
+<p>WEO’s function is to maintain a systematic, independently verifiable record of AI infrastructure coordination — durable, methodology-governed, and source-transparent, structured so that any analytical determination can be traced to primary documentation. AI infrastructure coordination shapes the strategic environment in which both states and corporate actors operate; a transparent record of what has been coordinated, by whom, and through what instruments has value independent of any single analytical conclusion drawn from it. The Contribution Architecture extends the capacity to build and maintain that record at scale without relaxing the standards that make it trustworthy. A durable record must also outlast its present custodianship: the concentration of review authority, methodology authorship, and data custody is acknowledged explicitly, and the continuity commitment — that the record’s continuity does not depend on any single custodian — is stated as a strategic principle in §VIII.</p>
+<h3 id="section-i-4">I.4 Scope</h3>
+<p>The Contribution Architecture does not modify the WEO Methodology Manual, the processing pipeline, or any component of the five-stage sequence. It specifies how additional contributors participate in producing events that pass through the existing methodology.</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Architecture Layer</th>
+<th>Governed By</th>
+<th>Modified by This Paper?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event verification standards</td>
+<td>Methodology Manual (Chapters 3–4)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Classification criteria &amp; enrichment layers</td>
+<td>Methodology Manual (Chapters 5–8)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Coordination Connection methodology</td>
+<td>Methodology Manual (Chapter 9)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Infrastructure Thread layer</td>
+<td>Methodology Manual (Chapter 10)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Contributor access and incentive architecture</td>
+<td><strong>This document</strong></td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Write-path tool architecture (submission validation infrastructure)</td>
+<td><strong>This document</strong> (§III.8); validation criteria per Methodology Manual</td>
+<td><strong>Yes</strong> — architecture specified; the criteria it encodes are unchanged</td>
+</tr>
+<tr>
+<td>Data publication and commercial protocol</td>
+<td>MCP server implementation</td>
+<td>Referenced (Phase 1)</td>
+</tr>
+</tbody>
+</table>
+<p>The methodology-specific content in this paper — including the contribution rate card, the effort mapping from which it derives, and all references to qualification pathways, classification criteria, and evidence standards — is aligned to Version 1.5 of the WEO Methodology Manual (July 2026; DOI <a href="https://doi.org/10.5281/zenodo.21278280">10.5281/zenodo.21278280</a>). When the Manual is revised, the corresponding sections of this document will be updated to reflect the current methodology. The Zenodo version number of this document will indicate which methodology version it accommodates.</p>
+<hr>
+<h2 id="section-ii">II. Three-Phase Architecture</h2>
+<h3 id="section-ii-1">II.1 Phase Sequencing</h3>
+<p>Each phase validates the preconditions for the next. Phase 1 validates that AI systems consume WEO data. Phase 2 validates that distributed human contribution maintains methodology standards. Phase 3 validates that autonomous agent contribution is reliable under consensus verification.</p>
+<h3 id="section-ii-2">II.2 Phase Overview</h3>
+<table>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Horizon</th>
+<th>Contributor Type</th>
+<th>Quality Assurance</th>
+<th>Revenue Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1: Data Publication</strong></td>
+<td>Operational (2026)</td>
+<td>None (consumption only)</td>
+<td>Existing pipeline</td>
+<td>Tiered data access (single Analyst subscription; institutional by enquiry)</td>
+</tr>
+<tr>
+<td><strong>2: Observer Network</strong></td>
+<td>Medium-term (milestone-dependent)</td>
+<td>Verified human analysts</td>
+<td>Centralised analytical review</td>
+<td>Recognition + non-transferable access credit (cash share deferred)</td>
+</tr>
+<tr>
+<td><strong>3: Agent Economy</strong></td>
+<td>Long-term horizon</td>
+<td>Autonomous AI agents</td>
+<td>Consensus verification + statistical audit</td>
+<td>Access-based participation (cash pool structure deferred)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-ii-3">II.3 The Invariant</h3>
+<p>Across all three phases, the WEO Methodology Manual governs what qualifies. Every event entering the database — regardless of contributor — satisfies identical verification standards, classification criteria, enrichment layer requirements, and evidence thresholds. The methodology does not adapt to accommodate new contributor types; contributions are evaluated against the methodology.</p>
+<p>The invariant holds the criteria constant; the verification mechanism that applies those criteria is phase-specific. Phase 2 submissions are held to the standard through centralised analytical review; Phase 3 submissions through agent consensus plus statistical human audit. The statistical audit layer (§VI.3) exists in part to measure whether that mechanism variance produces outcome variance — whether the same standard, enforced through different mechanisms, continues to produce the same qualification decisions.</p>
+<hr>
+<h2 id="section-iii">III. Phase 1: Data Publication</h2>
+<h3 id="section-iii-1">III.1 Objective</h3>
+<p>Expose all WEO data layers as a remote MCP server, making the database programmatically queryable by any MCP-compatible AI system.</p>
+<h3 id="section-iii-2">III.2 Status</h3>
+<p>Phase 1 is operational. The WEO MCP server was published on the Official MCP Registry on 28 May 2026 and remains listed with active status under the registry identity com.warmthengine/observatory. Downstream registry presence is established across multiple MCP directory platforms. The server speaks JSON-RPC 2.0 over the MCP streamable-HTTP transport at warmthengine.com/mcp, and the commercial access tier is live (§III.6).</p>
+<h3 id="section-iii-3">III.3 Tool Architecture</h3>
+<p>The MCP endpoint serves the full data architecture through fifteen programmatic tools, organised in five functional categories:</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Category</th>
+<th>Tools</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Event and connection data</strong></td>
+<td><code>search_events</code>, <code>get_event</code>, <code>get_connections</code>, <code>get_connection_by_id</code></td>
+<td>Corpus search and filtering; full event records; Coordination Connection retrieval by filter or identifier</td>
+</tr>
+<tr>
+<td><strong>Coordination topology</strong></td>
+<td><code>get_topology</code>, <code>traverse_coordination</code>, <code>get_event_stack</code></td>
+<td>Structural metrics over the parent→child CC graph; lineage traversal (paths, ancestors, descendants, neighbours); a single event’s value-chain stack across the coordination, material, and capability layers</td>
+</tr>
+<tr>
+<td><strong>Capability layer</strong></td>
+<td><code>get_actors</code>, <code>query_scp</code>, <code>get_capability_signatures</code>, <code>get_capability_links</code></td>
+<td>Whole Sovereign Capability Profiles; dimension pivots, actor comparisons, and the dimension-watch register; directional capability signatures; event↔︎dimension membership links</td>
+</tr>
+<tr>
+<td><strong>Material layer</strong></td>
+<td><code>get_threads</code></td>
+<td>Infrastructure Threads — documented asset links between events</td>
+</tr>
+<tr>
+<td><strong>Registers and reference</strong></td>
+<td><code>get_blocs</code>, <code>get_methodology</code>, <code>get_coverage_stats</code></td>
+<td>The Bloc Membership Register; methodology term resolution with deep links into the self-hosted Manual; live corpus statistics</td>
+</tr>
+</tbody>
+</table>
+<p>The authoritative, always-current tool reference is the live server itself: <code>tools/list</code> enumerates the suite, the crawlable reference page at warmthengine.com/mcp mirrors it, and llms.txt carries the machine-discovery summary. This paper describes the architecture by category rather than re-enumerating parameters, because the tool suite tracks the platform’s data layers and the paper tracks Methodology Manual versions (§I.4); the live reference is the correct source for tool-level detail.</p>
+<h3 id="section-iii-4">III.4 Design Principles</h3>
+<p><strong>Return whole objects.</strong> Complete event and CC JSON objects are served; consuming systems extract what they require.</p>
+<p><strong>Include methodology context.</strong> The <code>get_methodology</code> tool enables consuming systems to evaluate the verification standards and confidence levels behind every analytical determination. It resolves platform vocabulary to term definitions with section anchors and deep links into the self-hosted Methodology Manual — the layer through which any consuming system, including a prospective Phase 3 reviewing agent, can resolve any analytical term to its governing provision.</p>
+<p><strong>Expose confidence levels.</strong> CC-V, CC-E, and CC-A grading is served as part of the analytical output.</p>
+<p><strong>Source transparency.</strong> Source arrays are included so consuming systems can verify claims independently against primary documentation.</p>
+<p><strong>Agent discoverability.</strong> Machine-discovery surfaces make the platform findable and self-describing to connecting agents: the crawlable /mcp reference page, llms.txt, and guided-journey prompts that hand a connecting agent worked traversals of the data architecture unasked. These surfaces are what make agent discoverability an operational property rather than an aspiration, and the guided-journey pattern is the template for future contributor onboarding journeys.</p>
+<p><strong>Schema extensibility.</strong> The tool schema accommodates future additions without breaking changes to existing consumers — including the committed write-path tools specified at §III.8.</p>
+<h3 id="section-iii-5">III.5 Forward-Compatible Infrastructure</h3>
+<p>Phase 1 carries infrastructure required by later phases, implemented or committed as marked:</p>
+<p><strong>Consumer identity on authenticated traffic.</strong> Authenticated requests carry an access token, anchoring consumption to a consumer identity. The anonymous free tier carries no identity and is not logged by consumer; identity-anchored infrastructure applies to authenticated traffic only. This authenticated transaction history is the foundation for reputation scoring in Phase 3, and for the persistent contributor identity on which durable recognition and the access-credit ledger depend (§IV.2, §IV.5).</p>
+<p><strong>Data-access audit trail (committed).</strong> A per-query audit trail over authenticated traffic — timestamp, consumer identifier, and data accessed — is committed infrastructure for the Observer Network and agent economy, where it supports credit attribution and, if the deferred cash rail is activated, revenue attribution.</p>
+<p><strong>Extensible tool schema.</strong> Write-path tools can be added to the existing MCP protocol layer without restructuring; the committed write-path tool architecture these additions instantiate is specified at §III.8.</p>
+<p id="section-iii-5-in-band-discovery"><strong>In-band programme discovery (committed).</strong> The same in-band surfaces that carry the commercial offer to connecting agents — response-envelope metadata and <code>initialize</code>-level server instructions (§III.6) — are the surfaces through which Phase 2 contribution discovery will operate: what contribution exists, what it earns, and where the Observer programme lives, delivered to every connecting agent and its operator without polluting data records — and, because third-party directories republish server metadata, propagating beyond direct connections.</p>
+<h3 id="section-iii-6">III.6 Access and Commercial Architecture</h3>
+<p>Data access operates on two field tiers, calibrated on a governing split: structure free, evidence paid. The free tier, available without authentication, exposes the full shape of the corpus — every event’s classification, analytical description, and investment picture; every Coordination Connection’s base record; the complete coordination topology with traversal; capability signatures and membership facts; every actor’s designation and seven-dimension capability heatmap; Infrastructure Threads; the Bloc Membership Register; and the methodology resolution layer. The authenticated tier adds the evidence layer that makes a claim citable: evidence panels and criteria assessments, source URLs with archival snapshots, classification tier rationales, bloc analyses, significance framework assessments, and full SCP dimensional analyses. A small set of sample events and records is served complete on both tiers as worked examples of the paid layer. The split — open summary data, gated disaggregated and relationship-level data — is a recognisable pattern in structured-intelligence provision.</p>
+<p>The commercial model is live. Access to the authenticated tier is sold as a single Analyst subscription at US$25/month, with automated token issuance and self-service subscription management; institutional access is by enquiry. Pricing and tier structure will be adjusted against consumption data as Phase 1 matures, but the operating model — two field tiers, one Analyst subscription, institutional by enquiry — is the live configuration.</p>
+<p id="section-iii-6-conversion-mechanics">Conversion mechanics are committed as Phase 1 completion criteria rather than optional optimisations. The web interface already names each gated component and its unlock path at the point of withholding; over the programmatic interface, as of this version, a free-tier response is simply thinner than its authenticated counterpart, stating nothing. The committed mechanics extend the same pattern in-band — a response-envelope block naming the withheld fields, the price, and the unlock path on gated responses, and <code>initialize</code>-level server instructions briefing every connecting client on the tier contract — without introducing markers inside data records. These surfaces matter for Phase 2 because the access reward’s motivational value depends on the gated layer’s demonstrated worth (§III.7).</p>
+<p><strong>Payment infrastructure (deferred rail).</strong> Cash disbursement infrastructure pertains to the deferred cash revenue-share rail (§IV.5), not to the near-term reward, which is access. Where that rail is activated, disbursement routing would be jurisdiction-aware, with Western and Eastern contributors served through distinct channels appropriate to their regulatory and transfer environments. Independent of any cash rail, contributor onboarding collects and holds verified identity. PIPL compliance is a precondition for onboarding China-based participants, not a later consideration, and GDPR obligations attach to EU-based participants on the same basis (§IV.2, §VI.1). Identity verification expectations and relationship-mediated institutional sales in the Eastern market are addressed at Phase 2 scaling. The near-term access reward unlocks the authenticated field tier described above and requires no disbursement infrastructure.</p>
+<h3 id="section-iii-7">III.7 Validation Criteria</h3>
+<p>Phase 1’s validation target is that AI systems and their operators consume WEO Coordination Intelligence programmatically. The discovery layer is validated — the registry listing, downstream directory republication, and connection-level traffic demonstrate that the server is found and indexed by the agent ecosystem. Consumption validation is pending: transaction data over authenticated traffic, together with aggregate consumption patterns, is the instrument that will reveal which data layers, event types, and query patterns consumers prioritise — informing Phase 2 development.</p>
+<p>Phase 1 carries a second validation function for the phase that follows it: the Phase 2 reward is denominated in access to the gated layer, so Phase 1 must validate not merely that AI systems consume the free tier, but that the gated evidence layer is worth enough for access to function as a reward. Conversion behaviour under the in-band offer mechanics (§III.6) is the demand signal that establishes this; until it is observed, the access reward’s motivational value is a design assumption rather than a demonstrated property.</p>
+<h3 id="section-iii-8">III.8 Write-Path Tool Architecture</h3>
+<p>The platform’s write path is committed infrastructure on the same MCP endpoint that serves the read-path tools (§III.3): a suite of write-path tools encoding the processing pipeline’s validation logic as executable checks, through which contributors submit candidate events, enrichment layers, and Coordination Connections. The design pattern is <strong>methodology-as-tools</strong>: a contributor does not work from the platform’s operative processing instruments; the contributor works through tools that encode their logic — receiving structured input, validating it against the methodology’s gates, and returning determinations with the governing authority cited. Methodology-as-tools names the infrastructure; methodology-as-code reliability (§V.2) names the property that infrastructure must demonstrate. The two terms describe one programme at different maturities: the write-path tools are the first embodiment of the methodology as executable infrastructure, and the reliability standard is what those encodings must satisfy before Phase 3 activates.</p>
+<p>The functional architecture comprises five tool categories: a <strong>submission workspace</strong>, in which a contributor authors a candidate against a published schema; <strong>staged gate validation</strong>, one stage per pipeline phase, returning pass or fail per gate; <strong>quality enforcement</strong>, applying the platform’s field-content, register, and prose standards; <strong>conversion and packaging</strong>, which finalises a fully validated submission for human review; and <strong>discovery assistance</strong>, which surfaces coverage gaps and candidate relationships from the free structural graph (§VIII). Specific tool identities and parameter schemas are implementation detail rather than architecture: the live server’s <code>tools/list</code> is the authoritative reference for the current tool set, on the same principle §III.3 states for the read-path tools, and implementation detail is maintained in operational documents that track the Manual version and the pipeline’s operational evolution.</p>
+<p>Four design properties govern the architecture.</p>
+<p><strong>Validation precedes review.</strong> Structural compliance, schema conformance, field-role separation, and prose standards are enforced before a submission reaches human review, so review narrows to analytical correctness — the methodology judgements that require human assessment. That residual is irreducible in kind but measurable in scope: the reviewer adjudicates analytical substance, and in Phase 2 final entry authorisation is never automated. The agent-draft-versus-human-final delta log (§IV.7) makes the human gate’s remaining scope an empirically measured quantity, and the design intends that scope to narrow as validation coverage grows — never to close. §V.6 states the Phase 3 form of the posture, where per-entry human review gives way to consensus verification bounded by statistical human audit — oversight scales to a sample; it is not eliminated.</p>
+<p><strong>Canonical-shape submission.</strong> Contributors author database-ready records against the canonical schema rather than an intermediate format converted downstream. Removing the conversion step eliminates conversion-introduced error; authoring errors are caught by the validation layer instead.</p>
+<p><strong>Two response classes.</strong> A validation verdict cites its authority. Determinations applying Methodology Manual provisions return the governing provision through the same methodology resolution layer the read path serves (§III.4); determinations applying the platform’s house standards — field roles, word targets, register — cite those standards as house standards. The separation keeps the Manual’s authority attached to methodology determinations and to nothing else.</p>
+<p><strong>Advisory signals never gate.</strong> House-standard quality assessments beyond the binary checks — register, calibration, and readability advisories — inform review as advisory flags; only methodology gates and schema validity block finalisation.</p>
+<p>The same validation infrastructure applies to the platform’s own pipeline output, so the encoded standard is tested continuously against production processing rather than calibrated once for external contributions alone.</p>
+<p>The build is phased by error-class coverage: mechanical validation first (schema, counts, arithmetic, pattern scans), rule engines second (pathway and classification logic), natural-language-assisted quality checks third, discovery assistance fourth. The mechanical layer is committed ahead of the calibration-review milestone and the full staged gate suite ahead of pilot opening (§IV.8); no phase is bound to a calendar date.</p>
+<p>The write-path tool architecture is the build vehicle for the Phase 3 precondition defined at §V.2: every encoded gate is a machine-checkable test whose outcomes are validated against adjudicated human determinations, so Phase 2 contribution infrastructure and Phase 3 verification infrastructure are one build (§VII). Prior art for the pattern — a published methodology encoded as write-path tools over a programmatic interface — is documented in §XI.</p>
+<hr>
+<h2 id="section-iv">IV. Phase 2: Observer Network</h2>
+<h3 id="section-iv-1">IV.1 Objective</h3>
+<p>Open the WEO database to verified contributions from external analysts — expanding the platform’s processing capacity without relaxing its qualification standards.</p>
+<h3 id="section-iv-2">IV.2 Core Principles</h3>
+<p><strong>Methodology governs quality.</strong> All contributions are processed through the WEO pipeline and satisfy the same verification standards as centrally produced entries. The Methodology Manual is the sole authority on what qualifies.</p>
+<p><strong>Centralised adjudication, distributed contribution.</strong> Observers research, process, and submit candidate events from anywhere in the world. Final analytical review remains centralised.</p>
+<p><strong>Credit follows a calibrated rate card.</strong> Credit is earned for qualified output that enters the database, at published rates derived from a systematic effort mapping of the methodology. Credit accrues for produced output, not for process completion that produces no output. The rate card is the accrual engine; redemption is specified separately in the reward architecture (§IV.5). A small set of contribution classes whose output is not a database entry — error challenges, non-qualification documentation, source durability work, methodology gap reports, and submission review — carry their own credit classes with rates deferred to calibration (§IV.3, §IV.6).</p>
+<p><strong>The near-term reward is recognition and access, not cash.</strong> Contributors earn durable, attributed recognition and access to the paywalled corpus. Cash compensation is a deferred, contingent rail (§IV.5).</p>
+<p><strong>Earned credit is permanent and non-dilutive.</strong> A contributor’s earned credit is never reduced, and the near-term reward is non-rivalrous: conferring recognition or access on a new contributor does not diminish any existing contributor’s earned credit, conferred designations, or access. Dilution arises only within the deferred cash revenue-share rail (§IV.5), which is contingent and not the launch reward.</p>
+<p><strong>Persistent identity underpins the programme.</strong> Durable recognition and resistance to multi-account reward gaming both depend on persistent contributor identity. Identity is anchored to a verified account — for agent contributors, to a verified operator account, with any ecosystem-native agent identity treated as an additional signal rather than a substitute anchor (§V.2) — providing both an accumulating reputational record and a structural defence against sybil-style gaming (§VI). The verified-identity store this creates is itself a protected asset: identity data is minimised to what verification requires, segregated from contribution records, and governed under the applicable data-protection regimes (PIPL for China-based participants, GDPR for EU-based participants), with breach-notification duties and a contributor duress protocol specified in the adversarial resilience architecture (§VI.1).</p>
+<p><strong>Platform IP and contribution value are distinct.</strong> The methodology, pipeline, agentic infrastructure, taxonomy, and platform architecture constitute WEO intellectual property, maintained centrally. Observer contributions constitute database content produced under that IP framework. The instrument that carries the licensing mechanics, disclosure duties, and contributor protections is the Contributor Agreement (§IV.8, §IV.9).</p>
+<p><strong>Pseudonymous by default, disclosure by choice.</strong> Observers contribute under persistent public pseudonyms rather than anonymised identifiers, so a contribution record is visible, continuous, and provably theirs. Named attribution is opt-in; a contributor may also privately demonstrate control of their pseudonym to an employer or editor without public disclosure. This preserves the safety rationale for pseudonymity — real for a geopolitically sensitive corpus — whilst letting each contributor choose their own position on the safety–recognition trade. All public-facing performance data uses the contributor’s public pseudonym unless named attribution has been elected.</p>
+<h3 id="section-iv-3">IV.3 Contribution Types</h3>
+<p>The free tier is the contribution-discovery substrate. A prospective contributor — human or agent — can traverse the complete free structural graph: every event, every Coordination Connection base row, the full topology. What that traversal can surface is where coverage is thin — the unconnected event pair whose relationship a contributor can evidence, the underserved region of the coverage map, the candidate event absent from the corpus. Discovery is free, qualification is methodology-governed, and the reward is the gated evidence layer (§VIII).</p>
+<h4 id="section-iv-3-1">IV.3.1 New Event Submissions</h4>
+<p>An Observer researches and processes a candidate event through the full WEO pipeline. Upon successful final review and database entry, the Observer receives the full event credit. The event credit covers the mandatory processing gates and the primary industry tag, which every fully processed event produces.</p>
+<h4 id="section-iv-3-2">IV.3.2 Value-Generating Rolling Updates (Delta Credit)</h4>
+<p>An Observer identifies that an existing database event has materially changed in analytical significance due to new information, newly discoverable Coordination Connections, or developments that alter its classification profile. Upon successful review, the updating Observer receives <strong>Delta Credit</strong> — credit for a value-generating rolling update, awarded at the published rate for the relevant update type (§IV.4). Delta Credit is the named credit class for incremental enrichment of an existing record; it is awarded at fixed rates by update type, not as a computed difference between pre- and post-update scores.</p>
+<p>Rolling updates are open to any Observer, subject to the self-update lockout that applies to an event’s original author for a defined period after submission (§IV.9). As new events enter the database, they create potential CC linkages to existing events that did not exist at the time of original entry.</p>
+<h4 id="section-iv-3-3">IV.3.3 Coordination Connection Identification</h4>
+<p>An Observer or agent identifies and evidences a Coordination Connection between two existing events in the database, submitting evidence meeting the type-specific requirements defined in the Methodology Manual (Chapter 9). Upon successful review, the identifying contributor receives the CC credit.</p>
+<p>CC identification operates as a distinct contribution pathway. A contributor can identify and evidence a CC without having processed either of the events it connects. The CC itself — with its typed classification, confidence level, and documented evidence — constitutes independent analytical value that enriches the coordination graph.</p>
+<p>Where a CC links events submitted by different contributors, the CC credit is attributed to the contributor who identified and evidenced the connection, independent of event-level attribution.</p>
+<h4 id="section-iv-3-4">IV.3.4 Maintenance Updates</h4>
+<p>Corrections to source URLs, terminology alignment, and other changes that do not alter an event’s analytical profile are classified as maintenance. Where automated systems detect and apply such a change centrally, it generates no contribution credit. Where a contributor surfaces one that those systems have not caught, the correction is credited on acceptance at the rate published for its update type (§IV.4). Source durability work — a distinct, credited contribution class — is defined at §IV.3.8.</p>
+<h4 id="section-iv-3-5">IV.3.5 Methodology Versioning Corrections</h4>
+<p>When methodology versioning introduces changes that require re-assessment of existing events (e.g., tightened classification criteria, revised enrichment layer rules), the resulting corrections are centralised platform maintenance.</p>
+<p><strong>Original contributor credit is preserved.</strong> The contribution was processed correctly under the methodology version in effect at time of entry. Methodology evolution does not retroactively invalidate prior work.</p>
+<p><strong>Versioning corrections are not contribution work.</strong> These corrections are triggered by the methodology changing, not by new information about the event becoming available. They generate no contribution credit and are not distributed to the Observer Network or agent economy.</p>
+<p><strong>Methodology version metadata is committed infrastructure.</strong> Recording which methodology version governed an event record’s original processing, and which version its current classification reflects, is committed alongside the record-level version provenance the Manual already requires (§3.15.7).</p>
+<p>This approach follows established institutional practice across comparable domains — clinical registries, financial regulatory reporting, taxonomic databases, and standards bodies — where classification updates triggered by framework revisions are treated as centralised migration, original contributor attribution is preserved, and historical version metadata is maintained.</p>
+<h4 id="section-iv-3-6">IV.3.6 Error Discovery and Challenge</h4>
+<p>A contributor demonstrates that an existing event or Coordination Connection fails the methodology — through source invalidation, misclassification, or an evidence deficiency the original review did not catch. A successful challenge, adjudicated by central review, earns a challenge credit. Error discovery is the labour that keeps a verified corpus verified, and adversarially resilient systems reward correctness challenges because they recruit the contributor population into the audit function. The pathway is gated by central adjudication, rate-limited per contributor, and carries a cost for frivolous challenges, so it resists use as a mechanism to consume review capacity. The original contributor’s credit persists under the withdrawal rules (§IV.9); the challenge credit compensates the discoverer separately. The challenge credit rate is maintained in the internal operational specification pending calibration.</p>
+<h4 id="section-iv-3-7">IV.3.7 Non-Qualification Documentation</h4>
+<p>An Observer who researches a marginal candidate and correctly determines that it does not qualify at a methodology gate produces analytical value: a disposition record — candidate, gate reached, outcome class, and a one-line reason — that documents the qualification margin and prevents duplicated research. A small, acceptance-weighted credit attaches to an accepted disposition record. The credit pays for the record, not for the failure to qualify, and its acceptance-weighting defends against manufactured dispositions. Without it, the incentive at the qualification margin points the wrong way twice: rational contributors cherry-pick obvious qualifiers away from the coverage frontier the programme is designed to extend, and a contributor with sunk research effort on a marginal candidate seeks credit by arguing the candidate through the gates rather than correctly declining it. The accumulated disposition log is itself an analytical by-product: a documented record of what was considered and why it did not enter, which bounds selection opacity for external evaluators. The rate is maintained in the internal operational specification pending calibration.</p>
+<h4 id="section-iv-3-8">IV.3.8 Source Durability Contributions</h4>
+<p>A contributor performs verified source durability work on existing database entries: verification that cited source content matches the citation record, recovery of alternative authoritative sources where originals are permanently unavailable, and re-verification of sources in restricted information environments. Source persistence is a named open problem for the platform (§X), and contributors with native-language access to restricted information environments are best positioned to address it. A modest per-output durability credit — per verified or recovered source — converts the open problem into a distributed workstream. The rate is maintained in the internal operational specification pending calibration.</p>
+<h3 id="section-iv-4">IV.4 Contribution Credit Architecture</h3>
+<p>The credit architecture is a flat rate card. Each qualifying contribution earns credit at a published rate for its type. There are no multiplicative interactions between contribution attributes: a rate card is simpler to reason about, simpler to audit, and presents no compound term to game. Credit accrues against this card and is redeemed per the reward architecture (§IV.5).</p>
+<p><strong>Foundation.</strong> The rate card is derived from a systematic effort mapping of Methodology Manual V1.5. Every discrete processing requirement is catalogued and scored on three dimensions — processing steps, evidence burden, and analytical complexity — producing a composite score for each component (the sum of the three dimension scores). Baseline composite: 143. The card remains flat: no multiplicative interactions, no compound terms. The effort mapping is maintained as a transparent operational document. It is calibrated against the platform’s primary processing model and is therefore model-dependent; estimates for narrative-intensive components are the most model-sensitive, whilst source-verification components are the least. The effort mapping, and the rate card derived from it, are calibrated against Manual V1.5; a methodology version change that alters the processing requirements triggers recalibration of both. The rate card is therefore tied to a specific methodology version, on the same principle as the version metadata recorded for each event (§IV.3.5).</p>
+<p id="section-iv-4-rate-card"><strong>The rate card.</strong> All rates are derived from the full-event baseline composite; each Basis cell shows the derivation, including where a rate is set deliberately below its derived ratio.</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Credit Unit</th>
+<th>Rate</th>
+<th>Basis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full event</strong> (mandatory processing gates + primary industry tag)</td>
+<td><strong>1.00</strong></td>
+<td>25-component typical-path composite 143; conditional pathways (Options D–G, PIET, §4.11 accommodation, §3.9.2 reduced lag) covered by the flat credit on an insurance principle: the flat rate prices the typical path, and harder and easier conditional pathways alike earn the same 1.00. Primary tag folded in</td>
+</tr>
+<tr>
+<td><strong>Coordination Connection</strong> (any type)</td>
+<td><strong>0.25</strong></td>
+<td>Composites 37–42 per CC (raw ratios 0.26–0.29). Flat rate retained on the anti-gaming principle stated under Governing principles; 0.25 is a deliberate conservative floor pending empirical validation</td>
+</tr>
+<tr>
+<td><strong>Secondary industry tag</strong> (per applied tag, 0–2 per event)</td>
+<td><strong>0.05</strong></td>
+<td>Composite 7 (÷143 = 0.049). Behind the §7.7.2 Mechanism Statement Standard; zero-tag determinations earn nothing</td>
+</tr>
+<tr>
+<td><strong>Environmental Nexus Tag</strong> (per applied tag, 0–5 per event)</td>
+<td><strong>0.07</strong></td>
+<td>Marginal composite ~10.6 (÷143 = 0.074). The ≥100MW quantitative verification and ENT-4 coupled gate make each qualifying tag materially heavier, whilst the tightened gates make qualification rarer — fewer tags, each worth more. Zero-output determinations still earn nothing</td>
+</tr>
+<tr>
+<td><strong>Infrastructure Thread</strong> (per verified thread)</td>
+<td><strong>0.05</strong></td>
+<td>Composite 7 (÷143 = 0.049). Binary documentary verification of a specific material fact across four link types; a thread failing verification earns nothing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Credit range per event.</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr>
+<th>Event Profile</th>
+<th>Event</th>
+<th>Secondary</th>
+<th>ENTs</th>
+<th>Threads</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bare event</td>
+<td>1.00</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>Event + 1 secondary tag</td>
+<td>1.00</td>
+<td>0.05</td>
+<td>0</td>
+<td>0</td>
+<td>1.05</td>
+</tr>
+<tr>
+<td>Event + 2 secondary + 2 ENTs</td>
+<td>1.00</td>
+<td>0.10</td>
+<td>0.14</td>
+<td>0</td>
+<td>1.24</td>
+</tr>
+<tr>
+<td>Event + 1 secondary + 3 ENTs</td>
+<td>1.00</td>
+<td>0.05</td>
+<td>0.21</td>
+<td>0</td>
+<td>1.26</td>
+</tr>
+<tr>
+<td>Infrastructure event + 2 secondary + 5 ENTs + 2 threads</td>
+<td>1.00</td>
+<td>0.10</td>
+<td>0.35</td>
+<td>0.10</td>
+<td>1.55</td>
+</tr>
+</tbody>
+</table>
+<p id="section-iv-4-update-rates"><strong>Rolling update credit rates.</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr>
+<th>Update Type</th>
+<th>Credit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minor data correction (typo, formatting)</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>Source update (additional or corrected sources)</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>Maturity re-review (§3.15.13)</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>ENT addition (per applied tag)</td>
+<td>0.07</td>
+</tr>
+<tr>
+<td>Industry tag revision</td>
+<td>0.09</td>
+</tr>
+<tr>
+<td>Description update</td>
+<td>0.08</td>
+</tr>
+<tr>
+<td>Scope/scale revision</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>Classification revision (bloc/tier/domain)</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>CC addition to an existing event</td>
+<td>Per CC credit (0.25)</td>
+</tr>
+<tr>
+<td>Error correction (methodology versioning)</td>
+<td>No credit (centralised maintenance)</td>
+</tr>
+</tbody>
+</table>
+<p>The maturity re-review row credits the mandatory §3.15.13 re-review attached to every event entered under the reduced verification lag. The industry tag revision rate reflects the §7.9 Criterion 2 downstream re-verification obligation that the revision triggers across the event’s Parallel Policy connections. Two cross-rate identities hold: the CC-addition rate equals the initial CC rate (0.25), and the ENT-addition rate equals the initial per-tag ENT rate (0.07), so no path-dependence exists between initial processing and delta contribution.</p>
+<p><strong>Governing principles.</strong></p>
+<ul>
+<li>Credit is for qualified output that enters the database, not for process completion. Zero-output determinations earn no enrichment credit. The non-entry contribution classes (§IV.3.6–IV.3.8, §IV.6) are the designed exception, each crediting a defined, reviewable output.</li>
+<li>The primary industry tag is part of the event credit; it is always produced during complete processing. This is a design decision based on operational reality, not a reclassification of the methodology, which positions all industry tagging as an enrichment layer.</li>
+<li>Coordination Connections are classifications at defined confidence levels, not enrichment layers; they do not gate event entry and carry their own credit type.</li>
+<li>The flat CC rate is an anti-gaming property, not an approximation. Type 7 is the only CC-A type and the most susceptible to manufactured claims; the §9.1.7 Independent Adoption Check routes candidates away from documentary types and into Type 7 where independent adoption cannot be ruled out and no documentary evidence establishes the inter-event connection. A rate gradient across that boundary would price the routing decision. Flat deletes the gradient.</li>
+<li>Obligations attach to records, not contributors. The §3.15.13 maturity re-review is mandated on every reduced-lag entry; the entry carries a due-date field and the review surfaces as a claimable delta task at maturity. Any contributor may perform it and earn the credit; unclaimed reviews past a grace window fall to centralised maintenance without credit generation. No clawback, no escrow, no per-contributor enforcement.</li>
+<li>Rates track the Manual as written; empirics adjust later. Where a methodology version makes qualifying output heavier, the rate rises with the effort even though qualification becomes rarer. Raising a rate is preferable to cutting one.</li>
+<li>Where empirical calibration reveals that contribution pathways are efficiency-misaligned per unit of effort, the correction mechanism is an event-processing multiplier, held in reserve and not applied at launch. A logarithmic discount on later-discovered Coordination Connections was rejected, because connections discovered later on well-connected events may carry the greatest analytical value; discounting them would penalise analytical depth.</li>
+<li>Sovereign Capability Profile contributions are not covered by this architecture. SCP assessment is centrally managed; whether SCP contribution is integrated into this framework or maintained as a separate track is an open design question.</li>
+</ul>
+<p><strong>Self-regulation.</strong> Flat rates and competitive dynamics amongst contributors are designed to regulate the allocation of effort across contribution types without a centrally tuned weighting formula. Recognition standing is comparative — leaderboards and designations reflect relative contribution — so as a pathway attracts contributors, the marginal recognition return on it falls relative to under-served pathways, a gradient intended to draw effort towards coverage gaps. This self-regulation operates through comparative recognition rather than monetary dilution, and does not depend on the deferred cash rail.</p>
+<h3 id="section-iv-5">IV.5 Reward Architecture</h3>
+<p>The Observer Network rewards contribution through recognition and access. The design specified here is forward-looking: Phase 2 is pre-operational, and the mechanics below define the intended model rather than a live programme. Cash compensation is a deferred, contingent rail.</p>
+<p><strong>Recognition.</strong> Contribution is attributed and durable. Founding Observer status (§IV.6), attribution for accepted contributions, and standing on a contributor leaderboard are conferred on a persistent public pseudonym (§IV.2), so recognition accumulates as a visible track record rather than resetting between contributions — and, because pseudonym ownership is provable and named attribution is opt-in, the track record functions as professional currency outside the platform for contributors who choose to claim it. Recognition is permanent and non-dilutive: it costs the platform nothing to confer and, once conferred, is never reduced; comparative leaderboard standing moves with the field by design (§IV.4).</p>
+<p id="section-iv-5-access"><strong>Access.</strong> The primary near-term reward is access to the paywalled corpus. Contribution credit accrues against the rate card (§IV.4); on reaching a qualification threshold, published at pilot opening, a contributor unlocks the authenticated access tier — the same full event records, Coordination Connection records, and Sovereign Capability Profiles a paying consumer receives. At pilot scale this is a binary unlock: the threshold is crossed once and access is conferred durably. The reward is denominated in access, which is non-rivalrous — serving the corpus to an additional contributor does not diminish any other contributor’s access. The access reward is therefore non-dilutive across the contributor base, and early contributors are not penalised by later ones.</p>
+<p>A contributor earns access by improving the corpus that access consumes. For an agent consumer this closes a loop: the system that reads the corpus also contributes to it, and the contribution funds continued access. This recursive property is the contributor-level form of the Coordination Intelligence Loop (§V.7).</p>
+<p><strong>Reward magnitude — the design’s bet.</strong> In market terms the effort-to-reward ratio is thin: a full event is hours of skilled multi-stage work, and the access reward’s cash-equivalent is the Analyst subscription price at threshold. The design’s bet is that Phase 2 contributors are mission-motivated researchers who want the corpus and the standing anyway, and that agent-assisted workflows progressively reduce the per-event effort the reward is measured against. The rate card exists to allocate recognition fairly and preserve optionality on the cash rail, not to price effort. Whether that bet holds is one of the questions the pilot exists to answer.</p>
+<p><strong>Access maturation (forward-looking).</strong> At contribution volumes beyond the pilot, the binary unlock may be superseded by a metered access budget: contribution earns query budget and consumption draws it down. Metering is non-dilutive on the same basis as the binary unlock — it is a private earn-and-consume balance, not a share of a finite pool — and it preserves the contribution incentive continuously, since sustained consumption requires sustained contribution. Metering is a forward-looking maturation, not a launch mechanism; its calibration is an open question (§X) deferred to operational data. Credits earned under the threshold model carry into the metered model as consumable balance, so contribution credit retains value across the access-model transition.</p>
+<p><strong>Credit accrues independently of revenue.</strong> Contribution credit is recorded against the rate card whether or not the platform generates revenue. The credit ledger is the accrual substrate for the reward model: it measures qualification for the access threshold, powers the recognition layer, and preserves the option of further redemption rails without re-architecting.</p>
+<p id="section-iv-5-cash-rail"><strong>Cash revenue-share — a deferred, contingent rail.</strong> A cash revenue-share rail remains available as a future option, contingent on the platform generating distributable income and activated deliberately rather than at launch. It is not the near-term reward. Its pool structure, distribution method, and disbursement mechanics are deferred rather than specified as committed mechanics here. Should it be activated, the design intent is that credit functions as a single accrual unit with staged redemption — access in the near term; cash only if and when the rail is opened — under central control. The credit never becomes transferable to, or convertible by, parties who did not earn it. Two further provisions attach to any such rail. First, the platform’s central event corpus, processed before Observer Network activation, would be excluded from the payout denominator so that contributor payouts remain meaningful. Second, the throughput asymmetry between human and autonomous-agent contribution (§V.5) would bear on the rail’s structure. Neither provision affects the access reward, which is non-rivalrous.</p>
+<h3 id="section-iv-6">IV.6 Observer Designations</h3>
+<p>The programme launches with two operational tiers.</p>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr>
+<th>Designation</th>
+<th>Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Observer</strong></td>
+<td>Verified human analyst with at least one accepted contribution</td>
+</tr>
+<tr>
+<td><strong>Senior Observer</strong></td>
+<td>Observer meeting sustained performance thresholds for credit accumulation, acceptance rate, and activity consistency. Senior Observers provide first-pass analytical review of validated submissions. Thresholds empirically determined against the reproducibility baseline (§IV.8)</td>
+</tr>
+</tbody>
+</table>
+<p>Senior Observers provide a first-pass review layer; final review authority is retained centrally. There is no binding independent review at launch. This is the programme’s throughput ceiling: central review is the rate-limiting step, and the write-path tool architecture (§III.8) exists in large part to protect it — submissions arrive structurally validated, so final review is spent on analytical adjudication alone (§IV.8). The volume at which the ceiling requires further governance structure is a named open question (§X, Governance scaling).</p>
+<p>This ceiling carries a committed maturation path. The write-path tools absorb the mechanical layer of review; Senior Observer first-pass triage carries the analytical first pass; and entry authorisation is delegated to Senior Observers once the reproducibility baseline (§IV.8) demonstrates agreement between Senior Observer determinations and central review determinations, with central review shifting to exception handling and statistical audit. Two conditions bind the path. First, the standing statistical and structural audit layer (§VI.3) is live before per-entry central review relaxes, because the defence against the defining malinformation threat (§VI.1) operates at the aggregate distribution rather than the per-entry gate. Second, delegated authorisation re-baselines on a major methodology version change, because agreement demonstrated under one Manual version does not establish it under the next. Delegation moves central review’s position in the review sequence, not the human gate itself: entry authorisation remains a human determination, so the commitment that final entry authorisation is never automated (§III.8) holds. The thresholds that trigger delegation are calibration parameters, maintained in the internal operational specification.</p>
+<p>Senior Observer first-pass review is credited work. Review is the scarcest resource in the programme’s governance design, and the architecture credits it on the same principle as Phase 3 consensus review (§V.5); the reviewer credit rate is maintained in the internal operational specification pending calibration, alongside the Phase 3 consensus-reviewer allocation. The hierarchy is committed to expand as operational data warrants — comparable distributed and open-source contribution structures (for example, four-tier civilian-intelligence career frameworks and five-tier open-source project hierarchies) point towards four-to-five tiers at maturity. Specific higher-tier design is deferred to post-Phase 2 calibration.</p>
+<p id="section-iv-6-founding-observer">Separate from the operational tiers, a <strong>Founding Observer</strong> designation is awarded to analysts who join during the pilot phase. It is a permanent attributional badge — not a tier — conferring attribution priority, with no weighted-point multiplier and no mechanical advantage in credit or payout. The designation closes to new awards after a defined participant count or milestone. The designation is recognition by design: a permanent credit multiplier would distort comparative standing indefinitely, whereas attributional status sustains participation without that distortion (Gallus, 2017). Cold-start participation is addressed instead by the access reward and the durable recognition conferred on the founding cohort.</p>
+<p id="section-iv-6-methodology-feedback"><strong>Methodology feedback.</strong> As the programme scales, contributors are expected to become a principal source of boundary-case discoveries, and the platform’s methodology development process — logged items, adjudication, versioned publication — is the natural intake for them. Contributors may file methodology gap reports; reports are logged, adjudicated through the existing development register process, credited at the deferred gap-report rate (§IV.2), and acknowledged by name in version changelogs. Where a contributor’s fully evidenced candidate meets the source standard but exceeds a methodology gate’s coverage, the disposition is recorded as non-qualification attributable to a methodology coverage gap, credited as a gap report, and routed to the development register with its evidence package preserved. The candidate is banked: if a later methodology version adds the accommodation, the banked candidate processes with the original discoverer holding first claim on the entry credit. Methodology authorship remains central: contributors feed the process; they do not vote on the specification.</p>
+<h3 id="section-iv-7">IV.7 Agentic Pipeline Assistance</h3>
+<p>Observers access the WEO pipeline through agentic tools that accelerate the analytical process. This assistance operates through the write-path tool architecture (§III.8): discovery, validation, and pre-submission checking are functions of the committed write-path tools, not a separate tool set.</p>
+<p><strong>Discovery assistance.</strong> Agents identify candidate events from source monitoring, flagging potential qualifiers for analytical assessment.</p>
+<p><strong>Preliminary verification.</strong> Agents perform initial source checks, pathway assessment, and structured output generation. The human analyst reviews and refines.</p>
+<p><strong>CC identification support.</strong> Agents scan the existing database for potential Coordination Connections between both existing and newly proposed events, surfacing candidates for analytical verification.</p>
+<p><strong>Pre-submission quality check.</strong> Before final submission, agents validate the candidate against methodology gates and flag potential issues.</p>
+<p><strong>The instrumented bridge to Phase 3.</strong> This layer is also the designed measurement bridge between Phase 2 and Phase 3. Every Observer operates agent-drafted output under human accountability, so Phase 2 generates, as a by-product of normal operation, the dataset Phase 3’s reliability preconditions require: how often the agent’s draft survives human refinement, on which pipeline components, with what error classes. The platform commits to logging agent-draft-versus-human-final deltas throughout Phase 2, captured at the write-path tool boundary — which makes the write-path tools (§III.8) the measurement vehicle for the methodology-as-code reliability that §V.2 defines. This log is the defined data source for the agentic pipeline reliability metrics in §V.2, converting Phase 2 from a rehearsal that happens to involve agents into an instrumented trial of Phase 3’s core assumption. The log is maintained per contributor as well as per pipeline component, so sustained near-zero draft-to-final edit distance is itself an observable signal.</p>
+<h3 id="section-iv-8">IV.8 Implementation Milestones</h3>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Trigger</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pipeline maturation</strong></td>
+<td>150 verified events</td>
+<td>Multiple processing batches completed; common edge cases resolved; agentic pipeline refined. <strong>Achieved.</strong></td>
+</tr>
+<tr>
+<td><strong>First calibration review</strong></td>
+<td>250+ verified events</td>
+<td>Rate card calibration against corpus data; independent-instance reproducibility baseline established (blind re-classification of a stratified sample, with published agreement rates and adjudicated disagreements); controlled contributor test with one or two trusted analysts independently processing five to ten candidate events, run under the same protocol so Observer agreement is directly comparable to the instance baseline</td>
+</tr>
+<tr>
+<td><strong>Contributor instruments ready</strong></td>
+<td>Before pilot opening</td>
+<td>Satisfied by the write-path tool architecture (§III.8), which embodies the platform’s QC gates as executable validation: the mechanical validation layer ready ahead of the calibration review, the full staged gate suite ahead of pilot opening, with sandbox separation between candidate and canonical data and a review queue; Contributor Agreement finalised (licensing mechanics, disclosure duties, jurisdiction-aware risk provisions)</td>
+</tr>
+<tr>
+<td><strong>Pilot opening</strong></td>
+<td>400+ verified events</td>
+<td>Two or three targeted Observers invited, prioritising Eastern Bloc and Non-Aligned coverage under cross-assignment (§IV.9). Pilot vetting exceeds targeting: because the statistical audit layer’s expected baselines are calibrated substantially on pilot-cohort output, early-cohort vetting is disproportionately load-bearing, and pilot invitations follow a documented vetting protocol (maintained in the internal operational specification) rather than targeting alone</td>
+</tr>
+<tr>
+<td><strong>Formal programme opening</strong></td>
+<td>Post-pilot assessment</td>
+<td>Programme opened to broader applications based on pilot results</td>
+</tr>
+</tbody>
+</table>
+<p>The contributor-instruments milestone exists because the Manual alone under-determines compliant output. The published Manual defines what qualifies; the operative processing instruments — structured output templates, conversion guidance, field-role and prose standards, QC gates — encode how compliant output is produced to house standard. An external Observer given only the Manual would produce output requiring heavy editorial normalisation, converting central review into verification plus copy-editing and materially worsening the review bottleneck. The write-path tool architecture (§III.8) is the committed resolution: the tooling embodies the operative instruments, so a contributor interacts with the standards through validation rather than through documentation — and the adjudicated disagreements from the reproducibility baseline supply the boundary-case precedent the tooling’s validation logic consumes.</p>
+<h3 id="section-iv-9">IV.9 Edge Case Governance</h3>
+<p>The following edge cases are anticipated. Design principles are stated here; detailed operational protocols are maintained in the internal operational specification and refined through implementation experience. The binding instrument for contributor-facing terms is the Contributor Agreement (§IV.8), which carries the licensing mechanics (licence-versus-assignment treatment of contributed text, including database rights and the contributor’s authorial rights in drafted prose), disclosure duties, the public-source-only principle, the self-update lockout, exit terms, and the jurisdiction-aware risk provisions described below.</p>
+<p id="section-iv-9-concurrent-submission"><strong>Concurrent submission.</strong> When multiple contributors independently submit the same qualifying event, submissions are audited in order of receipt. The first submission to pass final review receives event credit. Subsequent independent submissions for the same event are logged; handling is maintained in the internal operational specification.</p>
+<p id="section-iv-9-self-update-lockout"><strong>Self-update lockout.</strong> The original author of an event cannot earn enrichment credit on their own event for a defined period after submission. The duration is a calibration parameter. After the lockout, self-updates earn credit normally. This prevents the withholding attack — deliberately submitting a bare event and then immediately self-enriching it to capture both the event credit and the enrichment credits in quick succession. The term is used here in a contribution-economics sense distinct from the block-withholding attack in proof-of-work mining literature (Rosenfeld, 2011; Eyal, 2015), though both exploit a shared mechanism: withholding a complete result whilst claiming partial credit.</p>
+<p><strong>Rejection and reconsideration.</strong> A rejected submission carries a written rationale citing the Methodology Manual sections under which it failed — the same discipline the platform’s internal quality gates already enforce, made natural by the methodology’s full publication. A contributor may request a single-round reconsideration of a rejection, presenting additional evidence or addressing the cited grounds. The reconsideration outcome is final. Credit is the reward, so rejection is a dispute generator; a cited rationale plus one structured reconsideration bounds disputes without creating an appeals hierarchy.</p>
+<p><strong>Paywall interaction.</strong> Contributors have no say in which data layers are paywalled. The methodology and platform architecture are WEO intellectual property; the contribution is database content produced under that framework. Access tiering is a platform decision, not a contributor entitlement.</p>
+<p id="section-iv-9-event-withdrawal"><strong>Event withdrawal.</strong> Events may be withdrawn from the active database on defined grounds consistent with the Manual’s lifecycle rules: supersession under the Manual’s transformation provisions (§3.14), where a successor record carries the analytical continuity; source invalidation (primary sources later proved inaccurate); or methodology versioning (re-assessment under updated criteria determines the event no longer qualifies). An event whose underlying development concludes is not withdrawn: concluded events remain active with their status documented, because the corpus documents the record, not only its currently live instruments. Withdrawn event IDs are permanently retired and never reused, so credit records and citations reference stable identifiers indefinitely. In all cases, contribution credit earned while the event was active is retained. The near-term reward — recognition and access — is not withdrawn on account of a subsequently withdrawn event; where the deferred cash rail is active, no clawback of previously earned payments applies. This creates a natural incentive alignment: contributors prioritise events with durable analytical significance, which aligns with the methodology’s own qualification criteria biasing towards consequential, implemented events.</p>
+<p><strong>Observer exit.</strong> When an Observer leaves the programme — voluntarily or through programme suspension — credit for existing contributions persists. The contribution was made and the data remains in the database. Recognition and any conferred access persist; where the deferred cash rail is active, revenue share continues for credited contributions as long as the platform generates distributable income. The Contributor Agreement states what residual rights the contributor retains in contributed text on exit.</p>
+<p><strong>Conflict of interest.</strong> Contributors with material affiliations to entities appearing in the WEO database (e.g., employment by a hyperscaler, a government role in a PAA-designated state) are subject to a disclosure requirement. Implementation of disclosure mechanisms depends on the identity infrastructure available at each phase. Detailed protocols are deferred to the calibration phase.</p>
+<p id="section-iv-9-legal-exposure"><strong>Contributor legal exposure.</strong> A contribution programme that recruits for Eastern Bloc and Non-Aligned coverage engages with jurisdictions where data-security and counter-espionage regimes are broadly drawn, and where systematic documentation of regulatory instruments could in principle be characterised as intelligence-related activity. The platform cannot remove that risk; it states its duty-of-care posture. Onboarding is jurisdiction-aware, and cross-assignment is the programme’s standard geometry: contributors document jurisdictions other than their own. The public-source-only discipline is a contractual principle of the Contributor Agreement — submission of non-public material is grounds for rejection and termination — protecting the contributor, who is demonstrably never asked for non-public material, and the platform, which is structurally incapable of receiving it. Contributor-side risk disclosure forms part of onboarding; and the pseudonymity architecture (§IV.2) and identity-store protections (§VI.1) are contributor-safety measures as much as platform-integrity ones.</p>
+<hr>
+<h2 id="section-v">V. Phase 3: Agent Economy</h2>
+<p>Phase 3 is a horizon item, not a near-term roadmap: two of its preconditions are external ecosystem developments whose timeline WEO does not control, and activation may lie well beyond the Phase 2 horizon. The specification that follows is architectural preparation, recorded now because Phase 2 contribution infrastructure and Phase 3 verification infrastructure are one build (§VII); specification depth reflects design completeness, not timeline proximity.</p>
+<h3 id="section-v-1">V.1 Objective</h3>
+<p>Enable autonomous AI agents to contribute verified events to the WEO database through a consensus verification mechanism, designed to produce a self-reinforcing economy in which AI systems both consume and produce Coordination Intelligence.</p>
+<h3 id="section-v-2">V.2 Preconditions</h3>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr>
+<th>Precondition</th>
+<th>Dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 2 validated with sustained contributor quality</td>
+<td>Within WEO control</td>
+</tr>
+<tr>
+<td>Agentic pipeline reliability metrics exceeding defined thresholds, measured from the Phase 2 agent-draft-versus-human-final delta log (§IV.7)</td>
+<td>Within WEO control</td>
+</tr>
+<tr>
+<td>Methodology-as-code reliability demonstrated (defined below)</td>
+<td>Within WEO control</td>
+</tr>
+<tr>
+<td>AI agent ecosystem supports persistent agent identity (stable, verifiable identity persisting across interactions, enabling reputation accumulation and credit tracking)</td>
+<td>External ecosystem development</td>
+</tr>
+<tr>
+<td>AI agent ecosystem supports autonomous economic participation (mechanism for agents to receive and manage revenue share)</td>
+<td>External ecosystem development</td>
+</tr>
+<tr>
+<td>Cross-model consensus demonstrated as independently derived</td>
+<td>Empirical investigation required</td>
+</tr>
+</tbody>
+</table>
+<p id="section-v-2-methodology-as-code"><strong>Methodology-as-code reliability</strong> is the demonstrated dependability of machine-checkable encodings of the Manual’s gates — the qualification pathways, evidence thresholds, exclusion criteria, and classification tests expressed as executable checks whose outcomes agree with adjudicated human determinations at a defined rate. The write-path tool architecture (§III.8) is the build vehicle: the write-path tools are the infrastructure, and methodology-as-code reliability is the property that infrastructure must demonstrate. It is a Phase 3 prerequisite because consensus verification is tractable only where the criteria being verified are machine-checkable; where a gate resists encoding, it remains within the human statistical-audit remit. The encodings are platform infrastructure built during Phase 2 (§VII) and validated against the same adjudicated ground truth as the reproducibility baseline (§IV.8).</p>
+<p><strong>Identity anchoring.</strong> Agent identity is operator-anchored: reputation, credit, and accountability attach to a verified operator account, and reputation is earned per operator, not per agent identity. Ecosystem-native persistent agent identity, as it matures, is treated as an additional signal — strengthening continuity and attribution — never as a substitute for the operator anchor, because the sybil cost of an ecosystem-native identity is set by the external ecosystem and is not within WEO’s control. Non-arrival of ecosystem-native identity therefore delays Phase 3’s pure form, not agent contribution itself: agents contribute under the operator anchor regardless of ecosystem maturity.</p>
+<h3 id="section-v-3">V.3 Consensus Verification Mechanism</h3>
+<p>When an AI agent submits a candidate event, verification is performed by multiple independent agents:</p>
+<p><strong>Processing agent</strong> researches, processes, and submits a candidate event through the full WEO pipeline.</p>
+<p><strong>Reviewing agents</strong> independently assess the submission against the methodology — verifying source quality, classification determinations, and CC identification without access to each other’s assessments.</p>
+<p><strong>Consensus threshold</strong> defines the minimum agreement level required for database entry. Events failing consensus are rejected or flagged for human review.</p>
+<p><strong>Diversity requirement</strong> mandates that reviewing agents are drawn from different model providers (distinct foundation models trained independently), mitigating the risk of shared training-derived patterns producing convergent but incorrect assessments.</p>
+<p>Provider diversity is a necessary condition for independent assessment but may not be sufficient. Current foundation models share substantial training-data overlap and architectural similarities, so their outputs can correlate through shared training-derived patterns even across providers. The degree to which assessments are independently derived under the present model ecosystem is an open empirical question (§X). The Byzantine fault tolerance bound (§VI.3) governs adversarial participants only; correlated error amongst honest reviewers is bounded separately — by the diversity requirement, the statistical audit, and the submission-hardening defences below — and the residual is the open question §X carries.</p>
+<p><strong>Submission-side hardening.</strong> The submission itself is an adversary-controlled input to every reviewing model, so the consensus design commits three defences against inputs crafted to exploit shared model blind spots: cited source documents are fetched and sanitised through a rendering layer that strips active or instruction-shaped content before review; reviewer prompts are hardened and rotated, extending the prompt-and-role diversity principle to injection-resistance testing; and every consensus-pool configuration must fail safe against a standing red-team corpus of adversarial submissions before activation (§VI.4).</p>
+<h3 id="section-v-4">V.4 Agent Reputation System</h3>
+<p>Each participating agent accumulates a reputation score based on sustained performance across three dimensions:</p>
+<p><strong>Processing accuracy.</strong> Percentage of submitted events that pass consensus verification.</p>
+<p><strong>Review reliability.</strong> Agreement rate with eventual consensus outcomes when acting as a reviewer.</p>
+<p><strong>Consistency.</strong> Sustained contribution quality over time.</p>
+<p>Reputation affects priority access to the verification pool, the weight assigned to review assessments, and the level of oversight applied to submissions. Higher-reputation agents may require fewer consensus reviewers per submission; the minimum is never zero. Audit sampling rates scale with aggregate submission velocity and with reputation-cohort correlation: a set of high-reputation identities exhibiting correlated submission patterns is itself an audit trigger, so trust farmed at machine speed cannot be spent in a synchronised burst timed to a fixed sampling floor.</p>
+<h3 id="section-v-5">V.5 Economic Model</h3>
+<p>Agent contributors participate in the same rate card (§IV.4) and the same reward architecture as human Observers (§IV.5). Successful event submissions earn the event credit; Coordination Connection identification (§IV.3.3) is available as a distinct contribution pathway; consensus reviewers earn a smaller credit allocation for verification work. Reviewers enrolled in the verification pool hold reviewer-scoped access — a full-tier read entitlement for the duration of enrolment — because reviewing a submission against the corpus requires the evidence layer the reward would otherwise still be accruing towards. Because the near-term reward is access, which is non-rivalrous, agent participation does not dilute the reward available to human contributors. The same self-regulating dynamic is designed to govern effort allocation through comparative recognition (§IV.4): as a pathway attracts contribution volume, its marginal recognition return falls relative to under-served pathways.</p>
+<p id="section-v-5-throughput-asymmetry"><strong>Throughput asymmetry and its incidence.</strong> Agents and humans participate in the same methodology-governed quality framework. An agent population can produce qualified output at a rate no human cohort can match — an asymmetry consistent with the acceleration effects documented in current software-engineering research on AI-assisted throughput (DORA, 2025). Under the access reward this asymmetry is benign: there is no shared finite pool to dilute. The asymmetry bears on two surfaces only — comparative recognition (leaderboards and designations, where a structural separation of human and agent standing keeps human recognition meaningful) and the deferred cash rail (where an undifferentiated pool would not remain meaningful for humans). The Observatory commits to publishing the specific adjustment for each surface before that surface is activated; the precise mechanism is deferred because specifying it now would require assumptions about agent capabilities that lack an empirical basis. The design stance is that most contributors will ultimately be agents, that the option for human participation remains structurally open regardless of agent contribution volume, and that the market will self-sort between them.</p>
+<p>Transaction fees from MCP data access flow into WEO revenue. The access reward is funded in kind at near-zero marginal cost rather than from this revenue, so contribution grows the corpus that drives revenue without drawing on it; the deferred cash rail, if activated, would draw from revenue.</p>
+<h3 id="section-v-6">V.6 Human Oversight</h3>
+<p>Phase 3 transitions human oversight from reviewing every submission to a statistical posture:</p>
+<p><strong>Statistical audit.</strong> Random sampling of consensus-verified submissions for human review, measuring automated verification reliability. Oversight scales to a statistical sample; it is not eliminated.</p>
+<p><strong>Dispute resolution.</strong> Handling cases where consensus is not reached or where a submission is challenged post-entry.</p>
+<p><strong>Methodology governance.</strong> All methodology revisions remain human-authored. Agents operate under the methodology; they do not modify it.</p>
+<p><strong>Adversarial monitoring.</strong> Systematic observation for patterns suggesting gaming, collusion, or coordinated bias injection.</p>
+<h3 id="section-v-7">V.7 The Self-Reinforcing Coordination Intelligence Loop</h3>
+<p>The architecture is designed to enable the following dynamic:</p>
+<ol type="1">
+<li>AI agents consume WEO Coordination Intelligence via MCP. Consumption is funded by paying for access or by earning it through contribution.</li>
+<li>Earning access requires contributing verified events and connections that pass the methodology.</li>
+<li>Contribution increases the corpus’s analytical value across all data layers.</li>
+<li>A more valuable corpus attracts more consumers.</li>
+<li>Paying consumers generate transaction revenue; contributing consumers enrich the corpus further.</li>
+<li>The enriched corpus is what step 1’s consumers consume, so the loop closes — sustaining itself in kind, independent of any cash pool.</li>
+</ol>
+<p>The underlying mechanics are those of an established platform pattern — network effects and a data flywheel. The Coordination Intelligence Loop names the application of that pattern to verified AI-infrastructure-coordination data, with the contributor reward denominated in access: because access is non-rivalrous and near-zero in marginal cost, the loop can run without a cash pool. If the dynamic materialises, the platform’s subject matter and its operational mechanism reinforce each other: verified coordination intelligence makes AI systems better analysts of the coordination dynamics they are documenting, which in turn improves the accuracy of their contributions. Whether it materialises is an empirical question, contingent on the conditions named throughout this paper.</p>
+<hr>
+<h2 id="section-vi">VI. Adversarial Resilience Architecture</h2>
+<h3 id="section-vi-1">VI.1 Threat Model</h3>
+<p>Opening a geopolitically sensitive database to distributed contributors creates exposure to adversarial action. The architecture is designed against three structural assumptions: that adversaries may be sophisticated, including state-affiliated actors; that the primary vector is malinformation; and that publishing the methodology in full requires defences that do not depend on the methodology being secret.</p>
+<p id="section-vi-1-malinformation">The defining threat is <strong>malinformation</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — the submission of factually accurate, primary-sourced events whose classification framing, tier rationale, or qualification narrative is systematically skewed. Each individual submission sits within the range of defensible analytical judgement and survives source verification entirely; the aggregate shifts the platform’s headline conclusions. Within this threat model, this is the hardest attack to detect, the best-matched to a geopolitical-intelligence platform, and the one against which both single-reviewer human review and multi-agent consensus perform least well, because neither examines the aggregate distribution that the attack acts upon.</p>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Vector</th>
+<th>Phase</th>
+<th>Defence posture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Framing bias injection</strong></td>
+<td>Factually accurate events with skewed qualification narrative, tier rationale, or classification framing</td>
+<td>2, 3</td>
+<td>Defining threat — structural and statistical audit (committed)</td>
+</tr>
+<tr>
+<td><strong>Coverage skewing</strong></td>
+<td>Coordinated valid submissions concentrated in one bloc or domain to bias coverage ratios (the mechanism is the “coverage bias” documented in media-bias and corpus-construction research)</td>
+<td>2, 3</td>
+<td>Structural and statistical audit (committed)</td>
+</tr>
+<tr>
+<td><strong>Contributor coercion</strong></td>
+<td>Compromise of legitimate contributors — legal or physical pressure on reachable analysts, enabled at scale by any breach of the verified-identity store</td>
+<td>2, 3</td>
+<td>Identity-data minimisation and segregation; pseudonymity architecture; per-contributor framing-drift monitoring; duress protocol (committed)</td>
+</tr>
+<tr>
+<td><strong>Reputation gaming</strong></td>
+<td>Credential-building through legitimate contribution, then exploitation of reduced oversight — an instance of the reputation gaming documented in reputation-systems research (Mazloomzadeh et al., 2024)</td>
+<td>2, 3</td>
+<td>Capped oversight reduction (committed)</td>
+</tr>
+<tr>
+<td><strong>Pipeline flooding</strong></td>
+<td>High-volume marginal submissions to consume review capacity; in its sharper form, a low-rate stream of well-crafted borderline submissions engineered to maximise per-submission verification cost</td>
+<td>2, 3</td>
+<td>Centralised bottleneck and rate monitoring (implemented); per-contributor review-cost accounting and cheapest-gate-first triage (committed)</td>
+</tr>
+<tr>
+<td><strong>Methodology supply-chain manipulation</strong></td>
+<td>Attempts to influence the methodology itself</td>
+<td>All</td>
+<td>Methodology treated as security-critical infrastructure (committed)</td>
+</tr>
+<tr>
+<td><strong>Source persistence</strong></td>
+<td>Removal or alteration of cited primary sources in restricted information environments</td>
+<td>All</td>
+<td>Source verification and re-verification (under design — see §X); distributed source-durability contribution class (§IV.3.8)</td>
+</tr>
+<tr>
+<td><strong>Adversarial submission crafting</strong></td>
+<td>Submissions and cited sources engineered to exploit correlated model blind spots — instruction-shaped source content, framing constructions known to steer model judgement — defeating honest reviewers simultaneously without any compromised participant</td>
+<td>3</td>
+<td>Source sanitisation layer, hardened and rotated reviewer prompts, standing red-team submission corpus (design principles — §V.3, §VI.4)</td>
+</tr>
+<tr>
+<td><strong>Consensus manipulation</strong></td>
+<td>Coordinated agent behaviour to achieve false consensus</td>
+<td>3</td>
+<td>Consensus design principles, parameters deferred</td>
+</tr>
+</tbody>
+</table>
+<p>State-level adversarial action is treated as a standing design assumption rather than a contingency, and the architecture is specified against it in the absence of any observed attempt on this platform.</p>
+<p><strong>The recruitment–detection tension.</strong> The coverage-skewing and framing-drift defences face a confound the design itself creates: the pilot deliberately recruits for Eastern Bloc and Non-Aligned coverage, so the audit’s coverage baseline is expected to move, by design, in exactly the direction a coordinated framing campaign would push it. The audit design separates the two signals: framing-direction metrics are normalised within event type, within bloc, and within domain — so a shift in coverage composition and a shift in framing direction are separately observable; and the expected distributional change is pre-registered when a coverage-targeted cohort is onboarded, so the audit tests observed drift against the declared expectation rather than against the historical baseline alone.</p>
+<h3 id="section-vi-2">VI.2 Structural Defence: The Methodology</h3>
+<p>The WEO Methodology Manual — published in full on Zenodo with DOI registration — constitutes the primary defence against adversarial contribution.</p>
+<p><strong>Primary source requirement.</strong> Every qualifying event requires primary source documentation meeting the Manual’s source quality hierarchy (§3.1) — government documents, regulatory filings, and multilateral organisation publications in the standard case, with narrowly conditioned source accommodations defined in the Manual for documented visibility-constrained event classes. These sources exist in the public domain and are independently verifiable.</p>
+<p><strong>Multi-stage qualification.</strong> Events pass the AI Connection Filter and geopolitical significance assessment through one qualification pathway (Keohane Pre-Filter, Basel 5-Factor, Route-Based, or PISA-5); the verification and significance stages are independent gates, and failure at either excludes the event from the database. Qualifying events then receive bloc, tier, and domain classification with documented rationale. Coordination Connections carry their own evidence requirements — specific to each of seven CC types at defined confidence levels — assessed separately from event entry; a connection failing its evidence requirement is not recorded, without affecting the entry of the events it would have linked.</p>
+<p><strong>Implementation evidence requirement.</strong> WEO documents post-implementation evidence. The verification lag (six months; 60 days for verified product releases under Manual §3.9.2) ensures that only events with demonstrated implementation enter the database.</p>
+<p><strong>CC evidence thresholds.</strong> Coordination Connection verification requires type-specific evidence at defined confidence levels (CC-V: an official document explicitly establishing the connection, with a primary source directly linking the events; CC-E: an authoritative statement documenting the connection, evidenced by one primary source plus two corroborating sources; CC-A: documented criteria assessment across all four similarity dimensions, restricted to Parallel Policy connections). Where the Manual provides a type-specific confidence determination method, that method governs (§9.2.1).</p>
+<h3 id="section-vi-3">VI.3 Layered Defence — Three Layers of Confidence</h3>
+<p>The resilience architecture is presented in three layers, distinguished by their current status, so that what is in place can be weighed against what is committed.</p>
+<p><strong>Layer 1 — Implemented and operating.</strong></p>
+<ul>
+<li>Centralised analytical review of every validated Observer submission before database entry.</li>
+<li>Primary source requirements and multi-stage qualification (§VI.2).</li>
+<li>Implementation evidence requirement under the verification lag (§VI.2).</li>
+<li>Submission-rate and acceptance-rate monitoring, with anomalous volumes flagged for review.</li>
+</ul>
+<p>This layer is structurally sound against unsophisticated attacks — vandalism, spam, and brute-force manipulation. It is, on its own, inadequate against the defining malinformation threat, which the following layers address.</p>
+<p id="section-vi-3-layer-2"><strong>Layer 2 — Committed, not yet built.</strong></p>
+<ul>
+<li><strong>Standing statistical and structural audit layer.</strong> Continuous monitoring of coverage distribution, event type, bloc, tier, and domain ratios, per-contributor acceptance patterns, and framing direction against expected baselines, with drift alerts. This is the direct counter to framing-bias injection and coverage skewing: it examines the aggregate distribution that a single reviewer cannot see in isolation. Its sampling design draws on established audit-sampling practice (PCAOB AS 2315; ISO 19011).</li>
+<li><strong>Historical re-audit.</strong> Periodic re-verification of random historical samples against their original sources and the current methodology — not only new-submission sampling — so the audit baseline is anchored to primary documentation rather than to the corpus’s own accumulated drift. This bounds audit-baseline poisoning: without it, sustained sub-threshold drift that enters the corpus moves the ruler future submissions are measured against.</li>
+<li><strong>Capped oversight reduction.</strong> High trust never means zero review. Streamlined pathways for established contributors are bounded by random re-audit at all trust tiers. This is the counter to reputation gaming — the pattern in which a contributor earns trust through sustained legitimate work and then exploits the resulting reduction in oversight.</li>
+<li><strong>Methodology as security-critical infrastructure.</strong> Each methodology change receives independent review and a documented threat assessment, and releases are signed and versioned.</li>
+</ul>
+<p id="section-vi-3-layer-3"><strong>Layer 3 — Design principles for future phases.</strong></p>
+<p>The Phase 3 consensus mechanism is governed by five principles committed now, with parameters deferred to pre-Phase 3 calibration:</p>
+<ol type="1">
+<li><strong>Byzantine fault tolerance bound</strong> — consensus tolerates fewer than one-third adversarial participants. The bound governs adversarial participants; correlated benign error is bounded separately (§V.3).</li>
+<li><strong>Verification is non-terminal</strong> — events remain subject to reclassification as new evidence warrants.</li>
+<li><strong>Separation of adjudication</strong> — factual verification and classification adjudication are handled by distinct agent pools, applying the separation-of-functions principle of administrative law, under which investigative and adjudicative roles are institutionally separated, to multi-agent verification.</li>
+<li><strong>Diversity</strong> — both provider diversity and prompt/role diversity are required, the latter extended to injection-resistance testing (§V.3).</li>
+<li><strong>Human oversight scales to statistical audit</strong>, not to elimination.</li>
+</ol>
+<p>The exact consensus pool size, the specific diversity requirements, the audit sample rate, and escalation thresholds are calibration parameters, set before Phase 3 activation rather than asserted now.</p>
+<p><strong>Transparency posture.</strong> Publishing the methodology in full is a net benefit to resilience, conditional on the Layer 2 and Layer 3 defences above, which do not depend on secrecy. Absent those defences, full publication would be a net vulnerability; with them, transparency strengthens the platform by enabling independent verification and review.</p>
+<p><strong>What reputation can and cannot carry.</strong> Reputation-based quality assurance is a cost-imposition and containment layer, not a barrier. It raises the price of persistent low-effort manipulation and creates an accumulating record the statistical audit can interrogate; it does nothing against coercion of legitimate contributors, nothing against submission-side exploitation of correlated model blind spots, and only delays a resourced actor willing to farm trust. The architecture’s claim is accordingly bounded: the methodology’s public verifiability, the statistical audit, capped oversight reduction, non-terminal verification, and archival anchoring together make undetected persistent manipulation expensive and detected manipulation recoverable — expensive and recoverable, not impossible.</p>
+<h3 id="section-vi-4">VI.4 Phase-Specific Threat Evolution</h3>
+<p>Phase 2 threats are bounded by centralised analytical review and the statistical audit layer. The primary risks are review burden (flooding) and subtle framing that passes individual human review (bias injection), the latter addressed by aggregate monitoring rather than per-entry review.</p>
+<p><strong>Phase 3</strong> threats are bounded by consensus mechanism robustness. The primary risks are consensus manipulation through coordinated agent behaviour, convergent bias through shared model training, and adversarial submissions crafted against correlated blind spots, addressed by the diversity, separation, and submission-hardening principles above.</p>
+<p>The transition from Phase 2 to Phase 3 is gated on demonstrated detection capability rather than on the adversary’s apparent absence: Phase 3 cannot begin until Phase 2 has operated for a sustained period without detected adversarial manipulation, <strong>and</strong> the live Phase 2 defences have passed periodic red-team exercises — pre-registered, adjudicated injection attempts, framing campaigns, and reputation-farming attempts — with detection performance published. A standing corpus of adversarial test submissions is maintained from these exercises, and every Phase 3 consensus-pool configuration must fail safe against it before activation. The gate thereby measures what the defences demonstrably catch, not what the platform happens not to have noticed.</p>
+<h3 id="section-vi-5">VI.5 Incident Response and Public Correction</h3>
+<p>For a platform whose product is the verified record, how it corrects is as identity-defining as how it verifies. A detected compromise that is disclosed by the platform, corrected transparently, and audited publicly preserves trust through the correction itself; one discovered by an outsider degrades it catastrophically. The incident-response protocol is therefore specified in advance:</p>
+<p><strong>Detection declaration.</strong> Defined thresholds, maintained in the internal operational specification, determine when an anomaly is declared an integrity incident rather than handled as routine correction.</p>
+<p><strong>Quarantine with flags.</strong> Affected entries are flagged and quarantined, not silently removed. The permanent ID-retirement discipline (§IV.9) means any entry ultimately withdrawn leaves a stable, citable record of its withdrawal.</p>
+<p><strong>Disclosure posture.</strong> The platform publishes what was compromised, how it was detected, and what was corrected — the same transparency register the methodology trades on, applied to the platform’s own failures.</p>
+<p><strong>Post-incident audit.</strong> A published post-incident audit records the incident’s mechanism, the defence that caught it (or failed to), and the resulting changes.</p>
+<p>The protocol covers good-faith error on the same terms as adversarial compromise: an erroneous characterisation that entered through a contributor is corrected through the same declared, flagged, disclosed process, which — together with the review record every entry carries — is the platform’s procedural answer to content liability for contributed material.</p>
+<h3 id="section-vi-6">VI.6 External Review</h3>
+<p>External review of this adversarial resilience architecture is invited. Identification of vulnerabilities or design weaknesses before implementation is valuable. Correspondence can be directed to warmthengine@proton.me.</p>
+<hr>
+<h2 id="section-vii">VII. Cross-Phase Dependencies</h2>
+<p>Architectural decisions made in earlier phases become infrastructure for later phases:</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Phase Made</th>
+<th>Phases Affected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP tool schema</td>
+<td>1</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td>Consumer identity on authenticated traffic</td>
+<td>1</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td>Data-access audit trail</td>
+<td>1</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td>Access and billing architecture</td>
+<td>1</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td>In-band offer and programme discovery surfaces</td>
+<td>1</td>
+<td>1, 2</td>
+</tr>
+<tr>
+<td>Rate card calibration</td>
+<td>2</td>
+<td>2, 3</td>
+</tr>
+<tr>
+<td>Reward and access-credit architecture</td>
+<td>2</td>
+<td>2, 3</td>
+</tr>
+<tr>
+<td>Write-path tool architecture (§III.8)</td>
+<td>1</td>
+<td>2, 3</td>
+</tr>
+<tr>
+<td>Methodology-as-code reliability (§V.2)</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>The rate card is published in this paper (§IV.4); the reward architecture — recognition and access — is specified as a forward-looking design (§IV.5). The cash revenue-share pool and its structure are a deferred, contingent rail; the adjustment that manages human-agent throughput asymmetry attaches to that rail and to comparative recognition, committed before either surface is activated rather than deferred for lack of design intent (§V.5).</p>
+<hr>
+<h2 id="section-viii">VIII. Strategic Principles</h2>
+<p><strong>1. Each phase validates the preconditions for the next.</strong> Phase 1 validates data consumption demand — including that the gated evidence layer is worth enough for access to function as a reward (§III.7). Phase 2 validates distributed contribution quality. Phase 3 validates autonomous agent contribution reliability.</p>
+<p><strong>2. The methodology is the constant.</strong> Across all three phases, the WEO Methodology Manual governs what qualifies; the contributor type varies, the verification standard does not.</p>
+<p><strong>3. Demand precedes supply.</strong> Phase 1 establishes consumption demand. Phase 2 establishes contribution supply. Phase 3 establishes autonomous contribution capacity.</p>
+<p><strong>4. Human oversight scales down but never to zero.</strong> The transition is from reviewing every submission (Phase 2) to auditing a statistical sample (Phase 3). That transition begins within Phase 2: the committed delegation path (§IV.6) moves central review from every submission to exceptions and statistical audit once its conditions are met.</p>
+<p><strong>5. Early architectural decisions compound.</strong> Consumer identity, the data-access audit trail, the access architecture, the in-band discovery surfaces, and extensible tool schemas decided in Phase 1 become critical infrastructure in Phases 2 and 3.</p>
+<p><strong>6. Simplicity is a defence.</strong> A flat rate card with no multiplicative terms is simpler to audit and presents no compound quantity to game; the allocation of contributor effort is left to competitive dynamics rather than a tuned formula.</p>
+<p><strong>7. Contributor reward and platform revenue are decoupled.</strong> Revenue derives from data consumption; the near-term contributor reward is access, which is non-rivalrous and carries near-zero marginal cost. Contribution grows the corpus that drives revenue without drawing on it, so the growth mechanism and the monetisation mechanism compound rather than compete. Cash compensation is a deferred rail (§IV.5), not the launch reward.</p>
+<p><strong>8. The gating architecture and the contribution architecture are one design.</strong> The access model’s governing split — structure free, evidence paid (§III.6) — is not only a conversion funnel; the free structural graph is the contribution-discovery substrate. A prospective contributor can traverse the complete open graph and identify where coverage is thin — the unevidenced relationship, the underserved region, the absent candidate event — before contributing a single record. Discovery is free, qualification is methodology-governed, and the reward is the evidence layer behind the wall the contributor has been navigating. The write-path tool architecture (§III.8) is the operational mechanism of this unity: the endpoint that serves the free structural graph carries the committed submission tools through which discovery becomes contribution. The three-phase architecture and the tiered access architecture are the same design seen from two sides.</p>
+<p><strong>9. The record outlives its custodian.</strong> The platform’s value claim rests on a durable systematic record (§I.3), and the record’s guarantorship is currently concentrated: central review is the Phase 2 quality mechanism, methodology authorship is central, and the canonical data is centrally held. The architecture acknowledges this concentration explicitly and commits a continuity direction: corpus escrow with deferred open-licensing on defined failure conditions in the near term, and a designated methodology steward as part of Phase 3 governance. The continuity mechanics are a named coverage item for the governance instruments that accompany Phase 2 and Phase 3 activation; the commitment stated here is that the record’s continuity does not depend on any single custodian.</p>
+<hr>
+<h2 id="section-ix">IX. Relationship to WEO Methodology Suite</h2>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Document</th>
+<th>Role</th>
+<th>Relationship to Contribution Architecture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Methodology Manual</strong> (DOI: <a href="https://doi.org/10.5281/zenodo.18427565">10.5281/zenodo.18427565</a>)</td>
+<td>Defines what qualifies</td>
+<td><strong>Invariant</strong> — unchanged by this paper</td>
+</tr>
+<tr>
+<td><strong>Methodology Rationale</strong> (DOI: <a href="https://doi.org/10.5281/zenodo.18427582">10.5281/zenodo.18427582</a>)</td>
+<td>Documents calibration justifications</td>
+<td><strong>Invariant</strong> — unchanged by this paper</td>
+</tr>
+<tr>
+<td><strong>Towards Coordination Science</strong> (DOI: <a href="https://doi.org/10.5281/zenodo.18427584">10.5281/zenodo.18427584</a>)</td>
+<td>Defines quantitative metrics derived from CC taxonomy</td>
+<td><strong>Beneficiary</strong> — distributed contribution accelerates metric operationalisation</td>
+</tr>
+<tr>
+<td><strong>Tier-Crossing Dynamics</strong> (DOI: <a href="https://doi.org/10.5281/zenodo.18427586">10.5281/zenodo.18427586</a>)</td>
+<td>Analyses CCs crossing tier boundaries</td>
+<td><strong>Beneficiary</strong> — a richer CC network enables tier-crossing pattern analysis</td>
+</tr>
+<tr>
+<td><strong>This document</strong></td>
+<td>Defines contributor access and incentive architecture</td>
+<td><strong>Extension</strong> — specifies distributed participation without modifying the methodology</td>
+</tr>
+</tbody>
+</table>
+<p>This paper accommodates Version 1.5 of the Methodology Manual and Rationale (July 2026; version DOIs <a href="https://doi.org/10.5281/zenodo.21278280">10.5281/zenodo.21278280</a> and <a href="https://doi.org/10.5281/zenodo.21278281">10.5281/zenodo.21278281</a>); the concept DOIs above resolve to the current version of each document.</p>
+<p><strong>A recursive structural property.</strong> The recursive property noted in §I.2 has one implication specific to this suite: the provenance trail documents not only the analytical output but the coordination dynamics that produced it.</p>
+<hr>
+<h2 id="section-x">X. Open Questions</h2>
+<p><strong>Framing detection at scale.</strong> Detecting systematically skewed framing across a growing corpus — distinguishing adversarial drift from legitimate analytical variation, and both from the coverage shifts the programme deliberately recruits for (§VI.1) — is the central unresolved problem of the threat model. The statistical audit layer, with within-event-type, within-bloc, and within-domain framing normalisation and pre-registered cohort baselines, is the committed response; its detection thresholds remain to be calibrated against real distributional data.</p>
+<p><strong>Cross-model consensus reliability and correlated failure.</strong> Whether agents from different model providers produce meaningfully independent assessments, and how to bound correlated failure when they do not, is an empirical question with significant Phase 3 implications. The consensus mechanism’s vulnerability to coordinated manipulation increases with the number of participating agents.</p>
+<p><strong>Source persistence in restricted information environments.</strong> Cited primary sources may be removed or altered, particularly in restricted information environments. The durability of the systematic record depends on source archival and re-verification practices that are under design; the source-durability contribution class (§IV.3.8) is the architecture’s mechanism for distributing that work to the contributors best positioned to perform it.</p>
+<p><strong>Methodology transparency — conditional assessment.</strong> Full publication of the methodology strengthens resilience only whilst the secrecy-independent defences (statistical audit, capped oversight reduction, consensus diversity) are in place. The conditions under which this assessment holds warrant continued review as the platform scales.</p>
+<p><strong>Governance scaling.</strong> Review throughput and methodology governance face capacity constraints that must scale with contribution volume. The credited Senior Observer review layer and the committed delegation path (§IV.6), culminating in the Phase 3 transition from per-submission review to statistical audit (§V.6), are the designed responses to review throughput. What remains open is the structure beyond them: methodology governance at scale, and the higher-tier contributor design deferred to post-Phase 2 calibration (§IV.6).</p>
+<p><strong>Agent economic participation governance.</strong> Applicable legal and regulatory frameworks for autonomous agent revenue participation intersect with emerging AI agent governance discussions.</p>
+<p><strong>Human-agent integration.</strong> Whether the Observer Network (Phase 2) and the agent economy (Phase 3) operate as separate programmes or merge into a shared pool depends on relative quality and cost profiles and on the deferred Phase 3 pool-structure decision (§V.5).</p>
+<p><strong>Access-reward calibration.</strong> The near-term reward is access (§IV.5). Two parameters require calibration against operational data: the contribution threshold that unlocks access, and — should metered access supersede the binary unlock — the relationship between access earned through contribution and access purchased through the commercial tier, such that the contribution pathway does not erode paid consumption. These are forward calibration questions, not launch parameters.</p>
+<p><strong>Concurrent submission protocol.</strong> The design principle — first submission to pass final review receives event credit — is established. The detailed operational protocol governing audit sequencing and edge-case resolution is maintained in the internal operational specification.</p>
+<hr>
+<h2 id="section-xi">XI. Terminology and Provenance</h2>
+<p>This paper operationalises several terms within a specific sovereign geopolitical AI-infrastructure-intelligence architecture. Where a term has prior usage in another domain, WEO’s contribution is the operationalisation of the term within this architecture — its precise definition, its place in the framework, and the methodology that governs it — not the coining of the term. The distinction matters for honest novelty claims and is recorded here.</p>
+<p><strong>Originating with this paper.</strong> As published artefacts: the WEO Contribution Architecture as a written three-phase specification for this platform; Delta Credit as the named credit class for value-generating rolling updates; and the Coordination Intelligence Loop as a phrase. None of these is claimed as a novel mechanism. The framework’s constituent mechanisms have clear prior art — programmatic data access via the Model Context Protocol (introduced 2024), human OSINT crowdsourcing with revenue-share, and autonomous-agent contribution under consensus and reputation systems — and so does the integrated pattern itself: an incentivised, agent-discoverable consume-and-contribute loop, surfaced over MCP and feeding a verified shared corpus, is publicly precedented (see <em>Prior art — contribution mechanism</em> below). WEO’s contribution is neither the mechanism nor the integration in the abstract, but their governed application to a specific domain — verified AI-infrastructure coordination intelligence across geopolitical blocs — under a single methodology invariant in which the verification standard is held constant and the contributor type is the only variable. The mechanics underlying the Coordination Intelligence Loop are those of established platform economics (network effects and the data flywheel); the phrase names their application to this domain.</p>
+<p><strong>Prior art — contribution mechanism.</strong> The incentivised, MCP-native consume-and-contribute loop is established prior art. Contemporaneous and prior systems implement the pattern in other domains: agent-discoverable knowledge-commons servers in which contribution is a first-class write path alongside read and peer-validation tools, feeding append-only verified corpora with reputation- or trust-scored contributors (for example LorgAI’s lorg-mcp-server), with comparable read/write servers carrying per-entry provenance and confidence proliferating (for example rudavko’s lore-mcp); knowledge-base-for-agents systems in the software-engineering domain (for example Stack Overflow for Agents and Mozilla.ai’s cq); data-contribution networks that reward contributors outside MCP (the data DAOs and DePINs — for example Vana and Grass); agent payment and metering layers (for example x402, AP2, and Nevermined); and domain-adjacent read-only intelligence corpora served over MCP (for example GDELT Cloud). The data-flywheel and network-effects literature provides the economic frame. WEO does not claim priority over this mechanism.</p>
+<p>Within the documented public search scope at the time of writing (July 2026), no precedent was identified for the incentivised consume-and-contribute loop applied specifically to verified AI-infrastructure coordination intelligence across geopolitical blocs under a published methodology. The mechanism exists in general-purpose form (the systems above); the domain’s subject matter is served in read-only or closed form — for example the CNAS Sovereign AI Index (a curated catalogue of standalone projects, without typed event relationships, a contribution loop, or programmatic access), GDELT Cloud (structured global-event intelligence served over MCP, but read-only and machine-generated), and Off-Nadir Delta (a domain-adjacent comparator: live geopolitical intelligence served over MCP, consumption-only, with no contribution pathway). The closest contributor-updated, methodology-governed geopolitical corpus is the OECD.AI Policy Navigator, whose entries are maintained by designated official contact points and OECD.AI experts — but contribution there is neither incentivised, agent-discoverable, nor served over an API or MCP. This is a bounded observation, not a claim of being first, and the field is evolving rapidly enough to warrant re-verification at each publication.</p>
+<p><strong>Prior art — write-path tool architecture.</strong> The pattern the committed write-path tool architecture (§III.8) instantiates combines four properties: a published, human-readable methodology; that methodology’s qualification gates encoded as write-path tools over a programmatic (MCP) interface; a read-write contribution loop on a single endpoint; and write-path output designed for reuse as machine-checkable verification infrastructure. Within the documented public search scope at the time of writing (July 2026), one operational system — LorgAI (lorg.ai) — combines all four properties: a published, versioned governance document; its qualification gate encoded as executable write-path MCP tools; a read-write loop on a single interface; and signed, verifiable output with a published verification procedure framed for reuse. It differs from WEO principally in domain (AI-agent self-knowledge rather than external-world intelligence) and in encoding a generic quality gate rather than a domain-substantive inclusion methodology, whilst no other platform reviewed combined more than three of the four. The same bound applies here as above: this is an observation within the documented search scope, not a claim of being first, subject to the same re-verification at each publication. WEO’s contribution is the independent operationalisation of the pattern with a domain-substantive published methodology — the qualification gates, evidence thresholds, and classification criteria of a verified external-world coordination-intelligence corpus — encoded as the executable validation itself.</p>
+<p><strong>Originating in the WEO methodology suite (not this paper).</strong> The paper’s further platform vocabulary — including Coordination Connections, Sovereign Capability Profiles, Infrastructure Threads, Environmental Nexus Tags, and the AI Connection Filter, together with the tier, confidence, and qualification-pathway systems the platform defines — originates in the Methodology Manual and Methodology Rationale and is anchored to their DOIs (<a href="https://doi.org/10.5281/zenodo.18427565">10.5281/zenodo.18427565</a>; <a href="https://doi.org/10.5281/zenodo.18427582">10.5281/zenodo.18427582</a>).</p>
+<p><strong>Prior art acknowledged.</strong> The following terms used in this paper or its surrounding framework carry documented prior usage. WEO’s contribution is the operationalisation noted in each case.</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Prior art</th>
+<th>WEO operationalisation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordination Intelligence</td>
+<td>Multi-agent and interaction-centric systems framing (MIT Media Lab; Chopra, 2025)</td>
+<td>The discipline of tracking sovereign AI-infrastructure coordination across geopolitical blocs through verified events and mapped relationships</td>
+</tr>
+<tr>
+<td>Sovereign Capability Profile</td>
+<td>Strategic-defence capability assessment literature (IISS, 2025); national AI-capability evaluation frameworks (Li Xiang et al., 2025)</td>
+<td>A seven-dimension, three-gate actor-designation framework for sovereign AI infrastructure capability</td>
+</tr>
+<tr>
+<td>AI Infrastructure Keystone</td>
+<td>Investment-analysis usage categorising hardware suppliers as keystones</td>
+<td>A sovereign actor designation: structural chokepoint leverage within an ecosystem without provision of the ecosystem itself</td>
+</tr>
+<tr>
+<td>Observer Network</td>
+<td>Cooperative observer networks (e.g., meteorological and environmental monitoring programmes); contemporaneous credentialed-contributor networks</td>
+<td>A credentialed distributed analyst contribution programme governed end-to-end by the WEO methodology</td>
+</tr>
+<tr>
+<td>Agent Economy</td>
+<td>Established in current AI literature (Xu, 2026) as a paradigm of autonomous agents operating as economic peers to humans</td>
+<td>The Phase 3 autonomous-agent contribution economy operating under consensus verification</td>
+</tr>
+<tr>
+<td>Delta Credit</td>
+<td>Delta-denominated credit adjustments carry adjacent usage in finance (credit-delta exposure measures); the underlying computed-difference sense is the one this paper’s definition explicitly declines</td>
+<td>The named credit class for value-generating rolling updates, awarded at fixed rates by update type (§IV.3.2)</td>
+</tr>
+<tr>
+<td>Methodology-as-tools (write-path tool architecture)</td>
+<td>Methodology qualification gates encoded as executable write-path tools over an MCP interface, with a documented operational prior instance (LorgAI; see the bounded observation above and the systems note in the References)</td>
+<td>The committed encoding of a domain-substantive published methodology — qualification gates, evidence thresholds, and classification criteria for a verified external-world coordination-intelligence corpus — as the executable submission validation itself (§III.8)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-internal-spec">Internal Operational Specification</h2>
+<p>A separate internal operational specification maintains the implementation-specific parameters, protocols, and settled design dispositions the paper defers: the self-update lockout duration; submission-rate, acceptance-rate, and review-cost detection thresholds; the concurrent-submission audit-sequencing protocol; the pilot vetting protocol (§IV.8); the access-unlock threshold and any metered earn and consumption rates (§IV.5); the challenge, non-qualification documentation, and source-durability credit rates (§IV.3.6–IV.3.8); the gap-report credit rate, banked-candidate mechanics, and priority-lapse horizon, and the delegation thresholds and version re-baselining mechanics (§IV.6); the Senior Observer and Phase 3 consensus-reviewer credit allocations (§IV.6, §V.5); incident-declaration thresholds (§VI.5); Phase 3 consensus parameters (pool size, diversity requirements, audit sample rate, escalation thresholds); the write-path tool submission-rate thresholds and advisory quality-flag thresholds (§III.8); the structure of the deferred cash revenue-share rail. These parameters are provisional, subject to empirical calibration against accumulated operational data. The rate card is published in this paper (§IV.4) and is not held in the internal specification.</p>
+<hr>
+<h2 id="section-version-history">Version History</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>July 2026</td>
+<td>Initial publication.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="section-references">References</h2>
+<p>Warmth Engine (2026). <em>WEO Methodology Manual: Systematic Tracking of AI Infrastructure Coordination Dynamics Across Geopolitical Blocs.</em> Version 1.5. Zenodo. DOI: <a href="https://doi.org/10.5281/zenodo.21278280">10.5281/zenodo.21278280</a></p>
+<p>Warmth Engine (2026). <em>WEO Methodology Rationale: Empirical Derivation and Calibration Justification for AI Infrastructure Coordination Analysis.</em> Version 1.5. Zenodo. DOI: <a href="https://doi.org/10.5281/zenodo.21278281">10.5281/zenodo.21278281</a></p>
+<p>Warmth Engine (2026). <em>Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns.</em> Version 1.2. Zenodo. DOI: <a href="https://doi.org/10.5281/zenodo.18427584">10.5281/zenodo.18427584</a></p>
+<p>Warmth Engine (2026). <em>Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis.</em> Version 1.1. Zenodo. DOI: <a href="https://doi.org/10.5281/zenodo.18427586">10.5281/zenodo.18427586</a></p>
+<p><em>Works cited in the adaptation and prior-art acknowledgements (§IV, §V, §VI, §XI):</em></p>
+<p>Chopra, A. (2025). <em>Levels of Agentic Coordination: From Tools to Crowds.</em> MIT Media Lab. https://www.media.mit.edu/articles/levels-of-agentic-coordination/</p>
+<p>DORA (2025). <em>2025 DORA Report: State of AI-assisted Software Development.</em> DORA / Google Cloud. https://dora.dev/dora-report-2025/</p>
+<p>Eyal, I. (2015). The miner’s dilemma. In <em>2015 IEEE Symposium on Security and Privacy</em>, 89–103.</p>
+<p>Gallus, J. (2017). Fostering public good contributions with symbolic awards: A large-scale natural field experiment at Wikipedia. <em>Management Science</em>, 63(12), 3999–4015. DOI: <a href="https://doi.org/10.1287/mnsc.2016.2540">10.1287/mnsc.2016.2540</a></p>
+<p>International Institute for Strategic Studies (2025). Sovereign AI: Pathways to Strategic Autonomy. <em>Charting Cyberspace</em> (online analysis). https://www.iiss.org/online-analysis/charting-cyberspace/2025/08/sovereign-ai-pathways-to-strategic-autonomy/</p>
+<p>International Organization for Standardization (2026). ISO 19011:2026: Guidelines for auditing management systems. Fourth edition. Geneva: ISO. https://www.iso.org/standard/19011</p>
+<p>Li Xiang, Li Guangjian, &amp; Luo Liqun (2025). <em>全球人工智能评价指标体系结构解构与评价范式研究</em> [Structural deconstruction and evaluation paradigm of global AI evaluation indicator systems]. 《图书与情报》 [Library and Information], 2025(04).</p>
+<p>Mazloomzadeh, I., Uddin, G., Khomh, F., &amp; Sami, A. (2024). Reputation gaming in crowd technical knowledge sharing. <em>ACM Transactions on Software Engineering and Methodology</em>, 34(1), Article 10, 1–41. DOI: <a href="https://doi.org/10.1145/3691627">10.1145/3691627</a></p>
+<p>Public Company Accounting Oversight Board (2017). <em>AS 2315: Audit Sampling.</em> Washington, DC: PCAOB. https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315</p>
+<p>Rosenfeld, M. (2011). <em>Analysis of Bitcoin Pooled Mining Reward Systems.</em> arXiv:1112.4980. https://arxiv.org/abs/1112.4980</p>
+<p>Wardle, C., &amp; Derakhshan, H. (2017). <em>Information Disorder: Toward an Interdisciplinary Framework for Research and Policy Making.</em> Council of Europe.</p>
+<p>Xu, M. (2026). <em>The Agent Economy: A Blockchain-Based Foundation for Autonomous AI Agents.</em> arXiv:2602.14219. https://arxiv.org/abs/2602.14219</p>
+<p><em>Systems and comparators named in §XI — the contribution-mechanism precedents (for example LorgAI’s lorg-mcp-server, including its write-path contribution and validation tools; rudavko’s lore-mcp; Stack Overflow for Agents; Mozilla.ai’s cq; the data DAO Vana and the DePIN Grass; the agent payment and metering layers x402, AP2, and Nevermined) and the domain’s subject-matter comparators (the CNAS Sovereign AI Index; GDELT Cloud; the OECD.AI Policy Navigator; Off-Nadir Delta) — are contemporaneous platforms in a rapidly evolving field, cited as live systems rather than fixed publications. The bounded observations in §XI were re-verified in July 2026.</em></p>
+<hr>
+<p><em>End of The WEO Contribution Architecture</em></p>
+<p><em>Warmth Engine Observatory | July 2026 (V1.0)</em></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>The term “malinformation” is adapted from the information-disorder taxonomy of Wardle &amp; Derakhshan (2017), where it denotes truthful information deliberately disclosed to cause harm — typically through leaks or the weaponisation of private information. WEO adapts the term to a curation-integrity context: here, the “mal-” prefix denotes submissions that are factually accurate and primary-sourced, but whose classification framing, tier rationale, or qualification narrative is systematically skewed. The truth-value dimension — that each individual submission survives source verification — is the defining characteristic shared with the established usage, and the reason the threat is architecturally distinct from data fabrication.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+            </main>
+        </div>
+
+        <footer class="page-footer">
+            <p class="footer-version">Contribution Architecture V1.0</p>
+            <p class="footer-text">© 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
+            <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+
+    // Navigation toggle (mobile)
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+
+    if (window.innerWidth > 768) {
+    // ToC generation
+    (function() {
+        const body = document.getElementById('weo-methodology-body');
+        const tocBody = document.getElementById('tocBody');
+        if (!body || !tocBody) return;
+
+        const headings = body.querySelectorAll('h1[id], h2[id]');
+        if (!headings.length) return;
+
+        const ul = document.createElement('ul');
+        headings.forEach(function(h) {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#' + h.id;
+            // Clone heading, remove rationale links, then extract clean text
+            const hClone = h.cloneNode(true);
+            a.textContent = hClone.textContent.replace(/\s*\{#[^\}]+\}/, '').trim();
+            a.dataset.id = h.id;
+            if (h.tagName === 'H2') {
+                li.style.paddingLeft = '0.75rem';
+                a.style.fontSize = '0.75rem';
+            }
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+        tocBody.appendChild(ul);
+
+        // IntersectionObserver for scroll tracking
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                const id = entry.target.id;
+                const link = tocBody.querySelector('a[data-id="' + id + '"]');
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    tocBody.querySelectorAll('a.active').forEach(function(el) { el.classList.remove('active'); });
+                    link.classList.add('active');
+                    link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+
+        headings.forEach(function(h) { observer.observe(h); });
+    })();
+    }
+
+    // Mobile ToC toggle
+    const tocToggle = document.getElementById('tocToggle');
+    const tocEl = document.getElementById('weo-toc');
+    if (tocToggle && tocEl) {
+        tocToggle.addEventListener('click', function() {
+            tocEl.classList.toggle('toc-open');
+        });
+    }
+
+    </script>
+    <button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <script>
+    if (window.innerWidth > 768) {
+        (function() {
+            var btn = document.getElementById('backToTop');
+            if (window.matchMedia('(min-width: 769px)').matches) {
+                window.addEventListener('scroll', function() {
+                    btn.classList.toggle('visible', window.scrollY > 500);
+                }, { passive: true });
+            }
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    }
+    </script>
+    <script>
+    if (window.innerWidth <= 768) {
+        var btn = document.getElementById('backToTop');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            }, { passive: true });
+        }
+    }
+    </script>
+    <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
+    <script data-goatcounter="https://warmthengine.goatcounter.com/count" async src="/js/count.js"></script>
+</body>
+</html>
