@@ -30,6 +30,10 @@ Sample records return every field on both tiers as worked examples: events 01, 0
 
 Subscribe at [/support](https://warmthengine.com/support.html) (US$25/month). Institutional access by enquiry: warmthengine@proton.me.
 
+## Getting started
+
+Three guided-journey prompts (`journey_coordination` / `journey_material` / `journey_stack`) and the `weo://journeys` resource provide worked starting calls across the coordination, material, and capability layers. Use `get_methodology` to resolve any vocabulary the tools return, and `get_contribution` for contributor-programme terms.
+
 ## Methodology (peer-citable, Zenodo)
 
 - [WEO Methodology Manual](https://doi.org/10.5281/zenodo.18427565)
