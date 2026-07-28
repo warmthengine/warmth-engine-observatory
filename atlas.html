@@ -2824,6 +2824,32 @@
             margin-top: 8px;
         }
         .cc-criterion.expanded .cc-criterion-evidence { display: block; }
+        /* Criterion supporting fact (shared stack / shared tag) */
+        .cc-criterion-fact {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-subtle);
+            color: #CBD5E1;
+        }
+        .cc-criterion-fact-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+        /* Criterion 1 gate indicator */
+        .cc-criterion-gate {
+            margin-left: 6px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #4ADE80;
+            opacity: 0.85;
+        }
         .cc-criteria-score {
             text-align: center;
             padding: 8px;
@@ -12098,7 +12124,7 @@
             if (detail.criteria_assessment) {
                 const ca = detail.criteria_assessment;
                 h += '<div class="cc-criteria-grid">';
-                ['mechanism', 'industry', 'target', 'scope', 'timing'].forEach(k => {
+                ['mechanism', 'industry', 'scope', 'timing'].forEach(k => {
                     if (!ca[k]) return;
                     const c = ca[k];
                     const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
@@ -12109,9 +12135,21 @@
                     h += '<div class="cc-criterion-header">';
                     h += '<span class="cc-criterion-status ' + statusClass + '">' + statusIcon + '</span>';
                     h += '<span class="cc-criterion-name">' + escapeHtml(k.charAt(0).toUpperCase() + k.slice(1)) + '</span>';
+                    if (k === 'mechanism' && ca.criterion_1_gate === true) {
+                        h += '<span class="cc-criterion-gate" title="Criterion 1 gate satisfied">gate ✓</span>';
+                    }
                     if (hasEvidence) h += '<span class="cc-criterion-expand">▼</span>';
                     h += '</div>';
-                    if (hasEvidence) h += '<div class="cc-criterion-evidence">' + escapeHtml(c.evidence) + '</div>';
+                    if (hasEvidence) {
+                        h += '<div class="cc-criterion-evidence">' + escapeHtml(c.evidence);
+                        if (k === 'mechanism' && c.specification_overlap) {
+                            h += '<div class="cc-criterion-fact"><span class="cc-criterion-fact-label">Shared technical stack</span>' + escapeHtml(c.specification_overlap) + '</div>';
+                        }
+                        if (k === 'industry' && c.shared_tag) {
+                            h += '<div class="cc-criterion-fact"><span class="cc-criterion-fact-label">Shared tag</span>' + escapeHtml(c.shared_tag) + '</div>';
+                        }
+                        h += '</div>';
+                    }
                     h += '</div>';
                 });
                 h += '</div>';
