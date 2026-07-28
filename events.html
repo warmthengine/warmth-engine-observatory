@@ -1021,6 +1021,32 @@
         .cc-criterion.expanded .cc-criterion-evidence {
             display: block;
         }
+        /* Criterion supporting fact (shared stack / shared tag) */
+        .cc-criterion-fact {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #CBD5E1;
+        }
+        .cc-criterion-fact-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+        /* Criterion 1 gate indicator */
+        .cc-criterion-gate {
+            margin-left: 6px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #4ADE80;
+            opacity: 0.85;
+        }
         .cc-criteria-score {
             text-align: center;
             padding: 8px;
@@ -4671,26 +4697,36 @@ function generateEvidencePanel(conn) {
     const ca = detail.criteria_assessment;
     html += '<div class="cc-criteria-grid">';
     
-    ['mechanism', 'industry', 'target', 'scope', 'timing'].forEach(function(criterion) {
+    ['mechanism', 'industry', 'scope', 'timing'].forEach(function(criterion) {
       if (ca[criterion]) {
         const c = ca[criterion];
         const statusClass = c.met === true ? 'met' : (c.met === 'partial' ? 'partial' : 'not-met');
         const statusIcon = c.met === true ? WEO_ICON_CHECK : (c.met === 'partial' ? '◐' : '○');
         const hasEvidence = c.evidence && c.evidence.length > 0;
-        
+
         html += '<div class="cc-criterion' + (hasEvidence ? ' has-evidence' : '') + '"' + (hasEvidence ? ' onclick="this.classList.toggle(\'expanded\')"' : '') + '>';
         html += '<div class="cc-criterion-header">';
         html += '<span class="cc-criterion-status ' + statusClass + '">' + statusIcon + '</span>';
         html += '<span class="cc-criterion-name">' + criterion.charAt(0).toUpperCase() + criterion.slice(1) + '</span>';
+        if (criterion === 'mechanism' && ca.criterion_1_gate === true) {
+          html += '<span class="cc-criterion-gate" title="Criterion 1 gate satisfied">gate ✓</span>';
+        }
         if (hasEvidence) {
           html += '<span class="cc-criterion-expand">▼</span>';
         }
         html += '</div>';
-        
+
         if (hasEvidence) {
-          html += '<div class="cc-criterion-evidence">' + esc(c.evidence) + '</div>';
+          html += '<div class="cc-criterion-evidence">' + esc(c.evidence);
+          if (criterion === 'mechanism' && c.specification_overlap) {
+            html += '<div class="cc-criterion-fact"><span class="cc-criterion-fact-label">Shared technical stack</span>' + esc(c.specification_overlap) + '</div>';
+          }
+          if (criterion === 'industry' && c.shared_tag) {
+            html += '<div class="cc-criterion-fact"><span class="cc-criterion-fact-label">Shared tag</span>' + esc(c.shared_tag) + '</div>';
+          }
+          html += '</div>';
         }
-        
+
         html += '</div>';
       }
     });
