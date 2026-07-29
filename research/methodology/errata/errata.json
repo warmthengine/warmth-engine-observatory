@@ -1,10 +1,10 @@
 {
-  "schema": "weo-methodology-errata",
+  "schema": "weo-methodology-corrections",
   "methodologyVersion": "V1.5",
   "batch": "W4 — V1.5 errata batch (ER-001–ER-017)",
   "dateApplied": "2026-07-21",
   "register": "WEO Methodology Errata Register — V1.5 publications",
-  "note": "Corrections to expression, not changes to methodology. The Manual's substantive provisions govern throughout.",
+  "note": "Two registers. Errata are corrections to expression, not changes to methodology — the Manual's substantive provisions govern throughout. Corrigenda are substantive corrections to reported findings in a published document. The methodology itself is unchanged between DOI versions in both cases.",
   "documents": {
     "manual": {
       "title": "WEO Methodology Manual V1.5",
@@ -187,6 +187,51 @@
       "dateIdentified": "2026-07-20",
       "dateApplied": "2026-07-21",
       "summary": "The DOI 10.1111/psj.12406 is appended to the third Mallinson (2021) citation, matching the two sibling instances."
+    }
+  ],
+  "lastUpdated": "2026-07-29",
+  "corrigenda": [
+    {
+      "id": "CG-001",
+      "document": "Methodology Rationale V1.5",
+      "doi": "10.5281/zenodo.21278281",
+      "section": "§9.5, §9.5.2, §9.5.3",
+      "nature": "Substantive figure correction (calibration and validation reporting)",
+      "dateIdentified": "2026-07-29",
+      "dateApplied": "2026-07-29",
+      "summary": "The reported retroactive impact of the June 2026 Type 7 Parallel Policy corpus audit is corrected from 10 removals (13.5% of the 74-PP corpus) to 6 removals (8.1%), with 4 LOW-ranked connections retained on documented sub-category characteristics; the §9.5.3 industry-tag overlap figures are corrected from 63 same-primary / 9 secondary-bridge / 2 zero-overlap (97.3%) to 63 / 10 / 1 (98.6%). The methodology — the Criterion 1 mandatory gate, mechanism specificity sub-test, and Criterion 2 industry-tag binary test — is unchanged. Full correction text and evidence annex at the errata page.",
+      "corrections": {
+        "removals": {
+          "published": "10 removals (13.5%)",
+          "corrected": "6 removals (8.1%)"
+        },
+        "retentions": {
+          "published": "0",
+          "corrected": "4, on documented sub-category characteristics"
+        },
+        "tagOverlap": {
+          "published": "63/9/2 (97.3%)",
+          "corrected": "63/10/1 (98.6%)"
+        }
+      },
+      "evidenceAnnex": {
+        "removed": [
+          "CC-185-188-7",
+          "CC-126-31-7",
+          "CC-126-39-7",
+          "CC-128-126-7",
+          "CC-46-49-7",
+          "CC-126-52-7"
+        ],
+        "retained": [
+          "CC-139-46-7",
+          "CC-194-67-7",
+          "CC-45-200-7",
+          "CC-175-177-7"
+        ],
+        "zeroOverlap": "CC-46-49-7",
+        "secondaryBridgePreviouslyReportedZeroOverlap": "CC-44-45-7"
+      }
     }
   ]
 }
