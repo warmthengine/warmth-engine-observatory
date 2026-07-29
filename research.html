@@ -669,6 +669,26 @@
         .link-button--weo:hover {
             background: #5EEAD4;
         }
+
+        /* Secondary action alongside the Zenodo button — an on-platform destination
+           rather than an external record, so it reads as outline, not filled. */
+        .link-button--ghost {
+            background: transparent;
+            color: var(--weo-accent-teal);
+            border: 1px solid rgba(45, 212, 191, 0.45);
+        }
+
+        .link-button--ghost:hover {
+            background: rgba(45, 212, 191, 0.12);
+            color: #5EEAD4;
+        }
+
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--weo-space-sm);
+            align-items: center;
+        }
         
         /* Bridging Note */
         .bridging-note {
@@ -986,7 +1006,9 @@
             <div class="zone-label zone-label--extensions">Methodology Extensions</div>
             
             <p class="bridging-note">These papers extend WEO methodology and operationalise C-MAD theory introduced in The Coordination Imperative (Part VI of The Warmth Engine Series).</p>
-            
+
+            <p class="bridging-note">The metrics programme computes the TCS constructs against the live corpus and publishes each computation as a dated observation rather than a standing figure. Because the database has not yet reached operational threshold, these are observations of the documented connection network as it has been constructed — not measurements of the coordination landscape — and they carry that caveat wherever they appear.</p>
+
             <!-- TCS Paper -->
             <article class="publication-card--weo">
                 <h3 class="publication-title">Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns</h3>
@@ -1008,12 +1030,20 @@
                     </div>
                 </div>
                 
-                <a href="https://zenodo.org/records/18427584" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
-                    View on Zenodo
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                    </svg>
-                </a>
+                <div class="link-row">
+                    <a href="https://zenodo.org/records/18427584" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
+                        View on Zenodo
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                    </a>
+                    <a href="/research/metrics/" class="link-button link-button--ghost">
+                        Baseline results &mdash; 28 July 2026
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
             </article>
             
             <!-- TCD Paper -->
