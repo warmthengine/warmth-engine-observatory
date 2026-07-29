@@ -42,6 +42,7 @@ Three guided-journey prompts (`journey_coordination` / `journey_material` / `jou
 - [Tier-Crossing Dynamics (TCD)](https://doi.org/10.5281/zenodo.18427586)
 - [WEO Contribution Architecture](https://doi.org/10.5281/zenodo.21495917)
 - [Contribution Architecture — self-hosted edition](https://warmthengine.com/research/contribution-architecture/): the CA paper with section anchors; vocabulary resolves via the get_contribution MCP tool.
+- [Errata & Corrigenda](https://warmthengine.com/research/methodology/errata/): public correction record for the methodology publications; machine-readable mirror at errata.json
 
 ## Site
 

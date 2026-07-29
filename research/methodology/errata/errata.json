@@ -200,6 +200,24 @@
       "nature": "Substantive figure correction (calibration and validation reporting)",
       "dateIdentified": "2026-07-29",
       "dateApplied": "2026-07-29",
+      "sequence": [
+        {
+          "date": "2026-06",
+          "event": "Corpus audit ranks 74 PPs, flags 10 LOW"
+        },
+        {
+          "date": "2026-07-19",
+          "event": "Rationale V1.5 publishes the audit's retroactive impact as settled (10 removals)"
+        },
+        {
+          "date": "2026-07-28",
+          "event": "V1.5 provisions instantiated; re-derivation removes 6, retains 4"
+        },
+        {
+          "date": "2026-07-29",
+          "event": "Divergence recorded as CG-001; self-hosted edition corrected"
+        }
+      ],
       "summary": "The reported retroactive impact of the June 2026 Type 7 Parallel Policy corpus audit is corrected from 10 removals (13.5% of the 74-PP corpus) to 6 removals (8.1%), with 4 LOW-ranked connections retained on documented sub-category characteristics; the §9.5.3 industry-tag overlap figures are corrected from 63 same-primary / 9 secondary-bridge / 2 zero-overlap (97.3%) to 63 / 10 / 1 (98.6%). The methodology — the Criterion 1 mandatory gate, mechanism specificity sub-test, and Criterion 2 industry-tag binary test — is unchanged. Full correction text and evidence annex at the errata page.",
       "corrections": {
         "removals": {
