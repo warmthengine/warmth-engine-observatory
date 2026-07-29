@@ -1,5 +1,6 @@
 {
-  "schema": "weo-methodology-corrections",
+  "schema": "weo-methodology-errata",
+  "schemaNote": "Extended 29 July 2026 with a corrigenda array; errata array unchanged.",
   "methodologyVersion": "V1.5",
   "batch": "W4 — V1.5 errata batch (ER-001–ER-017)",
   "dateApplied": "2026-07-21",
