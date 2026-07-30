@@ -760,13 +760,13 @@
     <!-- Diagnostic panels (full-width, stacked) -->
     <div class="panels-row">
         <div class="panel panel-diag" style="grid-column:1/-1">
-            <div class="panel-title panel-title-diag">Unidentified Clients · User-Agent</div>
+            <div class="panel-title panel-title-diag"><span>Unidentified Clients · User-Agent</span> <button class="copy-btn" onclick="copyBarPanel('uaPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="uaPanel" class="panel-list"></div>
         </div>
     </div>
     <div class="panels-row">
         <div class="panel" style="grid-column:1/-1">
-            <div class="panel-title">Named MCP Clients</div>
+            <div class="panel-title"><span>Named MCP Clients</span> <button class="copy-btn" onclick="copyBarPanel('namedClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="namedClientPanel" class="panel-list"></div>
         </div>
     </div>
@@ -1376,6 +1376,35 @@
         }
     }
     window.copyToolCallLog = copyToolCallLog;
+
+    // Generic bar-panel copier for the renderBars panels. Same idiom as the Tool Calls
+    // copier above, with two deliberate differences:
+    //  - the pressed button is passed in, so feedback lands on the button actually
+    //    clicked. The Tool Calls copier's document.querySelector('.copy-btn') only picks
+    //    the right one because it happens to sit first in the DOM.
+    //  - the label comes from the .bar-label title attribute, not textContent, which is
+    //    ellipsis-clipped for long user-agent strings. textContent is the fallback.
+    // Reads every .bar-row in the scroll container, not just the visible ones.
+    function copyBarPanel(panelId, btn) {
+        var panel = document.getElementById(panelId);
+        if (!panel) return;
+        var rows = panel.querySelectorAll('.bar-row');
+        if (rows.length === 0) return;
+        var lines = [];
+        rows.forEach(function(row) {
+            var label = row.querySelector('.bar-label');
+            var count = row.querySelector('.bar-count');
+            var name = label ? (label.getAttribute('title') || label.textContent) : '';
+            lines.push(name.trim() + '\t' + (count ? count.textContent.trim() : ''));
+        });
+        var text = lines.join('\n');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                if (btn) { btn.textContent = 'Copied'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
+            });
+        }
+    }
+    window.copyBarPanel = copyBarPanel;
 
     function renderHourly(hourData) {
         var chart = document.getElementById('hourlyChart');
