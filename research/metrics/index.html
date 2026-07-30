@@ -494,8 +494,8 @@
             font-size: 0.75rem; color: var(--text-muted); line-height: 1.6;
         }
         .fnote { font-size: 0.8125rem; color: var(--text-tertiary); line-height: 1.65; margin-top: var(--weo-space-md); }
-        .fnote a { color: var(--weo-accent-hover); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.35); }
-        .fnote a:hover { color: var(--weo-accent-teal); border-bottom-color: var(--weo-accent-teal); }
+        .fnote a, .provenance a, .caption a, .series-epoch a { color: var(--weo-accent-hover); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.35); }
+        .fnote a:hover, .provenance a:hover, .caption a:hover, .series-epoch a:hover { color: var(--weo-accent-teal); border-bottom-color: var(--weo-accent-teal); }
 
         table.bands { width: 100%; border-collapse: collapse; margin-top: var(--weo-space-lg); font-size: 0.8125rem; }
         table.bands th, table.bands td {
@@ -584,6 +584,54 @@
         .epoch-break { position: relative; margin: var(--weo-space-md) 0; padding-left: var(--weo-space-sm); border-left: 2px dashed var(--accent-primary); }
         .epoch-break-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-primary); }
 
+        /* ---- tooltips (site pattern, ported from events.html) ----
+           Trigger is a real button so it is keyboard-reachable and tap-friendly;
+           the ::before pad guarantees a 44px touch target without changing layout.
+           Copy lives inline inside the trigger and is lifted into a single fixed
+           overlay on open, so the tooltip is never clipped by .mx-wrap's
+           overflow-x (see the overflow-x/popover clipping rule). */
+        .weo-info-trigger {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 15px; height: 15px; margin-left: 5px; padding: 0;
+            border: none; border-radius: 50%;
+            background: rgba(148, 163, 184, 0.18); color: #94A3B8;
+            font-family: inherit; font-size: 10px; font-weight: 700; line-height: 1;
+            cursor: pointer; position: relative; vertical-align: middle;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .weo-info-trigger:hover { background: rgba(96, 165, 250, 0.3); color: var(--weo-accent-hover); transform: scale(1.1); }
+        .weo-info-trigger::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); min-width: 44px; min-height: 44px;
+        }
+        .weo-info-trigger .weo-tooltip { display: none; }
+
+        #weo-tooltip-overlay {
+            position: fixed; background: var(--weo-bg-primary);
+            border: 1px solid #475569; border-radius: var(--weo-radius-md);
+            padding: 16px 18px; width: 350px; max-width: calc(100vw - 32px);
+            font-size: 13.5px; color: #CBD5E1; line-height: 1.65;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); z-index: 10000;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity var(--weo-duration-normal) var(--weo-ease-out), visibility var(--weo-duration-normal) var(--weo-ease-out);
+        }
+        #weo-tooltip-overlay.visible { opacity: 1; visibility: visible; pointer-events: auto; }
+        #weo-tooltip-overlay .weo-tooltip-title {
+            font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #94A3B8; margin-bottom: 10px;
+        }
+        #weo-tooltip-overlay .weo-tooltip-body { font-size: 13.5px; color: #CBD5E1; line-height: 1.65; }
+        #weo-tooltip-overlay .weo-tooltip-body strong { color: #F1F5F9; font-weight: 600; }
+        #weo-tooltip-overlay .weo-tooltip-body a { color: var(--weo-accent-hover); text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.35); }
+        #weo-tooltip-overlay .weo-tooltip-body a:hover { color: var(--weo-accent-teal); border-bottom-color: var(--weo-accent-teal); }
+        @media (max-width: 767px) {
+            #weo-tooltip-overlay { width: 310px; font-size: 12px; padding: 14px 16px; }
+        }
+
+        /* Toggle buttons carry their own trigger, so the group must not clip it. */
+        .toggle-group .weo-info-trigger { margin-left: 6px; }
+
         @media (max-width: 767px) {
             .metric-block { padding: var(--weo-space-lg); }
             .metric-value { font-size: 2.25rem; }
@@ -632,17 +680,17 @@
 
         <details class="caveat" open>
             <summary>Pre-operational baseline &mdash; read first</summary>
-            <p>Pre-operational baseline. The WEO database has not yet reached operational threshold (historic backfill in progress; entry sequence reflects research workflow rather than event occurrence — see TCS §VII). Values are dated observations of the documented connection network as constructed to the stated baseline, not measurements of the coordination landscape. The null-model comparison contextualises the observed value against the corpus's own composition.</p>
+            <p>Pre-operational baseline. The WEO database has not yet reached operational threshold (historic backfill in progress; entry sequence reflects research workflow rather than event occurrence — see the Towards Coordination Science paper). Values are dated observations of the documented connection network as constructed to the stated baseline, not measurements of the coordination landscape. The null-model comparison contextualises the observed value against the corpus's own composition.</p>
         </details>
 
         <!-- ============ CSTF ============ -->
         <div class="section-label">Cross-Sector Transmission</div>
         <section class="metric-block" id="cstf">
-            <div class="metric-name">Cross-Sector Transmission Frequency &middot; TCS &sect;III.3.1</div>
+            <div class="metric-name">Cross-Sector Transmission Frequency</div>
             <div class="metric-headline">
                 <span class="metric-value">0.127</span>
                 <span class="metric-frac">19 of 150 connections cross an industry boundary</span>
-                <span class="band-badge">Lower range (&lt;0.30, provisional band)</span>
+                <span class="band-badge">Lower range (&lt;0.30, provisional band)<button type="button" class="weo-info-trigger" aria-label="About provisional bands">?<span class="weo-tooltip"><span class="weo-tooltip-title">Provisional band</span><span class="weo-tooltip-body">Starting bands set in the methodology paper prior to data; reviewed against accumulated observations at operational threshold.</span></span></button></span>
             </div>
 
             <div class="null-model">
@@ -652,7 +700,7 @@
                 </div>
                 <div>
                     <div class="null-label">Same-industry enrichment</div>
-                    <span class="null-stat">3.7&times; the expected rate</span>
+                    <span class="null-stat">3.7&times; the expected rate<button type="button" class="weo-info-trigger" aria-label="How the 3.7 times figure is derived">?<span class="weo-tooltip"><span class="weo-tooltip-title">Same-industry enrichment</span><span class="weo-tooltip-body">Expected = the same-industry share random label-shuffling produces given this corpus&rsquo;s own industry mix. 3.7&times; = observed 87.3% &divide; expected 23.4%.</span></span></button></span>
                     <div class="null-detail">87.3% observed vs 23.4% expected &middot;
                     <em>p</em> &le; 10<sup>&minus;5</sup>, 100,000-permutation test</div>
                 </div>
@@ -662,11 +710,11 @@
             industry boundaries <span class="qualifier">in the documented record</span>; the cross-sector
             share is far below what the corpus&rsquo;s own industry composition would produce at random.</p>
 
-            <p class="fnote">Documentation accessibility is itself sector-asymmetric &mdash; the Security
-            domain is graded MED/LOW and is additionally constrained by national security classification
-            across all blocs. A within-industry concentration in the documented record is therefore not,
-            on its own, evidence of a within-industry concentration in the world. See the
-            <a href="/events.html#cov-panel">coverage-confidence framework</a>.</p>
+            <p class="fnote">Documentation accessibility is itself sector-asymmetric &mdash; under the
+            coverage-confidence framework<button type="button" class="weo-info-trigger" aria-label="About the coverage-confidence framework">?<span class="weo-tooltip"><span class="weo-tooltip-title">Coverage-confidence framework</span><span class="weo-tooltip-body">WEO grades how documentable each domain is; Security is graded medium/low because classification suppresses public documentation. Full framework: <a href="/events.html#cov-panel">events page</a>.</span></span></button>
+            the Security domain is graded medium/low, and is additionally constrained by national security
+            classification across all blocs. A within-industry concentration in the documented record is
+            therefore not, on its own, evidence of a within-industry concentration in the world.</p>
 
             <table class="bands">
                 <thead><tr><th>Band</th><th>Range</th><th>Status</th></tr></thead>
@@ -678,17 +726,18 @@
             </table>
             <span class="prov-tag">Provisional &mdash; calibration review at operational threshold</span>
 
-            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline; methodology at TCS §III.3</p>
+            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
         </section>
 
         <!-- ============ MATRIX ============ -->
         <div class="section-label">Transmission Matrix</div>
         <section class="metric-block" id="matrix">
-            <div class="metric-name">Cross-Sector Transmission Matrix &middot; TCS &sect;III.3.3</div>
+            <div class="metric-name">Cross-Sector Transmission Matrix</div>
 
             <div class="toggle-group" role="group" aria-label="Matrix view">
                 <button class="toggle-btn" id="btnRaw" type="button" aria-pressed="true">Raw counts</button>
                 <button class="toggle-btn" id="btnNorm" type="button" aria-pressed="false">Row-normalised</button>
+                <button type="button" class="weo-info-trigger" aria-label="About the raw and row-normalised views">?<span class="weo-tooltip"><span class="weo-tooltip-title">Matrix views</span><span class="weo-tooltip-body"><strong>Raw counts:</strong> how many connections link each pair of industries. <strong>Row-normalised:</strong> of all connections involving the row industry, the share going to each column industry &mdash; reveals each industry&rsquo;s pattern regardless of its size.</span></span></button>
             </div>
 
             <div class="mx-wrap">
@@ -697,33 +746,35 @@
 
             <div class="legend" id="legend">
                 <span>Scale</span><span class="lg b0">0</span><span class="lg b1">1–2</span><span class="lg b2">3–4</span><span class="lg b3">5–9</span><span class="lg b4">10–24</span><span class="lg b5">25+</span>
-                <span style="color:var(--text-muted)">binned, non-linear</span>
+                <span style="color:var(--text-muted)">grouped, not proportional</span><button type="button" class="weo-info-trigger" aria-label="About the colour scale">?<span class="weo-tooltip"><span class="weo-tooltip-title">Scale</span><span class="weo-tooltip-body">Counts are grouped into bands so small cells stay visible next to the largest cell.</span></span></button>
             </div>
 
-            <p class="fnote">123 of 150 connections are counted once per pair (bidirectional types);
-            the 27 directionally-counted connections collapse to 5 directed cells, shown below.</p>
+            <p class="fnote">Most connection types are mutual and are counted once per pair (123 of 150).
+            The 27 connections with a genuine direction are listed separately below, preserving their
+            from&rarr;to arrows.</p>
 
             <table class="fn">
                 <tbody><tr><td>AI Software</td><td class="mx-arrow">&rarr;</td><td>AI Software</td><td class="num">15</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Semiconductors</td><td class="num">8</td></tr><tr><td>Cloud &amp; Data Centres</td><td class="mx-arrow">&rarr;</td><td>Cloud &amp; Data Centres</td><td class="num">2</td></tr><tr><td>Mining</td><td class="mx-arrow">&rarr;</td><td>Mining</td><td class="num">1</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Financial Services</td><td class="num">1</td></tr></tbody>
             </table>
 
             <p class="fnote"><strong>Reporting rule (provisional).</strong> Cells below 3 are displayed
-            but excluded from interpretive text; corridor language is available only to cells of 5 or more.
-            At this baseline that admits exactly one cross-sector corridor &mdash;
+            but no finding is built on them &mdash; at counts this small a single correction could erase
+            the cell. Corridor language is reserved for cells of 5 or more; at this baseline exactly one
+            cross-sector corridor qualifies &mdash;
             AI&nbsp;Software&nbsp;&harr;&nbsp;Cloud&nbsp;&amp;&nbsp;Data&nbsp;Centres, at 6.</p>
 
-            <p class="fnote"><strong>Boundary condition.</strong> TCS &sect;III.3.3 recommends at least 150
-            connections before matrix-level interpretation. The corpus sits at exactly 150 &mdash; the
-            recommendation floor is precisely met, not comfortably cleared.</p>
+            <p class="fnote"><strong>Boundary condition.</strong> The Towards Coordination Science paper
+            recommends at least 150 connections before matrix-level interpretation. The corpus sits at
+            exactly 150 &mdash; the recommendation floor is precisely met, not comfortably cleared.</p>
 
             <p class="fnote">All 11 categories render, including the four with no primary-tag incidence
             (Trade & Logistics, Automotive, Quantum, Telecoms) &mdash; absence is information. Telecoms is never assigned
             as primary by taxonomy design; its row is structurally empty.</p>
 
             <p class="caption">Cross-sector transmission matrix, 28 July 2026 &middot; row order fixed to
-            the Methodology Manual V1.5 Ch.&nbsp;7 taxonomy &middot; row labels carry each industry&rsquo;s
-            total connection incidence.</p>
-            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline; methodology at TCS §III.3</p>
+            the methodology&rsquo;s <a href="/research/methodology/manual/#section-7-3">11-category industry
+            taxonomy</a> &middot; row labels carry each industry&rsquo;s total connection incidence.</p>
+            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
         </section>
 
         <!-- ============ SERIES ============ -->
@@ -733,14 +784,16 @@
             <p class="fnote" style="margin-top:0">Each deploy recomputes these metrics and appends a dated
             observation. Values are comparable only within a taxonomy epoch: a revision to the industry
             taxonomy breaks the series, and any trend must be scoped to a single epoch rather than drawn
-            across a break.</p>
+            across a break. Successive observations record whether documented coordination remains within
+            industry boundaries or increasingly crosses them as the corpus matures &mdash; the series
+            exists to answer that question, not to presume it.</p>
 
             <div class="series" id="seriesList">
                 <div class="series-obs">
                     <div class="series-date">2026-07-28</div>
                     <div class="series-meta">CSTF 0.1267 &middot; null 0.7662
                     &middot; 192 events / 150 CCs</div>
-                    <div class="series-epoch">epoch: 11-category (Manual V1.5 Ch.7)</div>
+                    <div class="series-epoch">epoch: <a href="/research/methodology/manual/#section-7-3">11-category industry taxonomy</a></div>
                 </div>
             </div>
             <p class="caption">One observation on the series. The change-over-time graph ships when the
@@ -771,6 +824,109 @@
         </footer>
 
     </div>
+
+    <!-- WEO Tooltip Overlay — single fixed host, shared by every trigger on the page. -->
+    <div id="weo-tooltip-overlay">
+      <div class="weo-tooltip-title"></div>
+      <div class="weo-tooltip-body"></div>
+    </div>
+
+    <script>
+    (function() {
+        // Tooltip driver — the events.html pattern, bound to the document rather than
+        // a modal overlay because these triggers live in page flow. Tap toggles,
+        // hover shows on pointer devices, and copy is lifted into a fixed overlay so
+        // .mx-wrap's overflow-x can never clip it.
+        var overlay = document.getElementById('weo-tooltip-overlay');
+        if (!overlay) return;
+        var titleEl = overlay.querySelector('.weo-tooltip-title');
+        var bodyEl = overlay.querySelector('.weo-tooltip-body');
+        var active = null;
+        var justShown = false;
+
+        function place(trigger) {
+            var inline = trigger.querySelector('.weo-tooltip');
+            if (!inline) return;
+            var t = inline.querySelector('.weo-tooltip-title');
+            var b = inline.querySelector('.weo-tooltip-body');
+            titleEl.innerHTML = t ? t.innerHTML : '';
+            bodyEl.innerHTML = b ? b.innerHTML : '';
+
+            overlay.classList.add('visible');           // measure at final size
+            var r = trigger.getBoundingClientRect();
+            var pad = 16;
+            var w = overlay.offsetWidth;
+            var h = overlay.offsetHeight;
+
+            var left = r.left + r.width / 2 - w / 2;
+            if (left < pad) left = pad;
+            if (left + w > window.innerWidth - pad) left = window.innerWidth - w - pad;
+
+            var top = r.bottom + 8;
+            if (top + h > window.innerHeight - pad) {
+                var above = r.top - h - 8;
+                top = above >= pad ? above : Math.max(pad, window.innerHeight - h - pad);
+            }
+            overlay.style.left = left + 'px';
+            overlay.style.top = top + 'px';
+        }
+
+        function show(trigger) {
+            place(trigger);
+            active = trigger;
+            justShown = true;
+            setTimeout(function() { justShown = false; }, 300);
+        }
+        function hide() {
+            overlay.classList.remove('visible');
+            active = null;
+        }
+
+        document.addEventListener('click', function(e) {
+            var trigger = e.target.closest('.weo-info-trigger');
+            if (trigger) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (active === trigger && overlay.classList.contains('visible')) hide();
+                else show(trigger);
+            } else if (!e.target.closest('#weo-tooltip-overlay') && !justShown) {
+                hide();
+            }
+        });
+
+        // iOS: click synthesis can be unreliable on non-interactive ancestors.
+        document.addEventListener('touchend', function(e) {
+            var trigger = e.target.closest('.weo-info-trigger');
+            if (!trigger) return;
+            e.preventDefault();
+            if (active === trigger && overlay.classList.contains('visible')) hide();
+            else show(trigger);
+        }, { passive: false });
+
+        // Pointer devices only — never bind hover on touch, or the tap toggle fights it.
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.addEventListener('mouseover', function(e) {
+                var trigger = e.target.closest('.weo-info-trigger');
+                if (trigger && trigger !== active) show(trigger);
+            });
+            document.addEventListener('mouseout', function(e) {
+                var trigger = e.target.closest('.weo-info-trigger');
+                if (!trigger) return;
+                var to = e.relatedTarget;
+                if (to && (to.closest('.weo-info-trigger') === trigger || to.closest('#weo-tooltip-overlay'))) return;
+                hide();
+            });
+            overlay.addEventListener('mouseleave', hide);
+        }
+
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hide(); });
+        window.addEventListener('scroll', function() { if (!justShown) hide(); }, { passive: true });
+        window.addEventListener('resize', function() { if (active) place(active); });
+        // The matrix scrolls independently of the page.
+        var mxWrap = document.querySelector('.mx-wrap');
+        if (mxWrap) mxWrap.addEventListener('scroll', function() { if (!justShown) hide(); }, { passive: true });
+    })();
+    </script>
 
     <script>
       // Navigation toggle for mobile
@@ -819,7 +975,13 @@
                 td.className = 'mx-cell b' + bin;
                 td.textContent = text;
             });
-            var tail = '<span style="color:var(--text-muted)">binned, non-linear</span>';
+            // Repaint rebuilds the legend, so the scale tooltip trigger is re-emitted
+            // here too — otherwise toggling the view would silently drop it.
+            var tail = '<span style="color:var(--text-muted)">grouped, not proportional</span>'
+                + '<button type="button" class="weo-info-trigger" aria-label="About the colour scale">?'
+                + '<span class="weo-tooltip"><span class="weo-tooltip-title">Scale</span>'
+                + '<span class="weo-tooltip-body">Counts are grouped into bands so small cells stay visible next to the largest cell.</span>'
+                + '</span></button>';
             legend.innerHTML = '<span>Scale</span>' + (mode === 'norm' ? LEGEND_NORM : LEGEND_RAW) + tail;
             btnRaw.setAttribute('aria-pressed', mode !== 'norm');
             btnNorm.setAttribute('aria-pressed', mode === 'norm');
