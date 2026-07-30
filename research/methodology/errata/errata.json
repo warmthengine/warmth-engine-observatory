@@ -200,6 +200,8 @@
       "document": "Methodology Rationale V1.5",
       "doi": "10.5281/zenodo.21278281",
       "section": "References (third Mallinson (2021) instance)",
+      "section_url": "https://warmthengine.com/research/methodology/rationale/#threshold-derivation-empirical-basis",
+      "section_url_note": "The self-hosted edition carries no separate References section; the corrected Mallinson (2021) citation appears within this section.",
       "nature": "Citation completeness",
       "dateIdentified": "2026-07-20",
       "dateApplied": "2026-07-21",
