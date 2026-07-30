@@ -688,20 +688,23 @@
         <section class="metric-block" id="cstf">
             <div class="metric-name">Cross-Sector Transmission Frequency</div>
             <div class="metric-headline">
-                <span class="metric-value">0.127</span>
-                <span class="metric-frac">19 of 150 connections cross an industry boundary</span>
-                <span class="band-badge">Lower range (&lt;0.30, provisional band)<button type="button" class="weo-info-trigger" aria-label="About provisional bands">?<span class="weo-tooltip"><span class="weo-tooltip-title">Provisional band</span><span class="weo-tooltip-body">Starting bands set in the methodology paper prior to data; reviewed against accumulated observations at operational threshold.</span></span></button></span>
+                <span class="metric-value" data-hy="cstf-value">0.127</span>
+                <span class="metric-frac" data-hy="cstf-frac">19 of 150 connections cross an industry boundary</span>
+                <span class="band-badge"><span data-hy="band-badge">Lower range (&lt;0.30, provisional band)</span><button type="button" class="weo-info-trigger" aria-label="About provisional bands">?<span class="weo-tooltip"><span class="weo-tooltip-title">Provisional band</span><span class="weo-tooltip-body">Starting bands set in Towards Coordination Science prior to data; reviewed against accumulated observations at operational threshold.</span></span></button></span>
             </div>
 
             <div class="null-model">
                 <div>
                     <div class="null-label">Expected under random tag assignment</div>
-                    <span class="metric-value">0.766</span>
+                    <span class="metric-value" data-hy="null-expected">0.766</span>
                 </div>
                 <div>
                     <div class="null-label">Same-industry enrichment</div>
-                    <span class="null-stat">3.7&times; the expected rate<button type="button" class="weo-info-trigger" aria-label="How the 3.7 times figure is derived">?<span class="weo-tooltip"><span class="weo-tooltip-title">Same-industry enrichment</span><span class="weo-tooltip-body">Expected = the same-industry share random label-shuffling produces given this corpus&rsquo;s own industry mix. 3.7&times; = observed 87.3% &divide; expected 23.4%.</span></span></button></span>
-                    <div class="null-detail">87.3% observed vs 23.4% expected &middot;
+                    <!-- The tooltip states the MECHANISM and is deliberately static — the live
+                         figures sit in the elements beside it and hydrate there. A tooltip that
+                         restated the numbers would be a second place for them to go stale. -->
+                    <span class="null-stat"><span data-hy="enrichment">3.7&times; the expected rate</span><button type="button" class="weo-info-trigger" aria-label="How the enrichment figure is derived">?<span class="weo-tooltip"><span class="weo-tooltip-title">Same-industry enrichment</span><span class="weo-tooltip-body">Expected = the same-industry share random label-shuffling would produce given the corpus&rsquo;s own industry mix. Enrichment = observed same-industry share &divide; expected share. Significance: the share of 100,000 random shuffles matching or exceeding the observed value.</span></span></button></span>
+                    <div class="null-detail" data-hy="null-detail">87.3% observed vs 23.4% expected &middot;
                     <em>p</em> &le; 10<sup>&minus;5</sup>, 100,000-permutation test</div>
                 </div>
             </div>
@@ -716,17 +719,18 @@
             classification across all blocs. A within-industry concentration in the documented record is
             therefore not, on its own, evidence of a within-industry concentration in the world.</p>
 
-            <table class="bands">
+            <table class="bands" data-hy="bands">
                 <thead><tr><th>Band</th><th>Range</th><th>Status</th></tr></thead>
                 <tbody>
-                    <tr><td>Upper</td><td>&gt; 0.60</td><td>&mdash;</td></tr>
-                    <tr><td>Mid</td><td>0.30 &ndash; 0.60</td><td>&mdash;</td></tr>
-                    <tr class="current"><td>Lower</td><td>&lt; 0.30</td><td>Observed at this baseline</td></tr>
+                    <tr data-band="upper"><td>Upper</td><td>&gt; 0.60</td><td>&mdash;</td></tr>
+                    <tr data-band="mid"><td>Mid</td><td>0.30 &ndash; 0.60</td><td>&mdash;</td></tr>
+                    <tr data-band="lower" class="current"><td>Lower</td><td>&lt; 0.30</td><td>Observed at this baseline</td></tr>
                 </tbody>
             </table>
             <span class="prov-tag">Provisional &mdash; calibration review at operational threshold</span>
 
-            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
+            <p class="provenance">Baseline: computed against the 150-CC corpus, 28 July 2026 &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
+            <p class="provenance" data-hy="current-figures">Current figures: computed against the 150-CC corpus as at 28 July 2026 &mdash; recomputed and appended to the observation series at every corpus deployment.</p>
         </section>
 
         <!-- ============ MATRIX ============ -->
@@ -741,7 +745,7 @@
             </div>
 
             <div class="mx-wrap">
-<table class="mx" id="mx"><thead><tr><th scope="col" class="mx-corner">Industry</th><th scope="col" class="mx-col"><span>Semiconductors</span></th><th scope="col" class="mx-col"><span>Cloud &amp; Data Centres</span></th><th scope="col" class="mx-col"><span>AI Software</span></th><th scope="col" class="mx-col"><span>Defence</span></th><th scope="col" class="mx-col"><span>Energy</span></th><th scope="col" class="mx-col"><span>Financial Services</span></th><th scope="col" class="mx-col"><span>Mining</span></th><th scope="col" class="mx-col mx-empty"><span>Trade &amp; Logistics</span></th><th scope="col" class="mx-col mx-empty"><span>Automotive</span></th><th scope="col" class="mx-col mx-empty"><span>Quantum</span></th><th scope="col" class="mx-col mx-empty"><span>Telecoms</span></th></tr></thead><tbody><tr><th scope="row" class="mx-row">Semiconductors<span class="mx-total">30</span></th><td class="mx-cell b5" data-raw="27" data-norm="90%" data-normbin="5" title="Semiconductors &#8596; Semiconductors: 27">27</td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; AI Software: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Energy: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Cloud &amp; Data Centres<span class="mx-total">62</span></th><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Semiconductors: 1">1</td><td class="mx-cell b5" data-raw="49" data-norm="79%" data-normbin="5" title="Cloud &amp; Data Centres &#8596; Cloud &amp; Data Centres: 49">49</td><td class="mx-cell b3" data-raw="6" data-norm="10%" data-normbin="2" title="Cloud &amp; Data Centres &#8596; AI Software: 6">6</td><td class="mx-cell b2" data-raw="4" data-norm="6%" data-normbin="2" title="Cloud &amp; Data Centres &#8596; Defence: 4">4</td><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Energy: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">AI Software<span class="mx-total">51</span></th><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="AI Software &#8596; Semiconductors: 1">1</td><td class="mx-cell b3" data-raw="6" data-norm="12%" data-normbin="2" title="AI Software &#8596; Cloud &amp; Data Centres: 6">6</td><td class="mx-cell b5" data-raw="40" data-norm="78%" data-normbin="5" title="AI Software &#8596; AI Software: 40">40</td><td class="mx-cell b2" data-raw="4" data-norm="8%" data-normbin="2" title="AI Software &#8596; Defence: 4">4</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Defence<span class="mx-total">11</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Semiconductors: 0"></td><td class="mx-cell b2" data-raw="4" data-norm="36%" data-normbin="4" title="Defence &#8596; Cloud &amp; Data Centres: 4">4</td><td class="mx-cell b2" data-raw="4" data-norm="36%" data-normbin="4" title="Defence &#8596; AI Software: 4">4</td><td class="mx-cell b2" data-raw="3" data-norm="27%" data-normbin="3" title="Defence &#8596; Defence: 3">3</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Energy<span class="mx-total">10</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Semiconductors: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="10%" data-normbin="2" title="Energy &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Defence: 0"></td><td class="mx-cell b3" data-raw="9" data-norm="90%" data-normbin="5" title="Energy &#8596; Energy: 9">9</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Financial Services<span class="mx-total">3</span></th><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Semiconductors: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Energy: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Mining<span class="mx-total">2</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Financial Services: 0"></td><td class="mx-cell b1" data-raw="2" data-norm="100%" data-normbin="5" title="Mining &#8596; Mining: 2">2</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Trade &amp; Logistics<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Automotive<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Quantum<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Telecoms<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Telecoms: 0"></td></tr></tbody></table>
+<table class="mx" id="mx" data-hy="matrix"><thead><tr><th scope="col" class="mx-corner">Industry</th><th scope="col" class="mx-col"><span>Semiconductors</span></th><th scope="col" class="mx-col"><span>Cloud &amp; Data Centres</span></th><th scope="col" class="mx-col"><span>AI Software</span></th><th scope="col" class="mx-col"><span>Defence</span></th><th scope="col" class="mx-col"><span>Energy</span></th><th scope="col" class="mx-col"><span>Financial Services</span></th><th scope="col" class="mx-col"><span>Mining</span></th><th scope="col" class="mx-col mx-empty"><span>Trade &amp; Logistics</span></th><th scope="col" class="mx-col mx-empty"><span>Automotive</span></th><th scope="col" class="mx-col mx-empty"><span>Quantum</span></th><th scope="col" class="mx-col mx-empty"><span>Telecoms</span></th></tr></thead><tbody><tr><th scope="row" class="mx-row">Semiconductors<span class="mx-total">30</span></th><td class="mx-cell b5" data-raw="27" data-norm="90%" data-normbin="5" title="Semiconductors &#8596; Semiconductors: 27">27</td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; AI Software: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Energy: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="3%" data-normbin="1" title="Semiconductors &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Semiconductors &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Cloud &amp; Data Centres<span class="mx-total">62</span></th><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Semiconductors: 1">1</td><td class="mx-cell b5" data-raw="49" data-norm="79%" data-normbin="5" title="Cloud &amp; Data Centres &#8596; Cloud &amp; Data Centres: 49">49</td><td class="mx-cell b3" data-raw="6" data-norm="10%" data-normbin="2" title="Cloud &amp; Data Centres &#8596; AI Software: 6">6</td><td class="mx-cell b2" data-raw="4" data-norm="6%" data-normbin="2" title="Cloud &amp; Data Centres &#8596; Defence: 4">4</td><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Energy: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="Cloud &amp; Data Centres &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Cloud &amp; Data Centres &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">AI Software<span class="mx-total">51</span></th><td class="mx-cell b1" data-raw="1" data-norm="2%" data-normbin="1" title="AI Software &#8596; Semiconductors: 1">1</td><td class="mx-cell b3" data-raw="6" data-norm="12%" data-normbin="2" title="AI Software &#8596; Cloud &amp; Data Centres: 6">6</td><td class="mx-cell b5" data-raw="40" data-norm="78%" data-normbin="5" title="AI Software &#8596; AI Software: 40">40</td><td class="mx-cell b2" data-raw="4" data-norm="8%" data-normbin="2" title="AI Software &#8596; Defence: 4">4</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="AI Software &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Defence<span class="mx-total">11</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Semiconductors: 0"></td><td class="mx-cell b2" data-raw="4" data-norm="36%" data-normbin="4" title="Defence &#8596; Cloud &amp; Data Centres: 4">4</td><td class="mx-cell b2" data-raw="4" data-norm="36%" data-normbin="4" title="Defence &#8596; AI Software: 4">4</td><td class="mx-cell b2" data-raw="3" data-norm="27%" data-normbin="3" title="Defence &#8596; Defence: 3">3</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Defence &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Energy<span class="mx-total">10</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Semiconductors: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="10%" data-normbin="2" title="Energy &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Defence: 0"></td><td class="mx-cell b3" data-raw="9" data-norm="90%" data-normbin="5" title="Energy &#8596; Energy: 9">9</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Energy &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Financial Services<span class="mx-total">3</span></th><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Semiconductors: 1">1</td><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Cloud &amp; Data Centres: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Energy: 0"></td><td class="mx-cell b1" data-raw="1" data-norm="33%" data-normbin="4" title="Financial Services &#8596; Financial Services: 1">1</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Financial Services &#8596; Telecoms: 0"></td></tr><tr><th scope="row" class="mx-row">Mining<span class="mx-total">2</span></th><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Financial Services: 0"></td><td class="mx-cell b1" data-raw="2" data-norm="100%" data-normbin="5" title="Mining &#8596; Mining: 2">2</td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="0%" data-normbin="0" title="Mining &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Trade &amp; Logistics<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Trade &amp; Logistics &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Automotive<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Automotive &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Quantum<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Quantum &#8596; Telecoms: 0"></td></tr><tr class="mx-empty-row"><th scope="row" class="mx-row">Telecoms<span class="mx-total">0</span></th><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Semiconductors: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Cloud &amp; Data Centres: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; AI Software: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Defence: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Energy: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Financial Services: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Mining: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Trade &amp; Logistics: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Automotive: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Quantum: 0"></td><td class="mx-cell b0" data-raw="0" data-norm="—" data-normbin="0" title="Telecoms &#8596; Telecoms: 0"></td></tr></tbody></table>
             </div>
 
             <div class="legend" id="legend">
@@ -749,19 +753,19 @@
                 <span style="color:var(--text-muted)">grouped, not proportional</span><button type="button" class="weo-info-trigger" aria-label="About the colour scale">?<span class="weo-tooltip"><span class="weo-tooltip-title">Scale</span><span class="weo-tooltip-body">Counts are grouped into bands so small cells stay visible next to the largest cell.</span></span></button>
             </div>
 
-            <p class="fnote">Most connection types are mutual and are counted once per pair (123 of 150).
+            <p class="fnote" data-hy="counting-note">Most connection types are mutual and are counted once per pair (123 of 150).
             The 27 connections with a genuine direction are listed separately below, preserving their
             from&rarr;to arrows.</p>
 
-            <table class="fn">
+            <table class="fn" data-hy="directed">
                 <tbody><tr><td>AI Software</td><td class="mx-arrow">&rarr;</td><td>AI Software</td><td class="num">15</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Semiconductors</td><td class="num">8</td></tr><tr><td>Cloud &amp; Data Centres</td><td class="mx-arrow">&rarr;</td><td>Cloud &amp; Data Centres</td><td class="num">2</td></tr><tr><td>Mining</td><td class="mx-arrow">&rarr;</td><td>Mining</td><td class="num">1</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Financial Services</td><td class="num">1</td></tr></tbody>
             </table>
 
-            <p class="fnote"><strong>Reporting rule (provisional).</strong> Cells below 3 are displayed
+            <p class="fnote"><strong>Reporting rule (provisional, from Towards Coordination Science):</strong> Cells below 3 are displayed
             but no finding is built on them &mdash; at counts this small a single correction could erase
-            the cell. Corridor language is reserved for cells of 5 or more; at this baseline exactly one
+            the cell. Corridor language is reserved for cells of 5 or more; at this baseline <span data-hy="corridor">exactly one
             cross-sector corridor qualifies &mdash;
-            AI&nbsp;Software&nbsp;&harr;&nbsp;Cloud&nbsp;&amp;&nbsp;Data&nbsp;Centres, at 6.</p>
+            AI&nbsp;Software&nbsp;&harr;&nbsp;Cloud&nbsp;&amp;&nbsp;Data&nbsp;Centres, at 6</span>.</p>
 
             <p class="fnote"><strong>Boundary condition.</strong> The Towards Coordination Science paper
             recommends at least 150 connections before matrix-level interpretation. The corpus sits at
@@ -772,9 +776,10 @@
             as primary by taxonomy design; its row is structurally empty.</p>
 
             <p class="caption">Cross-sector transmission matrix, 28 July 2026 &middot; row order fixed to
-            the methodology&rsquo;s <a href="/research/methodology/manual/#section-7-3">11-category industry
-            taxonomy</a> &middot; row labels carry each industry&rsquo;s total connection incidence.</p>
-            <p class="provenance">computed against the 150-CC corpus, 28 July 2026 baseline &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
+            the Methodology Manual&rsquo;s <a href="/research/methodology/manual/#section-7-3">11-category
+            industry taxonomy</a> &middot; row labels carry each industry&rsquo;s total connection incidence.</p>
+            <p class="provenance">Baseline: computed against the 150-CC corpus, 28 July 2026 &middot; methodology: <a href="https://doi.org/10.5281/zenodo.18427584" target="_blank" rel="noopener noreferrer">Towards Coordination Science</a></p>
+            <p class="provenance" data-hy="current-figures">Current figures: computed against the 150-CC corpus as at 28 July 2026 &mdash; recomputed and appended to the observation series at every corpus deployment.</p>
         </section>
 
         <!-- ============ SERIES ============ -->
@@ -793,12 +798,15 @@
                     <div class="series-date">2026-07-28</div>
                     <div class="series-meta">CSTF 0.1267 &middot; null 0.7662
                     &middot; 192 events / 150 CCs</div>
-                    <div class="series-epoch">epoch: <a href="/research/methodology/manual/#section-7-3">11-category industry taxonomy</a></div>
+                    <div class="series-epoch">epoch: the Methodology Manual&rsquo;s <a href="/research/methodology/manual/#section-7-3">11-category industry taxonomy</a></div>
                 </div>
             </div>
-            <p class="caption">One observation on the series. The change-over-time graph ships when the
+            <p class="caption" data-hy="series-caption">One observation on the series. The change-over-time graph ships when the
             series carries enough observations to plot; this container and its epoch contract are already
             in place.</p>
+            <p class="fnote">Machine-readable: <a href="/api/metrics">/api/metrics</a> &middot;
+            <a href="https://warmthengine.com/mcp">MCP</a> tool <code>get_metrics</code> &mdash;
+            the same stored observations, free on both tiers.</p>
 
             <!-- Epoch break marker — dormant. A taxonomy revision inserts one of these
                  between the last observation of the old epoch and the first of the new,
@@ -811,9 +819,8 @@
             </template>
         </section>
 
-        <p class="fnote">Machine-readable: the same stored observations are served by the
-        <a href="https://warmthengine.com/mcp">MCP</a> tool <code>get_metrics</code>, free on both tiers.
-        Methodology: <a href="https://doi.org/10.5281/zenodo.18427584">Towards Coordination Science</a>
+        <p class="fnote">Methodology:
+        <a href="https://doi.org/10.5281/zenodo.18427584">Towards Coordination Science</a>
         (DOI 10.5281/zenodo.18427584).</p>
 
         <footer class="page-footer">
@@ -824,6 +831,286 @@
         </footer>
 
     </div>
+
+    <script>
+    /* =====================================================================
+       LIVE HYDRATION — /api/metrics
+       =====================================================================
+       The baked values in the HTML above are the 28 July 2026 BASELINE and are
+       the permanent static fallback. They are never refreshed by a deploy and
+       there is no deploy step that touches them: if this fetch fails, the page
+       still states a true, dated, citable baseline. On success every figure is
+       replaced by the newest stored observation.
+
+       Nothing is computed from the corpus here. Every number is read from the
+       stored observation that weo_deploy.py appended — the page, /api/metrics
+       and MCP get_metrics are three projections of one store, so they cannot
+       disagree. The only derivations are presentational arithmetic over that
+       observation (percentages, colour bins, band selection, the corridor
+       sentence), each of which is a pure function of the stored cells.
+
+       Interpretive prose is NOT hydrated. Only figures and the sentences that
+       are strict derivations of them (the corridor sentence) change.
+       ===================================================================== */
+    (function() {
+        'use strict';
+
+        // Canonical taxonomy names as stored → the short labels this page displays.
+        // An unmapped future category falls back to its canonical name rather than
+        // rendering blank, so a taxonomy revision degrades visibly, not silently.
+        var LABEL = {
+            'Semiconductors & Equipment': 'Semiconductors',
+            'Cloud, Data Centres & Connectivity Infrastructure': 'Cloud & Data Centres',
+            'AI Software & Platforms': 'AI Software',
+            'Defence & Aerospace': 'Defence',
+            'Energy & Power Infrastructure': 'Energy',
+            'Financial Services & Investment': 'Financial Services',
+            'Mining & Critical Minerals': 'Mining',
+            'Trade & Logistics': 'Trade & Logistics',
+            'Automotive & Manufacturing': 'Automotive',
+            'Quantum Computing Infrastructure': 'Quantum',
+            'Telecoms': 'Telecoms'
+        };
+        var lbl = function(n) { return LABEL[n] || n; };
+
+        // The taxonomy epoch string is an identifier, not a label: comparability
+        // depends on it. The known epoch gets the named, deep-linked form; any
+        // other value renders verbatim, because we cannot know its anchor.
+        var KNOWN_EPOCH = '11-category (Manual V1.5 Ch.7)';
+        var EPOCH_HTML = 'the Methodology Manual’s <a href="/research/methodology/manual/#section-7-3">11-category industry taxonomy</a>';
+
+        var $ = function(k) { return document.querySelector('[data-hy="' + k + '"]'); };
+        var esc = function(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        };
+        var pct = function(x) { return (x * 100).toFixed(1) + '%'; };
+
+        function rawBin(v) { return v === 0 ? 0 : v <= 2 ? 1 : v <= 4 ? 2 : v <= 9 ? 3 : v <= 24 ? 4 : 5; }
+        function normBin(p) { return p <= 0 ? 0 : p < 5 ? 1 : p < 15 ? 2 : p < 30 ? 3 : p < 60 ? 4 : 5; }
+
+        // "<=1e-5" → "≤ 10⁻⁵". Anything else renders as stored.
+        function pValue(p) {
+            var m = /^<=1e-(\d+)$/.exec(String(p));
+            return m ? '&le; 10<sup>&minus;' + m[1] + '</sup>' : esc(p);
+        }
+
+        function ccCount(obs) {
+            var m = /(\d+)\s*CCs/.exec(obs.corpus_state || '');
+            if (m) return parseInt(m[1], 10);
+            return obs.cstf_detail ? obs.cstf_detail.denominator : null;
+        }
+
+        function ukDate(iso) {
+            var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso));
+            if (!p) return iso;
+            var months = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+            return parseInt(p[3], 10) + ' ' + months[parseInt(p[2], 10) - 1] + ' ' + p[1];
+        }
+
+        // ---- CSTF card -------------------------------------------------
+        function hydrateCstf(obs) {
+            var v = obs.value;
+            if (typeof v === 'number') $('cstf-value').textContent = v.toFixed(3);
+
+            var d = obs.cstf_detail;
+            if (d && d.numerator != null && d.denominator != null) {
+                $('cstf-frac').textContent = d.numerator + ' of ' + d.denominator +
+                    ' connections cross an industry boundary';
+            }
+
+            if (typeof obs.null_expected === 'number') {
+                $('null-expected').textContent = obs.null_expected.toFixed(3);
+            }
+
+            var n = obs.null_detail;
+            if (n) {
+                if (typeof n.same_industry_enrichment === 'number') {
+                    $('enrichment').innerHTML = n.same_industry_enrichment.toFixed(1) +
+                        '&times; the expected rate';
+                }
+                var bits = [];
+                if (typeof n.observed_same_industry === 'number' && typeof n.expected_same_industry === 'number') {
+                    bits.push(pct(n.observed_same_industry) + ' observed vs ' +
+                              pct(n.expected_same_industry) + ' expected');
+                }
+                var tail = '<em>p</em> ' + pValue(n.p_value);
+                if (n.iterations) tail += ', ' + Number(n.iterations).toLocaleString('en-GB') + '-permutation test';
+                $('null-detail').innerHTML = bits.length ? bits.join('') + ' &middot;\n' + tail : tail;
+            }
+
+            // Band marker derived from the value against the published ranges —
+            // the table and the badge must agree, so both read this one result.
+            if (typeof v === 'number') {
+                var band = v > 0.60 ? 'upper' : v >= 0.30 ? 'mid' : 'lower';
+                // The badge is tighter-set than the table cell; keep it byte-identical to
+                // the baked fallback so hydrating never nudges the headline layout.
+                var badgeRange = { upper: '&gt;0.60', mid: '0.30&ndash;0.60', lower: '&lt;0.30' }[band];
+                var name = { upper: 'Upper', mid: 'Mid', lower: 'Lower' }[band];
+                var rows = document.querySelectorAll('[data-hy="bands"] tbody tr');
+                Array.prototype.forEach.call(rows, function(tr) {
+                    var isIt = tr.getAttribute('data-band') === band;
+                    tr.classList.toggle('current', isIt);
+                    tr.cells[2].textContent = isIt ? 'Observed at this baseline' : '—';
+                });
+                $('band-badge').innerHTML = name + ' range (' + badgeRange + ', provisional band)';
+            }
+        }
+
+        // ---- Matrix ----------------------------------------------------
+        function hydrateMatrix(obs) {
+            var m = obs.value;
+            if (!m || !Array.isArray(m.row_order) || !Array.isArray(m.cells_combined)) return false;
+
+            var order = m.row_order;
+            var incidence = m.incidence || {};
+            var grid = {};
+            m.cells_combined.forEach(function(c) {
+                var a = c.pair[0], b = c.pair[1];
+                (grid[a] = grid[a] || {})[b] = c.count;
+                (grid[b] = grid[b] || {})[a] = c.count;   // stored once per unordered pair
+            });
+
+            var head = '<thead><tr><th scope="col" class="mx-corner">Industry</th>';
+            order.forEach(function(col) {
+                var empty = !incidence[col];
+                head += '<th scope="col" class="mx-col' + (empty ? ' mx-empty' : '') + '"><span>' +
+                        esc(lbl(col)) + '</span></th>';
+            });
+            head += '</tr></thead>';
+
+            var body = '<tbody>';
+            order.forEach(function(row) {
+                var total = incidence[row] || 0;
+                body += '<tr' + (total ? '' : ' class="mx-empty-row"') + '>' +
+                        '<th scope="row" class="mx-row">' + esc(lbl(row)) +
+                        '<span class="mx-total">' + total + '</span></th>';
+                order.forEach(function(col) {
+                    var raw = (grid[row] && grid[row][col]) || 0;
+                    var p = total ? (raw / total) * 100 : 0;
+                    var normTxt = total ? Math.round(p) + '%' : '—';
+                    body += '<td class="mx-cell b' + rawBin(raw) + '"' +
+                            ' data-raw="' + raw + '"' +
+                            ' data-norm="' + normTxt + '"' +
+                            ' data-normbin="' + (total ? normBin(p) : 0) + '"' +
+                            ' title="' + esc(lbl(row)) + ' ↔ ' + esc(lbl(col)) + ': ' + raw + '">' +
+                            (raw === 0 ? '' : raw) + '</td>';
+                });
+                body += '</tr>';
+            });
+            body += '</tbody>';
+
+            $('matrix').innerHTML = head + body;
+
+            // Directed-cells table
+            var dir = m.cells_directional || [];
+            var rowsHtml = dir.map(function(d) {
+                return '<tr><td>' + esc(lbl(d.from)) + '</td><td class="mx-arrow">&rarr;</td><td>' +
+                       esc(lbl(d.to)) + '</td><td class="num">' + d.count + '</td></tr>';
+            }).join('');
+            $('directed').innerHTML = '<tbody>' + rowsHtml + '</tbody>';
+
+            // Counting note — from the observation's own counting fields.
+            var bt = m.block_totals;
+            if (bt && bt.bidirectional != null && bt.total != null && bt.directional != null) {
+                $('counting-note').innerHTML =
+                    'Most connection types are mutual and are counted once per pair (' +
+                    bt.bidirectional + ' of ' + bt.total + '). The ' + bt.directional +
+                    ' connections with a genuine direction are listed separately below, preserving their from&rarr;to arrows.';
+            }
+
+            // Corridor sentence — a strict derivation: cross-sector cells of 5+.
+            var corridors = m.cells_combined
+                .filter(function(c) { return c.pair[0] !== c.pair[1] && c.count >= 5; })
+                .sort(function(a, b) { return b.count - a.count; });
+            var nb = function(s) { return esc(lbl(s)).replace(/ /g, '&nbsp;'); };
+            var phrase;
+            if (!corridors.length) {
+                phrase = 'no cross-sector corridor currently qualifies';
+            } else if (corridors.length === 1) {
+                var c0 = corridors[0];
+                phrase = 'exactly one cross-sector corridor qualifies &mdash; ' +
+                         nb(c0.pair[0]) + '&nbsp;&harr;&nbsp;' + nb(c0.pair[1]) + ', at ' + c0.count;
+            } else {
+                phrase = corridors.length + ' cross-sector corridors qualify &mdash; ' +
+                    corridors.map(function(c) {
+                        return nb(c.pair[0]) + '&nbsp;&harr;&nbsp;' + nb(c.pair[1]) + ' at ' + c.count;
+                    }).join('; ');
+            }
+            $('corridor').innerHTML = phrase;
+            return true;
+        }
+
+        // ---- Provenance line 2 + observation series --------------------
+        function hydrateProvenance(obs) {
+            var n = ccCount(obs);
+            var txt = 'Current figures: computed against the ' + (n == null ? '' : n + '-CC ') +
+                      'corpus as at ' + ukDate(obs.baseline_date) +
+                      ' — recomputed and appended to the observation series at every corpus deployment.';
+            Array.prototype.forEach.call(
+                document.querySelectorAll('[data-hy="current-figures"]'),
+                function(el) { el.textContent = txt; }
+            );
+        }
+
+        function hydrateSeries(observations) {
+            if (!observations || !observations.length) return;
+            var list = document.getElementById('seriesList');
+            list.innerHTML = observations.map(function(o) {
+                var epoch = o.taxonomy === KNOWN_EPOCH ? EPOCH_HTML : esc(o.taxonomy || 'unrecorded');
+                var meta = ['CSTF ' + o.value];
+                if (o.null_expected != null) meta.push('null ' + o.null_expected);
+                if (o.corpus_state) meta.push(esc(o.corpus_state));
+                return '<div class="series-obs">' +
+                       '<div class="series-date">' + esc(o.baseline_date) + '</div>' +
+                       '<div class="series-meta">' + meta.join(' &middot; ') + '</div>' +
+                       '<div class="series-epoch">epoch: ' + epoch + '</div>' +
+                       '</div>';
+            }).join('');
+
+            var cap = $('series-caption');
+            if (cap) {
+                cap.textContent = observations.length === 1
+                    ? 'One observation on the series. The change-over-time graph ships when the series carries enough observations to plot; this container and its epoch contract are already in place.'
+                    : observations.length + ' observations on the series. Trends are scoped to a single taxonomy epoch and are never drawn across a break.';
+            }
+        }
+
+        // ---- Boot ------------------------------------------------------
+        // Two requests, not one: the timeline needs the whole CSTF series but not
+        // a full 11x11 matrix per observation, so the history call is narrowed to
+        // cstf. Keeps the payload flat as the series grows.
+        Promise.all([
+            fetch('/api/metrics').then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+            fetch('/api/metrics?metric=cstf&history=true').then(function(r) { return r.ok ? r.json() : null; })
+        ]).then(function(res) {
+            var data = res[0], hist = res[1];
+            if (!data || !data.metrics) throw new Error('no metrics');
+
+            var cstf = data.metrics.cstf && data.metrics.cstf.latest;
+            var mx = data.metrics.transmission_matrix && data.metrics.transmission_matrix.latest;
+
+            if (cstf) { hydrateCstf(cstf); hydrateProvenance(cstf); }
+            if (mx) hydrateMatrix(mx);
+
+            var series = hist && hist.metrics && hist.metrics.cstf && hist.metrics.cstf.history;
+            hydrateSeries(series && series.length ? series : (cstf ? [cstf] : null));
+
+            // Repaint honours whichever view is currently selected.
+            if (window.__weoRepaintMatrix) {
+                window.__weoRepaintMatrix(
+                    document.getElementById('btnNorm').getAttribute('aria-pressed') === 'true' ? 'norm' : 'raw'
+                );
+            }
+            document.body.setAttribute('data-metrics-hydrated', 'true');
+        }).catch(function(err) {
+            // Deliberately silent in the UI: the baked 28 July baseline is already
+            // rendered and is a true dated statement, so there is nothing to warn about.
+            document.body.setAttribute('data-metrics-hydrated', 'fallback');
+            if (window.console) console.warn('WEO metrics hydration failed; showing baked baseline.', err);
+        });
+    })();
+    </script>
 
     <!-- WEO Tooltip Overlay — single fixed host, shared by every trigger on the page. -->
     <div id="weo-tooltip-overlay">
@@ -955,13 +1242,15 @@
         // presentation only — no recomputation, and no dependency on a fetch.
         var btnRaw = document.getElementById('btnRaw');
         var btnNorm = document.getElementById('btnNorm');
-        var cells = document.querySelectorAll('#mx .mx-cell');
         var legend = document.getElementById('legend');
+        // Re-queried on every paint, never cached: hydration replaces the table's
+        // innerHTML, which detaches any node list captured at load.
+        var getCells = function() { return document.querySelectorAll('#mx .mx-cell'); };
         var LEGEND_RAW = "<span class=\"lg b0\">0</span><span class=\"lg b1\">1\u20132</span><span class=\"lg b2\">3\u20134</span><span class=\"lg b3\">5\u20139</span><span class=\"lg b4\">10\u201324</span><span class=\"lg b5\">25+</span>";
         var LEGEND_NORM = "<span class=\"lg b0\">0</span><span class=\"lg b1\"><5%</span><span class=\"lg b2\">5\u201315%</span><span class=\"lg b3\">15\u201330%</span><span class=\"lg b4\">30\u201360%</span><span class=\"lg b5\">60%+</span>";
 
         function paint(mode) {
-            cells.forEach(function(td) {
+            Array.prototype.forEach.call(getCells(), function(td) {
                 var raw = td.getAttribute('data-raw');
                 var bin, text;
                 if (mode === 'norm') {
@@ -989,6 +1278,9 @@
 
         btnRaw.addEventListener('click', function() { paint('raw'); });
         btnNorm.addEventListener('click', function() { paint('norm'); });
+
+        // Hydration rebuilds the table, then calls this to re-apply the active view.
+        window.__weoRepaintMatrix = paint;
     })();
     </script>
 
