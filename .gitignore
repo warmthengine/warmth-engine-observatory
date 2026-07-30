@@ -52,3 +52,13 @@ Claude\ Code\ Session\ Backup\ Protocol.md
 html\ archive/
 audits/
 WEO_*.md
+
+# Agent/tooling debris — never repo content
+# Root-level images are debris unless allowlisted below — site assets are named explicitly.
+/*.png
+/*.jpg
+/*.jpeg
+!/favicon_*.png
+!/og-image.png
+!/WEO*.png
+/Screenshot*
