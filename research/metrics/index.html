@@ -714,7 +714,7 @@
             share is far below what the corpus&rsquo;s own industry composition would produce at random.</p>
 
             <p class="fnote">Documentation accessibility is itself sector-asymmetric &mdash; under the
-            coverage-confidence framework<button type="button" class="weo-info-trigger" aria-label="About the coverage-confidence framework">?<span class="weo-tooltip"><span class="weo-tooltip-title">Coverage-confidence framework</span><span class="weo-tooltip-body">WEO grades how documentable each domain is; Security is graded medium/low because classification suppresses public documentation. Full framework: <a href="/events.html#cov-panel">events page</a>.</span></span></button>
+            coverage-confidence framework<button type="button" class="weo-info-trigger" aria-label="About the coverage-confidence framework">?<span class="weo-tooltip"><span class="weo-tooltip-title">Coverage-confidence framework</span><span class="weo-tooltip-body">WEO grades how documentable each domain is; Security is graded medium/low because classification suppresses public documentation. Domain grades: the Coverage Confidence panel on the <a href="/events.html#cov-panel" target="_blank" rel="noopener">events page</a> &middot; methodological basis: <a href="/research/methodology/manual/#section-4-11" target="_blank" rel="noopener">the Methodology Manual&rsquo;s structural visibility asymmetry provision</a>.</span></span></button>
             the Security domain is graded medium/low, and is additionally constrained by national security
             classification across all blocs. A within-industry concentration in the documented record is
             therefore not, on its own, evidence of a within-industry concentration in the world.</p>
@@ -761,15 +761,17 @@
                 <tbody><tr><td>AI Software</td><td class="mx-arrow">&rarr;</td><td>AI Software</td><td class="num">15</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Semiconductors</td><td class="num">8</td></tr><tr><td>Cloud &amp; Data Centres</td><td class="mx-arrow">&rarr;</td><td>Cloud &amp; Data Centres</td><td class="num">2</td></tr><tr><td>Mining</td><td class="mx-arrow">&rarr;</td><td>Mining</td><td class="num">1</td></tr><tr><td>Semiconductors</td><td class="mx-arrow">&rarr;</td><td>Financial Services</td><td class="num">1</td></tr></tbody>
             </table>
 
-            <p class="fnote"><strong>Reporting rule (provisional, from Towards Coordination Science):</strong> Cells below 3 are displayed
+            <p class="fnote"><strong>Reporting rule (provisional, from Towards Coordination Science):</strong> cells below 3 are displayed
             but no finding is built on them &mdash; at counts this small a single correction could erase
-            the cell. Corridor language is reserved for cells of 5 or more; at this baseline <span data-hy="corridor">exactly one
+            the cell. Corridor language &mdash; a recurring transmission route between two industries &mdash;
+            is reserved for cells of 5 or more; at this baseline <span data-hy="corridor">exactly one
             cross-sector corridor qualifies &mdash;
             AI&nbsp;Software&nbsp;&harr;&nbsp;Cloud&nbsp;&amp;&nbsp;Data&nbsp;Centres, at 6</span>.</p>
 
             <p class="fnote"><strong>Boundary condition.</strong> The Towards Coordination Science paper
-            recommends at least 150 connections before matrix-level interpretation. The corpus sits at
-            exactly 150 &mdash; the recommendation floor is precisely met, not comfortably cleared.</p>
+            recommends at least 150 connections before matrix-level interpretation. <span data-hy="boundary">The
+            corpus sits at exactly 150 &mdash; the recommendation floor is precisely met, not comfortably
+            cleared.</span></p>
 
             <p class="fnote">All 11 categories render, including the four with no primary-tag incidence
             (Trade & Logistics, Automotive, Quantum, Telecoms) &mdash; absence is information. Telecoms is never assigned
@@ -1017,6 +1019,26 @@
                     'Most connection types are mutual and are counted once per pair (' +
                     bt.bidirectional + ' of ' + bt.total + '). The ' + bt.directional +
                     ' connections with a genuine direction are listed separately below, preserving their from&rarr;to arrows.';
+            }
+
+            // Boundary condition — the second sentence only; the recommendation itself
+            // is a fixed claim from the paper and stays static. Three states, because a
+            // corpus can shrink: CC removals are a normal correction outcome, and a
+            // sub-floor corpus must say so rather than inherit the "exactly 150" text.
+            var floorEl = $('boundary');
+            var n = (bt && bt.total != null) ? bt.total : ccCount(obs);
+            if (floorEl && typeof n === 'number') {
+                if (n === 150) {
+                    floorEl.innerHTML = 'The corpus sits at exactly 150 &mdash; the recommendation floor is ' +
+                                        'precisely met, not comfortably cleared.';
+                } else if (n > 150) {
+                    var over = n - 150;
+                    floorEl.innerHTML = 'The corpus sits at ' + n + ', clearing the 150-connection ' +
+                        'recommendation floor by ' + over + ' connection' + (over === 1 ? '' : 's') + '.';
+                } else {
+                    floorEl.innerHTML = 'The corpus sits at ' + n + ', below the 150-connection ' +
+                        'recommendation floor &mdash; matrix-level interpretation is not yet supported.';
+                }
             }
 
             // Corridor sentence — a strict derivation: cross-sector cells of 5+.
