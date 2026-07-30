@@ -724,7 +724,7 @@
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
         <div class="panel panel-scrollable" style="grid-column:1/-1">
-            <div class="panel-title"><span>Tool Calls <span id="toolsCallLogCount"></span></span> <button class="copy-btn" onclick="copyToolCallLog()" title="Copy all tool calls to clipboard">Copy</button></div>
+            <div class="panel-title"><span>Tool Calls <span id="toolsCallLogCount"></span></span> <button class="copy-btn" onclick="copyToolCallLog(this)" title="Copy all tool calls to clipboard">Copy</button></div>
             <div id="toolsCallLogPanel"></div>
         </div>
     </div>
@@ -1351,7 +1351,7 @@
     // Copy every rendered Tool Calls row as tab-separated text (tool · client/country · when),
     // independent of scroll position. Exposed on window below: this script is an IIFE, so the
     // inline onclick on the Copy button resolves against global scope, not this closure.
-    function copyToolCallLog() {
+    function copyToolCallLog(btn) {
         var panel = document.getElementById('toolsCallLogPanel');
         if (!panel) return;
         var rows = panel.querySelectorAll('.bar-row');
@@ -1370,7 +1370,10 @@
         var text = lines.join('\n');
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(function() {
-                var btn = document.querySelector('.copy-btn');
+                // The pressed button is passed in. This previously used
+                // document.querySelector('.copy-btn'), which resolved correctly only
+                // because this button happens to sit first in the DOM — one markup
+                // reorder from putting the feedback on somebody else's button.
                 if (btn) { btn.textContent = 'Copied'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
             });
         }
@@ -1380,8 +1383,8 @@
     // Generic bar-panel copier for the renderBars panels. Same idiom as the Tool Calls
     // copier above, with two deliberate differences:
     //  - the pressed button is passed in, so feedback lands on the button actually
-    //    clicked. The Tool Calls copier's document.querySelector('.copy-btn') only picks
-    //    the right one because it happens to sit first in the DOM.
+    //    clicked. The Tool Calls copier now does the same; it previously looked the
+    //    button up by class and worked only because it sits first in the DOM.
     //  - the label comes from the .bar-label title attribute, not textContent, which is
     //    ellipsis-clipped for long user-agent strings. textContent is the fallback.
     // Reads every .bar-row in the scroll container, not just the visible ones.
