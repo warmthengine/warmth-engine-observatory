@@ -531,6 +531,24 @@
             background: var(--weo-accent-primary); border-color: var(--weo-accent-primary); color: #fff; font-weight: 600;
         }
         .toggle-btn:hover:not([aria-pressed="true"]) { color: var(--text-primary); border-color: var(--weo-accent-hover); }
+        /* Reserved width. The selected state is bold (deliberate, site register), and bold
+           text is wider — so selecting a view used to resize both buttons by 3-4px and
+           shove the "?" trigger sideways. Each button now also lays out an invisible copy
+           of its own label at font-weight 600, so its intrinsic width is permanently the
+           bold width and the weight swap is paint-only. Width comes from the label itself
+           via data-label, not a hardcoded px value, so it survives a copy change.
+           visibility: hidden keeps the duplicate out of the accessibility tree, so the
+           accessible name stays single. */
+        .toggle-btn::after {
+            content: attr(data-label);
+            display: block;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+        }
 
         /* The table is the only thing that scrolls sideways; the page body never does. */
         .mx-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 calc(-1 * var(--weo-space-sm)); padding: 0 var(--weo-space-sm); }
@@ -772,8 +790,8 @@
             <div class="metric-name">Cross-Sector Transmission Matrix</div>
 
             <div class="toggle-group" role="group" aria-label="Matrix view">
-                <button class="toggle-btn" id="btnRaw" type="button" aria-pressed="true">Raw counts</button>
-                <button class="toggle-btn" id="btnNorm" type="button" aria-pressed="false">Row-normalised</button>
+                <button class="toggle-btn" id="btnRaw" type="button" aria-pressed="true" data-label="Raw counts">Raw counts</button>
+                <button class="toggle-btn" id="btnNorm" type="button" aria-pressed="false" data-label="Row-normalised">Row-normalised</button>
                 <button type="button" class="weo-info-trigger" aria-label="About the raw and row-normalised views">?<span class="weo-tooltip"><span class="weo-tooltip-title">Matrix views</span><span class="weo-tooltip-body"><strong>Raw counts:</strong> how many connections link each pair of industries. <strong>Row-normalised:</strong> of all connections involving the row industry, the share going to each column industry &mdash; reveals each industry&rsquo;s pattern regardless of its size.</span></span></button>
             </div>
 
