@@ -526,10 +526,21 @@
 
         /* The table is the only thing that scrolls sideways; the page body never does. */
         .mx-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 calc(-1 * var(--weo-space-sm)); padding: 0 var(--weo-space-sm); }
-        table.mx { border-collapse: separate; border-spacing: 2px; font-size: 0.75rem; margin: 0 auto; }
+        /* table-layout: fixed makes column widths content-independent — derived from the
+           header row alone, never from cell text. Without it the auto algorithm re-solves
+           the layout on every toggle, and "100%" being wider than "49" walked the columns
+           sideways (measured: 35px at 390px, 4px at 1280px). Widths now come from
+           .mx-corner + the equal share left over, so raw and row-normalised render on
+           identical geometry. */
+        table.mx {
+            table-layout: fixed; width: 100%; min-width: 552px;
+            border-collapse: separate; border-spacing: 2px; font-size: 0.75rem; margin: 0 auto;
+        }
+        /* Only the label column is pinned; the 11 cell columns take an equal share of what
+           remains, so the grid fills the container instead of overflowing it at desktop. */
         .mx-corner { width: 150px; }
         .mx th { font-weight: 500; color: var(--text-tertiary); }
-        .mx-col { width: 42px; vertical-align: bottom; padding-bottom: 6px; height: 96px; }
+        .mx-col { vertical-align: bottom; padding-bottom: 6px; height: 96px; }
         .mx-col span { display: block; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; font-size: 0.6875rem; }
         .mx-row {
             text-align: right; padding-right: 10px; white-space: nowrap; font-size: 0.6875rem;
@@ -538,7 +549,7 @@
         .mx-total { display: inline-block; margin-left: 8px; color: var(--text-muted); font-family: var(--weo-font-mono); font-size: 0.625rem; }
         .mx-empty, .mx-empty-row .mx-row { color: var(--text-muted); font-style: italic; }
         .mx-cell {
-            width: 42px; height: 34px; text-align: center; font-family: var(--weo-font-mono);
+            height: 34px; text-align: center; font-family: var(--weo-font-mono);
             font-size: 0.75rem; border-radius: 3px; color: var(--text-secondary);
         }
         /* Binned, not linear: a linear ramp against the 49-count diagonal flattens every
@@ -635,10 +646,13 @@
         @media (max-width: 767px) {
             .metric-block { padding: var(--weo-space-lg); }
             .metric-value { font-size: 2.25rem; }
+            table.mx { min-width: 492px; }
             .mx-corner { width: 96px; }
             .mx-row { max-width: 96px; white-space: normal; }
-            .mx-cell, .mx-col { width: 36px; }
             .mx-cell { height: 30px; }
+            /* Ride-along: the incidence number sat hard against the first cell column.
+               Adds one rhythm step (4px) on top of the row's 10px padding + 2px spacing. */
+            .mx-total { margin-right: var(--weo-space-xs); }
             .null-model { flex-direction: column; gap: var(--weo-space-sm); }
         }
 
