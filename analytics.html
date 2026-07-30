@@ -681,7 +681,7 @@
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
         <div class="panel" style="grid-column:1/-1">
-            <div class="panel-title">Tool Calls</div>
+            <div class="panel-title">Tool Calls <span id="toolsCallLogCount"></span></div>
             <div id="toolsCallLogPanel" class="panel-list"></div>
         </div>
     </div>
@@ -1052,9 +1052,9 @@
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
         });
-        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~50.
+        // Most-recent first (ISO timestamps sort lexically = chronologically).
+        // No cap: the log carries the FULL selected window — display scrolls (.panel-list).
         result.tools_call_log.sort(function(a, b) { return (b.ts || '').localeCompare(a.ts || ''); });
-        result.tools_call_log = result.tools_call_log.slice(0, 50);
         return result;
     }
 
@@ -1203,13 +1203,17 @@
     // Read-only; reuses the .bar-row rhythm. `list` is already sorted newest-first + capped in aggregateDays.
     function renderToolCallLog(containerId, list) {
         var container = document.getElementById(containerId);
+        var countEl = document.getElementById('toolsCallLogCount');
         if (!container) return;
         if (!list || list.length === 0) {
             container.innerHTML = '<div class="empty-state">No tool calls yet</div>';
+            if (countEl) countEl.textContent = '';
             return;
         }
+        if (countEl) countEl.textContent = fmt(list.length) + ' calls';
         var html = '';
-        list.slice(0, 50).forEach(function(rec) {
+        // Full window: render every record; the .panel-list container scrolls.
+        list.forEach(function(rec) {
             var tool = rec.tool || '(unknown)';
             var client = rec.named_client || rec.client || 'unknown';
             var code = rec.country || 'XX';
