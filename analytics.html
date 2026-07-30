@@ -295,9 +295,6 @@
         .metric-delta.positive { color: var(--weo-status-positive); }
         .metric-delta.negative { color: var(--weo-status-negative); }
         .metric-delta.neutral { color: var(--weo-text-muted); }
-        .metric-delta .pit-label {
-            opacity: 0.6;
-        }
         .metric-stat {
             font-family: var(--weo-font-mono); font-size: 0.6875rem;
             color: var(--weo-text-muted); margin-top: 2px;
@@ -336,6 +333,23 @@
         }
         .panel-title-diag { color: rgba(251, 191, 36, 0.85); }
 
+        /* Scrollable panel body: full granularity, fixed height, themed scrollbar.
+           Applied to every breakdown panel (same behaviour as the Tool Calls log). */
+        .panel-list {
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--weo-border-primary) transparent;
+        }
+        .panel-list::-webkit-scrollbar { width: 6px; }
+        .panel-list::-webkit-scrollbar-track { background: transparent; }
+        .panel-list::-webkit-scrollbar-thumb {
+            background: var(--weo-border-primary);
+            border-radius: 3px;
+        }
+        .panel-list::-webkit-scrollbar-thumb:hover { background: var(--weo-border-subtle); }
+
         /* Bar rows */
         .bar-row {
             display: flex; align-items: center; gap: var(--weo-space-md);
@@ -372,46 +386,6 @@
             flex: 1; font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-secondary);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        /* Tool Calls log: the list runs to 200 rows — window it so the panel keeps its
-           place in the page rhythm instead of pushing the rows below it off-screen. */
-        #toolsCallLogPanel {
-            max-height: 700px;
-            overflow-y: auto;
-        }
-        /* Scroll affordance: fade the panel's bottom edge to its own background so an
-           overflowing list reads as continuing below the fold. Sits on the .panel wrapper
-           (not the scroll box) and is inert to pointer events, so it never blocks scrolling. */
-        .panel-scrollable {
-            position: relative;
-        }
-        .panel-scrollable::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 32px;
-            background: linear-gradient(to bottom, transparent, var(--weo-surface-raised));
-            pointer-events: none;
-            border-radius: 0 0 var(--weo-radius-lg) var(--weo-radius-lg);
-        }
-        /* Copy-all control in the Tool Calls title bar (mirrors the .tz-toggle idiom). */
-        .copy-btn {
-            font-family: var(--weo-font-mono);
-            font-size: 0.625rem;
-            color: var(--weo-text-secondary);
-            background: transparent;
-            border: 1px solid var(--weo-border-primary);
-            border-radius: var(--weo-radius-sm);
-            padding: 2px 8px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .copy-btn:hover {
-            color: var(--weo-text-primary);
-            border-color: var(--weo-text-secondary);
         }
 
         /* ========================================
@@ -569,7 +543,7 @@
            ======================================== */
         body { font-weight: 380; }
         .page-title, .metric-value { font-weight: 580; }
-        .panel-title, .metric-label, .bar-label, .bar-count, .tcl-meta,
+        .panel-title, .metric-label, .bar-label, .bar-count,
         .trend-date, .footer-badge, .range-btn { font-weight: 480; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -684,11 +658,11 @@
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">Client Types</div>
-            <div id="clientPanel"></div>
+            <div id="clientPanel" class="panel-list"></div>
         </div>
         <div class="panel">
             <div class="panel-title">Endpoints</div>
-            <div id="endpointPanel"></div>
+            <div id="endpointPanel" class="panel-list"></div>
         </div>
     </div>
 
@@ -696,19 +670,19 @@
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">Tools</div>
-            <div id="toolsPanel"></div>
+            <div id="toolsPanel" class="panel-list"></div>
         </div>
         <div class="panel">
             <div class="panel-title">MCP Methods</div>
-            <div id="methodsPanel"></div>
+            <div id="methodsPanel" class="panel-list"></div>
         </div>
     </div>
 
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
-        <div class="panel panel-scrollable" style="grid-column:1/-1">
-            <div class="panel-title">Tool Calls <button class="copy-btn" onclick="copyToolCallLog()" title="Copy all tool calls to clipboard">Copy</button></div>
-            <div id="toolsCallLogPanel"></div>
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title">Tool Calls</div>
+            <div id="toolsCallLogPanel" class="panel-list"></div>
         </div>
     </div>
 
@@ -716,7 +690,7 @@
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">Countries</div>
-            <div id="countryPanel"></div>
+            <div id="countryPanel" class="panel-list"></div>
         </div>
         <div class="panel">
             <div class="panel-title">
@@ -732,32 +706,30 @@
     <div class="panels-row">
         <div class="panel">
             <div class="panel-title">MCP by Client</div>
-            <div id="mcpClientPanel"></div>
+            <div id="mcpClientPanel" class="panel-list"></div>
         </div>
         <div class="panel">
             <div class="panel-title">API by Client</div>
-            <div id="apiClientPanel"></div>
+            <div id="apiClientPanel" class="panel-list"></div>
         </div>
     </div>
 
-    <!-- Diagnostic panels (full-width, stacked) -->
+    <!-- Diagnostic row: Unidentified UA + Named MCP Clients -->
     <div class="panels-row">
-        <div class="panel panel-diag" style="grid-column:1/-1">
+        <div class="panel panel-diag">
             <div class="panel-title panel-title-diag">Unidentified Clients · User-Agent</div>
-            <div id="uaPanel"></div>
+            <div id="uaPanel" class="panel-list"></div>
         </div>
-    </div>
-    <div class="panels-row">
-        <div class="panel" style="grid-column:1/-1">
+        <div class="panel">
             <div class="panel-title">Named MCP Clients</div>
-            <div id="namedClientPanel"></div>
+            <div id="namedClientPanel" class="panel-list"></div>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="page-footer">
         <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
-        <div class="footer-version" id="footerVersion">Methodology V1.5 · WEO v1.4.0 · Analytics</div>
+        <div class="footer-version" id="footerVersion">Methodology V1.4 · WEO v1.4.0 · Analytics</div>
         <div class="footer-version"><a href="https://warmthengine.com/mcp" style="color: var(--weo-accent-hover); text-decoration: none;">MCP reference</a> · <a href="/llms.txt" style="color: var(--weo-accent-hover); text-decoration: none;">llms.txt</a></div>
     </div>
 </div>
@@ -773,8 +745,6 @@
     var bkkMode = true;
     var lastHourData = null;
     var lastCsvData = null;
-    var lastRawData = null;
-    var lastRenderedDays = null;
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -857,8 +827,6 @@
             tzToggle.classList.toggle('bkk', bkkMode);
             if (hourlyTitle) hourlyTitle.textContent = 'Hourly Pattern · ' + (bkkMode ? 'BKK' : 'UTC');
             if (lastHourData) renderHourly(lastHourData);
-            // Re-render PIT delta labels in the new timezone
-            if (lastRawData) render(lastRawData, lastRenderedDays);
         });
     }
 
@@ -930,8 +898,6 @@
 
     // --- Rendering ---
     function render(rawData, days) {
-        lastRawData = rawData;
-        lastRenderedDays = days;
         // Filter to date-keyed entries only (YYYY-MM-DD) to ignore any top-level metadata keys
         var allDates = Object.keys(rawData).filter(function(k) {
             return /^\d{4}-\d{2}-\d{2}$/.test(k);
@@ -953,7 +919,7 @@
         if (mostRecentDate && rawData[mostRecentDate] && rawData[mostRecentDate].version) {
             var workerVer = rawData[mostRecentDate].version;
             var footerEl = document.getElementById('footerVersion');
-            if (footerEl) footerEl.textContent = 'Methodology V1.5 · Worker v' + workerVer + ' · Analytics';
+            if (footerEl) footerEl.textContent = 'Methodology V1.4 · Worker v' + workerVer + ' · Analytics';
         }
 
         // Aggregate
@@ -980,27 +946,11 @@
         document.getElementById('metricAuthSub').textContent = agg.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
         document.getElementById('metricTotalSub').textContent = days + 'd period';
 
-        // Point-in-time deltas: prior period trimmed to current hour
-        var nowDt = new Date();
-        var currentHourUTC = nowDt.getUTCHours();
-        var hh = bkkMode
-            ? ((currentHourUTC + 7) % 24).toString().padStart(2, '0')
-            : currentHourUTC.toString().padStart(2, '0');
-        var mm = nowDt.getUTCMinutes().toString().padStart(2, '0');
-        var tzSuffix = bkkMode ? 'BKK' : 'UTC';
-        var timeLabel = hh + ':' + mm + ' ' + tzSuffix;
-        var pitPrior = computePriorAtTime(rawData, priorDates, currentHourUTC);
-        if (pitPrior) {
-            setDelta('metricMcpDelta', agg.mcp, pitPrior.mcp, hasPrior, timeLabel);
-            setDelta('metricApiDelta', agg.api, pitPrior.api, hasPrior, timeLabel);
-            setDelta('metricAuthDelta', agg.authenticated, pitPrior.auth, hasPrior, timeLabel);
-            setDelta('metricTotalDelta', total, pitPrior.total, hasPrior, timeLabel);
-        } else {
-            setDelta('metricMcpDelta', 0, null, false, '');
-            setDelta('metricApiDelta', 0, null, false, '');
-            setDelta('metricAuthDelta', 0, null, false, '');
-            setDelta('metricTotalDelta', 0, null, false, '');
-        }
+        // Deltas
+        setDelta('metricMcpDelta', agg.mcp, prior.mcp, hasPrior);
+        setDelta('metricApiDelta', agg.api, prior.api, hasPrior);
+        setDelta('metricAuthDelta', agg.authenticated, prior.authenticated, hasPrior);
+        setDelta('metricTotalDelta', total, priorTotal, hasPrior);
 
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
@@ -1102,90 +1052,39 @@
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
         });
-        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~200
-        // (matches the worker's per-day TOOLS_CALL_LOG_CAP; the panel scrolls rather than growing).
+        // Most-recent first (ISO timestamps sort lexically = chronologically), keep the latest ~50.
         result.tools_call_log.sort(function(a, b) { return (b.ts || '').localeCompare(a.ts || ''); });
-        result.tools_call_log = result.tools_call_log.slice(0, 200);
+        result.tools_call_log = result.tools_call_log.slice(0, 50);
         return result;
     }
 
-    // Point-in-time delta: compare current total against the prior period
-    // trimmed to the same wall-clock hour, so the comparison is moment-to-moment.
-    // Returns { total, mcp, api, auth } — mcp/api are proportional estimates
-    // (by_hour doesn't split by type); total is exact from hourly buckets.
-    function computePriorAtTime(rawData, priorDates, currentHourUTC) {
-        if (priorDates.length === 0) return null;
-
-        var fullMcp = 0, fullApi = 0, fullAuth = 0;
-        // All prior dates except the last: sum in full
-        for (var i = 0; i < priorDates.length - 1; i++) {
-            var day = rawData[priorDates[i]];
-            if (!day) continue;
-            fullMcp  += (day.mcp || 0);
-            fullApi  += (day.api || 0);
-            fullAuth += (day.authenticated || 0);
-        }
-        var fullTotal = fullMcp + fullApi;
-
-        // Last prior date: trim to hours 0..currentHourUTC via by_hour
-        var lastDay = rawData[priorDates[priorDates.length - 1]];
-        if (!lastDay) return { total: fullTotal, mcp: fullMcp, api: fullApi, auth: fullAuth };
-
-        var lastDayFullTotal = (lastDay.mcp || 0) + (lastDay.api || 0);
-        if (lastDayFullTotal === 0 || !lastDay.by_hour) {
-            return {
-                total: fullTotal + lastDayFullTotal,
-                mcp:   fullMcp  + (lastDay.mcp || 0),
-                api:   fullApi  + (lastDay.api || 0),
-                auth:  fullAuth + (lastDay.authenticated || 0)
-            };
-        }
-
-        // Sum hourly buckets through the current hour
-        var partialTotal = 0;
-        for (var h = 0; h <= currentHourUTC; h++) {
-            var key = h.toString().padStart(2, '0');
-            partialTotal += (lastDay.by_hour[key] || 0);
-        }
-
-        // Proportional split for MCP/API/Auth
-        var ratio = partialTotal / lastDayFullTotal;
-        return {
-            total: fullTotal + partialTotal,
-            mcp:   fullMcp  + Math.round((lastDay.mcp || 0) * ratio),
-            api:   fullApi  + Math.round((lastDay.api || 0) * ratio),
-            auth:  fullAuth + Math.round((lastDay.authenticated || 0) * ratio)
-        };
-    }
-
-    function setDelta(elId, current, pitPrior, hasPrior, timeLabel) {
+    function setDelta(elId, current, priorVal, hasPrior) {
         var el = document.getElementById(elId);
         if (!el) return;
-        if (!hasPrior || pitPrior === null || pitPrior === undefined) {
+        if (!hasPrior) {
             el.textContent = 'no prior data';
             el.className = 'metric-delta neutral';
             return;
         }
-        if (pitPrior === 0 && current === 0) {
+        if (priorVal === 0 && current === 0) {
             el.textContent = '';
             el.className = 'metric-delta neutral';
             return;
         }
-        if (pitPrior === 0) {
-            el.innerHTML = '▲ new <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
+        if (priorVal === 0) {
+            el.textContent = '▲ new';
             el.className = 'metric-delta positive';
             return;
         }
-        var pct = Math.round((current - pitPrior) / pitPrior * 100);
-        var sign = pct > 0 ? '+' : '';
+        var pct = Math.round((current - priorVal) / priorVal * 100);
         if (pct > 0) {
-            el.innerHTML = '▲ ' + sign + pct + '% <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
+            el.textContent = '▲ +' + pct + '% vs prior';
             el.className = 'metric-delta positive';
         } else if (pct < 0) {
-            el.innerHTML = '▼ ' + pct + '% <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
+            el.textContent = '▼ ' + pct + '% vs prior';
             el.className = 'metric-delta negative';
         } else {
-            el.innerHTML = '→ flat <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
+            el.textContent = '→ flat vs prior';
             el.className = 'metric-delta neutral';
         }
     }
@@ -1270,7 +1169,8 @@
         var maxVal = sorted[0] ? sorted[0][1] : 1;
 
         var html = '';
-        sorted.slice(0, 10).forEach(function(item) {
+        // Full granularity: render every entry; the .panel-list container scrolls.
+        sorted.forEach(function(item) {
             var label = item[0];
             var count = item[1];
             // Country panel only: show full name, fall back to the raw code. Every other panel unchanged.
@@ -1309,7 +1209,7 @@
             return;
         }
         var html = '';
-        list.slice(0, 200).forEach(function(rec) {
+        list.slice(0, 50).forEach(function(rec) {
             var tool = rec.tool || '(unknown)';
             var client = rec.named_client || rec.client || 'unknown';
             var code = rec.country || 'XX';
@@ -1324,35 +1224,6 @@
         });
         container.innerHTML = html;
     }
-
-    // Copy every rendered Tool Calls row as tab-separated text (tool · client/country · when),
-    // independent of scroll position. Exposed on window below: this script is an IIFE, so the
-    // inline onclick on the Copy button resolves against global scope, not this closure.
-    function copyToolCallLog() {
-        var panel = document.getElementById('toolsCallLogPanel');
-        if (!panel) return;
-        var rows = panel.querySelectorAll('.bar-row');
-        if (rows.length === 0) return;
-        var lines = [];
-        rows.forEach(function(row) {
-            var tool = row.querySelector('.bar-label');
-            var meta = row.querySelector('.tcl-meta');
-            var time = row.querySelector('.bar-count');
-            lines.push(
-                (tool ? tool.textContent.trim() : '') + '\t' +
-                (meta ? meta.textContent.trim() : '') + '\t' +
-                (time ? time.textContent.trim() : '')
-            );
-        });
-        var text = lines.join('\n');
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function() {
-                var btn = document.querySelector('.copy-btn');
-                if (btn) { btn.textContent = 'Copied'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
-            });
-        }
-    }
-    window.copyToolCallLog = copyToolCallLog;
 
     function renderHourly(hourData) {
         var chart = document.getElementById('hourlyChart');
