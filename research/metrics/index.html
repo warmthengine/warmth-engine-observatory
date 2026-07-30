@@ -164,8 +164,16 @@
             border: 0;
         }
         
-        /* Button pressed feedback */
-        button:active,
+        /* Button pressed feedback — paint-only, so pressing never reflows the page.
+           This rule's declaration block went missing when this page's CSS was extracted,
+           leaving a dangling `button:active,` whose trailing comma merged the selector
+           into the `html` rule below. Every button on the page therefore inherited
+           font-size: 16px while held — 12px → 16px — shoving the matrix and legend down
+           5px for the duration of the press. The other eight pages carrying the same
+           dangling comma land on this same transform and are unaffected; restoring it
+           here realigns this page with them. Keep the block: re-orphaning the selector
+           reintroduces the jolt silently. */
+        button:active, .btn:active { transform: scale(0.97); }
 
         html {
             font-size: 16px;
