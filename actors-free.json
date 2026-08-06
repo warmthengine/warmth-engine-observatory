@@ -30,7 +30,61 @@
     },
     "sample_actors": [
       "us"
-    ]
+    ],
+    "energy_context": {
+      "status": "external_reference_data",
+      "analytical_stack": "outside — electricity context has no defining chapter in the WEO methodology, is not held to the WEO evidence standard, and carries no WEO assessment. It is reported, not assessed (G-059).",
+      "derived_figures": "none",
+      "scope_limitation": "National totals. Not site-level availability, and not the speed at which supply can be redirected.",
+      "relationship_to_profiles": "Accompanies the Sovereign Capability Profiles and forms no part of them. Electrical scale and dimensional standing vary independently across the assessed actors.",
+      "aggregate_actors": {
+        "rule": "Actors flagged is_aggregate already contain the actors listed against them, which also stand alone in this register. The column must never be summed.",
+        "members": {
+          "EU": [
+            "NL",
+            "FR",
+            "DE"
+          ]
+        }
+      },
+      "display_rule": "Show the observation year on a row only where it differs from the headline year for that metric.",
+      "capacity": {
+        "metric": "installed electricity generation capacity",
+        "unit": "GW",
+        "headline_year": 2024,
+        "vintage_spread": [
+          2024
+        ],
+        "source": {
+          "publisher": "U.S. Energy Information Administration",
+          "dataset": "International Energy Statistics",
+          "url": "https://www.eia.gov/international/data/world",
+          "licence": "Public domain (17 U.S.C. 105)",
+          "attribution": "Source: U.S. Energy Information Administration",
+          "unit_as_reported": "MK (million kilowatts)",
+          "unit_conversion": "1 million kilowatt = 1 gigawatt; no scaling applied",
+          "retrieved": "2026-08-05"
+        }
+      },
+      "generation": {
+        "metric": "annual electricity generation",
+        "unit": "TWh",
+        "headline_year": 2025,
+        "vintage_spread": [
+          2024,
+          2025
+        ],
+        "source": {
+          "publisher": "Ember",
+          "dataset": "Yearly electricity data",
+          "url": "https://ember-energy.org/data/yearly-electricity-data/",
+          "methodology_url": "https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf",
+          "licence": "CC BY 4.0",
+          "attribution": "Yearly electricity data, Ember",
+          "retrieved": "2026-08-05"
+        }
+      }
+    }
   },
   "dimensions": {
     "D1": {
@@ -322,7 +376,18 @@
           "qualification": "The CHIPS for America programme awarded over US$33 billion of the US$36 billion in proposed incentives, directed at semiconductor fabrication on US territory. Intel received US$5.695 billion in CHIPS incentives and issued equity instruments. The programme is the largest single sovereign investment in domestic semiconductor manufacturing at time of assessment."
         }
       },
-      "sample": true
+      "sample": true,
+      "energy_context": {
+        "capacity_gw": 1283.64,
+        "capacity_year": 2024,
+        "generation_twh": 4519.79,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "United States",
+          "ember": "United States"
+        }
+      }
     },
     {
       "id": "CN",
@@ -330,6 +395,17 @@
       "designation": "PAA",
       "score": 6,
       "severance": "PASS",
+      "energy_context": {
+        "capacity_gw": 3376.72,
+        "capacity_year": 2024,
+        "generation_twh": 10577.71,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "China",
+          "ember": "China"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": true,
@@ -370,6 +446,17 @@
       "aik_profile": {
         "chokepoint_nature": "Front-end process tools and materials",
         "key_entities": "TEL coater/developer (~90–100% EUV), Lasertec actinic mask inspection (100%), SCREEN single-wafer cleans, Shin-Etsu/JSR/TOK/SUMCO materials"
+      },
+      "energy_context": {
+        "capacity_gw": 353.29,
+        "capacity_year": 2024,
+        "generation_twh": 1029.97,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Japan",
+          "ember": "Japan"
+        }
       },
       "dimensions": {
         "D1": {
@@ -412,6 +499,17 @@
         "chokepoint_nature": "Memory packaging, fabrication, and sovereign equipment monopolies",
         "key_entities": "HPSP sole-source high-pressure annealing, Hanmi 71.2% TC bonder share, Samsung Foundry 2nm GAA HVM"
       },
+      "energy_context": {
+        "capacity_gw": 159.72,
+        "capacity_year": 2024,
+        "generation_twh": 624.66,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "South Korea",
+          "ember": "South Korea"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -449,6 +547,17 @@
       "designation": "ACS",
       "score": 4,
       "severance": "FAIL",
+      "energy_context": {
+        "capacity_gw": 1208.03,
+        "capacity_year": 2024,
+        "generation_twh": 2790.77,
+        "generation_year": 2025,
+        "is_aggregate": true,
+        "source_entity_names": {
+          "eia": "European Union",
+          "ember": "EU"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -486,6 +595,17 @@
       "designation": "ACS",
       "score": 3,
       "severance": "FAIL",
+      "energy_context": {
+        "capacity_gw": 66.72,
+        "capacity_year": 2024,
+        "generation_twh": 288.88,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Taiwan",
+          "ember": "Taiwan (China)"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -527,6 +647,17 @@
         "chokepoint_nature": "Core lithography integration and advanced packaging",
         "key_entities": "ASML 100% EUV monopoly, ASM International (ALD/epi), Besi (hybrid bonding)"
       },
+      "energy_context": {
+        "capacity_gw": 61.51,
+        "capacity_year": 2024,
+        "generation_twh": 134.96,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Netherlands",
+          "ember": "Netherlands"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -564,6 +695,17 @@
       "designation": "Participant",
       "score": 2,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 160.88,
+        "capacity_year": 2024,
+        "generation_twh": 570.14,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "France",
+          "ember": "France"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -601,6 +743,17 @@
       "designation": "Participant",
       "score": 2,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 287.37,
+        "capacity_year": 2024,
+        "generation_twh": 499.89,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Germany",
+          "ember": "Germany"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -638,6 +791,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 114.64,
+        "capacity_year": 2024,
+        "generation_twh": 292.41,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "United Kingdom",
+          "ember": "United Kingdom"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -675,6 +839,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 531.46,
+        "capacity_year": 2024,
+        "generation_twh": 2081.6,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "India",
+          "ember": "India"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -712,6 +887,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 23.74,
+        "capacity_year": 2024,
+        "generation_twh": 82.1,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Israel",
+          "ember": "Israel"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -749,6 +935,17 @@
       "designation": "Participant",
       "score": 0,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 299.51,
+        "capacity_year": 2024,
+        "generation_twh": 1192.78,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Russia",
+          "ember": "Russia"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -786,6 +983,17 @@
       "designation": "Participant",
       "score": 0,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 161.95,
+        "capacity_year": 2024,
+        "generation_twh": 652.43,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Canada",
+          "ember": "Canada"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -823,6 +1031,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 38.97,
+        "capacity_year": 2024,
+        "generation_twh": 201.09,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Malaysia",
+          "ember": "Malaysia"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -860,6 +1079,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 13.22,
+        "capacity_year": 2024,
+        "generation_twh": 60.15,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Singapore",
+          "ember": "Singapore"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -897,6 +1127,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 45.53,
+        "capacity_year": 2024,
+        "generation_twh": 177.26,
+        "generation_year": 2024,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "United Arab Emirates",
+          "ember": "United Arab Emirates"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -934,6 +1175,17 @@
       "designation": "Participant",
       "score": 1,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 121.38,
+        "capacity_year": 2024,
+        "generation_twh": 454.64,
+        "generation_year": 2024,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Saudi Arabia",
+          "ember": "Saudi Arabia"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -971,6 +1223,17 @@
       "designation": "Participant",
       "score": 0,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 28.89,
+        "capacity_year": 2024,
+        "generation_twh": 65.02,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Switzerland",
+          "ember": "Switzerland"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
@@ -1008,6 +1271,17 @@
       "designation": "Participant",
       "score": 0,
       "severance": null,
+      "energy_context": {
+        "capacity_gw": 264.79,
+        "capacity_year": 2024,
+        "generation_twh": 752.17,
+        "generation_year": 2025,
+        "is_aggregate": false,
+        "source_entity_names": {
+          "eia": "Brazil",
+          "ember": "Brazil"
+        }
+      },
       "dimensions": {
         "D1": {
           "met": false,
