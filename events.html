@@ -1957,7 +1957,58 @@
     .weo-info-trigger .weo-tooltip {
       display: none;
     }
-    
+
+    /* Cross-Ecosystem Presence pill (G-058) — carries the bloc colour of the actor
+       CROSSING ecosystems, not of the event's own jurisdiction, and sits beside the
+       standard bloc badge. In the detail modal it doubles as a tooltip trigger, so
+       it must unpick the circular 14px "?" chrome .weo-info-trigger imposes; these
+       rules follow that block so the plain-class overrides win on source order. */
+    .badge-cross-eco {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      height: auto;
+      padding: 3px 8px;
+      margin-left: 0;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+    .badge-cross-eco.origin-eastern {
+      background: rgba(251,146,60,0.12);
+      color: var(--weo-bloc-eastern, #FB923C);
+      border: 1.5px solid rgba(251,146,60,0.5);
+    }
+    .badge-cross-eco.origin-western {
+      background: rgba(96,165,250,0.12);
+      color: var(--weo-bloc-western, #60A5FA);
+      border: 1.5px solid rgba(96,165,250,0.5);
+    }
+    /* Two classes each, so these outrank .weo-info-trigger:hover — which would
+       otherwise repaint the pill blue-grey and scale it on hover. */
+    .badge-cross-eco.origin-eastern:hover {
+      background: rgba(251,146,60,0.22);
+      color: var(--weo-bloc-eastern, #FB923C);
+      transform: none;
+    }
+    .badge-cross-eco.origin-western:hover {
+      background: rgba(96,165,250,0.22);
+      color: var(--weo-bloc-western, #60A5FA);
+      transform: none;
+    }
+    /* Table cells are not flex containers, so the pill supplies its own gap there
+       rather than inheriting .z2-badges' 6px. */
+    #events-tbody .badge-cross-eco {
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .cross-eco-arrows {
+      display: block;
+      width: 17px;
+      height: 14px;
+    }
+
     #weo-tooltip-overlay {
       position: fixed;
       background: var(--weo-surface-base);
@@ -3638,6 +3689,11 @@ function mapApiEventToFree(e) {
   // ENT passthrough
   if (e.environmental_nexus_tags != null) mapped.environmental_nexus_tags = e.environmental_nexus_tags;
   if (e.environmentalNexusTags != null) mapped.environmental_nexus_tags = e.environmentalNexusTags;
+  // G-058 cross-ecosystem presence — a free-tier classification fact, so it rides
+  // the free shape rather than sampleEventsFull; the table view needs it too, and
+  // that never sees the full object.
+  const _cep = e.crossEcosystemPresence ?? e.cross_ecosystem_presence;
+  if (_cep != null) mapped.crossEcosystemPresence = _cep;
   return mapped;
 }
 
@@ -4275,6 +4331,60 @@ function generateFieldLabel(labelText, tooltipKey, position) {
   if (!t) return '<span class="z2-label">' + labelText + '</span>';
   const posClass = position ? ' tooltip-' + position : '';
   return '<span class="z2-label weo-info-trigger">' + labelText + '<span class="weo-tooltip' + posClass + '"><div class="weo-tooltip-title">' + t.title + '</div><div class="weo-tooltip-body">' + t.body + '</div>' + methodLink(weoMethodAnchors[tooltipKey]) + '</span></span>';
+}
+
+// --- Cross-Ecosystem Presence pill (G-058) -------------------------------------
+// Every string below is built from the event's own crossEcosystemPresence object,
+// so each event states its own crossing rather than sharing boilerplate. There is
+// deliberately NO § methodology link: G-058 is a development-register item, not a
+// Manual provision, so there is no section to deep-link to yet.
+const CROSS_ECO_NATURE_LABELS = {
+  operator_investor: 'operator and investor',
+  operator: 'operator',
+  technology_supplier: 'technology supplier',
+  platform_provider: 'platform provider',
+  investor: 'investor'
+};
+const CROSS_ECO_ARROWS_SVG =
+  '<svg class="cross-eco-arrows" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+  '<polyline points="1.5,5 15.5,5 13,1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+  '<polyline points="15.5,9 1.5,9 4,12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+  '</svg>';
+
+function crossEcoNatureLabel(nature) {
+  return CROSS_ECO_NATURE_LABELS[nature] || String(nature == null ? '' : nature).replace(/_/g, ' ');
+}
+
+// The one sentence both the tooltip body and the plain-text title attribute use.
+function crossEcoSentence(cep) {
+  return cep.entity + ' — ' + cep.operatorOrigin + ' ' + crossEcoNatureLabel(cep.nature) +
+    ' deploying AI infrastructure in ' + cep.hostClassification + '-classified territory.';
+}
+
+// `interactive` wires the pill as a .weo-info-trigger, which only pays off inside
+// #modal-overlay — the sole root the tooltip overlay delegates from. Outside it
+// (the table view) the nested .weo-tooltip is display:none with nothing to reveal
+// it, so those callers pass false and get a native title tooltip instead.
+function crossEcoBadge(cep, interactive) {
+  if (!cep || cep.present !== true) return '';
+  const originClass = cep.operatorOrigin === 'Eastern' ? 'origin-eastern' : 'origin-western';
+  if (!interactive) {
+    return '<span class="badge-cross-eco ' + originClass + '" role="img"' +
+      ' aria-label="Cross-Ecosystem Presence: ' + esc(crossEcoSentence(cep)) + '"' +
+      ' title="Cross-Ecosystem Presence — ' + esc(crossEcoSentence(cep)) + '">' +
+      CROSS_ECO_ARROWS_SVG + '</span>';
+  }
+  return '<span class="badge-cross-eco ' + originClass + ' weo-info-trigger" role="img"' +
+    ' aria-label="Cross-Ecosystem Presence: ' + esc(crossEcoSentence(cep)) + '">' +
+    CROSS_ECO_ARROWS_SVG +
+    '<span class="weo-tooltip tooltip-below">' +
+    '<div class="weo-tooltip-title">Cross-Ecosystem Presence</div>' +
+    '<div class="weo-tooltip-body"><strong>' + esc(cep.entity) + '</strong> — ' +
+    esc(cep.operatorOrigin) + ' ' + esc(crossEcoNatureLabel(cep.nature)) +
+    ' deploying AI infrastructure in ' + esc(cep.hostClassification) + '-classified territory.' +
+    '<br><br><strong>Origin:</strong> ' + esc(cep.operatorOrigin) +
+    ' · <strong>Host:</strong> ' + esc(cep.hostClassification) + '</div>' +
+    '</span></span>';
 }
 
 // Generate tooltip for CC connection types (1-7)
@@ -5116,7 +5226,7 @@ const renderTable = () => {
             <td><div class="type-icon-cell" title="${esc(e.event_type)}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
             <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${esc(e.tier)}</span></td>
-            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span></td>
+            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, false)}</td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':esc(e.domain)}</span></td>
             <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${esc(getIndTags(e.event_id).primary)}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + esc(getIndTags(e.event_id).secondary.map(s => s.tag).join(', ')) + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
             <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + esc(ents.map(function(t){return t.name||t.type}).join(', ')) + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
@@ -5336,7 +5446,7 @@ const openModal = (id) => {
     document.getElementById('modal-meta').innerHTML = `
         <div class="z2-rows" role="group" aria-label="Event classification">
           <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${esc(e.tier)}</span></div></div>
-          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${esc(e.bloc)}</span></div></div>
+          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, true)}</div></div>
           <div class="z2-row" role="group" aria-label="Domain">${domainLabel}<div class="z2-badges"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${esc(e.domain)}</span></div></div>
           ${connRow}
           ${headerVersionBadge}
