@@ -83,25 +83,27 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .pills-score{width:var(--w-score);margin-left:16px;flex-shrink:0}
 .pills-badge{width:var(--w-badge);margin-left:12px;flex-shrink:0}
 .pills-chev{width:var(--w-chev);margin-left:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;align-self:center}
-.pills-chev .weo-info-trigger{margin-left:0}
 /* The pill is the single target for its dimension: hover or focus explains it,
    click filters. The separate 10px info dot was wider than any grid cell could
    hold, so its 44x44 hit box always straddled the neighbouring pill. */
-.pill{font-size:11px;font-weight:480;padding:4px 7px;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:3px;border-radius:10px;border:1px solid transparent}
+.pill{font-size:11px;font-weight:560;padding:4px 6px;cursor:pointer;transition:all var(--fast);user-select:none;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:3px;border-radius:10px;border:1px solid transparent}
 .pill:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
-.pill-group{min-width:0}
 .pill .pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.pill.hw{color:#7DB8F5} .pill.hw .pill-dot{background:var(--hw)}
-.pill.pl{color:#B9A4F8} .pill.pl .pill-dot{background:var(--pl)}
-.pill.gv{color:#5EDBC9} .pill.gv .pill-dot{background:var(--gv)}
-.pill:hover.hw{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.25)}
-.pill:hover.pl{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.25)}
-.pill:hover.gv{background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.25)}
-.pill.active.hw{background:rgba(96,165,250,.18);border-color:rgba(96,165,250,.45);color:#93C5FD}
-.pill.active.pl{background:rgba(167,139,250,.18);border-color:rgba(167,139,250,.45);color:#C4B5FD}
-.pill.active.gv{background:rgba(45,212,191,.18);border-color:rgba(45,212,191,.45);color:#5EEAD4}
-.pill-ct{font-family:'Geist Mono',monospace;font-size:9px;opacity:.5;font-weight:480}
-.pill-group{display:flex;align-items:center;justify-content:center;gap:2px}
+/* Resting fill: the pills name the seven dimensions the whole page is about, and
+   as outline-only shapes they read as decoration next to the filled electricity
+   control. Category tint is carried in the fill as well as the dot and label, so
+   the hardware / platform / governance mapping is unchanged. */
+.pill.hw{color:#9CC9F8;background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.22)} .pill.hw .pill-dot{background:var(--hw)}
+.pill.pl{color:#CBBCFA;background:rgba(167,139,250,.10);border-color:rgba(167,139,250,.22)} .pill.pl .pill-dot{background:var(--pl)}
+.pill.gv{color:#7FE6D6;background:rgba(45,212,191,.10);border-color:rgba(45,212,191,.22)} .pill.gv .pill-dot{background:var(--gv)}
+.pill:hover.hw{background:rgba(96,165,250,.17);border-color:rgba(96,165,250,.34)}
+.pill:hover.pl{background:rgba(167,139,250,.17);border-color:rgba(167,139,250,.34)}
+.pill:hover.gv{background:rgba(45,212,191,.17);border-color:rgba(45,212,191,.34)}
+.pill.active.hw{background:rgba(96,165,250,.30);border-color:rgba(96,165,250,.6);color:#BFDBFE}
+.pill.active.pl{background:rgba(167,139,250,.30);border-color:rgba(167,139,250,.6);color:#DDD3FE}
+.pill.active.gv{background:rgba(45,212,191,.30);border-color:rgba(45,212,191,.6);color:#99F6E4}
+.pill-ct{font-family:'Geist Mono',monospace;font-size:9px;opacity:.62;font-weight:560}
+.pill-group{display:flex;align-items:center;justify-content:center;gap:2px;min-width:0}
 
 /* Groups */
 .grp{font-size:11px;font-weight:580;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;padding:18px 0 6px;display:flex;align-items:center;gap:8px}
@@ -340,9 +342,8 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .matrix-inner{min-width:unset;padding:0}
   .matrix-scroll-wrap>.scroll-fade{display:none}
 
-  /* Pills — wrapping flex row, no column alignment on mobile. The electricity
-     switch takes the first line with the source line beside it; the dimension
-     pills wrap onto the line below. */
+  /* Pills — wrapping flex row, no column alignment on mobile. They lead the
+     header; the electricity control follows on its own row below. */
   .pills-spacer,.pills-score,.pills-badge{display:none}
   .pills-row{display:flex;flex-wrap:wrap;align-items:flex-start;padding:6px 16px}
   .pills-grid{display:flex;flex-wrap:wrap;align-content:flex-start;gap:5px 6px;flex:0 0 100%;order:1;min-width:0;margin:0}
@@ -367,10 +368,7 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .nrg-switch{order:4;flex:0 0 auto;flex-direction:row;align-items:stretch;gap:2px;
     background:none;border:none;border-radius:0;padding:0;box-shadow:none}
   .nrg-opt{font-size:10px;padding:4px 9px;min-height:36px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:6px}
-  .pill{font-size:10px;padding:4px 7px;gap:3px;border-radius:10px}
-  .pill.hw{border-color:rgba(96,165,250,.2)}
-  .pill.pl{border-color:rgba(167,139,250,.2)}
-  .pill.gv{border-color:rgba(45,212,191,.2)}
+  .pill{font-size:10.5px;padding:5px 8px;gap:3px;border-radius:10px}
   .pill-ct{font-size:8px}
   .pill-group{gap:1px}
 
