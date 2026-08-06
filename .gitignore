@@ -62,3 +62,5 @@ WEO_*.md
 !/og-image.png
 !/WEO*.png
 /Screenshot*
+# Root-level capture/run logs from browser-automation and deploy tooling.
+/*.log
