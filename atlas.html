@@ -12774,7 +12774,7 @@
             h += `<h2 class="atlas-trace-title">${escapeHtml(rootName)}</h2>`;
             // Guide note — states what the trace IS (a downstream cascade),
             // no circular "follow the chain it forms" phrasing.
-            h += '<p class="atlas-trace-guide">The coordination pathways leading downstream from this event. Each step is one coordination connection; read in sequence. Pathways follow the directional coordination lineage (Policy Cascade, Funding Flow, Regulatory Enablement, Response). Bidirectional links — Framework Family and Parallel Policy peers — aren\'t part of a directed chain; they appear in the event\'s details and in the Stack.</p>';
+            h += '<p class="atlas-trace-guide">The coordination pathways connected to this event. Each step is one coordination connection; read in sequence. Pathways follow the directional coordination lineage (Policy Cascade, Funding Flow, Regulatory Enablement, Response). Bidirectional links — Framework Family and Parallel Policy peers — aren\'t part of a directed chain; they appear in the event\'s details and in the Stack.</p>';
             // Pathways is a directed walk by definition — legend shows only the directed-CC row.
             h += journeyKindLegend({ directed: true, directedText: '<span class="atlas-stack-legend-glyph">→</span> directed coordination' });
             h += '</div>';
