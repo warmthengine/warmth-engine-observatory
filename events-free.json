@@ -1,35 +1,35 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 195,
+    "total_events": 199,
     "sample_events": 6,
-    "standard_events": 189,
-    "last_updated": "2026-08-03",
+    "standard_events": 193,
+    "last_updated": "2026-08-06",
     "statistics": {
       "by_bloc": {
-        "Eastern": 51,
-        "Western": 124,
+        "Eastern": 52,
+        "Western": 127,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 175,
+        "T3": 179,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 43,
+        "Infrastructure": 44,
         "Coordination": 31,
         "Policy": 63,
-        "Corporate": 58
+        "Corporate": 61
       },
       "by_confidence": {
-        "A": 190,
+        "A": 194,
         "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 98,
+        "basel5": 102,
         "keohane": 30,
         "pisa5": 47,
         "routeBased": 20,
@@ -37,7 +37,7 @@
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 51,
+        "Cloud, Data Centres & Connectivity Infrastructure": 55,
         "Semiconductors & Equipment": 41,
         "AI Software & Platforms": 66,
         "Mining & Critical Minerals": 10,
@@ -51,13 +51,13 @@
         "1.2": 31,
         "1.3": 5,
         "1.1": 81,
-        "1.0": 75,
+        "1.0": 79,
         "1.0.1": 3
       }
     },
-    "versionDate": "2026-08-03",
-    "lastAudit": "2026-08-03",
-    "event_count": 195,
+    "versionDate": "2026-08-06",
+    "lastAudit": "2026-08-06",
+    "event_count": 199,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -8377,6 +8377,122 @@
         "current": true
       },
       "version": "1.0"
+    },
+    {
+      "id": "227",
+      "name": "Huawei Cloud Riyadh Region",
+      "lat": 24.7136,
+      "lng": 46.6753,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "4 September 2023",
+      "location": "Riyadh, Saudi Arabia",
+      "scope": "Saudi Arabia; Middle East cloud market",
+      "description": "Huawei Cloud's first Middle East cloud region, launched in Riyadh with three Availability Zones and over 68 cloud services. Deploys the Pangu Arabic large language model at 100 billion parameters. Hosted at Center3's data centre with Class C licensing from Saudi Arabia's Communications, Space and Technology Commission.",
+      "investment": "US$400 million five-year commitment (Huawei Cloud).",
+      "domain": "Energy/Infrastructure",
+      "sources": 3,
+      "corroborating": 5,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option C (Pangu Arabic LLM deployed as cloud service component)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "228",
+      "name": "Huawei Cloud Cairo Region",
+      "lat": 30.0444,
+      "lng": 31.2357,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "21 May 2024",
+      "location": "Cairo, Egypt",
+      "scope": "Egypt; North Africa",
+      "description": "Huawei Cloud's Cairo region, the first public cloud region in North Africa. Single Availability Zone deployed at Orange Egypt's Al Maadi data centre with over 220 proprietary cloud services including the Pangu Arabic Language Model 2.0 at 100 billion parameters.",
+      "investment": "US$300 million five-year commitment (Huawei Cloud).",
+      "domain": "Energy/Infrastructure",
+      "sources": 3,
+      "corroborating": 4,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option C (Pangu Arabic 2.0 LLM and Arabic speech recognition deployed as cloud service components)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "229",
+      "name": "KAUST Shaheen III Supercomputer",
+      "lat": 22.3094,
+      "lng": 39.1022,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "1 October 2025",
+      "location": "Thuwal, Saudi Arabia",
+      "scope": "KAUST campus, Thuwal, Saudi Arabia",
+      "description": "KAUST's Shaheen III, the Middle East's most powerful supercomputer at time of deployment, ranked 18th on the TOP500. HPE Cray EX dual-partition system delivering 122.8 sustained petaflops from 2,800 NVIDIA GH200 Grace Hopper Superchips for AI training and high-performance computing research.",
+      "investment": "Investment not publicly disclosed. 122.8 sustained petaflops (GPU); 35.66 petaflops (CPU); 2,800 GH200 Grace Hopper Superchips; 50 PB storage.",
+      "domain": "Energy/Infrastructure",
+      "sources": 4,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (AI training supercomputer with dedicated GPU partition)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "230",
+      "name": "Yotta Shakti Cloud",
+      "lat": 19.033,
+      "lng": 73.0297,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "1 January 2024",
+      "location": "Navi Mumbai, India",
+      "scope": "India; NM1 facility, Navi Mumbai",
+      "description": "India's sovereign AI cloud platform, operated by Yotta Data Services from the NM1 Tier IV Gold data centre in Navi Mumbai. Launched with 4,096 NVIDIA H100 GPUs on Dell PowerEdge XE9680 nodes, designated as NVIDIA's first Cloud Partner in the Asia-Pacific region.",
+      "investment": "~INR 4,000 crore (~US$480 million) NM1 facility. ~US$500 million initial GPU infrastructure. 4,096 NVIDIA H100 GPUs at launch, scaling to 9,216+ by February 2025.",
+      "domain": "Energy/Infrastructure",
+      "sources": 4,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (dedicated AI compute cloud platform with GPU-as-a-Service)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": []
     }
   ]
 }
