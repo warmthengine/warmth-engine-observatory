@@ -8405,7 +8405,14 @@
       },
       "version": "1.0",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
-      "environmentalNexusTags": []
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": {
+        "present": true,
+        "operatorOrigin": "Eastern",
+        "hostClassification": "Western",
+        "entity": "Huawei Cloud (PRC)",
+        "nature": "operator_investor"
+      }
     },
     {
       "id": "228",

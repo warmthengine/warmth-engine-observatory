@@ -1765,6 +1765,52 @@
         }
         .weo-info-trigger .weo-tooltip { display: none; }
 
+        /* Cross-Ecosystem Presence pill (G-058) — carries the bloc colour of the
+           actor CROSSING ecosystems, not of the event's own jurisdiction, and sits
+           beside the standard bloc badge. It doubles as a tooltip trigger, so it
+           must unpick the circular 14px "?" chrome .weo-info-trigger imposes; these
+           rules follow that block so the plain-class overrides win on source order.
+           Node colour, shape and position are untouched — badge-only treatment. */
+        .badge-cross-eco {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: fit-content;
+          height: auto;
+          padding: 3px 8px;
+          margin-left: 0;
+          border-radius: 20px;
+          position: relative;
+          cursor: pointer;
+        }
+        .badge-cross-eco.origin-eastern {
+          background: rgba(251,146,60,0.12);
+          color: var(--weo-bloc-eastern, #FB923C);
+          border: 1.5px solid rgba(251,146,60,0.5);
+        }
+        .badge-cross-eco.origin-western {
+          background: rgba(96,165,250,0.12);
+          color: var(--weo-bloc-western, #60A5FA);
+          border: 1.5px solid rgba(96,165,250,0.5);
+        }
+        /* Two classes each, so these outrank .weo-info-trigger:hover — which would
+           otherwise repaint the pill blue-grey and scale it on hover. */
+        .badge-cross-eco.origin-eastern:hover {
+          background: rgba(251,146,60,0.22);
+          color: var(--weo-bloc-eastern, #FB923C);
+          transform: none;
+        }
+        .badge-cross-eco.origin-western:hover {
+          background: rgba(96,165,250,0.22);
+          color: var(--weo-bloc-western, #60A5FA);
+          transform: none;
+        }
+        .cross-eco-arrows {
+          display: block;
+          width: 17px;
+          height: 14px;
+        }
+
         #weo-tooltip-overlay {
           position: fixed;
           background: var(--bg-card);
@@ -5671,6 +5717,51 @@
             return String(s)
                 .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // --- Cross-Ecosystem Presence pill (G-058) -------------------------------
+        // Every string below is built from the event's own crossEcosystemPresence
+        // object, so each event states its own crossing rather than sharing
+        // boilerplate. There is deliberately NO § methodology link: G-058 is a
+        // development-register item, not a Manual provision, so there is no section
+        // to deep-link to yet. The panel is the tooltip delegation root, so the pill
+        // can be a full .weo-info-trigger here.
+        const CROSS_ECO_NATURE_LABELS = {
+            operator_investor: 'operator and investor',
+            operator: 'operator',
+            technology_supplier: 'technology supplier',
+            platform_provider: 'platform provider',
+            investor: 'investor'
+        };
+        const CROSS_ECO_ARROWS_SVG =
+            '<svg class="cross-eco-arrows" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+            '<polyline points="1.5,5 15.5,5 13,1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '<polyline points="15.5,9 1.5,9 4,12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>';
+
+        function crossEcoNatureLabel(nature) {
+            return CROSS_ECO_NATURE_LABELS[nature] || String(nature == null ? '' : nature).replace(/_/g, ' ');
+        }
+
+        function crossEcoSentence(cep) {
+            return cep.entity + ' — ' + cep.operatorOrigin + ' ' + crossEcoNatureLabel(cep.nature) +
+                ' deploying AI infrastructure in ' + cep.hostClassification + '-classified territory.';
+        }
+
+        function crossEcoBadge(cep) {
+            if (!cep || cep.present !== true) return '';
+            const originClass = cep.operatorOrigin === 'Eastern' ? 'origin-eastern' : 'origin-western';
+            return '<span class="badge-cross-eco ' + originClass + ' weo-info-trigger" role="img"' +
+                ' aria-label="Cross-Ecosystem Presence: ' + escapeHtml(crossEcoSentence(cep)) + '">' +
+                CROSS_ECO_ARROWS_SVG +
+                '<span class="weo-tooltip tooltip-below">' +
+                '<div class="weo-tooltip-title">Cross-Ecosystem Presence</div>' +
+                '<div class="weo-tooltip-body"><strong>' + escapeHtml(cep.entity) + '</strong> — ' +
+                escapeHtml(cep.operatorOrigin) + ' ' + escapeHtml(crossEcoNatureLabel(cep.nature)) +
+                ' deploying AI infrastructure in ' + escapeHtml(cep.hostClassification) + '-classified territory.' +
+                '<br><br><strong>Origin:</strong> ' + escapeHtml(cep.operatorOrigin) +
+                ' · <strong>Host:</strong> ' + escapeHtml(cep.hostClassification) + '</div>' +
+                '</span></span>';
         }
 
         // Normalise any of the free-text date formats the corpus uses
@@ -10880,6 +10971,11 @@
                     ? `<span class="weo-tooltip"><div class="weo-tooltip-title">${weoTooltips.bloc.title}</div><div class="weo-tooltip-body">${weoTooltips.bloc.body}</div>${methodLink('section-3-10')}</span>`
                     : '';
                 html += `<span class="atlas-chip atlas-chip-bloc-${bc} atlas-chip-trigger" onclick="atlasOpenAndScrollTo('atlas-section-bloc')" tabindex="0">${escapeHtml(event.bloc)}${blocTip}</span>`;
+                // G-058 — sits immediately after the bloc chip and leaves it untouched.
+                // Unlike its neighbours this pill has no onclick of its own, so it is a
+                // .weo-info-trigger (click-toggles, which touch needs) rather than an
+                // .atlas-chip-trigger (hover/focus only, because the chip's click is spoken for).
+                html += crossEcoBadge(event.crossEcosystemPresence);
             }
             html += '</div>';
             html += '</header>';
