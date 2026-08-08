@@ -4,7 +4,7 @@
     "total_events": 199,
     "sample_events": 6,
     "standard_events": 193,
-    "last_updated": "2026-08-06",
+    "last_updated": "2026-08-08",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
@@ -48,16 +48,21 @@
         "Trade & Logistics": 1
       },
       "by_version": {
-        "1.2": 31,
-        "1.3": 5,
-        "1.1": 80,
-        "1.0": 79,
-        "1.1.1": 1,
-        "1.0.1": 3
+        "1.2.1": 12,
+        "1.3": 1,
+        "1.3.2": 2,
+        "1.1": 43,
+        "1.1.1": 33,
+        "1.2": 16,
+        "1.1.2": 5,
+        "1.3.1": 2,
+        "1.2.2": 3,
+        "1.0.1": 8,
+        "1.0": 74
       }
     },
-    "versionDate": "2026-08-06",
-    "lastAudit": "2026-08-06",
+    "versionDate": "2026-08-08",
+    "lastAudit": "2026-08-08",
     "event_count": 199,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -67,25 +72,25 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1749,
-      "preserved": 1734,
+      "total_sources": 1794,
+      "preserved": 1778,
       "preservation_rate": 0.991,
       "by_status": {
-        "captured": 1624,
+        "captured": 1667,
         "recovered": 32,
-        "existing": 78,
-        "no_capture": 12,
+        "existing": 79,
+        "no_capture": 13,
         "dead_source": 1,
         "pending": 2
       },
       "by_layer": {
         "events": {
-          "total": 1062,
-          "preserved": 1049
+          "total": 1094,
+          "preserved": 1080
         },
         "connections": {
-          "total": 415,
-          "preserved": 414
+          "total": 428,
+          "preserved": 427
         },
         "actors": {
           "total": 272,
@@ -120,7 +125,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "basel5": [
         {
           "factor": "Size",
@@ -148,7 +153,7 @@
           "rationale": "Strengthens Eastern Bloc AI capability concentration; affects global AI compute distribution"
         }
       ],
-      "tierRationale": "Tier 3: Intra-Bloc Coordination (Eastern). Official Chinese government documentation frames the initiative as domestic economic development, digital economy support, and regional resource optimisation. Policy documents do not explicitly name the United States or Western entities as targets for dependency reduction. National infrastructure programme channelling computing resources from eastern to western China across eight national computing hubs and ten data centre clusters.",
+      "tierRationale": "Tier 3: Intra-Bloc Coordination (Eastern). China's national cross-regional computing programme, operational from February 2022 and established by the National Development and Reform Commission. Gov.cn programme releases frame the initiative as domestic economic development, digital-economy support, and regional resource optimisation. China is the sole implementer: programme authority, direct government funding, and hub siting all sit within domestic state structures.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -311,7 +316,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -384,7 +389,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "keohane": [
         {
           "factor": "Type",
@@ -407,7 +412,7 @@
           "rationale": "Genuine cross-bloc technical coordination — both Western and Eastern blocs participated in creating the standard"
         }
       ],
-      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). Developed through IEEE SA’s individual-participation process with cross-bloc expert engagement from both Western and Eastern Bloc participants. CertifAIEd conformity assessment programme establishes operational reach, with ISO/IEC/IEEE 24748-7000:2022 fast-track adoption through JTC 1/SC 7 extending normative coverage. Cross-bloc development participation verified through the individual-participation model; operational conformity assessment activity, professional training infrastructure, and documented organisational adoption concentrated within Western-aligned jurisdictions including Germany, the United States, and the United Kingdom.",
+      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). The IEEE Standards Association's ethical-design standards series (P7000), developed through an individual-participation process that drew experts from both Western and Eastern blocs, and adopted into international standardisation as ISO/IEC/IEEE 24748-7000:2022. Official IEEE SA documentation frames the series as design-process standards for ethical AI systems, with CertifAIEd as its conformity-assessment programme. The cross-bloc character sits in development alone: certification activity, training infrastructure, and documented organisational adoption all operate within Western jurisdictions — the United States, United Kingdom, Germany and Austria.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -526,7 +531,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.3.2",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -729,7 +734,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -756,7 +761,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1272,7 +1277,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1299,7 +1304,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1326,7 +1331,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.2",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -1704,7 +1709,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1731,7 +1736,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -1822,7 +1827,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1849,7 +1854,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.3.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1876,7 +1881,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -1938,7 +1943,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2001,7 +2006,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2028,7 +2033,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.2",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2109,7 +2114,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2181,7 +2186,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.3.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2270,7 +2275,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [
         {
@@ -2315,7 +2320,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2342,7 +2347,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Financial Services & Investment"
     },
     {
@@ -2369,7 +2374,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2396,7 +2401,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2423,7 +2428,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -2487,7 +2492,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.2",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
     },
     {
@@ -2514,7 +2519,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2541,7 +2546,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2622,7 +2627,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2649,7 +2654,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2676,7 +2681,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2691,7 +2696,7 @@
       "date": "5 December 2024",
       "location": "Santiago, Chile",
       "scope": "Chile (National)",
-      "description": "Chilean government's strategic plan to position Chile as Latin America's leading data centre hub, with regulatory frameworks and infrastructure investments to attract hyperscaler investment, including from Google, AWS, and Microsoft.",
+      "description": "Chilean government's strategic plan to position Chile as a technology hub in Latin America, with regulatory frameworks and infrastructure investments to attract hyperscaler investment, including from Google, AWS, and Microsoft.",
       "investment": "US$15B+ projected investment; 3+ hyperscaler commitments",
       "domain": "Energy/Infrastructure",
       "sources": 2,
@@ -2703,7 +2708,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3",
+      "version": "1.3.2",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
     },
     {
@@ -2730,7 +2735,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2757,7 +2762,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2784,7 +2789,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2811,7 +2816,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2884,7 +2889,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2947,7 +2952,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "infrastructureThreads": [
         {
@@ -2982,7 +2987,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms",
       "infrastructureThreads": [
         {
@@ -3017,7 +3022,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "infrastructureThreads": [
         {
@@ -3058,7 +3063,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "infrastructureThreads": [
         {
@@ -3093,7 +3098,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3151,7 +3156,7 @@
       "date": "19 July 2023",
       "location": "Santa Clara, California, USA",
       "scope": "UAE (G42) + USA (Cerebras) partnership",
-      "description": "Cerebras Systems and G42 joint AI supercomputer deployment, the first large-scale Wafer-Scale Engine cluster. Deployed at Colovore data centre in Santa Clara, California under U.S. law. Condor Galaxy network comprises three U.S.-based systems (CG-1, CG-2, CG-3) funded through UAE–U.S. strategic partnership, establishing significant cross-border AI compute capacity.",
+      "description": "Cerebras Systems and G42 joint AI supercomputer deployment, the first large-scale Wafer-Scale Engine cluster. Deployed at Colovore data centre in Santa Clara, California under U.S. law. Condor Galaxy network is a planned nine-system network, of which three are U.S.-based (CG-1, CG-2, CG-3), funded through UAE–U.S. strategic partnership, establishing significant cross-border AI compute capacity.",
       "investment": "US$900 million total programme; 16 ExaFLOPS combined network",
       "domain": "Energy/Infrastructure",
       "sources": 2,
@@ -3163,7 +3168,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.2",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -3254,7 +3259,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3281,7 +3286,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3308,7 +3313,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3335,7 +3340,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3509,7 +3514,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "basel5": [
         {
           "factor": "Size",
@@ -3538,7 +3543,7 @@
         }
       ],
       "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
-      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). EuroHPC Joint Undertaking pre-exascale supercomputer established under Council Regulation (EU) 2021/1173 with 11-country consortium including Finland (host), Belgium, Czech Republic, Denmark, Estonia, Iceland, Netherlands, Norway, Poland, Sweden, and Switzerland. Official EuroHPC JU documentation frames LUMI as supporting European digital sovereignty, AI ecosystem development, and scientific competitiveness. All consortium members are Western-aligned (EU/EEA members or Switzerland participating in EU institutional frameworks). No cross-bloc restrictions or explicit Eastern Bloc references in governing documentation.",
+      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). An eleven-state consortium's shared supercomputer, established under Council Regulation (EU) 2021/1173 and operated by CSC at Kajaani for the EuroHPC Joint Undertaking. The Undertaking's inauguration release and CSC's system documentation frame LUMI as European research infrastructure for AI and scientific computing, its GPU partition built on AMD Instinct accelerators. Governance, funding and access all run through the Undertaking's own institutional framework: every consortium state participates through the Undertaking, under the Regulation that constitutes it.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -3683,14 +3688,14 @@
       "sources": 3,
       "corroborating": 2,
       "confidence": "A",
-      "description": "World's first comprehensive binding regulatory framework for recommendation algorithms. Establishes mandatory algorithm filing system, transparency requirements, and user control mechanisms for AI-powered content curation. Regulates generation/synthesis, personalized recommendation, ranking/selection, retrieval/filtering, and dispatching/decision-making algorithm technologies. Creates foundational regulatory infrastructure that subsequent AI regulations (Deep Synthesis, Generative AI Interim Measures) operationalise via explicit statutory cross-references. Joint issuance by CAC, MIIT, MPS, and SAMR.",
+      "description": "Comprehensive binding regulatory framework for recommendation algorithms. Establishes mandatory algorithm filing system, transparency requirements, and user control mechanisms for AI-powered content curation. Regulates generation/synthesis, personalized recommendation, ranking/selection, retrieval/filtering, and dispatching/decision-making algorithm technologies. Creates foundational regulatory infrastructure that subsequent AI regulations (Deep Synthesis, Generative AI Interim Measures) operationalise via explicit statutory cross-references. Joint issuance by CAC, MIIT, MPS, and SAMR.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.2",
       "verificationCheckpoints": {
         "aiConnection": true,
         "quantitativeThreshold": true,
@@ -3725,7 +3730,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "verificationCheckpoints": {
         "aiConnection": true,
         "quantitativeThreshold": true,
@@ -3749,18 +3754,18 @@
       "eventType": "Corporate",
       "domain": "Technology",
       "scope": "People's Republic of China (Mainland)",
-      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); China's #1 AIGC platform by user base",
+      "investment": "Not disclosed (ByteDance internal development); 116M MAU (March 2025); among China's largest AIGC platforms by usage",
       "sources": 3,
-      "corroborating": 1,
+      "corroborating": 2,
       "confidence": "A",
-      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025 to become China's largest AIGC application. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among first batch of 8 enterprises approved for public GenAI services on 31 August 2023.",
+      "description": "ByteDance's flagship AI assistant platform powered by the Doubao Large Language Model, achieving 116M MAU by March 2025, among the largest AIGC applications in China by usage. Multimodal capabilities include conversational AI, image generation (Seedream), and video generation (Seedance). Originally registered as Yunque (云雀) under CAC algorithm filing system, later rebranded as Doubao (豆包). Among the first batch approved for public GenAI services on 31 August 2023.",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "verificationCheckpoints": {
         "aiConnection": true,
         "quantitativeThreshold": true,
@@ -3794,7 +3799,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3813,7 +3818,7 @@
       "investment": "US$18 billion contract value over 17 years; 1,920 MW capacity at full ramp by 2032; part of Amazon's US$20 billion Pennsylvania investment programme",
       "domain": "Energy/Infrastructure",
       "sources": 3,
-      "corroborating": 3,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3821,7 +3826,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.2",
       "industryPrimary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3867,7 +3872,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "infrastructureThreads": [
         {
@@ -3902,7 +3907,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3929,7 +3934,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3943,9 +3948,9 @@
       "sample": false,
       "date": "14 March 2023",
       "location": "San Francisco, United States",
-      "scope": "Global (170+ countries via ChatGPT Plus and API)",
-      "description": "OpenAI released GPT-4, a frontier multimodal large language model, via the ChatGPT Plus platform and API. The model powered a platform exceeding 100M MAU at launch, with adoption by 92% of Fortune 500 companies and availability in 170+ countries, establishing it as the leading Western closed-source AI model.",
-      "investment": "~1.7T estimated parameters; 170+ country availability; 92% Fortune 500 adoption; 100M+ WAU (November 2023); 400M+ WAU (February 2025); Microsoft strategic investment context (US$13B+ cumulative)",
+      "scope": "Global (via ChatGPT Plus and API)",
+      "description": "OpenAI released GPT-4, a frontier multimodal large language model, via the ChatGPT Plus platform and API. The model powered a platform exceeding 100M MAU at launch, with adoption by 92% of Fortune 500 companies, establishing it as the leading Western closed-source AI model.",
+      "investment": "~1.7T estimated parameters; 92% Fortune 500 adoption; 100M+ WAU (November 2023); 400M+ WAU (February 2025); Microsoft strategic investment context (US$13B+ cumulative)",
       "domain": "Technology",
       "sources": 2,
       "corroborating": 2,
@@ -3956,7 +3961,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3983,7 +3988,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -4010,7 +4015,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -4037,7 +4042,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -4064,7 +4069,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -4080,7 +4085,7 @@
       "location": "San Francisco, United States",
       "scope": "Global (159 countries via API)",
       "description": "Anthropic released the Claude 3 model family (Opus, Sonnet, Haiku), achieving frontier benchmark performance (#1 on multiple evaluations) and API availability across 159 countries, establishing a major Western closed-source AI capability.",
-      "investment": "Claude 3 family (Opus/Sonnet/Haiku); 159 country availability; #1 Chatbot Arena ranking at launch; MMLU 86.8%, GPQA 50.4%, HumanEval 84.9%; ASL-2 safety classification; Amazon Bedrock and Google Cloud Vertex AI integration",
+      "investment": "Claude 3 family (Opus/Sonnet/Haiku); 159 country availability; MMLU 86.8%, GPQA 50.4%, HumanEval 84.9%; ASL-2 safety classification; Amazon Bedrock and Google Cloud Vertex AI integration",
       "domain": "Technology",
       "sources": 2,
       "corroborating": 2,
@@ -4091,7 +4096,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
