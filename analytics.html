@@ -473,6 +473,12 @@
            overflow the panel in either direction at any width. */
         .panel-title { position: relative; }
         .info-wrap { display: inline-flex; vertical-align: middle; }
+        /* The glyph is a lowercase "i", not a "?" — in a circle it reads as ⓘ, "there is
+           more to know here", where a question mark turned every panel heading into a
+           question ("ENDPOINTS?"). The box is a fixed 14×14 with the glyph centred, so
+           which character sits inside it cannot move anything: the swap is paint-only.
+           text-transform: none is load-bearing — panel titles are uppercase and would
+           otherwise render this as a capital I. */
         .info-dot {
             position: relative; flex: none;
             width: 14px; height: 14px; padding: 0;
@@ -834,7 +840,7 @@
     <!-- Breakdowns row 3 -->
     <div class="panels-row">
         <div class="panel">
-            <div class="panel-title"><span class="panel-title-text">Countries <span class="panel-stat" id="countryStat"></span><span class="info-wrap"><button type="button" class="info-dot" aria-label="About the country count" aria-expanded="false">?</button><span class="info-pop" role="tooltip">Distinct request origins, not distinct users. Data-centre regions hosting scanner infrastructure inflate this — read it as reach of the crawl, not size of an audience.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('countryPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div class="panel-title"><span class="panel-title-text">Countries <span class="panel-stat" id="countryStat"></span><span class="info-wrap"><button type="button" class="info-dot" aria-label="About the country count" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Distinct request origins, not distinct users. Data-centre regions hosting scanner infrastructure inflate this — read it as reach of the crawl, not size of an audience.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('countryPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="countryPanel" class="panel-list"></div>
         </div>
         <div class="panel">
@@ -874,7 +880,7 @@
             <div id="namedClientPanel" class="panel-list"></div>
         </div>
         <div class="panel">
-            <div class="panel-title"><span class="panel-title-text">Protocol Versions<span class="info-wrap"><button type="button" class="info-dot" aria-label="About protocol versions" aria-expanded="false">?</button><span class="info-pop" role="tooltip">The MCP protocol revision each connecting client asks for when it opens a session. Watch it to catch the moment consumers start speaking a newer revision than this server serves.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('protocolPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div class="panel-title"><span class="panel-title-text">Protocol Versions<span class="info-wrap"><button type="button" class="info-dot" aria-label="About protocol versions" aria-expanded="false">i</button><span class="info-pop" role="tooltip">The MCP protocol revision each connecting client asks for when it opens a session. Watch it to catch the moment consumers start speaking a newer revision than this server serves.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('protocolPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="protocolPanel" class="panel-list"></div>
         </div>
     </div>
@@ -903,15 +909,25 @@
     var lastRawData = null;
     var lastRenderedDays = null;
 
-    // Denominator for the Tools panel's "N of M called" figure. The dashboard has no
-    // tools/list access, so this is a mirror of the worker's registered tool count —
-    // true it against worker.js when tools are added. (Verified 15 at worker 1.18.7.)
-    var MCP_TOOL_COUNT = 15;
+    // Denominator for the Tools panel's "N of M called" figure, and the ONLY place the
+    // registered tool count is written down on this page. The analytics response carries
+    // by_tool — the tools actually CALLED — never the tools registered, so the figure
+    // cannot be derived from the data the dashboard already holds.
+    //
+    // THIS MUST BE UPDATED WHEN A TOOL SHIPS. To true it, ask the live server:
+    //   curl -s -X POST https://warmthengine.com/mcp \
+    //     -H 'Content-Type: application/json' \
+    //     -H 'Accept: application/json, text/event-stream' \
+    //     -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
+    //     | grep -o '"name":"[a-z_]*"' | sort -u | wc -l
+    // (Verified 17 against that endpoint on 10 August 2026, worker 1.18.7.)
+    var MCP_TOOL_COUNT = 17;
 
-    // Per-row delta suppression floor. Below this, a 1→3 row reads "+200%" and the panel
-    // fills with movement that means nothing at current volumes. Such rows show no delta
-    // at all — not a zero, not a dash.
-    var ROW_DELTA_FLOOR = 10;
+    // Per-row delta suppression floor, and the only place the figure is written down —
+    // the tooltip interpolates it rather than restating it. Below this, a 3→12 row reads
+    // "+300%" and the panel fills with movement that means nothing at current volumes.
+    // Such rows show no delta at all — not a zero, not a dash.
+    var ROW_DELTA_FLOOR = 20;
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -1267,7 +1283,7 @@
             }
         }
         // Tools: the denominator carries the meaning — how much of the surface is used at
-        // all. No delta; "9 of 15" already says everything a percentage would.
+        // all. No delta; "9 of 17" already says everything a percentage would.
         var toolsStat = document.getElementById('toolsStat');
         if (toolsStat) {
             var called = Object.keys(agg.by_tool || {}).length;
@@ -1499,7 +1515,7 @@
     // Attach (or remove) the delta explanation on a panel's title, driven by whether the
     // panel actually rendered a delta — so the affordance appears exactly where it applies.
     // A panel that already carries its own tooltip gets the text appended to THAT popover
-    // rather than a second dot beside the first: one question mark per panel, always.
+    // rather than a second dot beside the first: one info marker per panel, always.
     function setDeltaInfo(container, show) {
         var panel = container.closest ? container.closest('.panel') : null;
         if (!panel) return;
@@ -1521,7 +1537,7 @@
         if (existing) return;
         titleText.insertAdjacentHTML('beforeend',
             '<span class="info-wrap delta-info">' +
-                '<button type="button" class="info-dot" aria-label="About these deltas" aria-expanded="false">?</button>' +
+                '<button type="button" class="info-dot" aria-label="About these deltas" aria-expanded="false">i</button>' +
                 '<span class="info-pop" role="tooltip">' + escapeHtml(DELTA_TIP) + '</span>' +
             '</span>');
     }
