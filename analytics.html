@@ -322,6 +322,11 @@
             border: 1px solid var(--weo-border-primary);
             border-radius: var(--weo-radius-lg);
             padding: var(--weo-space-lg);
+            /* A grid item's automatic minimum size is its min-content width, so a single
+               long nowrap user-agent string stretched the panel past its column and gave
+               the whole page a horizontal scrollbar — the .bar-label ellipsis never got a
+               chance to apply. min-width:0 lets the column govern and the ellipsis work. */
+            min-width: 0;
         }
         /* Diagnostic panel — amber accent for UA/unidentified panel */
         .panel-diag { border-color: rgba(251, 191, 36, 0.35); }
@@ -386,7 +391,8 @@
         }
         /* Tool Calls log: middle column (client · country) for a per-call attribution row. */
         .tcl-meta {
-            flex: 1; font-family: var(--weo-font-mono); font-size: 0.75rem;
+            flex: 1; min-width: 0;   /* same reason as .panel: without it the ellipsis below is inert */
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-secondary);
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
@@ -429,6 +435,102 @@
         .copy-btn:hover {
             color: var(--weo-text-primary);
             border-color: var(--weo-text-secondary);
+        }
+
+        /* Distinct-count figure in a panel title — the .metric-stat treatment, carried
+           into the title bar. The title is uppercase + letter-spaced; both inherit, so
+           reset them here or the figure competes with the title it sits under. */
+        .panel-stat {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem; font-weight: 480;
+            color: var(--weo-text-muted);
+            text-transform: none; letter-spacing: 0;
+            margin-left: var(--weo-space-xs);
+        }
+
+        /* Per-row delta (bar panels). Geometry is FIXED: the element is emitted for
+           every row in a delta-enabled panel and left empty when the floor suppresses
+           it, so a row reads identically with or without a figure. line-height matches
+           .bar-track's 20px so an empty row and a filled row are the same height.
+           Colour comes from the shared .metric-delta modifiers; this rule sits after
+           them in the sheet, so the geometry overrides win at equal specificity. */
+        .bar-delta {
+            flex: 0 0 54px;
+            font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 480;
+            text-align: right; white-space: nowrap;
+            margin-top: 0; min-height: 0; line-height: 20px;
+        }
+        @media (max-width: 767px) {
+            .bar-delta { flex-basis: 46px; }
+        }
+
+        /* ========================================
+           INFO TOOLTIPS (tap-to-toggle; hover is the desktop bonus, not the mechanism)
+           ======================================== */
+        /* The popover is positioned against the PANEL TITLE, not the dot. Anchoring it to
+           the dot pushed it past the panel's right edge on narrow screens — and because a
+           visibility:hidden element still takes part in layout, that widened the page's
+           scrollable area even with every tooltip closed. Bounded by the title, it cannot
+           overflow the panel in either direction at any width. */
+        .panel-title { position: relative; }
+        .info-wrap { display: inline-flex; vertical-align: middle; }
+        .info-dot {
+            position: relative; flex: none;
+            width: 14px; height: 14px; padding: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: transparent;
+            border: 1px solid var(--weo-border-subtle);
+            border-radius: 50%;
+            color: var(--weo-text-muted);
+            font-family: var(--weo-font-mono); font-size: 0.5625rem; font-weight: 700;
+            line-height: 1; text-transform: none; letter-spacing: 0;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out),
+                        background-color var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        /* Touch target grown to ~34px without growing the dot — an absolutely
+           positioned pseudo-element takes no space, so this is paint-free geometry. */
+        .info-dot::before { content: ''; position: absolute; inset: -10px; }
+        .info-dot:hover, .info-wrap.open .info-dot {
+            color: var(--weo-text-primary); border-color: var(--weo-text-secondary);
+        }
+        /* Press feedback is colour only — never size, never position. */
+        .info-dot:active { background: var(--weo-hover-overlay); }
+        .info-pop {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: max-content;
+            /* 100% is the panel title's width, so the cap self-adjusts to the panel. */
+            max-width: min(300px, 100%);
+            background: var(--weo-surface-overlay);
+            border: 1px solid var(--weo-border-subtle);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-sm) 0.625rem;
+            font-family: var(--weo-font-sans); font-size: 0.75rem; font-weight: 380;
+            line-height: 1.5; text-transform: none; letter-spacing: 0;
+            text-align: left; color: var(--weo-text-secondary);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity var(--weo-duration-fast) var(--weo-ease-out),
+                        visibility var(--weo-duration-fast);
+            z-index: 60;
+        }
+        /* Second paragraph inside a popover that explains two things (a panel with its own
+           tooltip that also carries row deltas), separated rather than run together. */
+        .info-pop-para {
+            display: block;
+            margin-top: var(--weo-space-sm);
+            padding-top: var(--weo-space-sm);
+            border-top: 1px solid var(--weo-border-primary);
+        }
+        /* pointer-events only once open, so the text is selectable when tapped open but
+           the hidden popover never intercepts clicks on the panel underneath it. */
+        .info-wrap.open .info-pop { opacity: 1; visibility: visible; pointer-events: auto; }
+        .info-dot:focus-visible + .info-pop { opacity: 1; visibility: visible; }
+        @media (hover: hover) {
+            .info-wrap:hover .info-pop { opacity: 1; visibility: visible; }
         }
 
         /* ========================================
@@ -700,11 +802,11 @@
     <!-- Breakdowns row 1 -->
     <div class="panels-row">
         <div class="panel">
-            <div class="panel-title">Client Types</div>
+            <div class="panel-title"><span class="panel-title-text">Client Types</span> <button class="copy-btn" onclick="copyBarPanel('clientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="clientPanel" class="panel-list"></div>
         </div>
         <div class="panel">
-            <div class="panel-title">Endpoints</div>
+            <div class="panel-title"><span class="panel-title-text">Endpoints</span> <button class="copy-btn" onclick="copyBarPanel('endpointPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="endpointPanel" class="panel-list"></div>
         </div>
     </div>
@@ -712,11 +814,11 @@
     <!-- Breakdowns row 2: Tools + Methods -->
     <div class="panels-row">
         <div class="panel">
-            <div class="panel-title">Tools</div>
+            <div class="panel-title"><span class="panel-title-text">Tools <span class="panel-stat" id="toolsStat"></span></span> <button class="copy-btn" onclick="copyBarPanel('toolsPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="toolsPanel" class="panel-list"></div>
         </div>
         <div class="panel">
-            <div class="panel-title">MCP Methods</div>
+            <div class="panel-title"><span class="panel-title-text">MCP Methods</span> <button class="copy-btn" onclick="copyBarPanel('methodsPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="methodsPanel" class="panel-list"></div>
         </div>
     </div>
@@ -732,7 +834,7 @@
     <!-- Breakdowns row 3 -->
     <div class="panels-row">
         <div class="panel">
-            <div class="panel-title">Countries</div>
+            <div class="panel-title"><span class="panel-title-text">Countries <span class="panel-stat" id="countryStat"></span><span class="info-wrap"><button type="button" class="info-dot" aria-label="About the country count" aria-expanded="false">?</button><span class="info-pop" role="tooltip">Distinct request origins, not distinct users. Data-centre regions hosting scanner infrastructure inflate this — read it as reach of the crawl, not size of an audience.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('countryPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="countryPanel" class="panel-list"></div>
         </div>
         <div class="panel">
@@ -748,11 +850,11 @@
     <!-- MCP Client Breakdown -->
     <div class="panels-row">
         <div class="panel">
-            <div class="panel-title">MCP by Client</div>
+            <div class="panel-title"><span class="panel-title-text">MCP by Client</span> <button class="copy-btn" onclick="copyBarPanel('mcpClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="mcpClientPanel" class="panel-list"></div>
         </div>
         <div class="panel">
-            <div class="panel-title">API by Client</div>
+            <div class="panel-title"><span class="panel-title-text">API by Client</span> <button class="copy-btn" onclick="copyBarPanel('apiClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="apiClientPanel" class="panel-list"></div>
         </div>
     </div>
@@ -760,21 +862,29 @@
     <!-- Diagnostic panels (full-width, stacked) -->
     <div class="panels-row">
         <div class="panel panel-diag" style="grid-column:1/-1">
-            <div class="panel-title panel-title-diag"><span>Unidentified Clients · User-Agent</span> <button class="copy-btn" onclick="copyBarPanel('uaPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div class="panel-title panel-title-diag"><span class="panel-title-text">Unidentified Clients · User-Agent</span> <button class="copy-btn" onclick="copyBarPanel('uaPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="uaPanel" class="panel-list"></div>
         </div>
     </div>
+    <!-- Both panels below read the SAME `initialize` handshake: who the client says it
+         is, and which protocol revision it asks for. Paired so they are read together. -->
     <div class="panels-row">
-        <div class="panel" style="grid-column:1/-1">
-            <div class="panel-title"><span>Named MCP Clients</span> <button class="copy-btn" onclick="copyBarPanel('namedClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+        <div class="panel">
+            <div class="panel-title"><span class="panel-title-text">Named MCP Clients</span> <button class="copy-btn" onclick="copyBarPanel('namedClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="namedClientPanel" class="panel-list"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title"><span class="panel-title-text">Protocol Versions<span class="info-wrap"><button type="button" class="info-dot" aria-label="About protocol versions" aria-expanded="false">?</button><span class="info-pop" role="tooltip">The MCP protocol revision each connecting client asks for when it opens a session. Watch it to catch the moment consumers start speaking a newer revision than this server serves.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('protocolPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="protocolPanel" class="panel-list"></div>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="page-footer">
         <div class="footer-badge">WARMTH ENGINE OBSERVATORY</div>
-        <div class="footer-version" id="footerVersion">Methodology V1.5 · WEO v1.4.0 · Analytics</div>
+        <!-- Pre-load placeholder: claims no version. render() replaces it with the
+             worker version carried on the most recent day object once data arrives. -->
+        <div class="footer-version" id="footerVersion">Analytics</div>
         <div class="footer-version"><a href="https://warmthengine.com/mcp" style="color: var(--weo-accent-hover); text-decoration: none;">MCP reference</a> · <a href="/llms.txt" style="color: var(--weo-accent-hover); text-decoration: none;">llms.txt</a></div>
     </div>
 </div>
@@ -792,6 +902,16 @@
     var lastCsvData = null;
     var lastRawData = null;
     var lastRenderedDays = null;
+
+    // Denominator for the Tools panel's "N of M called" figure. The dashboard has no
+    // tools/list access, so this is a mirror of the worker's registered tool count —
+    // true it against worker.js when tools are added. (Verified 15 at worker 1.18.7.)
+    var MCP_TOOL_COUNT = 15;
+
+    // Per-row delta suppression floor. Below this, a 1→3 row reads "+200%" and the panel
+    // fills with movement that means nothing at current volumes. Such rows show no delta
+    // at all — not a zero, not a dash.
+    var ROW_DELTA_FLOOR = 10;
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -905,6 +1025,25 @@
             addMap('named_client', agg.by_mcp_client_named);
             addMap('mcp_client', agg.mcp_by_client);
             addMap('api_client', agg.api_by_client);
+            addMap('protocol_version', agg.by_protocol_version);
+            addMap('hour', agg.by_hour);
+
+            // Per-call attribution log. Rows, not a count-map, so it gets its own headed
+            // section after the maps rather than being flattened into field,value pairs.
+            // Country stays a raw code here — the CSV's existing convention throughout.
+            if (agg.tools_call_log && agg.tools_call_log.length) {
+                lines.push('');
+                lines.push('tool_calls');
+                lines.push('ts,tool,client,country');
+                agg.tools_call_log.forEach(function(rec) {
+                    lines.push([
+                        rec.ts || '',
+                        rec.tool || '',
+                        rec.named_client || rec.client || '',
+                        rec.country || ''
+                    ].map(function(v) { return String(v).replace(/,/g, ';'); }).join(','));
+                });
+            }
 
             var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
             var url = URL.createObjectURL(blob);
@@ -1031,10 +1170,17 @@
                 var nameSet = {};
                 currentDates.forEach(function(d) {
                     var day = rawData[d] || {};
+                    // The worker stores this as a name→count MAP (bounded at 50), not an
+                    // array — an Array.isArray-only test here silently returned 0 for every
+                    // multi-day view. Both shapes are accepted so old and new days both count.
                     var names = day.mcp_client_names;
                     if (Array.isArray(names)) {
                         if (names.length >= 50) hitCap = true;
                         names.forEach(function(n) { nameSet[n] = 1; });
+                    } else if (names && typeof names === 'object') {
+                        var nameKeys = Object.keys(names);
+                        if (nameKeys.length >= 50) hitCap = true;
+                        nameKeys.forEach(function(n) { nameSet[n] = 1; });
                     }
                 });
                 distinctCount = Object.keys(nameSet).length;
@@ -1073,17 +1219,67 @@
             }
         }
 
+        // --- Per-row delta context -------------------------------------------------
+        // The top cards compare against the prior period trimmed to the current hour.
+        // by_hour is the ONLY hourly split the worker stores — there are no per-dimension
+        // hourly buckets — so a row can never reproduce that exactly. Instead take the
+        // fraction-of-period the cards land on and scale each prior row value by it.
+        // That makes every row delta an ESTIMATE, and it is labelled as one.
+        var priorFraction = (pitPrior && priorTotal > 0) ? (pitPrior.total / priorTotal) : null;
+        if (priorFraction !== null && !isFinite(priorFraction)) priorFraction = null;
+        function deltaCtx(priorMap) {
+            if (!hasPrior || priorFraction === null || !priorMap) return null;
+            return { prior: priorMap, fraction: priorFraction };
+        }
+
         // Breakdown panels
-        renderBars('clientPanel', agg.by_client, 'client');
-        renderBars('endpointPanel', agg.by_endpoint, 'api');
-        renderBars('toolsPanel', agg.by_tool, 'mcp');
-        renderBars('methodsPanel', agg.by_method, 'api');
-        renderBars('countryPanel', agg.by_country, 'country');
-        renderBars('mcpClientPanel', agg.mcp_by_client, 'mcp');
-        renderBars('apiClientPanel', agg.api_by_client, 'api');
-        renderBars('uaPanel', agg.by_ua, 'diag');
-        renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp');
+        renderBars('clientPanel', agg.by_client, 'client', deltaCtx(prior.by_client));
+        renderBars('endpointPanel', agg.by_endpoint, 'api', deltaCtx(prior.by_endpoint));
+        renderBars('toolsPanel', agg.by_tool, 'mcp', deltaCtx(prior.by_tool));
+        renderBars('methodsPanel', agg.by_method, 'api', deltaCtx(prior.by_method));
+        renderBars('countryPanel', agg.by_country, 'country', deltaCtx(prior.by_country));
+        renderBars('mcpClientPanel', agg.mcp_by_client, 'mcp', deltaCtx(prior.mcp_by_client));
+        renderBars('apiClientPanel', agg.api_by_client, 'api', deltaCtx(prior.api_by_client));
+        renderBars('uaPanel', agg.by_ua, 'diag', deltaCtx(prior.by_ua));
+        renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp', deltaCtx(prior.by_mcp_client_named));
+        renderBars('protocolPanel', agg.by_protocol_version, 'mcp', deltaCtx(prior.by_protocol_version));
         renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
+
+        // --- Panel-title distinct counts -------------------------------------------
+        // Countries: distinct origins, with a period-over-period move. This is a count of
+        // KEYS, which no time-scaling can meaningfully trim, so it compares whole period
+        // against whole period — unlike the row deltas above.
+        var countryStat = document.getElementById('countryStat');
+        if (countryStat) {
+            var nowCountries = Object.keys(agg.by_country || {}).length;
+            if (nowCountries === 0) {
+                countryStat.textContent = '';
+            } else {
+                var txt = nowCountries + ' distinct';
+                if (hasPrior) {
+                    var wasCountries = Object.keys(prior.by_country || {}).length;
+                    var diff = nowCountries - wasCountries;
+                    if (diff > 0) txt += ' · ▲ +' + diff;
+                    else if (diff < 0) txt += ' · ▼ ' + diff;
+                    else txt += ' · → flat';
+                }
+                countryStat.textContent = txt;
+            }
+        }
+        // Tools: the denominator carries the meaning — how much of the surface is used at
+        // all. No delta; "9 of 15" already says everything a percentage would.
+        var toolsStat = document.getElementById('toolsStat');
+        if (toolsStat) {
+            var called = Object.keys(agg.by_tool || {}).length;
+            if (called === 0) {
+                toolsStat.textContent = '';
+            } else if (called > MCP_TOOL_COUNT) {
+                // Defensive: the worker gained tools since MCP_TOOL_COUNT was last trued.
+                toolsStat.textContent = called + ' called';
+            } else {
+                toolsStat.textContent = called + ' of ' + MCP_TOOL_COUNT + ' called';
+            }
+        }
 
         // Hourly chart
         lastHourData = agg.by_hour;
@@ -1096,6 +1292,9 @@
             by_country: {}, by_endpoint: {}, by_client: {}, by_hour: {},
             mcp_by_client: {}, api_by_client: {},
             by_ua: {}, by_method: {}, by_tool: {}, by_mcp_client_named: {},
+            // Worker 1.18.7, forward-only: days stored before that carry no such key, so
+            // merge() no-ops on them and the panel is simply sparse (never NaN, never empty-object throw).
+            by_protocol_version: {},
             tools_call_log: []   // list, not a count-map — concatenated (not merged) below
         };
         dates.forEach(function(d) {
@@ -1115,6 +1314,7 @@
             merge(result.by_method, day.by_method);
             merge(result.by_tool, day.by_tool);
             merge(result.by_mcp_client_named, day.by_mcp_client_named);
+            merge(result.by_protocol_version, day.by_protocol_version);
             // tools_call_log is a list, not a count-map — concatenate, don't merge().
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
@@ -1276,11 +1476,62 @@
         VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa', XX: 'Unknown'
     };
 
-    function renderBars(containerId, data, colorClass) {
+    // Row delta against the scaled prior value. Returns null when the floor suppresses it —
+    // the caller still emits the (empty) element, so row geometry never depends on this.
+    function rowDelta(current, priorRaw, fraction) {
+        var scaled = Math.round((priorRaw || 0) * fraction);
+        if (current < ROW_DELTA_FLOOR && scaled < ROW_DELTA_FLOOR) return null;
+        if (scaled === 0) return { cls: 'positive', text: '▲ new' };
+        var pct = Math.round((current - scaled) / scaled * 100);
+        // Cap the printed magnitude so the fixed-width column can never be overrun.
+        if (pct > 999) return { cls: 'positive', text: '▲ >999%' };
+        if (pct > 0) return { cls: 'positive', text: '▲ +' + pct + '%' };
+        if (pct < 0) return { cls: 'negative', text: '▼ ' + pct + '%' };
+        return { cls: 'neutral', text: '→ 0%' };
+    }
+
+    var DELTA_TIP = 'Estimated change against the previous period. Per-dimension hourly ' +
+        'data does not exist, so each prior row is scaled by the same fraction-of-period ' +
+        'the cards at the top compare against — close to their figure, not identical to it. ' +
+        'Rows below ' + ROW_DELTA_FLOOR + ' show no delta, because at these volumes one ' +
+        'extra request would read as a large percentage.';
+
+    // Attach (or remove) the delta explanation on a panel's title, driven by whether the
+    // panel actually rendered a delta — so the affordance appears exactly where it applies.
+    // A panel that already carries its own tooltip gets the text appended to THAT popover
+    // rather than a second dot beside the first: one question mark per panel, always.
+    function setDeltaInfo(container, show) {
+        var panel = container.closest ? container.closest('.panel') : null;
+        if (!panel) return;
+        var titleText = panel.querySelector('.panel-title-text');
+        if (!titleText) return;
+
+        var ownPop = titleText.querySelector('.info-wrap:not(.delta-info) .info-pop');
+        if (ownPop) {
+            var para = ownPop.querySelector('.info-pop-para');
+            if (!show) { if (para) para.parentNode.removeChild(para); return; }
+            if (para) return;
+            ownPop.insertAdjacentHTML('beforeend',
+                '<span class="info-pop-para">' + escapeHtml(DELTA_TIP) + '</span>');
+            return;
+        }
+
+        var existing = titleText.querySelector('.delta-info');
+        if (!show) { if (existing) existing.parentNode.removeChild(existing); return; }
+        if (existing) return;
+        titleText.insertAdjacentHTML('beforeend',
+            '<span class="info-wrap delta-info">' +
+                '<button type="button" class="info-dot" aria-label="About these deltas" aria-expanded="false">?</button>' +
+                '<span class="info-pop" role="tooltip">' + escapeHtml(DELTA_TIP) + '</span>' +
+            '</span>');
+    }
+
+    function renderBars(containerId, data, colorClass, ctx) {
         var container = document.getElementById(containerId);
         if (!container) return;
         if (!data || Object.keys(data).length === 0) {
             container.innerHTML = '<div class="empty-state">No data yet</div>';
+            setDeltaInfo(container, false);
             return;
         }
 
@@ -1288,6 +1539,7 @@
         var maxVal = sorted[0] ? sorted[0][1] : 1;
 
         var html = '';
+        var anyDelta = false;
         // Full granularity: render every entry; the .panel-list container scrolls.
         sorted.forEach(function(item) {
             var label = item[0];
@@ -1295,14 +1547,25 @@
             // Country panel only: show full name, fall back to the raw code. Every other panel unchanged.
             var displayLabel = (colorClass === 'country' && COUNTRY_NAMES[label]) ? COUNTRY_NAMES[label] : label;
             var pct = Math.max(2, count / maxVal * 100);
+            // With a delta context the column is emitted for EVERY row, empty when
+            // suppressed — appearing and disappearing costs no layout.
+            var deltaHtml = '';
+            if (ctx) {
+                var d = rowDelta(count, ctx.prior[label], ctx.fraction);
+                if (d) anyDelta = true;
+                deltaHtml = '<div class="bar-delta metric-delta ' + (d ? d.cls : 'neutral') + '">' +
+                    (d ? d.text : '') + '</div>';
+            }
             html +=
                 '<div class="bar-row">' +
                     '<div class="bar-label" title="' + escapeHtml(displayLabel) + '">' + escapeHtml(displayLabel) + '</div>' +
                     '<div class="bar-track"><div class="bar-fill ' + colorClass + '" style="width:' + pct + '%"></div></div>' +
                     '<div class="bar-count">' + fmt(count) + '</div>' +
+                    deltaHtml +
                 '</div>';
         });
         container.innerHTML = html;
+        setDeltaInfo(container, anyDelta);
     }
 
     // Compact "Ns / Nm / Nh / Nd ago" from an ISO timestamp; '' if unparseable.
@@ -1467,6 +1730,38 @@
         if (n >= 1000) return n.toLocaleString();
         return n.toString();
     }
+
+    // --- Info tooltips ---
+    // Delegated, so tooltips injected after render (the per-panel delta explanation)
+    // work without rewiring. Tap toggles; the popover is absolutely positioned, so
+    // opening one moves nothing on the page.
+    function closeAllInfo() {
+        document.querySelectorAll('.info-wrap.open').forEach(function(w) {
+            w.classList.remove('open');
+            var dot = w.querySelector('.info-dot');
+            if (dot) dot.setAttribute('aria-expanded', 'false');
+        });
+    }
+    document.addEventListener('click', function(e) {
+        var dot = e.target && e.target.closest ? e.target.closest('.info-dot') : null;
+        if (dot) {
+            e.preventDefault();
+            e.stopPropagation();
+            var wrap = dot.parentNode;
+            var willOpen = !wrap.classList.contains('open');
+            closeAllInfo();
+            if (willOpen) {
+                wrap.classList.add('open');
+                dot.setAttribute('aria-expanded', 'true');
+            }
+            return;
+        }
+        // A tap inside an open popover keeps it open (text is selectable); anywhere else closes.
+        if (!(e.target && e.target.closest && e.target.closest('.info-pop'))) closeAllInfo();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeAllInfo();
+    });
 
     // --- Nav toggle ---
     var navToggle = document.getElementById('navToggle');
