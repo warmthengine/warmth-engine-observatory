@@ -7208,7 +7208,7 @@
       "aiConnectionPathway": "trace",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "TRACE (4 materials — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (lithium, cobalt, graphite, rare earth elements — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -7266,7 +7266,7 @@
       "aiConnectionPathway": "trace",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (gallium, germanium, lithium, cobalt, rare earth elements, graphite — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -7296,7 +7296,7 @@
       "aiConnectionPathway": "trace",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "TRACE (3 materials — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (lithium, cobalt, graphite — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -7326,7 +7326,7 @@
       "aiConnectionPathway": "trace",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "TRACE (6 materials — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (lithium, cobalt, rare earth elements, graphite, gallium, germanium — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
