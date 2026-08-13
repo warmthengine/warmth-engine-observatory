@@ -1,37 +1,37 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 199,
+    "total_events": 201,
     "sample_events": 6,
-    "standard_events": 193,
-    "last_updated": "2026-08-08",
+    "standard_events": 195,
+    "last_updated": "2026-08-13",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
-        "Western": 127,
+        "Western": 129,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 179,
+        "T3": 181,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 44,
         "Coordination": 31,
-        "Policy": 63,
+        "Policy": 65,
         "Corporate": 61
       },
       "by_confidence": {
-        "A": 194,
+        "A": 196,
         "B": 5
       },
       "by_assessment_pathway": {
         "basel5": 102,
         "keohane": 30,
-        "pisa5": 47,
+        "pisa5": 49,
         "routeBased": 20,
         "oep": 6,
         "piet": 5
@@ -39,8 +39,8 @@
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 55,
         "Semiconductors & Equipment": 41,
-        "AI Software & Platforms": 66,
-        "Mining & Critical Minerals": 10,
+        "AI Software & Platforms": 67,
+        "Mining & Critical Minerals": 11,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
@@ -48,22 +48,23 @@
         "Trade & Logistics": 1
       },
       "by_version": {
-        "1.2.1": 12,
+        "1.2.1": 10,
         "1.3": 1,
         "1.3.2": 2,
-        "1.1": 43,
-        "1.1.1": 33,
+        "1.1": 42,
+        "1.1.1": 28,
         "1.2": 16,
-        "1.1.2": 5,
+        "1.1.2": 11,
         "1.3.1": 2,
+        "1.2.3": 2,
         "1.2.2": 3,
         "1.0.1": 8,
-        "1.0": 74
+        "1.0": 76
       }
     },
-    "versionDate": "2026-08-08",
-    "lastAudit": "2026-08-08",
-    "event_count": 199,
+    "versionDate": "2026-08-13",
+    "lastAudit": "2026-08-13",
+    "event_count": 201,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -2492,7 +2493,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.2",
+      "version": "1.2.3",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
     },
     {
@@ -2546,7 +2547,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2627,7 +2628,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.2.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3286,7 +3287,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3313,7 +3314,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3514,7 +3515,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "basel5": [
         {
           "factor": "Size",
@@ -3543,7 +3544,7 @@
         }
       ],
       "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
-      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). An eleven-state consortium's shared supercomputer, established under Council Regulation (EU) 2021/1173 and operated by CSC at Kajaani for the EuroHPC Joint Undertaking. The Undertaking's inauguration release and CSC's system documentation frame LUMI as European research infrastructure for AI and scientific computing, its GPU partition built on AMD Instinct accelerators. Governance, funding and access all run through the Undertaking's own institutional framework: every consortium state participates through the Undertaking, under the Regulation that constitutes it.",
+      "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). An eleven-state consortium's shared supercomputer, established under Council Regulation (EU) 2021/1173 and operated by CSC at Kajaani for the EuroHPC Joint Undertaking. The Undertaking's inauguration release and CSC's system documentation frame LUMI as European research infrastructure for AI and scientific computing, its GPU partition built on AMD Instinct accelerators. Governance, funding and access all run through the Undertaking's own institutional framework: every consortium state participates under the Regulation that constitutes it.",
       "blocAnalysis": [
         {
           "bloc": "Western",
@@ -3765,7 +3766,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "verificationCheckpoints": {
         "aiConnection": true,
         "quantitativeThreshold": true,
@@ -3799,7 +3800,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.2.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3826,7 +3827,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.2",
+      "version": "1.2.3",
       "industryPrimary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3988,7 +3989,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -5661,7 +5662,14 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
+      "implementationAssessment": {
+        "test": "Manual §5.4 Criterion 1",
+        "assessed": "2026-08-11",
+        "outcome": "not_met",
+        "basis": "US adoption verified (INCITS/ISO/IEC 5259-3:2024); Chinese GB/T adoption registered under TC28, not yet published; P-member participation insufficient",
+        "retest_trigger": "publication of Chinese GB/T adoption of any ISO/IEC 5259 part"
+      },
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": []
     },
@@ -8530,6 +8538,65 @@
           "field": "description"
         }
       ]
+    },
+    {
+      "id": "231",
+      "name": "South Korea Special Act on National Resource Security",
+      "lat": 37.5665,
+      "lng": 126.978,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "February 2025",
+      "location": "Seoul, South Korea",
+      "scope": "South Korea (national jurisdiction)",
+      "description": "South Korea's Special Act on National Resource Security (국가자원안보 특별법) establishes mandatory stockpiling targets for critical minerals including gallium, germanium, rare earths, graphite, and lithium, with a cross-ministerial Resource Security Council integrating intelligence capabilities and four-tier crisis response powers.",
+      "investment": "241.7 billion KRW (~$180M USD) Gunsan Critical Minerals Stockpile Base; 5 trillion KRW (~$3.7B USD) Supply Chain Stabilisation Fund (KEXIM)",
+      "domain": "Trade",
+      "sources": 3,
+      "corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option G (gallium, germanium, rare earths, graphite, lithium — Supply-Chain-Verified)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "aiConnectionPathway": "option_g",
+      "industryPrimary": "Mining & Critical Minerals",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "232",
+      "name": "Germany BMBF KI-Aktionsplan (AI Action Plan)",
+      "lat": 52.52,
+      "lng": 13.405,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "7 November 2023",
+      "location": "Berlin, Germany",
+      "scope": "Germany — national AI action plan",
+      "description": "The German Federal Ministry of Education and Research published the KI-Aktionsplan, a national AI action plan identifying eleven priority action fields for AI research, compute infrastructure, and industrial application.",
+      "investment": "€1.6 billion across the legislative period; 11 action fields.",
+      "domain": "Technology",
+      "sources": 4,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
     }
   ]
 }
