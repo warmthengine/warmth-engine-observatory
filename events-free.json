@@ -4,7 +4,7 @@
     "total_events": 201,
     "sample_events": 6,
     "standard_events": 195,
-    "last_updated": "2026-08-13",
+    "last_updated": "2026-08-14",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
@@ -62,8 +62,8 @@
         "1.0": 76
       }
     },
-    "versionDate": "2026-08-13",
-    "lastAudit": "2026-08-13",
+    "versionDate": "2026-08-14",
+    "lastAudit": "2026-08-14",
     "event_count": 201,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -8185,10 +8185,10 @@
       "sources": 2,
       "corroborating": 0,
       "confidence": "A",
-      "aiConnectionPathway": "option_g",
+      "aiConnectionPathway": "trace",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "Option G (rare earth elements, gallium, germanium — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (rare earth elements, gallium, germanium — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
@@ -8559,13 +8559,13 @@
       "confidence": "A",
       "checkpoints": {
         "ai": true,
-        "aiDetail": "Option G (gallium, germanium, rare earths, graphite, lithium — Supply-Chain-Verified)",
+        "aiDetail": "TRACE (gallium, germanium, rare earths, graphite, lithium — Supply-Chain-Verified)",
         "threshold": true,
         "implemented": true,
         "current": true
       },
       "version": "1.0",
-      "aiConnectionPathway": "option_g",
+      "aiConnectionPathway": "trace",
       "industryPrimary": "Mining & Critical Minerals",
       "environmentalNexusTags": []
     },
