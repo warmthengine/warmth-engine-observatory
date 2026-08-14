@@ -73,11 +73,11 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1794,
-      "preserved": 1778,
+      "total_sources": 1811,
+      "preserved": 1795,
       "preservation_rate": 0.991,
       "by_status": {
-        "captured": 1667,
+        "captured": 1684,
         "recovered": 32,
         "existing": 79,
         "no_capture": 13,
@@ -86,12 +86,12 @@
       },
       "by_layer": {
         "events": {
-          "total": 1094,
-          "preserved": 1080
+          "total": 1103,
+          "preserved": 1089
         },
         "connections": {
-          "total": 428,
-          "preserved": 427
+          "total": 436,
+          "preserved": 435
         },
         "actors": {
           "total": 272,
@@ -1957,9 +1957,9 @@
             {
               "citation": "Yotta NM1 facility specifications",
               "type": "corroborating",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         },
@@ -2903,9 +2903,9 @@
             {
               "citation": "Event description — documented in WEO event canonical JSON",
               "type": "primary",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         },
@@ -3112,9 +3112,9 @@
             {
               "citation": "Event description — documented in WEO event canonical JSON",
               "type": "primary",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         },
@@ -4588,9 +4588,9 @@
             {
               "citation": "Event description — documented in WEO event canonical JSON",
               "type": "primary",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         }
@@ -4695,9 +4695,9 @@
             {
               "citation": "China Mobile corporate communications — cold-plate liquid cooling (冷板式液冷), PUE 1.15, 69% green electricity",
               "type": "corroborating",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         }
@@ -5085,16 +5085,16 @@
             {
               "citation": "ICPE/DREAL Auvergne-Rhône-Alpes environmental authorisation — STMicroelectronics Crolles",
               "type": "primary",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             },
             {
               "citation": "BImSchG permits, Landesdirektion Sachsen — Infineon Technologies Dresden",
               "type": "primary",
-              "captureStatus": "captured",
+              "captureStatus": "no_capture",
               "accessDate": "2026-06-08",
-              "snapshotUrl": "https://web.archive.org/web/20260608/"
+              "snapshotUrl": ""
             }
           ]
         }
