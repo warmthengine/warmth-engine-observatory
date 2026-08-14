@@ -73,20 +73,20 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1811,
+      "total_sources": 1806,
       "preserved": 1795,
-      "preservation_rate": 0.991,
+      "preservation_rate": 0.994,
       "by_status": {
         "captured": 1684,
         "recovered": 32,
         "existing": 79,
-        "no_capture": 13,
         "dead_source": 1,
-        "pending": 2
+        "pending": 2,
+        "no_capture": 8
       },
       "by_layer": {
         "events": {
-          "total": 1103,
+          "total": 1098,
           "preserved": 1089
         },
         "connections": {
@@ -3161,7 +3161,7 @@
       "investment": "US$900 million total programme; 16 ExaFLOPS combined network",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 3,
+      "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3360,7 +3360,7 @@
       "investment": "US$4.745B direct funding; US$37B+ total project; leading-edge 4nm/2nm logic",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3406,7 +3406,7 @@
       "investment": "US$1.61B direct funding; US$18B+ total project; mature-node 65nm-130nm analog/embedded",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3453,7 +3453,7 @@
       "investment": "US$1.5B direct funding; US$13B+ total project; current-generation automotive/IoT/defense",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
