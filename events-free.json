@@ -4,7 +4,7 @@
     "total_events": 201,
     "sample_events": 6,
     "standard_events": 195,
-    "last_updated": "2026-08-14",
+    "last_updated": "2026-08-17",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
@@ -62,8 +62,8 @@
         "1.0": 76
       }
     },
-    "versionDate": "2026-08-14",
-    "lastAudit": "2026-08-14",
+    "versionDate": "2026-08-17",
+    "lastAudit": "2026-08-17",
     "event_count": 201,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -543,6 +543,7 @@
       "bloc": "Western-Led",
       "tier": 2,
       "type": "Policy",
+      "fragmentationType": "Buildout",
       "sample": true,
       "date": "August 2022",
       "location": "Washington, DC, United States",
@@ -909,6 +910,7 @@
       "bloc": "Eastern-Led",
       "tier": 2,
       "type": "Policy",
+      "fragmentationType": "Restriction",
       "sample": true,
       "date": "August 2023",
       "location": "Beijing, China",
@@ -979,7 +981,7 @@
           "url": "https://english.mofcom.gov.cn/News/PressConference/art/2023/art_36fb2d80e4b4453891bb8fc83e2b3c4e.html",
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429065438/https://english.mofcom.gov.cn/favicon.ico"
+          "snapshotUrl": "https://web.archive.org/web/20260510101122/https://english.mofcom.gov.cn/News/PressConference/art/2023/art_36fb2d80e4b4453891bb8fc83e2b3c4e.html"
         },
         {
           "id": "P2",
@@ -987,7 +989,7 @@
           "url": "https://aqygzj.mofcom.gov.cn/qdml/art/2023/art_c2ae3d2061e14e97ba608de1ed565f78.html",
           "accessDate": "2026-04-30",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260430095949/https://aqygzj.mofcom.gov.cn/favicon.ico"
+          "snapshotUrl": "https://web.archive.org/web/20260510101133/https://aqygzj.mofcom.gov.cn/qdml/art/2023/art_c2ae3d2061e14e97ba608de1ed565f78.html"
         }
       ],
       "corroboratingSources": [
@@ -1461,6 +1463,7 @@
       "bloc": "Western-Led",
       "tier": 2,
       "type": "Corporate",
+      "fragmentationType": "Buildout",
       "sample": true,
       "date": "April 2024",
       "location": "Abu Dhabi, UAE",
@@ -3131,7 +3134,7 @@
               "url": "https://www.federalregister.gov/documents/2026/01/15/2026-00677/new-source-performance-standards-review-for-stationary-combustion-turbines-and-stationary-gas",
               "accessDate": "2026-04-29",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429044420/https://unblock.federalregister.gov/"
+              "snapshotUrl": "https://web.archive.org/web/20260609155620/https://www.federalregister.gov/documents/2026/01/15/2026-00677/new-source-performance-standards-review-for-stationary-combustion-turbines-and-stationary-gas"
             },
             {
               "citation": "SELC/Earthjustice/NAACP 60-day Notice of Intent to Sue, February 13, 2026",
