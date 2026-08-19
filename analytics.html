@@ -389,6 +389,16 @@
             font-family: var(--weo-font-mono); font-size: 0.75rem;
             color: var(--weo-text-muted); min-width: 40px; text-align: right;
         }
+        /* Tool Calls log: the tools/call arguments, next to the tool name they belong to
+           (1.18.8). Fixed flex-basis so the column lines up row to row and a long value
+           always ellipsizes instead of pushing .tcl-meta around; the full value rides in
+           the title attribute. Same size/height as its siblings — row height is unchanged. */
+        .tcl-args {
+            flex: 0 0 140px;
+            font-family: var(--weo-font-mono); font-size: 0.75rem;
+            color: var(--weo-text-muted);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
         /* Tool Calls log: middle column (client · country) for a per-call attribution row. */
         .tcl-meta {
             flex: 1; min-width: 0;   /* same reason as .panel: without it the ellipsis below is inert */
@@ -1050,11 +1060,12 @@
             if (agg.tools_call_log && agg.tools_call_log.length) {
                 lines.push('');
                 lines.push('tool_calls');
-                lines.push('ts,tool,client,country');
+                lines.push('ts,tool,args,client,country');
                 agg.tools_call_log.forEach(function(rec) {
                     lines.push([
                         rec.ts || '',
                         rec.tool || '',
+                        rec.args || '',   // Worker 1.18.8, forward-only: '' for pre-1.18.8 days too
                         rec.named_client || rec.client || '',
                         rec.country || ''
                     ].map(function(v) { return String(v).replace(/,/g, ';'); }).join(','));
@@ -1597,7 +1608,7 @@
         return Math.floor(h / 24) + 'd ago';
     }
 
-    // Per-call attribution list (not bars): one row per tools/call — tool · client · country · when.
+    // Per-call attribution list (not bars): one row per tools/call — tool · args · client · country · when.
     // Read-only; reuses the .bar-row rhythm. `list` is already sorted newest-first in aggregateDays.
     function renderToolCallLog(containerId, list) {
         var container = document.getElementById(containerId);
@@ -1613,6 +1624,10 @@
         // Full window: render every record; the #toolsCallLogPanel window scrolls.
         list.forEach(function(rec) {
             var tool = rec.tool || '(unknown)';
+            // Worker 1.18.8, forward-only: days stored before that carry no `args` field on
+            // each record — `|| ''` makes that identical to a real zero-argument call, which
+            // is correct: both render as an empty cell, never a placeholder.
+            var args = rec.args || '';
             var client = rec.named_client || rec.client || 'unknown';
             var code = rec.country || 'XX';
             var country = COUNTRY_NAMES[code] || code;
@@ -1620,6 +1635,7 @@
             html +=
                 '<div class="bar-row">' +
                     '<div class="bar-label" title="' + escapeHtml(tool) + '">' + escapeHtml(tool) + '</div>' +
+                    '<div class="tcl-args"' + (args ? ' title="' + escapeHtml(args) + '"' : '') + '>' + (args ? escapeHtml(args) : '') + '</div>' +
                     '<div class="tcl-meta" title="' + escapeHtml(meta) + '">' + escapeHtml(meta) + '</div>' +
                     '<div class="bar-count">' + escapeHtml(relTime(rec.ts)) + '</div>' +
                 '</div>';
@@ -1627,7 +1643,7 @@
         container.innerHTML = html;
     }
 
-    // Copy every rendered Tool Calls row as tab-separated text (tool · client/country · when),
+    // Copy every rendered Tool Calls row as tab-separated text (tool · args · client/country · when),
     // independent of scroll position. Exposed on window below: this script is an IIFE, so the
     // inline onclick on the Copy button resolves against global scope, not this closure.
     function copyToolCallLog(btn) {
@@ -1638,10 +1654,12 @@
         var lines = [];
         rows.forEach(function(row) {
             var tool = row.querySelector('.bar-label');
+            var args = row.querySelector('.tcl-args');
             var meta = row.querySelector('.tcl-meta');
             var time = row.querySelector('.bar-count');
             lines.push(
                 (tool ? tool.textContent.trim() : '') + '\t' +
+                (args ? args.textContent.trim() : '') + '\t' +
                 (meta ? meta.textContent.trim() : '') + '\t' +
                 (time ? time.textContent.trim() : '')
             );
