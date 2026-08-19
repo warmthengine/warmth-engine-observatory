@@ -4,7 +4,7 @@
     "total_events": 201,
     "sample_events": 6,
     "standard_events": 195,
-    "last_updated": "2026-08-17",
+    "last_updated": "2026-08-19",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
@@ -62,8 +62,8 @@
         "1.0": 76
       }
     },
-    "versionDate": "2026-08-17",
-    "lastAudit": "2026-08-17",
+    "versionDate": "2026-08-19",
+    "lastAudit": "2026-08-19",
     "event_count": 201,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -896,7 +896,7 @@
               "url": "https://eur-lex.europa.eu/eli/reg/2023/1781/oj/eng",
               "accessDate": "2026-04-29",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429043107/https://eur-lex.europa.eu/eli/reg/2023/1781/oj/eng"
+              "snapshotUrl": "https://web.archive.org/web/20260819053739/https://eur-lex.europa.eu/eli/reg/2023/1781/oj/eng"
             }
           ]
         }
@@ -1138,7 +1138,7 @@
                 "type": "PRIMARY",
                 "accessDate": "2026-04-30",
                 "captureStatus": "captured",
-                "snapshotUrl": "https://web.archive.org/web/20260430101206/https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52024DC0025"
+                "snapshotUrl": "https://web.archive.org/web/20260819053614/https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52024DC0025"
               },
               {
                 "id": "PIET-G3-2",
@@ -1900,7 +1900,7 @@
               "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
               "accessDate": "2026-04-29",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429043131/https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+              "snapshotUrl": "https://web.archive.org/web/20260819053137/https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
             }
           ]
         },
@@ -1917,7 +1917,7 @@
               "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
               "accessDate": "2026-04-29",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429043131/https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+              "snapshotUrl": "https://web.archive.org/web/20260819053137/https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
             }
           ]
         }
@@ -3588,7 +3588,7 @@
           "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021R1173",
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429072026/https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021R1173"
+          "snapshotUrl": "https://web.archive.org/web/20260819053112/https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021R1173"
         },
         {
           "id": "P4",
