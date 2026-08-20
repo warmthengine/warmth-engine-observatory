@@ -51,15 +51,16 @@
         "1.2.1": 10,
         "1.3": 1,
         "1.3.2": 2,
-        "1.1": 42,
-        "1.1.1": 28,
+        "1.1": 41,
+        "1.1.1": 27,
         "1.2": 16,
-        "1.1.2": 11,
+        "1.1.2": 13,
         "1.3.1": 2,
-        "1.2.3": 2,
+        "1.2.3": 1,
         "1.2.2": 3,
-        "1.0.1": 8,
-        "1.0": 76
+        "1.0.1": 9,
+        "1.2.4": 1,
+        "1.0": 75
       }
     },
     "versionDate": "2026-08-20",
@@ -73,24 +74,24 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1806,
-      "preserved": 1797,
-      "preservation_rate": 0.995,
+      "total_sources": 1856,
+      "preserved": 1803,
+      "preservation_rate": 0.971,
       "by_status": {
-        "captured": 1686,
+        "captured": 1692,
         "recovered": 32,
         "existing": 79,
-        "dead_source": 1,
-        "no_capture": 8
+        "no_capture": 52,
+        "dead_source": 1
       },
       "by_layer": {
         "events": {
-          "total": 1098,
+          "total": 1103,
           "preserved": 1091
         },
         "connections": {
-          "total": 436,
-          "preserved": 435
+          "total": 481,
+          "preserved": 441
         },
         "actors": {
           "total": 272,
@@ -1934,10 +1935,10 @@
       "date": "March 2024",
       "location": "Navi Mumbai, India",
       "scope": "India (National)",
-      "description": "National initiative approved by Union Cabinet to democratise AI computing power through public-private partnerships, supporting startups, researchers, and academic institutions across India. Part of broader IndiaAI Mission targeting indigenous AI capability development.",
+      "description": "National initiative approved by Union Cabinet to democratise AI computing power through public-private partnerships, procuring primarily NVIDIA H100, H200, and AMD MI300X GPUs through empanelled providers. Supports startups, researchers, and academic institutions across India as part of the broader IndiaAI Mission targeting indigenous AI capability development.",
       "investment": "₹10,372 Crore (~US$1.2B) total; ₹4,563 Crore (~US$540M) for compute; 34,333 GPUs approved",
       "domain": "Energy/Infrastructure",
-      "sources": 4,
+      "sources": 5,
       "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
@@ -1946,7 +1947,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3089,7 +3090,7 @@
       "date": "22 July 2024",
       "location": "Memphis, Tennessee, United States",
       "scope": "United States",
-      "description": "xAI's purpose-built AI training facility in Memphis, Tennessee, representing the largest single-site GPU deployment globally at time of implementation. Dedicated to training xAI's Grok AI models with ongoing capacity expansion targeting further scaling of compute infrastructure.",
+      "description": "xAI's purpose-built AI training facility in Memphis, Tennessee, deploying NVIDIA H100 and H200 GPUs with Spectrum-X Ethernet networking, representing the largest single-site GPU deployment globally at time of implementation. Dedicated to training xAI's Grok AI models with ongoing capacity expansion.",
       "investment": "~US$3-4 billion estimated; 200,000 GPUs; 1M GPU target announced",
       "domain": "Energy/Infrastructure",
       "sources": 2,
@@ -3101,7 +3102,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -3144,6 +3145,20 @@
               "snapshotUrl": "https://web.archive.org/web/20260429043025/https://earthjustice.org/wp-content/uploads/2026/02/2026.02.13-final-xai-southaven-noi-with-exhibit-a.pdf"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100",
+          "field": "description"
+        },
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H200",
+          "field": "description"
         }
       ]
     },
@@ -3817,11 +3832,11 @@
       "date": "11 June 2025",
       "location": "Pennsylvania, United States",
       "scope": "United States (PJM Interconnection region: PA, NJ, DE, MD, VA, WV, OH, DC, NC, KY, IN, IL, MI)",
-      "description": "Amazon Web Services and Talen Energy execute restructured power purchase agreement for nuclear-generated electricity from Susquehanna Nuclear Station. Grid-connected nuclear-hyperscaler PPA model post-FERC ruling, establishing precedent for hyperscaler-nuclear partnerships supporting AI and cloud operations.",
+      "description": "Amazon Web Services and Talen Energy execute restructured power purchase agreement for nuclear-generated electricity from the Susquehanna Nuclear Station, a twin-unit General Electric boiling water reactor facility. Grid-connected nuclear-hyperscaler PPA model post-FERC ruling, establishing precedent for hyperscaler-nuclear partnerships supporting AI and cloud operations.",
       "investment": "US$18 billion contract value over 17 years; 1,920 MW capacity at full ramp by 2032; part of Amazon's US$20 billion Pennsylvania investment programme",
       "domain": "Energy/Infrastructure",
       "sources": 3,
-      "corroborating": 4,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3829,7 +3844,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.3",
+      "version": "1.2.4",
       "industryPrimary": "Energy & Power Infrastructure",
       "environmentalNexusTags": [
         {
@@ -4799,7 +4814,7 @@
       "location": "Londonderry Township, Pennsylvania, USA",
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Energy & Power Infrastructure",
-      "description": "Microsoft's 20-year power purchase agreement with Constellation Energy to restart Three Mile Island Unit 1, rebranded Crane Clean Energy Center, providing 835 MW of carbon-free nuclear baseload power for data centre operations in the PJM Interconnection grid. Target operational date 2028.",
+      "description": "Microsoft's 20-year power purchase agreement with Constellation Energy to restart the Babcock & Wilcox pressurised water reactor at Three Mile Island Unit 1, rebranded Crane Clean Energy Center, providing 835 MW of carbon-free nuclear baseload power for data centre operations in the PJM Interconnection grid. Target operational date 2028.",
       "investment": "US$1.6B capital expenditure; 835 MW capacity; 20-year PPA term; PJM Interconnection (13 states + DC); licence extension to 2054",
       "scope": "United States (PJM Interconnection region)",
       "checkpoints": {
@@ -4808,8 +4823,8 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
-      "sources": 2,
+      "version": "1.1.1",
+      "sources": 3,
       "corroborating": 3,
       "confidence": "A",
       "environmentalNexusTags": [
@@ -6722,11 +6737,11 @@
       "date": "8 November 2023",
       "location": "Sejong City, South Korea",
       "scope": "South Korea — national hyperscale AI/cloud data centre infrastructure",
-      "description": "Naver Corp. opened Gak Sejong (각 세종), its second hyperscale data centre, in Sejong City on 8 November 2023. Spanning 294,000 square metres with 270 MW substation capacity, the facility was the largest data centre operated by a single company in South Korea at time of implementation, anchoring Naver’s HyperCLOVA X sovereign AI platform.",
+      "description": "Naver Corp. opened Gak Sejong (각 세종), its second hyperscale data centre, in Sejong City on 8 November 2023. Spanning 294,000 square metres with 270 MW substation capacity, the facility houses the 'Sejong' supercomputer — 2,240 NVIDIA A100 GPUs with Quantum InfiniBand HDR networking — and was the largest data centre operated by a single company in South Korea at time of implementation, anchoring Naver's HyperCLOVA X sovereign AI platform.",
       "investment": "~₩650B (~US$497M) Phase 1; ₩400B (US$270M) FSC expansion loan (April 2026); 270–275 MW; 600,000 server capacity; top 5 in Asia",
       "domain": "Energy/Infrastructure",
-      "sources": 1,
-      "corroborating": 3,
+      "sources": 2,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -6735,7 +6750,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -6793,6 +6808,14 @@
               "snapshotUrl": "http://web.archive.org/web/20260607013110/https://www.koreatimes.co.kr/business/tech-science/20251028/operation-efficiency-at-core-of-ai-infrastructure-capability"
             }
           ]
+        }
+      ],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA A100",
+          "field": "description"
         }
       ]
     },
