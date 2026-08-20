@@ -4,7 +4,7 @@
     "total_events": 201,
     "sample_events": 6,
     "standard_events": 195,
-    "last_updated": "2026-08-19",
+    "last_updated": "2026-08-20",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
@@ -62,8 +62,8 @@
         "1.0": 76
       }
     },
-    "versionDate": "2026-08-19",
-    "lastAudit": "2026-08-19",
+    "versionDate": "2026-08-20",
+    "lastAudit": "2026-08-20",
     "event_count": 201,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,20 +74,19 @@
     },
     "source_durability": {
       "total_sources": 1806,
-      "preserved": 1795,
-      "preservation_rate": 0.994,
+      "preserved": 1797,
+      "preservation_rate": 0.995,
       "by_status": {
-        "captured": 1684,
+        "captured": 1686,
         "recovered": 32,
         "existing": 79,
         "dead_source": 1,
-        "pending": 2,
         "no_capture": 8
       },
       "by_layer": {
         "events": {
           "total": 1098,
-          "preserved": 1089
+          "preserved": 1091
         },
         "connections": {
           "total": 436,
@@ -669,9 +668,9 @@
           "id": "C1",
           "desc": "CRS Report on CHIPS Act",
           "url": "https://crsreports.congress.gov/product/pdf/R/R47523",
-          "accessDate": "2026-04-29",
+          "accessDate": "2026-08-19",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429060903/https://crsreports.congress.gov/product/pdf/R/R47523"
+          "snapshotUrl": "https://web.archive.org/web/20260819153534/https://crsreports.congress.gov/product/pdf/R/R47523"
         },
         {
           "id": "C2",
@@ -1181,9 +1180,9 @@
                 "desc": "NRCan Minister Wilkinson — Woodrow Wilson Center remarks",
                 "url": "https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html",
                 "type": "PRIMARY",
-                "accessDate": "2026-04-30",
+                "accessDate": "2026-08-19",
                 "captureStatus": "captured",
-                "snapshotUrl": "https://web.archive.org/web/20260430105051/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html"
+                "snapshotUrl": "https://web.archive.org/web/20260819145807/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html"
               }
             ],
             "summary": "6 qualifying responses across 3 governments (EU, Japan, Canada) within 18 months",
@@ -1511,9 +1510,9 @@
               "url": "https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/",
               "date": "2024-06-24",
               "type": "CORROBORATING",
-              "accessDate": "2026-04-30",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260430114034/https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/"
+              "snapshotUrl": "https://web.archive.org/web/20260819153904/https://www.reuters.com/technology/microsoft-g42-deal-positive-because-it-cut-huawei-ties-white-house-official-says-2024-06-24/"
             },
             {
               "desc": "CSIS Analysis - UAE AI Ambitions (G42 Divestment Details)",
@@ -1610,9 +1609,9 @@
           "id": "C2",
           "desc": "New York Times — Microsoft Invests in G42, an Emirati A.I. Firm",
           "url": "https://www.nytimes.com/2024/04/16/technology/microsoft-g42-uae-ai.html",
-          "accessDate": "2026-04-29",
+          "accessDate": "2026-08-19",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429192112/https://www.nytimes.com/2024/04/16/technology/microsoft-g42-uae-ai.html"
+          "snapshotUrl": "https://web.archive.org/web/20260819153842/https://www.nytimes.com/2024/04/16/technology/microsoft-g42-uae-ai.html"
         },
         {
           "id": "C3",
@@ -2464,9 +2463,9 @@
               "citation": "CGWB Dynamic Ground Water Resources Assessment — Gandhinagar district",
               "type": "corroborating",
               "url": "http://cgwb.gov.in",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "existing",
-              "snapshotUrl": "http://web.archive.org/web/20250609180756/https://www.cgwb.gov.in/"
+              "snapshotUrl": "https://web.archive.org/web/20260819153933/https://cgwb.gov.in/"
             }
           ]
         }
@@ -3620,9 +3619,9 @@
           "id": "C1",
           "desc": "HPCwire — LUMI Inauguration Coverage",
           "url": "https://www.hpcwire.com/2022/06/13/lumi-europes-most-powerful-supercomputer-is-inaugurated-in-finland/",
-          "accessDate": "2026-04-29",
+          "accessDate": "2026-08-19",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429170902/https://www.hpcwire.com/2022/06/13/lumi-europes-most-powerful-supercomputer-is-inaugurated-in-finland/"
+          "snapshotUrl": "https://web.archive.org/web/20260819160048/https://www.hpcwire.com/2022/06/13/lumi-europes-most-powerful-supercomputer-is-inaugurated-in-finland/"
         },
         {
           "id": "C2",
@@ -3643,9 +3642,9 @@
           "id": "C4",
           "desc": "Science Business — EuroHPC LUMI Analysis",
           "url": "https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland",
-          "accessDate": "2026-04-29",
+          "accessDate": "2026-08-19",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429102012/https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
+          "snapshotUrl": "https://web.archive.org/web/20260819155251/https://sciencebusiness.net/news/lumi-supercomputer-inaugurated-finland"
         },
         {
           "id": "C5",
@@ -5197,9 +5196,9 @@
               "citation": "WRI Aqueduct Water Risk Atlas V4.0 — Oak Ridge, TN (Powell sub-basin, Medium-High 20–40%)",
               "type": "primary",
               "url": "https://www.wri.org/applications/aqueduct/water-risk-atlas/",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429045535/https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
+              "snapshotUrl": "https://web.archive.org/web/20260819152904/https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
             },
             {
               "citation": "ORNL Energy Data Set of Frontier Supercomputer — evaporative cooling towers",
@@ -5258,9 +5257,9 @@
               "citation": "WRI Aqueduct Water Risk Atlas V4.0 — Livermore, CA (San Francisco Bay sub-basin, Low-Medium 10–20%)",
               "type": "primary",
               "url": "https://www.wri.org/applications/aqueduct/water-risk-atlas/",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429045535/https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
+              "snapshotUrl": "https://web.archive.org/web/20260819152904/https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
             },
             {
               "citation": "ND-GAIN Urban Adaptation Assessment — Alameda/Berkeley (Risk Score 51.52)",
@@ -5335,9 +5334,9 @@
               "citation": "Argonne Site Sustainability Plan — HPC facilities energy and water use data",
               "type": "primary",
               "url": "https://www.anl.gov/sites/www/files/2020-06/Argonne_Site_Sustainability_Plan.pdf",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429044320/https://www.anl.gov/sites/www/files/2020-06/Argonne_Site_Sustainability_Plan.pdf"
+              "snapshotUrl": "https://web.archive.org/web/20260819151834/https://www.anl.gov/sites/www/files/2020-06/Argonne_Site_Sustainability_Plan.pdf"
             }
           ]
         },
@@ -5351,17 +5350,17 @@
               "citation": "Argonne Sustainability Plan FY2017 — DOE Order 436.1 mandate and PUE targets",
               "type": "primary",
               "url": "https://www.anl.gov/sites/www/files/2018-02/anl_site_sustainability_plan_20170101.pdf",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429044331/https://www.anl.gov/sites/www/files/2018-02/anl_site_sustainability_plan_20170101.pdf"
+              "snapshotUrl": "https://web.archive.org/web/20260819151806/https://www.anl.gov/sites/www/files/2018-02/anl_site_sustainability_plan_20170101.pdf"
             },
             {
               "citation": "Argonne Sustainability Plan FY2018 — prime contract sustainability clauses",
               "type": "primary",
               "url": "https://www.anl.gov/sites/www/files/2018-02/Argonne_SiteSustainabilityPlan_FY2018_0.pdf",
-              "accessDate": "2026-04-29",
+              "accessDate": "2026-08-19",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260429044342/https://www.anl.gov/sites/www/files/2018-02/Argonne_SiteSustainabilityPlan_FY2018_0.pdf"
+              "snapshotUrl": "https://web.archive.org/web/20260819151740/https://www.anl.gov/sites/www/files/2018-02/Argonne_SiteSustainabilityPlan_FY2018_0.pdf"
             }
           ]
         },
@@ -6195,8 +6194,8 @@
               "type": "corroborating",
               "url": "https://huanbao.bjx.com.cn/news/20180129/877213.shtml",
               "captureStatus": "captured",
-              "accessDate": "2026-06-16",
-              "snapshotUrl": "https://web.archive.org/web/20260615205136/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
+              "accessDate": "2026-08-19",
+              "snapshotUrl": "https://web.archive.org/web/20260819154631/https://huanbao.bjx.com.cn/news/20180129/877213.shtml"
             }
           ]
         }
@@ -6256,8 +6255,8 @@
               "type": "primary",
               "url": "https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421",
               "captureStatus": "captured",
-              "accessDate": "2026-06-18",
-              "snapshotUrl": "https://web.archive.org/web/20260618124152/https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
+              "accessDate": "2026-08-19",
+              "snapshotUrl": "https://web.archive.org/web/20260819150854/https://fgw.zgqingyang.gov.cn/zzzq/zzlm/fgdt__xwzx/gzdt/content_344421"
             }
           ]
         },
@@ -8055,8 +8054,8 @@
               "type": "primary",
               "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
-              "accessDate": "2026-07-08"
+              "snapshotUrl": "https://web.archive.org/web/20260819152513/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-08-19"
             },
             {
               "citation": "Industriel.net — Campus IA Fouju (1.4 GW)",
@@ -8087,8 +8086,8 @@
               "type": "primary",
               "url": "https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
               "captureStatus": "captured",
-              "snapshotUrl": "https://web.archive.org/web/20260708000649/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
-              "accessDate": "2026-07-08"
+              "snapshotUrl": "https://web.archive.org/web/20260819152513/https://www.seine-et-marne.gouv.fr/Publications/Enquetes-publiques/FOUJU-PROJET-CAMPUS-IA/AVIS-DE-LA-MRAe",
+              "accessDate": "2026-08-19"
             },
             {
               "citation": "Industriel.net — Campus IA waste-heat recovery",
