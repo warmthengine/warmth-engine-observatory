@@ -1,45 +1,45 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 201,
+    "total_events": 204,
     "sample_events": 6,
-    "standard_events": 195,
-    "last_updated": "2026-08-20",
+    "standard_events": 198,
+    "last_updated": "2026-08-21",
     "statistics": {
       "by_bloc": {
         "Eastern": 52,
-        "Western": 129,
+        "Western": 132,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 181,
+        "T3": 184,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 44,
+        "Infrastructure": 46,
         "Coordination": 31,
-        "Policy": 65,
+        "Policy": 66,
         "Corporate": 61
       },
       "by_confidence": {
-        "A": 196,
+        "A": 199,
         "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 102,
+        "basel5": 104,
         "keohane": 30,
-        "pisa5": 49,
+        "pisa5": 50,
         "routeBased": 20,
         "oep": 6,
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 55,
-        "Semiconductors & Equipment": 41,
-        "AI Software & Platforms": 67,
+        "Cloud, Data Centres & Connectivity Infrastructure": 56,
+        "Semiconductors & Equipment": 42,
+        "AI Software & Platforms": 68,
         "Mining & Critical Minerals": 11,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
@@ -60,12 +60,12 @@
         "1.2.2": 3,
         "1.0.1": 9,
         "1.2.4": 1,
-        "1.0": 75
+        "1.0": 78
       }
     },
-    "versionDate": "2026-08-20",
-    "lastAudit": "2026-08-20",
-    "event_count": 201,
+    "versionDate": "2026-08-21",
+    "lastAudit": "2026-08-21",
+    "event_count": 204,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -74,11 +74,11 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1856,
-      "preserved": 1803,
+      "total_sources": 1852,
+      "preserved": 1799,
       "preservation_rate": 0.971,
       "by_status": {
-        "captured": 1692,
+        "captured": 1688,
         "recovered": 32,
         "existing": 79,
         "no_capture": 52,
@@ -90,8 +90,8 @@
           "preserved": 1091
         },
         "connections": {
-          "total": 481,
-          "preserved": 441
+          "total": 477,
+          "preserved": 437
         },
         "actors": {
           "total": 272,
@@ -8622,6 +8622,99 @@
       "version": "1.0",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": []
+    },
+    {
+      "id": "233",
+      "name": "Venado Supercomputer",
+      "lat": 35.8799,
+      "lng": -106.3031,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "15 April 2024",
+      "location": "Los Alamos, United States",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Los Alamos National Laboratory deployed Venado, an HPE Cray EX supercomputer incorporating 2,560 NVIDIA GH200 Grace Hopper Superchips and 920 Grace CPU Superchips, as the first large-scale Grace CPU system in the United States. The system operates on a classified network, running OpenAI's o-series reasoning models for national security research.",
+      "investment": "Rmax 98.51 PFlop/s, Rpeak 130.44 PFlop/s; 481,440 cores. Power 1,661.57 kW. Capital cost undisclosed (LANL policy).",
+      "scope": "United States (NNSA national laboratory)",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 4,
+      "corroborating": 1
+    },
+    {
+      "id": "234",
+      "name": "SCAI-SenseTime AI Joint Venture",
+      "lat": 24.7136,
+      "lng": 46.6753,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "13 September 2022",
+      "location": "Riyadh, Saudi Arabia",
+      "domain": "Technology",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "SCAI, a wholly-owned subsidiary of Saudi Arabia's Public Investment Fund, established a joint venture with SenseTime (China) to deliver computer vision and deep learning platform solutions across the Middle East and Africa. The entity, SenseTime MEA, is headquartered in Riyadh and has delivered projects including the King Abdullah Financial District smart park.",
+      "investment": "SAR 776 million (~US$207 million) state investment via PIF subsidiary SCAI.",
+      "scope": "Saudi Arabia (MEA regional reach)",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": {
+        "present": true,
+        "operatorOrigin": "Eastern",
+        "hostClassification": "Western",
+        "entity": "SenseTime (PRC)",
+        "nature": "platform_provider"
+      },
+      "sources": 3,
+      "corroborating": 1
+    },
+    {
+      "id": "235",
+      "name": "Taiwan Core Key Technology List — AI Expansion",
+      "lat": 25.033,
+      "lng": 121.5654,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "31 December 2024",
+      "location": "Taipei, Taiwan",
+      "domain": "Security",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Taiwan's Executive Yuan designated high-performance chip design technology for artificial intelligence computation (人工智慧運算之高效能晶片設計技術) as a national core key technology under the National Security Act, effective 31 December 2024. The second expansion of the protected technology list criminalises unauthorised transfer to foreign countries or hostile forces outside the territory.",
+      "investment": "Regulatory designation (criminal penalties: up to 12 years' imprisonment, NT$100 million fine per violation; National Security Act enforcement). Second expansion, adding 10 technologies to 32 total.",
+      "scope": "Taiwan (cross-jurisdictional: criminalises transfers outside the territory)",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 3,
+      "corroborating": 1
     }
   ]
 }
