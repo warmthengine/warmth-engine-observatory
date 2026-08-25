@@ -469,8 +469,22 @@
             text-align: right; white-space: nowrap;
             margin-top: 0; min-height: 0; line-height: 20px;
         }
+        /* Tool Calls log: the call's outcome (1.18.9), between the arguments and the
+           attribution. Geometry is FIXED and deliberately SHORTER than its siblings:
+           font-size 0.625rem at line-height 1 is a 10px box against the ~19px the
+           0.75rem siblings occupy, so the tallest child — and therefore the row height —
+           is unchanged whether the cell is filled or empty. Colour comes from the shared
+           .metric-delta modifiers; like .bar-delta, this rule sits after them in the
+           sheet so its margin/min-height resets win at equal specificity. */
+        .tcl-outcome {
+            flex: 0 0 44px;
+            font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 480;
+            text-align: left; white-space: nowrap; overflow: hidden;
+            margin-top: 0; min-height: 0; line-height: 1;
+        }
         @media (max-width: 767px) {
             .bar-delta { flex-basis: 46px; }
+            .tcl-outcome { flex-basis: 36px; }
         }
 
         /* ========================================
@@ -827,6 +841,15 @@
         </div>
     </div>
 
+    <!-- Page Referrers: which PAGE the API request came from — the row above says which
+         endpoint was hit, this says who asked. Full width: same-site keys are paths. -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title"><span class="panel-title-text">Page Referrers<span class="info-wrap"><button type="button" class="info-dot" aria-label="About page referrers" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Which page a visitor was reading when it fetched from the API. Same-site referrers show the page path; anything off-site shows only the hostname; a request that carried no referrer (any direct API or MCP-style call) shows (none). MCP requests are not counted here — they have no page.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('refererPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="refererPanel" class="panel-list"></div>
+        </div>
+    </div>
+
     <!-- Breakdowns row 2: Tools + Methods -->
     <div class="panels-row">
         <div class="panel">
@@ -836,6 +859,14 @@
         <div class="panel">
             <div class="panel-title"><span class="panel-title-text">MCP Methods</span> <button class="copy-btn" onclick="copyBarPanel('methodsPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="methodsPanel" class="panel-list"></div>
+        </div>
+    </div>
+
+    <!-- Tool Outcomes: the Tools panel above counts demand; this counts what came back. -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title"><span class="panel-title-text">Tool Outcomes<span class="info-wrap"><button type="button" class="info-dot" aria-label="About tool outcomes" aria-expanded="false">i</button><span class="info-pop" role="tooltip">What each tool call returned. ok — the tool answered with content. error — the call failed: the tool threw, or the server rejected the arguments before the tool ran (a mistyped or missing parameter name lands here). empty — the call succeeded but matched nothing, which is how a genuine gap in the corpus looks from outside. Only calls made from worker 1.18.9 onward carry an outcome.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('toolOutcomePanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="toolOutcomePanel" class="panel-list"></div>
         </div>
     </div>
 
@@ -863,6 +894,15 @@
         </div>
     </div>
 
+    <!-- Client by Country: the Countries panel above cannot say WHICH client came from
+         where. This joins the two halves of one initialize handshake. -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title"><span class="panel-title-text">Client by Country<span class="info-wrap"><button type="button" class="info-dot" aria-label="About client by country" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Where each named client connects from, read as client | country. The Countries panel counts origins and the Named MCP Clients panel counts identities, but neither can pair them; this does. Only the initialize handshake carries both, so this counts sessions opened, not requests made.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('clientCountryPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="clientCountryPanel" class="panel-list"></div>
+        </div>
+    </div>
+
     <!-- MCP Client Breakdown -->
     <div class="panels-row">
         <div class="panel">
@@ -882,6 +922,14 @@
             <div id="uaPanel" class="panel-list"></div>
         </div>
     </div>
+    <!-- The exact complement of the panel above: the raw string for clients that WERE
+         recognised, which the Client Types panel collapses into one label each. -->
+    <div class="panels-row">
+        <div class="panel panel-diag" style="grid-column:1/-1">
+            <div class="panel-title panel-title-diag"><span class="panel-title-text">Classified Clients &middot; User-Agent<span class="info-wrap"><button type="button" class="info-dot" aria-label="About classified client user-agents" aria-expanded="false">i</button><span class="info-pop" role="tooltip">The full User-Agent for requests whose client type WAS recognised — the complement of the panel above, which shows only the unrecognised. Client Types collapses these into one label each, so a crawler indexing the site and a person asking an assistant to fetch a page both read as one word; here they read apart. Strings are cut at 120 characters.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('classifiedUaPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="classifiedUaPanel" class="panel-list"></div>
+        </div>
+    </div>
     <!-- Both panels below read the SAME `initialize` handshake: who the client says it
          is, and which protocol revision it asks for. Paired so they are read together. -->
     <div class="panels-row">
@@ -892,6 +940,14 @@
         <div class="panel">
             <div class="panel-title"><span class="panel-title-text">Protocol Versions<span class="info-wrap"><button type="button" class="info-dot" aria-label="About protocol versions" aria-expanded="false">i</button><span class="info-pop" role="tooltip">The MCP protocol revision each connecting client asks for when it opens a session. Watch it to catch the moment consumers start speaking a newer revision than this server serves.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('protocolPanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="protocolPanel" class="panel-list"></div>
+        </div>
+    </div>
+
+    <!-- Protocol by Client: the pairing the two panels above cannot express. -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title"><span class="panel-title-text">Protocol by Client<span class="info-wrap"><button type="button" class="info-dot" aria-label="About protocol by client" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Which client asked for which MCP protocol revision, read as revision | client. The Protocol Versions panel shows a revision was requested but not by whom — so a handful of calls for an unreleased revision could be either a census probe walking the spec or a real consumer that has moved ahead of this server. This tells them apart, and that distinction is what an upgrade decision turns on.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('protocolClientPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="protocolClientPanel" class="panel-list"></div>
         </div>
     </div>
 
@@ -1052,6 +1108,13 @@
             addMap('mcp_client', agg.mcp_by_client);
             addMap('api_client', agg.api_by_client);
             addMap('protocol_version', agg.by_protocol_version);
+            // Worker 1.18.9. The first three carry a joined 'a|b' key; the pipe is kept as
+            // written, the way every other key here is (only commas are escaped, for CSV).
+            addMap('protocol_client', agg.by_protocol_client);
+            addMap('client_country', agg.by_client_country);
+            addMap('tool_outcome', agg.by_tool_outcome);
+            addMap('classified_ua', agg.by_classified_ua);
+            addMap('referer', agg.by_referer);
             addMap('hour', agg.by_hour);
 
             // Per-call attribution log. Rows, not a count-map, so it gets its own headed
@@ -1060,12 +1123,13 @@
             if (agg.tools_call_log && agg.tools_call_log.length) {
                 lines.push('');
                 lines.push('tool_calls');
-                lines.push('ts,tool,args,client,country');
+                lines.push('ts,tool,args,outcome,client,country');
                 agg.tools_call_log.forEach(function(rec) {
                     lines.push([
                         rec.ts || '',
                         rec.tool || '',
                         rec.args || '',   // Worker 1.18.8, forward-only: '' for pre-1.18.8 days too
+                        rec.outcome || '',  // Worker 1.18.9, forward-only: '' when not classified
                         rec.named_client || rec.client || '',
                         rec.country || ''
                     ].map(function(v) { return String(v).replace(/,/g, ';'); }).join(','));
@@ -1270,6 +1334,13 @@
         renderBars('uaPanel', agg.by_ua, 'diag', deltaCtx(prior.by_ua));
         renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp', deltaCtx(prior.by_mcp_client_named));
         renderBars('protocolPanel', agg.by_protocol_version, 'mcp', deltaCtx(prior.by_protocol_version));
+        // Worker 1.18.9 panels. Every one of these maps is {} on days stored before that
+        // deploy, so renderBars draws its own "No data yet" empty state — no special case.
+        renderBars('protocolClientPanel', agg.by_protocol_client, 'mcp', deltaCtx(prior.by_protocol_client));
+        renderBars('clientCountryPanel', agg.by_client_country, 'country', deltaCtx(prior.by_client_country));
+        renderBars('toolOutcomePanel', agg.by_tool_outcome, 'mcp', deltaCtx(prior.by_tool_outcome));
+        renderBars('classifiedUaPanel', agg.by_classified_ua, 'diag', deltaCtx(prior.by_classified_ua));
+        renderBars('refererPanel', agg.by_referer, 'api', deltaCtx(prior.by_referer));
         renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
 
         // --- Panel-title distinct counts -------------------------------------------
@@ -1322,6 +1393,11 @@
             // Worker 1.18.7, forward-only: days stored before that carry no such key, so
             // merge() no-ops on them and the panel is simply sparse (never NaN, never empty-object throw).
             by_protocol_version: {},
+            // Worker 1.18.9, forward-only, same contract as by_protocol_version above:
+            // absent on every earlier day, so merge() no-ops and the panel is simply sparse.
+            // The first three are JOINED keys ('a|b'); the last two are single-value maps.
+            by_protocol_client: {}, by_client_country: {}, by_tool_outcome: {},
+            by_classified_ua: {}, by_referer: {},
             tools_call_log: []   // list, not a count-map — concatenated (not merged) below
         };
         dates.forEach(function(d) {
@@ -1342,6 +1418,11 @@
             merge(result.by_tool, day.by_tool);
             merge(result.by_mcp_client_named, day.by_mcp_client_named);
             merge(result.by_protocol_version, day.by_protocol_version);
+            merge(result.by_protocol_client, day.by_protocol_client);
+            merge(result.by_client_country, day.by_client_country);
+            merge(result.by_tool_outcome, day.by_tool_outcome);
+            merge(result.by_classified_ua, day.by_classified_ua);
+            merge(result.by_referer, day.by_referer);
             // tools_call_log is a list, not a count-map — concatenate, don't merge().
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
@@ -1632,10 +1713,17 @@
             var code = rec.country || 'XX';
             var country = COUNTRY_NAMES[code] || code;
             var meta = client + ' · ' + country;
+            // Worker 1.18.9, forward-only: pre-1.18.9 records carry no `outcome`, and so do
+            // the rare newer ones whose result never arrived in time to be classified. Both
+            // render as an empty cell — nothing is inferred from an absent value. `ok` is
+            // deliberately uncoloured; only `error` takes the shared negative colour.
+            var outcome = rec.outcome || '';
+            var outcomeCls = outcome === 'error' ? ' negative' : ' neutral';
             html +=
                 '<div class="bar-row">' +
                     '<div class="bar-label" title="' + escapeHtml(tool) + '">' + escapeHtml(tool) + '</div>' +
                     '<div class="tcl-args"' + (args ? ' title="' + escapeHtml(args) + '"' : '') + '>' + (args ? escapeHtml(args) : '') + '</div>' +
+                    '<div class="tcl-outcome metric-delta' + outcomeCls + '">' + escapeHtml(outcome) + '</div>' +
                     '<div class="tcl-meta" title="' + escapeHtml(meta) + '">' + escapeHtml(meta) + '</div>' +
                     '<div class="bar-count">' + escapeHtml(relTime(rec.ts)) + '</div>' +
                 '</div>';
@@ -1655,11 +1743,13 @@
         rows.forEach(function(row) {
             var tool = row.querySelector('.bar-label');
             var args = row.querySelector('.tcl-args');
+            var outcome = row.querySelector('.tcl-outcome');
             var meta = row.querySelector('.tcl-meta');
             var time = row.querySelector('.bar-count');
             lines.push(
                 (tool ? tool.textContent.trim() : '') + '\t' +
                 (args ? args.textContent.trim() : '') + '\t' +
+                (outcome ? outcome.textContent.trim() : '') + '\t' +
                 (meta ? meta.textContent.trim() : '') + '\t' +
                 (time ? time.textContent.trim() : '')
             );
