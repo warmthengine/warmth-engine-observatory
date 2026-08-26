@@ -1,51 +1,51 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 204,
+    "total_events": 210,
     "sample_events": 6,
-    "standard_events": 198,
-    "last_updated": "2026-08-21",
+    "standard_events": 204,
+    "last_updated": "2026-08-26",
     "statistics": {
       "by_bloc": {
-        "Eastern": 52,
-        "Western": 132,
+        "Eastern": 54,
+        "Western": 136,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 184,
+        "T3": 190,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 46,
-        "Coordination": 31,
-        "Policy": 66,
-        "Corporate": 61
+        "Infrastructure": 48,
+        "Coordination": 32,
+        "Policy": 67,
+        "Corporate": 63
       },
       "by_confidence": {
-        "A": 199,
+        "A": 205,
         "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 104,
-        "keohane": 30,
-        "pisa5": 50,
-        "routeBased": 20,
+        "basel5": 107,
+        "keohane": 31,
+        "pisa5": 51,
+        "routeBased": 21,
         "oep": 6,
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 56,
-        "Semiconductors & Equipment": 42,
-        "AI Software & Platforms": 68,
+        "Cloud, Data Centres & Connectivity Infrastructure": 58,
+        "Semiconductors & Equipment": 43,
+        "AI Software & Platforms": 70,
         "Mining & Critical Minerals": 11,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
-        "Trade & Logistics": 1
+        "Trade & Logistics": 2
       },
       "by_version": {
         "1.2.1": 10,
@@ -60,12 +60,12 @@
         "1.2.2": 3,
         "1.0.1": 9,
         "1.2.4": 1,
-        "1.0": 78
+        "1.0": 84
       }
     },
-    "versionDate": "2026-08-21",
-    "lastAudit": "2026-08-21",
-    "event_count": 204,
+    "versionDate": "2026-08-26",
+    "lastAudit": "2026-08-26",
+    "event_count": 210,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -74,20 +74,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1852,
-      "preserved": 1799,
-      "preservation_rate": 0.971,
+      "total_sources": 1882,
+      "preserved": 1830,
+      "preservation_rate": 0.972,
       "by_status": {
-        "captured": 1688,
+        "captured": 1719,
         "recovered": 32,
         "existing": 79,
-        "no_capture": 52,
-        "dead_source": 1
+        "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1103,
-          "preserved": 1091
+          "total": 1133,
+          "preserved": 1122
         },
         "connections": {
           "total": 477,
@@ -1416,8 +1415,8 @@
       "description": "First international standard for AI Management Systems (AIMS), establishing requirements for organisations developing, providing, or using AI-based products/services. Developed through ISO/IEC JTC 1/SC 42 consensus process. Active certification schemes operational across multiple jurisdictions, including AWS, SDAIA, and major conformity assessment bodies.",
       "investment": "39 P-member countries; 51-page standard; 20+ published AI standards in SC 42 portfolio; active certifications (AWS, SDAIA, DNV, SGS, BSI, TÜV SÜD)",
       "domain": "Technology",
-      "sources": 3,
-      "corroborating": 4,
+      "sources": 7,
+      "corroborating": 11,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -2839,7 +2838,7 @@
       "investment": "US$6.165B direct CHIPS funding; US$125B total investment (NY+ID)",
       "domain": "Energy/Infrastructure",
       "sources": 3,
-      "corroborating": 1,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3269,7 +3268,7 @@
       "investment": "US$1B+ valuation; Yi-6B, Yi-34B, Yi-1.5 (6B/9B/34B); academic research licence (commercial use by application)",
       "domain": "Technology",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3296,7 +3295,7 @@
       "investment": "Gemma 3 (1B/4B/12B/27B parameters); 150M+ downloads; 70,000+ derivative models",
       "domain": "Technology",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3323,7 +3322,7 @@
       "investment": "Phi-4-reasoning (latest); 3.8B to 14B parameters; MIT open-source licence",
       "domain": "Technology",
       "sources": 1,
-      "corroborating": 3,
+      "corroborating": 6,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3377,7 +3376,7 @@
       "investment": "US$4.745B direct funding; US$37B+ total project; leading-edge 4nm/2nm logic",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 1,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3423,7 +3422,7 @@
       "investment": "US$1.61B direct funding; US$18B+ total project; mature-node 65nm-130nm analog/embedded",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 1,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3470,7 +3469,7 @@
       "investment": "US$1.5B direct funding; US$13B+ total project; current-generation automotive/IoT/defense",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 1,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3632,26 +3631,27 @@
       "corroboratingSources": [
         {
           "id": "C1",
-          "desc": "HPCwire — LUMI Inauguration Coverage",
-          "url": "https://www.hpcwire.com/2022/06/13/lumi-europes-most-powerful-supercomputer-is-inaugurated-in-finland/",
-          "accessDate": "2026-08-19",
+          "desc": "HPCwire — “As LUMI Launches, a Look at the State of EuroHPC”, 13 June 2022. Corroborates the inauguration at Kajaani and the EuroHPC programme context. Its 4,112-node whole-system figure is not the LUMI-G partition and does not corroborate the 2,978-node LUMI-G count.",
+          "url": "https://www.hpcwire.com/2022/06/13/as-lumi-launches-a-look-at-the-state-of-eurohpc/",
+          "accessDate": "2026-08-25",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260819160048/https://www.hpcwire.com/2022/06/13/lumi-europes-most-powerful-supercomputer-is-inaugurated-in-finland/"
+          "snapshotUrl": "https://web.archive.org/web/20260825114454/https://www.hpcwire.com/2022/06/13/as-lumi-launches-a-look-at-the-state-of-eurohpc/"
         },
         {
           "id": "C2",
-          "desc": "European Commission — LUMI Press Release",
-          "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_22_3635",
-          "accessDate": "2026-04-29",
+          "desc": "European Commission (DG CONNECT) — LUMI inauguration press release, 13 June 2022. Address repaired 25 August 2026 to the digital-strategy channel; the presscorner address no longer resolves. Ruled not independent of the EuroHPC Joint Undertaking (operator, 25 August 2026); carries no corroboration weight.",
+          "url": "https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland",
+          "accessDate": "2026-08-25",
           "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260429063652/https://ec.europa.eu/commission/presscorner/pageNotFound"
+          "snapshotUrl": "https://web.archive.org/web/20260825114145/https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland"
         },
         {
           "id": "C3",
-          "desc": "Nature — LUMI Scientific Applications",
-          "url": "https://www.nature.com/articles/d41586-022-01649-8",
-          "accessDate": "2026-04-29",
-          "captureStatus": "dead_source"
+          "desc": "Computer Weekly (TechTarget) — “The inauguration of LUMI: Europe’s most powerful supercomputer launches”, 13 June 2022. Corroborates the inauguration date and place, the €202m cost, the HPE Cray build and the third-fastest ranking. Replaces an unrecoverable Nature address (HTTP 404 confirmed twice).",
+          "url": "https://www.computerweekly.com/news/252521433/The-inauguration-of-LUMI-Europes-most-powerful-supercomputer-launches",
+          "accessDate": "2026-08-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260825114238/https://www.computerweekly.com/news/252521433/The-inauguration-of-LUMI-Europes-most-powerful-supercomputer-launches"
         },
         {
           "id": "C4",
@@ -4052,7 +4052,7 @@
       "investment": "€300M annual budget; €2B allocation 2024–2030; 300 technical/research personnel; dedicated ASGARD supercomputer (operational September 2025)",
       "domain": "Security",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -5136,7 +5136,7 @@
       "ai_connection_pathway": "oep",
       "industryPrimary": "Semiconductors & Equipment",
       "sources": 3,
-      "corroborating": 2,
+      "corroborating": 3,
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -6165,11 +6165,11 @@
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
       "scope": "China national (东数西算 Guizhou hub node)",
-      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Majority-domestic chip composition at the cluster level.",
+      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Cluster-level chip composition is characterised by the 110,000+ Ascend NPU deployment.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
       "sources": 1,
-      "corroborating": 4,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -6590,7 +6590,7 @@
       "description": "China Unicom opened its first fully domesticated 万卡 (10,000-card) intelligent computing centre at Shanghai Lingang, the first facility in the area to achieve ODCC 5A operational certification at time of assessment. The centre deploys Huawei, MetaX, and Hygon accelerators in a multi-architecture configuration with cold plate liquid cooling.",
       "investment": "4,000 PFLOPS; 15,000 racks; 84-mu campus; PUE 1.2 (2025 operational measurement); 5A certified (November 2024)",
       "domain": "Energy/Infrastructure",
-      "sources": 1,
+      "sources": 3,
       "corroborating": 2,
       "confidence": "A",
       "version": "1.2",
@@ -6610,7 +6610,7 @@
           "evidenceBasis": "Documented",
           "sources": [
             {
-              "citation": "CWW — facility specifications and power capacity",
+              "citation": "CWW (通信世界网) trade-press article, 15 July 2025, on the Lingang AIDC underpinning the meteorology MaaS platform: states cold-plate liquid cooling with PUE 1.2 (~50% energy reduction versus air cooling), HVAC savings above 15%, annual electricity savings above 10 million kWh, and dual 160MW grid inputs with 2N redundancy at 99.999% availability. Cited for the environmental and energy facts the ENT tag rests on.",
               "type": "primary",
               "url": "http://cww.net.cn/article?id=602183",
               "captureStatus": "captured",
@@ -8357,7 +8357,7 @@
       "domain": "Security",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "sources": 1,
+      "sources": 2,
       "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
@@ -8715,6 +8715,197 @@
       "crossEcosystemPresence": false,
       "sources": 3,
       "corroborating": 1
+    },
+    {
+      "id": "236",
+      "name": "US-EU TTC Joint AI Roadmap",
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Coordination",
+      "sample": false,
+      "date": "1 December 2022",
+      "location": "Washington, DC, United States",
+      "scope": "Bilateral (United States – European Union)",
+      "description": "Joint US-EU roadmap on AI evaluation, measurement, and risk management published through the Trade and Technology Council's Working Group 1, establishing shared terminologies and aligned approaches to trustworthy AI. The TTC ministerial forum became dormant in 2025; the Roadmap's deliverables remain operative.",
+      "investment": "Non-financial coordination framework. Deliverables: 65-term shared AI terminology and taxonomy (two editions, 2023–2024); AI Office-AISI Dialogue established April 2024; NIST AI 100-5 standards plan.",
+      "domain": "Technology",
+      "sources": 6,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "237",
+      "name": "Micron Hiroshima HBM Production Facility",
+      "lat": 34.3965,
+      "lng": 132.7433,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "May 2025",
+      "location": "Higashi-Hiroshima, Hiroshima Prefecture, Japan",
+      "scope": "Japan (global AI accelerator supply chain)",
+      "description": "Micron Technology's Hiroshima semiconductor facility producing high-bandwidth memory and 1γ DRAM using EUV lithography, operated by Micron Memory Japan. HBM3E output ships in NVIDIA H200 Tensor Core GPUs. METI's government certification instrument names generative AI among the target applications for the facility's advanced memory output.",
+      "investment": "JPY 213.5B cumulative METI subsidies (Plan #3: JPY 46.5B, September 2022; Plan #4: JPY 167B, October 2023). EUV mass production at 1γ node from May 2025.",
+      "domain": "Energy/Infrastructure",
+      "sources": 3,
+      "corroborating": 6,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "238",
+      "name": "US EO 14320 — AI Technology Stack Exports",
+      "lat": 38.8977,
+      "lng": -77.0365,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "23 July 2025",
+      "location": "Washington, DC, United States",
+      "scope": "United States (international export reach)",
+      "description": "Executive Order establishing the American AI Exports Program, a coordinated national effort to promote the export of full-stack American AI technology packages to allied and partner nations. The programme defines five AI technology stack components and operates through pre-set export consortia administered by Commerce.",
+      "investment": "No direct financial allocation. 78 consortia applications received by June 2026; five-component full-stack definition operational.",
+      "domain": "Trade",
+      "sources": 6,
+      "corroborating": 0,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "industryPrimary": "Trade & Logistics",
+      "environmentalNexusTags": []
+    },
+    {
+      "id": "239",
+      "name": "Baidu Kunlun P800 30K Cluster",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "25 April 2025",
+      "location": "Beijing, China",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (AI accelerators and AI model training explicit in documentation)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Baidu's compute cluster of Kunlunxin P800 third-generation AI accelerators, activated in April 2025 as China's first fully self-developed 30,000-chip cluster. At Baidu's Create 2026 conference, the company reported training of a key model in the ERNIE 5.1 series completed on fully domestic Kunlunxin compute.",
+      "investment": "30,000 Kunlunxin P800 accelerators; ~345 TFLOPS FP16 per chip (Guosen Securities research); investment not disclosed",
+      "scope": "China (facility location not disclosed)",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 2,
+      "corroborating": 6,
+      "infrastructureThreads": [
+        {
+          "targetEventId": "192",
+          "linkType": "deploys",
+          "asset": "Kunlunxin P800 AI accelerators",
+          "field": "description"
+        }
+      ]
+    },
+    {
+      "id": "240",
+      "name": "Israel IIA National AI Supercomputer (Nebius)",
+      "lat": 31.8928,
+      "lng": 35.0124,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "18 January 2026",
+      "location": "Modi'in, Israel",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (national AI supercomputer; AI explicit in programme name)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "National AI supercomputer commissioned by the Israel Innovation Authority under the Telem Program, operated by Nebius Group from Modi'in. The programme allocates 1,000 NVIDIA B200 accelerators, split 70% for industry and 30% for academic research, representing a 25% share of the operator's ~4,000-GPU Blackwell facility.",
+      "investment": "Programme investment exceeding NIS 500M (~US$135–140M) including NIS 160M government contribution; 1,000 NVIDIA B200 accelerators allocated; host facility ~4,000 Blackwell GPUs (~16,000 petaflops)",
+      "scope": "Israel (national AI compute resource)",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 2,
+      "corroborating": 6,
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA B200 accelerators",
+          "field": "description"
+        }
+      ]
+    },
+    {
+      "id": "242",
+      "name": "Zhipu AI GLM-5",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "11 February 2026",
+      "location": "Beijing, China",
+      "domain": "Technology",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option C (the model is an AI product; AI is the stated primary purpose)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Zhipu AI's open-weight frontier model, released under MIT License on 11 February 2026 via HuggingFace with full weights available for download, fine-tuning and commercial use. The sparse Mixture-of-Experts release extends the GLM series to frontier scale.",
+      "investment": "744B total parameters; 40B active per token; 256-expert MoE; 200K-token context; IPO: HK$4.35B gross (January 2026)",
+      "scope": "Global (open-weight release via HuggingFace)",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 5,
+      "corroborating": 6
     }
   ]
 }
