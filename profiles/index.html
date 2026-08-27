@@ -982,7 +982,13 @@ if(navToggle&&navLinks){
         h+='<div class="weo-dr-sec weo-dr-supp"><div class="weo-dr-sec-title">Qualification rationale &amp; sources</div>';
         if(fdim.qualification)h+='<div class="weo-dr-qhl">'+esc(fdim.qualification)+'</div>';
         if(fdim.sources){
-          h+=drSrc('Primary',fdim.sources.primary)+drSrc('Corroborating',fdim.sources.corroborating);
+          // Fixed role order — never iterate the sources object, so a future role
+          // cannot render unlabelled. "Additional" is the reader-facing label for
+          // the escalation tiers ("escalation" is internal pipeline vocabulary).
+          // drSrc already returns '' for an absent or publisher-less object.
+          h+=drSrc('Primary',fdim.sources.primary)+drSrc('Corroborating',fdim.sources.corroborating)
+            +drSrc('Additional',fdim.sources.escalation_1)+drSrc('Additional',fdim.sources.escalation_2)
+            +drSrc('Supplementary',fdim.sources.supplementary);
         }
         h+='</div>';
       } else {
@@ -1090,10 +1096,16 @@ if(navToggle&&navLinks){
     h+='<br><span class="src-fact">'+esc(o.qualifying_fact||'')+'</span></div>';
     return h;
   }
+  // Fixed role order over the register's closed source vocabulary — never iterate
+  // the object, so a future role cannot render unlabelled. "Additional" is the
+  // reader-facing label for the escalation tiers ("escalation" is internal pipeline
+  // vocabulary). srcRow already returns '' for an absent or publisher-less object.
   function srcDetails(s){
     if(!s||!s.primary||!s.primary.publisher)return '';
     return '<details class="det-expand"><summary class="det-exp-trig">&#9432; Sources</summary>'
-      +'<div class="det-exp-body">'+srcRow('Primary',s.primary)+srcRow('Corroborating',s.corroborating)+'</div></details>';
+      +'<div class="det-exp-body">'+srcRow('Primary',s.primary)+srcRow('Corroborating',s.corroborating)
+      +srcRow('Additional',s.escalation_1)+srcRow('Additional',s.escalation_2)
+      +srcRow('Supplementary',s.supplementary)+'</div></details>';
   }
   function qualDetails(q){
     if(!q)return '';
