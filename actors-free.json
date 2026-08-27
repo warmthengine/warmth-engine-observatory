@@ -357,8 +357,8 @@
               "url": "https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning",
               "qualifying_fact": "CHIPS for America awarded over $33 billion of the over $36 billion in proposed incentives funding.",
               "captureStatus": "captured",
-              "accessDate": "2026-06-17",
-              "snapshotUrl": "https://web.archive.org/web/20260509112015/https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning"
+              "accessDate": "2026-08-19",
+              "snapshotUrl": "https://web.archive.org/web/20260819153335/https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-chips-incentives-awards-corning"
             },
             "corroborating": {
               "grade": 2,
@@ -633,7 +633,7 @@
         },
         "D7": {
           "met": true,
-          "qualification_headline": "NT$30–31.1 billion first-year AI strategy allocation under NSTC; FY2026 budget at legislative risk, compute procures NVIDIA GPUs"
+          "qualification_headline": "NT$30–31.1 billion first-year AI strategy allocation under NSTC; compute procures NVIDIA GPUs"
         }
       }
     },
@@ -721,7 +721,7 @@
         },
         "D4": {
           "met": false,
-          "constraint_headline": "Largest sovereign cluster (Mistral Compute, ~13,800 GB300s) is commissioning, not operational"
+          "constraint_headline": "Largest sovereign cluster (Mistral Compute, ~13,800 GB300s) operational since mid-2026; sustained frontier-class training not yet documented"
         },
         "D5": {
           "met": false,
@@ -817,7 +817,7 @@
         },
         "D4": {
           "met": false,
-          "constraint_headline": "No UK-HQ provider operates frontier-training-class compute on UK soil at assessment date; Nscale flagship facility scheduled Q4 2026-Q1 2027"
+          "constraint_headline": "No UK-HQ provider operates frontier-training-class compute on UK soil; Nscale flagship facility grid-energisation-dependent, 2027+"
         },
         "D5": {
           "met": false,
@@ -869,7 +869,7 @@
         },
         "D5": {
           "met": false,
-          "constraint_headline": "Sole candidate (Sarvam-105B) trails absolute May 2026 frontier; independent evaluation limited"
+          "constraint_headline": "Sole candidate (Sarvam-105B) confirmed sub-frontier under independent evaluation, August 2026"
         },
         "D6": {
           "met": false,
@@ -925,7 +925,7 @@
         },
         "D7": {
           "met": false,
-          "constraint_headline": "~$140M deployed AI-specific capital over six years; two orders of magnitude below $1B-$10B+ peer programmes"
+          "constraint_headline": "~$140M deployed AI-specific capital over six years; roughly two orders of magnitude below peer programmes"
         }
       }
     },
@@ -1319,9 +1319,9 @@
       "actor_id": "GB",
       "dimension": "D4",
       "current": "NOT MET",
-      "expected_change": "Probable MET",
-      "trigger": "Nscale Loughton 23,040-GPU cluster operational",
-      "timeline": "Q1 2027"
+      "expected_change": "Possible MET",
+      "trigger": "Nscale Loughton cluster operational (grid energisation unresolved)",
+      "timeline": "2027+, energisation-dependent"
     },
     {
       "actor_id": "FR",
@@ -1329,7 +1329,7 @@
       "current": "NOT MET",
       "expected_change": "Possible MET",
       "trigger": "Mistral Compute sustained frontier-class training runs",
-      "timeline": "Q3/Q4 2026"
+      "timeline": "Q3 2026–2027"
     },
     {
       "actor_id": "FR",
@@ -1345,7 +1345,7 @@
       "current": "NOT MET",
       "expected_change": "Possible MET",
       "trigger": "Sovereign compute exceeding 50,000 GPUs",
-      "timeline": "2027–2028"
+      "timeline": "2028–2030"
     },
     {
       "actor_id": "IN",
@@ -1356,27 +1356,11 @@
       "timeline": "2027–2028"
     },
     {
-      "actor_id": "IN",
-      "dimension": "D5",
-      "current": "NOT MET",
-      "expected_change": "Possible MET",
-      "trigger": "Independent verification of Sarvam-105B benchmark claims",
-      "timeline": "Near-term"
-    },
-    {
-      "actor_id": "TW",
-      "dimension": "D7",
-      "current": "MET",
-      "expected_change": "At risk",
-      "trigger": "FY2026 budget blocked by opposition in Legislative Yuan",
-      "timeline": "Ongoing"
-    },
-    {
       "actor_id": "DE",
       "dimension": "D7",
       "current": "NOT MET",
       "expected_change": "Possible MET",
-      "trigger": "STACKIT and sovereign AI programme scaling",
+      "trigger": "Transformative federal appropriation (EU AI Gigafactory national contribution and successor programmes)",
       "timeline": "End-2027+"
     },
     {
@@ -1384,8 +1368,8 @@
       "dimension": "D7",
       "current": "NOT MET",
       "expected_change": "Possible MET",
-      "trigger": "Nagel Committee NIS 25 billion legislatively appropriated",
-      "timeline": "Unknown"
+      "trigger": "National AI Program (Government Decision 4255) appropriated at nationally transformative scale",
+      "timeline": "2027+, post-election budget dependent"
     },
     {
       "actor_id": "CA",
@@ -1402,6 +1386,22 @@
       "expected_change": "Possible MET",
       "trigger": "SCIP operational and Budget 2026 scales commitment",
       "timeline": "2027–2028"
+    },
+    {
+      "actor_id": "SA",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "HUMAIN Riyadh or Dammam campus operational at frontier-training scale",
+      "timeline": "H2 2026–2027"
+    },
+    {
+      "actor_id": "AE",
+      "dimension": "D4",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Stargate UAE Phase 1 (200MW) operational",
+      "timeline": "H2 2026–2027"
     }
   ]
 }
