@@ -4,7 +4,7 @@
     "total_events": 210,
     "sample_events": 6,
     "standard_events": 204,
-    "last_updated": "2026-08-26",
+    "last_updated": "2026-08-27",
     "statistics": {
       "by_bloc": {
         "Eastern": 54,
@@ -63,8 +63,8 @@
         "1.0": 84
       }
     },
-    "versionDate": "2026-08-26",
-    "lastAudit": "2026-08-26",
+    "versionDate": "2026-08-27",
+    "lastAudit": "2026-08-27",
     "event_count": 210,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,23 +74,23 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1882,
-      "preserved": 1830,
-      "preservation_rate": 0.972,
+      "total_sources": 1937,
+      "preserved": 1885,
+      "preservation_rate": 0.973,
       "by_status": {
-        "captured": 1719,
+        "captured": 1771,
         "recovered": 32,
-        "existing": 79,
+        "existing": 82,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1133,
-          "preserved": 1122
+          "total": 1185,
+          "preserved": 1174
         },
         "connections": {
-          "total": 477,
-          "preserved": 437
+          "total": 480,
+          "preserved": 440
         },
         "actors": {
           "total": 272,
@@ -4309,8 +4309,8 @@
       "description": "Moonshot AI released Kimi K2-Instruct, a 1.04-trillion-parameter mixture-of-experts language model with 32 billion activated parameters and 384 experts, trained on 15.5 trillion tokens using Multi-head Latent Attention (MLA) architecture. Released under Modified MIT License.",
       "investment": "1.04T total parameters; 32B activated; 15.5T training tokens; Modified MIT License",
       "domain": "Technology",
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 3,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
