@@ -4073,6 +4073,14 @@
             padding: 1px 7px;
         }
         .atlas-thread-toggle.active .atlas-thread-toggle-count { color: #cbd5e1; }
+        /* Stage 4 — capability links count row. Same frame and register as the
+           thread toggle so the sidebar reads as one list; every interactive
+           affordance is removed because this is a figure, not a layer. */
+        .atlas-caplink-row { cursor: default; }
+        .atlas-caplink-row:hover { border-color: var(--border-primary); color: var(--text-secondary); }
+        /* Spacer, not a swatch: keeps the label on the thread row's baseline
+           without implying a canvas layer that does not exist. */
+        .atlas-caplink-spacer { width: 22px; height: 0; flex-shrink: 0; }
 
         /* Stack + thread panels share the trace panel's floating frame. */
         .atlas-stack-panel,
@@ -5155,6 +5163,17 @@
                     <span class="atlas-thread-toggle-count" aria-hidden="true">0</span>
                 </button>
 
+                <!-- Stage 4 — Capability links count. A count row only: no toggle,
+                     no overlay, no change to what the canvas draws. Hydrates from
+                     /api/capability-links metadata.total_links; 115 is the baked
+                     fallback. -->
+                <div class="atlas-thread-toggle atlas-caplink-row" id="atlas-caplink-row"
+                     title="Capability links — events contributing to actors' Sovereign Capability Profile dimensions.">
+                    <span class="atlas-caplink-spacer" aria-hidden="true"></span>
+                    <span class="atlas-thread-toggle-label">Capability links</span>
+                    <span class="atlas-thread-toggle-count" id="atlas-caplink-count">115</span>
+                </div>
+
                 <div class="topo-section">
                     <div class="topo-section-label">CC Type</div>
                     <div id="topo-cc-breakdown"></div>
@@ -5690,6 +5709,7 @@
         let capabilityLinks = [];     // raw Output A links from /api/capability-links
         let membershipByEvent = {};   // eventId → [capability link records]
         let qcCountByActorDim = {};   // "ACTOR|Dn" → qualifying_contributor count (§4.5)
+        let capabilityLinkTotal = null; // metadata.total_links, read verbatim; null keeps the baked fallback
         // Global degree — same source data as allConnections, kept as a
         // lookup map for sizing and topology computations.
         let globalDegree = {};
@@ -5976,6 +5996,9 @@
             try {
                 const capPayload = await fetchJson('https://warmthengine.com/api/capability-links');
                 capabilityLinks = (capPayload && (capPayload.links || capPayload.capability_links)) || [];
+                // Stage 4 — the sidebar count is the served figure, read verbatim.
+                capabilityLinkTotal = (capPayload && capPayload.metadata && capPayload.metadata.total_links != null)
+                    ? capPayload.metadata.total_links : null;
                 membershipByEvent = {};
                 qcCountByActorDim = {};
                 capabilityLinks.forEach(l => {
@@ -5990,7 +6013,7 @@
                 });
             } catch (e) {
                 console.warn('[WEO Atlas] capability-links unavailable — capability waypoints disabled:', e);
-                capabilityLinks = []; membershipByEvent = {}; qcCountByActorDim = {};
+                capabilityLinks = []; membershipByEvent = {}; qcCountByActorDim = {}; capabilityLinkTotal = null;
             }
 
             {
@@ -7040,6 +7063,7 @@
             // toggle. Threads stay hidden until the user reveals the layer.
             addThreadEdgesToGraph();
             wireThreadToggle();
+            renderCapabilityLinkCount();
         }
 
         // Brief 3b §5 — zoom-driven label reveal. When zoom passes
@@ -13154,6 +13178,13 @@
                 if (on) cy.edges('.thread-edge').addClass('thread-visible');
                 else cy.edges('.thread-edge').removeClass('thread-visible');
             });
+        }
+
+        // Stage 4 — capability links count row. Display only; the baked 115 stands
+        // whenever the payload is unreachable or carries no metadata.
+        function renderCapabilityLinkCount() {
+            const el = document.getElementById('atlas-caplink-count');
+            if (el && capabilityLinkTotal != null) el.textContent = String(capabilityLinkTotal);
         }
 
         function wireThreadToggle() {
