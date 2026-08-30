@@ -1071,9 +1071,23 @@
                 grid-template-columns: 1fr;
             }
             
+            /* Two-column register card: dates | identifiers, status spanning.
+               Hairline uses the existing --weo-border-primary token. */
             .register-meta {
-                flex-direction: column;
-                align-items: flex-start;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+                column-gap: var(--weo-space-md);
+                row-gap: var(--weo-space-md);
+            }
+            .register-meta-item:nth-child(2n) {
+                padding-left: var(--weo-space-md);
+                border-left: 1px solid var(--weo-border-primary);
+            }
+            .register-meta-item:last-child {
+                grid-column: 1 / -1;
+                padding-left: 0;
+                border-left: 0;
             }
             
             .nation-table {
@@ -1818,7 +1832,11 @@
         <div class="register-banner">
             <div class="register-meta">
                 <div class="register-meta-item">
-                    <span class="register-meta-label">Last Verified</span>
+                    <span class="register-meta-label">Last Verified<span class="weo-info-trigger" style="cursor:pointer;">&#9432;<span class="weo-tooltip"><div class="weo-tooltip-title">Last Verified</div><div class="weo-tooltip-body">The register&#x27;s last full verification snapshot — every nation&#x27;s classification confirmed current to one date. The register is verified in full at least annually, even where no classification has changed.</div><div class="weo-tooltip-method-link"></div></span></span></span>
+                    <span class="register-meta-value">23 May 2026</span>
+                </div>
+                <div class="register-meta-item">
+                    <span class="register-meta-label">Last Updated<span class="weo-info-trigger" style="cursor:pointer;">&#9432;<span class="weo-tooltip"><div class="weo-tooltip-title">Last Updated</div><div class="weo-tooltip-body">The most recent change to register content — a classification changed, evidence reinforced, or a correction applied.</div><div class="weo-tooltip-method-link"></div></span></span></span>
                     <span class="register-meta-value">23 May 2026</span>
                 </div>
                 <div class="register-meta-item">
