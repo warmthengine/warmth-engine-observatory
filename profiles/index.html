@@ -193,6 +193,7 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .det-expand summary:hover{color:var(--t4)}
 .det-exp-body{margin:4px 0 8px;padding:10px 14px;background:rgba(15,23,42,.5);border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.04);font-size:11px;color:var(--t4);line-height:1.6}
 .det-lock{font-size:11px;color:var(--t5);margin-left:14px;padding:3px 0}
+.det-assessed{font-size:11px;color:var(--t5);letter-spacing:.01em;padding:0 0 8px;margin-bottom:2px}
 .src-entry{font-size:11px;color:var(--t4);line-height:1.6;margin-bottom:6px} .src-entry:last-child{margin-bottom:0}
 .src-label{font-weight:580;color:var(--t5);text-transform:uppercase;letter-spacing:.04em;font-size:10px}
 .src-grade{font-family:'Geist Mono',monospace;font-size:10px;padding:1px 6px;border-radius:3px;margin-right:4px;font-weight:480}
@@ -455,6 +456,8 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .snapshot-desc-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 
   /* Tooltip overlay */
+  /* 300px, NOT 340px — positionTooltip()'s `var w=Math.min(340,...)` reserves 340 and the
+     40px difference IS the viewport clamp margin (PR #418 finding). Change both together. */
   #weo-tooltip-overlay{width:300px;font-size:13px;padding:14px 16px}
 }
 
@@ -653,6 +656,9 @@ if(navToggle&&navLinks){
   var TIP_SEL='.weo-info-trigger,.pill';
   function tipSource(el){var t=el&&el.closest(TIP_SEL);return t&&t.querySelector('.weo-tooltip')?t:null}
 
+  /* NOTE: reserves 340px but the mobile CSS renders the tooltip at 300px. The 40px
+     difference IS the viewport clamp margin (PR #418 finding). If you change either
+     value, change both and re-verify edge behaviour at 375/393/430px. */
   function positionTooltip(trigger){
     var rect=trigger.getBoundingClientRect();
     var w=Math.min(340,window.innerWidth-32);
@@ -1102,6 +1108,39 @@ if(navToggle&&navLinks){
     evName={};evs.forEach(function(ev){if(ev&&ev.id!=null&&ev.name)evName[normId(ev.id)]=ev.name;});
     if(current)render(current.actor,current.dn);
   }).catch(function(){});
+  /* Assessment date — the register's `assessed` month (YYYY-MM), rendered as one muted
+     line at the top of each actor's detail body. Read from the SERVED payload, never
+     baked: the field is free tier, so this works unauthenticated. Idempotent, because
+     the supporter hydrate rebuilds .det wholesale and then calls this again. */
+  var MONTHS=['January','February','March','April','May','June',
+              'July','August','September','October','November','December'];
+  function assessedLabel(v){
+    var m=/^(\d{4})-(\d{2})$/.exec(String(v||'')); if(!m)return null;
+    var mi=parseInt(m[2],10)-1; if(mi<0||mi>11)return null;
+    return 'Assessed '+MONTHS[mi]+' '+m[1];
+  }
+  var assessedById=null;
+  function renderAssessed(){
+    if(!assessedById)return;
+    Object.keys(assessedById).forEach(function(idUc){
+      var details=document.getElementById(idUc.toLowerCase()); if(!details)return;
+      var det=details.querySelector('.det'); if(!det)return;
+      var old=det.querySelector('.det-assessed'); if(old)old.remove();
+      var label=assessedLabel(assessedById[idUc]); if(!label)return;
+      var el=document.createElement('div');
+      el.className='det-assessed'; el.textContent=label;
+      det.insertBefore(el,det.firstChild);
+    });
+  }
+  fetch(API_BASE+'/actors',{cache:'default'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d||!d.actors)return;
+    assessedById={};
+    d.actors.forEach(function(a){if(a&&a.id&&a.assessed)assessedById[String(a.id).toUpperCase()]=a.assessed;});
+    renderAssessed();
+  }).catch(function(){});
+  /* 1E bridge — the 1B hydrate replaces each .det wholesale, which drops the line above;
+     it calls this straight after so the date survives a supporter log-in. */
+  window._weoRenderAssessed=renderAssessed;
   // 1C bridge — the 1B hydrate calls this with the supporter actors payload so the
   // drawer can swap its lock for the real qualification + sources.
   window._weoApplyFullActors=function(byId){fullById=byId||null;if(current)render(current.actor,current.dn);};
@@ -1205,6 +1244,8 @@ if(navToggle&&navLinks){
         if(!data||!data.actors||!data.actors.length)throw new Error('empty response');
         var byId={}; data.actors.forEach(function(a){if(a&&a.id)byId[String(a.id).toUpperCase()]=a;});
         applyMatrix(byId);
+        // applyMatrix replaced every .det body, taking the assessed line with it.
+        if(typeof window._weoRenderAssessed==='function')window._weoRenderAssessed();
         if(typeof window._weoApplyFullActors==='function')window._weoApplyFullActors(byId);
         console.log('[WEO] Profiles hydrated from API (supporter), actors:',data.actors.length);
       })
