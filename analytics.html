@@ -862,11 +862,17 @@
         </div>
     </div>
 
-    <!-- Tool Outcomes: the Tools panel above counts demand; this counts what came back. -->
+    <!-- Tool Outcomes: the Tools panel above counts demand; this counts what came back.
+         Rejected Parameters sits beside it: outcomes say a call errored, this says which
+         name caused it. -->
     <div class="panels-row">
-        <div class="panel" style="grid-column:1/-1">
+        <div class="panel">
             <div class="panel-title"><span class="panel-title-text">Tool Outcomes<span class="info-wrap"><button type="button" class="info-dot" aria-label="About tool outcomes" aria-expanded="false">i</button><span class="info-pop" role="tooltip">What each tool call returned. ok — the tool answered with content. error — the call failed: the tool threw, or the server rejected the arguments before the tool ran (a mistyped or missing parameter name lands here). empty — the call succeeded but matched nothing, which is how a genuine gap in the corpus looks from outside. Only calls made from worker 1.18.9 onward carry an outcome.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('toolOutcomePanel', this)" title="Copy full list to clipboard">Copy</button></div>
             <div id="toolOutcomePanel" class="panel-list"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-title"><span class="panel-title-text">Rejected Parameters<span class="info-wrap"><button type="button" class="info-dot" aria-label="About rejected parameters" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Parameter names a caller sent that the tool does not declare, read as tool | parameter. From worker 1.22.0 an undeclared name is refused with an error that names it and suggests the parameter meant; before that it was silently dropped and the tool ran unfiltered, so the caller received a confident wrong answer with no way to see it. Empty is the healthy state — every entry here is a consumer whose call did not ask what they meant to ask. Only calls made from worker 1.22.0 onward are counted.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('rejectedParamPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="rejectedParamPanel" class="panel-list"></div>
         </div>
     </div>
 
@@ -1115,6 +1121,8 @@
             addMap('tool_outcome', agg.by_tool_outcome);
             addMap('classified_ua', agg.by_classified_ua);
             addMap('referer', agg.by_referer);
+            // Worker 1.22.0 — joined 'tool|parameter' key, same convention as the three above.
+            addMap('rejected_param', agg.by_rejected_param);
             addMap('hour', agg.by_hour);
 
             // Per-call attribution log. Rows, not a count-map, so it gets its own headed
@@ -1224,7 +1232,10 @@
         var pctApi = total > 0 ? Math.round(agg.api / total * 100) : 0;
         document.getElementById('metricMcpSub').textContent = pctMcp + '% of total';
         document.getElementById('metricApiSub').textContent = pctApi + '% of total';
-        document.getElementById('metricAuthSub').textContent = agg.authenticated > 0 ? 'Paid-tier active' : 'No paid access yet';
+        // This counter measures requests that CARRIED A VALID TOKEN, not payment: the
+        // operator's own verification curls used to light it up as "Paid-tier active"
+        // when nobody had ever paid. Payment is tracked in Stripe, never here.
+        document.getElementById('metricAuthSub').textContent = agg.authenticated > 0 ? 'Token-bearing requests' : 'No token-bearing requests';
         document.getElementById('metricTotalSub').textContent = days + 'd period';
 
         // Point-in-time deltas: prior period trimmed to current hour
@@ -1341,6 +1352,9 @@
         renderBars('toolOutcomePanel', agg.by_tool_outcome, 'mcp', deltaCtx(prior.by_tool_outcome));
         renderBars('classifiedUaPanel', agg.by_classified_ua, 'diag', deltaCtx(prior.by_classified_ua));
         renderBars('refererPanel', agg.by_referer, 'api', deltaCtx(prior.by_referer));
+        // Worker 1.22.0. Empty until a caller sends an undeclared parameter name, and empty
+        // on every day before that deploy — renderBars draws its own "No data yet" state.
+        renderBars('rejectedParamPanel', agg.by_rejected_param, 'mcp', deltaCtx(prior.by_rejected_param));
         renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
 
         // --- Panel-title distinct counts -------------------------------------------
@@ -1398,6 +1412,9 @@
             // The first three are JOINED keys ('a|b'); the last two are single-value maps.
             by_protocol_client: {}, by_client_country: {}, by_tool_outcome: {},
             by_classified_ua: {}, by_referer: {},
+            // Worker 1.22.0, forward-only, same contract again: every day before that
+            // deploy carries no such key, so merge() no-ops and the panel reads empty.
+            by_rejected_param: {},
             tools_call_log: []   // list, not a count-map — concatenated (not merged) below
         };
         dates.forEach(function(d) {
@@ -1423,6 +1440,7 @@
             merge(result.by_tool_outcome, day.by_tool_outcome);
             merge(result.by_classified_ua, day.by_classified_ua);
             merge(result.by_referer, day.by_referer);
+            merge(result.by_rejected_param, day.by_rejected_param);
             // tools_call_log is a list, not a count-map — concatenate, don't merge().
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
