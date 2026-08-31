@@ -29,7 +29,7 @@ The Warmth Engine Observatory tracks AI infrastructure coordination dynamics acr
 - **Infrastructure Threads** — Factual cross-event links documenting where the same AI infrastructure asset (chip or accelerator, energy source, or fabrication facility) appears across multiple verified events, with four link types (fabricated_at, deploys, trains_on, powered_by); toggleable overlay on the Atlas and queryable via `get_threads`
 - **Guided Journeys** — Operator-curated analytical pathways across three substrates on the Atlas: coordination (directional coordination lineage), hardware (infrastructure thread links), and all layers (fusion traversal spanning coordination, material, and capability layers)
 - **Coordination Topology** — Parent-child coordination backbone mapping directional relationships (Policy Cascade, Funding Flow, Regulatory Enablement, Response) across the event corpus, powering the Atlas network view
-- **MCP Integration** — Model Context Protocol server at `warmthengine.com/mcp` exposing read-only programmatic tools for AI systems to query verified Coordination Intelligence. That endpoint is the authoritative tool reference: it lists every tool and its parameters, generated from the live server, so it cannot fall behind a release.
+- **MCP Integration** — Model Context Protocol server at `warmthengine.com/mcp` exposing seventeen programmatic tools for AI systems to query verified Coordination Intelligence (search_events, get_event, get_connections, get_connection_by_id, get_actors, get_coverage_stats, get_methodology, get_topology, traverse_coordination, get_capability_signatures, get_capability_links, get_threads, get_event_stack, query_scp, get_blocs, get_contribution, get_metrics)
 
 ---
 
