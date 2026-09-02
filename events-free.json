@@ -1,20 +1,20 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 210,
+    "total_events": 212,
     "sample_events": 6,
-    "standard_events": 204,
-    "last_updated": "2026-08-27",
+    "standard_events": 206,
+    "last_updated": "2026-09-02",
     "statistics": {
       "by_bloc": {
         "Eastern": 54,
-        "Western": 136,
+        "Western": 138,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 190,
+        "T3": 192,
         "T2": 19,
         "T1": 1
       },
@@ -22,14 +22,14 @@
         "Infrastructure": 48,
         "Coordination": 32,
         "Policy": 67,
-        "Corporate": 63
+        "Corporate": 65
       },
       "by_confidence": {
-        "A": 205,
+        "A": 207,
         "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 107,
+        "basel5": 109,
         "keohane": 31,
         "pisa5": 51,
         "routeBased": 21,
@@ -37,7 +37,7 @@
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 58,
+        "Cloud, Data Centres & Connectivity Infrastructure": 60,
         "Semiconductors & Equipment": 43,
         "AI Software & Platforms": 70,
         "Mining & Critical Minerals": 11,
@@ -60,12 +60,12 @@
         "1.2.2": 3,
         "1.0.1": 9,
         "1.2.4": 1,
-        "1.0": 84
+        "1.0": 86
       }
     },
-    "versionDate": "2026-08-27",
-    "lastAudit": "2026-08-27",
-    "event_count": 210,
+    "versionDate": "2026-09-02",
+    "lastAudit": "2026-09-02",
+    "event_count": 212,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -74,19 +74,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1937,
-      "preserved": 1885,
+      "total_sources": 1953,
+      "preserved": 1901,
       "preservation_rate": 0.973,
       "by_status": {
-        "captured": 1771,
+        "captured": 1787,
         "recovered": 32,
         "existing": 82,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1185,
-          "preserved": 1174
+          "total": 1201,
+          "preserved": 1190
         },
         "connections": {
           "total": 480,
@@ -8906,6 +8906,82 @@
       "crossEcosystemPresence": false,
       "sources": 5,
       "corroborating": 6
+    },
+    {
+      "id": "244",
+      "name": "NVIDIA Israel-1 Supercomputer",
+      "lat": 32.6605,
+      "lng": 35.1051,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "21 November 2023",
+      "location": "Israel (facility undisclosed)",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (AI supercomputer; AI model training and inference is the documented use)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "AI supercomputer owned and operated by NVIDIA at its Israeli data centre, built on the Spectrum-X Ethernet networking platform with Dell PowerEdge XE9680 servers and H100 80GB GPUs. First phase completed and in active use November 2023, serving NVIDIA's research and development teams and selected partners.",
+      "investment": "TOP500 Rmax 41.50 PFlop/s (117 HGX H100 systems benchmarked; rank 34 November 2024, rank 59 June 2026); phase 1 as announced 128 HGX H100 systems, 4 exaflops AI performance; NVIDIA's May 2023 pre-build cost estimate of several hundred million US dollars",
+      "scope": "Israel (facility not publicly identified)",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 5,
+      "corroborating": 3,
+      "infrastructureThreads": [
+        {
+          "targetEventId": "196",
+          "linkType": "deploys",
+          "asset": "NVIDIA H100 80GB",
+          "field": "description"
+        }
+      ]
+    },
+    {
+      "id": "245",
+      "name": "Core42 at Lake Mariner",
+      "lat": 43.3628,
+      "lng": -78.5556,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "July 2025",
+      "location": "Barker, New York, United States",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (GPU compute deployment for AI training and inference workloads)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "AI compute deployment by Core42, a G42 subsidiary of the United Arab Emirates, at TeraWulf's Lake Mariner campus in Niagara County, New York. Core42 operates its GPU clusters in data halls customised for direct liquid-cooled Dell PowerEdge XE9680L servers, and commissioned an AMD Instinct MI300-based cluster, Maximus, at the site in November 2025.",
+      "investment": "~US$1.1B contracted commitment over a ten-year lease (US$125/kW-month, 3% annual escalator, G42 parent guarantee); 60 MW critical IT (72.5 MW gross)",
+      "scope": "New York, United States",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 8,
+      "corroborating": 0,
+      "infrastructureThreads": [
+        {
+          "targetEventId": "197",
+          "linkType": "deploys",
+          "asset": "AMD Instinct MI300",
+          "field": "description"
+        }
+      ]
     }
   ]
 }

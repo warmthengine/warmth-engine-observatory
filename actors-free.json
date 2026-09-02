@@ -4,7 +4,7 @@
     "register_version": "2026.05.06-001",
     "methodology_version": "1.5",
     "assessment_date": "2026-05-06",
-    "last_updated": "2026-06-26",
+    "last_updated": "2026-08-27",
     "total_actors": 20,
     "batch": 2,
     "designation_distribution": {
@@ -162,6 +162,7 @@
       "name": "United States",
       "score": 7,
       "designation": "PAA",
+      "assessed": "2026-05",
       "severance": "PASS",
       "severance_detail": "All 7 dimensions sustainable under severance. Full-stack ecosystem anchor.",
       "dimensions": {
@@ -393,6 +394,7 @@
       "id": "CN",
       "name": "China",
       "designation": "PAA",
+      "assessed": "2026-05",
       "score": 6,
       "severance": "PASS",
       "energy_context": {
@@ -441,6 +443,7 @@
       "id": "JP",
       "name": "Japan",
       "designation": "AIK",
+      "assessed": "2026-05",
       "score": 4,
       "severance": "PASS",
       "aik_profile": {
@@ -493,6 +496,7 @@
       "id": "KR",
       "name": "South Korea",
       "designation": "AIK",
+      "assessed": "2026-05",
       "score": 4,
       "severance": "PASS",
       "aik_profile": {
@@ -545,6 +549,7 @@
       "id": "EU",
       "name": "European Union",
       "designation": "ACS",
+      "assessed": "2026-05",
       "score": 4,
       "severance": "FAIL",
       "energy_context": {
@@ -593,6 +598,7 @@
       "id": "TW",
       "name": "Taiwan",
       "designation": "ACS",
+      "assessed": "2026-05",
       "score": 3,
       "severance": "FAIL",
       "energy_context": {
@@ -641,6 +647,7 @@
       "id": "NL",
       "name": "Netherlands",
       "designation": "AIK",
+      "assessed": "2026-05",
       "score": 3,
       "severance": "PASS",
       "aik_profile": {
@@ -693,6 +700,7 @@
       "id": "FR",
       "name": "France",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 2,
       "severance": null,
       "energy_context": {
@@ -741,6 +749,7 @@
       "id": "DE",
       "name": "Germany",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 2,
       "severance": null,
       "energy_context": {
@@ -789,6 +798,7 @@
       "id": "GB",
       "name": "United Kingdom",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -837,6 +847,7 @@
       "id": "IN",
       "name": "India",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -885,6 +896,7 @@
       "id": "IL",
       "name": "Israel",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -933,6 +945,7 @@
       "id": "RU",
       "name": "Russia",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 0,
       "severance": null,
       "energy_context": {
@@ -981,6 +994,7 @@
       "id": "CA",
       "name": "Canada",
       "designation": "Participant",
+      "assessed": "2026-05",
       "score": 0,
       "severance": null,
       "energy_context": {
@@ -1029,6 +1043,7 @@
       "id": "MY",
       "name": "Malaysia",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -1077,6 +1092,7 @@
       "id": "SG",
       "name": "Singapore",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -1125,6 +1141,7 @@
       "id": "AE",
       "name": "United Arab Emirates",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -1173,6 +1190,7 @@
       "id": "SA",
       "name": "Saudi Arabia",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 1,
       "severance": null,
       "energy_context": {
@@ -1221,6 +1239,7 @@
       "id": "CH",
       "name": "Switzerland",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 0,
       "severance": null,
       "energy_context": {
@@ -1269,6 +1288,7 @@
       "id": "BR",
       "name": "Brazil",
       "designation": "Participant",
+      "assessed": "2026-06",
       "score": 0,
       "severance": null,
       "energy_context": {
