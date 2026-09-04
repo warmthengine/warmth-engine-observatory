@@ -4,7 +4,7 @@
     "total_events": 212,
     "sample_events": 6,
     "standard_events": 206,
-    "last_updated": "2026-09-02",
+    "last_updated": "2026-09-04",
     "statistics": {
       "by_bloc": {
         "Eastern": 54,
@@ -48,12 +48,12 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.2.1": 10,
+        "1.2.1": 11,
         "1.3": 1,
         "1.3.2": 2,
         "1.1": 41,
         "1.1.1": 27,
-        "1.2": 16,
+        "1.2": 15,
         "1.1.2": 13,
         "1.3.1": 2,
         "1.2.3": 1,
@@ -63,8 +63,8 @@
         "1.0": 86
       }
     },
-    "versionDate": "2026-09-02",
-    "lastAudit": "2026-09-02",
+    "versionDate": "2026-09-04",
+    "lastAudit": "2026-09-04",
     "event_count": 212,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -927,7 +927,7 @@
         "current": true,
         "aiDetail": "PIET (4/4 gates — Trade-Impact Confirmed)"
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "basel5": [
         {
           "factor": "Size",
@@ -1025,7 +1025,7 @@
           "snapshotUrl": "https://web.archive.org/web/20260429132441/https://www.clarkhill.com/news-events/news/china-hits-pause-on-rare-earth-export-controls-and-what-it-means-for-supply-chains/"
         }
       ],
-      "versionDate": "2026-03-11",
+      "versionDate": "2026-09-04",
       "aiConnectionPathway": "piet",
       "piet": {
         "implementationDate": "2023-08-01",
@@ -1040,7 +1040,7 @@
           {
             "factor": "Trade Flow Disruption",
             "pass": true,
-            "rationale": "China GAC data (via USGS MCS 2025): gallium/germanium exports fell to zero Aug–Sep 2023; >50% global decline sustained 18+ months. US bilateral exports declined >97%. No suspension or reversal; regime tightened Dec 2024.",
+            "rationale": "China GAC data (via USGS MCS 2025): gallium/germanium exports fell to zero Aug–Sep 2023; >50% global decline sustained 18+ months. US bilateral exports declined >97%. No suspension or reversal; tightened 3 December 2024 by MOFCOM Announcement No. 46: exports of gallium, germanium, antimony and superhard-material dual-use items to the United States refused in principle, and dual-use exports to US military users or uses prohibited.",
             "sources": [
               {
                 "id": "PIET-G1-1",
@@ -1059,6 +1059,33 @@
                 "accessDate": "2026-04-30",
                 "captureStatus": "captured",
                 "snapshotUrl": "https://web.archive.org/web/20260430102737/https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"
+              },
+              {
+                "id": "PIET-G1-3",
+                "desc": "MOFCOM Announcement No. 46 of 2024 — strengthened export controls on dual-use items to the United States (3 December 2024)",
+                "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2024/art_3d5e990b43424e60828030f58a547b60.html",
+                "type": "PRIMARY",
+                "accessDate": "2026-09-04",
+                "captureStatus": "existing",
+                "snapshotUrl": "https://web.archive.org/web/20260904044020/https://www.mofcom.gov.cn/zwgk/zcfb/art/2024/art_3d5e990b43424e60828030f58a547b60.html"
+              },
+              {
+                "id": "PIET-G1-4",
+                "desc": "CSET Georgetown — English translation of MOFCOM Announcement No. 46",
+                "url": "https://cset.georgetown.edu/publication/china-rare-earth-export-ban/",
+                "type": "CORROBORATING",
+                "accessDate": "2026-09-04",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260429061028/https://cset.georgetown.edu/publication/china-rare-earth-export-ban/"
+              },
+              {
+                "id": "PIET-G1-5",
+                "desc": "IEA Policies database — entry on MOFCOM Announcement No. 46",
+                "url": "https://www.iea.org/policies/26794-strengthening-the-export-control-of-relevant-dual-use-items-to-the-united-states",
+                "type": "CORROBORATING",
+                "accessDate": "2026-09-04",
+                "captureStatus": "captured",
+                "snapshotUrl": "https://web.archive.org/web/20260904044229/https://www.iea.org/policies/26794-strengthening-the-export-control-of-relevant-dual-use-items-to-the-united-states"
               }
             ],
             "summary": ">50% global decline sustained 18+ months; US bilateral exports declined >97%",
@@ -1077,7 +1104,7 @@
               },
               {
                 "label": "Status",
-                "value": "No suspension or reversal; regime tightened Dec 2024"
+                "value": "No suspension or reversal; tightened 3 December 2024 by MOFCOM Announcement No. 46"
               }
             ]
           },
@@ -1128,7 +1155,7 @@
           {
             "factor": "Government Policy Response",
             "pass": true,
-            "rationale": "6 qualifying responses across 3 governments within 18 months. EU Commission White Paper COM(2024) 25 (Jan 2024) citing ‘3 July 2023…controls covering products containing gallium and germanium’; EU Council ST-6622-2024-INIT (Feb 2024); Japan METI Minister Nishimura strategy announcement (Aug 2023); Japan METI 2024 WTO Compliance Report (Jun 2024); Canada Global Affairs parliamentary briefing (Jun 2024); Canada Minister Wilkinson Wilson Center remarks (Jan 2025).",
+            "rationale": "6 qualifying responses across 3 governments within 18 months. EU Commission White Paper COM(2024) 25 (Jan 2024) citing ‘3 July 2023…controls covering products containing gallium and germanium’; EU Commission Communication COM(2024) 77, transmitted as Council document ST-6622-2024-INIT (Feb 2024); Japan METI Minister Nishimura press conference (1 August 2023); Japan METI 2024 WTO Compliance Report (Jun 2024); Canada Global Affairs parliamentary briefing (Jun 2024); Canada Minister Wilkinson Wilson Center remarks (Jan 2025).",
             "sources": [
               {
                 "id": "PIET-G3-1",
@@ -1141,7 +1168,7 @@
               },
               {
                 "id": "PIET-G3-2",
-                "desc": "Council of the EU — ST-6622-2024-INIT",
+                "desc": "European Commission Communication COM(2024) 77 final — transmitted as Council document ST-6622-2024-INIT",
                 "url": "https://data.consilium.europa.eu/doc/document/ST-6622-2024-INIT/en/pdf",
                 "type": "PRIMARY",
                 "accessDate": "2026-04-30",
@@ -1178,11 +1205,12 @@
               {
                 "id": "PIET-G3-6",
                 "desc": "NRCan Minister Wilkinson — Woodrow Wilson Center remarks",
-                "url": "https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html",
+                "url": "https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc-opening-remarks-by-the-honourable-jonathan-wilkinson-minister-of-ene.html",
                 "type": "PRIMARY",
-                "accessDate": "2026-08-19",
+                "accessDate": "2026-09-04",
                 "captureStatus": "captured",
-                "snapshotUrl": "https://web.archive.org/web/20260819145807/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc.html"
+                "snapshotUrl": "https://web.archive.org/web/20260904044257/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc-opening-remarks-by-the-honourable-jonathan-wilkinson-minister-of-ene.html",
+                "captureNote": "Source URL corrected from the retired washington-dc.html address to the full opening-remarks page (G-067); superseded snapshot 20260819145807 preserved in the durability registry (S108, handoff H-002)."
               }
             ],
             "summary": "6 qualifying responses across 3 governments (EU, Japan, Canada) within 18 months",
