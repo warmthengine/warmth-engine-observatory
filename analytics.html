@@ -876,6 +876,16 @@
         </div>
     </div>
 
+    <!-- Unknown Tool Names: the pair to Rejected Parameters — that one records a caller
+         getting the parameter wrong, this one records them getting the TOOL wrong. Full
+         width because the keys are caller-chosen and long, as on Page Referrers. -->
+    <div class="panels-row">
+        <div class="panel" style="grid-column:1/-1">
+            <div class="panel-title"><span class="panel-title-text">Unknown Tool Names<span class="info-wrap"><button type="button" class="info-dot" aria-label="About unknown tool names" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Names sent to tools/call that are not registered tools on this server — a typo, a tool a caller expected to find, or a probe. A daily conformance probe calls a non-existent tool under a FRESH RANDOM NAME on every run, so a long and steadily growing list here is the expected state, not an alarm; read it for names that recur or look like a real intent. Until worker 1.22.1 these names were counted in the Tools panel, which is why that panel's total once exceeded the number of tools that exist. Only calls made from worker 1.22.1 onward are counted, and each name is cut at 60 characters.</span></span></span> <button class="copy-btn" onclick="copyBarPanel('unknownToolPanel', this)" title="Copy full list to clipboard">Copy</button></div>
+            <div id="unknownToolPanel" class="panel-list"></div>
+        </div>
+    </div>
+
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
         <div class="panel panel-scrollable" style="grid-column:1/-1">
@@ -1123,6 +1133,9 @@
             addMap('referer', agg.by_referer);
             // Worker 1.22.0 — joined 'tool|parameter' key, same convention as the three above.
             addMap('rejected_param', agg.by_rejected_param);
+            // Worker 1.22.1 — tools/call names that are not registered tools. Single-value
+            // key like 'tool' above, and the complement of it: no name appears in both.
+            addMap('unknown_tool', agg.by_unknown_tool);
             addMap('hour', agg.by_hour);
 
             // Per-call attribution log. Rows, not a count-map, so it gets its own headed
@@ -1355,6 +1368,9 @@
         // Worker 1.22.0. Empty until a caller sends an undeclared parameter name, and empty
         // on every day before that deploy — renderBars draws its own "No data yet" state.
         renderBars('rejectedParamPanel', agg.by_rejected_param, 'mcp', deltaCtx(prior.by_rejected_param));
+        // Worker 1.22.1. Same contract: {} on every day stored before that deploy, so
+        // renderBars draws its own "No data yet" state and no window can throw.
+        renderBars('unknownToolPanel', agg.by_unknown_tool, 'mcp', deltaCtx(prior.by_unknown_tool));
         renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
 
         // --- Panel-title distinct counts -------------------------------------------
@@ -1415,6 +1431,10 @@
             // Worker 1.22.0, forward-only, same contract again: every day before that
             // deploy carries no such key, so merge() no-ops and the panel reads empty.
             by_rejected_param: {},
+            // Worker 1.22.1, forward-only. Days before that deploy carry no such key AND
+            // keep their unsplit by_tool, so a window that spans the deploy reads the old
+            // mixed total in Tools and only the post-deploy names here.
+            by_unknown_tool: {},
             tools_call_log: []   // list, not a count-map — concatenated (not merged) below
         };
         dates.forEach(function(d) {
@@ -1441,6 +1461,7 @@
             merge(result.by_classified_ua, day.by_classified_ua);
             merge(result.by_referer, day.by_referer);
             merge(result.by_rejected_param, day.by_rejected_param);
+            merge(result.by_unknown_tool, day.by_unknown_tool);
             // tools_call_log is a list, not a count-map — concatenate, don't merge().
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
             // mcp_client_names (array) is handled separately in render()
