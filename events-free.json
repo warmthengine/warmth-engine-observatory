@@ -4,7 +4,7 @@
     "total_events": 212,
     "sample_events": 6,
     "standard_events": 206,
-    "last_updated": "2026-09-04",
+    "last_updated": "2026-09-05",
     "statistics": {
       "by_bloc": {
         "Eastern": 54,
@@ -52,8 +52,8 @@
         "1.3": 1,
         "1.3.2": 2,
         "1.1": 41,
-        "1.1.1": 27,
-        "1.2": 15,
+        "1.1.1": 26,
+        "1.2": 16,
         "1.1.2": 13,
         "1.3.1": 2,
         "1.2.3": 1,
@@ -63,8 +63,8 @@
         "1.0": 86
       }
     },
-    "versionDate": "2026-09-04",
-    "lastAudit": "2026-09-04",
+    "versionDate": "2026-09-05",
+    "lastAudit": "2026-09-05",
     "event_count": 212,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,23 +74,23 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1953,
-      "preserved": 1901,
-      "preservation_rate": 0.973,
+      "total_sources": 1974,
+      "preserved": 1922,
+      "preservation_rate": 0.974,
       "by_status": {
-        "captured": 1787,
+        "captured": 1806,
         "recovered": 32,
-        "existing": 82,
+        "existing": 84,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1201,
-          "preserved": 1190
+          "total": 1213,
+          "preserved": 1202
         },
         "connections": {
-          "total": 480,
-          "preserved": 440
+          "total": 489,
+          "preserved": 449
         },
         "actors": {
           "total": 272,
@@ -1312,7 +1312,7 @@
     },
     {
       "id": "16",
-      "name": "U.S. AI Safety Institute (USAISI)",
+      "name": "Center for AI Standards and Innovation (CAISI)",
       "lat": 39.1434,
       "lng": -77.2014,
       "bloc": "Western",
@@ -1321,11 +1321,11 @@
       "sample": false,
       "date": "1 November 2023",
       "location": "Gaithersburg, Maryland, United States",
-      "scope": "United States (headquartered at NIST); international coordination via AI Safety Institute Network",
-      "description": "US Artificial Intelligence Safety Institute operating as federal research and standards-setting organisation within NIST. TRAINS Taskforce comprises DOD (CDAO, NSA), DOE (10 National Laboratories), DHS (CISA), and HHS (NIH) for national security AI testing.",
+      "scope": "United States (headquartered at NIST); international coordination via AI Safety Institute Network; renamed CAISI June 2025",
+      "description": "Established as the U.S. AI Safety Institute on 1 November 2023, operating as a federal research and standards-setting organisation within NIST. TRAINS Taskforce comprises DOD (CDAO, NSA), DOE (10 National Laboratories), DHS (CISA) and HHS (NIH) for national security AI testing. Renamed the Center for AI Standards and Innovation (CAISI) on 3 June 2025; mandate shifted from broad AI safety evaluation to national security testing, with evaluation focus narrowed to cybersecurity, biosecurity and chemical weapons.",
       "investment": "US$10M initial funding (FY 2024); 280+ consortium members; 11 international partners; TRAINS Taskforce (November 2024)",
       "domain": "Technology",
-      "sources": 3,
+      "sources": 2,
       "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
@@ -1334,7 +1334,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {

@@ -63,7 +63,10 @@
           "attribution": "Source: U.S. Energy Information Administration",
           "unit_as_reported": "MK (million kilowatts)",
           "unit_conversion": "1 million kilowatt = 1 gigawatt; no scaling applied",
-          "retrieved": "2026-08-05"
+          "retrieved": "2026-08-05",
+          "accessDate": "2026-09-05",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260905021604/https://www.eia.gov/international/data/world"
         }
       },
       "generation": {
@@ -81,7 +84,10 @@
           "methodology_url": "https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf",
           "licence": "CC BY 4.0",
           "attribution": "Yearly electricity data, Ember",
-          "retrieved": "2026-08-05"
+          "retrieved": "2026-08-05",
+          "accessDate": "2026-09-05",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260905021642/https://ember-energy.org/data/yearly-electricity-data/"
         }
       }
     }
