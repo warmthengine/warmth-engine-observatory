@@ -3705,6 +3705,7 @@ function mapApiEventToFull(e) {
   if ((e.sources_primary ?? e.primarySources) != null) full.sources_primary = e.sources_primary ?? e.primarySources;
   if ((e.sources_corroborating ?? e.corroboratingSources) != null) full.sources_corroborating = e.sources_corroborating ?? e.corroboratingSources;
   if ((e.bloc_analysis ?? e.blocAnalysis) != null) full.bloc_analysis = e.bloc_analysis ?? e.blocAnalysis;
+  if ((e.blocClassification) != null) full.blocClassification = e.blocClassification;
 
   // Assessment frameworks: API names → events.html UI names
   if (e.basel5 != null) { full.basel_factors = e.basel5; full.basel_factors_met = e.basel5_factors_met; }
@@ -5646,12 +5647,22 @@ const openModal = (id) => {
             `;
         }
 
+        let blocStampHtml = '';
+        if (full.blocClassification && full.blocClassification.registerSnapshot) {
+            blocStampHtml = `
+                <div style="margin-top:0.75rem;font-size:0.75rem;color:var(--weo-text-muted);">
+                    <a href="blocs.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(148,163,184,0.3);">Classified against Bloc Membership Register ${esc(full.blocClassification.registerSnapshot)}</a>
+                </div>
+            `;
+        }
+
         html += `
             <div class="paid-section">
                 <div class="paid-section-title section-title-with-tooltip">▼ Tier Classification${generateTooltip('tierSection', 'below')}</div>
                 <div class="detail-prose">${esc(full.tier_rationale)}</div>
                 ${ecoImplHtml}
                 ${blocAnalysisHtml}
+                ${blocStampHtml}
             </div>
         `;
         
