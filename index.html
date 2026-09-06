@@ -10740,7 +10740,8 @@ function generateCCSection(eventId, showFullContent) {
 
       // Header version badge (must be declared before badgesHtml)
       // Updated date now lives in the dual-date subtitle (§6); the badge is just the version chip.
-      const headerVersionBadge = event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + escH(event.version) + '</span>' : '';
+      // Corrections take +0.0.1 with no rollingUpdates entry (LDEP §4.1) — version alone gates the badge.
+      const headerVersionBadge = event.version && event.version !== '1.0' ? '<span class="header-version-badge">v' + escH(event.version) + '</span>' : '';
 
       // Zone 2 — grid rows
       const tierLabel = generateFieldLabel('Tier', 'tier', 'below');
