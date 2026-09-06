@@ -1,20 +1,20 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 212,
+    "total_events": 214,
     "sample_events": 6,
-    "standard_events": 206,
+    "standard_events": 208,
     "last_updated": "2026-09-06",
     "statistics": {
       "by_bloc": {
-        "Eastern": 55,
-        "Western": 137,
+        "Eastern": 56,
+        "Western": 138,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 192,
+        "T3": 194,
         "T2": 19,
         "T1": 1
       },
@@ -22,24 +22,24 @@
         "Infrastructure": 48,
         "Coordination": 32,
         "Policy": 67,
-        "Corporate": 65
+        "Corporate": 67
       },
       "by_confidence": {
-        "A": 207,
+        "A": 209,
         "B": 5
       },
       "by_assessment_pathway": {
-        "basel5": 109,
+        "basel5": 110,
         "keohane": 31,
         "pisa5": 51,
-        "routeBased": 21,
+        "routeBased": 22,
         "oep": 6,
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 60,
+        "Cloud, Data Centres & Connectivity Infrastructure": 61,
         "Semiconductors & Equipment": 43,
-        "AI Software & Platforms": 70,
+        "AI Software & Platforms": 71,
         "Mining & Critical Minerals": 11,
         "Defence & Aerospace": 17,
         "Financial Services & Investment": 3,
@@ -60,12 +60,12 @@
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 85
+        "1.0": 87
       }
     },
     "versionDate": "2026-09-06",
     "lastAudit": "2026-09-06",
-    "event_count": 212,
+    "event_count": 214,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -9034,6 +9034,65 @@
           "field": "description"
         }
       ]
+    },
+    {
+      "id": "246",
+      "name": "AWS European Sovereign Cloud",
+      "lat": 52.3906,
+      "lng": 13.0645,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "15 January 2026",
+      "location": "Brandenburg, Germany",
+      "domain": "Energy/Infrastructure",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option E (Amazon launch press release — Disclosure-Verified, Confirmed, Operational)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Amazon Web Services launched the AWS European Sovereign Cloud in Brandenburg, a dedicated region operating entirely within the European Union. Approximately 90 services at general availability, including Amazon SageMaker, Bedrock and Amazon Q.",
+      "investment": "Amazon-committed €7.8 billion in Germany through 2040; approximately 90 services at general availability, including SageMaker, Bedrock and Amazon Q.",
+      "scope": "Germany (European Union sovereign-cloud reach)",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 4,
+      "corroborating": 5
+    },
+    {
+      "id": "247",
+      "name": "Tencent Hy3",
+      "lat": 22.5431,
+      "lng": 114.0579,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "6 July 2026",
+      "location": "Shenzhen, China",
+      "domain": "Technology",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Tencent released Hy3 as a full open-weight model under the Apache 2.0 licence, with weights publicly downloadable from launch on Hugging Face, ModelScope, GitCode and CNB and a first-party API through Tencent Cloud’s TokenHub service.",
+      "investment": "295B total parameters (21B active across a 192-expert mixture-of-experts design with top-8 routing); 256K context; 598GB BF16 and 300GB FP8 distributions.",
+      "scope": "China (global open-weight distribution)",
+      "industryPrimary": "AI Software & Platforms",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 4,
+      "corroborating": 3
     }
   ]
 }
