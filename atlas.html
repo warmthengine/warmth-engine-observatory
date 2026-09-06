@@ -2113,6 +2113,11 @@
             border: 1px solid var(--border-primary);
             font-family: var(--font-mono);
         }
+        /* Wired to the panel header 6 Sep 2026 — the rule pre-existed but nothing
+           used it. Gated on version alone: corrections take +0.0.1 with no
+           rollingUpdates entry (LDEP §4.1), so a rollingUpdates gate would hide
+           every corrected record. Parity with .header-version-badge on
+           index.html / events.html. */
         .atlas-chip-version {
             color: var(--text-muted);
             font-family: var(--font-mono);
@@ -10999,6 +11004,9 @@
                 // .weo-info-trigger (click-toggles, which touch needs) rather than an
                 // .atlas-chip-trigger (hover/focus only, because the chip's click is spoken for).
                 html += crossEcoBadge(event.crossEcosystemPresence);
+            }
+            if (event.version && event.version !== '1.0') {
+                html += `<span class="atlas-chip atlas-chip-version">v${escapeHtml(String(event.version))}</span>`;
             }
             html += '</div>';
             html += '</header>';
