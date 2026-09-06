@@ -74,19 +74,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1974,
-      "preserved": 1922,
+      "total_sources": 1989,
+      "preserved": 1937,
       "preservation_rate": 0.974,
       "by_status": {
-        "captured": 1806,
+        "captured": 1819,
         "recovered": 32,
-        "existing": 84,
+        "existing": 86,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1213,
-          "preserved": 1202
+          "total": 1228,
+          "preserved": 1217
         },
         "connections": {
           "total": 489,
@@ -9092,7 +9092,7 @@
       "environmentalNexusTags": [],
       "crossEcosystemPresence": false,
       "sources": 4,
-      "corroborating": 3
+      "corroborating": 2
     }
   ]
 }
