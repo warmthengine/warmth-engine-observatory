@@ -4,7 +4,7 @@
     "register_version": "2026.05.06-001",
     "methodology_version": "1.5",
     "assessment_date": "2026-05-06",
-    "last_updated": "2026-08-27",
+    "last_updated": "2026-09-10",
     "total_actors": 20,
     "batch": 2,
     "designation_distribution": {
@@ -20,13 +20,13 @@
       "D4": 3,
       "D5": 2,
       "D6": 8,
-      "D7": 14
+      "D7": 13
     },
     "source_completeness": {
       "fully_complete": 30,
-      "minor_gaps": 12,
-      "total_met_dimensions": 42,
-      "note": "All 42 MET dimensions have at least one confirmed source meeting the Grade standard. 12 entries are classified minor_gaps: 8 batch-1 entries with minor URL or verification gaps (non-blocking), plus the 4 batch-2 MET dimensions pending an editorial completeness pass."
+      "minor_gaps": 11,
+      "total_met_dimensions": 41,
+      "note": "All 41 MET dimensions have at least one confirmed source meeting the Grade standard. 11 entries are classified minor_gaps: 8 batch-1 entries with minor URL or verification gaps (non-blocking), plus the 3 batch-2 MET dimensions pending an editorial completeness pass."
     },
     "sample_actors": [
       "us"
@@ -1148,7 +1148,7 @@
       "name": "United Arab Emirates",
       "designation": "Participant",
       "assessed": "2026-06",
-      "score": 1,
+      "score": 0,
       "severance": null,
       "energy_context": {
         "capacity_gw": 45.53,
@@ -1187,8 +1187,8 @@
           "constraint_headline": "No AI-specific extraterritorial authority; the extraterritorial instruments are child-safety and data-protection regimes, with no cross-border AI enforcement"
         },
         "D7": {
-          "met": true,
-          "qualification_headline": "Abu Dhabi Law No. 3 of 2024 and the state vehicle MGX direct sovereign capital into a nationally-transformative AI programme"
+          "met": false,
+          "constraint_headline": "Sovereign vehicles direct capital abroad; the on-territory AI campus is built by Royal Group-controlled G42 and operated by US firms"
         }
       }
     },
@@ -1428,6 +1428,14 @@
       "expected_change": "Possible MET",
       "trigger": "Stargate UAE Phase 1 (200MW) operational",
       "timeline": "H2 2026–2027"
+    },
+    {
+      "actor_id": "AE",
+      "dimension": "D7",
+      "current": "NOT MET",
+      "expected_change": "Possible MET",
+      "trigger": "Sovereign instrument appropriating public capital to Emirati-operated AI infrastructure",
+      "timeline": "Dependent on Stargate UAE operating arrangements and any AIATC appropriation"
     }
   ]
 }
