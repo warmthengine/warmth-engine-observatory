@@ -74,19 +74,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1989,
-      "preserved": 1937,
+      "total_sources": 1999,
+      "preserved": 1947,
       "preservation_rate": 0.974,
       "by_status": {
-        "captured": 1819,
+        "captured": 1828,
         "recovered": 32,
-        "existing": 86,
+        "existing": 87,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1228,
-          "preserved": 1217
+          "total": 1238,
+          "preserved": 1227
         },
         "connections": {
           "total": 489,
