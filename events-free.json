@@ -1,35 +1,35 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 214,
+    "total_events": 216,
     "sample_events": 6,
-    "standard_events": 208,
-    "last_updated": "2026-09-06",
+    "standard_events": 210,
+    "last_updated": "2026-09-13",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
-        "Western": 138,
+        "Western": 140,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 194,
+        "T3": 196,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 48,
+        "Infrastructure": 49,
         "Coordination": 32,
         "Policy": 67,
-        "Corporate": 67
+        "Corporate": 68
       },
       "by_confidence": {
-        "A": 209,
-        "B": 5
+        "A": 210,
+        "B": 6
       },
       "by_assessment_pathway": {
-        "basel5": 110,
+        "basel5": 112,
         "keohane": 31,
         "pisa5": 51,
         "routeBased": 22,
@@ -37,11 +37,11 @@
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 61,
+        "Cloud, Data Centres & Connectivity Infrastructure": 62,
         "Semiconductors & Equipment": 43,
         "AI Software & Platforms": 71,
         "Mining & Critical Minerals": 11,
-        "Defence & Aerospace": 17,
+        "Defence & Aerospace": 18,
         "Financial Services & Investment": 3,
         "Energy & Power Infrastructure": 5,
         "Automotive & Manufacturing": 1,
@@ -60,12 +60,12 @@
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 87
+        "1.0": 89
       }
     },
-    "versionDate": "2026-09-06",
-    "lastAudit": "2026-09-06",
-    "event_count": 214,
+    "versionDate": "2026-09-13",
+    "lastAudit": "2026-09-13",
+    "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
     "ent_total_tags": 78,
@@ -9093,6 +9093,66 @@
       "crossEcosystemPresence": false,
       "sources": 4,
       "corroborating": 2
+    },
+    {
+      "id": "248",
+      "name": "France ASGARD Classified Defence AI Supercomputer",
+      "lat": 48.8706,
+      "lng": 2.2259,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "4 September 2025",
+      "location": "Suresnes, France",
+      "domain": "Security",
+      "confidence": "A",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "France's Ministry of the Armed Forces' ASGARD, a classified supercomputer at Fort du Mont-Valérien dedicated to defence artificial intelligence — 1,024 latest-generation accelerators operated by AMIAD for training foundation models.",
+      "investment": "€600 million defence AI envelope under the 2024–2030 military programming law; around 1.8 MW nominal power",
+      "scope": "Fort du Mont-Valérien, Suresnes, France",
+      "industryPrimary": "Defence & Aerospace",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 4,
+      "corroborating": 3,
+      "infrastructureThreads": []
+    },
+    {
+      "id": "249",
+      "name": "Meta–Blue Owl Hyperion Data Centre Joint Venture",
+      "lat": 32.4676,
+      "lng": -91.6268,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "21 October 2025",
+      "location": "Richland Parish, Louisiana, United States",
+      "domain": "Energy/Infrastructure",
+      "confidence": "B",
+      "version": "1.0",
+      "checkpoints": {
+        "ai": true,
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "description": "Meta Platforms and Blue Owl Capital formed a joint venture financing the Hyperion AI data centre campus in Richland Parish, Louisiana — four million square feet across nine buildings on 2,250 acres, with phased construction through 2030.",
+      "investment": "Approximately US$7 billion cash contribution at closing; US$27 billion total development costs; four-year initial lease-back term with extension options",
+      "scope": "Richland Parish, Louisiana, United States",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "crossEcosystemPresence": false,
+      "sources": 1,
+      "corroborating": 2,
+      "infrastructureThreads": []
     }
   ]
 }
