@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-13",
+    "last_updated": "2026-09-14",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -51,9 +51,9 @@
         "1.2.1": 11,
         "1.3": 1,
         "1.3.2": 2,
-        "1.1": 41,
+        "1.1": 39,
         "1.1.1": 26,
-        "1.2": 16,
+        "1.2": 18,
         "1.1.2": 13,
         "1.3.1": 2,
         "1.2.3": 1,
@@ -63,8 +63,8 @@
         "1.0": 89
       }
     },
-    "versionDate": "2026-09-13",
-    "lastAudit": "2026-09-13",
+    "versionDate": "2026-09-14",
+    "lastAudit": "2026-09-14",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -2287,7 +2287,7 @@
       "date": "4 April 2025",
       "location": "Beijing, China",
       "scope": "Global; affects all exports of Chinese rare earth materials with AI chip restrictions",
-      "description": "China imposed export controls on rare earth elements in two phases. Phase 1 (April 2025, MOFCOM/GAC Announcement No. 18/2025) imposed licensing on seven medium and heavy REEs. Phase 2 (October 2025, Notice No. 61/2025) introduced AI chip end-use thresholds (14nm logic, 256-layer memory) and extraterritorial de minimis provisions.",
+      "description": "China imposed export controls on rare earth elements, permanent magnets and related technologies in two phases. Phase 1 (April 2025, Announcement No. 18/2025) — licensing on seven medium and heavy REEs; in force, with expanded samarium, gadolinium and lutetium classifications added in the January 2026 Export Licensing Catalogue. Phase 2 (October 2025, Announcements Nos. 55–58 and 61–62) — extraterritorial de minimis provisions, AI chip end-use thresholds and technology-transfer restrictions; suspended 7 November 2025 to 10 November 2026 via Announcement No. 70/2025.",
       "investment": "Policy mechanism; affects >90% of global rare earth processing chain (China's share of RE mining is 60–70%; processing/refining exceeds 85%)",
       "domain": "Security",
       "sources": 3,
@@ -2299,7 +2299,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.2",
       "industryPrimary": "Mining & Critical Minerals"
     },
     {
@@ -4262,7 +4262,7 @@
       "date": "September 2024",
       "location": "Beijing, China",
       "scope": "Mainland China (global export impact)",
-      "description": "Export licensing controls on antimony, superhard materials, and associated production equipment per MOFCOM/GAC Announcement No. 33/2024. Controls capture antimony ores, high-purity antimony oxides (≥99.99%), organoantimonics (>99.999%), indium antimonide single crystals, hexapress equipment, and MPCVD equipment. China controls ~48% of global antimony ore production.",
+      "description": "Export licensing controls on antimony, superhard materials and associated production equipment per MOFCOM/GAC Announcement No. 33/2024, capturing antimony ores, high-purity antimony oxides, organoantimonics, indium antimonide single crystals and related equipment. From 1 January 2026, the Export Licensing Catalogue (Announcement No. 89/2025) removed the dual-use permit exemption marker from antimony entries; the 2026 Dual-Use Catalogue (Announcement No. 91/2025) independently captures antimony under control codes 3C003.a and 3C003.e.",
       "investment": ">US$500M estimated supply impact; antimony prices reached US$57,778/t by April 2025 (Fastmarkets MMTA Grade II Rotterdam)",
       "domain": "Trade",
       "sources": 1,
@@ -4275,7 +4275,7 @@
         "current": true,
         "aiDetail": "PIET (4/4 gates — Trade-Impact Confirmed)"
       },
-      "version": "1.1",
+      "version": "1.2",
       "aiConnectionPathway": "piet",
       "industryPrimary": "Mining & Critical Minerals"
     },
