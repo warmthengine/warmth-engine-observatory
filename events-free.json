@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-14",
+    "last_updated": "2026-09-15",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -48,10 +48,10 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.2.1": 12,
-        "1.3": 1,
+        "1.2.1": 11,
+        "1.3": 2,
         "1.3.2": 2,
-        "1.1": 39,
+        "1.1": 40,
         "1.1.1": 26,
         "1.2": 17,
         "1.1.2": 13,
@@ -60,11 +60,11 @@
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 89
+        "1.0": 88
       }
     },
-    "versionDate": "2026-09-14",
-    "lastAudit": "2026-09-14",
+    "versionDate": "2026-09-15",
+    "lastAudit": "2026-09-15",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,18 +74,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 1999,
+      "total_sources": 2005,
       "preserved": 1947,
-      "preservation_rate": 0.974,
+      "preservation_rate": 0.971,
       "by_status": {
         "captured": 1828,
         "recovered": 32,
+        "pending": 6,
         "existing": 87,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1238,
+          "total": 1244,
           "preserved": 1227
         },
         "connections": {
@@ -308,11 +309,11 @@
       "date": "December 2024",
       "location": "Kikuyo Town, Kumamoto Prefecture, Japan",
       "scope": "Kikuyo Town, Kumamoto Prefecture, Japan",
-      "description": "Advanced-logic semiconductor fab producing 12/16 nm FinFET and 22/28 nm logic chips for automotive and image-sensor applications. Second fab under construction extending to 6/7 nm for autonomous vehicle SoCs.",
+      "description": "Advanced-logic semiconductor fab producing 12/16 nm FinFET and 22/28 nm chips for automotive and image-sensor applications. Second fab under construction for 6/7 and 3 nm process technologies targeting automotive, industrial, consumer electronics and HPC applications, scheduled for 2028.",
       "investment": "Japanese subsidies up to JPY 1.208T (~US$8B); ~US$8.6B first fab; >US$20B total complex",
       "domain": "Energy/Infrastructure",
-      "sources": 3,
-      "corroborating": 4,
+      "sources": 5,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -320,7 +321,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.3",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [
         {
@@ -7619,13 +7620,13 @@
       "sample": false,
       "date": "29 August 2023",
       "location": "Mountain View, California, USA",
-      "scope": "United States (global Google Cloud reach)",
-      "description": "Google's Tensor Processing Unit line, the custom AI accelerator on which Google trains and serves its own Gemini frontier models. Unlike merchant silicon, TPUs are not sold as discrete hardware; they are consumed exclusively as Google Cloud compute services, spanning the v5e, v5p, Trillium (v6e), and Ironwood (v7) generations.",
-      "investment": "Google Cloud segment revenue ~US$58.7B FY2025 (up 36%); TPU fleet committed to Cloud and internal Gemini training not separately disclosed",
+      "scope": "United States (global Google Cloud reach; hardware sales)",
+      "description": "Google's Tensor Processing Unit line, the custom AI accelerator behind Gemini training and serving, spanning generations v5e through Ironwood. TPU 8t (training) and TPU 8i (inference), announced April 2026, split the architecture between training and inference silicon for the first time. TPUs are delivered through Google Cloud and, since April 2026, sold as hardware to select customers including Anthropic.",
+      "investment": "Google Cloud segment revenue US$24.8B Q2 2026 (~US$58.7B FY2025); inventory US$628M→US$7.7B (twelve months); Anthropic commitment up to 1M TPUv7; TPU-specific revenue not separately disclosed",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "sources": 2,
+      "sources": 8,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -7634,7 +7635,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "199",
