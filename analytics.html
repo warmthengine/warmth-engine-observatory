@@ -60,6 +60,7 @@
             --ana-mcp: #2DD4BF;
             --ana-api: #60A5FA;
             --ana-auth: #22C55E;
+            --ana-tool: #FBBF24;
             --ana-mcp-bg: rgba(45, 212, 191, 0.15);
             --ana-api-bg: rgba(96, 165, 250, 0.15);
             --ana-auth-bg: rgba(34, 197, 94, 0.12);
@@ -241,6 +242,20 @@
             display: none;
         }
         .csv-btn:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
+        /* Change 4 — probe filter toggle. Same box as .range-btn/.csv-btn so it reads as
+           part of the same control row, not a new idiom. position:relative anchors its
+           .info-pop exactly the way .panel-title does for every other tooltip on this page. */
+        .probe-toggle-wrap { display: inline-flex; align-items: center; gap: var(--weo-space-xs); position: relative; }
+        .probe-toggle {
+            padding: var(--weo-space-xs) var(--weo-space-md);
+            background: transparent; border: 1px solid var(--weo-border-primary);
+            color: var(--weo-text-tertiary); border-radius: var(--weo-radius-sm);
+            font-family: var(--weo-font-mono); font-size: 0.75rem; font-weight: 480;
+            cursor: pointer;
+            transition: all var(--weo-duration-fast) var(--weo-ease-out);
+        }
+        .probe-toggle:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); }
+        .probe-toggle.active { color: var(--ana-mcp); border-color: var(--ana-mcp); background: var(--ana-mcp-bg); }
         .last-updated {
             margin-left: auto;
             font-family: var(--weo-font-mono); font-size: 0.75rem;
@@ -648,6 +663,35 @@
         }
         .trend-legend-swatch.mcp { background: var(--ana-mcp); }
         .trend-legend-swatch.api { background: var(--ana-api); }
+        .trend-legend-swatch.tool { background: var(--ana-tool); }
+
+        /* Change 3 — tool-calls series. A SEPARATE small chart beneath the MCP/API one,
+           not a shared axis: tool calls run roughly 60x smaller than request totals, so a
+           shared-scale line would sit flat against the bottom of the chart above. Its own
+           independent max means bar HEIGHT is only comparable day-to-day within this strip,
+           never against the chart above. Reuses .trend-day/.trend-tooltip for perfect
+           per-day column alignment with the chart above (same dates, same flex columns). */
+        .trend-tool-label {
+            display: flex; align-items: center; gap: var(--weo-space-xs);
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            color: var(--weo-text-muted);
+            margin-top: var(--weo-space-md);
+            position: relative;
+        }
+        .trend-chart-tool {
+            display: flex; align-items: flex-end;
+            gap: 2px; height: 28px;
+            padding-top: var(--weo-space-xs);
+        }
+        .trend-bar-tool {
+            width: 100%; border-radius: 2px 2px 0 0;
+            background: var(--ana-tool);
+            min-height: 1px;
+            transition: height var(--weo-duration-slow) var(--weo-ease-out);
+        }
+        /* A day where the field EXISTS but counted zero calls — a thin dim tick, visually
+           distinct from a day where the field never existed (no bar at all, see renderTrend). */
+        .trend-bar-tool.zero { background: var(--weo-border-subtle); opacity: 0.7; }
 
         /* ========================================
            HOURLY PATTERN
@@ -788,6 +832,10 @@
         <button class="range-btn" data-days="180">6mo</button>
         <button class="range-btn" data-days="365">1yr</button>
         <button class="csv-btn" id="csvBtn">Export CSV</button>
+        <span class="probe-toggle-wrap">
+            <button type="button" class="probe-toggle" id="probeToggle" aria-pressed="false">Hide automated clients</button>
+            <span class="info-wrap"><button type="button" class="info-dot" aria-label="About the automated-client filter" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Hides clients whose name ends in -probe, -scanner, -monitor, -census, -crawler, -index, -healthcheck or -collector (including as a component before a version or URL, e.g. "service-monitor/2.5"), matches __verifymcp_auth_probe_*, or — in the Tool Calls log only — called a tool name that isn't registered. Reaches Named MCP Clients, Protocol by Client, Client by Country, and Classified Clients · User-Agent, plus the Tool Calls log. Countries, Endpoints, MCP by Client, API by Client and the hourly buckets carry no filterable client identity and are never affected. Off by default. Changes this display only — no stored or fetched data changes, and switching it off restores the exact original view.</span></span>
+        </span>
         <span class="last-updated" id="lastUpdated"></span>
     </div>
 
@@ -827,9 +875,12 @@
     <div class="trend-panel" id="trendPanel">
         <div class="panel-title">Daily Trend</div>
         <div class="trend-chart" id="trendChart"></div>
+        <div class="trend-tool-label">Tool calls per day<span class="info-wrap"><button type="button" class="info-dot" aria-label="About the tool-calls series" aria-expanded="false">i</button><span class="info-pop" role="tooltip">On its own scale — tool calls run roughly 60x smaller than request totals, so plotted against the chart above it would read as a flat line. Bar height is only comparable day-to-day within this strip. Tool-call counting began 24 August 2026 (worker 1.18.9): a day with no bar here was never measured, which is different from a measured day with zero calls (shown as a thin dim tick).</span></span></div>
+        <div class="trend-chart trend-chart-tool" id="trendToolChart"></div>
         <div class="trend-legend">
             <div class="trend-legend-item"><div class="trend-legend-swatch mcp"></div>MCP</div>
             <div class="trend-legend-item"><div class="trend-legend-swatch api"></div>API</div>
+            <div class="trend-legend-item"><div class="trend-legend-swatch tool"></div>Tool Calls</div>
         </div>
     </div>
 
@@ -994,6 +1045,7 @@
     var lastCsvData = null;
     var lastRawData = null;
     var lastRenderedDays = null;
+    var probeFilterOn = false;
 
     // Denominator for the Tools panel's "N of M called" figure, and the ONLY place the
     // registered tool count is written down on this page. The analytics response carries
@@ -1014,6 +1066,39 @@
     // "+300%" and the panel fills with movement that means nothing at current volumes.
     // Such rows show no delta at all — not a zero, not a dash.
     var ROW_DELTA_FLOOR = 20;
+
+    // Change 2 — CSV export cap for the per-call attribution log. The ON-SCREEN Tool Calls
+    // panel is untouched by this constant; it has its own per-day server-side cap and keeps
+    // rendering the full selected window. This only bounds what Export CSV writes to disk.
+    var CALL_LOG_EXPORT_CAP = 500;
+
+    // Change 4 — probe filter. A client/UA name is automated if it ends in one of these, OR
+    // if one of its hyphen/slash/space-delimited components does — "service-monitor/2.5 (url)"
+    // must match on its "service-monitor" component exactly as "abc-monitor" matches whole.
+    // Declared here, in one place, so the list can grow without touching the matching logic.
+    var AUTOMATED_CLIENT_SUFFIXES = ['-probe', '-scanner', '-monitor', '-census', '-crawler', '-index', '-healthcheck', '-collector'];
+    var AUTOMATED_CLIENT_PREFIX_RE = /^__verifymcp_auth_probe_/i;
+
+    function isAutomatedClientName(name) {
+        if (!name) return false;
+        if (AUTOMATED_CLIENT_PREFIX_RE.test(name)) return true;
+        var components = String(name).split(/[\/\s()]+/).filter(Boolean);
+        return components.some(function(c) {
+            var lc = c.toLowerCase();
+            return AUTOMATED_CLIENT_SUFFIXES.some(function(suf) { return lc.endsWith(suf); });
+        });
+    }
+
+    // Returns a NEW filtered object; never mutates the map it's given. `keyToClient` pulls
+    // the client-identity component out of the panel's key shape (plain, or joined 'a|b').
+    function filterAutomatedMap(map, keyToClient) {
+        if (!map) return map;
+        var out = {};
+        Object.keys(map).forEach(function(k) {
+            if (!isAutomatedClientName(keyToClient(k))) out[k] = map[k];
+        });
+        return out;
+    }
 
     // --- Auth ---
     var authGate = document.getElementById('authGate');
@@ -1101,6 +1186,19 @@
         });
     }
 
+    // --- Change 4: probe filter toggle ---
+    var probeToggle = document.getElementById('probeToggle');
+    if (probeToggle) {
+        probeToggle.addEventListener('click', function() {
+            probeFilterOn = !probeFilterOn;
+            probeToggle.classList.toggle('active', probeFilterOn);
+            probeToggle.setAttribute('aria-pressed', String(probeFilterOn));
+            // Re-derive entirely from lastRawData — never an incremental patch — so turning
+            // the filter back off reproduces the unfiltered view exactly, every time.
+            if (lastRawData) render(lastRawData, lastRenderedDays);
+        });
+    }
+
     // --- CSV export ---
     var csvBtn = document.getElementById('csvBtn');
     if (csvBtn) {
@@ -1142,14 +1240,38 @@
             addMap('unknown_tool', agg.by_unknown_tool);
             addMap('hour', agg.by_hour);
 
+            // Change 1 — per-day series, so a long range can be analysed outside the browser.
+            // lastCsvData.daily is built once in render() from lastRawData, threaded through
+            // rather than reached for here as a global. Ascending by date (ISO sorts lexically
+            // = chronologically); only days the API actually returned — it never pads.
+            var daily = lastCsvData.daily || {};
+            var dailyDates = Object.keys(daily).sort();
+            if (dailyDates.length) {
+                lines.push('');
+                lines.push('daily');
+                lines.push('date,mcp,api,authenticated,self_excluded');
+                dailyDates.forEach(function(d) {
+                    var dd = daily[d];
+                    lines.push([d, dd.mcp, dd.api, dd.authenticated, dd.self].join(','));
+                });
+            }
+
             // Per-call attribution log. Rows, not a count-map, so it gets its own headed
             // section after the maps rather than being flattened into field,value pairs.
             // Country stays a raw code here — the CSV's existing convention throughout.
+            // Change 2 — capped at CALL_LOG_EXPORT_CAP records (already newest-first, from
+            // aggregateDays), with a note above the section when the cap actually truncated —
+            // a silently shortened log would look like the rest just never happened.
             if (agg.tools_call_log && agg.tools_call_log.length) {
+                var fullLogLen = agg.tools_call_log.length;
+                var exportedLog = agg.tools_call_log.slice(0, CALL_LOG_EXPORT_CAP);
                 lines.push('');
+                if (fullLogLen > CALL_LOG_EXPORT_CAP) {
+                    lines.push(fullLogLen + ' tool-call records exist; showing the most recent ' + CALL_LOG_EXPORT_CAP + '.');
+                }
                 lines.push('tool_calls');
                 lines.push('ts,tool,args,outcome,client,country');
-                agg.tools_call_log.forEach(function(rec) {
+                exportedLog.forEach(function(rec) {
                     lines.push([
                         rec.ts || '',
                         rec.tool || '',
@@ -1332,7 +1454,16 @@
 
         // CSV button visibility
         if (csvBtn) csvBtn.style.display = 'inline-block';
-        lastCsvData = { agg: agg, days: days };
+        // Change 1 — per-day figures for the CSV daily section, threaded through lastCsvData
+        // rather than the CSV handler reaching for lastRawData itself. Only currentDates:
+        // the API already omits days that don't exist, so this carries no padding either.
+        var dailyForCsv = {};
+        currentDates.forEach(function(d) {
+            var day = rawData[d];
+            if (!day) return;
+            dailyForCsv[d] = { mcp: day.mcp || 0, api: day.api || 0, authenticated: day.authenticated || 0, self: day.self || 0 };
+        });
+        lastCsvData = { agg: agg, days: days, daily: dailyForCsv };
 
         // Daily trend: hide for 24h (single bar is degenerate)
         var trendPanel = document.getElementById('trendPanel');
@@ -1358,6 +1489,49 @@
             return { prior: priorMap, fraction: priorFraction };
         }
 
+        // Change 4 — probe filter. Applied only to the panels where client identity is
+        // knowable (see the toggle's tooltip for the exact list). Builds a FILTERED COPY of
+        // each map/list for display; agg/prior themselves are never mutated, so CSV export
+        // (which reads lastCsvData.agg, set above, before this runs) is unaffected — it
+        // stays a canonical, unfiltered export regardless of the toggle's on-screen state.
+        var namedClientMap = agg.by_mcp_client_named, namedClientPriorMap = prior.by_mcp_client_named;
+        var protocolClientMap = agg.by_protocol_client, protocolClientPriorMap = prior.by_protocol_client;
+        var clientCountryMap = agg.by_client_country, clientCountryPriorMap = prior.by_client_country;
+        var classifiedUaMap = agg.by_classified_ua, classifiedUaPriorMap = prior.by_classified_ua;
+        var toolCallLog = agg.tools_call_log;
+        var namedClientEmptyMsg = null, protocolClientEmptyMsg = null, clientCountryEmptyMsg = null,
+            classifiedUaEmptyMsg = null, toolCallLogEmptyMsg = null;
+        if (probeFilterOn) {
+            // 'a|b' key orientations, per each panel's own tooltip: protocol-by-client is
+            // 'revision|client' (client second); client-by-country is 'client|country' (client first).
+            namedClientMap = filterAutomatedMap(namedClientMap, function(k) { return k; });
+            namedClientPriorMap = filterAutomatedMap(namedClientPriorMap, function(k) { return k; });
+            protocolClientMap = filterAutomatedMap(protocolClientMap, function(k) { return k.split('|')[1]; });
+            protocolClientPriorMap = filterAutomatedMap(protocolClientPriorMap, function(k) { return k.split('|')[1]; });
+            clientCountryMap = filterAutomatedMap(clientCountryMap, function(k) { return k.split('|')[0]; });
+            clientCountryPriorMap = filterAutomatedMap(clientCountryPriorMap, function(k) { return k.split('|')[0]; });
+            classifiedUaMap = filterAutomatedMap(classifiedUaMap, function(k) { return k; });
+            classifiedUaPriorMap = filterAutomatedMap(classifiedUaPriorMap, function(k) { return k; });
+            // Tool Calls log: automated by client name, OR by calling a tool name that isn't
+            // registered — the same signal already split out into by_unknown_tool.
+            var unregisteredToolNames = {};
+            Object.keys(agg.by_unknown_tool || {}).forEach(function(t) { unregisteredToolNames[t] = true; });
+            toolCallLog = toolCallLog.filter(function(rec) {
+                var client = rec.named_client || rec.client || '';
+                if (isAutomatedClientName(client)) return false;
+                if (rec.tool && unregisteredToolNames[rec.tool]) return false;
+                return true;
+            });
+            // Distinguish "filtered to nothing" from "genuinely no data" — an all-hidden
+            // panel during a busy period must not read as an outage.
+            var FILTERED_EMPTY_MSG = 'All entries hidden by the automated-client filter';
+            if (Object.keys(agg.by_mcp_client_named || {}).length && !Object.keys(namedClientMap).length) namedClientEmptyMsg = FILTERED_EMPTY_MSG;
+            if (Object.keys(agg.by_protocol_client || {}).length && !Object.keys(protocolClientMap).length) protocolClientEmptyMsg = FILTERED_EMPTY_MSG;
+            if (Object.keys(agg.by_client_country || {}).length && !Object.keys(clientCountryMap).length) clientCountryEmptyMsg = FILTERED_EMPTY_MSG;
+            if (Object.keys(agg.by_classified_ua || {}).length && !Object.keys(classifiedUaMap).length) classifiedUaEmptyMsg = FILTERED_EMPTY_MSG;
+            if (agg.tools_call_log.length && !toolCallLog.length) toolCallLogEmptyMsg = 'All calls hidden by the automated-client filter';
+        }
+
         // Breakdown panels
         renderBars('clientPanel', agg.by_client, 'client', deltaCtx(prior.by_client));
         renderBars('endpointPanel', agg.by_endpoint, 'api', deltaCtx(prior.by_endpoint));
@@ -1367,14 +1541,14 @@
         renderBars('mcpClientPanel', agg.mcp_by_client, 'mcp', deltaCtx(prior.mcp_by_client));
         renderBars('apiClientPanel', agg.api_by_client, 'api', deltaCtx(prior.api_by_client));
         renderBars('uaPanel', agg.by_ua, 'diag', deltaCtx(prior.by_ua));
-        renderBars('namedClientPanel', agg.by_mcp_client_named, 'mcp', deltaCtx(prior.by_mcp_client_named));
+        renderBars('namedClientPanel', namedClientMap, 'mcp', deltaCtx(namedClientPriorMap), namedClientEmptyMsg);
         renderBars('protocolPanel', agg.by_protocol_version, 'mcp', deltaCtx(prior.by_protocol_version));
         // Worker 1.18.9 panels. Every one of these maps is {} on days stored before that
         // deploy, so renderBars draws its own "No data yet" empty state — no special case.
-        renderBars('protocolClientPanel', agg.by_protocol_client, 'mcp', deltaCtx(prior.by_protocol_client));
-        renderBars('clientCountryPanel', agg.by_client_country, 'country', deltaCtx(prior.by_client_country));
+        renderBars('protocolClientPanel', protocolClientMap, 'mcp', deltaCtx(protocolClientPriorMap), protocolClientEmptyMsg);
+        renderBars('clientCountryPanel', clientCountryMap, 'country', deltaCtx(clientCountryPriorMap), clientCountryEmptyMsg);
         renderBars('toolOutcomePanel', agg.by_tool_outcome, 'mcp', deltaCtx(prior.by_tool_outcome));
-        renderBars('classifiedUaPanel', agg.by_classified_ua, 'diag', deltaCtx(prior.by_classified_ua));
+        renderBars('classifiedUaPanel', classifiedUaMap, 'diag', deltaCtx(classifiedUaPriorMap), classifiedUaEmptyMsg);
         renderBars('refererPanel', agg.by_referer, 'api', deltaCtx(prior.by_referer));
         // Worker 1.22.0. Empty until a caller sends an undeclared parameter name, and empty
         // on every day before that deploy — renderBars draws its own "No data yet" state.
@@ -1382,7 +1556,7 @@
         // Worker 1.22.1. Same contract: {} on every day stored before that deploy, so
         // renderBars draws its own "No data yet" state and no window can throw.
         renderBars('unknownToolPanel', agg.by_unknown_tool, 'mcp', deltaCtx(prior.by_unknown_tool));
-        renderToolCallLog('toolsCallLogPanel', agg.tools_call_log);
+        renderToolCallLog('toolsCallLogPanel', toolCallLog, toolCallLogEmptyMsg);
 
         // --- Panel-title distinct counts -------------------------------------------
         // Countries: distinct origins, with a period-over-period move. This is a count of
@@ -1568,7 +1742,9 @@
 
     function renderTrend(dates, dailyData) {
         var chart = document.getElementById('trendChart');
+        var toolChart = document.getElementById('trendToolChart');
         chart.innerHTML = '';
+        if (toolChart) toolChart.innerHTML = '';
 
         if (dates.length === 0) {
             chart.innerHTML = '<div class="empty-state">No data available</div>';
@@ -1583,7 +1759,24 @@
         });
         if (maxVal === 0) maxVal = 1;
 
-        dates.forEach(function(d) {
+        // Change 3 — tool calls per day, summed from by_tool_outcome ('<tool>|<outcome>' →
+        // count). That field exists only from worker 1.18.9 onward (24 Aug 2026, per the
+        // live data): a day missing the KEY entirely was never measured (null, rendered as no bar at all,
+        // below) — never coerced to 0, which would assert "measured, nothing happened".
+        // Its max is taken only over days that WERE measured, so pre-collection days don't
+        // drag a real max down to nothing.
+        var toolCounts = dates.map(function(d) {
+            var day = dailyData[d];
+            if (!day || !day.by_tool_outcome) return null;
+            var sum = 0;
+            Object.keys(day.by_tool_outcome).forEach(function(k) { sum += day.by_tool_outcome[k] || 0; });
+            return sum;
+        });
+        var maxTool = 0;
+        toolCounts.forEach(function(c) { if (c !== null && c > maxTool) maxTool = c; });
+        if (maxTool === 0) maxTool = 1;
+
+        dates.forEach(function(d, i) {
             var day = dailyData[d] || {};
             var mcp = day.mcp || 0;
             var api = day.api || 0;
@@ -1609,6 +1802,25 @@
             }
 
             chart.appendChild(col);
+
+            if (toolChart) {
+                var tcol = document.createElement('div');
+                tcol.className = 'trend-day';
+                var count = toolCounts[i];
+                if (count === null) {
+                    // Absent, not zero: no bar, tooltip explains why on hover/tap.
+                    tcol.innerHTML = '<div class="trend-tooltip">' + dateLabel + ' · Tool calls: no data (before tracking began)</div>';
+                } else {
+                    // A measured-zero day gets a short fixed dim tick (.zero); a measured
+                    // non-zero day is scaled against maxTool, with a floor so a real but
+                    // small count never shrinks to invisible.
+                    var toolPct = count === 0 ? 6 : Math.max(4, count / maxTool * 100);
+                    tcol.innerHTML =
+                        '<div class="trend-tooltip">' + dateLabel + ' · Tool calls: ' + count + '</div>' +
+                        '<div class="trend-bar-tool' + (count === 0 ? ' zero' : '') + '" style="height:' + toolPct + '%"></div>';
+                }
+                toolChart.appendChild(tcol);
+            }
         });
     }
 
@@ -1684,11 +1896,11 @@
             '</span>');
     }
 
-    function renderBars(containerId, data, colorClass, ctx) {
+    function renderBars(containerId, data, colorClass, ctx, emptyMessage) {
         var container = document.getElementById(containerId);
         if (!container) return;
         if (!data || Object.keys(data).length === 0) {
-            container.innerHTML = '<div class="empty-state">No data yet</div>';
+            container.innerHTML = '<div class="empty-state">' + escapeHtml(emptyMessage || 'No data yet') + '</div>';
             setDeltaInfo(container, false);
             return;
         }
@@ -1741,12 +1953,12 @@
 
     // Per-call attribution list (not bars): one row per tools/call — tool · args · client · country · when.
     // Read-only; reuses the .bar-row rhythm. `list` is already sorted newest-first in aggregateDays.
-    function renderToolCallLog(containerId, list) {
+    function renderToolCallLog(containerId, list, emptyMessage) {
         var container = document.getElementById(containerId);
         var countEl = document.getElementById('toolsCallLogCount');
         if (!container) return;
         if (!list || list.length === 0) {
-            container.innerHTML = '<div class="empty-state">No tool calls yet</div>';
+            container.innerHTML = '<div class="empty-state">' + escapeHtml(emptyMessage || 'No tool calls yet') + '</div>';
             if (countEl) countEl.textContent = '';
             return;
         }
