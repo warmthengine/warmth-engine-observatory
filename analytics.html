@@ -875,7 +875,7 @@
     <div class="trend-panel" id="trendPanel">
         <div class="panel-title">Daily Trend</div>
         <div class="trend-chart" id="trendChart"></div>
-        <div class="trend-tool-label">Tool calls per day<span class="info-wrap"><button type="button" class="info-dot" aria-label="About the tool-calls series" aria-expanded="false">i</button><span class="info-pop" role="tooltip">On its own scale — tool calls run roughly 60x smaller than request totals, so plotted against the chart above it would read as a flat line. Bar height is only comparable day-to-day within this strip. Tool-call counting began 25 August 2026 (worker 1.18.9): a day with no bar here was never measured, which is different from a measured day with zero calls (shown as a thin dim tick).</span></span></div>
+        <div class="trend-tool-label">Tool calls per day<span class="info-wrap"><button type="button" class="info-dot" aria-label="About the tool-calls series" aria-expanded="false">i</button><span class="info-pop" role="tooltip">On its own scale — tool calls run roughly 60x smaller than request totals, so plotted against the chart above it would read as a flat line. Bar height is only comparable day-to-day within this strip. Tool-call counting began 24 August 2026 (worker 1.18.9): a day with no bar here was never measured, which is different from a measured day with zero calls (shown as a thin dim tick).</span></span></div>
         <div class="trend-chart trend-chart-tool" id="trendToolChart"></div>
         <div class="trend-legend">
             <div class="trend-legend-item"><div class="trend-legend-swatch mcp"></div>MCP</div>
@@ -1760,8 +1760,8 @@
         if (maxVal === 0) maxVal = 1;
 
         // Change 3 — tool calls per day, summed from by_tool_outcome ('<tool>|<outcome>' →
-        // count). That field exists only from worker 1.18.9 (25 Aug 2026) onward: a day
-        // missing the KEY entirely was never measured (null, rendered as no bar at all,
+        // count). That field exists only from worker 1.18.9 onward (24 Aug 2026, per the
+        // live data): a day missing the KEY entirely was never measured (null, rendered as no bar at all,
         // below) — never coerced to 0, which would assert "measured, nothing happened".
         // Its max is taken only over days that WERE measured, so pre-collection days don't
         // drag a real max down to nothing.
