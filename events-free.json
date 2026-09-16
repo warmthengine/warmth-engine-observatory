@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-15",
+    "last_updated": "2026-09-16",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -48,23 +48,22 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.2.1": 11,
+        "1.2.1": 10,
         "1.3": 2,
         "1.3.2": 2,
-        "1.1": 40,
-        "1.1.1": 26,
-        "1.2": 17,
+        "1.1": 43,
+        "1.1.1": 25,
+        "1.2": 18,
         "1.1.2": 13,
         "1.3.1": 2,
-        "1.2.3": 1,
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 88
+        "1.0": 87
       }
     },
-    "versionDate": "2026-09-15",
-    "lastAudit": "2026-09-15",
+    "versionDate": "2026-09-16",
+    "lastAudit": "2026-09-16",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,20 +73,20 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2005,
-      "preserved": 1947,
-      "preservation_rate": 0.971,
+      "total_sources": 2018,
+      "preserved": 1953,
+      "preservation_rate": 0.968,
       "by_status": {
-        "captured": 1828,
+        "captured": 1834,
         "recovered": 32,
-        "pending": 6,
+        "pending": 13,
         "existing": 87,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1244,
-          "preserved": 1227
+          "total": 1257,
+          "preserved": 1233
         },
         "connections": {
           "total": 489,
@@ -763,10 +762,10 @@
       "date": "26 January 2023",
       "location": "Gaithersburg, Maryland, United States",
       "scope": "Global (US-led with G7/OECD adoption)",
-      "description": "Voluntary, consensus-driven framework developed by NIST to manage risks associated with AI systems. Serves as foundational document for international AI governance with alignment from EU, Japan, UK, Canada, and Australia.",
+      "description": "Voluntary, consensus-driven risk management framework developed by NIST for AI systems. Under revision pursuant to the White House AI Action Plan. Derivative profiles: Generative AI Profile (NIST AI 600-1, July 2024); Cyber AI Profile preliminary draft (NIST IR 8596, December 2025); Critical Infrastructure concept note (April 2026).",
       "investment": "N/A (Framework) — Coordination Threshold: G7+ adoption demonstrated",
       "domain": "Technology",
-      "sources": 2,
+      "sources": 4,
       "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
@@ -775,7 +774,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -1312,10 +1311,10 @@
       "date": "1 December 2023",
       "location": "Hiroshima, Japan",
       "scope": "G7 members (Canada, France, Germany, Italy, Japan, UK, US) plus EU",
-      "description": "G7-launched coordination process to develop inclusive international governance for advanced AI systems, including foundation models and generative AI. OECD Hiroshima AI Process Reporting Framework operational at transparency.oecd.ai, with 20 organisations from 10 countries participating.",
+      "description": "G7-launched coordination process for international governance of advanced AI systems. The OECD Reporting Framework, operational since February 2025, published 25 first-round reports; version 2.0, launched May 2026, broadened participation to the full AI ecosystem with more than 50 organisations pledged.",
       "investment": "Non-binding coordination framework (significance via multi-sovereign participation)",
       "domain": "Technology",
-      "sources": 6,
+      "sources": 9,
       "corroborating": 6,
       "confidence": "A",
       "checkpoints": {
@@ -1324,7 +1323,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2522,7 +2521,7 @@
     },
     {
       "id": "52",
-      "name": "Global AI Infrastructure Investment Partnership (GAIIP)",
+      "name": "AI Infrastructure Partnership (AIP)",
       "lat": 24.4526,
       "lng": 54.3787,
       "bloc": "Western",
@@ -2532,10 +2531,10 @@
       "date": "17 September 2024",
       "location": "Abu Dhabi, UAE",
       "scope": "United States (primary); U.S. partner countries (secondary)",
-      "description": "Multinational coordination agreement between BlackRock, Global Infrastructure Partners, Microsoft, and MGX for AI data centre and energy infrastructure investment. NVIDIA provides technical advisory support. March 2025 expansion added xAI and NVIDIA as formal partners.",
-      "investment": "US$30 billion initial capital; up to US$100 billion with debt financing",
+      "description": "Multinational coordination platform for AI data centre and energy infrastructure investment, convened by BlackRock, Global Infrastructure Partners, Microsoft, and MGX. Technology partners NVIDIA, xAI, and Cisco; energy collaborators GE Vernova and NextEra Energy; anchor investor Kuwait Investment Authority. First investment: acquisition of Aligned Data Centers, closed July 2026.",
+      "investment": "US$30B initial capital; up to US$100B with debt financing. Aligned Data Centers: ~US$40B enterprise value; US$5B additional growth capital",
       "domain": "Trade",
-      "sources": 2,
+      "sources": 6,
       "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
@@ -2544,7 +2543,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.3",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
     },
     {
@@ -8021,13 +8020,13 @@
       "sample": false,
       "date": "November 2023",
       "location": "United States",
-      "scope": "United States (all military services; NATO adoption)",
-      "description": "US Department of Defense AI programme for military intelligence analysis and targeting, transitioned to a National Geospatial-Intelligence Agency Programme of Record in November 2023. Governed by the Chief Digital and Artificial Intelligence Office with Palantir Technologies as primary integration contractor, and adopted by NATO as MSS NATO in March 2025.",
-      "investment": "US$480M Palantir IDIQ (five-year, May 2024); US$795M Army MSS licences (May 2025); 20,000+ active users across 35+ tools and three security domains",
+      "scope": "United States (all military services; NATO operational deployment)",
+      "description": "US Department of Defense AI programme for military intelligence analysis and multi-domain targeting. Designated a department-wide programme of record under CDAO governance by deputy secretary directive in March 2026. Palantir Technologies is the primary integration contractor. NGA began disseminating machine-generated GEOINT through Maven in 2025. NATO MSS achieved full operational capability in June 2026.",
+      "investment": "Contract ceiling ~US$1.3B through 2029 (US$480M Palantir IDIQ May 2024; US$795M Army MSS May 2025); 20,000+ active users across 35+ tools and three security domains",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "sources": 2,
+      "sources": 6,
       "corroborating": 6,
       "confidence": "A",
       "checkpoints": {
@@ -8036,7 +8035,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "213",
