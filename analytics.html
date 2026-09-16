@@ -783,6 +783,10 @@
         <button class="range-btn active" data-days="7">7d</button>
         <button class="range-btn" data-days="14">14d</button>
         <button class="range-btn" data-days="30">30d</button>
+        <button class="range-btn" data-days="60">60d</button>
+        <button class="range-btn" data-days="90">90d</button>
+        <button class="range-btn" data-days="180">6mo</button>
+        <button class="range-btn" data-days="365">1yr</button>
         <button class="csv-btn" id="csvBtn">Export CSV</button>
         <span class="last-updated" id="lastUpdated"></span>
     </div>
@@ -1170,10 +1174,17 @@
     // --- Data loading ---
     function loadData(days) {
         if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; }
-        document.getElementById('lastUpdated').textContent = 'Loading…';
+        var lastUpdatedEl = document.getElementById('lastUpdated');
+        // Long ranges take multi-second round trips; the plain text swap below is easy to
+        // miss, so pair it with the pulsing-dot idiom already defined for .loading-dot.
+        lastUpdatedEl.innerHTML = days > 30
+            ? 'Loading<span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>'
+            : 'Loading…';
 
-        // Fetch double the period for delta comparison; always >= 2 so response is date-keyed
-        var fetchDays = Math.max(2, days * 2);
+        // Fetch double the period for delta comparison, so response is date-keyed; above 30
+        // days, fetch only the range itself — halves the read count, and the prior-period
+        // comparison would be misleading across a capture-instrument change mid-range anyway.
+        var fetchDays = days <= 30 ? Math.max(2, days * 2) : days;
 
         fetch(API_BASE + '?days=' + fetchDays, {
             headers: { 'X-WEO-Password': password }
