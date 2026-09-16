@@ -5912,7 +5912,11 @@ const openModal = (id) => {
                         <span class="current-sources-title">Current Data Sources</span>
                         <span class="current-sources-version">v${currentVersion}</span>
                     </div>
-                    ${currentUpdate.sources.map(s => {
+                    ${currentUpdate.sources.slice().sort((a, b) => {
+                        const aPrimary = (a.type || 'PRIMARY').toUpperCase() === 'PRIMARY';
+                        const bPrimary = (b.type || 'PRIMARY').toUpperCase() === 'PRIMARY';
+                        return aPrimary === bPrimary ? 0 : aPrimary ? -1 : 1;
+                    }).map(s => {
                         const typeClass = (s.type || 'PRIMARY').toLowerCase();
                         return `<div class="current-source-item">
                             <span class="current-source-type-badge ${typeClass}">${esc(s.type || 'PRIMARY')}</span>

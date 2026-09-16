@@ -10812,7 +10812,12 @@ function generateCCSection(eventId, showFullContent) {
             '<span class="current-sources-title">Current Data Sources</span>' +
             '<span class="current-sources-version">v' + currentVersion + '</span>' +
           '</div>';
-          currentUpdate.sources.forEach(function(s) {
+          var sortedSources = currentUpdate.sources.slice().sort(function(a, b) {
+            var aPrimary = (a.type || 'PRIMARY').toUpperCase() === 'PRIMARY';
+            var bPrimary = (b.type || 'PRIMARY').toUpperCase() === 'PRIMARY';
+            return aPrimary === bPrimary ? 0 : aPrimary ? -1 : 1;
+          });
+          sortedSources.forEach(function(s) {
             var typeClass = (s.type || 'PRIMARY').toLowerCase();
             sourcesHtml += '<div class="current-source-item">' +
               '<span class="current-source-type-badge ' + typeClass + '">' + escH(s.type || 'PRIMARY') + '</span>' +
