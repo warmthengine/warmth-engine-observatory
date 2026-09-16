@@ -834,7 +834,7 @@
         <button class="csv-btn" id="csvBtn">Export CSV</button>
         <span class="probe-toggle-wrap">
             <button type="button" class="probe-toggle" id="probeToggle" aria-pressed="false">Hide automated clients</button>
-            <span class="info-wrap"><button type="button" class="info-dot" aria-label="About the automated-client filter" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Hides clients whose name ends in -probe, -scanner, -monitor, -census, -crawler, -index, -healthcheck or -collector (including as a component before a version or URL, e.g. "service-monitor/2.5"), matches __verifymcp_auth_probe_*, or — in the Tool Calls log only — called a tool name that isn't registered. Reaches Named MCP Clients, Protocol by Client, Client by Country, and Classified Clients · User-Agent, plus the Tool Calls log. Countries, Endpoints, MCP by Client, API by Client and the hourly buckets carry no filterable client identity and are never affected. Off by default. Changes this display only — no stored or fetched data changes, and switching it off restores the exact original view.</span></span>
+            <span class="info-wrap"><button type="button" class="info-dot" aria-label="About the automated-client filter" aria-expanded="false">i</button><span class="info-pop" role="tooltip">Hides clients whose name ends in -probe, -scanner, -monitor, -census, -crawler, -index, -healthcheck or -collector (including as a component before a version or URL, e.g. "service-monitor/2.5"), matches __verifymcp_auth_probe_*, is on a short explicit list of known automated clients (mcpbeat, glama, agent-tools.cloud, zevruna, mcpindex-trust, glama-mcp-inspector, meshdns-health, MCPScoringEngine, mcp-rugpull-research), or — in the Tool Calls log only — called a tool name that isn't registered. Reaches Named MCP Clients, Protocol by Client, Client by Country, and Classified Clients · User-Agent, plus the Tool Calls log. Countries, Endpoints, MCP by Client, API by Client and the hourly buckets carry no filterable client identity and are never affected. Limit: both mechanisms match on a declared client name, and most automated traffic declares none — it arrives as "unknown" and this filter cannot touch it. Off by default. Changes this display only — no stored or fetched data changes, and switching it off restores the exact original view.</span></span>
         </span>
         <span class="last-updated" id="lastUpdated"></span>
     </div>
@@ -1079,10 +1079,16 @@
     var AUTOMATED_CLIENT_SUFFIXES = ['-probe', '-scanner', '-monitor', '-census', '-crawler', '-index', '-healthcheck', '-collector'];
     var AUTOMATED_CLIENT_PREFIX_RE = /^__verifymcp_auth_probe_/i;
 
+    // Explicit list — established from the operator's own records, not inferred from a
+    // naming pattern. Matched on the NAME component only (the leading, non-version part of
+    // "mcpbeat v0.1"), case-insensitively, so a version bump never drops a client off the list.
+    var AUTOMATED_CLIENT_NAMES = ['mcpbeat', 'glama', 'agent-tools.cloud', 'zevruna', 'mcpindex-trust', 'glama-mcp-inspector', 'meshdns-health', 'mcpscoringengine', 'mcp-rugpull-research'];
+
     function isAutomatedClientName(name) {
         if (!name) return false;
         if (AUTOMATED_CLIENT_PREFIX_RE.test(name)) return true;
         var components = String(name).split(/[\/\s()]+/).filter(Boolean);
+        if (components.length && AUTOMATED_CLIENT_NAMES.indexOf(components[0].toLowerCase()) !== -1) return true;
         return components.some(function(c) {
             var lc = c.toLowerCase();
             return AUTOMATED_CLIENT_SUFFIXES.some(function(suf) { return lc.endsWith(suf); });
