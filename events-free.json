@@ -7332,13 +7332,13 @@
       "date": "23 May 2024",
       "location": "European Union",
       "scope": "European Union (27 Member States, extraterritorial reach)",
-      "description": "Regulation (EU) 2024/1252 establishes a framework for secure and sustainable supply of critical raw materials across the European Union, designating 17 strategic and 34 critical raw materials including gallium, germanium, lithium, cobalt, rare earth elements, and graphite. The European Critical Raw Materials Board coordinates binding extraction, processing, and recycling benchmarks with a single-country concentration cap.",
-      "investment": "€22.5 billion across 47 Strategic Projects (March 2025). At least 10% EU extraction, 40% processing, 25% recycling of annual consumption by 2030; 65% single-country cap.",
+      "description": "Regulation (EU) 2024/1252 establishing a framework for secure and sustainable supply of critical raw materials across the European Union, designating 17 strategic and 34 critical raw materials. Sixty Strategic Projects designated in two rounds (47 EU, 13 non-EU). The European Critical Raw Materials Board coordinates binding extraction, processing, and recycling benchmarks with a single-country concentration cap.",
+      "investment": "€22.5B across 47 EU Strategic Projects (March 2025); 13 non-EU projects designated June 2025 (investment not separately disclosed). 2030 benchmarks: 10% extraction, 40% processing, 25% recycling; 65% single-country cap.",
       "domain": "Trade",
       "industryPrimary": "Mining & Critical Minerals",
       "environmentalNexusTags": [],
-      "sources": 3,
-      "corroborating": 1,
+      "sources": 4,
+      "corroborating": 2,
       "confidence": "A",
       "aiConnectionPathway": "trace",
       "checkpoints": {
@@ -7348,7 +7348,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "189",
@@ -8021,13 +8021,13 @@
       "date": "November 2023",
       "location": "United States",
       "scope": "United States (all military services; NATO operational deployment)",
-      "description": "US Department of Defense AI programme for military intelligence analysis and multi-domain targeting. Designated a department-wide programme of record under CDAO governance by deputy secretary directive in March 2026. Palantir Technologies is the primary integration contractor. NGA began disseminating machine-generated GEOINT through Maven in 2025. NATO MSS achieved full operational capability in June 2026.",
+      "description": "US Department of Defense AI programme for military intelligence analysis and multi-domain targeting. Designated a department-wide programme of record under CDAO governance in March 2026. Palantir Technologies is the primary integration contractor; Anthropic's Claude served as the LLM layer from July 2025 until a supply-chain-risk dispute in February 2026, resolved by federal court in August 2026. NGA began disseminating machine-generated GEOINT through Maven in 2025. NATO MSS achieved full operational capability in June 2026.",
       "investment": "Contract ceiling ~US$1.3B through 2029 (US$480M Palantir IDIQ May 2024; US$795M Army MSS May 2025); 20,000+ active users across 35+ tools and three security domains",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "sources": 6,
-      "corroborating": 6,
+      "sources": 4,
+      "corroborating": 11,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
