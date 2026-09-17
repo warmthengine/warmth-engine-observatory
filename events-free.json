@@ -51,11 +51,11 @@
         "1.2.1": 10,
         "1.3": 2,
         "1.3.2": 2,
-        "1.1": 48,
+        "1.1": 49,
         "1.1.1": 25,
         "1.2": 17,
         "1.1.2": 13,
-        "1.3.1": 2,
+        "1.3.1": 1,
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
@@ -73,19 +73,19 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2038,
+      "total_sources": 2046,
       "preserved": 1953,
-      "preservation_rate": 0.958,
+      "preservation_rate": 0.955,
       "by_status": {
         "captured": 1834,
         "recovered": 32,
-        "pending": 33,
+        "pending": 41,
         "existing": 87,
         "no_capture": 52
       },
       "by_layer": {
         "events": {
-          "total": 1277,
+          "total": 1285,
           "preserved": 1233
         },
         "connections": {
@@ -1892,12 +1892,12 @@
       "sample": false,
       "date": "11 December 2024",
       "location": "Moscow, Russia",
-      "scope": "Multi-national: Russia, China, India, Brazil, South Africa, Iran, UAE, Serbia, Indonesia",
-      "description": "Multilateral coordination initiative uniting national AI associations from BRICS countries and partner states for joint AI research, technology development, and regulatory cooperation. Russian AI Alliance serves as Secretariat administrator (elected December 2024); 17 associations from 14 countries operational; Global AI Horizons foresight project launched with 200+ scientists across 25 countries.",
-      "investment": "20+ companies from 6 member states; 50+ institutions expected; no confirmed budget",
+      "scope": "Multi-national: 21 countries including Russia, China, India, Brazil, South Africa, Iran, UAE, Egypt, Ethiopia, Indonesia, Serbia, Azerbaijan, Belarus, Chile, Cuba, and additional members from Latin America, Africa, the Middle East and Asia",
+      "description": "Multilateral coordination initiative uniting national AI associations from BRICS countries and partner states for joint AI research, technology development, and regulatory cooperation. Russian AI Alliance serves as Secretariat administrator (elected December 2024). Expanded to 28 organisations from 21 countries at AI Journey 2025. AI Horizons foresight report released, drawing contributions from over 270 researchers across 36 countries.",
+      "investment": "7,000+ partners across member associations. BRICS+ AI Success Hub launched with UNIDO (November 2025); ~80 verified use cases from ~30 countries.",
       "domain": "Technology",
-      "sources": 3,
-      "corroborating": 5,
+      "sources": 5,
+      "corroborating": 6,
       "confidence": "B",
       "checkpoints": {
         "ai": true,
@@ -1905,7 +1905,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3.1",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -4506,10 +4506,10 @@
         "current": true
       },
       "description": "MOFCOM Announcement No. 46/2024 establishing export controls explicitly targeting the United States. Article 1 prohibits export of all dual-use items to US military users or military end-uses. Article 2 bans in principle the export of gallium, germanium, antimony, and superhard materials to the US. Extraterritorial clause extends liability worldwide. Article 2 suspended from 9 November 2025 to 27 November 2026 via Announcement No. 72/2025; Article 1 remains in force.",
-      "investment": "N/A (regulatory instrument). Market impact: antimony prices surged >300% to US$59,750/t; US imports of germanium fell to zero; antimony shipments ceased",
+      "investment": "N/A (regulatory instrument). Pre-suspension market impact (December 2024 – October 2025): antimony prices surged >300% to US$59,750/t (July 2025); US imports of germanium fell to zero; antimony shipments ceased. Under the Article 2 suspension, civilian exports resumed under standard licensing; antimony prices declined to ~US$12,900/t China domestic, ~US$19,800/t European (September 2026).",
       "scope": "National (China) targeting the United States",
       "sources": 2,
-      "corroborating": 3,
+      "corroborating": 6,
       "industryPrimary": "Mining & Critical Minerals"
     },
     {
@@ -6754,10 +6754,10 @@
       "location": "United States (facility undisclosed)",
       "scope": "United States — corporate AI training infrastructure",
       "description": "Meta Platforms built two data-centre-scale AI training clusters, each comprising 24,576 NVIDIA H100 Tensor Core GPUs on the Grand Teton open hardware platform, operational by March 2024 for Llama 3 training. The clusters employ dual network fabrics combining RoCE and NVIDIA Quantum-2 InfiniBand.",
-      "investment": "49,152 H100 GPUs across two clusters; compute roadmap: 350,000 H100 GPUs and ~600,000 H100-equivalents total (including other GPUs) by end of 2024",
+      "investment": "49,152 H100 GPUs across two clusters. Meta's fleet-wide H100 count reached approximately 340,000 by mid-2024 across all facilities. FY2025 infrastructure capex US$72.2B; Q2 2026 US$31.1B.",
       "domain": "Energy/Infrastructure",
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 3,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
