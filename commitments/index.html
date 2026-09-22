@@ -235,6 +235,11 @@
         .rec-body { border-top: 1px solid var(--weo-border-primary); padding: var(--weo-space-lg); display: grid; gap: var(--weo-space-lg); }
         .rec-field-label { font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--weo-text-muted); margin-bottom: var(--weo-space-xs); }
         .rec-passage { font-size: 0.875rem; color: var(--weo-text-secondary); line-height: 1.7; border-left: 2px solid var(--weo-border-subtle); padding-left: var(--weo-space-md); white-space: pre-wrap; }
+        /* Record values are transcribed source text of unpredictable shape — long
+           identifiers, unspaced unit strings, bare URLs. Every one of them wraps
+           rather than overflowing its card. */
+        .rec-id, .rec-actor, .rec-title, .rec-quantity, .rec-passage,
+        .rec-meta-value, .rec-verified, .evidence-links, .evidence-links a, .chip { overflow-wrap: anywhere; }
         .rec-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--weo-space-md); }
         .rec-meta-value { font-size: 0.8125rem; color: var(--weo-text-secondary); line-height: 1.55; }
         .rec-meta-value.mono { font-family: var(--weo-font-mono); font-size: 0.75rem; }
@@ -245,12 +250,14 @@
         .chip-published { background: rgba(45, 212, 191, 0.10); color: var(--weo-accent-teal); border-color: rgba(45, 212, 191, 0.3); }
         .chip-sub { background: rgba(148, 163, 184, 0.06); color: var(--weo-text-muted); border-color: var(--weo-border-primary); }
         .chip-count { font-family: var(--weo-font-mono); margin-left: 4px; opacity: 0.8; }
+        .chip-unit { background: rgba(148, 163, 184, 0.06); color: var(--weo-text-secondary); border-color: var(--weo-border-primary); font-family: var(--weo-font-mono); font-size: 0.6875rem; }
+        .chip-lead { font-size: 0.8125rem; color: var(--weo-text-secondary); margin-bottom: var(--weo-space-xs); }
         .evidence-list { list-style: none; display: grid; gap: var(--weo-space-sm); }
-        .evidence-list li { font-size: 0.8125rem; color: var(--weo-text-secondary); display: grid; grid-template-columns: 110px 1fr; gap: var(--weo-space-sm); align-items: baseline; }
+        .evidence-list li { font-size: 0.8125rem; color: var(--weo-text-secondary); display: grid; grid-template-columns: 132px 1fr; gap: var(--weo-space-sm); align-items: baseline; }
         .evidence-role { font-family: var(--weo-font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--weo-text-muted); }
-        .evidence-links a { color: var(--weo-accent-hover); text-decoration: none; word-break: break-all; }
+        .evidence-links a { color: var(--weo-accent-hover); text-decoration: none; }
         .evidence-links a:hover { text-decoration: underline; }
-        .evidence-links .archive { color: var(--weo-text-muted); font-size: 0.75rem; margin-left: 6px; white-space: nowrap; }
+        .evidence-links .archive { display: block; margin-top: 2px; color: var(--weo-text-muted); font-size: 0.75rem; }
         .evidence-links .archive a { color: var(--weo-text-tertiary); }
         .records-unavailable { font-size: 0.875rem; color: var(--weo-text-tertiary); border: 1px dashed var(--weo-border-subtle); border-radius: var(--weo-radius-md); padding: var(--weo-space-lg); text-align: center; }
         @media (max-width: 767px) {
@@ -259,6 +266,9 @@
             /* In one column the chevron would take a row to itself; pin it to the
                summary's bottom-right corner instead. */
             .rec-chev { position: absolute; right: var(--weo-space-lg); bottom: var(--weo-space-md); grid-column: 1; }
+        }
+
+        @media (max-width: 819px) {
             .evidence-list li { grid-template-columns: 1fr; gap: 2px; }
         }
 
@@ -343,6 +353,27 @@
         .filter-chip { font-family: inherit; font-size: 0.6875rem; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--weo-border-primary); color: var(--weo-text-tertiary); background: transparent; cursor: pointer; transition: all var(--weo-duration-fast) var(--weo-ease-out); }
         .filter-chip:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); background: var(--weo-hover-overlay); }
         .filter-chip[aria-pressed="true"] { color: var(--weo-accent-teal); border-color: rgba(45, 212, 191, 0.5); background: rgba(45, 212, 191, 0.1); }
+        /* Clear-all — ported from atlas.html. Sits next to the filters it clears.
+           Disabled state is muted and inert; the active state hints at destruction
+           with a subtle red border so it is discoverable but not loud. */
+        .filter-clear-all {
+            margin-left: 4px;
+            padding: 4px 10px;
+            background: transparent;
+            color: var(--weo-text-muted);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-sm);
+            font-family: var(--weo-font-sans);
+            font-size: 0.6875rem;
+            cursor: pointer;
+            transition: color var(--weo-duration-fast) var(--weo-ease-out),
+                        border-color var(--weo-duration-fast) var(--weo-ease-out),
+                        background var(--weo-duration-fast) var(--weo-ease-out);
+            white-space: nowrap;
+        }
+        .filter-clear-all:not([disabled]) { color: var(--weo-status-negative); border-color: rgba(248, 113, 113, 0.3); }
+        .filter-clear-all:hover:not([disabled]) { color: var(--weo-status-negative); border-color: rgba(248, 113, 113, 0.5); background: rgba(248, 113, 113, 0.06); }
+        .filter-clear-all[disabled] { opacity: 0.3; cursor: not-allowed; }
 
         /* ---------- By committing organisation (A8) ---------- */
         .actor-list { list-style: none; display: grid; gap: 2px; }
@@ -408,6 +439,34 @@
         .footer-links { margin-top: 0.5rem; }
         .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
         .footer-links a:hover { color: #3B82F6; }
+
+        /* ---------- Back to top (ported from methodology.html) ---------- */
+        .weo-back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: var(--weo-surface-raised);
+            border: 1px solid var(--weo-border-primary);
+            border-radius: var(--weo-radius-md);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease, color 150ms ease, border-color 150ms ease;
+            z-index: 100;
+            touch-action: manipulation;
+        }
+        .weo-back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .weo-back-to-top:hover { color: #60a5fa; border-color: #60a5fa; }
+        @media (max-width: 768px) {
+            .weo-back-to-top { width: 36px; height: 36px; }
+            .weo-back-to-top.visible { opacity: 0.5; }
+        }
 
         /* ---------- Data-state notice ---------- */
         .data-state { display: none; font-size: 0.75rem; color: var(--weo-text-muted); font-family: var(--weo-font-mono); margin-top: var(--weo-space-sm); }
@@ -476,8 +535,8 @@
             <div class="tiles">
                 <div class="tile"><div class="tile-name">Records</div><div class="tile-value" data-hy="tile-records">11</div></div>
                 <div class="tile"><div class="tile-name">Committing organisations</div><div class="tile-value" data-hy="tile-actors">9</div></div>
-                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs</div><div class="tile-value" data-hy="tile-pairs">19</div></div>
-                <div class="tile"><div class="tile-name">Epoch</div><div class="tile-value tile-text" data-hy="clr-epoch">E1, as of 7 September 2026</div></div>
+                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs<button type="button" class="weo-info-trigger" aria-label="About document&ndash;challenge pairs">?<span class="weo-tooltip"><span class="weo-tooltip-title">Document&ndash;challenge pairs</span><span class="weo-tooltip-body">One pair is one commitment counted under one published challenge. A commitment whose document names several published challenges contributes one pair to each.</span></span></button></div><div class="tile-value" data-hy="tile-pairs">19</div></div>
+                <div class="tile"><div class="tile-name">Epoch<button type="button" class="weo-info-trigger" aria-label="About the epoch">?<span class="weo-tooltip"><span class="weo-tooltip-title">Epoch</span><span class="weo-tooltip-body">The period during which the Challenge List Reference and the editions it rests on are unchanged. No trend is drawn across an epoch boundary.</span></span></button></div><div class="tile-value tile-text" data-hy="clr-epoch">E1, as of 7 September 2026</div></div>
             </div>
             <p class="data-state">Live figures unavailable &mdash; showing the publication observation of 16 September 2026.</p>
         </header>
@@ -497,7 +556,7 @@
             <h2 class="section-title">How it works</h2>
             <div class="card">
                 <div class="hiw-list">
-                    <div class="hiw-item"><span class="hiw-num">1</span><div class="hiw-text">A body commits computing capacity in an official document &mdash; a budget line, an allocation record, or a filing.</div></div>
+                    <div class="hiw-item"><span class="hiw-num">1</span><div class="hiw-text">A body commits computing capacity in an official document, for example a budget line, an allocation record, or a filing.</div></div>
                     <div class="hiw-item"><span class="hiw-num">2</span><div class="hiw-text">The Observatory verifies the document against its source standards and records it once as a commitment.</div></div>
                     <div class="hiw-item"><span class="hiw-num">3</span><div class="hiw-text">The commitment is counted under every listed challenge its document names &mdash; most name one; some name several.</div></div>
                 </div>
@@ -638,6 +697,7 @@
                 <div class="filter-group" data-filter="grounded">
                     <button type="button" class="filter-chip" data-value="grounded" aria-pressed="false">Corpus-grounded</button>
                 </div>
+                <button type="button" class="filter-clear-all" id="filterClearAll" disabled>&times; Clear</button>
             </div>
             <div class="records-toolbar">
                 <span data-hy="records-count">11 commitments from 9 committing organisations</span>
@@ -868,10 +928,17 @@
             var m = String(s || '').match(/^CCR-ACT-\d+\s+(.*)$/);
             return m ? m[1] : String(s || '');
         }
+        var ROLE_TIP = {
+            Commitment: 'The instrument in which the commitment is made. Only the admitted document classes qualify.',
+            Delivery: 'A document evidencing award, disbursement or use. It may be the commitment instrument itself or a later document.',
+            Corroborating: 'A document that identifies the compute component or restates a commitment already recorded. It is not independent confirmation of the commitment.'
+        };
         function evidenceLine(role, ev) {
             if (!ev || !ev.url) return '';
             var arch = ev.snapshotUrl ? '<span class="archive">(<a href="' + esc(ev.snapshotUrl) + '" target="_blank" rel="noopener noreferrer">archived copy</a>' + (ev.accessDate ? ', accessed ' + esc(ukDate(ev.accessDate)) : '') + ')</span>' : '';
-            return '<li><span class="evidence-role">' + esc(role) + '</span><span class="evidence-links"><a href="' + esc(ev.url) + '" target="_blank" rel="noopener noreferrer">' + esc(ev.url) + '</a>' + arch + '</span></li>';
+            return '<li><span class="evidence-role">' + esc(role) +
+                tipBtn('About ' + esc(role.toLowerCase()) + ' evidence', esc(role), ROLE_TIP[role] || '') +
+                '</span><span class="evidence-links"><a href="' + esc(ev.url) + '" target="_blank" rel="noopener noreferrer">' + esc(ev.url) + '</a>' + arch + '</span></li>';
         }
         function chips(rec) {
             var seen = {}, out = [];
@@ -883,7 +950,8 @@
             out.sort(function(a, b) { var sa = seen[a].standing === 'published' ? 0 : 1, sb = seen[b].standing === 'published' ? 0 : 1; return sa - sb; });
             return out.map(function(ch) {
                 var s = seen[ch];
-                return '<span class="chip ' + (s.standing === 'published' ? 'chip-published' : 'chip-sub') + '" title="' + (s.standing === 'published' ? 'Published challenge' : 'Sub-threshold candidate — held out of the published table') + '">' + esc(ch) + (s.n > 1 ? '<span class="chip-count">&times;' + s.n + '</span>' : '') + '</span>';
+                var pub = s.standing === 'published';
+                return '<span class="chip ' + (pub ? 'chip-published' : 'chip-sub') + '"' + (pub ? '' : ' title="' + SUB_TIP + '"') + '>' + esc(ch) + (s.n > 1 ? '<span class="chip-count">&times;' + s.n + '</span>' : '') + '</span>';
             }).join('');
         }
         function tipBtn(label, title, body) {
@@ -891,6 +959,55 @@
                 '<span class="weo-tooltip"><span class="weo-tooltip-title">' + title + '</span>' +
                 '<span class="weo-tooltip-body">' + body + '</span></span></button>';
         }
+        // Per-band and per-status tooltip copy. The legend above the records carries
+        // no triggers of its own, so each badge carries its own definition.
+        var BAND_TIP = {
+            A: 'A grant or credit programme the organisation awards to applicants it selects.',
+            B: 'A dedicated allocation or capacity reservation on a named system, including credits or capacity reserved for allocation by a public programme.',
+            C: 'Sovereign or multilateral infrastructure.',
+            D: 'Commercial or philanthropic supply outside a public programme.'
+        };
+        var STATUS_TIP = {
+            Committed: 'Only the commitment document is held.',
+            Allocated: 'A document evidencing award, disbursement or use is also held.'
+        };
+        var SUB_TIP = 'A challenge candidate named by fewer than three institutions. It is recorded and held off the published table.';
+
+        // Face chips: published challenges named, then one summary chip for whatever
+        // sits below the threshold. The expanded body still lists every candidate.
+        function faceChips(rec) {
+            var seen = {}, pub = [], sub = 0;
+            (rec.line_items || []).forEach(function(li) {
+                if (!li.challenge || seen[li.challenge]) return;
+                seen[li.challenge] = 1;
+                if (li.standing === 'published') pub.push(li.challenge); else sub++;
+            });
+            var out = pub.map(function(ch) {
+                return '<span class="chip chip-published">' + esc(ch) + '</span>';
+            });
+            if (sub) {
+                out.push('<span class="chip chip-sub" title="' + SUB_TIP + '">+ ' + sub +
+                    ' candidate' + (sub === 1 ? '' : 's') + ' below the threshold</span>');
+            }
+            return out.join('');
+        }
+
+        // quantity_type is a stored string; where it enumerates units with pipes it is
+        // split for display only. Nothing is counted or converted here.
+        function quantityType(rec) {
+            var raw = String(rec.quantity_type || '');
+            if (!raw) return '';
+            var parts = raw.split('|').map(function(x) { return x.trim(); }).filter(Boolean);
+            if (parts.length < 2) return '<div class="rec-meta-value">' + esc(raw) + '</div>';
+            var lead = '';
+            var dash = parts[0].indexOf('\u2014');
+            if (dash > -1) { lead = parts[0].slice(0, dash).trim(); parts[0] = parts[0].slice(dash + 1).trim(); }
+            return (lead ? '<div class="chip-lead">' + esc(lead) + '</div>' : '') +
+                '<div class="chips">' + parts.map(function(u) {
+                    return '<span class="chip chip-unit">' + esc(u) + '</span>';
+                }).join('') + '</div>';
+        }
+
         // The document class is shown in the store's own words; the I-code is internal.
         function classLabel(rec) {
             var classes = META.instrument_classes || {};
@@ -903,8 +1020,9 @@
                 return '<a class="badge badge-attr" href="/events.html?event=' + esc(id) + '" title="A verified corpus event whose own source is this commitment\'s instrument">Event ' + esc(id) + '</a>';
             }).join('');
             var badges = '<span class="badge badge-band">Band ' + esc(rec.band) + '</span>' +
-                tipBtn('About bands', 'Band', 'Each record carries one of four bands describing the form of the commitment. The bands are never weighted.') +
+                tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '') +
                 '<span class="badge ' + statusClass + '">' + esc(rec.status) + '</span>' +
+                tipBtn('About the ' + esc(rec.status) + ' status', esc(rec.status), STATUS_TIP[rec.status] || '') +
                 (rec.ai_compute === 'stated'
                     ? '<span class="badge badge-ai">AI compute stated</span>' +
                       tipBtn('About the AI compute badge', 'AI compute stated', 'The instrument states that the capacity is for AI.')
@@ -919,7 +1037,7 @@
                     '<div class="rec-actor">' + esc(actorName(rec.actor_of_record)) + '</div>' +
                     '<div class="rec-title">' + esc(rec.instrument_title) + '</div>' +
                     '<div class="rec-quantity">' + esc(rec.quantity_as_stated) + '</div>' +
-                    '<div class="chips rec-face-chips">' + chips(rec) + '</div></div>' +
+                    '<div class="chips rec-face-chips">' + faceChips(rec) + '</div></div>' +
                     '<div class="rec-badges">' + badges + '</div>' +
                     '<div class="rec-verified">Instrument dated ' + esc(rec.instrument_date && /^\d{4}-\d{2}-\d{2}$/.test(rec.instrument_date) ? ukDate(rec.instrument_date) : rec.instrument_date) + ' &middot; verified ' + esc(ukDate(rec.operator_verified)) + '</div>' +
                     '<div class="rec-chev" aria-hidden="true">&#9662;</div>' +
@@ -929,7 +1047,7 @@
                     '<div><div class="rec-field-label">Stated purpose</div><div class="rec-passage">' + esc(rec.purpose_verbatim || 'No purpose stated') + '</div></div>' +
                     '<div class="rec-meta-grid">' +
                         '<div><div class="rec-field-label">Time frame</div><div class="rec-meta-value">' + esc(rec.time_frame || 'Not stated') + '</div></div>' +
-                        '<div><div class="rec-field-label">Quantity type</div><div class="rec-meta-value">' + esc(rec.quantity_type || '') + '</div></div>' +
+                        '<div><div class="rec-field-label">Quantity type</div>' + quantityType(rec) + '</div>' +
                         '<div><div class="rec-field-label">Line items</div><div class="rec-meta-value mono">' + lineItems + '</div></div>' +
                     '</div>' +
                     '<div><div class="rec-field-label">Challenges</div><div class="chips">' + (chips(rec) || '<span class="chip chip-sub">None assigned</span>') + '</div></div>' +
@@ -956,6 +1074,20 @@
                 host.appendChild(b);
             });
 
+            // Clear-all is enabled whenever any filter is off its default, and
+            // resets every group — the atlas.html behaviour.
+            function anyActive() {
+                return state.band !== 'all' || state.status.length > 0 ||
+                       state.actorType.length > 0 || state.grounded;
+            }
+            function clearAll() {
+                state.band = 'all'; state.status = []; state.actorType = []; state.grounded = false;
+                Array.prototype.forEach.call($('ccrFilters').querySelectorAll('.filter-chip'), function(b) {
+                    b.setAttribute('aria-pressed', String(b.getAttribute('data-value') === 'all'));
+                });
+                apply();
+            }
+
             function apply() {
                 var shown = 0;
                 recs.forEach(function(r) {
@@ -968,6 +1100,7 @@
                     if (ok) shown++;
                 });
                 setAll('records-count', 'Showing ' + shown + ' of ' + recs.length + ' commitments');
+                $('filterClearAll').disabled = !anyActive();
             }
 
             function toggle(list, value) {
@@ -975,6 +1108,7 @@
                 if (i < 0) list.push(value); else list.splice(i, 1);
             }
 
+            $('filterClearAll').addEventListener('click', clearAll);
             $('ccrFilters').addEventListener('click', function(ev) {
                 var btn = ev.target.closest('.filter-chip');
                 if (!btn) return;
@@ -1146,6 +1280,23 @@
         });
     })();
     </script>
+
+<button class="weo-back-to-top" id="backToTop" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', function() {
+        btn.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+    btn.addEventListener('click', function() {
+        var motion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        window.scrollTo({ top: 0, behavior: motion });
+    });
+})();
+</script>
 
 <script data-goatcounter="https://warmthengine.goatcounter.com/count"
         async src="/js/count.js"></script>
