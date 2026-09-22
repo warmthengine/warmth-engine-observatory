@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="weo-version" content="1.5.0">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute Commitment Register | Warmth Engine Observatory</title>
+    <meta name="description" content="Verified computing capacity commitments to global challenges: 11 records from 9 actors, 19 document–challenge pairs across nine challenges drawn from four institutional sources. Pre-operational — September 2026.">
+    <meta name="keywords" content="Warmth Engine Observatory, Compute Commitment Register, compute commitments, compute allocation, societal challenges, Challenge List Reference, AI for good, public research computing, coordination intelligence">
+    <link rel="canonical" href="https://warmthengine.com/commitments/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Compute Commitment Register | Warmth Engine Observatory">
+    <meta property="og:description" content="Verified computing capacity commitments to global challenges: 11 records from 9 actors, 19 document–challenge pairs across nine challenges drawn from four institutional sources. Pre-operational — September 2026.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://warmthengine.com/commitments/">
+    <meta property="og:image" content="https://warmthengine.com/og-image.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compute Commitment Register | Warmth Engine Observatory">
+    <meta name="twitter:description" content="Verified computing capacity commitments to global challenges: 11 records from 9 actors, 19 document–challenge pairs across nine challenges drawn from four institutional sources. Pre-operational — September 2026.">
+    <meta name="twitter:image" content="https://warmthengine.com/og-image.png">
+
+    <!-- Structured Data — Dataset -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "WEO Compute Commitment Register",
+      "description": "Verified computing capacity commitments to global challenges: actor-level records of publicly documented instruments, each assessed under an evidence standard, with declared quantities shown as published and never summed. Assigned to the Challenge List Reference — nine challenges derived by a threshold rule over the challenge lists of four qualifying institutions. Pre-operational register as at September 2026.",
+      "url": "https://warmthengine.com/commitments/",
+      "creator": {
+            "@type": "Person",
+            "name": "Warmth Engine",
+            "url": "https://warmthengine.com"
+      },
+      "temporalCoverage": "2026-09-16",
+      "isAccessibleForFree": true,
+      "inLanguage": "en-GB",
+      "citation": "https://doi.org/10.5281/zenodo.22785950",
+      "measurementTechnique": "Document-basis challenge table; one record per instrument, each counted once per challenge touched. Register Standard V1.0."
+}
+    </script>
+
+    <!-- Fonts (shared with WEO platform) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =================================================================
+           COMPUTE COMMITMENT REGISTER — Platform data surface
+           Observatory Palette (Slate-Blue) — same family as blocs, profiles, events.
+           Figures baked below are the 16 September 2026 publication observation
+           and are the permanent static fallback; live data hydrates over them.
+           ================================================================= */
+        :root {
+            --weo-surface-base: #0F172A;
+            --weo-surface-raised: #1E293B;
+            --weo-surface-overlay: #334155;
+            --weo-border-primary: #334155;
+            --weo-border-subtle: #475569;
+            --weo-text-primary: #E2E8F0;
+            --weo-text-secondary: #CBD5E1;
+            --weo-text-tertiary: #94A3B8;
+            --weo-text-muted: #94A3B8;
+            --weo-accent-primary: #3B82F6;
+            --weo-accent-hover: #60A5FA;
+            --weo-accent-teal: #2DD4BF;
+            --weo-teal-glow: rgba(45, 212, 191, 0.15);
+            --weo-status-positive: #22C55E;
+            --weo-status-negative: #F87171;
+            --weo-status-neutral: #94A3B8;
+            --weo-status-warning: #F59E0B;
+            --weo-font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --weo-font-mono: 'Geist Mono', 'Fira Code', 'Consolas', monospace;
+            --weo-space-xs: 0.25rem;
+            --weo-space-sm: 0.5rem;
+            --weo-space-md: 1rem;
+            --weo-space-lg: 1.5rem;
+            --weo-space-xl: 2rem;
+            --weo-space-2xl: 3rem;
+            --weo-space-3xl: 4rem;
+            --weo-radius-sm: 4px;
+            --weo-radius-md: 8px;
+            --weo-radius-lg: 12px;
+            --weo-duration-instant: 80ms;
+            --weo-duration-fast: 150ms;
+            --weo-duration-normal: 200ms;
+            --weo-duration-slow: 300ms;
+            --weo-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --weo-hover-overlay: rgba(255, 255, 255, 0.06);
+            --weo-focus-ring: #60A5FA;
+            --weo-focus-ring-offset: 2px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *:focus { outline: none; }
+        *:focus-visible { outline: 2px solid var(--weo-focus-ring); outline-offset: var(--weo-focus-ring-offset); border-radius: 4px; }
+
+        body {
+            font-family: var(--weo-font-sans);
+            background-color: var(--weo-surface-base);
+            color: var(--weo-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        .container { max-width: 960px; margin: 0 auto; padding: var(--weo-space-2xl) var(--weo-space-lg); }
+
+        /* ---------- Navigation (platform standard) ---------- */
+        .weo-nav { display: flex; align-items: center; justify-content: space-between; padding: var(--weo-space-md) 0; margin-bottom: var(--weo-space-xl); border-bottom: 1px solid var(--weo-border-primary); }
+        .weo-nav-brand { display: flex; align-items: center; gap: var(--weo-space-sm); text-decoration: none; color: var(--weo-text-primary); font-weight: 600; font-size: 0.875rem; transition: color var(--weo-duration-fast) var(--weo-ease-out); }
+        .weo-nav-brand:hover { color: #2DD4BF; }
+        .weo-nav-logo { width: 28px; height: 28px; background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%); border: 1px solid rgba(45, 212, 191, 0.25); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--weo-font-mono); font-size: 0.5rem; font-weight: 700; color: #2DD4BF; }
+        .weo-nav-links { display: flex; align-items: center; gap: var(--weo-space-xs); }
+        .weo-nav-links a { padding: var(--weo-space-xs) var(--weo-space-sm); color: var(--weo-text-tertiary); text-decoration: none; font-size: 0.8125rem; font-weight: 500; border-radius: var(--weo-radius-sm); transition: all var(--weo-duration-fast) var(--weo-ease-out); }
+        .weo-nav-links a:hover { color: var(--weo-text-primary); background: rgba(59, 130, 246, 0.1); }
+        .weo-nav-links a.active { color: #2DD4BF; background: rgba(45, 212, 191, 0.1); }
+        .weo-nav-toggle { display: none; width: 32px; height: 32px; background: var(--weo-surface-overlay); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+        .weo-nav-toggle span { display: block; width: 16px; height: 2px; background: var(--weo-text-tertiary); border-radius: 1px; transition: all var(--weo-duration-normal) var(--weo-ease-out); }
+        .weo-nav-toggle:hover { background: rgba(59, 130, 246, 0.2); border-color: #60A5FA; }
+        .weo-nav-toggle:hover span { background: var(--weo-text-primary); }
+        /* Ten-item nav: tablet range tightens padding and type; wordmark hides below 900px. */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: var(--weo-space-xs) 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+        @media (max-width: 767px) {
+            .weo-nav { position: relative; }
+            .weo-nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: rgba(15, 23, 42, 0.97); border: 1px solid rgba(96, 165, 250, 0.2); border-top: 2px solid rgba(96, 165, 250, 0.8); border-radius: var(--weo-radius-md); padding: var(--weo-space-sm); margin-top: var(--weo-space-sm); z-index: 100; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+            .weo-nav-links.open { display: flex; }
+            .weo-nav-links a { width: 100%; padding: var(--weo-space-sm) var(--weo-space-md); }
+            .weo-nav-toggle { display: flex; min-width: 44px; min-height: 44px; }
+        }
+
+        /* ---------- Header ---------- */
+        .page-header { margin-bottom: var(--weo-space-2xl); padding-bottom: var(--weo-space-lg); border-bottom: 1px solid var(--weo-border-primary); }
+        .page-title { font-size: 1.75rem; font-weight: 700; color: var(--weo-text-primary); margin-bottom: var(--weo-space-xs); letter-spacing: -0.02em; }
+        .page-subtitle { font-size: 1rem; color: var(--weo-text-tertiary); font-weight: 400; }
+        .header-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--weo-space-sm) var(--weo-space-md); margin-top: var(--weo-space-md); }
+        .status-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--weo-font-mono); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; background: rgba(245, 158, 11, 0.12); color: var(--weo-status-warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .observation-summary { font-family: var(--weo-font-mono); font-size: 0.8125rem; color: var(--weo-text-secondary); font-variant-numeric: tabular-nums slashed-zero; }
+        .observation-date { font-size: 0.75rem; color: var(--weo-text-muted); }
+
+        /* ---------- Sections / cards ---------- */
+        .section { margin-bottom: var(--weo-space-2xl); }
+        .section-title { font-family: var(--weo-font-mono); font-size: 0.75rem; font-weight: 600; color: var(--weo-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--weo-space-md); }
+        .card { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-lg); padding: var(--weo-space-xl); margin-bottom: var(--weo-space-lg); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15); }
+        .prose p { color: var(--weo-text-secondary); font-size: 0.9375rem; line-height: 1.7; }
+        .prose p + p { margin-top: var(--weo-space-md); }
+        .prose em { font-style: italic; }
+        .prose a { color: var(--weo-accent-hover); text-decoration: none; }
+        .prose a:hover { text-decoration: underline; }
+
+        /* ---------- Publication card (research.html pattern, platform palette) ---------- */
+        .publication-card--weo { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-md); padding: var(--weo-space-lg); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 -4px 16px -4px rgba(96, 165, 250, 0.15); }
+        .publication-title { font-size: 1rem; font-weight: 600; color: var(--weo-text-primary); line-height: 1.4; margin-bottom: var(--weo-space-sm); }
+        .publication-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--weo-space-sm); font-size: 0.8125rem; color: var(--weo-text-tertiary); margin-bottom: var(--weo-space-sm); }
+        .meta-separator { color: var(--weo-text-muted); }
+        .meta-badge { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: var(--weo-space-xs) var(--weo-space-sm); background: var(--weo-surface-overlay); border-radius: var(--weo-radius-sm); color: var(--weo-text-tertiary); }
+        .meta-badge.open-access { background: rgba(45, 212, 191, 0.1); color: var(--weo-accent-teal); }
+        .doi-row { margin-bottom: var(--weo-space-lg); }
+        .doi-badge { display: inline-flex; align-items: center; gap: var(--weo-space-sm); font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-secondary); background: var(--weo-surface-overlay); padding: var(--weo-space-xs) var(--weo-space-sm); border-radius: var(--weo-radius-sm); }
+        .doi-badge .label { font-weight: 600; color: var(--weo-text-muted); }
+        .doi-note { font-size: 0.75rem; color: var(--weo-text-muted); margin-top: var(--weo-space-xs); }
+        .link-row { display: flex; flex-wrap: wrap; gap: var(--weo-space-sm); align-items: center; }
+        .link-button { display: inline-flex; align-items: center; gap: var(--weo-space-sm); text-decoration: none; font-size: 0.875rem; font-weight: 600; padding: var(--weo-space-sm) var(--weo-space-lg); border-radius: var(--weo-radius-md); transition: background-color var(--weo-duration-fast) var(--weo-ease-out); }
+        .link-button svg { width: 16px; height: 16px; }
+        .link-button--weo { background: var(--weo-accent-teal); color: #0F172A; }
+        .link-button--weo:hover { background: #5EEAD4; }
+
+        /* ---------- Coverage acknowledgement ---------- */
+        .coverage { border-left: 3px solid var(--weo-accent-teal); background: rgba(45, 212, 191, 0.05); border-radius: 0 var(--weo-radius-md) var(--weo-radius-md) 0; padding: var(--weo-space-md) var(--weo-space-lg); }
+        .coverage p { font-size: 0.875rem; color: var(--weo-text-secondary); line-height: 1.7; }
+        .coverage-label { font-family: var(--weo-font-mono); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--weo-accent-teal); margin-bottom: var(--weo-space-xs); }
+        .table-coverage { margin-top: var(--weo-space-md); }
+
+        /* ---------- Tables ---------- */
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .ccr-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; table-layout: fixed; }
+        .ccr-table th, .ccr-table td { padding: var(--weo-space-sm) var(--weo-space-md); text-align: left; border-bottom: 1px solid var(--weo-border-primary); vertical-align: top; }
+        .ccr-table th { font-size: 0.6875rem; font-weight: 600; color: var(--weo-text-muted); text-transform: uppercase; letter-spacing: 0.05em; background: var(--weo-surface-base); }
+        .ccr-table td { color: var(--weo-text-secondary); }
+        .ccr-table .ch-name { color: var(--weo-text-primary); font-weight: 500; }
+        .ccr-table th.num, .ccr-table td.num { text-align: right; font-family: var(--weo-font-mono); font-variant-numeric: tabular-nums slashed-zero; white-space: nowrap; }
+        .ccr-table col.c-name { width: 52%; }
+        .ccr-table col.c-num { width: 12%; }
+        .ccr-table tr.totals td { border-top: 1px solid var(--weo-border-subtle); border-bottom: none; color: var(--weo-text-primary); font-weight: 500; }
+        .table-note { font-size: 0.8125rem; color: var(--weo-text-tertiary); margin-top: var(--weo-space-md); line-height: 1.6; }
+        .table-note + .table-note { margin-top: var(--weo-space-sm); }
+        .table-note strong { color: var(--weo-text-secondary); font-weight: 500; }
+        @media (max-width: 767px) {
+            .ccr-table { min-width: 560px; }
+        }
+
+        /* ---------- Record cards ---------- */
+        .records-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--weo-space-sm); margin-bottom: var(--weo-space-md); font-size: 0.8125rem; color: var(--weo-text-tertiary); }
+        .records-toolbar button { font-family: inherit; font-size: 0.75rem; font-weight: 500; color: var(--weo-text-tertiary); background: transparent; border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); padding: 4px 10px; cursor: pointer; transition: all var(--weo-duration-fast) var(--weo-ease-out); }
+        .records-toolbar button:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); background: var(--weo-hover-overlay); }
+        .record { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-md); margin-bottom: var(--weo-space-sm); overflow: hidden; scroll-margin-top: var(--weo-space-xl); }
+        .record:target { border-color: rgba(45, 212, 191, 0.55); box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.25); }
+        .record summary { list-style: none; cursor: pointer; position: relative; padding: var(--weo-space-md) var(--weo-space-lg); display: grid; grid-template-columns: 1fr auto; gap: var(--weo-space-xs) var(--weo-space-md); align-items: start; }
+        .record summary::-webkit-details-marker { display: none; }
+        .record summary:hover { background: rgba(255, 255, 255, 0.02); }
+        .rec-id { font-family: var(--weo-font-mono); font-size: 0.6875rem; color: var(--weo-text-muted); letter-spacing: 0.04em; }
+        .rec-actor { font-size: 0.9375rem; font-weight: 600; color: var(--weo-text-primary); line-height: 1.35; }
+        .rec-title { font-size: 0.8125rem; color: var(--weo-text-secondary); line-height: 1.45; margin-top: 2px; }
+        .rec-quantity { font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-secondary); margin-top: var(--weo-space-xs); line-height: 1.5; font-variant-numeric: tabular-nums; }
+        .rec-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; align-content: start; }
+        .rec-chev { grid-column: 2; justify-self: end; font-size: 0.75rem; color: var(--weo-text-muted); transition: transform var(--weo-duration-normal) var(--weo-ease-out); }
+        .record[open] .rec-chev { transform: rotate(180deg); }
+        .rec-verified { grid-column: 1; font-size: 0.6875rem; color: var(--weo-text-muted); margin-top: 2px; }
+        .badge { display: inline-flex; align-items: center; font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; white-space: nowrap; border: 1px solid transparent; }
+        .badge-band { background: rgba(96, 165, 250, 0.12); color: var(--weo-accent-hover); border-color: rgba(96, 165, 250, 0.3); }
+        .badge-committed { background: rgba(148, 163, 184, 0.12); color: var(--weo-text-secondary); border-color: rgba(148, 163, 184, 0.3); }
+        .badge-allocated { background: rgba(34, 197, 94, 0.12); color: var(--weo-status-positive); border-color: rgba(34, 197, 94, 0.3); }
+        .badge-ai { background: rgba(45, 212, 191, 0.10); color: var(--weo-accent-teal); border-color: rgba(45, 212, 191, 0.3); }
+        .badge-attr { background: rgba(245, 158, 11, 0.10); color: var(--weo-status-warning); border-color: rgba(245, 158, 11, 0.3); text-decoration: none; }
+        .badge-attr:hover { background: rgba(245, 158, 11, 0.18); }
+        .rec-body { border-top: 1px solid var(--weo-border-primary); padding: var(--weo-space-lg); display: grid; gap: var(--weo-space-lg); }
+        .rec-field-label { font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--weo-text-muted); margin-bottom: var(--weo-space-xs); }
+        .rec-passage { font-size: 0.875rem; color: var(--weo-text-secondary); line-height: 1.7; border-left: 2px solid var(--weo-border-subtle); padding-left: var(--weo-space-md); white-space: pre-wrap; }
+        .rec-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--weo-space-md); }
+        .rec-meta-value { font-size: 0.8125rem; color: var(--weo-text-secondary); line-height: 1.55; }
+        .rec-meta-value.mono { font-family: var(--weo-font-mono); font-size: 0.75rem; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip { font-size: 0.6875rem; font-weight: 500; padding: 3px 9px; border-radius: 20px; border: 1px solid; }
+        .chip-published { background: rgba(45, 212, 191, 0.10); color: var(--weo-accent-teal); border-color: rgba(45, 212, 191, 0.3); }
+        .chip-sub { background: rgba(148, 163, 184, 0.06); color: var(--weo-text-muted); border-color: var(--weo-border-primary); }
+        .chip-count { font-family: var(--weo-font-mono); margin-left: 4px; opacity: 0.8; }
+        .evidence-list { list-style: none; display: grid; gap: var(--weo-space-sm); }
+        .evidence-list li { font-size: 0.8125rem; color: var(--weo-text-secondary); display: grid; grid-template-columns: 110px 1fr; gap: var(--weo-space-sm); align-items: baseline; }
+        .evidence-role { font-family: var(--weo-font-mono); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--weo-text-muted); }
+        .evidence-links a { color: var(--weo-accent-hover); text-decoration: none; word-break: break-all; }
+        .evidence-links a:hover { text-decoration: underline; }
+        .evidence-links .archive { color: var(--weo-text-muted); font-size: 0.75rem; margin-left: 6px; white-space: nowrap; }
+        .evidence-links .archive a { color: var(--weo-text-tertiary); }
+        .records-unavailable { font-size: 0.875rem; color: var(--weo-text-tertiary); border: 1px dashed var(--weo-border-subtle); border-radius: var(--weo-radius-md); padding: var(--weo-space-lg); text-align: center; }
+        @media (max-width: 767px) {
+            .record summary { grid-template-columns: 1fr; }
+            .rec-badges { justify-content: flex-start; grid-column: 1; }
+            /* In one column the chevron would take a row to itself; pin it to the
+               summary's bottom-right corner instead. */
+            .rec-chev { position: absolute; right: var(--weo-space-lg); bottom: var(--weo-space-md); grid-column: 1; }
+            .evidence-list li { grid-template-columns: 1fr; gap: 2px; }
+        }
+
+        /* ---------- Challenge List Reference ---------- */
+        .clr-list { list-style: none; display: grid; gap: 2px; }
+        .clr-list li { display: grid; grid-template-columns: 2rem 1fr auto; gap: var(--weo-space-md); align-items: center; padding: var(--weo-space-sm) var(--weo-space-md); border-bottom: 1px solid var(--weo-border-primary); font-size: 0.875rem; }
+        .clr-list li:last-child { border-bottom: none; }
+        .clr-rank { font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-muted); }
+        .clr-name { color: var(--weo-text-primary); }
+        .clr-count { font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-tertiary); white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .clr-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--weo-space-md); margin-bottom: var(--weo-space-lg); }
+        .clr-meta-item .rec-field-label { margin-bottom: 2px; }
+        .clr-meta-value { font-family: var(--weo-font-mono); font-size: 0.8125rem; color: var(--weo-text-primary); }
+        .inst-list { list-style: none; display: grid; gap: var(--weo-space-sm); margin-top: var(--weo-space-md); }
+        .inst-list li { display: grid; grid-template-columns: 1fr; gap: 2px; padding: var(--weo-space-sm) var(--weo-space-md); background: rgba(255, 255, 255, 0.02); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); }
+        .inst-name { font-size: 0.875rem; font-weight: 500; color: var(--weo-text-primary); }
+        .inst-list .inst-list { margin: 0; display: block; }
+        .inst-list span.inst-list { font-size: 0.8125rem; color: var(--weo-text-secondary); }
+        .inst-date { font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-muted); }
+        .clr-rule { font-size: 0.8125rem; color: var(--weo-text-tertiary); margin-top: var(--weo-space-md); line-height: 1.6; }
+
+        /* ---------- Limits ---------- */
+        .limits { list-style: none; counter-reset: lim; display: grid; gap: var(--weo-space-md); }
+        /* Hanging numeral rather than a two-column grid: each limit is one <strong>
+           plus a run of text, and as grid items those land in different columns. */
+        .limits li { counter-increment: lim; position: relative; padding-left: 2rem; font-size: 0.875rem; color: var(--weo-text-secondary); line-height: 1.65; }
+        .limits li::before { content: counter(lim); position: absolute; left: 0; top: 0; font-family: var(--weo-font-mono); font-size: 0.75rem; color: var(--weo-text-muted); line-height: 1.85; }
+        .limits li strong { color: var(--weo-text-primary); font-weight: 600; }
+
+        /* ---------- Footer ---------- */
+        footer { margin-top: var(--weo-space-2xl); padding-top: var(--weo-space-lg); border-top: 1px solid var(--weo-border-primary); }
+        .footer-text { font-size: 0.75rem; color: var(--weo-text-muted); line-height: 1.6; }
+        .footer-version { text-align: right; font-family: var(--weo-font-mono); font-size: 11px; opacity: 0.4; color: var(--weo-text-muted); margin-bottom: 8px; }
+        .footer-links { margin-top: 0.5rem; }
+        .footer-links a { color: var(--weo-text-muted); font-size: 0.75rem; text-decoration: none; transition: color 150ms ease; }
+        .footer-links a:hover { color: #3B82F6; }
+
+        /* ---------- Data-state notice ---------- */
+        .data-state { display: none; font-size: 0.75rem; color: var(--weo-text-muted); font-family: var(--weo-font-mono); margin-top: var(--weo-space-sm); }
+        body[data-ccr-hydrated="fallback"] .data-state { display: block; }
+
+        /* ==========================================================
+           GEIST DARK-MODE WEIGHT COMPENSATION
+           Standard 400 body → 380, standard 600 heading → 580.
+           ========================================================== */
+        body { font-weight: 380; }
+        .page-title, .page-subtitle, .section-title, .publication-title, .rec-actor, .inst-name { font-weight: 580; }
+        .meta-badge, .doi-badge, .badge, .status-badge { font-weight: 580; letter-spacing: 0.04em; }
+        .observation-summary, .ccr-table td.num, .clr-count, .rec-quantity { font-weight: 480; }
+
+        @media (max-width: 767px) {
+            .container { padding: var(--weo-space-xl) var(--weo-space-md); }
+            .page-title { font-size: 1.5rem; }
+            .publication-card--weo { padding: var(--weo-space-md); }
+            .publication-title { font-size: 0.9375rem; }
+            .meta-separator { display: none; }
+            .publication-meta { flex-direction: column; align-items: flex-start; gap: var(--weo-space-xs); }
+            /* blocs.html holds .card at --weo-space-xl at every width; matched. */
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
+    <div class="container" id="main-content">
+
+        <!-- Navigation -->
+        <nav class="weo-nav">
+          <a href="/" class="weo-nav-brand">
+            <span class="weo-nav-logo">WEO</span>
+            <span>Warmth Engine Observatory</span>
+          </a>
+          <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="weo-nav-links" id="navLinks">
+            <a href="/">Map</a>
+            <a href="/atlas.html">Atlas</a>
+            <a href="/events.html">Events</a>
+            <a href="/profiles/">Profiles</a>
+            <a href="/blocs.html">Blocs</a>
+            <a href="/commitments/" class="active">Commitments</a>
+            <a href="/methodology.html">Methodology</a>
+            <a href="/research.html">Research</a>
+            <a href="/about.html">About</a>
+            <a href="/support.html">Support</a>
+          </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Compute Commitment Register</h1>
+            <p class="page-subtitle">Computing Capacity Commitments &mdash; Global Challenges</p>
+            <div class="header-status">
+                <span class="status-badge" data-hy="status">Pre-operational</span>
+                <span class="observation-summary" data-hy="summary">11 records / 9 actors / 19 document–challenge pairs</span>
+                <span class="observation-date">Observed <span data-hy="observed">16 September 2026</span> &middot; Challenge List Reference epoch <span data-hy="epoch">E1</span></span>
+            </div>
+            <p class="data-state">Live data unavailable &mdash; showing the publication observation of 16 September 2026.</p>
+        </header>
+
+        <!-- Working note -->
+        <section class="section">
+            <h2 class="section-title">Method</h2>
+            <article class="publication-card--weo">
+                <h3 class="publication-title">The Compute Commitment Register: Method, Challenge List Reference and Pilot Observations</h3>
+                <div class="publication-meta">
+                    <span>Warmth Engine</span>
+                    <span class="meta-separator">&bull;</span>
+                    <span>September 2026</span>
+                    <span class="meta-separator">&bull;</span>
+                    <span>Zenodo</span>
+                    <span class="meta-badge">Methodology Working Note</span>
+                    <span class="meta-badge open-access">Open Access</span>
+                </div>
+                <div class="doi-row">
+                    <div class="doi-badge">
+                        <span class="label">DOI</span>
+                        <span>10.5281/zenodo.22785950</span>
+                    </div>
+                    <p class="doi-note">Concept DOI &mdash; resolves to the latest version.</p>
+                </div>
+                <div class="link-row">
+                    <a href="https://doi.org/10.5281/zenodo.22785950" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
+                        View on Zenodo
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Coverage acknowledgement -->
+        <section class="section">
+            <div class="coverage">
+                <div class="coverage-label">Coverage acknowledgement</div>
+                <p data-hy="coverage">The figures describe compute commitments the Observatory has located and verified against this standard, not the population of commitments that exist. Counts are floors. Coverage expands as instruments are found. A record&#x27;s presence carries no information about its scale beyond its band; declared quantities are shown as published and are never compared or summed. The challenge list is a dated observation of four institutional sources and changes only at an epoch boundary.</p>
+            </div>
+        </section>
+
+        <!-- Challenge table -->
+        <section class="section">
+            <h2 class="section-title">Commitments by Challenge</h2>
+            <div class="card">
+                <div class="table-wrap">
+                    <table class="ccr-table" aria-describedby="table-basis">
+                        <colgroup><col class="c-name"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"></colgroup>
+                        <thead>
+                            <tr><th scope="col">Challenge</th><th scope="col" class="num">Documents</th><th scope="col" class="num">Line items</th><th scope="col" class="num">Committed</th><th scope="col" class="num">Allocated</th></tr>
+                        </thead>
+                        <tbody data-hy="challenge-rows">
+<tr><td class="ch-name">State-based armed conflict and geoeconomic confrontation</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td class="ch-name">Climate change</td><td class="num">3</td><td class="num">28</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td class="ch-name">Inequality</td><td class="num">1</td><td class="num">2</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td class="ch-name">Decline in health and well-being</td><td class="num">8</td><td class="num">96</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td class="ch-name">Natural resource shortages (food, water)</td><td class="num">1</td><td class="num">13</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td class="ch-name">Involuntary migration or displacement</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td class="ch-name">Lack of economic opportunity or unemployment</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td></tr>
+<tr><td class="ch-name">Adverse outcomes of AI technologies</td><td class="num">3</td><td class="num">59</td><td class="num">2</td><td class="num">1</td></tr>
+<tr><td class="ch-name">Biodiversity loss and ecosystem collapse</td><td class="num">1</td><td class="num">5</td><td class="num">0</td><td class="num">1</td></tr>
+<tr class="totals"><td>All published challenges</td><td class="num">19</td><td class="num">205</td><td class="num">7</td><td class="num">12</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note" id="table-basis">Documents count each commitment once under every challenge it touches. Line items are the individual awards or purposes within a commitment and never drive a headline figure. No shares are published while the register is pre-operational.</p>
+                <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> CCR-0004 supplies 8 of the 19 document&ndash;challenge pairs.</p>
+                <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> 7 commitments are assigned to more than one candidate challenge, published or sub-threshold &middot; 1 commitment is assigned only to sub-threshold candidates &middot; 441 passages match no candidate &middot; 174 passages state no purpose.</p>
+                <div class="coverage table-coverage">
+                    <p data-hy="coverage">The figures describe compute commitments the Observatory has located and verified against this standard, not the population of commitments that exist. Counts are floors. Coverage expands as instruments are found. A record&#x27;s presence carries no information about its scale beyond its band; declared quantities are shown as published and are never compared or summed. The challenge list is a dated observation of four institutional sources and changes only at an epoch boundary.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Record cards -->
+        <section class="section" id="records">
+            <h2 class="section-title">Commitments</h2>
+            <div class="records-toolbar">
+                <span data-hy="records-count">11 commitments from 9 committing organisations</span>
+                <span><button type="button" id="expandAll">Expand all</button> <button type="button" id="collapseAll">Collapse all</button></span>
+            </div>
+            <div id="recordsList">
+                <div class="records-unavailable">Commitment records load from the live register. If this notice remains, live data is unavailable &mdash; the figures above are the publication observation of 16 September 2026.</div>
+            </div>
+            <div class="coverage table-coverage">
+                <p data-hy="coverage">The figures describe compute commitments the Observatory has located and verified against this standard, not the population of commitments that exist. Counts are floors. Coverage expands as instruments are found. A record&#x27;s presence carries no information about its scale beyond its band; declared quantities are shown as published and are never compared or summed. The challenge list is a dated observation of four institutional sources and changes only at an epoch boundary.</p>
+            </div>
+        </section>
+
+        <!-- Challenge List Reference -->
+        <section class="section">
+            <h2 class="section-title">Challenge List Reference</h2>
+            <div class="card">
+                <div class="clr-meta">
+                    <div class="clr-meta-item"><div class="rec-field-label">Version</div><div class="clr-meta-value" data-hy="clr-version">1.0</div></div>
+                    <div class="clr-meta-item"><div class="rec-field-label">Epoch</div><div class="clr-meta-value" data-hy="clr-epoch">E1, as of 7 September 2026</div></div>
+                    <div class="clr-meta-item"><div class="rec-field-label">Next refresh check</div><div class="clr-meta-value" data-hy="clr-refresh">1 October 2026</div></div>
+                    <div class="clr-meta-item"><div class="rec-field-label">Threshold</div><div class="clr-meta-value" data-hy="clr-threshold">3 institutions of 4</div></div>
+                </div>
+                <ol class="clr-list" data-hy="clr-list">
+<li><span class="clr-rank">1</span><span class="clr-name">State-based armed conflict and geoeconomic confrontation</span><span class="clr-count">4 of 4</span></li>
+<li><span class="clr-rank">2</span><span class="clr-name">Climate change</span><span class="clr-count">4 of 4</span></li>
+<li><span class="clr-rank">3</span><span class="clr-name">Inequality</span><span class="clr-count">4 of 4</span></li>
+<li><span class="clr-rank">4</span><span class="clr-name">Decline in health and well-being</span><span class="clr-count">4 of 4</span></li>
+<li><span class="clr-rank">5</span><span class="clr-name">Natural resource shortages (food, water)</span><span class="clr-count">4 of 4</span></li>
+<li><span class="clr-rank">6</span><span class="clr-name">Involuntary migration or displacement</span><span class="clr-count">3 of 4</span></li>
+<li><span class="clr-rank">7</span><span class="clr-name">Lack of economic opportunity or unemployment</span><span class="clr-count">3 of 4</span></li>
+<li><span class="clr-rank">8</span><span class="clr-name">Adverse outcomes of AI technologies</span><span class="clr-count">3 of 4</span></li>
+<li><span class="clr-rank">9</span><span class="clr-name">Biodiversity loss and ecosystem collapse</span><span class="clr-count">3 of 4</span></li>
+                </ol>
+                <p class="clr-rule">A challenge enters the Reference when at least three of the four qualifying institutions name it. Institutions are counted, not items. The Reference is fixed for an epoch; a refresh check runs each 1 October, and any change to the institution set, the threshold, the merge protocol or an institution's edition opens a new epoch. No trend is drawn across an epoch boundary.</p>
+                <div class="rec-field-label" style="margin-top: var(--weo-space-lg);">Qualifying institutions and editions</div>
+                <ul class="inst-list" data-hy="institutions">
+<li><span class="inst-name">World Economic Forum</span><span class="inst-list">Global Risks Report 2026 — GRPS 2025–2026, 33 global risks (Table A.1, Appendix A, pp. 75–77)</span><span class="inst-date">14 January 2026</span></li>
+<li><span class="inst-name">Munich Security Conference</span><span class="inst-list">Munich Security Index 2026 — 32 risks (Figure 1.9, G7 aggregate ranking; MSR 2026 p. 42)</span><span class="inst-date">February 2026</span></li>
+<li><span class="inst-name">United Nations</span><span class="inst-list">17 Sustainable Development Goals</span><span class="inst-date">7 July 2026</span></li>
+<li><span class="inst-name">European Commission Joint Research Centre</span><span class="inst-list">Megatrends Hub — 14 megatrends</span><span class="inst-date">November 2025</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Limits -->
+        <section class="section">
+            <h2 class="section-title">Limits</h2>
+            <div class="card">
+                <ol class="limits">
+<li><strong>Disclosure base.</strong> At publication, nine of the register&#x27;s eleven records rest on documents published by public allocation programmes. In the documents the pilot examined, governments state quantities in money or aggregate exaflops, and corporations state them in press releases, which are not among the classes that pass the gate.</li>
+<li><strong>Regional concentration.</strong> Three European-authored institutions and the United Nations. No Asian, African, or Latin American institutional list qualified: the non-English lists found are national research-priority lists, a different genre, and failed on scope. The Reference measures agreement among these four institutions, and two of them survey perceived risk. Adverse outcomes of AI is a published challenge on that basis, and AI-safety compute is counted under it. The definition is published so that the regional concentration can be tested at each refresh. The programmes whose assessment ends the pilot are European, United States, and Australian public allocation programmes and their regional distribution does not offset this concentration.</li>
+<li><strong>Energy supply.</strong> Two of the four institutions name it. The threshold excludes it. Energy commitments are recorded, assigned, and held. They enter the table at the first refresh at which a third institution names energy.</li>
+<li><strong>Privacy and data protection.</strong> The run table has no data-protection candidate. The nearest is erosion of human rights, a sub-threshold candidate. A block of research in the National Science Foundation&#x27;s allocation export (differential privacy, federated learning, unlearning, de-identification) is therefore assigned but unpublished, or logged as matching no candidate.</li>
+<li><strong>Programme purpose.</strong> 441 of the pilot&#x27;s passages mapped to no candidate and 174 stated no purpose, against eleven records. Under the assignment rule, a purpose that names an AI method and a domain only as its application is logged as matching no candidate, so part of the 441 reflects the rule&#x27;s strictness.</li>
+<li><strong>Asymmetry of publication.</strong> One actor&#x27;s two records represent a programme for which the search found no published award list. Another actor&#x27;s one record represents a programme that has published 847 awards, and that record supplies eight of the nineteen document–challenge pairs. Counts are floors of disclosure, not of activity.</li>
+<li><strong>Non-quantification.</strong> A record&#x27;s presence carries no scale information beyond its band.</li>
+<li><strong>Attribution edge.</strong> At publication the edge holds one record and one event.</li>
+<li><strong>Maintenance.</strong> Open-ended intake, the epoch discipline of the Challenge List Reference, and evidence archiving are recurring work the Observatory undertakes for the register.</li>
+<li><strong>Band D.</strong> The class gate excludes press releases, blogs, and keynotes. A corporate or philanthropic pledge made only in such a document cannot enter, and at publication the register holds no Band D record.</li>
+<li><strong>Discovery circularity.</strong> The external intake was model-assisted: research models found the instruments. What the models did not find is not in the register, so its coverage reflects their reach.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-version">Methodology V1.5 &middot; WEO v1.5.0</p>
+            <p class="footer-text">&copy; 2026 Warmth Engine Observatory</p>
+            <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
+            <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> &middot; <a href="/llms.txt">llms.txt</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+    (function() {
+        // Navigation toggle for mobile
+        var navToggle = document.getElementById('navToggle');
+        var navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+            });
+            document.addEventListener('click', function(e) {
+                if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) navLinks.classList.remove('open');
+            });
+        }
+    })();
+    </script>
+
+    <script>
+    /* =====================================================================
+       LIVE HYDRATION — /api/commitments + /api/commitments/observations
+       =====================================================================
+       The figures baked in the HTML above are the 16 September 2026
+       PUBLICATION OBSERVATION and are the permanent static fallback. If the
+       fetch fails, the page still states a true, dated, citable observation
+       and says so. On success every figure is replaced by the newest stored
+       observation and the commitment records render from the live store.
+       Nothing is computed from the store here: every table figure is read
+       from the stored observation, and the challenge order is the store's
+       own published list. */
+    (function() {
+        var FALLBACK = {"observed":"2026-09-16","epoch":"E1","epoch_as_at":"2026-09-07","status":"pre_operational","refresh_check":"2026-10-01","records":11,"actors":9,"pairs":19,"line_items_published":205,"line_items_total":321,"concentration":{"record_id":"CCR-0004","pairs":8,"pairs_total":19},"rows":[{"challenge":"State-based armed conflict and geoeconomic confrontation","documents":1,"line_items":1,"committed":0,"allocated":1},{"challenge":"Climate change","documents":3,"line_items":28,"committed":1,"allocated":2},{"challenge":"Inequality","documents":1,"line_items":2,"committed":0,"allocated":1},{"challenge":"Decline in health and well-being","documents":8,"line_items":96,"committed":4,"allocated":4},{"challenge":"Natural resource shortages (food, water)","documents":1,"line_items":13,"committed":0,"allocated":1},{"challenge":"Involuntary migration or displacement","documents":0,"line_items":0,"committed":0,"allocated":0},{"challenge":"Lack of economic opportunity or unemployment","documents":1,"line_items":1,"committed":0,"allocated":1},{"challenge":"Adverse outcomes of AI technologies","documents":3,"line_items":59,"committed":2,"allocated":1},{"challenge":"Biodiversity loss and ecosystem collapse","documents":1,"line_items":5,"committed":0,"allocated":1}],"transparency":{"documents_multi_challenge":7,"records_sub_threshold_only":1,"no_match_line_items":441,"no_purpose_line_items":174},"published":[{"name":"State-based armed conflict and geoeconomic confrontation","institutions":4},{"name":"Climate change","institutions":4},{"name":"Inequality","institutions":4},{"name":"Decline in health and well-being","institutions":4},{"name":"Natural resource shortages (food, water)","institutions":4},{"name":"Involuntary migration or displacement","institutions":3},{"name":"Lack of economic opportunity or unemployment","institutions":3},{"name":"Adverse outcomes of AI technologies","institutions":3},{"name":"Biodiversity loss and ecosystem collapse","institutions":3}],"institutions":[{"institution":"World Economic Forum","list":"Global Risks Report 2026 — GRPS 2025–2026, 33 global risks (Table A.1, Appendix A, pp. 75–77)","edition_date":"2026-01-14"},{"institution":"Munich Security Conference","list":"Munich Security Index 2026 — 32 risks (Figure 1.9, G7 aggregate ranking; MSR 2026 p. 42)","edition_date":"2026-02"},{"institution":"United Nations","list":"17 Sustainable Development Goals","edition_date":"2026-07-07"},{"institution":"European Commission Joint Research Centre","list":"Megatrends Hub — 14 megatrends","edition_date":"2025-11"}],"rule":{"k":3,"N":4},"coverage_acknowledgement":"The figures describe compute commitments the Observatory has located and verified against this standard, not the population of commitments that exist. Counts are floors. Coverage expands as instruments are found. A record's presence carries no information about its scale beyond its band; declared quantities are shown as published and are never compared or summed. The challenge list is a dated observation of four institutional sources and changes only at an epoch boundary.","working_note_doi":{"concept":"10.5281/zenodo.22785950","version":"10.5281/zenodo.22785951"}};
+        var $ = function(id) { return document.getElementById(id); };
+        var esc = function(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+        var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function ukDate(iso) {
+            if (!iso) return '';
+            var p = String(iso).split('-');
+            if (p.length === 3) return parseInt(p[2], 10) + ' ' + MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0];
+            if (p.length === 2) return MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0];
+            return iso;
+        }
+        function setAll(key, html) {
+            Array.prototype.forEach.call(document.querySelectorAll('[data-hy="' + key + '"]'), function(el) { el.innerHTML = html; });
+        }
+        var STATUS_LABEL = { pre_operational: 'Pre-operational', published: 'Published', insufficient_corpus: 'Insufficient corpus', retired: 'Retired' };
+
+        // ---- Challenge table (from the latest stored observation) ----
+        function hydrateTable(obs, meta) {
+            var rows = obs.rows || [];
+            var tc = 0, ta = 0;
+            var html = rows.map(function(r) {
+                tc += r.committed || 0; ta += r.allocated || 0;
+                return '<tr><td class="ch-name">' + esc(r.challenge) + '</td><td class="num">' + r.documents + '</td><td class="num">' + r.line_items + '</td><td class="num">' + r.committed + '</td><td class="num">' + r.allocated + '</td></tr>';
+            }).join('');
+            var tot = obs.totals || {};
+            html += '<tr class="totals"><td>All published challenges</td><td class="num">' + (tot.documents != null ? tot.documents : '') + '</td><td class="num">' + (tot.line_items != null ? tot.line_items : '') + '</td><td class="num">' + tc + '</td><td class="num">' + ta + '</td></tr>';
+            setAll('challenge-rows', html);
+            if (meta && meta.concentration) {
+                var c = meta.concentration;
+                setAll('concentration', '<strong>Concentration:</strong> ' + esc(c.record_id) + ' supplies ' + c.pairs + ' of the ' + c.pairs_total + ' document&ndash;challenge pairs.');
+            }
+        }
+        function hydrateTransparency(t) {
+            if (!t) return;
+            var multi = t.documents_multi_challenge, sub = t.records_sub_threshold_only;
+            setAll('transparency', '<strong>Transparency:</strong> ' + multi + ' commitment' + (multi === 1 ? ' is' : 's are') +
+                ' assigned to more than one candidate challenge, published or sub-threshold &middot; ' + sub + ' commitment' + (sub === 1 ? ' is' : 's are') +
+                ' assigned only to sub-threshold candidates &middot; ' + t.no_match_line_items + ' passages match no candidate &middot; ' + t.no_purpose_line_items + ' passages state no purpose.');
+        }
+
+        // ---- Challenge List Reference (from the store's challenge_list block) ----
+        function hydrateCLR(cl, meta) {
+            if (!cl) return;
+            var N = cl.rule && cl.rule.N, k = cl.rule && cl.rule.k;
+            setAll('clr-list', (cl.published || []).map(function(c, i) {
+                return '<li><span class="clr-rank">' + (i + 1) + '</span><span class="clr-name">' + esc(c.name) + '</span><span class="clr-count">' + c.sources_naming + ' of ' + N + '</span></li>';
+            }).join(''));
+            setAll('institutions', (cl.institutions || []).map(function(i) {
+                return '<li><span class="inst-name">' + esc(i.institution) + '</span><span class="inst-list">' + esc(i.list) + '</span><span class="inst-date">' + esc(ukDate(i.edition_date)) + '</span></li>';
+            }).join(''));
+            setAll('clr-epoch', esc(cl.epoch) + ', as of ' + esc(ukDate(cl.as_at)));
+            setAll('clr-refresh', esc(ukDate(cl.next_check)));
+            setAll('clr-threshold', k + ' institutions of ' + N);
+            setAll('epoch', esc(cl.epoch));
+        }
+
+        // ---- Record cards (from the store) ----
+        function actorName(s) {
+            // actor_of_record is "<actor id>  <name>"; show the name only.
+            var m = String(s || '').match(/^CCR-ACT-\d+\s+(.*)$/);
+            return m ? m[1] : String(s || '');
+        }
+        function evidenceLine(role, ev) {
+            if (!ev || !ev.url) return '';
+            var arch = ev.snapshotUrl ? '<span class="archive">(<a href="' + esc(ev.snapshotUrl) + '" target="_blank" rel="noopener noreferrer">archived copy</a>' + (ev.accessDate ? ', accessed ' + esc(ukDate(ev.accessDate)) : '') + ')</span>' : '';
+            return '<li><span class="evidence-role">' + esc(role) + '</span><span class="evidence-links"><a href="' + esc(ev.url) + '" target="_blank" rel="noopener noreferrer">' + esc(ev.url) + '</a>' + arch + '</span></li>';
+        }
+        function chips(rec) {
+            var seen = {}, out = [];
+            (rec.line_items || []).forEach(function(li) {
+                if (!li.challenge) return;
+                if (!seen[li.challenge]) { seen[li.challenge] = { standing: li.standing, n: 0 }; out.push(li.challenge); }
+                seen[li.challenge].n++;
+            });
+            out.sort(function(a, b) { var sa = seen[a].standing === 'published' ? 0 : 1, sb = seen[b].standing === 'published' ? 0 : 1; return sa - sb; });
+            return out.map(function(ch) {
+                var s = seen[ch];
+                return '<span class="chip ' + (s.standing === 'published' ? 'chip-published' : 'chip-sub') + '" title="' + (s.standing === 'published' ? 'Published challenge' : 'Sub-threshold candidate — held out of the published table') + '">' + esc(ch) + (s.n > 1 ? '<span class="chip-count">&times;' + s.n + '</span>' : '') + '</span>';
+            }).join('');
+        }
+        function recordCard(rec) {
+            var statusClass = rec.status === 'Allocated' ? 'badge-allocated' : 'badge-committed';
+            var attrs = (rec.challenge_attributions || []).map(function(ev) {
+                var id = String(ev).replace(/^E/, '');
+                return '<a class="badge badge-attr" href="/events.html?event=' + esc(id) + '" title="A verified corpus event whose own source is this commitment\'s instrument">Event ' + esc(id) + '</a>';
+            }).join('');
+            var badges = '<span class="badge badge-band">Band ' + esc(rec.band) + '</span><span class="badge ' + statusClass + '">' + esc(rec.status) + '</span>' +
+                (rec.ai_compute === 'stated' ? '<span class="badge badge-ai">AI compute stated</span>' : '') + attrs;
+            var lineItems = (rec.line_items || []).length;
+            var corro = (rec.corroborating_evidence || []).map(function(ev) { return evidenceLine('Corroborating', ev); }).join('');
+            return '<details class="record" id="' + esc(rec.id) + '">' +
+                '<summary>' +
+                    '<div><div class="rec-id">' + esc(rec.id) + (rec.sub_label ? ' &middot; ' + esc(rec.sub_label) : '') + '</div>' +
+                    '<div class="rec-actor">' + esc(actorName(rec.actor_of_record)) + '</div>' +
+                    '<div class="rec-title">' + esc(rec.instrument_title) + '</div>' +
+                    '<div class="rec-quantity">' + esc(rec.quantity_as_stated) + '</div></div>' +
+                    '<div class="rec-badges">' + badges + '</div>' +
+                    '<div class="rec-verified">Instrument dated ' + esc(rec.instrument_date && /^\d{4}-\d{2}-\d{2}$/.test(rec.instrument_date) ? ukDate(rec.instrument_date) : rec.instrument_date) + ' &middot; verified ' + esc(ukDate(rec.operator_verified)) + '</div>' +
+                    '<div class="rec-chev" aria-hidden="true">&#9662;</div>' +
+                '</summary>' +
+                '<div class="rec-body">' +
+                    '<div><div class="rec-field-label">Commitment passage</div><div class="rec-passage">' + esc(rec.commitment_verbatim) + '</div></div>' +
+                    '<div><div class="rec-field-label">Stated purpose</div><div class="rec-passage">' + esc(rec.purpose_verbatim || 'No purpose stated') + '</div></div>' +
+                    '<div class="rec-meta-grid">' +
+                        '<div><div class="rec-field-label">Time frame</div><div class="rec-meta-value">' + esc(rec.time_frame || 'Not stated') + '</div></div>' +
+                        '<div><div class="rec-field-label">Quantity type</div><div class="rec-meta-value">' + esc(rec.quantity_type || '') + '</div></div>' +
+                        '<div><div class="rec-field-label">Line items</div><div class="rec-meta-value mono">' + lineItems + '</div></div>' +
+                    '</div>' +
+                    '<div><div class="rec-field-label">Challenges</div><div class="chips">' + (chips(rec) || '<span class="chip chip-sub">None assigned</span>') + '</div></div>' +
+                    '<div><div class="rec-field-label">Evidence</div><ul class="evidence-list">' +
+                        evidenceLine('Commitment', rec.commitment_evidence) + evidenceLine('Delivery', rec.delivery_evidence) + corro +
+                    '</ul></div>' +
+                '</div>' +
+            '</details>';
+        }
+        function hydrateRecords(store) {
+            var recs = (store.records || []).filter(function(r) { return r.status !== 'removed'; });
+            $('recordsList').innerHTML = recs.map(recordCard).join('');
+            var actors = {};
+            recs.forEach(function(r) { actors[String(r.actor_of_record).split(/\s+/)[0]] = 1; });
+            setAll('records-count', recs.length + ' commitments from ' + Object.keys(actors).length + ' committing organisations');
+            // Deep link: /commitments/#CCR-0002 opens that record.
+            if (location.hash) { var t = document.querySelector(location.hash.replace(/[^#\w-]/g, '')); if (t && t.tagName === 'DETAILS') { t.open = true; t.scrollIntoView(); } }
+            $('expandAll').addEventListener('click', function() { Array.prototype.forEach.call(document.querySelectorAll('details.record'), function(d) { d.open = true; }); });
+            $('collapseAll').addEventListener('click', function() { Array.prototype.forEach.call(document.querySelectorAll('details.record'), function(d) { d.open = false; }); });
+        }
+
+        Promise.all([
+            fetch('/api/commitments').then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+            fetch('/api/commitments/observations').then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        ]).then(function(res) {
+            var store = res[0], obs = res[1];
+            if (!store || !store.metadata || !store.records) throw new Error('no store');
+            var meta = store.metadata;
+            var ct = obs && obs.challenge_table && obs.challenge_table.observations;
+            var tr = obs && obs.transparency && obs.transparency.observations;
+            var latest = ct && ct.length ? ct[ct.length - 1] : null;
+            var latestT = tr && tr.length ? tr[tr.length - 1] : null;
+
+            setAll('status', esc(STATUS_LABEL[meta.status] || meta.status));
+            if (latest) {
+                setAll('summary', esc(latest.corpus_state));
+                setAll('observed', esc(ukDate(latest.computed_date || latest.baseline_date)));
+                hydrateTable(latest, meta);
+            }
+            hydrateTransparency(latestT);
+            setAll('coverage', esc(meta.coverage_acknowledgement));
+            hydrateCLR(store.challenge_list, meta);
+            hydrateRecords(store);
+            document.body.setAttribute('data-ccr-hydrated', 'true');
+        }).catch(function(err) {
+            document.body.setAttribute('data-ccr-hydrated', 'fallback');
+            if (window.console) console.warn('WEO commitments hydration failed; showing publication observation.', err);
+        });
+    })();
+    </script>
+
+<script data-goatcounter="https://warmthengine.goatcounter.com/count"
+        async src="/js/count.js"></script>
+<script>
+(function(){
+  var v = document.querySelector('meta[name="weo-version"]');
+  if (v) console.log('WEO v' + v.getAttribute('content'));
+})();
+</script>
+</body>
+</html>
