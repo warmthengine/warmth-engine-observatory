@@ -5821,7 +5821,7 @@
             if (!Array.isArray(ids) || !ids.length) return '';
             return ids.map(function(id) {
                 var label = 'Compute Commitment Register &middot; ' + escapeHtml(id);
-                var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+                var sentence = 'A Compute Commitment Register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
                 return '<a class="badge-ccr weo-info-trigger" href="/commitments/#' + escapeHtml(id) + '"' +
                     ' aria-label="Compute Commitment Register record ' + escapeHtml(id) + '">' + label +
                     '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +

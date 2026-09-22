@@ -4437,7 +4437,7 @@ function challengeAttrBadge(ids, interactive) {
   if (!Array.isArray(ids) || !ids.length) return '';
   return ids.map(function(id) {
     var label = 'Compute Commitment Register &middot; ' + esc(id);
-    var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+    var sentence = 'A Compute Commitment Register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
     var a = '<a class="badge-ccr' + (interactive ? ' weo-info-trigger' : '') + '" href="/commitments/#' + esc(id) + '"' +
       ' aria-label="Compute Commitment Register record ' + esc(id) + '"' +
       (interactive ? '' : ' title="Compute Commitment Register — ' + esc(sentence) + '"') + '>' + label;
