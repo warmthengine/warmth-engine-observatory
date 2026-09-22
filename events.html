@@ -3293,16 +3293,28 @@
     }
 
 
-        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
-           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
-           ten-item row is 684px, which overflows the nav or wraps the wordmark on
-           every page that also carries a supporter button or a long brand line. */
-        @media (min-width: 768px) and (max-width: 1149px) {
+        /* Ten-item nav: the tightened row is the base style above the hamburger
+           breakpoint, at every width. The constraint is the page's content column,
+           not the viewport — measured, the untightened ten-item row is 684px, wider
+           than the nav on several pages whatever the window size. Tightened it is
+           588px. The wordmark hides below 900px, and on the narrow-column pages at
+           every width (see the rule beside this block on those pages). */
+        @media (min-width: 768px) {
             .weo-nav-links { gap: 2px; }
             .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
         }
-        @media (min-width: 768px) and (max-width: 899px) {
+        /* The supporter button shares this bar, so the wordmark needs more room here
+           than the 900px the other pages use: it wrapped to two lines up to ~1010px
+           (it did with nine items too). Hidden to the top of the tablet range. */
+        @media (min-width: 768px) and (max-width: 1023px) {
             .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+        /* This nav also carries the supporter button, so the tightened row still
+           runs ~13px over between 768 and the point the container reaches 752px.
+           Close the link gaps over that band only. */
+        @media (min-width: 768px) and (max-width: 819px) {
+            .weo-nav-links { gap: 0; }
+            .weo-nav-links a { padding: 4px 4px; }
         }
 </style>
 </head>
