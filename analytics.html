@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta property="og:image" content="https://warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <meta name="robots" content="noindex, nofollow">
     <title>Analytics — Warmth Engine Observatory</title>
 
@@ -772,7 +772,19 @@
                 transition-duration: 0.01ms !important;
             }
         }
-    </style>
+    
+        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
+           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
+           ten-item row is 684px, which overflows the nav or wraps the wordmark on
+           every page that also carries a supporter button or a long brand line. */
+        @media (min-width: 768px) and (max-width: 1149px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body>
 
@@ -808,6 +820,7 @@
             <a href="events.html">Events</a>
             <a href="/profiles/">Profiles</a>
             <a href="blocs.html">Blocs</a>
+            <a href="/commitments/">Commitments</a>
             <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>

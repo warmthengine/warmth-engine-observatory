@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
+    <meta name="weo-version" content="1.5.0">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
@@ -665,7 +666,19 @@
             border-top: 1px solid var(--weo-border-primary);
             margin-top: 2rem;
         }
-    </style>
+    
+        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
+           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
+           ten-item row is 684px, which overflows the nav or wraps the wordmark on
+           every page that also carries a supporter button or a long brand line. */
+        @media (min-width: 768px) and (max-width: 1149px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body id="top">
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
@@ -687,6 +700,7 @@
                 <a href="/events.html">Events</a>
                 <a href="/profiles/">Profiles</a>
                 <a href="/blocs.html">Blocs</a>
+                <a href="/commitments/">Commitments</a>
                 <a href="/methodology.html">Methodology</a>
                 <a href="/research.html" class="active">Research</a>
                 <a href="/about.html">About</a>
@@ -1881,6 +1895,7 @@
 
         <footer class="page-footer">
             <p class="footer-version">Contribution Architecture V1.0</p>
+            <p class="footer-version">Methodology V1.5 &middot; WEO v1.5.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>

@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -1805,6 +1805,17 @@
           color: var(--weo-bloc-western, #60A5FA);
           transform: none;
         }
+        /* Challenge Attribution chip — same geometry as .badge-cross-eco, amber so it
+           reads as a register link rather than a bloc fact. */
+        .badge-ccr {
+          display: inline-flex; align-items: center; width: fit-content; height: auto;
+          padding: 3px 8px; margin-left: 0; border-radius: 20px; position: relative;
+          font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600;
+          letter-spacing: 0.04em; text-decoration: none; white-space: nowrap;
+          background: rgba(245,158,11,0.10); color: var(--weo-status-warning, #F59E0B);
+          border: 1.5px solid rgba(245,158,11,0.45);
+        }
+        .badge-ccr:hover { background: rgba(245,158,11,0.20); color: var(--weo-status-warning, #F59E0B); transform: none; }
         .cross-eco-arrows {
           display: block;
           width: 17px;
@@ -4948,7 +4959,19 @@
         }
 
 
-    </style>
+    
+        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
+           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
+           ten-item row is 684px, which overflows the nav or wraps the wordmark on
+           every page that also carries a supporter button or a long brand line. */
+        @media (min-width: 768px) and (max-width: 1149px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body>
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
@@ -4972,6 +4995,7 @@
                 <a href="events.html">Events</a>
                 <a href="/profiles/">Profiles</a>
                 <a href="blocs.html">Blocs</a>
+                <a href="/commitments/">Commitments</a>
                 <a href="methodology.html">Methodology</a>
                 <a href="research.html">Research</a>
                 <a href="about.html">About</a>
@@ -5216,7 +5240,7 @@
 
         <!-- Footer -->
         <footer class="atlas-footer">
-            <span>Methodology V1.5 · WEO v<span id="weo-version-stamp">1.4.0</span></span>
+            <span>Methodology V1.5 · WEO v<span id="weo-version-stamp">1.5.0</span></span>
             <span>Updated <span id="weo-last-updated">—</span></span>
             <span><a href="legal.html">Privacy &amp; Terms</a> · © 2026 Warmth Engine Observatory</span>
             <span><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></span>
@@ -5786,6 +5810,21 @@
                 '<br><br><strong>Origin:</strong> ' + escapeHtml(cep.operatorOrigin) +
                 ' · <strong>Host:</strong> ' + escapeHtml(cep.hostClassification) + '</div>' +
                 '</span></span>';
+        }
+
+        // Challenge Attribution — a link chip to the Compute Commitment Register
+        // record whose instrument is this event's own source. Metadata only; it
+        // changes no classification (working note, "The Challenge Attribution relation").
+        function challengeAttrBadge(ids) {
+            if (!Array.isArray(ids) || !ids.length) return '';
+            return ids.map(function(id) {
+                var label = 'Compute Commitment Register &middot; ' + escapeHtml(id);
+                var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+                return '<a class="badge-ccr weo-info-trigger" href="/commitments/#' + escapeHtml(id) + '"' +
+                    ' aria-label="Compute Commitment Register record ' + escapeHtml(id) + '">' + label +
+                    '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +
+                    '<div class="weo-tooltip-body">' + escapeHtml(sentence) + '<br><br>Record <strong>' + escapeHtml(id) + '</strong> on the Compute Commitment Register.</div></span></a>';
+            }).join('');
         }
 
         // Normalise any of the free-text date formats the corpus uses
@@ -11004,6 +11043,7 @@
                 // .weo-info-trigger (click-toggles, which touch needs) rather than an
                 // .atlas-chip-trigger (hover/focus only, because the chip's click is spoken for).
                 html += crossEcoBadge(event.crossEcosystemPresence);
+                html += challengeAttrBadge(event.challengeAttributions);
             }
             if (event.version && event.version !== '1.0') {
                 html += `<span class="atlas-chip atlas-chip-version">v${escapeHtml(String(event.version))}</span>`;

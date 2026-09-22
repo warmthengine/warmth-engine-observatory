@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://warmthengine.com/research/methodology/materials-register/">
     <meta property="og:url" content="https://warmthengine.com/research/methodology/materials-register/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <title>WEO AI-Critical Materials Register — Warmth Engine Observatory</title>
     <meta name="description" content="The WEO AI-Critical Materials Register — materials with pre-established AI infrastructure relevance at primary source standard, supporting Option G qualification for supply-chain response events.">
     <meta name="keywords" content="AI infrastructure; critical materials; supply chain; TRACE pathway; semiconductor; data centre; WEO methodology">
@@ -446,7 +446,19 @@
                 transition-duration: 0.01ms !important;
             }
         }
-    </style>
+    
+        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
+           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
+           ten-item row is 684px, which overflows the nav or wraps the wordmark on
+           every page that also carries a supporter button or a long brand line. */
+        @media (min-width: 768px) and (max-width: 1149px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body id="top">
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
@@ -468,6 +480,7 @@
                 <a href="/events.html">Events</a>
                 <a href="/profiles/">Profiles</a>
                 <a href="/blocs.html">Blocs</a>
+                <a href="/commitments/">Commitments</a>
                 <a href="/methodology.html" class="active">Methodology</a>
                 <a href="/research.html">Research</a>
                 <a href="/about.html">About</a>
@@ -581,7 +594,7 @@
         </main>
 
         <footer class="page-footer">
-            <p class="footer-version">Register V1 · Methodology V1.5 · WEO v1.4.0</p>
+            <p class="footer-version">Register V1 · Methodology V1.5 · WEO v1.5.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>

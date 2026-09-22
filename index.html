@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="weo-version" content="1.4.0">
+  <meta name="weo-version" content="1.5.0">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon_48x48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
@@ -4056,6 +4056,22 @@
       color: var(--weo-bloc-western, #60A5FA);
       transform: none;
     }
+    /* Challenge Attribution chip — same geometry as .badge-cross-eco, amber so it
+       reads as a register link rather than a bloc fact. */
+    .badge-ccr {
+      display: inline-flex; align-items: center; width: fit-content; height: auto;
+      padding: 3px 8px; margin-left: 0; border-radius: 20px; position: relative;
+      font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600;
+      letter-spacing: 0.04em; text-decoration: none; white-space: nowrap;
+      background: rgba(245,158,11,0.10); color: var(--weo-status-warning, #F59E0B);
+      border: 1.5px solid rgba(245,158,11,0.45);
+    }
+    .badge-ccr:hover { background: rgba(245,158,11,0.20); color: var(--weo-status-warning, #F59E0B); transform: none; }
+    .tooltip-badges .badge-ccr {
+      margin-left: 6px;
+      vertical-align: middle;
+      cursor: default;
+    }
     /* The map tooltip's badge row is not a flex container, so the pill supplies its
        own gap there rather than inheriting .z2-badges' 6px. */
     .tooltip-badges .badge-cross-eco {
@@ -6240,6 +6256,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7c0 5.5-4.5 10-9 12-4.5-2-9-6.5-9-12V5z"/><line x1="12" y1="3" x2="12" y2="24"/></svg>
       Blocs
     </a>
+    <a href="commitments/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="12" y2="17"/></svg>
+      Commitments
+    </a>
     <a href="methodology.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       Methodology
@@ -6754,6 +6774,8 @@ function mapApiEventToInternal(e) {
   // G-058 cross-ecosystem presence. This normaliser is an allowlist, so the field
   // has to be named here or it never reaches the panel or the map tooltip.
   mapped.crossEcosystemPresence = e.cross_ecosystem_presence ?? e.crossEcosystemPresence ?? undefined;
+  // Challenge Attribution (Compute Commitment Register) — same allowlist rule.
+  mapped.challengeAttributions = e.challengeAttributions ?? e.challenge_attributions ?? undefined;
 
   // Strip undefined fields
   Object.keys(mapped).forEach(function(k) { if (mapped[k] === undefined) delete mapped[k]; });
@@ -10290,6 +10312,25 @@ function generateCCSection(eventId, showFullContent) {
         '</span></span>';
     }
 
+    // Challenge Attribution — a link chip to the Compute Commitment Register record
+    // whose instrument is this event's own source. Metadata only; it changes no
+    // classification (working note, "The Challenge Attribution relation").
+    function challengeAttrBadge(ids, interactive) {
+      if (!Array.isArray(ids) || !ids.length) return '';
+      return ids.map(function(id) {
+        var label = 'Compute Commitment Register &middot; ' + escA(id);
+        var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+        var a = '<a class="badge-ccr' + (interactive ? ' weo-info-trigger' : '') + '" href="/commitments/#' + escA(id) + '"' +
+          ' aria-label="Compute Commitment Register record ' + escA(id) + '"' +
+          (interactive ? '' : ' title="Compute Commitment Register — ' + escA(sentence) + '"') + '>' + label;
+        if (interactive) {
+          a += '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +
+               '<div class="weo-tooltip-body">' + escA(sentence) + '<br><br>Record <strong>' + escA(id) + '</strong> on the Compute Commitment Register.</div></span>';
+        }
+        return a + '</a>';
+      }).join('');
+    }
+
     function generateFreeTierContent(event) {
       const blocClass = event.bloc === 'Cross-Bloc' ? 'cross-bloc' : event.bloc.toLowerCase();
       const cp = event.checkpoints || { ai: true, threshold: true, implemented: true, current: true };
@@ -10345,7 +10386,7 @@ function generateCCSection(eventId, showFullContent) {
       const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
       const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
         '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span>' + crossEcoBadge(event.crossEcosystemPresence, true) + '</div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span>' + crossEcoBadge(event.crossEcosystemPresence, true) + challengeAttrBadge(event.challengeAttributions, true) + '</div></div>' +
         '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + escH(event.domain) + '</span></div></div>' +
         connRow +
         '</div>';
@@ -10750,7 +10791,7 @@ function generateCCSection(eventId, showFullContent) {
       const connRow = isHighlyConn ? '<div class="z2-row" role="group" aria-label="Connections">' + generateFieldLabel('Connections', 'highlyConnected', 'below') + '<div class="z2-badges"><span class="panel-badge highly-connected" onclick="scrollToPanelSection(&apos;cc&apos;)">🔗 Highly Connected</span></div></div>' : '';
       const badgesHtml = '<div class="z2-rows" role="group" aria-label="Event classification">' +
         '<div class="z2-row" role="group" aria-label="Tier">' + tierLabel + '<div class="z2-badges"><span class="panel-badge t' + event.tier + '" onclick="scrollToPanelSection(&apos;Tier Classification&apos;)">' + tierIcon(event.tier) + 'Tier ' + event.tier + '</span></div></div>' +
-        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span>' + crossEcoBadge(event.crossEcosystemPresence, true) + '</div></div>' +
+        '<div class="z2-row" role="group" aria-label="Bloc affiliation">' + blocLabel + '<div class="z2-badges"><span class="panel-badge ' + blocBadgeClass + '" onclick="scrollToPanelSection(&apos;bloc-table&apos;)">' + blocIcon(blocBadgeText) + escH(blocBadgeText) + '</span>' + crossEcoBadge(event.crossEcosystemPresence, true) + challengeAttrBadge(event.challengeAttributions, true) + '</div></div>' +
         '<div class="z2-row" role="group" aria-label="Domain">' + domainLabel + '<div class="z2-badges"><span class="panel-badge ' + getDomainClass(event.domain) + '" onclick="scrollToPanelSection(&apos;overview&apos;)">' + escH(event.domain) + '</span></div></div>' +
         connRow + headerVersionBadge +
         '</div>';
@@ -12454,7 +12495,7 @@ function generateCCSection(eventId, showFullContent) {
 
 <!-- Version stamp / footer -->
 <footer class="atlas-footer" style="position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 24px;font-size:11px;color:#94A3B8;background:rgba(15,23,42,0.9);border-top:1px solid #334155;z-index:200;pointer-events:auto;">
-    <span>Methodology V1.5 · WEO v1.4.0</span>
+    <span>Methodology V1.5 · WEO v1.5.0</span>
     <span><a href="legal.html" style="color:#94A3B8;text-decoration:none;">Privacy &amp; Terms</a> · © 2026 Warmth Engine Observatory</span>
     <span><a href="https://warmthengine.com/mcp" style="color:#94A3B8;text-decoration:none;">MCP reference</a> · <a href="/llms.txt" style="color:#94A3B8;text-decoration:none;">llms.txt</a></span>
 </footer>

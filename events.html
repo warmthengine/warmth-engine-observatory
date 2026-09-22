@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Verified AI infrastructure coordination events classified by tier, domain, and bloc with industry tags.">
     <meta name="twitter:image" content="https://warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <title>Events Database — Warmth Engine Observatory</title>
     <meta name="description" content="WEO event database — verified AI infrastructure coordination events classified by tier, domain, and bloc with industry and environmental nexus tags. Filter, search, and explore coordination dynamics.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO events, AI infrastructure events, coordination database, Event Type, tier classification, domain classification, industry tags, verified events, geopolitical coordination, Coordination Connections">
@@ -1997,6 +1997,18 @@
       color: var(--weo-bloc-western, #60A5FA);
       transform: none;
     }
+    /* Challenge Attribution chip — same geometry as .badge-cross-eco, amber so it
+       reads as a register link rather than a bloc fact. */
+    .badge-ccr {
+      display: inline-flex; align-items: center; width: fit-content; height: auto;
+      padding: 3px 8px; margin-left: 0; border-radius: 20px; position: relative;
+      font-family: var(--weo-font-mono); font-size: 0.625rem; font-weight: 600;
+      letter-spacing: 0.04em; text-decoration: none; white-space: nowrap;
+      background: rgba(245,158,11,0.10); color: var(--weo-status-warning, #F59E0B);
+      border: 1.5px solid rgba(245,158,11,0.45);
+    }
+    .badge-ccr:hover { background: rgba(245,158,11,0.20); color: var(--weo-status-warning, #F59E0B); transform: none; }
+    #events-tbody .badge-ccr { margin-left: 6px; vertical-align: middle; }
     /* Table cells are not flex containers, so the pill supplies its own gap there
        rather than inheriting .z2-badges' 6px. */
     #events-tbody .badge-cross-eco {
@@ -3280,6 +3292,18 @@
         .weo-back-to-top.visible { opacity: 0.5; }
     }
 
+
+        /* Ten-item nav: tightened padding and type from the hamburger breakpoint up to
+           1149px; wordmark hides below 900px. Measured: at 1024px the untightened
+           ten-item row is 684px, which overflows the nav or wraps the wordmark on
+           every page that also carries a supporter button or a long brand line. */
+        @media (min-width: 768px) and (max-width: 1149px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
 </style>
 </head>
 <body>
@@ -3344,6 +3368,7 @@
             <a href="events.html" class="active">Events</a>
             <a href="/profiles/">Profiles</a>
             <a href="blocs.html">Blocs</a>
+            <a href="/commitments/">Commitments</a>
             <a href="methodology.html">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
@@ -3555,7 +3580,7 @@
         </div>
         <p class="table-note">Event IDs are permanent identifiers. Gaps in numbering reflect events removed during verification or due to subsequent resolution.</p>
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.5 · WEO v1.4.0</p>
+            <p class="footer-version">Methodology V1.5 · WEO v1.5.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>
@@ -3694,6 +3719,11 @@ function mapApiEventToFree(e) {
   // that never sees the full object.
   const _cep = e.crossEcosystemPresence ?? e.cross_ecosystem_presence;
   if (_cep != null) mapped.crossEcosystemPresence = _cep;
+  // Challenge Attribution (Compute Commitment Register). Free-tier metadata: a
+  // note that a register record exists whose instrument is this event's source.
+  // Same allowlist rule as crossEcosystemPresence — name it here or it never renders.
+  const _ca = e.challengeAttributions ?? e.challenge_attributions;
+  if (Array.isArray(_ca) && _ca.length) mapped.challengeAttributions = _ca;
   return mapped;
 }
 
@@ -4386,6 +4416,25 @@ function crossEcoBadge(cep, interactive) {
     '<br><br><strong>Origin:</strong> ' + esc(cep.operatorOrigin) +
     ' · <strong>Host:</strong> ' + esc(cep.hostClassification) + '</div>' +
     '</span></span>';
+}
+
+// Challenge Attribution — a link chip to the Compute Commitment Register record
+// whose instrument is this event's own source. Metadata only; it changes no
+// classification (working note, "The Challenge Attribution relation").
+function challengeAttrBadge(ids, interactive) {
+  if (!Array.isArray(ids) || !ids.length) return '';
+  return ids.map(function(id) {
+    var label = 'Compute Commitment Register &middot; ' + esc(id);
+    var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+    var a = '<a class="badge-ccr' + (interactive ? ' weo-info-trigger' : '') + '" href="/commitments/#' + esc(id) + '"' +
+      ' aria-label="Compute Commitment Register record ' + esc(id) + '"' +
+      (interactive ? '' : ' title="Compute Commitment Register — ' + esc(sentence) + '"') + '>' + label;
+    if (interactive) {
+      a += '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +
+           '<div class="weo-tooltip-body">' + esc(sentence) + '<br><br>Record <strong>' + esc(id) + '</strong> on the Compute Commitment Register.</div></span>';
+    }
+    return a + '</a>';
+  }).join('');
 }
 
 // Generate tooltip for CC connection types (1-7)
@@ -5227,7 +5276,7 @@ const renderTable = () => {
             <td><div class="type-icon-cell" title="${esc(e.event_type)}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
             <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${esc(e.tier)}</span></td>
-            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, false)}</td>
+            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, false)}${challengeAttrBadge(e.challengeAttributions, false)}</td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':esc(e.domain)}</span></td>
             <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${esc(getIndTags(e.event_id).primary)}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + esc(getIndTags(e.event_id).secondary.map(s => s.tag).join(', ')) + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
             <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + esc(ents.map(function(t){return t.name||t.type}).join(', ')) + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
@@ -5451,7 +5500,7 @@ const openModal = (id) => {
     document.getElementById('modal-meta').innerHTML = `
         <div class="z2-rows" role="group" aria-label="Event classification">
           <div class="z2-row" role="group" aria-label="Tier">${tierLabel}<div class="z2-badges"><span class="badge ${getTierBadgeClass(e.tier)}" onclick="scrollToModalSection('Tier Classification')">${tierIcon(e.tier)}T${esc(e.tier)}</span></div></div>
-          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, true)}</div></div>
+          <div class="z2-row" role="group" aria-label="Bloc affiliation">${blocLabel}<div class="z2-badges"><span class="badge ${getBlocBadgeClass(e.bloc)}" onclick="scrollToModalSection('bloc-table')">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, true)}${challengeAttrBadge(e.challengeAttributions, true)}</div></div>
           <div class="z2-row" role="group" aria-label="Domain">${domainLabel}<div class="z2-badges"><span class="badge ${getDomainBadgeClass(e.domain)}" onclick="scrollToModalSection('overview')">${esc(e.domain)}</span></div></div>
           ${connRow}
           ${headerVersionBadge}
