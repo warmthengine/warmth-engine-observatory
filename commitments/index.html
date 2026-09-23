@@ -868,22 +868,25 @@
         // The register's terms are the working note's, not the Manual's.
         var NOTE_PAGE = '/research/compute-commitment-register/';
         var noteAnchors = {
-            preOperational:    'section-viii-3',
-            pairs:             'section-viii-1-three-figures',
-            epoch:             'section-v-6',
-            documents:         'section-viii-1-three-figures',
+            preOperational:    'section-viii-3-pre-operational',
+            pairs:             'section-viii-1-documents',
+            epoch:             'section-v-6-epoch',
+            documents:         'section-viii-1-documents',
             lineItems:         'section-iv-line-items',
             committed:         'section-ii-evidence-slots',
             allocated:         'section-ii-evidence-slots',
             status:            'section-ii-evidence-slots',
-            band:              'section-iv-bands',
+            bandA:             'section-iv-band-a',
+            bandB:             'section-iv-band-b',
+            bandC:             'section-iv-band-c',
+            bandD:             'section-iv-band-d',
             aiCompute:         'section-ii-ai-compute',
             subThreshold:      'section-v-5-sub-threshold',
-            roleCommitment:    'section-iii-4',
+            roleCommitment:    'section-iii-1-commitment-evidence',
             roleDelivery:      'section-ii-evidence-slots',
-            roleCorroborating: 'section-iii-5',
-            quantityType:      'section-iii-5',
-            corpusEvent:       'section-vii'
+            roleCorroborating: 'section-iii-5-corroborating',
+            quantityType:      'section-iii-5-as-declared',
+            corpusEvent:       'section-vii-attribution'
         };
         // The trigger is a <button>, which cannot hold a link, so the slot carries
         // its target as data-href and the tooltip driver builds the link in the overlay.
@@ -1116,7 +1119,7 @@
                         'The verified corpus event whose own source is this commitment&#39;s document. Opens the event record.', 'corpusEvent');
             }).join('');
             var badges = '<span class="badge badge-band">Band ' + esc(rec.band) + '</span>' +
-                tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '', 'band') +
+                tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '', 'band' + rec.band) +
                 '<span class="badge ' + statusClass + '">' + esc(rec.status) + '</span>' +
                 tipBtn('About the ' + esc(rec.status) + ' status', esc(rec.status), STATUS_TIP[rec.status] || '', 'status') +
                 (rec.ai_compute === 'stated'
