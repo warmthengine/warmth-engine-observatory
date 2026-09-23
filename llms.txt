@@ -16,7 +16,7 @@ The Compute Commitment Register records, for any named actor, publicly documente
 
 ## Machine access
 
-- [MCP server](https://warmthengine.com/mcp): 17 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, methodology lookup, and Contribution Architecture lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
+- [MCP server](https://warmthengine.com/mcp): 18 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, methodology lookup, and Contribution Architecture lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
 - [Compute Commitment Register](https://warmthengine.com/commitments/): verified computing capacity commitments to societal challenges, with the Challenge List Reference and dated observations. Same values via /api/commitments and /api/commitments/observations.
 - [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/metrics, /api/commitments, /api/health.
 - Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription — see /support.
