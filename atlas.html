@@ -5825,7 +5825,8 @@
                 return '<a class="badge-ccr weo-info-trigger" href="/commitments/#' + escapeHtml(id) + '"' +
                     ' aria-label="Compute Commitment Register record ' + escapeHtml(id) + '">' + label +
                     '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +
-                    '<div class="weo-tooltip-body">' + escapeHtml(sentence) + '<br><br>Record <strong>' + escapeHtml(id) + '</strong> on the Compute Commitment Register.</div></span></a>';
+                    '<div class="weo-tooltip-body">' + escapeHtml(sentence) + '<br><br>Record <strong>' + escapeHtml(id) + '</strong> on the Compute Commitment Register.</div>' +
+                    '<div class="weo-tooltip-method-link" data-href="/research/compute-commitment-register/#section-vii">View in the working note &rarr;</div></span></a>';
             }).join('');
         }
 
@@ -11522,7 +11523,11 @@
                 var methodLinkEl = inlineTooltip.querySelector('.weo-tooltip-method-link');
                 var overlayMethodLink = tooltipOverlay.querySelector('.weo-tooltip-method-link');
                 if (overlayMethodLink) {
-                  overlayMethodLink.innerHTML = methodLinkEl ? methodLinkEl.innerHTML : '';
+                  // A slot inside a trigger that is itself a link (the Challenge Attribution
+                  // chip) cannot hold an <a>, so it carries its target as data-href.
+                  overlayMethodLink.innerHTML = !methodLinkEl ? '' : methodLinkEl.hasAttribute('data-href')
+                    ? '<a href="' + methodLinkEl.getAttribute('data-href') + '" target="_blank" rel="noopener">' + methodLinkEl.innerHTML + '</a>'
+                    : methodLinkEl.innerHTML;
                 }
                 const triggerRect = trigger.getBoundingClientRect();
                 const tooltipWidth = 350;
