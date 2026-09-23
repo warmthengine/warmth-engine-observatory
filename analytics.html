@@ -610,12 +610,23 @@
             display: flex; align-items: flex-end;
             gap: 2px; height: 120px;
             padding-top: var(--weo-space-sm);
+            /* Safety net: .trend-day min-width:0 already lets columns shrink to fit, so
+               this should never actually scroll — but if a future range or a very long
+               grouped-bar label ever demands more width than the card has, it scrolls
+               inside the chart instead of widening the page (see 31 Aug mobile overflow,
+               body.scrollWidth 416 vs 390 at 365d). */
+            overflow-x: auto;
         }
         .trend-day {
             flex: 1; display: flex; flex-direction: column;
             align-items: center; justify-content: flex-end;
             height: 100%; position: relative;
             cursor: default;
+            /* Without this, a flex item's default min-width:auto sizes it to its content
+               (the rotated date label's un-rotated footprint), so at 180d/365d the summed
+               column widths exceeded the viewport and pushed the whole page wider than the
+               screen. Same fix as .panel above, same underlying flexbox default. */
+            min-width: 0;
         }
         .trend-bar-stack {
             width: 100%; display: flex; flex-direction: column-reverse;
@@ -682,6 +693,7 @@
             display: flex; align-items: flex-end;
             gap: 2px; height: 28px;
             padding-top: var(--weo-space-xs);
+            overflow-x: auto; /* same safety net as .trend-chart */
         }
         .trend-bar-tool {
             width: 100%; border-radius: 2px 2px 0 0;
@@ -1493,7 +1505,7 @@
                 trendPanel.style.display = 'none';
             } else {
                 trendPanel.style.display = '';
-                renderTrend(currentDates, rawData);
+                renderTrend(currentDates, rawData, days);
             }
         }
 
@@ -1761,7 +1773,24 @@
         }
     }
 
-    function renderTrend(dates, dailyData) {
+    // Above 90 days the chart groups dates into rolling 7-day windows ending on the
+    // most recent date, so the bar count (and therefore the per-bar min content width
+    // driving the mobile overflow) stays bounded regardless of range. 90d and below
+    // stay daily — one group of 1 per date, so the loop below is unchanged for them.
+    var TREND_WEEKLY_THRESHOLD_DAYS = 90;
+
+    function groupDatesIntoWeeks(dates) {
+        var groups = [];
+        var i = dates.length;
+        while (i > 0) {
+            var start = Math.max(0, i - 7);
+            groups.unshift(dates.slice(start, i));
+            i = start;
+        }
+        return groups;
+    }
+
+    function renderTrend(dates, dailyData, days) {
         var chart = document.getElementById('trendChart');
         var toolChart = document.getElementById('trendToolChart');
         chart.innerHTML = '';
@@ -1772,54 +1801,76 @@
             return;
         }
 
+        var weekly = days > TREND_WEEKLY_THRESHOLD_DAYS;
+        var groups = weekly ? groupDatesIntoWeeks(dates) : dates.map(function(d) { return [d]; });
+
         var maxVal = 0;
-        dates.forEach(function(d) {
-            var day = dailyData[d] || {};
-            var dayTotal = (day.mcp || 0) + (day.api || 0);
-            if (dayTotal > maxVal) maxVal = dayTotal;
+        var groupTotals = groups.map(function(g) {
+            var mcp = 0, api = 0;
+            g.forEach(function(d) {
+                var day = dailyData[d] || {};
+                mcp += day.mcp || 0;
+                api += day.api || 0;
+            });
+            var total = mcp + api;
+            if (total > maxVal) maxVal = total;
+            return { mcp: mcp, api: api, total: total };
         });
         if (maxVal === 0) maxVal = 1;
 
-        // Change 3 — tool calls per day, summed from by_tool_outcome ('<tool>|<outcome>' →
+        // Change 3 — tool calls per group, summed from by_tool_outcome ('<tool>|<outcome>' →
         // count). That field exists only from worker 1.18.9 onward (24 Aug 2026, per the
-        // live data): a day missing the KEY entirely was never measured (null, rendered as no bar at all,
-        // below) — never coerced to 0, which would assert "measured, nothing happened".
-        // Its max is taken only over days that WERE measured, so pre-collection days don't
-        // drag a real max down to nothing.
-        var toolCounts = dates.map(function(d) {
-            var day = dailyData[d];
-            if (!day || !day.by_tool_outcome) return null;
-            var sum = 0;
-            Object.keys(day.by_tool_outcome).forEach(function(k) { sum += day.by_tool_outcome[k] || 0; });
-            return sum;
+        // live data). A group counts as measured if AT LEAST ONE of its dates carries the
+        // field; an all-absent group stays null (rendered as no bar at all, below) — never
+        // coerced to 0, which would assert "measured, nothing happened". A group straddling
+        // the 24 Aug boundary sums only its measured dates, same absent-vs-zero distinction
+        // as the daily chart just applied per-group instead of per-day.
+        var groupToolCounts = groups.map(function(g) {
+            var sum = 0, measured = false;
+            g.forEach(function(d) {
+                var day = dailyData[d];
+                if (day && day.by_tool_outcome) {
+                    measured = true;
+                    Object.keys(day.by_tool_outcome).forEach(function(k) { sum += day.by_tool_outcome[k] || 0; });
+                }
+            });
+            return measured ? sum : null;
         });
         var maxTool = 0;
-        toolCounts.forEach(function(c) { if (c !== null && c > maxTool) maxTool = c; });
+        groupToolCounts.forEach(function(c) { if (c !== null && c > maxTool) maxTool = c; });
         if (maxTool === 0) maxTool = 1;
 
-        dates.forEach(function(d, i) {
-            var day = dailyData[d] || {};
-            var mcp = day.mcp || 0;
-            var api = day.api || 0;
-            var dayTotal = mcp + api;
-            var heightPct = (dayTotal / maxVal * 100);
+        // A single-date group's label is just its date (MM-DD), unchanged from before
+        // grouping existed. A multi-date group's label is its full range, so a weekly
+        // bar's tooltip always states which dates it covers.
+        function rangeLabel(g) {
+            var startLabel = g[0].slice(5);
+            var endLabel = g[g.length - 1].slice(5);
+            return g.length === 1 ? startLabel : (startLabel + '–' + endLabel);
+        }
 
-            var dateLabel = d.slice(5); // MM-DD
+        var labelStride = Math.max(1, Math.ceil(groups.length / 10));
+
+        groups.forEach(function(g, i) {
+            var t = groupTotals[i];
+            var heightPct = (t.total / maxVal * 100);
+            var label = rangeLabel(g);
+
             var col = document.createElement('div');
             col.className = 'trend-day';
 
             col.innerHTML =
-                '<div class="trend-tooltip">' + dateLabel + ' · MCP: ' + mcp + ' · API: ' + api + '</div>' +
+                '<div class="trend-tooltip">' + label + ' · MCP: ' + t.mcp + ' · API: ' + t.api + '</div>' +
                 '<div class="trend-bar-stack" style="height:' + heightPct + '%">' +
-                    '<div class="trend-bar-api" style="height:' + (dayTotal > 0 ? (api/dayTotal*100) : 0) + '%"></div>' +
-                    '<div class="trend-bar-mcp" style="height:' + (dayTotal > 0 ? (mcp/dayTotal*100) : 0) + '%"></div>' +
+                    '<div class="trend-bar-api" style="height:' + (t.total > 0 ? (t.api/t.total*100) : 0) + '%"></div>' +
+                    '<div class="trend-bar-mcp" style="height:' + (t.total > 0 ? (t.mcp/t.total*100) : 0) + '%"></div>' +
                 '</div>';
 
-            if (dates.length <= 14 || dates.indexOf(d) % Math.ceil(dates.length / 10) === 0) {
-                var label = document.createElement('div');
-                label.className = 'trend-date';
-                label.textContent = dateLabel;
-                col.appendChild(label);
+            if (groups.length <= 14 || i % labelStride === 0) {
+                var lbl = document.createElement('div');
+                lbl.className = 'trend-date';
+                lbl.textContent = g[0].slice(5);
+                col.appendChild(lbl);
             }
 
             chart.appendChild(col);
@@ -1827,17 +1878,17 @@
             if (toolChart) {
                 var tcol = document.createElement('div');
                 tcol.className = 'trend-day';
-                var count = toolCounts[i];
+                var count = groupToolCounts[i];
                 if (count === null) {
                     // Absent, not zero: no bar, tooltip explains why on hover/tap.
-                    tcol.innerHTML = '<div class="trend-tooltip">' + dateLabel + ' · Tool calls: no data (before tracking began)</div>';
+                    tcol.innerHTML = '<div class="trend-tooltip">' + label + ' · Tool calls: no data (before tracking began)</div>';
                 } else {
-                    // A measured-zero day gets a short fixed dim tick (.zero); a measured
-                    // non-zero day is scaled against maxTool, with a floor so a real but
+                    // A measured-zero group gets a short fixed dim tick (.zero); a measured
+                    // non-zero group is scaled against maxTool, with a floor so a real but
                     // small count never shrinks to invisible.
                     var toolPct = count === 0 ? 6 : Math.max(4, count / maxTool * 100);
                     tcol.innerHTML =
-                        '<div class="trend-tooltip">' + dateLabel + ' · Tool calls: ' + count + '</div>' +
+                        '<div class="trend-tooltip">' + label + ' · Tool calls: ' + count + '</div>' +
                         '<div class="trend-bar-tool' + (count === 0 ? ' zero' : '') + '" style="height:' + toolPct + '%"></div>';
                 }
                 toolChart.appendChild(tcol);
