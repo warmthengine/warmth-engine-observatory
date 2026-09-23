@@ -12,10 +12,12 @@ Coordination Connections across seven defined types — including policy cascade
 
 Sovereign Capability Profiles assess state actors across seven AI infrastructure dimensions through a three-gate designation framework producing four designations: Principal AI Actor (PAA), AI Infrastructure Keystone (AIK), Advanced Capability State (ACS), and Participant.
 
+The Compute Commitment Register records, for any named actor, publicly documented commitments of computing capacity to societal challenges — one record per instrument, quantities as declared and never summed — assigned to the Challenge List Reference, a fixed, epoch-stamped list derived by a threshold rule over the challenge lists of qualifying institutions. Events whose own source is a register record carry a Challenge Attribution.
+
 ## Machine access
 
 - [MCP server](https://warmthengine.com/mcp): 17 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, methodology lookup, and Contribution Architecture lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.
-- [Compute Commitment Register](https://warmthengine.com/commitments/): verified computing capacity commitments to global challenges, with the Challenge List Reference and dated observations. Same values via /api/commitments and /api/commitments/observations.
+- [Compute Commitment Register](https://warmthengine.com/commitments/): verified computing capacity commitments to societal challenges, with the Challenge List Reference and dated observations. Same values via /api/commitments and /api/commitments/observations.
 - [REST API](https://warmthengine.com/api/): read-only JSON over the corpus. Key endpoints: /api/events, /api/connections, /api/actors, /api/scp, /api/topology, /api/threads, /api/blocs, /api/metrics, /api/commitments, /api/health.
 - Full-tier access: send an access token as an `Authorization: Bearer weo_...` header on the MCP or REST endpoints; tokens are obtained by subscription — see /support.
 
@@ -53,7 +55,7 @@ Three guided-journey prompts (`journey_coordination` / `journey_material` / `jou
 - [Events](https://warmthengine.com/events.html): verified event database with classification, enrichment layers, and Coordination Connection links
 - [Profiles](https://warmthengine.com/profiles/): Sovereign Capability Profile assessments with dimension scoring and Dimension Watch
 - [Bloc register](https://warmthengine.com/blocs.html): geopolitical bloc classifications underpinning the tier system
-- [Commitments](https://warmthengine.com/commitments/): Compute Commitment Register — verified computing capacity commitments to global challenges, by challenge and by committing organisation
+- [Commitments](https://warmthengine.com/commitments/): Compute Commitment Register — verified computing capacity commitments to societal challenges, by challenge and by committing organisation
 - [Research](https://warmthengine.com/research.html): independent theoretical research, methodology extensions, and the platform Contribution Architecture (Open Access, Zenodo)
 - [Methodology](https://warmthengine.com/methodology.html): five-stage pipeline overview with Manual and Rationale access
 - [Support](https://warmthengine.com/support.html): access tiers and pricing

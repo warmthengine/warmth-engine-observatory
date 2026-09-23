@@ -51,7 +51,7 @@ Data updates flow through the API — no HTML changes required for new events or
 
 ## Methodology Documentation
 
-The WEO methodology is documented across four publications, all available on Zenodo with DOI registration:
+The WEO methodology is documented across six publications, all available on Zenodo with DOI registration:
 
 ### Core Documentation
 
@@ -66,6 +66,8 @@ The WEO methodology is documented across four publications, all available on Zen
 |---|---|
 | **Towards Coordination Science: A Framework for Measuring Geopolitical Coordination Dynamics Through Event Relationship Patterns** — Coordination Connection metrics and theoretical foundations (Layer 2 framework) | [`10.5281/zenodo.18427584`](https://doi.org/10.5281/zenodo.18427584) |
 | **Tier-Crossing Dynamics in Coordination Networks: A Methodology Extension for Cross-Level Connection Analysis** — Analytical framework for examining Coordination Connections across different tiers | [`10.5281/zenodo.18427586`](https://doi.org/10.5281/zenodo.18427586) |
+| **WEO Contribution Architecture** — Account of the platform's methodological contributions and their derivation | [`10.5281/zenodo.21495917`](https://doi.org/10.5281/zenodo.21495917) |
+| **The Compute Commitment Register — Methodology Working Note** — Method, Challenge List Reference, and pilot observations for the register of computing capacity committed to societal challenges | [`10.5281/zenodo.22785950`](https://doi.org/10.5281/zenodo.22785950) |
 
 ### Self-Hosted Documentation
 

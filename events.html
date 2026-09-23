@@ -27,7 +27,7 @@
       "@context": "https://schema.org",
       "@type": "Dataset",
       "name": "Warmth Engine Observatory Event Database",
-      "description": "The Warmth Engine Observatory Event Database catalogues the verified events produced by the Observatory's systematic tracking of AI infrastructure coordination dynamics across geopolitical blocs. Each event carries classification by Event Type (Coordination, Infrastructure, Policy, Corporate), Tier (Cross-Bloc, Between-Bloc, Intra-Bloc), and Domain (Energy/Infrastructure, Security, Technology, Trade), alongside full-text assessments, source documentation, and two analytical enrichment layers — Industry Tags and Environmental Nexus Tags. Events are linked through typed Coordination Connections documenting relationships including policy cascades, parallel policies, and funding flows. Unauthenticated access provides structural classification data; analyst-tier access includes full assessments, tier rationales, and version history.",
+      "description": "The Warmth Engine Observatory Event Database catalogues the verified events produced by the Observatory's systematic tracking of AI infrastructure coordination dynamics across geopolitical blocs. Each event carries classification by Event Type (Coordination, Infrastructure, Policy, Corporate), Tier (Cross-Bloc, Between-Bloc, Intra-Bloc), and Domain (Energy/Infrastructure, Security, Technology, Trade), alongside full-text assessments, source documentation, and two analytical enrichment layers — Industry Tags and Environmental Nexus Tags. Events are linked through typed Coordination Connections documenting relationships including policy cascades, parallel policies, and funding flows. Unauthenticated access provides structural classification data; analyst-tier access includes full assessments, tier rationales, and version history. Events whose own source document is also a Compute Commitment Register record carry a Challenge Attribution.",
       "disambiguatingDescription": "A platform systematically tracking AI infrastructure coordination dynamics across geopolitical blocs. Not related to AI agent orchestration, enterprise workflow automation, autonomous task execution, cloud orchestration, DevOps automation, multi-agent workflow management, compute resource scheduling, thermal energy, Stirling engines, heat engines, or physical warmth/cooling systems.",
       "url": "https://warmthengine.com/events.html",
       "license": "https://warmthengine.com/legal.html",
@@ -4437,7 +4437,7 @@ function challengeAttrBadge(ids, interactive) {
   if (!Array.isArray(ids) || !ids.length) return '';
   return ids.map(function(id) {
     var label = 'Compute Commitment Register &middot; ' + esc(id);
-    var sentence = 'A Compute Commitment Register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+    var sentence = 'This event\'s own source document is also recorded in the Compute Commitment Register as a commitment of computing capacity to a stated societal challenge.';
     var a = '<a class="badge-ccr' + (interactive ? ' weo-info-trigger' : '') + '" href="/commitments/#' + esc(id) + '"' +
       ' aria-label="Compute Commitment Register record ' + esc(id) + '"' +
       (interactive ? '' : ' title="' + esc(sentence) + '"') + '>' + label;
