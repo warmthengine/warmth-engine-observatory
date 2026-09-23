@@ -705,6 +705,26 @@
             margin: 1.5rem 0;
             max-width: 100%;
         }
+        /* Scroll cue (ported from events.html): an edge fade with chevrons on
+           whichever side has more table to scroll to. */
+        .table-scroll-container { position: relative; margin: 1.5rem 0; }
+        .table-scroll-container > .table-scroll { margin: 0; }
+        .table-scroll-indicator {
+            position: absolute; top: 0; bottom: 0; width: 36px;
+            pointer-events: none; opacity: 0; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity var(--weo-duration-slow) var(--weo-ease-out);
+        }
+        .table-scroll-indicator.visible { opacity: 1; }
+        .table-scroll-indicator.left { left: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, transparent 100%); }
+        .table-scroll-indicator.right { right: 0; background: linear-gradient(to left, rgba(15, 23, 42, 0.95) 0%, transparent 100%); }
+        .table-scroll-chevrons { font-size: 16px; color: rgba(148, 163, 184, 0.9); letter-spacing: -3px; animation: table-scroll-pulse 1.5s ease-in-out infinite; }
+        .table-scroll-indicator.left .table-scroll-chevrons { padding-left: 6px; }
+        .table-scroll-indicator.right .table-scroll-chevrons { padding-right: 6px; }
+        .table-scroll-indicator.left .table-scroll-chevrons::before { content: '‹‹‹'; }
+        .table-scroll-indicator.right .table-scroll-chevrons::before { content: '›››'; }
+        @keyframes table-scroll-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
         .weo-methodology-body .table-scroll table {
             display: table;
             margin: 0;
@@ -871,6 +891,9 @@
 <p>Author: Warmth Engine | warmthengine@proton.me | warmthengine.com</p>
 <hr>
 <p id="novel-terminology">NOVEL TERMINOLOGY — PRIORITY DOCUMENTATION</p>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -904,6 +927,7 @@
 </tbody>
 </table>
 </div>
+</div>
 <p>Originated by: Warmth Engine</p>
 <hr>
 <p id="declarations">DECLARATIONS</p>
@@ -918,6 +942,9 @@
 <p><strong>Keywords:</strong> compute commitments; compute allocation; societal challenges; challenge taxonomy; institutional risk lists; evidence standard; register methodology; AI for good; public research computing; coordination intelligence</p>
 <hr>
 <h2 id="operationalisation-status">OPERATIONALISATION STATUS</h2>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -954,8 +981,12 @@
 </tbody>
 </table>
 </div>
+</div>
 <hr>
 <h2 id="table-of-contents">TABLE OF CONTENTS</h2>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1024,8 +1055,12 @@
 </tbody>
 </table>
 </div>
+</div>
 <hr>
 <h2 id="abbreviations">ABBREVIATIONS</h2>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1054,6 +1089,7 @@
 </tbody>
 </table>
 </div>
+</div>
 <hr>
 <h2 id="section-i">I. PURPOSE AND POSITION</h2>
 <h3 id="section-i-1">I.1 The question</h3>
@@ -1066,7 +1102,9 @@
 <hr>
 <h2 id="section-ii">II. WHAT THE REGISTER RECORDS</h2>
 <p>A <strong>record</strong> is one publicly documented instrument in which a named actor commits computing capacity to a stated purpose that maps to a candidate in the run table of the Challenge List Reference. The run table is the full table of candidate challenges considered for the Reference, above and below its threshold (<a href="#section-v-5">§V.5</a>).</p>
+<span id="section-ii-ai-compute"></span>
 <p>Each record carries <em>AI compute: stated</em> where the instrument states that the capacity is for AI, whether in the programme's name as printed, its mandate, or the commitment's wording. Otherwise it carries <em>not stated</em>. The value is transcribed from the instrument at record level. At publication, AI compute is stated in eight of the eleven records (<a href="#section-ix-2">§IX.2</a>).</p>
+<span id="section-ii-evidence-slots"></span>
 <p>A record has two evidence slots. The first holds the commitment instrument. The second holds a document evidencing award, disbursement, or use, where one exists. It may be the commitment instrument itself or a later document. Status is Committed where only the first slot is filled, and Allocated where both are. Further documents may attach to a record as corroborating evidence (<a href="#section-iii-5">§III.5</a>).</p>
 <p>Any actor is admissible, including governments, agencies, supranational bodies, public research and computing centres, corporations, and foundations. Admission is decided by what the instrument states, whatever the actor's type.</p>
 <hr>
@@ -1122,7 +1160,9 @@
 <p>A contributor appears as an actor of record only where an instrument records that contributor's own commitment — for example, a programme's published list of contributor commitments, a filing, or an assured report. Each contributor's commitment in such an instrument is its own record, even where the programme authored the instrument. The WEO Methodology Manual's Distinct Actor Requirement (§9.1.6) applies: a corporation and its foundation, or a ministry and its agency, count as one actor unless separate governance is documented.</p>
 <p><strong>Participants.</strong> Bodies other than the actor of record that the instrument itself names as author, funder, operator, contributor, host, or co-signatory are recorded as participants. They are transcribed from the instrument and never inferred.</p>
 <p><strong>Dates.</strong> The instrument's own time-frame wording is stored as printed. A start or end date is recorded beside it only where the instrument states one. A phrase such as "by 2030" is kept as wording and is not converted to a date.</p>
+<span id="section-iv-line-items"></span>
 <p><strong>Line items.</strong> A line item is one purpose-bearing entry within a record. Where an instrument enumerates awards with individual purposes, each award is a line item, carrying the quantity field the instrument prints for it in whatever form. Where an instrument commits one system to several named challenges, there is one line item per challenge, each showing the same declared quantity. Line items are never counted in the document figure (<a href="#section-viii">§VIII</a>).</p>
+<span id="section-iv-bands"></span>
 <p><strong>Bands.</strong> Each record carries one of four bands describing the form of the commitment. The bands are never weighted.</p>
 <ul>
 <li>A — a grant or credit programme the actor awards to applicants it selects;</li>
@@ -1180,6 +1220,9 @@
 <p>Seven of the nine published challenges take their names from a single item on the World Economic Forum's list. In three of the seven, the challenge holds two items on the Forum's list, and the name comes from the item that the other institutions' items most closely match. One name joins two items on the Forum's list with "and": "State-based armed conflict and geoeconomic confrontation". One name is not an item on the Forum's list: "Climate change" is the Forum's defined structural-force term, and two other institutions use it in their items. Names are taken from the institutions so that the Observatory authors none: every word in every challenge's name appears in an institution's item. Only the World Economic Forum's list has an item under every published challenge (Appendix A).</p>
 <h3 id="section-v-5">V.5 Challenge List Reference Version 1.0, Epoch E1</h3>
 <p>Nine challenges, in fixed order: descending institution count; within a count, the Forum's two-year severity rank where published, then the Forum's own table order for unranked items. The right-hand column carries the register's first observation (<a href="#section-ix-2">§IX.2</a>).</p>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1248,8 +1291,9 @@
 </tbody>
 </table>
 </div>
+</div>
 <p>All 96 items across the four institutions are accounted for in the run table. Twelve candidates fell at exactly two institutions: misinformation and disinformation, societal polarisation, cyber insecurity, weapons of mass destruction, economic downturn, crime, erosion of human rights, energy supply, discrimination, education, urbanisation, and consumption. Nine fell at one. Four of the nine challenges are named by exactly three institutions. Three of those four reach the threshold through a Joint Research Centre megatrend read as a challenge under the inversion rule, and a change to that institution's edition can take them below the threshold.</p>
-<p>The run table, listing every candidate, every source item, and every inversion, is given in Appendix A. Every candidate below the threshold — a sub-threshold candidate — remains in the mapping vocabulary (<a href="#section-vi">§VI</a>). For example, a commitment to energy supply or cyber security is a full record: it is assigned to its candidate and held out of the published table until that candidate reaches the threshold.</p>
+<p>The run table, listing every candidate, every source item, and every inversion, is given in Appendix A. <span id="section-v-5-sub-threshold"></span>Every candidate below the threshold — a sub-threshold candidate — remains in the mapping vocabulary (<a href="#section-vi">§VI</a>). For example, a commitment to energy supply or cyber security is a full record: it is assigned to its candidate and held out of the published table until that candidate reaches the threshold.</p>
 <h3 id="section-v-6">V.6 Epoch discipline</h3>
 <p>An epoch is the period during which the Reference and the editions it rests on are unchanged. The Reference is epoch-stamped.</p>
 <p>A refresh check runs each 1 October. It re-applies the qualifying definition and the threshold to the current editions of every list.</p>
@@ -1267,6 +1311,7 @@
 <h2 id="section-viii">VIII. MEASURE</h2>
 <h3 id="section-viii-1">VIII.1 The document-basis challenge table</h3>
 <p>Three figures are computed for each published challenge:</p>
+<span id="section-viii-1-three-figures"></span>
 <ul>
 <li>the number of <strong>documents</strong> touching it, each record counted once under every challenge it touches;</li>
 <li>the number of <strong>line items</strong>; and</li>
@@ -1320,6 +1365,9 @@
 </ul>
 <p>Amazon's exhibit states an increase of twenty million US dollars, bringing the commitment since 2021 to sixty million. The register carries the total the instrument states. The Amazon record entered under the compute sub-line rule (<a href="#section-iii-5">§III.5</a>), which was fixed in Phase C from this record. The actor's sustainability report states the compute form of the sum, cloud credits, and attaches as corroborating evidence. A separate passage of the same report attaches as delivery evidence. A filed proxy statement restates the commitment and attaches as corroborating evidence.</p>
 <p>The register's figures at publication:</p>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1384,6 +1432,7 @@
 </tbody>
 </table>
 </div>
+</div>
 <p>The National Science Foundation's allocation export supplies eight of the nineteen document–challenge pairs and 303 of the 321 line items, and touches eight of the nine published challenges. Without it the table holds three challenges: health with seven documents, adverse outcomes of AI with two, and climate change with two.</p>
 <p>Further observations from the external instruments:</p>
 <ul>
@@ -1404,6 +1453,9 @@
 <hr>
 <h2 id="section-x">X. RELATED WORK</h2>
 <p>A prior-art search was run across four research models, followed by an examination of the closest comparators, those named in the table below. It located no instrument that records verified, actor-level commitments of AI compute against a challenge taxonomy, and no method that derives a challenge taxonomy by a threshold over the lists of qualifying institutions. Each comparator is described from its own pages. The instruments located fall into six families, each lacking an element the register has.</p>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1454,6 +1506,7 @@
 </tbody>
 </table>
 </div>
+</div>
 <p><strong>Opportunity directories.</strong> ImpactOpen, built and maintained by TechChange, indexes open AI-for-good funding, accelerators, fellowships, credits, and challenges for applicants, sorted by closing date, with focus areas and hand-verified deadlines. Each entry links to the official source. Its unit of record is an opportunity open to applicants, not a commitment. It is the nearest instrument by subject.</p>
 <p><strong>Programme self-reporting.</strong> Each programme publishes only its own calls or awards. Four of the six supply nine of the register's eleven records (<a href="#section-ix-2">§IX.2</a>).</p>
 <p><strong>Compute-supply measurement.</strong> Chinese-language policy instruments fall in this family. The National Development and Reform Commission's implementation opinions on the East Data West Compute project set a compute target and a green-electricity target for the national hub nodes. The research report on the green computing power index of the hub nodes, issued by the Tsinghua University Global Industry Research Institute with the Horinger Green Computing Power Development Research Center, assesses regions by index score. In both, compute is recorded and no purpose is stated as a challenge. The comparators are therefore not exclusively Western, though the two nearest instruments are.</p>
@@ -1483,6 +1536,9 @@
 <h2 id="appendix-a">APPENDIX A. RUN TABLE AND EPOCH RECORD OF THE CHALLENGE LIST REFERENCE</h2>
 <h3 id="appendix-a-1">A.1 Run table</h3>
 <p>The run table assigns every item on the four institutions' lists to a candidate under the merge protocol (<a href="#section-v-4">§V.4</a>). The nine published challenges come first, in the fixed order of <a href="#section-v-5">§V.5</a>; the sub-threshold candidates follow in descending institution count. Items are given by their headline wording, in the institution's spelling. Each Sustainable Development Goal is preceded by its official number. The Sustainable Development Goals and the Joint Research Centre megatrends are read under the inversion rule; where the reading differs from the printed wording, the reading is given after an arrow (→). One Munich Security Index cell combines three items: the use of nuclear, of biological, and of chemical weapons by an aggressor. The last row holds the items recorded as non-matching. Six of them are Munich Security Index items that name an actor (five states and the European Union) and no hazard.</p>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll table-scroll--run">
 <table>
 <thead>
@@ -1747,8 +1803,12 @@
 </tbody>
 </table>
 </div>
+</div>
 <p>Item accounting: World Economic Forum, 33 of 33 assigned; Munich Security Index, 32 of 32 (26 matched, 6 non-matching); Sustainable Development Goals, 17 of 17 (15 matched, 2 non-matching); Joint Research Centre megatrends, 14 of 14 (12 matched, 2 non-matching).</p>
 <h3 id="appendix-a-2">A.2 Epoch record</h3>
+<div class="table-scroll-container">
+<div class="table-scroll-indicator left" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
+<div class="table-scroll-indicator right" aria-hidden="true"><span class="table-scroll-chevrons"></span></div>
 <div class="table-scroll">
 <table>
 <thead>
@@ -1784,6 +1844,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <hr>
 <h2 id="references">REFERENCES</h2>
@@ -1874,6 +1935,25 @@
             targets.forEach(function(t) { observer.observe(t); });
         })();
     }
+
+    // Table scroll cue (ported from events.html): show the fade on each side
+    // that still has table to scroll to.
+    (function() {
+        document.querySelectorAll('.table-scroll-container').forEach(function(box) {
+            const sc = box.querySelector('.table-scroll');
+            const left = box.querySelector('.table-scroll-indicator.left');
+            const right = box.querySelector('.table-scroll-indicator.right');
+            if (!sc || !left || !right) return;
+            const update = function() {
+                const max = sc.scrollWidth - sc.clientWidth;
+                left.classList.toggle('visible', sc.scrollLeft > 10);
+                right.classList.toggle('visible', max > 10 && sc.scrollLeft < max - 10);
+            };
+            sc.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+            setTimeout(update, 150);
+        });
+    })();
 
     // Mobile "On this page" toggle; choosing a section closes the list.
     const tocToggle = document.getElementById('tocToggle');
