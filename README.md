@@ -75,7 +75,7 @@ The V1.5 Manual and Rationale are self-hosted as navigable HTML with granular se
 
 - **Manual:** [`warmthengine.com/research/methodology/manual/`](https://warmthengine.com/research/methodology/manual/) (490 section anchors)
 - **Rationale:** [`warmthengine.com/research/methodology/rationale/`](https://warmthengine.com/research/methodology/rationale/) (193 section anchors)
-- **Compute Commitment Register — Methodology Working Note:** [`warmthengine.com/research/compute-commitment-register/`](https://warmthengine.com/research/compute-commitment-register/) (65 section anchors)
+- **Compute Commitment Register — Methodology Working Note:** [`warmthengine.com/research/compute-commitment-register/`](https://warmthengine.com/research/compute-commitment-register/) (66 section anchors)
 - **Errata & Corrigenda:** [`warmthengine.com/research/methodology/errata/`](https://warmthengine.com/research/methodology/errata/) — V1.5 errata and corrigenda (expression corrections and substantive corrections to reported findings, with machine-readable `errata.json`)
 
 A semantic dictionary (`data/weo-methodology-map.json`) maps 185 WEO-specific terms to their methodology section anchors, serving both human tooltip navigation and the MCP `get_methodology` tool.
