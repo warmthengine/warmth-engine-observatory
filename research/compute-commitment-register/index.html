@@ -705,6 +705,17 @@
             margin: 1.5rem 0;
             max-width: 100%;
         }
+        /* Marker spans: an empty span highlights the element after it (rules
+           above) or, at the start of a list item, the item; a span that wraps a
+           sentence run highlights itself, line by line. */
+        .weo-methodology-body span[id^="section-"]:target:not(:empty) {
+            background-color: rgba(96, 165, 250, 0.10);
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            padding: 2px 0;
+            border-radius: 4px;
+        }
+
         /* Scroll cue (ported from events.html): an edge fade with chevrons on
            whichever side has more table to scroll to. */
         .table-scroll-container { position: relative; margin: 1.5rem 0; }
@@ -1132,6 +1143,7 @@
 <p>A purpose that maps to no candidate in the run table is logged as matching no candidate and held for the refresh check (<a href="#section-v-6">§V.6</a>).</p>
 <h3 id="section-iii-4">III.4 Instrument-class gate</h3>
 <p>In Version 1.0 of the Register Standard, ten classes of document pass the gate:</p>
+<span id="section-iii-4-classes"></span>
 <ol type="1">
 <li>budget line or appropriation;</li>
 <li>allocation call with published awards;</li>
@@ -1149,9 +1161,10 @@
 <p>The following do not qualify: press releases, blogs, keynotes, interviews, news articles (including state media reprinted on a government portal), institutional web pages, strategies and declarations without a funded instrument, unfunded memoranda, supplier marketing, and third-party monitors.</p>
 <p>The class gate applies to commitment evidence only. Delivery evidence may come from any document that meets the evidence standard in <a href="#section-iii-1">§III.1</a>.</p>
 <h3 id="section-iii-5">III.5 Quantified-in-instrument gate</h3>
-<p>The instrument must state, in its own text, how much is committed. The object committed is computing capacity. The figure that measures it may be expressed as compute, money, capacity, or duration. A figure of any size qualifies. The register stores the figure exactly as declared, with its unit. It is never converted into another unit (dollars into accelerator-hours), scaled to a common measure (exaflop-equivalents), or summed with other records into a total.</p>
+<p>The instrument must state, in its own text, how much is committed. The object committed is computing capacity. The figure that measures it may be expressed as compute, money, capacity, or duration. A figure of any size qualifies. <span id="section-iii-5-as-declared">The register stores the figure exactly as declared, with its unit. It is never converted into another unit (dollars into accelerator-hours), scaled to a common measure (exaflop-equivalents), or summed with other records into a total.</span></p>
 <p>The figure must measure compute. A figure already stated in compute terms, such as cloud credits, accelerator hours, or an accelerator count, qualifies on its own. A sum covering several things, only part of which is compute, does not qualify on its own: a national AI mission's appropriation covering seven components with no separate compute line is not a record.</p>
 <p>A mixed sum qualifies under the compute sub-line rule where the actor has stated that the sum, or a named part of it, is compute. The statement must appear in another document on the actor's own domain that meets the evidence standard. That second document identifies the compute component and is attached to the record as corroborating evidence. The register's one such record (<a href="#section-ix-2">§IX.2</a>) is a commitment of sixty million US dollars stated in a Form 8-K, whose compute form — cloud credits — is stated in the actor's sustainability report.</p>
+<span id="section-iii-5-corroborating"></span>
 <p>Corroborating evidence is a document that identifies the compute component, as above, or restates the commitment (<a href="#section-iv">§IV</a>). A corroborating document repeats or details a commitment already recorded. A corroborating document is not independent confirmation of the commitment.</p>
 <hr>
 <h2 id="section-iv">IV. RECORD RULES</h2>
@@ -1165,10 +1178,10 @@
 <span id="section-iv-bands"></span>
 <p><strong>Bands.</strong> Each record carries one of four bands describing the form of the commitment. The bands are never weighted.</p>
 <ul>
-<li>A — a grant or credit programme the actor awards to applicants it selects;</li>
-<li>B — a dedicated allocation or capacity reservation on a named system, including credits or capacity reserved for allocation by a public programme;</li>
-<li>C — sovereign or multilateral infrastructure; and</li>
-<li>D — commercial or philanthropic supply outside a public programme.</li>
+<li><span id="section-iv-band-a"></span>A — a grant or credit programme the actor awards to applicants it selects;</li>
+<li><span id="section-iv-band-b"></span>B — a dedicated allocation or capacity reservation on a named system, including credits or capacity reserved for allocation by a public programme;</li>
+<li><span id="section-iv-band-c"></span>C — sovereign or multilateral infrastructure; and</li>
+<li><span id="section-iv-band-d"></span>D — commercial or philanthropic supply outside a public programme.</li>
 </ul>
 <p>A credit commitment is A where the actor awards the credits to applicants it selects, and B where the actor reserves them for allocation by a named system or public programme. This rule applies to credits only: an allocation of compute time on a named system is B whoever selects the awardees.</p>
 <p><strong>Removal.</strong> A record is removed only when its instrument is shown to be withdrawn, misattributed, or to fail a gate on re-examination. Removed records persist archivally. A removed instrument re-enters only as a fresh record.</p>
@@ -1293,8 +1306,9 @@
 </div>
 </div>
 <p>All 96 items across the four institutions are accounted for in the run table. Twelve candidates fell at exactly two institutions: misinformation and disinformation, societal polarisation, cyber insecurity, weapons of mass destruction, economic downturn, crime, erosion of human rights, energy supply, discrimination, education, urbanisation, and consumption. Nine fell at one. Four of the nine challenges are named by exactly three institutions. Three of those four reach the threshold through a Joint Research Centre megatrend read as a challenge under the inversion rule, and a change to that institution's edition can take them below the threshold.</p>
-<p>The run table, listing every candidate, every source item, and every inversion, is given in Appendix A. <span id="section-v-5-sub-threshold"></span>Every candidate below the threshold — a sub-threshold candidate — remains in the mapping vocabulary (<a href="#section-vi">§VI</a>). For example, a commitment to energy supply or cyber security is a full record: it is assigned to its candidate and held out of the published table until that candidate reaches the threshold.</p>
+<p>The run table, listing every candidate, every source item, and every inversion, is given in Appendix A. <span id="section-v-5-sub-threshold">Every candidate below the threshold — a sub-threshold candidate — remains in the mapping vocabulary (<a href="#section-vi">§VI</a>). For example, a commitment to energy supply or cyber security is a full record: it is assigned to its candidate and held out of the published table until that candidate reaches the threshold.</span></p>
 <h3 id="section-v-6">V.6 Epoch discipline</h3>
+<span id="section-v-6-epoch"></span>
 <p>An epoch is the period during which the Reference and the editions it rests on are unchanged. The Reference is epoch-stamped.</p>
 <p>A refresh check runs each 1 October. It re-applies the qualifying definition and the threshold to the current editions of every list.</p>
 <p>Any change to the definition, the institution set, the threshold, the merge protocol, or an institution's edition opens a new epoch. Before a new epoch's first observation, one record set is observed under both the old and the new Reference. No trend is drawn across an epoch boundary. The Sustainable Development Goals expire in 2030, a foreseeable epoch break.</p>
@@ -1304,6 +1318,7 @@
 <p>Privacy work is assigned to erosion of human rights where protecting individuals' privacy, or preventing surveillance or rights harm, is the stated purpose. It is not assigned where privacy is a constraint on a method whose purpose is something else. Classroom allocations are assigned to education only where an access or skills deficit is named. Where a purpose names several hazards, the line-item rule in <a href="#section-iv">§IV</a> applies.</p>
 <hr>
 <h2 id="section-vii">VII. THE CHALLENGE ATTRIBUTION RELATION</h2>
+<span id="section-vii-attribution"></span>
 <p>A <strong>Challenge Attribution</strong> links a corpus event to a register record. The test is document identity: the event's own source must be the record's instrument. A related document from the same programme (for example, a guidance page where the record's instrument is a call) does not qualify.</p>
 <p>Nothing enters the corpus through the register. Where a record's instrument later enters the corpus as an event in its own right through the Observatory's rolling-update protocol, the attribution follows. Where an event's source has been superseded, the earlier source can still ground a record provided the superseding source does not replace the commitment it states.</p>
 <p>The relation is a new class, distinct in vocabulary from the Observatory's other relations, including Coordination Connections (evidence-based, typed relationships between verified events) and Infrastructure Threads (factual links tracing named assets to origin events). On the event it is metadata — a note that a register record exists — and changes no classification. On the record it marks the record as corpus-grounded. The set of all attributions is the attribution edge.</p>
@@ -1313,7 +1328,7 @@
 <p>Three figures are computed for each published challenge:</p>
 <span id="section-viii-1-three-figures"></span>
 <ul>
-<li>the number of <strong>documents</strong> touching it, each record counted once under every challenge it touches;</li>
+<li><span id="section-viii-1-documents"></span>the number of <strong>documents</strong> touching it, each record counted once under every challenge it touches;</li>
 <li>the number of <strong>line items</strong>; and</li>
 <li>the Committed and Allocated document counts.</li>
 </ul>
@@ -1330,6 +1345,7 @@
 <p>No ratio of Allocated to Committed records is published. In allocation records the pledge and the delivery are one act, so those records enter as Allocated. At publication four records are Allocated: in three the instrument is itself the delivery evidence, and one carries separate delivery evidence (<a href="#section-ix-2">§IX.2</a>). A ratio across the register would therefore sort records by instrument class and measure the presence of delivery reporting rather than delivery.</p>
 <h3 id="section-viii-3">VIII.3 Actor table, floors, and register status</h3>
 <p>The three figures of <a href="#section-viii-1">§VIII.1</a> are computed per actor of record once the actor holds five or more records. Below that floor only the actor's record count is published, with the status <code>insufficient_corpus</code>.</p>
+<span id="section-viii-3-pre-operational"></span>
 <p>The register as a whole carries the status <code>pre_operational</code> until the allocation records of the following programmes have been assessed and the first Challenge List refresh check (<a href="#section-v-6">§V.6</a>) has run. The programmes are the full EuroHPC awarded-projects list, the Department of Energy's ALCC awards, and the allocation reports of national computing centres (France's Grand équipement national de calcul intensif, Australia's National Computational Infrastructure, and Italy's CINECA consortium). The register's status does not affect actor tables.</p>
 <h3 id="section-viii-4">VIII.4 Observations</h3>
 <p>Every published table is a dated observation, epoch-stamped to the Challenge List Reference and comparable only within its epoch.</p>
