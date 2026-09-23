@@ -240,6 +240,13 @@
            rather than overflowing its card. */
         .rec-id, .rec-actor, .rec-title, .rec-quantity, .rec-passage,
         .rec-meta-value, .rec-verified, .evidence-links, .evidence-links a, .chip { overflow-wrap: anywhere; }
+        /* Allocation exports carry a machine header row, not a sentence. The card
+           states what the export is and keeps the transcribed field one click away. */
+        .rec-export-note { font-size: 0.875rem; color: var(--weo-text-secondary); line-height: 1.7; border-left: 2px solid var(--weo-border-subtle); padding-left: var(--weo-space-md); }
+        .rec-printed-toggle { margin-top: var(--weo-space-sm); font-family: inherit; font-size: 0.75rem; font-weight: 500; color: var(--weo-text-tertiary); background: transparent; border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-sm); padding: 4px 10px; cursor: pointer; transition: all var(--weo-duration-fast) var(--weo-ease-out); }
+        .rec-printed-toggle:hover { color: var(--weo-text-primary); border-color: var(--weo-border-subtle); background: var(--weo-hover-overlay); }
+        .rec-printed[hidden] { display: none; }
+        .rec-printed { margin-top: var(--weo-space-sm); }
         .rec-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--weo-space-md); }
         .rec-meta-value { font-size: 0.8125rem; color: var(--weo-text-secondary); line-height: 1.55; }
         .rec-meta-value.mono { font-family: var(--weo-font-mono); font-size: 0.75rem; }
@@ -290,6 +297,7 @@
         .clr-rule { font-size: 0.8125rem; color: var(--weo-text-tertiary); margin-top: var(--weo-space-md); line-height: 1.6; }
 
         /* ---------- Limits ---------- */
+        .limits-caption { font-size: 0.8125rem; color: var(--weo-text-tertiary); line-height: 1.6; margin-bottom: var(--weo-space-lg); }
         .limits { list-style: none; counter-reset: lim; display: grid; gap: var(--weo-space-md); }
         /* Hanging numeral rather than a two-column grid: each limit is one <strong>
            plus a run of text, and as grid items those land in different columns. */
@@ -309,11 +317,16 @@
         .section--alt .card, .section--alt .publication-card--weo { background: #182236; }
 
         /* ---------- Header tiles (metrics-page figure tiles, Rule 4) ---------- */
-        .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--weo-space-md); margin-top: var(--weo-space-lg); }
+        /* Three tiles: a fixed three-up above the breakpoint and a single column
+           below it. auto-fit would leave the third tile orphaned on its own row
+           at phone widths. */
+        .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--weo-space-md); margin-top: var(--weo-space-lg); }
+        @media (max-width: 599px) { .tiles { grid-template-columns: 1fr; } }
         .tile { background: var(--weo-surface-raised); border: 1px solid var(--weo-border-primary); border-radius: var(--weo-radius-lg); padding: var(--weo-space-lg); }
         .tile-name { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--weo-text-tertiary); margin-bottom: var(--weo-space-sm); }
         .tile-value { font-family: var(--weo-font-mono); font-size: 1.75rem; font-weight: 600; line-height: 1; color: var(--weo-text-primary); letter-spacing: -0.02em; font-variant-numeric: tabular-nums slashed-zero; }
         .tile-value.tile-text { font-size: 0.9375rem; line-height: 1.4; letter-spacing: 0; }
+        .tiles-caption { margin-top: var(--weo-space-sm); font-size: 0.75rem; color: var(--weo-text-muted); }
 
         /* ---------- How it works (methodology.html Processing Sequence) ---------- */
         .hiw-list { display: grid; gap: var(--weo-space-sm); }
@@ -333,6 +346,7 @@
         .sub-block > summary::before { content: '\25B8'; flex-shrink: 0; font-size: 0.75rem; line-height: 1.5; transition: transform var(--weo-duration-normal) var(--weo-ease-out); }
         .sub-block[open] > summary::before { transform: rotate(90deg); }
         .sub-body { padding: 0 var(--weo-space-lg) var(--weo-space-lg); }
+        .sub-lead { font-size: 0.8125rem; color: var(--weo-text-tertiary); line-height: 1.6; margin-bottom: var(--weo-space-md); }
         .sub-names { font-size: 0.8125rem; color: var(--weo-text-muted); margin-top: var(--weo-space-md); line-height: 1.6; }
         .sub-names strong { color: var(--weo-text-tertiary); font-weight: 500; }
 
@@ -530,23 +544,21 @@
             <p class="page-subtitle">Computing Capacity Commitments to Societal Challenges</p>
             <div class="header-status">
                 <span class="status-wrap"><span class="status-badge" data-hy="status">Pre-operational</span><button type="button" class="weo-info-trigger" aria-label="About the pre-operational status">?<span class="weo-tooltip"><span class="weo-tooltip-title">Pre-operational</span><span class="weo-tooltip-body">The register is still being built up from the main public allocation programmes. Until that is done, the table shows counts only.</span></span></button></span>
-                <span class="observation-date">Observed <span data-hy="observed">16 September 2026</span></span>
             </div>
             <div class="tiles">
                 <div class="tile"><div class="tile-name">Records</div><div class="tile-value" data-hy="tile-records">11</div></div>
                 <div class="tile"><div class="tile-name">Committing organisations</div><div class="tile-value" data-hy="tile-actors">9</div></div>
-                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs<button type="button" class="weo-info-trigger" aria-label="About document&ndash;challenge pairs">?<span class="weo-tooltip"><span class="weo-tooltip-title">Document&ndash;challenge pairs</span><span class="weo-tooltip-body">One pair is one commitment counted under one published challenge. A commitment whose document names several published challenges contributes one pair to each.</span></span></button></div><div class="tile-value" data-hy="tile-pairs">19</div></div>
-                <div class="tile"><div class="tile-name">Epoch<button type="button" class="weo-info-trigger" aria-label="About the epoch">?<span class="weo-tooltip"><span class="weo-tooltip-title">Epoch</span><span class="weo-tooltip-body">The period during which the Challenge List Reference and the editions it rests on are unchanged. No trend is drawn across an epoch boundary.</span></span></button></div><div class="tile-value tile-text" data-hy="clr-epoch">E1, as of 7 September 2026</div></div>
+                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs<button type="button" class="weo-info-trigger" aria-label="About document&ndash;challenge pairs">?<span class="weo-tooltip"><span class="weo-tooltip-title">Document&ndash;challenge pairs</span><span class="weo-tooltip-body">One pair is one commitment counted under one challenge on the main table. A commitment whose document names several of those challenges contributes one pair to each.</span></span></button></div><div class="tile-value" data-hy="tile-pairs">19</div></div>
             </div>
-            <p class="data-state">Live figures unavailable &mdash; showing the publication observation of 16 September 2026.</p>
+            <p class="tiles-caption">Observed <span data-hy="observed">16 September 2026</span> &middot; Challenge List Reference epoch <span data-hy="epoch">E1</span><button type="button" class="weo-info-trigger" aria-label="About the epoch">?<span class="weo-tooltip"><span class="weo-tooltip-title">Epoch</span><span class="weo-tooltip-body">The period during which the Challenge List Reference and the editions it rests on are unchanged. No trend is drawn across an epoch boundary.</span></span></button></p>
+            <p class="data-state">Live figures unavailable &mdash; showing the observation published on 16 September 2026.</p>
         </header>
 
         <!-- Introduction -->
         <section class="section">
             <div class="card">
                 <div class="prose">
-                    <p>The Compute Commitment Register records which actors have committed computing capacity to which societal challenges, and on what evidence. Each record is one documented commitment, such as a budget line, an allocation award, or a securities filing &mdash; verified against its source and recorded as declared. Quantities are never converted or summed, and a record&#x27;s presence carries no information about its scale beyond its band.</p>
-                    <p>The figures are floors: they describe the commitments the Observatory has located and verified in official documents, not every commitment that exists. The register shows what official documents commit; it does not show work that organisations carry out without publishing such documents.</p>
+                    <p>The Compute Commitment Register records which actors have committed computing capacity to which societal challenges, and on what evidence. Each record is one documented commitment, such as a budget line, an allocation award, or a securities filing &mdash; verified against its source and recorded as declared.</p>
                 </div>
             </div>
         </section>
@@ -627,14 +639,15 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="table-note" id="table-basis">Documents count each commitment once under every challenge it touches. Line items are the individual awards or purposes within a commitment and never drive a headline figure. No shares are published while the register is pre-operational.</p>
-                <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> CCR-0004 supplies 8 of the 19 document&ndash;challenge pairs.</p>
-                <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> 7 commitments are assigned to more than one candidate challenge, published or sub-threshold &middot; 1 commitment is assigned only to sub-threshold candidates &middot; 441 passages match no candidate &middot; 174 passages state no purpose.</p>
+                <p class="table-note" id="table-basis">Documents count each commitment once under every challenge it touches. Line items are shown for scale; the document count is the measure. No shares are published while the register is pre-operational.</p>
+                <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> The United States National Science Foundation (NAIRR Pilot) allocation export supplies 8 of the 19 document&ndash;challenge pairs.</p>
+                <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> Of the purpose statements examined, 7 commitments name more than one candidate challenge, 1 names only candidate challenges below the threshold, 441 name no listed challenge, and 174 state no purpose.</p>
                 <p class="coverage-pointer">Counts are floors &mdash; see the coverage acknowledgement above.</p>
 
                 <details class="sub-block">
-                    <summary>Challenge candidates named by fewer than three institutions &mdash; commitments to them are recorded and held off the main table</summary>
+                    <summary>A challenge joins the main table when at least three of the four institutions name it. These candidate challenges are named by one or two.</summary>
                     <div class="sub-body">
+                        <p class="sub-lead">Commitments to them are recorded and held off the main table.</p>
                         <div class="table-wrap">
                             <table class="ccr-table">
                                 <colgroup><col class="c-name"><col class="c-num"><col class="c-num"><col class="c-num"></colgroup>
@@ -680,7 +693,6 @@
             <div class="ccr-filters" id="ccrFilters" role="group" aria-label="Filter commitments">
                 <div class="filter-group" data-filter="band">
                     <span class="filter-label">Band</span>
-                    <button type="button" class="filter-chip" data-value="all" aria-pressed="true">All</button>
                     <button type="button" class="filter-chip" data-value="A" aria-pressed="false">A</button>
                     <button type="button" class="filter-chip" data-value="B" aria-pressed="false">B</button>
                     <button type="button" class="filter-chip" data-value="C" aria-pressed="false">C</button>
@@ -695,7 +707,7 @@
                     <span class="filter-label">Actor type</span>
                 </div>
                 <div class="filter-group" data-filter="grounded">
-                    <button type="button" class="filter-chip" data-value="grounded" aria-pressed="false">Corpus-grounded</button>
+                    <button type="button" class="filter-chip" data-value="grounded" aria-pressed="false">Linked to a corpus event</button>
                 </div>
                 <button type="button" class="filter-clear-all" id="filterClearAll" disabled>&times; Clear</button>
             </div>
@@ -762,8 +774,9 @@
 
         <!-- Limits -->
         <section class="section">
-            <h2 class="section-title">Limits</h2>
+            <h2 class="section-title">Limits of this observation</h2>
             <div class="card">
+                <p class="limits-caption">As stated in the working note at publication; revised with each observation.</p>
                 <ol class="limits">
 <li><strong>Where the records come from.</strong> Nine of the eleven records rest on documents published by public allocation programmes. Governments state quantities in money or aggregate compute; corporations state them in press releases, which the register does not admit.</li>
 <li><strong>Regional concentration.</strong> The challenge list rests on three European-authored institutions and the United Nations. No Asian, African or Latin American list qualified: those found are national research-priority lists, a different kind of document. Two of the four institutions survey perceived risk, which is why adverse outcomes of AI is a published challenge and AI-safety compute is counted under it. The qualifying definition is published so this concentration can be tested at each refresh.</li>
@@ -771,9 +784,7 @@
 <li><strong>Privacy and data protection.</strong> No candidate covers data protection directly; the nearest, erosion of human rights, is below the threshold. Privacy research in the National Science Foundation&#x27;s allocations is therefore recorded but not shown in the table.</li>
 <li><strong>Purpose statements.</strong> 441 passages named no listed challenge and 174 stated no purpose at all. Under the assignment rule, work that names an AI method with a domain only as its application is not assigned, so part of the 441 reflects the strictness of the rule.</li>
 <li><strong>Uneven publication.</strong> One actor&#x27;s two records represent a programme with no published award list; another&#x27;s single record represents a programme that has published 847 awards and supplies eight of the nineteen document&ndash;challenge pairs. Counts are floors of disclosure, not of activity.</li>
-<li><strong>No scale.</strong> A record&#x27;s presence says nothing about its size beyond its band.</li>
 <li><strong>One attribution.</strong> At publication, one register record links to one corpus event.</li>
-<li><strong>Ongoing work.</strong> Open-ended intake, the epoch discipline of the challenge list, and evidence archiving are recurring work the Observatory undertakes.</li>
 <li><strong>Pledges in press releases.</strong> Press releases, blogs and keynotes are not admitted, so a corporate or philanthropic pledge made only there cannot enter; the register holds no such record.</li>
 <li><strong>Discovery circularity.</strong> Research models found the instruments. What they did not find is not in the register, so coverage reflects their reach.</li>
                 </ol>
@@ -836,6 +847,7 @@
         }
         var STATUS_LABEL = { pre_operational: 'Pre-operational', published: 'Published', insufficient_corpus: 'Insufficient corpus', retired: 'Retired' };
         var META = {};
+        var STORE = {};
 
         // ---- Header tiles (read out of the stored observation's corpus_state) ----
         // corpus_state is the observation's own sentence; the three figures are read
@@ -893,15 +905,24 @@
             setAll('challenge-rows', html);
             if (meta && meta.concentration) {
                 var c = meta.concentration;
-                setAll('concentration', '<strong>Concentration:</strong> ' + esc(c.record_id) + ' supplies ' + c.pairs + ' of the ' + c.pairs_total + ' document&ndash;challenge pairs.');
+                // The organisation is derived from the named record, not restated in metadata.
+                var rec = (STORE.records || []).filter(function(r) { return r.id === c.record_id; })[0];
+                var org = rec ? actorName(rec.actor_of_record) : c.record_id;
+                var link = rec ? '<a href="#' + esc(c.record_id) + '">' + esc(org) + '</a>' : esc(org);
+                setAll('concentration', '<strong>Concentration:</strong> The ' + link + ' allocation export supplies ' +
+                    c.pairs + ' of the ' + c.pairs_total + ' document&ndash;challenge pairs.');
             }
         }
         function hydrateTransparency(t) {
             if (!t) return;
             var multi = t.documents_multi_challenge, sub = t.records_sub_threshold_only;
-            setAll('transparency', '<strong>Transparency:</strong> ' + multi + ' commitment' + (multi === 1 ? ' is' : 's are') +
-                ' assigned to more than one candidate challenge, published or sub-threshold &middot; ' + sub + ' commitment' + (sub === 1 ? ' is' : 's are') +
-                ' assigned only to sub-threshold candidates &middot; ' + t.no_match_line_items + ' passages match no candidate &middot; ' + t.no_purpose_line_items + ' passages state no purpose.');
+            var nm = t.no_match_line_items, np = t.no_purpose_line_items;
+            function v(n, one, many) { return n === 1 ? one : many; }
+            setAll('transparency', '<strong>Transparency:</strong> Of the purpose statements examined, ' +
+                multi + ' commitment' + v(multi, '', 's') + ' ' + v(multi, 'names', 'name') + ' more than one candidate challenge, ' +
+                sub + ' ' + v(sub, 'names', 'name') + ' only candidate challenges below the threshold, ' +
+                nm + ' ' + v(nm, 'names', 'name') + ' no listed challenge, and ' +
+                np + ' ' + v(np, 'states', 'state') + ' no purpose.');
         }
 
         // ---- Challenge List Reference (from the store's challenge_list block) ----
@@ -920,6 +941,7 @@
             setAll('clr-epoch', esc(cl.epoch) + ', as of ' + esc(ukDate(cl.as_at)));
             setAll('clr-refresh', esc(ukDate(cl.next_check)));
             setAll('clr-threshold', k + ' institutions of ' + N);
+            setAll('epoch', esc(cl.epoch));
         }
 
         // ---- Record cards (from the store) ----
@@ -1008,6 +1030,23 @@
                 }).join('') + '</div>';
         }
 
+        // An allocation export's commitment passage is a machine header row, not a
+        // sentence. Those records state what the export is; the transcribed field is
+        // unchanged in the payload and sits behind a toggle.
+        var EXPORT_CLASSES = ['I2', 'I4'];
+        function isAllocationExport(rec) {
+            return EXPORT_CLASSES.indexOf(rec.instrument_class) > -1 && (rec.line_items || []).length > 1;
+        }
+        function commitmentPassage(rec) {
+            if (!isAllocationExport(rec)) {
+                return '<div class="rec-passage">' + esc(rec.commitment_verbatim) + '</div>';
+            }
+            var n = (rec.line_items || []).length;
+            return '<div class="rec-export-note">Allocation export &mdash; the commitment wording of each award is carried on its line items (' + n + ' line item' + (n === 1 ? '' : 's') + ').</div>' +
+                '<button type="button" class="rec-printed-toggle" data-printed="' + esc(rec.id) + '" aria-expanded="false">Show as printed</button>' +
+                '<div class="rec-passage rec-printed" id="printed-' + esc(rec.id) + '" hidden>' + esc(rec.commitment_verbatim) + '</div>';
+        }
+
         // The document class is shown in the store's own words; the I-code is internal.
         function classLabel(rec) {
             var classes = META.instrument_classes || {};
@@ -1017,7 +1056,9 @@
             var statusClass = rec.status === 'Allocated' ? 'badge-allocated' : 'badge-committed';
             var attrs = (rec.challenge_attributions || []).map(function(ev) {
                 var id = String(ev).replace(/^E/, '');
-                return '<a class="badge badge-attr" href="/events.html?event=' + esc(id) + '" title="A verified corpus event whose own source is this commitment\'s instrument">Event ' + esc(id) + '</a>';
+                return '<a class="badge badge-attr" href="/events.html?event=' + esc(id) + '" target="_blank" rel="noopener noreferrer">Corpus event ' + esc(id) + '</a>' +
+                    tipBtn('About corpus event ' + esc(id), 'Corpus event ' + esc(id),
+                        'The verified corpus event whose own source is this commitment&#39;s document. Opens the event record.');
             }).join('');
             var badges = '<span class="badge badge-band">Band ' + esc(rec.band) + '</span>' +
                 tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '') +
@@ -1043,11 +1084,13 @@
                     '<div class="rec-chev" aria-hidden="true">&#9662;</div>' +
                 '</summary>' +
                 '<div class="rec-body">' +
-                    '<div><div class="rec-field-label">Commitment passage</div><div class="rec-passage">' + esc(rec.commitment_verbatim) + '</div></div>' +
+                    '<div><div class="rec-field-label">Commitment passage</div>' + commitmentPassage(rec) + '</div>' +
                     '<div><div class="rec-field-label">Stated purpose</div><div class="rec-passage">' + esc(rec.purpose_verbatim || 'No purpose stated') + '</div></div>' +
                     '<div class="rec-meta-grid">' +
                         '<div><div class="rec-field-label">Time frame</div><div class="rec-meta-value">' + esc(rec.time_frame || 'Not stated') + '</div></div>' +
-                        '<div><div class="rec-field-label">Quantity type</div>' + quantityType(rec) + '</div>' +
+                        '<div><div class="rec-field-label">Quantity type' +
+                            tipBtn('About quantity type', 'Quantity type', 'Units exactly as printed in the document&#39;s resource-units column.') +
+                        '</div>' + quantityType(rec) + '</div>' +
                         '<div><div class="rec-field-label">Line items</div><div class="rec-meta-value mono">' + lineItems + '</div></div>' +
                     '</div>' +
                     '<div><div class="rec-field-label">Challenges</div><div class="chips">' + (chips(rec) || '<span class="chip chip-sub">None assigned</span>') + '</div></div>' +
@@ -1060,7 +1103,7 @@
         // ---- Filters (in-memory only; no URL parameters, no stored state) ----
         var ACTOR_TYPE_LABEL = { government: 'Government', agency: 'Agency', supranational: 'Supranational', corporation: 'Corporation', foundation: 'Foundation' };
         function wireFilters(recs) {
-            var state = { band: 'all', status: [], actorType: [], grounded: false };
+            var state = { band: [], status: [], actorType: [], grounded: false };
 
             // Actor-type chips come from the records themselves.
             var types = [];
@@ -1077,13 +1120,13 @@
             // Clear-all is enabled whenever any filter is off its default, and
             // resets every group — the atlas.html behaviour.
             function anyActive() {
-                return state.band !== 'all' || state.status.length > 0 ||
+                return state.band.length > 0 || state.status.length > 0 ||
                        state.actorType.length > 0 || state.grounded;
             }
             function clearAll() {
-                state.band = 'all'; state.status = []; state.actorType = []; state.grounded = false;
+                state.band = []; state.status = []; state.actorType = []; state.grounded = false;
                 Array.prototype.forEach.call($('ccrFilters').querySelectorAll('.filter-chip'), function(b) {
-                    b.setAttribute('aria-pressed', String(b.getAttribute('data-value') === 'all'));
+                    b.setAttribute('aria-pressed', 'false');
                 });
                 apply();
             }
@@ -1091,7 +1134,7 @@
             function apply() {
                 var shown = 0;
                 recs.forEach(function(r) {
-                    var ok = (state.band === 'all' || r.band === state.band) &&
+                    var ok = (!state.band.length || state.band.indexOf(r.band) >= 0) &&
                              (!state.status.length || state.status.indexOf(r.status) >= 0) &&
                              (!state.actorType.length || state.actorType.indexOf(r.actor_type) >= 0) &&
                              (!state.grounded || (r.challenge_attributions || []).length > 0);
@@ -1114,12 +1157,7 @@
                 if (!btn) return;
                 var group = btn.parentNode.getAttribute('data-filter');
                 var value = btn.getAttribute('data-value');
-                if (group === 'band') {
-                    state.band = value;
-                    Array.prototype.forEach.call(btn.parentNode.querySelectorAll('.filter-chip'), function(b) {
-                        b.setAttribute('aria-pressed', String(b === btn));
-                    });
-                } else if (group === 'grounded') {
+                if (group === 'grounded') {
                     state.grounded = !state.grounded;
                     btn.setAttribute('aria-pressed', String(state.grounded));
                 } else {
@@ -1137,6 +1175,17 @@
             wireFilters(recs);
             // Deep link: /commitments/#CCR-0002 opens that record.
             if (location.hash) { var t = document.querySelector(location.hash.replace(/[^#\w-]/g, '')); if (t && t.tagName === 'DETAILS') { t.open = true; t.scrollIntoView(); } }
+            $('recordsList').addEventListener('click', function(ev) {
+                var btn = ev.target.closest('.rec-printed-toggle');
+                if (!btn) return;
+                ev.preventDefault();
+                var block = $('printed-' + btn.getAttribute('data-printed'));
+                if (!block) return;
+                var open = block.hasAttribute('hidden');
+                if (open) block.removeAttribute('hidden'); else block.setAttribute('hidden', '');
+                btn.setAttribute('aria-expanded', String(open));
+                btn.textContent = open ? 'Hide' : 'Show as printed';
+            });
             $('expandAll').addEventListener('click', function() { Array.prototype.forEach.call(document.querySelectorAll('details.record'), function(d) { d.open = true; }); });
             $('collapseAll').addEventListener('click', function() { Array.prototype.forEach.call(document.querySelectorAll('details.record'), function(d) { d.open = false; }); });
         }
@@ -1155,6 +1204,7 @@
             var latestT = tr && tr.length ? tr[tr.length - 1] : null;
             var latestS = st && st.length ? st[st.length - 1] : null;
             META = meta;
+            STORE = store;
 
             setAll('status', esc(STATUS_LABEL[meta.status] || meta.status));
             if (latest) {
