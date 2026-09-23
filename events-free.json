@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-17",
+    "last_updated": "2026-09-22",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -62,8 +62,8 @@
         "1.0": 83
       }
     },
-    "versionDate": "2026-09-17",
-    "lastAudit": "2026-09-17",
+    "versionDate": "2026-09-22",
+    "lastAudit": "2026-09-22",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -74,19 +74,18 @@
     },
     "source_durability": {
       "total_sources": 2046,
-      "preserved": 1953,
-      "preservation_rate": 0.955,
+      "preserved": 1992,
+      "preservation_rate": 0.974,
       "by_status": {
-        "captured": 1834,
+        "captured": 1871,
         "recovered": 32,
-        "pending": 41,
-        "existing": 87,
-        "no_capture": 52
+        "existing": 89,
+        "no_capture": 54
       },
       "by_layer": {
         "events": {
           "total": 1285,
-          "preserved": 1233
+          "preserved": 1272
         },
         "connections": {
           "total": 489,
@@ -4618,6 +4617,9 @@
           "asset": "NVIDIA GH200 Grace Hopper",
           "field": "description"
         }
+      ],
+      "challengeAttributions": [
+        "CCR-0002"
       ]
     },
     {

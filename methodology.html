@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <title>Methodology — Warmth Engine Observatory</title>
     <meta name="description" content="WEO V1.5 methodology for classifying AI infrastructure coordination dynamics through verified events, tier & domain classification, industry tags, Environmental Nexus Tags, the Warmth Engine Ratio, and coordination connections.">
     <meta name="keywords" content="Warmth Engine Observatory, WEO methodology, event verification, significance assessment, tier classification, domain classification, Coordination Connections, Environmental Nexus Tags, Warmth Engine Ratio, Basel 5-Factor, PISA-5, Keohane Pre-Filter, gold standard verification">
@@ -1349,6 +1349,20 @@
         .weo-back-to-top.visible { opacity: 0.5; }
     }
 
+
+        /* Ten-item nav: the tightened row is the base style above the hamburger
+           breakpoint, at every width. The constraint is the page's content column,
+           not the viewport — measured, the untightened ten-item row is 684px, wider
+           than the nav on several pages whatever the window size. Tightened it is
+           588px. The wordmark hides below 900px, and on the narrow-column pages at
+           every width (see the rule beside this block on those pages). */
+        @media (min-width: 768px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
 </style>
 </head>
 <body>
@@ -1372,6 +1386,7 @@
             <a href="events.html">Events</a>
             <a href="/profiles/">Profiles</a>
             <a href="blocs.html">Blocs</a>
+            <a href="/commitments/">Commitments</a>
             <a href="methodology.html" class="active">Methodology</a>
             <a href="research.html">Research</a>
             <a href="about.html">About</a>
@@ -1416,6 +1431,10 @@
                 <div class="quick-start-item">
                     <span class="qs-label">How we profile:</span>
                     <span class="qs-value"><span class="weo-value">7</span> capability dimensions assess sovereign control across the AI infrastructure stack — identifying which actors anchor each ecosystem</span>
+                </div>
+                <div class="quick-start-item">
+                    <span class="qs-label">What we register:</span>
+                    <span class="qs-value">Verified commitments of computing capacity to societal challenges, assigned to a fixed challenge list</span>
                 </div>
             </div>
             <div class="quick-start-footer">Full methodology below. Manual available for download.</div>
@@ -1800,6 +1819,34 @@
             </div>
         </section>
 
+        <!-- Compute Commitment Register -->
+        <section class="section">
+            <h2 class="section-title">Compute Commitment Register</h2>
+            <div class="card">
+                <div class="feature-highlight">
+                    <div class="feature-header">
+                        <span class="feature-badge">Novel Framework</span>
+                        <span class="feature-title">Compute Commitment Layer</span>
+                    </div>
+                    <div class="prose">
+                        <p>The Compute Commitment Register records which actors have committed computing capacity to which societal challenges, and on what evidence. Each record is one documented commitment, such as a budget line, an allocation award, or a securities filing — verified against its source and recorded as declared. Quantities are never converted or summed, and a record's presence carries no information about its scale beyond its band.</p>
+                    </div>
+                    <div class="connection-types">
+                        <span class="connection-type">Grant or Credit Programme</span>
+                        <span class="connection-type">Dedicated Allocation</span>
+                        <span class="connection-type">Sovereign or Multilateral Infrastructure</span>
+                        <span class="connection-type">Commercial or Philanthropic Supply</span>
+                    </div>
+                </div>
+
+                <div class="prose" style="margin-top: var(--weo-space-lg);">
+                    <p><strong>Challenge assignment:</strong> Commitments are assigned to the Challenge List Reference — a fixed list of societal challenges drawn from the published lists of major institutions, in which a challenge appears only where several institutions name it independently. The Observatory authors none of the categories; the list is refreshed on a set cycle.</p>
+                    <p><strong>Position in the Observatory:</strong> The register is a separate layer with its own unit of analysis, the record. It changes no event's classification and meets the event corpus at one point — a Challenge Attribution, recorded where an event's own source is also a register record.</p>
+                    <p>The register is published as dated observations on the <a href="/commitments/">Commitments</a> page. Method and first observation: <a href="https://doi.org/10.5281/zenodo.22785950" target="_blank" rel="noopener noreferrer">The Compute Commitment Register — Methodology Working Note</a> (Zenodo).</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Verification Standards -->
         <section class="section">
             <h2 class="section-title">Verification Standards</h2>
@@ -1906,7 +1953,7 @@
         
         <!-- Footer -->
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.5 · WEO v1.4.0</p>
+            <p class="footer-version">Methodology V1.5 · WEO v1.5.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="legal.html">Privacy Policy & Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>

@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon_48x48.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16x16.png">
@@ -682,7 +682,24 @@
             .null-model { flex-direction: column; gap: var(--weo-space-sm); }
         }
 
-    </style>
+    
+        /* Ten-item nav: the tightened row is the base style above the hamburger
+           breakpoint, at every width. The constraint is the page's content column,
+           not the viewport — measured, the untightened ten-item row is 684px, wider
+           than the nav on several pages whatever the window size. Tightened it is
+           588px. The wordmark hides below 900px, and on the narrow-column pages at
+           every width (see the rule beside this block on those pages). */
+        @media (min-width: 768px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        /* Narrow-column page: this nav is 632px, and the brand wordmark (224px) plus
+           the ten-item row (588px) needs 820px. The wordmark therefore hides at every
+           width above the hamburger here, not only below 900px; the WEO logo stays. */
+        @media (min-width: 768px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body>
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
@@ -705,6 +722,7 @@
             <a href="/events.html">Events</a>
             <a href="/profiles/">Profiles</a>
             <a href="/blocs.html">Blocs</a>
+            <a href="/commitments/">Commitments</a>
             <a href="/methodology.html">Methodology</a>
             <a href="/research.html" class="active">Research</a>
             <a href="/about.html">About</a>
@@ -877,7 +895,7 @@
         (DOI 10.5281/zenodo.18427584).</p>
 
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.5 &middot; WEO v1.4.0</p>
+            <p class="footer-version">Methodology V1.5 &middot; WEO v1.5.0</p>
             <p class="footer-text">&copy; 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> &middot; <a href="/llms.txt">llms.txt</a></p>

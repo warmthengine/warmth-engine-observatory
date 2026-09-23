@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://warmthengine.com/research/methodology/rationale/">
     <meta property="og:url" content="https://warmthengine.com/research/methodology/rationale/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.4.0">
+    <meta name="weo-version" content="1.5.0">
     <title>Warmth Engine Observatory Methodology Rationale — Warmth Engine Observatory</title>
     <meta name="description" content="The complete V1.5 Warmth Engine Observatory Methodology Rationale — design decisions, evidence calibration, and derivation documentation for WEO's institutional-grade methodology.">
     <meta name="keywords" content="AI infrastructure; methodology rationale; design decisions; corpus calibration; geopolitical coordination">
@@ -677,7 +677,21 @@
             border-top: 1px solid var(--weo-border-primary);
             margin-top: 2rem;
         }
-    </style>
+    
+        /* Ten-item nav: the tightened row is the base style above the hamburger
+           breakpoint, at every width. The constraint is the page's content column,
+           not the viewport — measured, the untightened ten-item row is 684px, wider
+           than the nav on several pages whatever the window size. Tightened it is
+           588px. The wordmark hides below 900px, and on the narrow-column pages at
+           every width (see the rule beside this block on those pages). */
+        @media (min-width: 768px) {
+            .weo-nav-links { gap: 2px; }
+            .weo-nav-links a { padding: 4px 6px; font-size: 0.75rem; }
+        }
+        @media (min-width: 768px) and (max-width: 899px) {
+            .weo-nav-brand > span:not(.weo-nav-logo) { display: none; }
+        }
+</style>
 </head>
 <body id="top">
     <a href="#main-content" class="sr-only" id="skip-link">Skip to main content</a>
@@ -699,6 +713,7 @@
                 <a href="/events.html">Events</a>
                 <a href="/profiles/">Profiles</a>
                 <a href="/blocs.html">Blocs</a>
+                <a href="/commitments/">Commitments</a>
                 <a href="/methodology.html" class="active">Methodology</a>
                 <a href="/research.html">Research</a>
                 <a href="/about.html">About</a>
@@ -13825,7 +13840,7 @@ via the contact information provided on the WEO platform.</p>
         </div>
 
         <footer class="page-footer">
-            <p class="footer-version">Methodology V1.5 · WEO v1.4.0</p>
+            <p class="footer-version">Methodology V1.5 · WEO v1.5.0</p>
             <p class="footer-text">© 2026 Warmth Engine Observatory</p>
             <p class="footer-links"><a href="/legal.html">Privacy Policy &amp; Terms of Service</a></p>
             <p class="footer-links"><a href="https://warmthengine.com/mcp">MCP reference</a> · <a href="/llms.txt">llms.txt</a></p>
