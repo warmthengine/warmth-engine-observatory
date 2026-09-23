@@ -204,6 +204,8 @@
         .table-note { font-size: 0.8125rem; color: var(--weo-text-tertiary); margin-top: var(--weo-space-md); line-height: 1.6; }
         .table-note + .table-note { margin-top: var(--weo-space-sm); }
         .table-note strong { color: var(--weo-text-secondary); font-weight: 500; }
+        .table-note a { color: var(--weo-accent-hover); text-decoration: none; }
+        .table-note a:hover { text-decoration: underline; }
         @media (max-width: 767px) {
             .ccr-table { min-width: 560px; }
         }
@@ -623,7 +625,7 @@
                     <table class="ccr-table" aria-describedby="table-basis">
                         <colgroup><col class="c-name"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"></colgroup>
                         <thead>
-                            <tr><th scope="col">Challenge</th><th scope="col" class="num">Documents<button type="button" class="weo-info-trigger" aria-label="About the Documents column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Documents</span><span class="weo-tooltip-body">How many commitments touch this challenge. A commitment is counted once under every challenge it names.</span></span></button></th><th scope="col" class="num">Line items<button type="button" class="weo-info-trigger" aria-label="About the Line items column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Line items</span><span class="weo-tooltip-body">The individual awards or purposes inside those commitments. Shown for scale; never a headline figure.</span></span></button></th><th scope="col" class="num">Committed<button type="button" class="weo-info-trigger" aria-label="About the Committed column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Committed</span><span class="weo-tooltip-body">Only the commitment document is held.</span></span></button></th><th scope="col" class="num">Allocated<button type="button" class="weo-info-trigger" aria-label="About the Allocated column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Allocated</span><span class="weo-tooltip-body">A document evidencing award, disbursement or use is also held.</span></span></button></th></tr>
+                            <tr><th scope="col">Challenge</th><th scope="col" class="num">Documents<button type="button" class="weo-info-trigger" aria-label="About the Documents column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Documents</span><span class="weo-tooltip-body">How many commitments touch this challenge. A commitment is counted once under every challenge it names.</span></span></button></th><th scope="col" class="num">Line items<button type="button" class="weo-info-trigger" aria-label="About the Line items column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Line items</span><span class="weo-tooltip-body">The individual awards or purposes inside those commitments. Shown for scale; the document count is the measure.</span></span></button></th><th scope="col" class="num">Committed<button type="button" class="weo-info-trigger" aria-label="About the Committed column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Committed</span><span class="weo-tooltip-body">Only the commitment document is held.</span></span></button></th><th scope="col" class="num">Allocated<button type="button" class="weo-info-trigger" aria-label="About the Allocated column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Allocated</span><span class="weo-tooltip-body">A document evidencing award, disbursement or use is also held.</span></span></button></th></tr>
                         </thead>
                         <tbody data-hy="challenge-rows">
 <tr><td class="ch-name">State-based armed conflict and geoeconomic confrontation</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td></tr>
@@ -640,12 +642,12 @@
                     </table>
                 </div>
                 <p class="table-note" id="table-basis">Documents count each commitment once under every challenge it touches. Line items are shown for scale; the document count is the measure. No shares are published while the register is pre-operational.</p>
-                <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> The United States National Science Foundation (NAIRR Pilot) allocation export supplies 8 of the 19 document&ndash;challenge pairs.</p>
+                <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> The United States National Science Foundation allocation export supplies 8 of the 19 document&ndash;challenge pairs.</p>
                 <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> 7 commitments name more than one candidate challenge, and 1 names only candidate challenges below the threshold. Of the purpose statements examined, 441 name no listed challenge and 174 state no purpose.</p>
                 <p class="coverage-pointer">Counts are floors &mdash; see the coverage acknowledgement above.</p>
 
                 <details class="sub-block">
-                    <summary>A challenge joins the main table when at least three of the four institutions name it. These candidate challenges are named by one or two.</summary>
+                    <summary>A challenge joins the main table when at least three of the four institutions name it. These candidate challenges are named by one or two institutions.</summary>
                     <div class="sub-body">
                         <p class="sub-lead">Commitments to them are recorded and held off the main table.</p>
                         <div class="table-wrap">
@@ -716,7 +718,7 @@
                 <span><button type="button" id="expandAll">Expand all</button> <button type="button" id="collapseAll">Collapse all</button></span>
             </div>
             <div id="recordsList">
-                <div class="records-unavailable">Commitment records load from the live register. If this notice remains, live data is unavailable &mdash; the figures above are the publication observation of 16 September 2026.</div>
+                <div class="records-unavailable">Commitment records load from the live register. If this notice remains, live data is unavailable &mdash; the figures above are the observation published on 16 September 2026.</div>
             </div>
             <p class="coverage-pointer">Counts are floors &mdash; see the coverage acknowledgement above.</p>
         </section>
@@ -907,7 +909,9 @@
                 var c = meta.concentration;
                 // The organisation is derived from the named record, not restated in metadata.
                 var rec = (STORE.records || []).filter(function(r) { return r.id === c.record_id; })[0];
-                var org = rec ? actorName(rec.actor_of_record) : c.record_id;
+                // This sentence names the organisation plainly; the parenthetical the
+                // record carries stays on the card itself.
+                var org = rec ? actorName(rec.actor_of_record).replace(/\s*\([^)]*\)\s*$/, '') : c.record_id;
                 var link = rec ? '<a href="#' + esc(c.record_id) + '">' + esc(org) + '</a>' : esc(org);
                 setAll('concentration', '<strong>Concentration:</strong> The ' + link + ' allocation export supplies ' +
                     c.pairs + ' of the ' + c.pairs_total + ' document&ndash;challenge pairs.');
