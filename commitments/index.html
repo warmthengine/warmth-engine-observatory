@@ -641,7 +641,7 @@
                 </div>
                 <p class="table-note" id="table-basis">Documents count each commitment once under every challenge it touches. Line items are shown for scale; the document count is the measure. No shares are published while the register is pre-operational.</p>
                 <p class="table-note" data-hy="concentration"><strong>Concentration:</strong> The United States National Science Foundation (NAIRR Pilot) allocation export supplies 8 of the 19 document&ndash;challenge pairs.</p>
-                <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> Of the purpose statements examined, 7 commitments name more than one candidate challenge, 1 names only candidate challenges below the threshold, 441 name no listed challenge, and 174 state no purpose.</p>
+                <p class="table-note" data-hy="transparency"><strong>Transparency:</strong> 7 commitments name more than one candidate challenge, and 1 names only candidate challenges below the threshold. Of the purpose statements examined, 441 name no listed challenge and 174 state no purpose.</p>
                 <p class="coverage-pointer">Counts are floors &mdash; see the coverage acknowledgement above.</p>
 
                 <details class="sub-block">
@@ -918,10 +918,11 @@
             var multi = t.documents_multi_challenge, sub = t.records_sub_threshold_only;
             var nm = t.no_match_line_items, np = t.no_purpose_line_items;
             function v(n, one, many) { return n === 1 ? one : many; }
-            setAll('transparency', '<strong>Transparency:</strong> Of the purpose statements examined, ' +
-                multi + ' commitment' + v(multi, '', 's') + ' ' + v(multi, 'names', 'name') + ' more than one candidate challenge, ' +
-                sub + ' ' + v(sub, 'names', 'name') + ' only candidate challenges below the threshold, ' +
-                nm + ' ' + v(nm, 'names', 'name') + ' no listed challenge, and ' +
+            setAll('transparency', '<strong>Transparency:</strong> ' +
+                multi + ' commitment' + v(multi, '', 's') + ' ' + v(multi, 'names', 'name') + ' more than one candidate challenge, and ' +
+                sub + ' ' + v(sub, 'names', 'name') + ' only candidate challenges below the threshold. ' +
+                'Of the purpose statements examined, ' +
+                nm + ' ' + v(nm, 'names', 'name') + ' no listed challenge and ' +
                 np + ' ' + v(np, 'states', 'state') + ' no purpose.');
         }
 
