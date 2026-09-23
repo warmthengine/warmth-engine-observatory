@@ -46,6 +46,7 @@ Three guided-journey prompts (`journey_coordination` / `journey_material` / `jou
 - [WEO Contribution Architecture](https://doi.org/10.5281/zenodo.21495917)
 - [The Compute Commitment Register](https://doi.org/10.5281/zenodo.22785950): method, Challenge List Reference and pilot observations (Methodology Working Note)
 - [Contribution Architecture — self-hosted edition](https://warmthengine.com/research/contribution-architecture/): the CA paper with section anchors; vocabulary resolves via the get_contribution MCP tool.
+- [The Compute Commitment Register — self-hosted edition](https://warmthengine.com/research/compute-commitment-register/): the note with section anchors.
 - [Errata & Corrigenda](https://warmthengine.com/research/methodology/errata/): public correction record for the methodology publications; machine-readable mirror at errata.json
 - [Coordination Metrics — baseline results](https://warmthengine.com/research/metrics/): dated observations of the TCS §III metrics (Cross-Sector Transmission Frequency with its permutation null model; the cross-sector transmission matrix). Pre-operational — observations of the documented record, not measurements of the coordination landscape. Same values via /api/metrics and the get_metrics MCP tool — one stored observation series behind all three surfaces.
 

@@ -10325,7 +10325,8 @@ function generateCCSection(eventId, showFullContent) {
           (interactive ? '' : ' title="Compute Commitment Register — ' + escA(sentence) + '"') + '>' + label;
         if (interactive) {
           a += '<span class="weo-tooltip tooltip-below"><div class="weo-tooltip-title">Challenge Attribution</div>' +
-               '<div class="weo-tooltip-body">' + escA(sentence) + '<br><br>Record <strong>' + escA(id) + '</strong> on the Compute Commitment Register.</div></span>';
+               '<div class="weo-tooltip-body">' + escA(sentence) + '<br><br>Record <strong>' + escA(id) + '</strong> on the Compute Commitment Register.</div>' +
+               '<div class="weo-tooltip-method-link" data-href="/research/compute-commitment-register/#section-vii">View in the working note &rarr;</div></span>';
         }
         return a + '</a>';
       }).join('');
@@ -11321,7 +11322,11 @@ function generateCCSection(eventId, showFullContent) {
         var methodLinkEl = inlineTooltip.querySelector('.weo-tooltip-method-link');
         var overlayMethodLink = tooltipOverlay.querySelector('.weo-tooltip-method-link');
         if (overlayMethodLink) {
-          overlayMethodLink.innerHTML = methodLinkEl ? methodLinkEl.innerHTML : '';
+          // A slot inside a trigger that is itself a link (the Challenge Attribution
+          // chip) cannot hold an <a>, so it carries its target as data-href.
+          overlayMethodLink.innerHTML = !methodLinkEl ? '' : methodLinkEl.hasAttribute('data-href')
+            ? '<a href="' + methodLinkEl.getAttribute('data-href') + '" target="_blank" rel="noopener">' + methodLinkEl.innerHTML + '</a>'
+            : methodLinkEl.innerHTML;
         }
 
         // Position the tooltip

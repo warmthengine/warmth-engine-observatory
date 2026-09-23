@@ -442,6 +442,17 @@
         }
         #weo-tooltip-overlay .weo-tooltip-body { font-size: 13.5px; color: #CBD5E1; line-height: 1.65; }
         #weo-tooltip-overlay .weo-tooltip-body strong { color: #F1F5F9; font-weight: 600; }
+        /* Link slot (ported from events.html): the working note's self-hosted edition. */
+        #weo-tooltip-overlay .weo-tooltip-method-link {
+            margin-top: 8px; padding-top: 8px;
+            border-top: 1px solid rgba(148,163,184,0.15);
+        }
+        #weo-tooltip-overlay .weo-tooltip-method-link:empty { display: none; }
+        #weo-tooltip-overlay .weo-tooltip-method-link a {
+            color: #94A3B8; text-decoration: none; font-size: 0.8em;
+            transition: color 200ms ease;
+        }
+        #weo-tooltip-overlay .weo-tooltip-method-link a:hover { color: #CBD5E1; text-decoration: underline; }
         @media (max-width: 767px) {
             #weo-tooltip-overlay { width: 310px; font-size: 12px; padding: 14px 16px; }
         }
@@ -545,14 +556,14 @@
             <h1 class="page-title">Compute Commitment Register</h1>
             <p class="page-subtitle">Computing Capacity Commitments to Societal Challenges</p>
             <div class="header-status">
-                <span class="status-wrap"><span class="status-badge" data-hy="status">Pre-operational</span><button type="button" class="weo-info-trigger" aria-label="About the pre-operational status">?<span class="weo-tooltip"><span class="weo-tooltip-title">Pre-operational</span><span class="weo-tooltip-body">The register is still being built up from the main public allocation programmes. Until that is done, the table shows counts only.</span></span></button></span>
+                <span class="status-wrap"><span class="status-badge" data-hy="status">Pre-operational</span><button type="button" class="weo-info-trigger" aria-label="About the pre-operational status" data-note="preOperational">?<span class="weo-tooltip"><span class="weo-tooltip-title">Pre-operational</span><span class="weo-tooltip-body">The register is still being built up from the main public allocation programmes. Until that is done, the table shows counts only.</span></span></button></span>
             </div>
             <div class="tiles">
                 <div class="tile"><div class="tile-name">Records</div><div class="tile-value" data-hy="tile-records">11</div></div>
                 <div class="tile"><div class="tile-name">Committing organisations</div><div class="tile-value" data-hy="tile-actors">9</div></div>
-                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs<button type="button" class="weo-info-trigger" aria-label="About document&ndash;challenge pairs">?<span class="weo-tooltip"><span class="weo-tooltip-title">Document&ndash;challenge pairs</span><span class="weo-tooltip-body">One pair is one commitment counted under one challenge on the main table. A commitment whose document names several of those challenges contributes one pair to each.</span></span></button></div><div class="tile-value" data-hy="tile-pairs">19</div></div>
+                <div class="tile"><div class="tile-name">Document&ndash;challenge pairs<button type="button" class="weo-info-trigger" aria-label="About document&ndash;challenge pairs" data-note="pairs">?<span class="weo-tooltip"><span class="weo-tooltip-title">Document&ndash;challenge pairs</span><span class="weo-tooltip-body">One pair is one commitment counted under one challenge on the main table. A commitment whose document names several of those challenges contributes one pair to each.</span></span></button></div><div class="tile-value" data-hy="tile-pairs">19</div></div>
             </div>
-            <p class="tiles-caption">Observed <span data-hy="observed">16 September 2026</span> &middot; Challenge List Reference epoch <span data-hy="epoch">E1</span><button type="button" class="weo-info-trigger" aria-label="About the epoch">?<span class="weo-tooltip"><span class="weo-tooltip-title">Epoch</span><span class="weo-tooltip-body">The period during which the Challenge List Reference and the editions it rests on are unchanged. No trend is drawn across an epoch boundary.</span></span></button></p>
+            <p class="tiles-caption">Observed <span data-hy="observed">16 September 2026</span> &middot; Challenge List Reference epoch <span data-hy="epoch">E1</span><button type="button" class="weo-info-trigger" aria-label="About the epoch" data-note="epoch">?<span class="weo-tooltip"><span class="weo-tooltip-title">Epoch</span><span class="weo-tooltip-body">The period during which the Challenge List Reference and the editions it rests on are unchanged. No trend is drawn across an epoch boundary.</span></span></button></p>
             <p class="data-state">Live figures unavailable &mdash; showing the observation published on 16 September 2026.</p>
         </header>
 
@@ -599,6 +610,9 @@
                     <p class="doi-note">Concept DOI &mdash; resolves to the latest version.</p>
                 </div>
                 <div class="link-row">
+                    <a href="/research/compute-commitment-register/" class="link-button link-button--weo">
+                        Self-hosted edition →
+                    </a>
                     <a href="https://doi.org/10.5281/zenodo.22785950" class="link-button link-button--weo" target="_blank" rel="noopener noreferrer">
                         View on Zenodo
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -625,7 +639,7 @@
                     <table class="ccr-table" aria-describedby="table-basis">
                         <colgroup><col class="c-name"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"></colgroup>
                         <thead>
-                            <tr><th scope="col">Challenge</th><th scope="col" class="num">Documents<button type="button" class="weo-info-trigger" aria-label="About the Documents column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Documents</span><span class="weo-tooltip-body">How many commitments touch this challenge. A commitment is counted once under every challenge it names.</span></span></button></th><th scope="col" class="num">Line items<button type="button" class="weo-info-trigger" aria-label="About the Line items column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Line items</span><span class="weo-tooltip-body">The individual awards or purposes inside those commitments. Shown for scale; the document count is the measure.</span></span></button></th><th scope="col" class="num">Committed<button type="button" class="weo-info-trigger" aria-label="About the Committed column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Committed</span><span class="weo-tooltip-body">Only the commitment document is held.</span></span></button></th><th scope="col" class="num">Allocated<button type="button" class="weo-info-trigger" aria-label="About the Allocated column">?<span class="weo-tooltip"><span class="weo-tooltip-title">Allocated</span><span class="weo-tooltip-body">A document evidencing award, disbursement or use is also held.</span></span></button></th></tr>
+                            <tr><th scope="col">Challenge</th><th scope="col" class="num">Documents<button type="button" class="weo-info-trigger" aria-label="About the Documents column" data-note="documents">?<span class="weo-tooltip"><span class="weo-tooltip-title">Documents</span><span class="weo-tooltip-body">How many commitments touch this challenge. A commitment is counted once under every challenge it names.</span></span></button></th><th scope="col" class="num">Line items<button type="button" class="weo-info-trigger" aria-label="About the Line items column" data-note="lineItems">?<span class="weo-tooltip"><span class="weo-tooltip-title">Line items</span><span class="weo-tooltip-body">The individual awards or purposes inside those commitments. Shown for scale; the document count is the measure.</span></span></button></th><th scope="col" class="num">Committed<button type="button" class="weo-info-trigger" aria-label="About the Committed column" data-note="committed">?<span class="weo-tooltip"><span class="weo-tooltip-title">Committed</span><span class="weo-tooltip-body">Only the commitment document is held.</span></span></button></th><th scope="col" class="num">Allocated<button type="button" class="weo-info-trigger" aria-label="About the Allocated column" data-note="allocated">?<span class="weo-tooltip"><span class="weo-tooltip-title">Allocated</span><span class="weo-tooltip-body">A document evidencing award, disbursement or use is also held.</span></span></button></th></tr>
                         </thead>
                         <tbody data-hy="challenge-rows">
 <tr><td class="ch-name">State-based armed conflict and geoeconomic confrontation</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td></tr>
@@ -848,6 +862,41 @@
             Array.prototype.forEach.call(document.querySelectorAll('[data-hy="' + key + '"]'), function(el) { el.innerHTML = html; });
         }
         var STATUS_LABEL = { pre_operational: 'Pre-operational', published: 'Published', insufficient_corpus: 'Insufficient corpus', retired: 'Retired' };
+
+        // Page-local anchor table: tooltip -> section of the working note's
+        // self-hosted edition (the site pattern: inline tables, no map file).
+        // The register's terms are the working note's, not the Manual's.
+        var NOTE_PAGE = '/research/compute-commitment-register/';
+        var noteAnchors = {
+            preOperational:    'section-viii-3',
+            pairs:             'section-viii-1',
+            epoch:             'section-v-6',
+            documents:         'section-viii-1',
+            lineItems:         'section-iv',
+            committed:         'section-ii',
+            allocated:         'section-ii',
+            status:            'section-ii',
+            band:              'section-iv',
+            aiCompute:         'section-ii',
+            subThreshold:      'section-v-5',
+            roleCommitment:    'section-iii-1',
+            roleDelivery:      'section-ii',
+            roleCorroborating: 'section-iii-5',
+            quantityType:      'section-iii-5',
+            corpusEvent:       'section-vii'
+        };
+        // The trigger is a <button>, which cannot hold a link, so the slot carries
+        // its target as data-href and the tooltip driver builds the link in the overlay.
+        function noteLink(key) {
+            var anchor = key && noteAnchors[key];
+            if (!anchor) return '';
+            return '<span class="weo-tooltip-method-link" data-href="' + NOTE_PAGE + '#' + anchor + '">View in the working note &rarr;</span>';
+        }
+        // Static triggers in the markup name their key in data-note.
+        Array.prototype.forEach.call(document.querySelectorAll('.weo-info-trigger[data-note]'), function(t) {
+            var tip = t.querySelector('.weo-tooltip');
+            if (tip && !tip.querySelector('.weo-tooltip-method-link')) tip.insertAdjacentHTML('beforeend', noteLink(t.getAttribute('data-note')));
+        });
         var META = {};
         var STORE = {};
 
@@ -964,7 +1013,7 @@
             if (!ev || !ev.url) return '';
             var arch = ev.snapshotUrl ? '<span class="archive">(<a href="' + esc(ev.snapshotUrl) + '" target="_blank" rel="noopener noreferrer">archived copy</a>' + (ev.accessDate ? ', accessed ' + esc(ukDate(ev.accessDate)) : '') + ')</span>' : '';
             return '<li><span class="evidence-role">' + esc(role) +
-                tipBtn('About ' + esc(role.toLowerCase()) + ' evidence', esc(role), ROLE_TIP[role] || '') +
+                tipBtn('About ' + esc(role.toLowerCase()) + ' evidence', esc(role), ROLE_TIP[role] || '', 'role' + role) +
                 '</span><span class="evidence-links"><a href="' + esc(ev.url) + '" target="_blank" rel="noopener noreferrer">' + esc(ev.url) + '</a>' + arch + '</span></li>';
         }
         function chips(rec) {
@@ -981,10 +1030,10 @@
                 return '<span class="chip ' + (pub ? 'chip-published' : 'chip-sub') + '"' + (pub ? '' : ' title="' + SUB_TIP + '"') + '>' + esc(ch) + (s.n > 1 ? '<span class="chip-count">&times;' + s.n + '</span>' : '') + '</span>';
             }).join('');
         }
-        function tipBtn(label, title, body) {
+        function tipBtn(label, title, body, note) {
             return '<button type="button" class="weo-info-trigger" aria-label="' + label + '">?' +
                 '<span class="weo-tooltip"><span class="weo-tooltip-title">' + title + '</span>' +
-                '<span class="weo-tooltip-body">' + body + '</span></span></button>';
+                '<span class="weo-tooltip-body">' + body + '</span>' + noteLink(note) + '</span></button>';
         }
         // Per-band and per-status tooltip copy. The legend above the records carries
         // no triggers of its own, so each badge carries its own definition.
@@ -1014,7 +1063,8 @@
             });
             if (sub) {
                 out.push('<span class="chip chip-sub" title="' + SUB_TIP + '">+ ' + sub +
-                    ' candidate' + (sub === 1 ? '' : 's') + ' below the threshold</span>');
+                    ' candidate' + (sub === 1 ? '' : 's') + ' below the threshold</span>' +
+                    tipBtn('About candidates below the threshold', 'Below the threshold', SUB_TIP, 'subThreshold'));
             }
             return out.join('');
         }
@@ -1063,15 +1113,15 @@
                 var id = String(ev).replace(/^E/, '');
                 return '<a class="badge badge-attr" href="/events.html?event=' + esc(id) + '" target="_blank" rel="noopener noreferrer">Corpus event ' + esc(id) + '</a>' +
                     tipBtn('About corpus event ' + esc(id), 'Corpus event ' + esc(id),
-                        'The verified corpus event whose own source is this commitment&#39;s document. Opens the event record.');
+                        'The verified corpus event whose own source is this commitment&#39;s document. Opens the event record.', 'corpusEvent');
             }).join('');
             var badges = '<span class="badge badge-band">Band ' + esc(rec.band) + '</span>' +
-                tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '') +
+                tipBtn('About Band ' + esc(rec.band), 'Band ' + esc(rec.band), BAND_TIP[rec.band] || '', 'band') +
                 '<span class="badge ' + statusClass + '">' + esc(rec.status) + '</span>' +
-                tipBtn('About the ' + esc(rec.status) + ' status', esc(rec.status), STATUS_TIP[rec.status] || '') +
+                tipBtn('About the ' + esc(rec.status) + ' status', esc(rec.status), STATUS_TIP[rec.status] || '', 'status') +
                 (rec.ai_compute === 'stated'
                     ? '<span class="badge badge-ai">AI compute stated</span>' +
-                      tipBtn('About the AI compute badge', 'AI compute stated', 'The instrument states that the capacity is for AI.')
+                      tipBtn('About the AI compute badge', 'AI compute stated', 'The instrument states that the capacity is for AI.', 'aiCompute')
                     : '') + attrs;
             var lineItems = (rec.line_items || []).length;
             var corro = (rec.corroborating_evidence || []).map(function(ev) { return evidenceLine('Corroborating', ev); }).join('');
@@ -1094,7 +1144,7 @@
                     '<div class="rec-meta-grid">' +
                         '<div><div class="rec-field-label">Time frame</div><div class="rec-meta-value">' + esc(rec.time_frame || 'Not stated') + '</div></div>' +
                         '<div><div class="rec-field-label">Quantity type' +
-                            tipBtn('About quantity type', 'Quantity type', 'Units exactly as printed in the document&#39;s resource-units column.') +
+                            tipBtn('About quantity type', 'Quantity type', 'Units exactly as printed in the document&#39;s resource-units column.', 'quantityType') +
                         '</div>' + quantityType(rec) + '</div>' +
                         '<div><div class="rec-field-label">Line items</div><div class="rec-meta-value mono">' + lineItems + '</div></div>' +
                     '</div>' +
@@ -1235,6 +1285,7 @@
     <div id="weo-tooltip-overlay">
       <div class="weo-tooltip-title"></div>
       <div class="weo-tooltip-body"></div>
+      <div class="weo-tooltip-method-link"></div>
     </div>
 
     <script>
@@ -1248,6 +1299,7 @@
         if (!overlay) return;
         var titleEl = overlay.querySelector('.weo-tooltip-title');
         var bodyEl = overlay.querySelector('.weo-tooltip-body');
+        var linkEl = overlay.querySelector('.weo-tooltip-method-link');
         var active = null;
         var justShown = false;
 
@@ -1258,6 +1310,16 @@
             var b = inline.querySelector('.weo-tooltip-body');
             titleEl.innerHTML = t ? t.innerHTML : '';
             bodyEl.innerHTML = b ? b.innerHTML : '';
+            var l = inline.querySelector('.weo-tooltip-method-link');
+            linkEl.innerHTML = '';
+            if (l && l.getAttribute('data-href')) {
+                var a = document.createElement('a');
+                a.href = l.getAttribute('data-href');
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = l.textContent;
+                linkEl.appendChild(a);
+            }
 
             overlay.classList.add('visible');           // measure at final size
             var r = trigger.getBoundingClientRect();
