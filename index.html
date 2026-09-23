@@ -10319,7 +10319,7 @@ function generateCCSection(eventId, showFullContent) {
       if (!Array.isArray(ids) || !ids.length) return '';
       return ids.map(function(id) {
         var label = 'Compute Commitment Register &middot; ' + escA(id);
-        var sentence = 'A register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
+        var sentence = 'A Compute Commitment Register record exists whose instrument is this event\'s own source. The attribution is metadata and changes no classification.';
         var a = '<a class="badge-ccr' + (interactive ? ' weo-info-trigger' : '') + '" href="/commitments/#' + escA(id) + '"' +
           ' aria-label="Compute Commitment Register record ' + escA(id) + '"' +
           (interactive ? '' : ' title="Compute Commitment Register — ' + escA(sentence) + '"') + '>' + label;
