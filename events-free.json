@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-22",
+    "last_updated": "2026-09-24",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -48,10 +48,10 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.2.1": 10,
+        "1.1": 57,
         "1.3": 2,
+        "1.2.1": 9,
         "1.3.2": 2,
-        "1.1": 49,
         "1.1.1": 25,
         "1.2": 17,
         "1.1.2": 13,
@@ -59,11 +59,11 @@
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 83
+        "1.0": 76
       }
     },
-    "versionDate": "2026-09-22",
-    "lastAudit": "2026-09-22",
+    "versionDate": "2026-09-24",
+    "lastAudit": "2026-09-24",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -73,19 +73,20 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2046,
-      "preserved": 1992,
-      "preservation_rate": 0.974,
+      "total_sources": 2068,
+      "preserved": 1991,
+      "preservation_rate": 0.963,
       "by_status": {
-        "captured": 1871,
+        "captured": 1870,
+        "pending": 23,
         "recovered": 32,
         "existing": 89,
         "no_capture": 54
       },
       "by_layer": {
         "events": {
-          "total": 1285,
-          "preserved": 1272
+          "total": 1307,
+          "preserved": 1271
         },
         "connections": {
           "total": 489,
@@ -113,10 +114,10 @@
       "location": "Guiyang, China",
       "scope": "China national (8 computing hubs, 10 data centre clusters)",
       "description": "National integrated big data centre system channelling computing resources from eastern to western China. Establishes eight national computing hubs with 215.5 EFLOPS aggregate hub capacity (Q1 2025).",
-      "investment": "RMB 43.5B direct government investment (~US$6.1B); ~US$28B total leveraged",
+      "investment": "RMB 43.5B direct government investment; driven social investment exceeding RMB 1T (December 2025)",
       "domain": "Energy/Infrastructure",
-      "sources": 3,
-      "corroborating": 4,
+      "sources": 4,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -124,12 +125,12 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.1",
       "basel5": [
         {
           "factor": "Size",
           "pass": true,
-          "rationale": "US$6.1B direct/~US$28B total investment far exceeds US$500M threshold"
+          "rationale": "RMB 43.5B direct government investment; driven social investment exceeding RMB 1T (December 2025)"
         },
         {
           "factor": "Interconnectedness",
@@ -198,6 +199,13 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429071819/https://english.www.gov.cn/news/202508/28/content_WS68b00fe2c6d0868f4e8f522a.html"
+        },
+        {
+          "id": "P4",
+          "desc": "CCTV News (新闻联播) — EDWC four-year review: 带动社会投资超万亿元 (driven social investment >RMB 1T); 30+ computing new cities; ~30% annual computing growth; 70% new capacity from west; 80% intelligent computing from hub nodes (December 2025)",
+          "url": "https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
+          "accessDate": "2026-09-22",
+          "captureStatus": "pending"
         }
       ],
       "corroboratingSources": [
@@ -232,6 +240,13 @@
           "accessDate": "2026-04-29",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260429130846/https://www.china-briefing.com/news/china-data-centers-new-cross-regional-plan-to-boost-computing-power-across-regions/"
+        },
+        {
+          "id": "C5",
+          "desc": "China Daily / Xinhua — Liu Liehong at Guiyang big data expo: RMB 43.5B direct + 带动投资超2000亿元 (>RMB 200B driven investment, June 2024); confirms the measure construction behind the record's original '~US$28B total leveraged' (August 2024)",
+          "url": "https://govt.chinadaily.com.cn/s/202409/02/WS66d51596498ed2d7b7eb8373/china-invests-over-6-1b-in-major-computing-hubs.html",
+          "accessDate": "2026-09-22",
+          "captureStatus": "pending"
         }
       ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -292,7 +307,42 @@
           ]
         }
       ],
-      "versionDate": "2026-05-22",
+      "versionDate": "2026-09-22",
+      "genesis": {
+        "description": "Initial entry. China East Data West Compute Infrastructure Network: 8 hubs, 10 clusters, 215.5 EFLOPS (Q1 2025). Investment: RMB 43.5B direct (~US$6.1B) + ~US$28B total leveraged. The $28B was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, June 2024, Liu Liehong at Guiyang big data expo). Updated to >RMB 1T (December 2025) at PU-01-001; dollar conversions removed in favour of RMB source figures. Phantom v1.2.1 from 22 May 2026 Table 1 batch — no rollingUpdates, no genesis."
+      },
+      "genesisDate": "2026-05-22",
+      "rollingUpdates": [
+        {
+          "id": "PU-01-001",
+          "version": "1.1",
+          "date": "2026-09-22",
+          "description": "Investment updated: driven social investment (带动社会投资) from >RMB 200B (June 2024) to >RMB 1T (December 2025, P4 CCTV). Measure-scope confirmed: the record's '~US$28B total leveraged' was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, Liu Liehong, August 2024, C5 Xinhua). Both use 带动 (driven/leveraged). The direct component (RMB 43.5B, 直接投资) is unchanged. Dollar conversions removed from investment field in favour of RMB source figures — Chinese-language source denominations do not age with the exchange rate. Basel5 Size updated to match. 215.5 EFLOPS (Q1 2025) unchanged — dated observation, protected. Phantom v1.2.1 corrected to true 1.0 → 1.1. Additional confirmation: 中央网信办/CAC republished the same CCTV passage on 24 December 2025 (cac.gov.cn). No updated EFLOPS figure found for the changelog.",
+          "changedFields": [
+            "investment",
+            "basel5",
+            "sources",
+            "corroborating"
+          ],
+          "sources": [
+            {
+              "desc": "CCTV — 带动社会投资超万亿元, December 2025",
+              "url": "https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
+              "date": "2025-12-23",
+              "type": "PRIMARY"
+            },
+            {
+              "desc": "China Daily/Xinhua — original 带动投资超2000亿元 (>RMB 200B), August 2024",
+              "url": "https://govt.chinadaily.com.cn/s/202409/02/WS66d51596498ed2d7b7eb8373/china-invests-over-6-1b-in-major-computing-hubs.html",
+              "date": "2024-08-30",
+              "type": "CORROBORATING"
+            }
+          ],
+          "previousValues": {
+            "investment": "RMB 43.5B direct government investment (~US$6.1B); ~US$28B total leveraged"
+          }
+        }
+      ],
       "basel5_factors_met": 5
     },
     {
@@ -5212,10 +5262,10 @@
       "date": "12 September 2022",
       "location": "Dublin, Ireland",
       "scope": "Global (open-source framework ecosystem)",
-      "description": "Meta's transfer of the PyTorch deep learning framework to an independent Linux Foundation entity with vendor-neutral governance. The framework serves as the dominant open-source ML training and inference platform, underpinning approximately 80% of machine learning research publications.",
-      "investment": "82.5M monthly downloads; ~80% NeurIPS 2023 research framework share; 10,000+ dependent packages",
+      "description": "Meta Platforms transitioned PyTorch, the dominant open-source AI training framework, to the Linux Foundation in September 2022, establishing the PyTorch Foundation as an independent governance body. The Foundation now hosts additional projects including vLLM, DeepSpeed, and Ray alongside PyTorch.",
+      "investment": "82.5M monthly downloads (dated observation); ~80% NeurIPS 2023 papers citing a framework (dated observation); no direct infrastructure investment.",
       "domain": "Technology",
-      "sources": 2,
+      "sources": 4,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -5224,7 +5274,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": []
     },
@@ -5240,10 +5290,10 @@
       "date": "May 2022",
       "location": "Oak Ridge, Tennessee, United States",
       "scope": "United States (DOE open science programme)",
-      "description": "First exascale supercomputer globally, achieving 1.102 exaFLOPS Rmax on the TOP500. Built by HPE using AMD EPYC 7A53 CPUs and MI250X GPU accelerators across 74 cabinets with Slingshot-11 interconnect. Funded under the DOE Exascale Computing Project.",
-      "investment": "~US$600M; 1.102 exaFLOPS Rmax; 37,888 AMD MI250X GPUs; TOP500 #1 at commissioning (June 2022)",
+      "description": "First exascale supercomputer globally, achieving 1.353 exaFLOPS Rmax on the TOP500. Built by HPE using AMD EPYC 7A53 CPUs and MI250X GPU accelerators across 74 cabinets with Slingshot-11 interconnect. Funded under the DOE Exascale Computing Project.",
+      "investment": "~US$600M; 1.353 exaFLOPS Rmax; 37,888 AMD MI250X GPUs; TOP500 #1 at commissioning (June 2022)",
       "domain": "Energy/Infrastructure",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -5252,7 +5302,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -5301,10 +5351,10 @@
       "date": "18 November 2024",
       "location": "Livermore, California, United States",
       "scope": "United States (NNSA classified network)",
-      "description": "World's fastest supercomputer at time of implementation (1.742 exaFLOPS), deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
-      "investment": "~US$600M; 1.742 exaFLOPS; 11,136 AMD MI300A APU nodes; TOP500 #1 (November 2024)",
+      "description": "World's fastest supercomputer at time of implementation, deployed by NNSA for classified nuclear stewardship workloads. Built by HPE using AMD MI300A accelerated processing units across 11,000+ nodes, representing the first exascale system dedicated to national security computing.",
+      "investment": "~US$600M; 1.809 exaFLOPS; 11,136 AMD MI300A APU nodes; TOP500 #1 (November 2024)",
       "domain": "Security",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
@@ -5313,7 +5363,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [
         {
@@ -5640,10 +5690,10 @@
       "date": "27 March 2024",
       "location": "San Francisco, California, USA",
       "scope": "United States (global Claude distribution via AWS Bedrock)",
-      "description": "Amazon's US$4 billion strategic equity investment in Anthropic, completed 27 March 2024, commercially coupled with Amazon's designation as Anthropic's primary cloud provider for training and inference workloads and integration of Claude models into Amazon Bedrock as a managed cloud AI service.",
-      "investment": "US$4 billion total equity; first tranche Q3 2023; completed 27 March 2024",
+      "description": "Amazon's strategic equity investment in Anthropic, commercially coupled with Anthropic's designation of Amazon Web Services as its primary cloud and training partner and the integration of Claude models into Amazon Bedrock as a managed cloud AI service.",
+      "investment": "US$8B cumulative equity (US$4B completed March 2024; additional US$4B November 2024); first tranche Q3 2023; minority investor position",
       "domain": "Technology",
-      "sources": 2,
+      "sources": 4,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -5897,10 +5947,10 @@
       "date": "April 2025",
       "location": "Chitose City, Hokkaido, Japan",
       "scope": "Japan (global advanced semiconductor supply chain)",
-      "description": "Rapidus Corporation activated the IIM-1 (Innovative Integration for Manufacturing) pilot line in Chitose, Hokkaido, beginning test production of 2-nanometre gate-all-around nanosheet logic semiconductors under the METI/NEDO Beyond 2nm Project. Over 200 pieces of leading-edge equipment installed including an ASML EUV lithography system, with process technology based on IBM's nanosheet transistor structure.",
-      "investment": "JPY 1.72 trillion (~US$12B) government subsidy from METI/NEDO; estimated JPY 5 trillion (~US$35B) total programme; ASML EUV system >US$300M",
+      "description": "Rapidus Corporation activated the IIM-1 (Innovative Integration for Manufacturing) pilot line in Chitose, Hokkaido, confirming 2-nanometre gate-all-around transistor operation with target electrical characteristics (July 2025) under the METI/NEDO Beyond 2nm Project. Over 200 pieces of leading-edge equipment installed including an ASML EUV lithography system, with process technology based on IBM's nanosheet transistor structure.",
+      "investment": "JPY 1.72 trillion METI/NEDO subsidy; JPY 267.6B combined public-private funding (JPY 100B IPA/METI equity + JPY 167.6B from 32 companies, February 2026); estimated JPY 5 trillion total programme",
       "domain": "Energy/Infrastructure",
-      "sources": 2,
+      "sources": 4,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -6063,13 +6113,13 @@
       "date": "October 2025",
       "location": "Kulai, Johor, Malaysia",
       "scope": "Malaysia (national AI compute hub)",
-      "description": "YTL Power International commissioned an NVIDIA-powered AI data centre at the YTL Green Data Center Park, described as Malaysia's first NVIDIA-powered AI data centre. Deploys GB200 Grace Blackwell liquid-cooled NVL72 GPUs as sovereign AI compute infrastructure under bilateral technology partnership with NVIDIA.",
-      "investment": "RM10B (~US$2.38B); 50% data centre infrastructure, 50% AI solutions including ILMU; 500MW solar; 600MW grid backup; 1,640 acres",
+      "description": "YTL Power International commissioned Malaysia's first NVIDIA-powered AI data centre at the YTL Green Data Center Park in Kulai, Johor, deploying GB200 Grace Blackwell liquid-cooled NVL72 GPUs. The facility operates YTL AI Cloud, a sovereign compute platform developed under bilateral technology partnership with NVIDIA.",
+      "investment": "RM10B (~US$2.38B); 50% data centre infrastructure, 50% AI solutions including ILMU; 500MW solar; 600 MW site capacity (298 MW contracted, March 2026); 1,640 acres",
       "domain": "Energy/Infrastructure",
       "sources": 1,
-      "corroborating": 3,
+      "corroborating": 5,
       "confidence": "A",
-      "version": "1.0",
+      "version": "1.1",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -6081,7 +6131,7 @@
         {
           "type": "ENT-1",
           "name": "Resource Demand",
-          "mechanism": "AI data centre campus documents 600MW national grid backup requirement for AI compute operations across 1,640-acre site, with total facility energy demand at hyperscale capacity (500MW dedicated solar generation supplementing grid supply).",
+          "mechanism": "AI data centre campus documents 600 MW site capacity for AI compute operations across 1,640-acre site, with total facility energy demand at hyperscale capacity (500MW dedicated solar generation supplementing grid supply).",
           "evidenceBasis": "Documented",
           "sources": [
             {
@@ -6290,10 +6340,10 @@
       "date": "20 December 2024",
       "location": "Qingyang, Gansu Province, China",
       "scope": "China national (东数西算 Gansu hub node)",
-      "description": "China's first domestically manufactured 万卡-scale AI inference cluster at time of implementation, deploying Enflame S60 inference accelerators within the 东数西算 Gansu hub node.",
-      "investment": "51,000 PFLOPS aggregate cluster capacity (6 computing centres); 31,000 standard racks (cluster total); expanding to 114,000 PFLOPS by end-2025. All capacity commercially contracted at 100% uptake rate; clients include Infinigence and Meituan.",
+      "description": "China's first domestically manufactured 万卡-scale AI inference cluster, deploying Enflame S60 inference accelerators within the 东数西算 Gansu hub node.",
+      "investment": "114,000 PFLOPS aggregate cluster capacity (end-2025); 100,000 standard racks; 523 digital enterprises landed. All capacity commercially contracted at 100% uptake rate; clients include Infinigence and Meituan. DeepSeek full models deployed at 万卡 scale.",
       "domain": "Energy/Infrastructure",
-      "sources": 1,
+      "sources": 2,
       "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
@@ -7566,13 +7616,13 @@
       "date": "20 September 2022",
       "location": "Santa Clara, California, USA",
       "scope": "United States (global AI hardware supply chain)",
-      "description": "NVIDIA's data-centre accelerator line, spanning the Hopper and Blackwell generations, built around the Transformer Engine for large language model workloads and the CUDA software ecosystem. Deployed by every major hyperscaler, the line is the dominant global platform for AI training and inference.",
-      "investment": "FY2026 Data Centre segment revenue ~US$193.7B (up 68%); an estimated 70–95% share of the AI accelerator market",
+      "description": "NVIDIA's data-centre accelerator line, spanning the Hopper, Blackwell, Blackwell Ultra, and Vera Rubin generations, built around the Transformer Engine for AI model workloads and the CUDA software ecosystem. Deployed by every major hyperscaler, the line is the dominant global platform for AI training and inference.",
+      "investment": "Q2 FY2027 Data Centre revenue US$89.0B (quarterly record, August 2026); FY2026 Data Centre revenue ~US$193.7B (full-year); an estimated 70–95% share of the AI accelerator market at time of assessment",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 6,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -7580,7 +7630,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "197",
@@ -7651,12 +7701,12 @@
       "location": "Seattle, Washington, USA",
       "scope": "United States (global AWS reach)",
       "description": "Amazon's Trainium line, AWS's custom AI training silicon offered only as rentable cloud capacity rather than sold as hardware, positioned as a cost-efficient alternative to GPU-based training. The line spans Trainium2 (EC2 Trn2 instances) and Trainium3 (3nm, general availability December 2025).",
-      "investment": "AWS segment revenue ~US$128.7B FY2025 (up 20%) (Trainium not separately disclosed); Project Rainier deployment of hundreds of thousands of Trainium2 chips for Anthropic",
+      "investment": "Q2 2026 AWS segment revenue US$42.2B (quarterly, +37%); FY2025 AWS ~US$128.7B (full-year); Trainium not separately disclosed; over one million Trainium chips in production (December 2025)",
       "domain": "Technology",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": [],
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 6,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -7664,7 +7714,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "200",
@@ -8810,11 +8860,11 @@
       "date": "May 2025",
       "location": "Higashi-Hiroshima, Hiroshima Prefecture, Japan",
       "scope": "Japan (global AI accelerator supply chain)",
-      "description": "Micron Technology's Hiroshima semiconductor facility producing high-bandwidth memory and 1γ DRAM using EUV lithography, operated by Micron Memory Japan. HBM3E output ships in NVIDIA H200 Tensor Core GPUs. METI's government certification instrument names generative AI among the target applications for the facility's advanced memory output.",
-      "investment": "JPY 213.5B cumulative METI subsidies (Plan #3: JPY 46.5B, September 2022; Plan #4: JPY 167B, October 2023). EUV mass production at 1γ node from May 2025.",
+      "description": "Micron Technology's Hiroshima semiconductor facility producing high-bandwidth memory and 1γ DRAM using EUV lithography, operated by Micron Memory Japan. Output spans HBM3E and HBM4, with HBM4 in volume shipment for NVIDIA's Vera Rubin AI platform. METI's government certification instrument names generative AI among the target applications.",
+      "investment": "JPY 774.5B cumulative METI support (Plan #3: JPY 46.5B, September 2022; Plan #4: JPY 167B, October 2023; Plan #7: JPY 536B, September 2025). EUV mass production at 1γ node from May 2025.",
       "domain": "Energy/Infrastructure",
-      "sources": 3,
-      "corroborating": 6,
+      "sources": 5,
+      "corroborating": 7,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -8822,7 +8872,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": []
     },
