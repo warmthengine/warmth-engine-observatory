@@ -274,6 +274,27 @@
         }
 
         /* ========================================
+           RECORD-QUALITY BANNER (worker 1.25.0 record_quality label)
+           ======================================== */
+        .quality-banner {
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            background: rgba(251, 191, 36, 0.06);
+            border-radius: var(--weo-radius-md);
+            padding: var(--weo-space-md);
+            margin-bottom: var(--weo-space-md);
+            font-size: 0.8125rem; line-height: 1.55;
+            color: var(--weo-text-secondary);
+        }
+        .quality-banner[hidden] { display: none; }
+        .quality-date { white-space: nowrap; }
+        .quality-banner-title {
+            font-family: var(--weo-font-mono); font-size: 0.6875rem;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--ana-tool);
+            margin-bottom: var(--weo-space-xs);
+        }
+
+        /* ========================================
            METRIC CARDS (top row)
            ======================================== */
         .metrics-row {
@@ -632,6 +653,10 @@
             width: 100%; display: flex; flex-direction: column-reverse;
             border-radius: 2px; overflow: hidden;
         }
+        /* A day (or weekly group containing a day) recorded before the analytics fix —
+           dimmed, never hidden: the figure is still shown as stored. */
+        .trend-day.biased .trend-bar-stack,
+        .trend-day.biased .trend-bar-tool { opacity: 0.35; }
         .trend-bar-mcp {
             background: var(--ana-mcp); width: 100%;
             transition: height var(--weo-duration-slow) var(--weo-ease-out);
@@ -868,6 +893,9 @@
 
     <!-- Self-excluded indicator (forward-only; hidden until self > 0) -->
     <div class="self-excluded-bar" id="selfExcludedBar"></div>
+
+    <!-- Record-quality banner (hidden unless the window holds a day not labelled accurate) -->
+    <div class="quality-banner" id="qualityBanner" role="note" hidden></div>
 
     <!-- Metric Cards -->
     <div class="metrics-row" id="metricsRow">
@@ -1381,6 +1409,11 @@
             priorDates = allDates.slice(0, allDates.length - days).slice(-days);
         }
         var hasPrior = priorDates.length > 0;
+        // A comparison across the analytics fix would set undercounted days against
+        // complete ones and report the difference as a trend. Suppress every prior-period
+        // delta (cards and rows) when the two windows together hold both kinds of day.
+        var acrossRecordingChange = straddlesRecordingChange(rawData, currentDates.concat(priorDates));
+        if (acrossRecordingChange) hasPrior = false;
 
         // Worker version from most recent day object
         var mostRecentDate = allDates[allDates.length - 1];
@@ -1438,6 +1471,13 @@
             setDelta('metricAuthDelta', 0, null, false, '');
             setDelta('metricTotalDelta', 0, null, false, '');
         }
+        if (acrossRecordingChange) {
+            ['metricMcpDelta', 'metricApiDelta', 'metricAuthDelta', 'metricTotalDelta'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) { el.textContent = QUALITY_TEXT.deltaSuppressed; el.className = 'metric-delta neutral'; }
+            });
+        }
+        renderQualityBanner(rawData, currentDates, acrossRecordingChange);
 
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
@@ -1773,6 +1813,101 @@
         }
     }
 
+    // --- Record quality (worker 1.25.0) ---
+    // Every day object carries record_quality. 'accurate' days come from the single-writer
+    // analytics path. 'biased_measured' / 'biased_unmeasured' days were written by the old
+    // path, which dropped requests that arrived close together, and dropped them UNEVENLY:
+    // frequent clients kept a larger share than occasional ones. recorded_share (measured
+    // days only) is recorded ÷ Cloudflare's edge count for that day. It is DISPLAYED, never
+    // used to rescale anything: a single factor would make per-client figures more wrong.
+    // Days without the field (a worker older than 1.25.0) render exactly as before.
+    // All visible wording lives in QUALITY_TEXT.
+    var QUALITY_TEXT = {
+        title: function(first, last, n, total) {
+            var span = first === last ? first : (first + ' to ' + last);
+            return 'Undercounted days in this view: ' + span + ' (' + n + ' of ' + total + ')';
+        },
+        cause: 'Until the analytics fix, requests that arrived close together overwrote each other, so part of the traffic on these days was never recorded.',
+        measured: function(k, minPct, maxPct) {
+            return k === 1
+                ? 'On the 1 day checked against Cloudflare’s own count, ' + minPct + '% of requests were recorded.'
+                : 'On the ' + k + ' days checked against Cloudflare’s own count, between ' + minPct + '% and ' + maxPct + '% of requests were recorded.';
+        },
+        unmeasured: function(u, anyMeasured) {
+            return anyMeasured
+                ? (u === 1 ? 'The other day could not be checked.' : 'The other ' + u + ' days could not be checked.')
+                : (u === 1 ? 'This day' : 'These days') + ' could not be checked against an independent count.';
+        },
+        uneven: 'The loss was uneven: frequent clients kept a larger share of their requests than occasional ones, so the client, country and tool breakdowns are skewed, not just smaller.',
+        asStored: 'Figures are shown as recorded, with no correction. Dimmed bars mark these days.',
+        noComparison: 'Changes against the previous period are not shown, because that comparison would cross the fix.',
+        deltaSuppressed: 'not compared across the fix',
+        tooltipMeasured: function(pct) { return ' · undercounted (' + pct + '% recorded)'; },
+        tooltipUnmeasured: ' · undercounted (not measured)',
+        tooltipGroup: ' · includes undercounted days'
+    };
+
+    function isBiasedDay(day) {
+        return !!(day && day.record_quality && day.record_quality !== 'accurate');
+    }
+
+    function straddlesRecordingChange(rawData, dates) {
+        var biased = false, accurate = false;
+        dates.forEach(function(d) {
+            var day = rawData[d];
+            if (isBiasedDay(day)) biased = true;
+            else if (day && day.record_quality === 'accurate') accurate = true;
+        });
+        return biased && accurate;
+    }
+
+    function renderQualityBanner(rawData, dates, acrossRecordingChange) {
+        var el = document.getElementById('qualityBanner');
+        if (!el) return;
+        var biased = dates.filter(function(d) { return isBiasedDay(rawData[d]); });
+        if (biased.length === 0) {
+            el.hidden = true;
+            el.innerHTML = '';
+            return;
+        }
+        var shares = [];
+        biased.forEach(function(d) {
+            var s = rawData[d].recorded_share;
+            if (typeof s === 'number' && isFinite(s)) shares.push(s);
+        });
+        var parts = [QUALITY_TEXT.cause];
+        if (shares.length > 0) {
+            var minPct = Math.round(Math.min.apply(null, shares) * 100);
+            var maxPct = Math.round(Math.max.apply(null, shares) * 100);
+            parts.push(QUALITY_TEXT.measured(shares.length, minPct, maxPct));
+        }
+        var unmeasured = biased.length - shares.length;
+        if (unmeasured > 0) parts.push(QUALITY_TEXT.unmeasured(unmeasured, shares.length > 0));
+        parts.push(QUALITY_TEXT.uneven, QUALITY_TEXT.asStored);
+        if (acrossRecordingChange) parts.push(QUALITY_TEXT.noComparison);
+        el.innerHTML =
+            '<div class="quality-banner-title">' +
+                // Dates never break at their hyphens on a narrow screen (digits and hyphens
+                // only, so wrapping them after escaping is safe).
+                escapeHtml(QUALITY_TEXT.title(biased[0], biased[biased.length - 1], biased.length, dates.length))
+                    .replace(/(\d{4}-\d{2}-\d{2})/g, '<span class="quality-date">$1</span>') +
+            '</div>' +
+            '<div>' + escapeHtml(parts.join(' ')) + '</div>';
+        el.hidden = false;
+    }
+
+    // Tooltip suffix for one trend bar: a single day states its own share; a weekly
+    // group only says that it contains undercounted days.
+    function qualityTooltipSuffix(group, dailyData) {
+        var biased = group.filter(function(d) { return isBiasedDay(dailyData[d]); });
+        if (biased.length === 0) return '';
+        if (group.length > 1) return QUALITY_TEXT.tooltipGroup;
+        var s = dailyData[biased[0]].recorded_share;
+        return (typeof s === 'number' && isFinite(s))
+            ? QUALITY_TEXT.tooltipMeasured(Math.round(s * 100))
+            : QUALITY_TEXT.tooltipUnmeasured;
+    }
+
     // Above 90 days the chart groups dates into rolling 7-day windows ending on the
     // most recent date, so the bar count (and therefore the per-bar min content width
     // driving the mobile overflow) stays bounded regardless of range. 90d and below
@@ -1855,12 +1990,13 @@
             var t = groupTotals[i];
             var heightPct = (t.total / maxVal * 100);
             var label = rangeLabel(g);
+            var qualitySuffix = qualityTooltipSuffix(g, dailyData);
 
             var col = document.createElement('div');
-            col.className = 'trend-day';
+            col.className = 'trend-day' + (qualitySuffix ? ' biased' : '');
 
             col.innerHTML =
-                '<div class="trend-tooltip">' + label + ' · MCP: ' + t.mcp + ' · API: ' + t.api + '</div>' +
+                '<div class="trend-tooltip">' + label + ' · MCP: ' + t.mcp + ' · API: ' + t.api + escapeHtml(qualitySuffix) + '</div>' +
                 '<div class="trend-bar-stack" style="height:' + heightPct + '%">' +
                     '<div class="trend-bar-api" style="height:' + (t.total > 0 ? (t.api/t.total*100) : 0) + '%"></div>' +
                     '<div class="trend-bar-mcp" style="height:' + (t.total > 0 ? (t.mcp/t.total*100) : 0) + '%"></div>' +
@@ -1877,7 +2013,7 @@
 
             if (toolChart) {
                 var tcol = document.createElement('div');
-                tcol.className = 'trend-day';
+                tcol.className = 'trend-day' + (qualitySuffix ? ' biased' : '');
                 var count = groupToolCounts[i];
                 if (count === null) {
                     // Absent, not zero: no bar, tooltip explains why on hover/tap.
@@ -1888,7 +2024,7 @@
                     // small count never shrinks to invisible.
                     var toolPct = count === 0 ? 6 : Math.max(4, count / maxTool * 100);
                     tcol.innerHTML =
-                        '<div class="trend-tooltip">' + label + ' · Tool calls: ' + count + '</div>' +
+                        '<div class="trend-tooltip">' + label + ' · Tool calls: ' + count + escapeHtml(qualitySuffix) + '</div>' +
                         '<div class="trend-bar-tool' + (count === 0 ? ' zero' : '') + '" style="height:' + toolPct + '%"></div>';
                 }
                 toolChart.appendChild(tcol);
