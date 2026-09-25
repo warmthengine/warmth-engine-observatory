@@ -1310,10 +1310,12 @@
             if (dailyDates.length) {
                 lines.push('');
                 lines.push('daily');
-                lines.push('date,mcp,api,authenticated,self_excluded');
+                // record_quality (worker 1.25.0) travels with every row, so an undercounted
+                // day can never be analysed as a complete one; empty for days without the label.
+                lines.push('date,mcp,api,authenticated,self_excluded,record_quality');
                 dailyDates.forEach(function(d) {
                     var dd = daily[d];
-                    lines.push([d, dd.mcp, dd.api, dd.authenticated, dd.self].join(','));
+                    lines.push([d, dd.mcp, dd.api, dd.authenticated, dd.self, dd.record_quality].join(','));
                 });
             }
 
@@ -1409,11 +1411,15 @@
             priorDates = allDates.slice(0, allDates.length - days).slice(-days);
         }
         var hasPrior = priorDates.length > 0;
-        // A comparison across the analytics fix would set undercounted days against
-        // complete ones and report the difference as a trend. Suppress every prior-period
-        // delta (cards and rows) when the two windows together hold both kinds of day.
-        var acrossRecordingChange = straddlesRecordingChange(rawData, currentDates.concat(priorDates));
-        if (acrossRecordingChange) hasPrior = false;
+        // No prior-period delta (cards or rows) when either window holds an undercounted
+        // day. Across the fix it would set undercounted days against complete ones; before
+        // it, the recorded share itself moved (about 60% to 44%), so a delta would measure
+        // the loss as much as the traffic. Only a window pair that is complete on both
+        // sides is compared.
+        var comparedDates = currentDates.concat(priorDates);
+        var acrossRecordingChange = hasPrior && straddlesRecordingChange(rawData, comparedDates);
+        var comparisonUndercounted = hasPrior && comparedDates.some(function(d) { return isBiasedDay(rawData[d]); });
+        if (comparisonUndercounted) hasPrior = false;
 
         // Worker version from most recent day object
         var mostRecentDate = allDates[allDates.length - 1];
@@ -1471,13 +1477,16 @@
             setDelta('metricAuthDelta', 0, null, false, '');
             setDelta('metricTotalDelta', 0, null, false, '');
         }
-        if (acrossRecordingChange) {
+        if (comparisonUndercounted) {
             ['metricMcpDelta', 'metricApiDelta', 'metricAuthDelta', 'metricTotalDelta'].forEach(function(id) {
                 var el = document.getElementById(id);
-                if (el) { el.textContent = QUALITY_TEXT.deltaSuppressed; el.className = 'metric-delta neutral'; }
+                if (el) {
+                    el.textContent = acrossRecordingChange ? QUALITY_TEXT.deltaSuppressed : QUALITY_TEXT.deltaSuppressedUndercounted;
+                    el.className = 'metric-delta neutral';
+                }
             });
         }
-        renderQualityBanner(rawData, currentDates, acrossRecordingChange);
+        renderQualityBanner(rawData, currentDates, comparisonUndercounted ? (acrossRecordingChange ? 'across' : 'undercounted') : null);
 
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
@@ -1534,7 +1543,8 @@
         currentDates.forEach(function(d) {
             var day = rawData[d];
             if (!day) return;
-            dailyForCsv[d] = { mcp: day.mcp || 0, api: day.api || 0, authenticated: day.authenticated || 0, self: day.self || 0 };
+            dailyForCsv[d] = { mcp: day.mcp || 0, api: day.api || 0, authenticated: day.authenticated || 0, self: day.self || 0,
+                record_quality: /^[a-z_]+$/.test(day.record_quality || '') ? day.record_quality : '' };
         });
         lastCsvData = { agg: agg, days: days, daily: dailyForCsv };
 
@@ -1841,7 +1851,9 @@
         uneven: 'The loss was uneven: frequent clients kept a larger share of their requests than occasional ones, so the client, country and tool breakdowns are skewed, not just smaller.',
         asStored: 'Figures are shown as recorded, with no correction. Dimmed bars mark these days.',
         noComparison: 'Changes against the previous period are not shown, because that comparison would cross the fix.',
+        noComparisonUndercounted: 'Changes against the previous period are not shown, because undercounted days would distort them.',
         deltaSuppressed: 'not compared across the fix',
+        deltaSuppressedUndercounted: 'not compared: undercounted days',
         tooltipMeasured: function(pct) { return ' · undercounted (' + pct + '% recorded)'; },
         tooltipUnmeasured: ' · undercounted (not measured)',
         tooltipGroup: ' · includes undercounted days'
@@ -1861,7 +1873,9 @@
         return biased && accurate;
     }
 
-    function renderQualityBanner(rawData, dates, acrossRecordingChange) {
+    // suppressed: null (deltas shown), 'across' (the windows straddle the fix) or
+    // 'undercounted' (an undercounted day on either side, no straddle).
+    function renderQualityBanner(rawData, dates, suppressed) {
         var el = document.getElementById('qualityBanner');
         if (!el) return;
         var biased = dates.filter(function(d) { return isBiasedDay(rawData[d]); });
@@ -1884,12 +1898,16 @@
         var unmeasured = biased.length - shares.length;
         if (unmeasured > 0) parts.push(QUALITY_TEXT.unmeasured(unmeasured, shares.length > 0));
         parts.push(QUALITY_TEXT.uneven, QUALITY_TEXT.asStored);
-        if (acrossRecordingChange) parts.push(QUALITY_TEXT.noComparison);
+        if (suppressed === 'across') parts.push(QUALITY_TEXT.noComparison);
+        else if (suppressed === 'undercounted') parts.push(QUALITY_TEXT.noComparisonUndercounted);
+        // Denominator: days in view that hold data. Days before analytics began are
+        // absent, not undercounted, and carry no label.
+        var withData = dates.filter(function(d) { return rawData[d] && rawData[d].record_quality; }).length;
         el.innerHTML =
             '<div class="quality-banner-title">' +
                 // Dates never break at their hyphens on a narrow screen (digits and hyphens
                 // only, so wrapping them after escaping is safe).
-                escapeHtml(QUALITY_TEXT.title(biased[0], biased[biased.length - 1], biased.length, dates.length))
+                escapeHtml(QUALITY_TEXT.title(biased[0], biased[biased.length - 1], biased.length, withData))
                     .replace(/(\d{4}-\d{2}-\d{2})/g, '<span class="quality-date">$1</span>') +
             '</div>' +
             '<div>' + escapeHtml(parts.join(' ')) + '</div>';
