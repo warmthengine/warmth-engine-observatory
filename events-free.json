@@ -4,7 +4,7 @@
     "total_events": 216,
     "sample_events": 6,
     "standard_events": 210,
-    "last_updated": "2026-09-24",
+    "last_updated": "2026-09-26",
     "statistics": {
       "by_bloc": {
         "Eastern": 56,
@@ -48,22 +48,21 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.1": 57,
+        "1.1": 64,
         "1.3": 2,
         "1.2.1": 9,
         "1.3.2": 2,
-        "1.1.1": 25,
+        "1.1.1": 24,
         "1.2": 17,
         "1.1.2": 13,
-        "1.3.1": 1,
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 76
+        "1.0": 71
       }
     },
-    "versionDate": "2026-09-24",
-    "lastAudit": "2026-09-24",
+    "versionDate": "2026-09-26",
+    "lastAudit": "2026-09-26",
     "event_count": 216,
     "ent_version": "1.0",
     "ent_tagged_events": 49,
@@ -73,20 +72,20 @@
       "formula": "ENT-1 (34) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2068,
-      "preserved": 1991,
-      "preservation_rate": 0.963,
+      "total_sources": 2082,
+      "preserved": 2014,
+      "preservation_rate": 0.967,
       "by_status": {
-        "captured": 1870,
-        "pending": 23,
+        "captured": 1891,
         "recovered": 32,
-        "existing": 89,
-        "no_capture": 54
+        "existing": 91,
+        "no_capture": 54,
+        "pending": 14
       },
       "by_layer": {
         "events": {
-          "total": 1307,
-          "preserved": 1271
+          "total": 1321,
+          "preserved": 1294
         },
         "connections": {
           "total": 489,
@@ -204,8 +203,9 @@
           "id": "P4",
           "desc": "CCTV News (新闻联播) — EDWC four-year review: 带动社会投资超万亿元 (driven social investment >RMB 1T); 30+ computing new cities; ~30% annual computing growth; 70% new capacity from west; 80% intelligent computing from hub nodes (December 2025)",
           "url": "https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
-          "accessDate": "2026-09-22",
-          "captureStatus": "pending"
+          "accessDate": "2026-09-24",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260924064352/https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml"
         }
       ],
       "corroboratingSources": [
@@ -245,8 +245,9 @@
           "id": "C5",
           "desc": "China Daily / Xinhua — Liu Liehong at Guiyang big data expo: RMB 43.5B direct + 带动投资超2000亿元 (>RMB 200B driven investment, June 2024); confirms the measure construction behind the record's original '~US$28B total leveraged' (August 2024)",
           "url": "https://govt.chinadaily.com.cn/s/202409/02/WS66d51596498ed2d7b7eb8373/china-invests-over-6-1b-in-major-computing-hubs.html",
-          "accessDate": "2026-09-22",
-          "captureStatus": "pending"
+          "accessDate": "2026-09-24",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260924064316/https://govt.chinadaily.com.cn/s/202408/30/WS66d13523498ed2d7b7eb81dc/china-invests-over-6-1b-in-major-computing-hubs.html"
         }
       ],
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -329,13 +330,19 @@
               "desc": "CCTV — 带动社会投资超万亿元, December 2025",
               "url": "https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
               "date": "2025-12-23",
-              "type": "PRIMARY"
+              "type": "PRIMARY",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260924064352/https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
+              "accessDate": "2026-09-24"
             },
             {
               "desc": "China Daily/Xinhua — original 带动投资超2000亿元 (>RMB 200B), August 2024",
               "url": "https://govt.chinadaily.com.cn/s/202409/02/WS66d51596498ed2d7b7eb8373/china-invests-over-6-1b-in-major-computing-hubs.html",
               "date": "2024-08-30",
-              "type": "CORROBORATING"
+              "type": "CORROBORATING",
+              "captureStatus": "captured",
+              "snapshotUrl": "https://web.archive.org/web/20260924064316/https://govt.chinadaily.com.cn/s/202408/30/WS66d13523498ed2d7b7eb81dc/china-invests-over-6-1b-in-major-computing-hubs.html",
+              "accessDate": "2026-09-24"
             }
           ],
           "previousValues": {
@@ -2202,11 +2209,11 @@
       "date": "5 December 2024",
       "location": "Ottawa, Canada",
       "scope": "National (Canada-wide)",
-      "description": "Federal policy and investment framework establishing US$2 billion over five years to build domestic AI compute infrastructure. Encompasses private data centre capacity, national supercomputing expansion, and SME compute access programmes supporting Canadian AI sovereignty objectives.",
+      "description": "Federal framework establishing domestic AI compute infrastructure through three pillars: commercial data centre expansion, publicly owned national supercomputing and affordable compute access for small and medium-sized enterprises, administered by Innovation, Science and Economic Development Canada in support of Canadian AI sovereignty.",
       "investment": "CAD $2 billion total; allocated across three programmes",
       "domain": "Energy/Infrastructure",
-      "sources": 5,
-      "corroborating": 3,
+      "sources": 6,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -2214,7 +2221,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -2274,11 +2281,11 @@
       "date": "9 October 2023",
       "location": "Beijing, China",
       "scope": "National (China-wide); 8 regional computing hubs; 30+ cities developing AI compute centres",
-      "description": "National government initiative to increase computing power capacity via Eastern Data Western Computing strategy. Rapid intelligent computing expansion supporting large AI model development across China's national computing infrastructure network.",
-      "investment": "RMB 200B+ total (~US$28B); US$6.1B+ direct government investment (EDWC); 725.3 EFLOPS intelligent computing capacity (2024 operational); 74.1% YoY growth; 1,509 registered large AI models (mid-2025); US$19B AI computing market (2024), +87% YoY; 10.85M standard racks deployed (mid-2025); 1,680 exabytes storage (2025 operational)",
+      "description": "National government initiative directing computing power expansion via the Eastern Data Western Computing strategy, building ten-thousand-card intelligent computing clusters and trunk corridors across national hub nodes to underpin large AI model development across China's national computing infrastructure network.",
+      "investment": "1,882 EFLOPS FP16 intelligent computing (end-March 2026); 42 ten-thousand-card clusters (January 2026); 70+ computing trunk corridors; 10.85M standard racks (mid-2025); 725.3 EFLOPS (2024); US$19B AI computing market (2024); 1,509 registered large AI models (mid-2025); 1,680 exabytes storage (2025)",
       "domain": "Energy/Infrastructure",
-      "sources": 3,
-      "corroborating": 6,
+      "sources": 5,
+      "corroborating": 7,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -2286,7 +2293,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3.1",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -7450,7 +7457,7 @@
       "industryPrimary": "Mining & Critical Minerals",
       "environmentalNexusTags": [],
       "sources": 2,
-      "corroborating": 0,
+      "corroborating": 1,
       "confidence": "A",
       "aiConnectionPathway": "trace",
       "checkpoints": {
@@ -7460,7 +7467,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "191",
@@ -7729,12 +7736,12 @@
       "location": "Japan",
       "scope": "National (Japan); generative-AI cloud computing sector",
       "description": "Japan's Ministry of Economy, Trade and Industry designated cloud computing programmes as specified critical products under the Economic Security Promotion Act (ESPA), establishing a certified-provider regime for domestic GPU cloud capacity used in generative-AI development.",
-      "investment": "Subsidy designation (up to JPY 72.5 billion across five certified providers; ESPA Article 9(4))",
+      "investment": "Subsidy designation across eleven certified cloud-programme plans; up to JPY 72.5 billion (April 2024 batch) and JPY 42.1 billion (SoftBank, May 2024) (ESPA Article 9(4))",
       "domain": "Energy/Infrastructure",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [],
-      "sources": 2,
-      "corroborating": 1,
+      "sources": 3,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -7742,7 +7749,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "201",
@@ -7948,7 +7955,7 @@
     },
     {
       "id": "208",
-      "name": "South Korea Defense AI Center",
+      "name": "South Korea Defence AI Technology Research Institute",
       "lat": 36.3504,
       "lng": 127.3845,
       "bloc": "Western",
@@ -7958,13 +7965,13 @@
       "date": "1 April 2024",
       "location": "Daejeon, South Korea",
       "scope": "South Korea (national defence sector)",
-      "description": "South Korea's Ministry of National Defense established the Defense AI Center at the Agency for Defense Development in Daejeon, with approximately 110 civilian researchers and active-duty military personnel focused on AI-based manned–unmanned teaming, battlefield situational awareness, and civilian-to-military AI technology transfer under the Defense Innovation 4.0 initiative.",
+      "description": "South Korea's Ministry of National Defense established a dedicated defence AI institution at the Agency for Defense Development in Daejeon, originally as the Defense AI Center and redesignated the Defence AI Technology Research Institute from January 2025 with an expanded mandate covering autonomous systems, swarm unmanned platforms, target identification and battlefield decision-support under the Defense Innovation 4.0 initiative.",
       "investment": "~110 dedicated personnel (civilian researchers and active-duty military)",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "sources": 1,
-      "corroborating": 4,
+      "sources": 2,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -7973,7 +7980,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "209",
@@ -8045,12 +8052,12 @@
       "date": "May 2025",
       "location": "United Kingdom",
       "scope": "United Kingdom (national defence sector)",
-      "description": "UK Ministry of Defence programme deploying AI-enabled targeting and decision-support to land forces through the Dismounted Data System and the DDAD open framework. Prototype systems were tested at NATO Exercise Hedgehog in Estonia in May 2025, forming part of the wider Digital Targeting Web initiative across the Armed Forces.",
+      "description": "UK Ministry of Defence programme deploying AI-enabled targeting and decision-support to land forces across dismounted data systems, one-way effectors and tactical networks under the DDAD open framework. Progressed from prototype deployment at NATO Exercise Hedgehog in Estonia to operational roll-out, forming part of the wider Digital Targeting Web initiative.",
       "investment": "Up to £86M DDS contract (£46M committed + £40M options); £180M ex-VAT DDAD framework ceiling (2025–2029); part of >£1B Digital Targeting Web programme",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "sources": 3,
+      "sources": 4,
       "corroborating": 1,
       "confidence": "A",
       "checkpoints": {
@@ -8059,7 +8066,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "212",
@@ -8709,12 +8716,12 @@
       "sample": false,
       "date": "7 November 2023",
       "location": "Berlin, Germany",
-      "scope": "Germany — national AI action plan",
-      "description": "The German Federal Ministry of Education and Research published the KI-Aktionsplan, a national AI action plan identifying eleven priority action fields for AI research, compute infrastructure, and industrial application.",
-      "investment": "€1.6 billion across the legislative period; 11 action fields.",
+      "scope": "Germany — national AI action plan (20th Bundestag legislative period, concluded)",
+      "description": "The German Federal Ministry of Education and Research published the KI-Aktionsplan, a national AI action plan that identified eleven priority action fields for AI research, compute infrastructure and industrial application.",
+      "investment": "€1.6 billion programme allocation; eleven action fields.",
       "domain": "Technology",
       "sources": 4,
-      "corroborating": 2,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -8723,7 +8730,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": []
     },
