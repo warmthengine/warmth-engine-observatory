@@ -1,43 +1,43 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 216,
+    "total_events": 219,
     "sample_events": 6,
-    "standard_events": 210,
-    "last_updated": "2026-09-26",
+    "standard_events": 213,
+    "last_updated": "2026-09-28",
     "statistics": {
       "by_bloc": {
-        "Eastern": 56,
+        "Eastern": 59,
         "Western": 140,
         "Western-Led": 15,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 196,
+        "T3": 199,
         "T2": 19,
         "T1": 1
       },
       "by_type": {
-        "Infrastructure": 49,
+        "Infrastructure": 51,
         "Coordination": 32,
         "Policy": 67,
-        "Corporate": 68
+        "Corporate": 69
       },
       "by_confidence": {
-        "A": 210,
+        "A": 213,
         "B": 6
       },
       "by_assessment_pathway": {
-        "basel5": 112,
+        "basel5": 115,
         "keohane": 31,
         "pisa5": 51,
         "routeBased": 22,
-        "oep": 6,
+        "oep": 7,
         "piet": 5
       },
       "by_industry_primary": {
-        "Cloud, Data Centres & Connectivity Infrastructure": 62,
+        "Cloud, Data Centres & Connectivity Infrastructure": 65,
         "Semiconductors & Equipment": 43,
         "AI Software & Platforms": 71,
         "Mining & Critical Minerals": 11,
@@ -58,34 +58,33 @@
         "1.2.2": 3,
         "1.0.1": 10,
         "1.2.4": 1,
-        "1.0": 71
+        "1.0": 74
       }
     },
-    "versionDate": "2026-09-26",
-    "lastAudit": "2026-09-26",
-    "event_count": 216,
+    "versionDate": "2026-09-28",
+    "lastAudit": "2026-09-28",
+    "event_count": 219,
     "ent_version": "1.0",
-    "ent_tagged_events": 49,
-    "ent_total_tags": 78,
+    "ent_tagged_events": 51,
+    "ent_total_tags": 80,
     "wer": {
-      "value": 6.8,
-      "formula": "ENT-1 (34) ÷ ENT-5 (5)"
+      "value": 7.2,
+      "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
       "total_sources": 2082,
-      "preserved": 2014,
-      "preservation_rate": 0.967,
+      "preserved": 2028,
+      "preservation_rate": 0.974,
       "by_status": {
-        "captured": 1891,
+        "captured": 1905,
         "recovered": 32,
         "existing": 91,
-        "no_capture": 54,
-        "pending": 14
+        "no_capture": 54
       },
       "by_layer": {
         "events": {
           "total": 1321,
-          "preserved": 1294
+          "preserved": 1308
         },
         "connections": {
           "total": 489,
@@ -9212,6 +9211,137 @@
       "sources": 1,
       "corroborating": 2,
       "infrastructureThreads": []
+    },
+    {
+      "id": "250",
+      "name": "Chengdu Intelligent Computing Centre",
+      "lat": 30.81,
+      "lng": 103.89,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "10 May 2022",
+      "location": "Pidu District, Chengdu, Sichuan, China",
+      "scope": "China (Chengdu–Chongqing 东数西算 hub node)",
+      "description": "Chengdu Intelligent Computing Centre is a municipally funded AI compute facility in Pidu District, built with Huawei on a full-stack Ascend platform and opened as the model project of the Chengdu–Chongqing hub under China's east-data-west-computing programme, combining public AI compute, city-brain and research platforms.",
+      "investment": "RMB 10.9 billion total project investment; 300 PFLOPS FP16 phase-one AI capacity; ~1,000 Ascend 910 processors",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": [
+        {
+          "targetEventId": "222",
+          "linkType": "deploys",
+          "asset": "Ascend 910",
+          "field": "investment"
+        }
+      ],
+      "sources": 2,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option A (wholly AI-designated facility — RMB 10.9 billion, ~1,000 Ascend 910 processors)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false
+    },
+    {
+      "id": "251",
+      "name": "Alibaba Cloud Zhangbei Super Intelligent Computing Centre",
+      "lat": 41.16,
+      "lng": 114.7,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "30 August 2022",
+      "location": "Zhangbei County, Zhangjiakou, Hebei, China",
+      "scope": "China (Zhangbei, Hebei — Feitian intelligent computing platform via public cloud)",
+      "description": "Alibaba Cloud’s Zhangbei super intelligent computing centre is a single-site AI compute facility in Zhangbei County, brought into service in August 2022 on the company’s Feitian intelligent computing platform to serve large-model pre-training, Earth-observation and digital-human workloads for cloud customers.",
+      "investment": "12 EFLOPS AI compute in service; 150MW planned IT power, 80MW built and operating",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Facility documentation specifies 150MW planned IT power with 80MW built and in operation",
+          "evidenceBasis": "Documented",
+          "vector": "Energy",
+          "sources": [
+            {
+              "citation": "新能源网 — Zhangbei IT power and cooling specification",
+              "type": "corroborating",
+              "url": "http://www.china-nengyuan.com/news/252112.html"
+            }
+          ]
+        }
+      ],
+      "infrastructureThreads": [],
+      "sources": 1,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option E (Feitian platform launch release — Disclosure-Verified, Confirmed, Operational)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false
+    },
+    {
+      "id": "252",
+      "name": "China Unicom Greater Bay Area Hub (Shaoguan) Data Centre",
+      "lat": 24.81,
+      "lng": 113.6,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Infrastructure",
+      "sample": false,
+      "date": "June 2024",
+      "location": "Zhenjiang District, Shaoguan, Guangdong, China",
+      "scope": "China (Shaoguan 东数西算 hub node — Greater Bay Area cluster)",
+      "description": "China Unicom’s Greater Bay Area hub data centre in Shaoguan’s Zhenjiang District, a phase-one campus of four data halls and four power buildings inside the national east-data-west-computing Shaoguan cluster, holding 5A-grade intelligent computing certification and built to host customer AI clusters alongside general cloud capacity.",
+      "investment": "RMB 4.8 billion phase one (RMB 19 billion project); 48,000 standard racks planned; 120MW total power",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-1",
+          "name": "Resource Demand",
+          "mechanism": "Facility documentation specifies 120MW total power capacity across the phase-one campus",
+          "evidenceBasis": "Documented",
+          "vector": "Energy",
+          "sources": [
+            {
+              "citation": "人民网广东 — 5A certification and 120MW campus specification",
+              "type": "corroborating",
+              "url": "http://gd.people.com.cn/n2/2025/0612/c123932-41258060.html"
+            }
+          ]
+        }
+      ],
+      "infrastructureThreads": [],
+      "sources": 1,
+      "corroborating": 7,
+      "confidence": "A",
+      "aiConnectionPathway": "oep",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "OEP (Pathway C — Strong)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false
     }
   ]
 }
