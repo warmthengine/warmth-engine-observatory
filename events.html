@@ -5289,7 +5289,7 @@ const renderTable = () => {
             <td><div class="type-icon-cell" title="${esc(e.event_type)}">${getTypeIcon(e.event_type)}</div></td>
             <td style="white-space:nowrap;">${formatDateUK(e.implementation_date)}</td>
             <td><span class="badge ${getTierBadgeClass(e.tier)}">${tierIcon(e.tier)}T${esc(e.tier)}</span></td>
-            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, false)}${challengeAttrBadge(e.challengeAttributions, false)}</td>
+            <td style="white-space:nowrap;"><span class="badge ${getBlocBadgeClass(e.bloc)}">${blocIcon(e.bloc)}${esc(e.bloc)}</span>${crossEcoBadge(e.crossEcosystemPresence, false)}</td>
             <td><span class="badge ${getDomainBadgeClass(e.domain)}">${e.domain==='Energy/Infrastructure'?'Energy/Infra':esc(e.domain)}</span></td>
             <td><span class="ind-tag ind-primary ${getIndBadgeClass(getIndTags(e.event_id).primary)}" title="${esc(getIndTags(e.event_id).primary)}" style="font-size:0.5625rem;">${getIndAbbrev(getIndTags(e.event_id).primary)}</span>${getIndTags(e.event_id).secondary.length > 0 ? '<span class="ind-secondary-count" title="' + esc(getIndTags(e.event_id).secondary.map(s => s.tag).join(', ')) + '">+' + getIndTags(e.event_id).secondary.length + '</span>' : ''}</td>
             <td>${(function(){ var ents = getEntTags(e.event_id); return ents.length > 0 ? '<span class="ent-count-badge" title="' + esc(ents.map(function(t){return t.name||t.type}).join(', ')) + '">' + ents.length + '</span>' : '<span style="color:var(--weo-text-muted);opacity:0.4;">—</span>'; })()}</td>
