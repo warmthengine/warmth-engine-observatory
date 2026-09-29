@@ -353,7 +353,12 @@
         @media (min-width: 1201px) {
             .events-table-scroll { overflow-x: auto; }
             .events-table { width: 100%; }
-            .table-scroll-indicator { display: none !important; }
+            /* Desktop cue sits in the page margin beside the table, not over its columns */
+            .table-scroll-indicator { width: 24px; align-items: flex-start; }
+            .table-scroll-indicator.left, .table-scroll-indicator.right { background: none; border-radius: 0; }
+            .table-scroll-indicator.left { left: -24px; }
+            .table-scroll-indicator.right { right: -24px; }
+            .table-scroll-indicator.left .table-scroll-chevrons, .table-scroll-indicator.right .table-scroll-chevrons { padding: 0; position: sticky; top: 50vh; }
         }
         @media (max-width: 1200px) {
             .events-table { width: max-content; }
@@ -6278,7 +6283,6 @@ const closeModal = () => {
         const leftIndicator = document.getElementById('table-scroll-left');
         const rightIndicator = document.getElementById('table-scroll-right');
         if (!container || !leftIndicator || !rightIndicator) return;
-        if (window.innerWidth > 1200) return;
         
         const maxScroll = container.scrollWidth - container.clientWidth;
         const currentScroll = container.scrollLeft;
