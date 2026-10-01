@@ -4,7 +4,7 @@
     "total_events": 219,
     "sample_events": 6,
     "standard_events": 213,
-    "last_updated": "2026-09-28",
+    "last_updated": "2026-10-01",
     "statistics": {
       "by_bloc": {
         "Eastern": 59,
@@ -48,21 +48,21 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.1": 64,
+        "1.1": 73,
         "1.3": 2,
-        "1.2.1": 9,
-        "1.3.2": 2,
-        "1.1.1": 24,
-        "1.2": 17,
+        "1.2.1": 8,
+        "1.3.2": 1,
+        "1.1.1": 21,
+        "1.2": 18,
         "1.1.2": 13,
-        "1.2.2": 3,
-        "1.0.1": 10,
+        "1.0.1": 8,
+        "1.2.2": 2,
         "1.2.4": 1,
-        "1.0": 74
+        "1.0": 72
       }
     },
-    "versionDate": "2026-09-28",
-    "lastAudit": "2026-09-28",
+    "versionDate": "2026-10-01",
+    "lastAudit": "2026-10-01",
     "event_count": 219,
     "ent_version": "1.0",
     "ent_tagged_events": 51,
@@ -72,19 +72,20 @@
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2082,
-      "preserved": 2028,
-      "preservation_rate": 0.974,
+      "total_sources": 2092,
+      "preserved": 2026,
+      "preservation_rate": 0.968,
       "by_status": {
-        "captured": 1905,
+        "captured": 1903,
         "recovered": 32,
         "existing": 91,
-        "no_capture": 54
+        "no_capture": 54,
+        "pending": 12
       },
       "by_layer": {
         "events": {
-          "total": 1321,
-          "preserved": 1308
+          "total": 1331,
+          "preserved": 1306
         },
         "connections": {
           "total": 489,
@@ -2469,10 +2470,10 @@
       "location": "Taipei, Taiwan",
       "scope": "Taiwan (national)",
       "description": "Cross-ministry government programme launched by NSTC to integrate generative AI with semiconductor chip technology. Multi-year strategy advancing Taiwan's AI infrastructure and chip-based innovation across research, industry, and public sector applications.",
-      "investment": "NT$300 billion (~US$9.3 billion) over 2024-2033",
+      "investment": "NT$300 billion over 2024–2033",
       "domain": "Technology",
       "sources": 2,
-      "corroborating": 6,
+      "corroborating": 5,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -2480,7 +2481,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1",
       "industryPrimary": "Semiconductors & Equipment"
     },
     {
@@ -2721,7 +2722,7 @@
       "date": "15 February 2024",
       "location": "Moscow, Russia",
       "scope": "Russian Federation",
-      "description": "Comprehensive update to Russia's \"National Strategy for the Development of Artificial Intelligence until 2030.\" Mandates integration of generative AI, large language models, and \"sovereign\" AI solutions into state platforms, directing government corporations to update their strategies by September 2024.",
+      "description": "Comprehensive update to Russia's \"National Strategy for the Development of Artificial Intelligence until 2030.\" Mandates integration of generative AI and large generative and foundation models into state platforms, recommending government corporations and regional authorities update their strategies by 1 November 2024.",
       "investment": "Policy Framework; concurrent Data Economy national project (to 2030) allocated ~700B RUB (~US$7.6B) for broader digital infrastructure; AI-specific funding is a subset",
       "domain": "Technology",
       "sources": 3,
@@ -2733,7 +2734,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.2",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2765,7 +2766,7 @@
     },
     {
       "id": "62",
-      "name": "Bpifrance AI Plan (2025-2029)",
+      "name": "Bpifrance AI Plan (2025-2030)",
       "lat": 48.8566,
       "lng": 2.3522,
       "bloc": "Western",
@@ -2775,10 +2776,10 @@
       "date": "February 2025",
       "location": "Paris, France",
       "scope": "France (National)",
-      "description": "Comprehensive €10 billion investment plan by France's public investment bank to support the AI ecosystem, including foundation models, AI infrastructure, and deeptech startups, running from 2025 to 2029.",
-      "investment": "€10 Billion (~US$10.8B)",
+      "description": "Comprehensive investment plan by France's public investment bank to support the AI ecosystem, including foundation models, AI infrastructure and deeptech startups, running from 2025 to 2030.",
+      "investment": "€10 billion programme envelope (2025–2030); €3.9 billion deployed by end-2025",
       "domain": "Technology",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
@@ -2787,7 +2788,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0.1",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -2803,10 +2804,10 @@
       "location": "Santiago, Chile",
       "scope": "Chile (National)",
       "description": "Chilean government's strategic plan to position Chile as a technology hub in Latin America, with regulatory frameworks and infrastructure investments to attract hyperscaler investment, including from Google, AWS, and Microsoft.",
-      "investment": "US$15B+ projected investment; 3+ hyperscaler commitments",
+      "investment": "PDATA target US$2.5 billion with US$4.18 billion pipeline at launch (30+ projects); AWS >US$4 billion (May 2025), Microsoft US$3.3 billion (June 2025), Google Cloud region operational (2021)",
       "domain": "Energy/Infrastructure",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -2814,7 +2815,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.3.2",
+      "version": "1.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure"
     },
     {
@@ -3460,7 +3461,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -4118,7 +4119,7 @@
     },
     {
       "id": "105",
-      "name": "US DoD CDAO",
+      "name": "US DoW CDAO",
       "lat": 38.8719,
       "lng": -77.0563,
       "bloc": "Western",
@@ -4127,11 +4128,11 @@
       "sample": false,
       "date": "1 June 2022",
       "location": "Washington, D.C., United States",
-      "scope": "United States Department of Defense (all AI systems across DoD)",
-      "description": "US Department of Defense established the Chief Digital and Artificial Intelligence Office at full operating capability, consolidating JAIC, DDS, CDO, and Advana under a single authority with directive power over all DoD AI adoption, strategy, and policy. FY2023 budget of US$320.4M; oversight of 685+ AI-related projects.",
-      "investment": "US$320.4M FY2023 budget; 685+ AI-related projects; consolidation of 4 predecessor organisations (JAIC, DDS, CDO, Advana)",
+      "scope": "United States Department of War (all AI systems across DoW)",
+      "description": "US Department of War established the Chief Digital and Artificial Intelligence Office at full operating capability, consolidating JAIC, DDS, CDO and Advana under a single authority with directive power over all DoW AI adoption, strategy and policy, realigned under the Under Secretary for Research and Engineering.",
+      "investment": "Consolidation of four predecessor organisations (JAIC, DDS, CDO, Advana)",
       "domain": "Security",
-      "sources": 2,
+      "sources": 3,
       "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
@@ -4140,7 +4141,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.1",
+      "version": "1.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -4155,7 +4156,7 @@
       "date": "1 May 2024",
       "location": "Bruz, France",
       "scope": "French Ministry of Armed Forces (all defence AI applications)",
-      "description": "France established the Ministerial Agency for Defence Artificial Intelligence (AMIAD) by decree, creating a dedicated operational agency to develop and deploy AI solutions for the armed forces. Annual budget of €300M; €2B allocated for 2024–2030; 300 technical staff; dedicated ASGARD supercomputer.",
+      "description": "France established the Ministerial Agency for Defence Artificial Intelligence (AMIAD) by decree as a service à compétence nationale to develop and deploy AI solutions for the armed forces.",
       "investment": "€300M annual budget; €2B allocation 2024–2030; 300 technical/research personnel; dedicated ASGARD supercomputer (operational September 2025)",
       "domain": "Security",
       "sources": 2,
@@ -4167,7 +4168,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2.1",
+      "version": "1.1",
       "industryPrimary": "Defence & Aerospace"
     },
     {
@@ -4262,9 +4263,9 @@
       "sample": false,
       "date": "12 October 2022",
       "location": "Brussels, Belgium (NATO HQ)",
-      "scope": "NATO Alliance (30 member states)",
-      "description": "NATO Defence Ministers established the Data and Artificial Intelligence Review Board to operationalise responsible AI principles and develop certification standards for military AI use across 30 NATO member states.",
-      "investment": "30 NATO member states; each member designates national nominee; operational body developing RAI (Responsible AI) certification standard for military AI applications",
+      "scope": "NATO Alliance (32 member states)",
+      "description": "NATO Defence Ministers established the Data and Artificial Intelligence Review Board to operationalise responsible AI principles and develop certification standards for military AI use across 32 NATO member states.",
+      "investment": "32 NATO member states; each member designates national nominee; operational body developing RAI (Responsible AI) certification standard for military AI applications",
       "domain": "Security",
       "sources": 2,
       "corroborating": 2,
@@ -4869,11 +4870,11 @@
       "date": "16 June 2024",
       "location": "Brussels, Belgium",
       "scope": "Supranational — 27 EU Member States",
-      "description": "The European Commission established the European AI Office within DG CONNECT via Commission Decision C(2024) 390, becoming operational on 16 June 2024. The Office enforces rules for general-purpose AI models under the EU AI Act, with investigation, evaluation, and penalty powers.",
-      "investment": "Funded through Digital Europe Programme (Specific Objective 2 — Artificial Intelligence); 140+ staff target; enforcement powers including fines up to 3% of worldwide turnover or €15 million",
+      "description": "The European Commission established the European AI Office within DG CONNECT via Commission Decision C(2024) 390, becoming operational on 16 June 2024. The Office enforces rules for general-purpose AI models and integrated AI systems under the EU AI Act.",
+      "investment": "Funded through Digital Europe Programme (Specific Objective 2 — Artificial Intelligence); 140+ staff target; fines up to 3% of worldwide turnover or €15 million",
       "domain": "Technology",
-      "sources": 3,
-      "corroborating": 0,
+      "sources": 4,
+      "corroborating": 2,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -4881,7 +4882,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -5005,7 +5006,7 @@
     },
     {
       "id": "134",
-      "name": "US DoD Replicator Initiative (Tranche 1)",
+      "name": "US DoW Replicator Initiative (Tranche 1)",
       "lat": 38.8719,
       "lng": -77.0563,
       "bloc": "Western",
@@ -5016,18 +5017,18 @@
       "location": "United States (DoD-wide)",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
-      "description": "US Department of Defense programme to field all-domain attritable autonomous systems at scale, led by the Defense Innovation Unit. Tranche 1 selected systems include AeroVironment Switchblade-600, Anduril Altius-600 and Ghost-X, and Performance Drone Works C-100, acquired through Commercial Solutions Openings. CDAO provides enterprise policy and software architecture enablement.",
-      "investment": "~US$500M FY2024 (US$300M reprogramming + US$200M existing authorities); ~US$1B total FY2024–25; target multiple thousands of autonomous systems",
-      "scope": "United States Department of Defense (all-domain)",
+      "description": "US Department of War programme to field all-domain attritable autonomous systems at scale, led by the Defense Innovation Unit. Tranche 1 selected systems include AeroVironment Switchblade-600, Anduril Altius-600 and Ghost-X, and Performance Drone Works C-100, acquired through Commercial Solutions Openings. CDAO provides enterprise policy and software architecture enablement.",
+      "investment": "~US$500M FY2024 (US$300M reprogramming + US$200M existing authorities); ~US$1B total FY2024–25; hundreds of autonomous systems fielded by the August 2025 target date, thousands more on contract",
+      "scope": "United States Department of War (all-domain)",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.2",
       "sources": 2,
-      "corroborating": 2,
+      "corroborating": 3,
       "confidence": "A"
     },
     {
@@ -7846,13 +7847,13 @@
       "date": "4 January 2025",
       "location": "Moscow, Russia",
       "scope": "Russian Federation (ELR framework)",
-      "description": "Federal law amending Russia's Experimental Legal Regimes framework (258-FZ) with AI-specific provisions. Article 18.1 establishes a mandatory damages commission for AI-caused harm to life, health, or property, convened within 30 days. Point 13.2 introduces mandatory civil-liability insurance for AI-caused damages.",
+      "description": "Federal law amending Russia's Experimental Legal Regimes framework (258-ФЗ) with AI-specific provisions establishing a mandatory damages commission and civil-liability insurance requirement for AI-related harm.",
       "investment": "Regulatory framework (mandatory damages commission + civil-liability insurance for AI operators within ELR contexts). No dedicated financial allocation.",
       "domain": "Technology",
       "industryPrimary": "AI Software & Platforms",
       "environmentalNexusTags": [],
-      "sources": 2,
-      "corroborating": 2,
+      "sources": 3,
+      "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -7861,7 +7862,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0.1"
+      "version": "1.1"
     },
     {
       "id": "206",
@@ -8012,7 +8013,7 @@
     },
     {
       "id": "210",
-      "name": "US DoD AI Rapid Capabilities Cell",
+      "name": "US DoW AI Rapid Capabilities Cell",
       "lat": 38.8711,
       "lng": -77.0564,
       "bloc": "Western",
@@ -8022,12 +8023,12 @@
       "date": "11 December 2024",
       "location": "United States",
       "scope": "United States (national defence sector)",
-      "description": "The Chief Digital and Artificial Intelligence Office established the AI Rapid Capabilities Cell in partnership with the Defense Innovation Unit to accelerate Department of Defense adoption of AI capabilities. The cell, replacing Task Force Lima, operates across four programme areas: frontier AI pilots, new and emerging company engagement, compute and sandbox infrastructure, and rapid user-centric experimentation.",
-      "investment": "$100M FY2024/FY2025: $35M frontier AI pilots; $40M new and emerging companies; $20M compute and sandbox; $5M rapid experimentation",
+      "description": "The Chief Digital and Artificial Intelligence Office established the AI Rapid Capabilities Cell to accelerate Department of War AI adoption. Replacing Task Force Lima, the cell operates within the CDAO's Pace-Setting Project framework.",
+      "investment": "US$100M FY2024/FY2025 allocation (closed); US$35M frontier AI pilots, US$40M new and emerging companies, US$20M compute and sandbox, US$5M rapid experimentation",
       "domain": "Security",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
-      "sources": 2,
+      "sources": 3,
       "corroborating": 3,
       "confidence": "A",
       "checkpoints": {
@@ -8037,7 +8038,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0"
+      "version": "1.1"
     },
     {
       "id": "211",
