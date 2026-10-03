@@ -48,17 +48,17 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.1": 72,
+        "1.1": 68,
         "1.3": 2,
         "1.2.1": 8,
         "1.3.2": 1,
-        "1.1.1": 21,
-        "1.2": 19,
+        "1.1.1": 22,
+        "1.2": 16,
         "1.1.2": 13,
-        "1.0.1": 8,
+        "1.0.1": 20,
         "1.2.2": 2,
         "1.2.4": 1,
-        "1.0": 72
+        "1.0": 66
       }
     },
     "versionDate": "2026-10-03",
@@ -72,11 +72,11 @@
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2096,
-      "preserved": 2026,
+      "total_sources": 2108,
+      "preserved": 2038,
       "preservation_rate": 0.967,
       "by_status": {
-        "captured": 1903,
+        "captured": 1915,
         "recovered": 32,
         "existing": 91,
         "pending": 16,
@@ -88,8 +88,8 @@
           "preserved": 1306
         },
         "connections": {
-          "total": 489,
-          "preserved": 449
+          "total": 501,
+          "preserved": 461
         },
         "actors": {
           "total": 272,
@@ -5841,8 +5841,8 @@
       "date": "15 April 2025",
       "location": "Kashiwa, Chiba Prefecture, Japan",
       "scope": "Japan (national AI research resource)",
-      "description": "AIST's national AI supercomputer at the Kashiwa site in Chiba, Japan, delivering 6.22 exaflops of half-precision peak AI compute across 6,128 NVIDIA H200 GPUs. Operated as AI Bridging Cloud Infrastructure for Japanese academic and industrial AI research under METI's compute-sovereignty strategy.",
-      "investment": "6,128 NVIDIA H200 GPUs; 6.22 exaflops half-precision; 144 racks; 6 MW electrical / 5.2 MW cooling; PUE <1.15",
+      "description": "AI supercomputer at AIST's Kashiwa site in Chiba, Japan, open to Japanese universities and companies for AI research.",
+      "investment": "6,128 NVIDIA H200 GPUs; 6.22 exaflops half-precision; 144 racks; 6 MW electrical / 5.2 MW cooling",
       "domain": "Energy/Infrastructure",
       "sources": 2,
       "corroborating": 3,
@@ -5853,7 +5853,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -6180,9 +6180,9 @@
       "sample": false,
       "date": "End-2023",
       "location": "Zhongwei, Ningxia Hui Autonomous Region, China",
-      "scope": "China national (东数西算 hub node — dual designation)",
+      "scope": "China national — hub node, dual designation",
       "description": "National-scale AI computing base within China's East Data West Compute (东数西算) programme, designated as the country's first 万卡+ intelligent computing base and one of eight national hub nodes. Multi-operator deployment across China Telecom, China Mobile, and China Unicom.",
-      "investment": "56.5 billion yuan cumulative cluster investment across 26 operators (~US$7.8 billion); 39,700 PFLOPS and 93,000 AI accelerator cards (2024 figures); 2,050 MW planned capacity (中金数据 zero-carbon base project within the cluster)",
+      "investment": "RMB 56.5 billion cumulative cluster investment across 26 operators; 39,700 PFLOPS and 93,000 AI accelerator cards (2024 figures); 2,050 MW planned capacity (中金数据 zero-carbon base project within the cluster)",
       "domain": "Energy/Infrastructure",
       "sources": 3,
       "corroborating": 4,
@@ -6193,7 +6193,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -6275,8 +6275,8 @@
       "sample": false,
       "date": "October 2024",
       "location": "Gui'an New District, Guizhou Province, China",
-      "scope": "China national (东数西算 Guizhou hub node)",
-      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, deploying over 110,000 domestically designed Ascend NPUs within the 东数西算 Guizhou hub node. Power Usage Effectiveness (PUE) of 1.12. Cluster-level chip composition is characterised by the 110,000+ Ascend NPU deployment.",
+      "scope": "China national — East Data West Compute (东数西算) Guizhou hub node",
+      "description": "Huawei Cloud's globally largest intelligent computing centre at time of implementation, running on domestically designed Ascend accelerators.",
       "investment": "Over 110,000 Ascend NPUs; target capacity 150 exaFLOPS; located within Guian New District served by a 500kV substation providing 4,000 MW capacity to the district's 27+ data centres",
       "domain": "Energy/Infrastructure",
       "sources": 1,
@@ -6288,7 +6288,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.0.1",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
       "environmentalNexusTags": [
         {
@@ -6532,7 +6532,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "industryPrimary": "Semiconductors & Equipment",
       "environmentalNexusTags": []
     },
@@ -6576,14 +6576,14 @@
       "sample": false,
       "date": "22 March 2024",
       "location": "Shanghai Lingang New Area, China",
-      "scope": "China (Shanghai Lingang New Area — 东数西算 eastern node)",
-      "description": "China Telecom launched a domesticated single-pool 万卡 (10,000-card) liquid-cooled intelligent computing cluster at Shanghai Lingang, deploying cold plate and immersion cooling architecture for trillion-parameter model training. The facility serves as an eastern computing node within the national 东数西算 (East Data West Computing) strategy.",
-      "investment": "10,000-card AI accelerator pool; PUE <1.25; Phase 3: ~40,000 racks across 300 mu (~200,000 sqm land area; ~400,000 sqm building area); 5A certified (May 2025)",
+      "scope": "China (Shanghai Lingang New Area) — eastern computing node",
+      "description": "China Telecom launched a domesticated single-pool liquid-cooled intelligent computing cluster at Shanghai Lingang, using cold plate and immersion cooling for trillion-parameter model training.",
+      "investment": "10,000-card AI accelerator pool; Phase 3: ~40,000 racks across 300 mu (~200,000 sqm land area; ~400,000 sqm building area); 5A certified (May 2025)",
       "domain": "Energy/Infrastructure",
       "sources": 2,
       "corroborating": 1,
       "confidence": "A",
-      "version": "1.1",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "aiDetail": "OEP (Pathway C — Strong)",
@@ -6653,14 +6653,14 @@
       "sample": false,
       "date": "16 January 2025",
       "location": "Xining, Qinghai, China",
-      "scope": "China (Xining, Qinghai — 东数西算 western computing node)",
-      "description": "China Unicom and Alibaba Cloud jointly launched the Sanjiangyuan Green Power Intelligent Computing Fusion Demonstration Park in Xining, Qinghai, combining domesticated multi-vendor AI computing at scale with 100% locally sourced green electricity and natural cooling from the highland climate.",
-      "investment": "~RMB 2B+ (~US$280M) total investment; 12,288 PFLOPS 万卡 heterogeneous intelligent computing cluster; 100% green electricity; zero-carbon microgrid; multi-vendor AI chips (T-Head, MetaX, Biren, Zhonghao Xinying)",
+      "scope": "China (Xining, Qinghai) — western computing node",
+      "description": "China Unicom and Alibaba Cloud jointly launched the Sanjiangyuan Green Power Intelligent Computing Fusion Demonstration Park in Xining, Qinghai, combining domesticated multi-vendor AI computing at scale with natural cooling from the highland climate.",
+      "investment": "~RMB 2B+ total investment; 12,288 PFLOPS 万卡 heterogeneous intelligent computing cluster; 100% green electricity; zero-carbon microgrid; multi-vendor AI chips (T-Head, MetaX, Biren, Zhonghao Xinying)",
       "domain": "Energy/Infrastructure",
       "sources": 3,
       "corroborating": 2,
       "confidence": "A",
-      "version": "1.2",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "aiDetail": "OEP (Pathway C — Strong)",
@@ -6698,13 +6698,13 @@
       "date": "28 November 2024",
       "location": "Shanghai Lingang New Area, China",
       "scope": "China (Shanghai Lingang New Area)",
-      "description": "China Unicom opened its first fully domesticated 万卡 (10,000-card) intelligent computing centre at Shanghai Lingang, the first facility in the area to achieve ODCC 5A operational certification at time of assessment. The centre deploys Huawei, MetaX, and Hygon accelerators in a multi-architecture configuration with cold plate liquid cooling.",
-      "investment": "4,000 PFLOPS; 15,000 racks; 84-mu campus; PUE 1.2 (2025 operational measurement); 5A certified (November 2024)",
+      "description": "China Unicom opened its first fully domesticated 万卡 (10,000-card) intelligent computing centre at Shanghai Lingang, the first facility in the area to achieve ODCC 5A operational certification. The centre deploys Huawei, MetaX, and Hygon accelerators in a multi-architecture configuration with cold plate liquid cooling.",
+      "investment": "4,000 PFLOPS; 15,000 racks; 84-mu campus",
       "domain": "Energy/Infrastructure",
       "sources": 3,
       "corroborating": 2,
       "confidence": "A",
-      "version": "1.2",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "aiDetail": "OEP (Pathway C — Strong)",
@@ -9031,7 +9031,7 @@
       "location": "Israel (facility undisclosed)",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
-      "version": "1.0",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "aiDetail": "Option A (AI supercomputer; AI model training and inference is the documented use)",
@@ -9039,7 +9039,7 @@
         "implemented": true,
         "current": true
       },
-      "description": "AI supercomputer owned and operated by NVIDIA at its Israeli data centre, built on the Spectrum-X Ethernet networking platform with Dell PowerEdge XE9680 servers and H100 80GB GPUs. First phase completed and in active use November 2023, serving NVIDIA's research and development teams and selected partners.",
+      "description": "AI supercomputer owned and operated by NVIDIA at its Israeli data centre, built on the Spectrum-X Ethernet networking platform with Dell PowerEdge XE9680 servers and H100 80GB GPUs. First phase completed and in active use November 2023.",
       "investment": "TOP500 Rmax 41.50 PFlop/s (117 HGX H100 systems benchmarked; rank 34 November 2024, rank 59 June 2026); phase 1 as announced 128 HGX H100 systems, 4 exaflops AI performance; NVIDIA's May 2023 pre-build cost estimate of several hundred million US dollars",
       "scope": "Israel (facility not publicly identified)",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -9107,7 +9107,7 @@
       "location": "Brandenburg, Germany",
       "domain": "Energy/Infrastructure",
       "confidence": "A",
-      "version": "1.0",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "aiDetail": "Option E (Amazon launch press release — Disclosure-Verified, Confirmed, Operational)",
@@ -9115,7 +9115,7 @@
         "implemented": true,
         "current": true
       },
-      "description": "Amazon Web Services launched the AWS European Sovereign Cloud in Brandenburg, a dedicated region operating entirely within the European Union. Approximately 90 services at general availability, including Amazon SageMaker, Bedrock and Amazon Q.",
+      "description": "Amazon Web Services launched the AWS European Sovereign Cloud in Brandenburg, a dedicated region operating entirely within the European Union.",
       "investment": "Amazon-committed €7.8 billion in Germany through 2040; approximately 90 services at general availability, including SageMaker, Bedrock and Amazon Q.",
       "scope": "Germany (European Union sovereign-cloud reach)",
       "industryPrimary": "Cloud, Data Centres & Connectivity Infrastructure",
@@ -9137,7 +9137,7 @@
       "location": "Shenzhen, China",
       "domain": "Technology",
       "confidence": "A",
-      "version": "1.0",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "threshold": true,
@@ -9166,15 +9166,15 @@
       "location": "Suresnes, France",
       "domain": "Security",
       "confidence": "A",
-      "version": "1.0",
+      "version": "1.0.1",
       "checkpoints": {
         "ai": true,
         "threshold": true,
         "implemented": true,
         "current": true
       },
-      "description": "France's Ministry of the Armed Forces' ASGARD, a classified supercomputer at Fort du Mont-Valérien dedicated to defence artificial intelligence — 1,024 latest-generation accelerators operated by AMIAD for training foundation models.",
-      "investment": "€600 million defence AI envelope under the 2024–2030 military programming law; around 1.8 MW nominal power",
+      "description": "France's Ministry of the Armed Forces' ASGARD, a classified supercomputer dedicated to defence artificial intelligence and to training foundation models.",
+      "investment": "1,024 latest-generation accelerators; €600 million defence AI envelope under the 2024–2030 military programming law; around 1.8 MW nominal power",
       "scope": "Fort du Mont-Valérien, Suresnes, France",
       "industryPrimary": "Defence & Aerospace",
       "environmentalNexusTags": [],
@@ -9224,7 +9224,7 @@
       "sample": false,
       "date": "10 May 2022",
       "location": "Pidu District, Chengdu, Sichuan, China",
-      "scope": "China (Chengdu–Chongqing 东数西算 hub node)",
+      "scope": "China — Chengdu–Chongqing hub node",
       "description": "Chengdu Intelligent Computing Centre is a municipally funded AI compute facility in Pidu District, built with Huawei on a full-stack Ascend platform and opened as the model project of the Chengdu–Chongqing hub under China's east-data-west-computing programme, combining public AI compute, city-brain and research platforms.",
       "investment": "RMB 10.9 billion total project investment; 300 PFLOPS FP16 phase-one AI capacity; ~1,000 Ascend 910 processors",
       "domain": "Energy/Infrastructure",
@@ -9248,7 +9248,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "crossEcosystemPresence": false
     },
     {
@@ -9308,7 +9308,7 @@
       "sample": false,
       "date": "June 2024",
       "location": "Zhenjiang District, Shaoguan, Guangdong, China",
-      "scope": "China (Shaoguan 东数西算 hub node — Greater Bay Area cluster)",
+      "scope": "China — Greater Bay Area hub, Shaoguan cluster",
       "description": "China Unicom’s Greater Bay Area hub data centre in Shaoguan’s Zhenjiang District, a phase-one campus of four data halls and four power buildings inside the national east-data-west-computing Shaoguan cluster, holding 5A-grade intelligent computing certification and built to host customer AI clusters alongside general cloud capacity.",
       "investment": "RMB 4.8 billion phase one (RMB 19 billion project); 48,000 standard racks planned; 120MW total power",
       "domain": "Energy/Infrastructure",
@@ -9341,7 +9341,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.0",
+      "version": "1.0.1",
       "crossEcosystemPresence": false
     }
   ]
