@@ -4,7 +4,7 @@
     "total_events": 219,
     "sample_events": 6,
     "standard_events": 213,
-    "last_updated": "2026-10-01",
+    "last_updated": "2026-10-03",
     "statistics": {
       "by_bloc": {
         "Eastern": 59,
@@ -48,12 +48,12 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.1": 73,
+        "1.1": 72,
         "1.3": 2,
         "1.2.1": 8,
         "1.3.2": 1,
         "1.1.1": 21,
-        "1.2": 18,
+        "1.2": 19,
         "1.1.2": 13,
         "1.0.1": 8,
         "1.2.2": 2,
@@ -61,8 +61,8 @@
         "1.0": 72
       }
     },
-    "versionDate": "2026-10-01",
-    "lastAudit": "2026-10-01",
+    "versionDate": "2026-10-03",
+    "lastAudit": "2026-10-03",
     "event_count": 219,
     "ent_version": "1.0",
     "ent_tagged_events": 51,
@@ -72,19 +72,19 @@
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2092,
+      "total_sources": 2096,
       "preserved": 2026,
-      "preservation_rate": 0.968,
+      "preservation_rate": 0.967,
       "by_status": {
         "captured": 1903,
         "recovered": 32,
         "existing": 91,
-        "no_capture": 54,
-        "pending": 12
+        "pending": 16,
+        "no_capture": 54
       },
       "by_layer": {
         "events": {
-          "total": 1331,
+          "total": 1335,
           "preserved": 1306
         },
         "connections": {
@@ -1512,10 +1512,10 @@
       "date": "15 December 2023",
       "location": "Geneva, Switzerland",
       "scope": "International (39 P-member nations; 63 total SC 42 members)",
-      "description": "First international standard for AI Management Systems (AIMS), establishing requirements for organisations developing, providing, or using AI-based products/services. Developed through ISO/IEC JTC 1/SC 42 consensus process. Active certification schemes operational across multiple jurisdictions, including AWS, SDAIA, and major conformity assessment bodies.",
-      "investment": "39 P-member countries; 51-page standard; 20+ published AI standards in SC 42 portfolio; active certifications (AWS, SDAIA, DNV, SGS, BSI, TÜV SÜD)",
+      "description": "First international standard for AI Management Systems (AIMS), establishing requirements for organisations developing, providing, or using AI-based products/services. Developed through ISO/IEC JTC 1/SC 42 consensus process.",
+      "investment": "39 P-member countries; 51-page standard; 20+ published AI standards in SC 42 portfolio",
       "domain": "Technology",
-      "sources": 7,
+      "sources": 11,
       "corroborating": 11,
       "confidence": "A",
       "checkpoints": {
@@ -1524,7 +1524,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.2",
       "industryPrimary": "AI Software & Platforms"
     },
     {
