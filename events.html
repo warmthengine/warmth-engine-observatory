@@ -3486,25 +3486,25 @@
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
-                    <div class="cov-grid-cell cov-count" id="cov-n-tech">56</div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-tech">—</div>
 
                     <div class="cov-grid-cell cov-domain" style="border-left:2px solid #F59E0B;"><span class="cov-domain-full">Energy / Infrastructure</span><span class="cov-domain-short">Energy / Infra</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-high">HIGH</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
-                    <div class="cov-grid-cell cov-count" id="cov-n-ei">32</div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-ei">—</div>
 
                     <div class="cov-grid-cell cov-domain" style="border-left:2px solid #F87171;"><span class="cov-domain-full">Security</span><span class="cov-domain-short">Security</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-med">MED</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
-                    <div class="cov-grid-cell cov-count" id="cov-n-sec">13</div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-sec">—</div>
 
                     <div class="cov-grid-cell cov-domain" style="border-left:2px solid #10B981;"><span class="cov-domain-full">Trade</span><span class="cov-domain-short">Trade</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
                     <div class="cov-grid-cell"><span class="cov-badge cov-badge-low">LOW</span></div>
                     <div class="cov-grid-cell"><span class="cov-na">—</span></div>
-                    <div class="cov-grid-cell cov-count" id="cov-n-trade">5</div>
+                    <div class="cov-grid-cell cov-count" id="cov-n-trade">—</div>
                 </div>
                 <div class="cov-panel-footer">
                     <div class="cov-info-popover" id="cov-info-popover">WEO's documentation-based verification standard applies consistently across all blocs. Coverage distribution reflects how AI infrastructure coordination is documented across different jurisdictions and institutional cultures: multilateral frameworks, regulatory disclosure conventions, and infrastructure deployment practices generate varying levels of publicly discoverable documentation. Cross-language verification workflows extend source reach beyond English-language documentation, but event counts in any bloc or domain represent conservative lower bounds on AI infrastructure coordination activity, bounded by documentation accessibility rather than event occurrence. The Security domain is additionally constrained by national security classification across all blocs — military and intelligence AI cooperation occurs at levels that public documentation does not reflect, making observable event counts in this domain a particularly conservative lower bound.</div>
@@ -3584,9 +3584,9 @@
                     <th data-sort="domain" class="th-with-tooltip">Domain<span class="th-tooltip">Subject Matter: Energy/Infrastructure, Security, Technology, or Trade</span></th>
                     <th data-sort="industry" class="th-with-tooltip">Industry<span class="th-tooltip">Industry tag: which industry's operational landscape is most directly addressed</span></th>
                     <th class="th-with-tooltip" data-sort="ent">ENT<span class="th-tooltip">Environmental Nexus Tags: where AI infrastructure coordination intersects with environmental systems</span></th>
-                    <th data-sort="cc" class="th-with-tooltip">CC<span class="th-tooltip">Coordination Connections — verified relationships between events</span></th>
+                    <th data-sort="cc" class="th-with-tooltip">CC<span class="th-tooltip">Coordination Connections — relationships between verified events</span></th>
                     <th class="th-with-tooltip">Verif<span class="th-tooltip">Verification Checkpoints: AI Connection, Threshold, Implementation, Currency</span></th>
-                    <th class="th-with-tooltip">Conf<span class="th-tooltip">Confidence Tier: A (High 90%+), B (Medium 70-90%), C (Moderate)</span></th>
+                    <th class="th-with-tooltip">Conf<span class="th-tooltip">Confidence Tier: A (High 90%+), B (Medium 70-90%)</span></th>
                     <th class="th-with-tooltip">Src<span class="th-tooltip">Source Count: Cumulative Primary + Corroborating across all versions</span></th>
                 </tr></thead>
                 <tbody id="events-tbody"></tbody>
@@ -4231,7 +4231,7 @@ const weoTooltips = {
   },
   highlyConnected: {
     title: 'Highly Connected Event',
-    body: 'Events with 3 or more Coordination Connections. Coordination Connections are verified relationships between WEO events — including Policy Cascade, Funding Flow, Framework Family, and Parallel Policy patterns. High connectivity indicates network centrality within the AI infrastructure coordination landscape.'
+    body: 'Events with 3 or more Coordination Connections. Coordination Connections are relationships between verified WEO events — including Policy Cascade, Funding Flow, Framework Family, and Parallel Policy patterns. High connectivity indicates network centrality within the AI infrastructure coordination landscape.'
   },
   scale: {
     title: 'Scale',

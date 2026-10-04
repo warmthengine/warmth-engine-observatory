@@ -16,7 +16,7 @@ BL = {'PAA':'PAA','AIK':'AIK','ACS':'ACS','Part':'Part'}
 GN = {'PAA':'Principal AI Actors','AIK':'AI Infrastructure Keystones','ACS':'Advanced Capability States'}
 GC = ['Grade 1','Grade 2','Grade 3']
 GCLS = ['g1','g2','g3']
-WEO_VERSION = '1.4.0'
+WEO_VERSION = '1.5.0'
 
 # --- Verbatim static assets ported from the live v1.4.0 profiles page (2B reconciliation) ---
 # Part 7C dynamic actor/group counts (DOM self-heal), WS-2b evidence drawer, #269 live-auth hydrate.
