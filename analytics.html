@@ -1491,32 +1491,10 @@
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
         if (distinctStat) {
-            var distinctCount = 0;
-            var hitCap = false;
-            if (days === 1) {
-                var dayObj = rawData[currentDates[currentDates.length - 1]] || {};
-                distinctCount = dayObj.distinct_mcp_clients || 0;
-            } else {
-                var nameSet = {};
-                currentDates.forEach(function(d) {
-                    var day = rawData[d] || {};
-                    // The worker stores this as a name→count MAP (bounded at 50), not an
-                    // array — an Array.isArray-only test here silently returned 0 for every
-                    // multi-day view. Both shapes are accepted so old and new days both count.
-                    var names = day.mcp_client_names;
-                    if (Array.isArray(names)) {
-                        if (names.length >= 50) hitCap = true;
-                        names.forEach(function(n) { nameSet[n] = 1; });
-                    } else if (names && typeof names === 'object') {
-                        var nameKeys = Object.keys(names);
-                        if (nameKeys.length >= 50) hitCap = true;
-                        nameKeys.forEach(function(n) { nameSet[n] = 1; });
-                    }
-                });
-                distinctCount = Object.keys(nameSet).length;
-            }
+            var distinct = countDistinctMcpClients(rawData, currentDates);
+            var distinctCount = distinct.count;
             if (distinctCount > 0) {
-                distinctStat.textContent = distinctCount + (hitCap ? '+' : '') +
+                distinctStat.textContent = distinctCount + (distinct.overflow ? '+' : '') +
                     ' distinct client' + (distinctCount !== 1 ? 's' : '');
             } else {
                 distinctStat.textContent = '';
@@ -1680,6 +1658,25 @@
         // Hourly chart
         lastHourData = agg.by_hour;
         renderHourly(agg.by_hour);
+    }
+
+    // Distinct client names across the days in view, from by_mcp_client_named ('name vX',
+    // or bare 'name' when the handshake sent no version). mcp_client_names is not used: the
+    // worker stops adding to it at 50 names a day. by_mcp_client_named holds 300 keys a day
+    // and counts the rest under 'other', which is not a name; any 'other' marks the count as
+    // a floor.
+    function countDistinctMcpClients(rawData, dates) {
+        var nameSet = {};
+        var overflow = false;
+        dates.forEach(function(d) {
+            var named = (rawData[d] || {}).by_mcp_client_named || {};
+            Object.keys(named).forEach(function(key) {
+                if (key === 'other') { overflow = true; return; }
+                var cut = key.lastIndexOf(' v');
+                nameSet[cut >= 0 ? key.slice(0, cut) : key] = 1;
+            });
+        });
+        return { count: Object.keys(nameSet).length, overflow: overflow };
     }
 
     function aggregateDays(rawData, dates) {
