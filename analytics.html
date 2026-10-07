@@ -337,6 +337,8 @@
         .metric-stat {
             font-family: var(--weo-font-mono); font-size: 0.6875rem;
             color: var(--weo-text-muted); margin-top: 2px;
+            /* Anchors the "+" count's .info-pop, as .panel-title does for panel tooltips. */
+            position: relative;
         }
 
         @media (max-width: 767px) {
@@ -1494,8 +1496,18 @@
             var distinct = countDistinctMcpClients(rawData, currentDates);
             var distinctCount = distinct.count;
             if (distinctCount > 0) {
-                distinctStat.textContent = distinctCount + (distinct.overflow ? '+' : '') +
-                    ' distinct client' + (distinctCount !== 1 ? 's' : '');
+                var distinctText = distinctCount + (distinct.overflow ? '+' : '') +
+                    ' distinct client name' + (distinctCount !== 1 ? 's' : '');
+                if (distinct.overflow) {
+                    distinctStat.innerHTML = escapeHtml(distinctText) + ' ' +
+                        '<span class="info-wrap">' +
+                            '<button type="button" class="info-dot" aria-label="About this count" aria-expanded="false">i</button>' +
+                            '<span class="info-pop" role="tooltip">' + escapeHtml('At least ' + distinctCount +
+                                ': some client names were grouped under "other" because a day\'s list was full.') + '</span>' +
+                        '</span>';
+                } else {
+                    distinctStat.textContent = distinctText;
+                }
             } else {
                 distinctStat.textContent = '';
             }
