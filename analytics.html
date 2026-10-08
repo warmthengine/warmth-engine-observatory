@@ -688,7 +688,7 @@
         }
         .trend-day:hover .trend-tooltip { opacity: 1; }
         .trend-legend {
-            display: flex; gap: var(--weo-space-lg);
+            display: flex; gap: var(--weo-space-xs) var(--weo-space-lg); flex-wrap: wrap;
             margin-top: var(--weo-space-md); justify-content: center;
         }
         .trend-legend-item {
@@ -697,7 +697,7 @@
             color: var(--weo-text-muted);
         }
         .trend-legend-swatch {
-            width: 10px; height: 10px; border-radius: 2px;
+            width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
         }
         .trend-legend-swatch.mcp { background: var(--ana-mcp); }
         .trend-legend-swatch.api { background: var(--ana-api); }
