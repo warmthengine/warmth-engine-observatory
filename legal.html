@@ -570,7 +570,7 @@
         <header class="page-header">
             <h1 class="page-title">Privacy Policy & Terms of Service</h1>
             <p class="page-subtitle">How WEO handles your data and the terms governing platform use</p>
-            <p class="last-updated">Last updated: June 2026</p>
+            <p class="last-updated">Last updated: October 2026</p>
         </header>
         
         <!-- Privacy Policy -->
@@ -583,25 +583,27 @@
                     <ul>
                         <li><strong>Subscription Reference:</strong> When you subscribe, payment is processed by Stripe through its Managed Payments service, under which Stripe (via Link) acts as merchant of record and seller of record for the transaction. Your customer and billing details are held by Stripe; WEO receives only a subscription reference to issue and manage your access token, and does not store your name, email, or payment details.</li>
                         <li><strong>Contact Communications:</strong> If you email us, we retain that correspondence to respond to your enquiry.</li>
+                        <li><strong>API and MCP Requests:</strong> When the application programming interface (API) or the Model Context Protocol (MCP) server is called, WEO records the time, the endpoint or tool called, the parameters supplied (each value shortened; parameters that look like credentials are never recorded), the calling client's name and type, the browser or client identifier for some requests, the country of origin, the access tier and whether the call succeeded. These records measure platform use and are not linked to a subscriber. IP addresses are not stored, except for five minutes to limit repeated failed sign-in attempts.</li>
                     </ul>
                     
                     <h3>Information We Do Not Collect</h3>
                     <ul>
                         <li>We do not use tracking cookies</li>
-                        <li>We do not sell or share data with third parties</li>
+                        <li>We do not sell data, or share it beyond the service providers named below</li>
                         <li>We do not collect payment card details — Stripe handles all payment processing</li>
                         <li>We do not use advertising or ad-tracking technologies</li>
                     </ul>
                     
                     <h3>Third-Party Services</h3>
                     <p><strong>Stripe:</strong> Stripe, as merchant of record, processes payment, calculates and remits applicable sales taxes and VAT, and holds your customer details. Your card statement will show a charge from LINK.COM. WEO receives a subscription reference to fulfil your subscription but does not receive or store payment card details.</p>
-                    <p><strong>GoatCounter:</strong> We use GoatCounter for aggregate, cookieless traffic analytics. The counting script is served from this domain (<code>/js/count.js</code>), not from a third-party CDN. It records page path, referrer, browser and screen size, and a country-level location; it sets no cookies, assigns no persistent identifier, and does not track visitors across sites or sessions.</p>
+                    <p><strong>GoatCounter:</strong> We use GoatCounter for aggregate, cookieless traffic analytics. The counting script is served from this domain (<code>/js/count.js</code>), not from a third-party CDN. It records page path, page title, the page address's query string, referrer, browser and screen size, and a country-level location; it sets no cookies, assigns no persistent identifier, and does not track visitors across sites or sessions.</p>
+                    <p><strong>Fonts, maps and scripts:</strong> Pages load typefaces from Google Fonts; the map page also loads map scripts from unpkg and map tiles from MapTiler. As with any web request, these services receive your IP address and browser details when a page loads.</p>
                     <p><strong>Browser storage:</strong> If you enter an access token, it is stored in your browser's <code>localStorage</code> so that you remain signed in between visits. It stays on your device, is sent only to this domain to authenticate API and MCP requests, and is removed when you clear site data.</p>
                     <p><strong>Resend:</strong> Transactional email (delivery of your access token) is sent via Resend.</p>
-                    <p><strong>Cloudflare:</strong> The platform may use Cloudflare for security and performance. Cloudflare's privacy policy applies to their services.</p>
+                    <p><strong>Cloudflare:</strong> Cloudflare hosts the API and MCP server and the request records described above. Server error logs are kept by Cloudflare for up to seven days. Cloudflare's privacy policy applies to its services.</p>
                     
                     <h3>Data Retention</h3>
-                    <p>Your subscription reference is retained while your subscription is active and for a reasonable period afterward for support purposes. Contact correspondence is retained as needed to provide support. You may request deletion of your data by contacting us.</p>
+                    <p>Your subscription reference is retained while your subscription is active and for a reasonable period afterward for support purposes. Contact correspondence is retained as needed to provide support. In API and MCP request records, the per-request detail (parameters, client names and browser identifiers) is removed after 13 months; daily totals without that detail are kept. Copies of request records that could not be written normally are deleted after 90 days. You may request deletion of your data by contacting us.</p>
                     
                     <h3>Your Rights</h3>
                     <p>You have the right to request access to, correction of, or deletion of any personal data we hold. Contact us at the email below for any privacy-related requests.</p>
