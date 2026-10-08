@@ -702,6 +702,7 @@
         .trend-legend-swatch.mcp { background: var(--ana-mcp); }
         .trend-legend-swatch.api { background: var(--ana-api); }
         .trend-legend-swatch.tool { background: var(--ana-tool); }
+        .trend-legend-swatch.probe { width: 6px; height: 6px; border-radius: 50%; background: var(--weo-status-negative); }
 
         /* Change 3 — tool-calls series. A SEPARATE small chart beneath the MCP/API one,
            not a shared axis: tool calls run roughly 60x smaller than request totals, so a
@@ -731,6 +732,13 @@
         /* A day where the field EXISTS but counted zero calls — a thin dim tick, visually
            distinct from a day where the field never existed (no bar at all, see renderTrend). */
         .trend-bar-tool.zero { background: var(--weo-border-subtle); opacity: 0.7; }
+        /* Calls naming a tool that is not registered (by_unknown_tool): a dot at the top of
+           the column flags them; the count is in the tooltip and is never added to the bar. */
+        .trend-probe-mark {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 4px; border-radius: 50%;
+            background: var(--weo-status-negative);
+        }
 
         /* ========================================
            HOURLY PATTERN
@@ -932,12 +940,13 @@
     <div class="trend-panel" id="trendPanel">
         <div class="panel-title">Daily Trend</div>
         <div class="trend-chart" id="trendChart"></div>
-        <div class="trend-tool-label">Tool calls per day<span class="info-wrap"><button type="button" class="info-dot" aria-label="About the tool-calls series" aria-expanded="false">i</button><span class="info-pop" role="tooltip">On its own scale — tool calls run roughly 60x smaller than request totals, so plotted against the chart above it would read as a flat line. Bar height is only comparable day-to-day within this strip. Tool-call counting began 24 August 2026 (worker 1.18.9): a day with no bar here was never measured, which is different from a measured day with zero calls (shown as a thin dim tick).</span></span></div>
+        <div class="trend-tool-label">Tool calls per day<span class="info-wrap"><button type="button" class="info-dot" aria-label="About the tool-calls series" aria-expanded="false">i</button><span class="info-pop" role="tooltip">On its own scale — tool calls run roughly 60x smaller than request totals, so plotted against the chart above it would read as a flat line. Bar height is only comparable day-to-day within this strip. Tool-call counts run from 9 June 2026; before about 6 September 2026 they also include calls to tool names that don't exist. A day with no bar here was never measured, which is different from a measured day with zero calls (shown as a thin dim tick).</span></span></div>
         <div class="trend-chart trend-chart-tool" id="trendToolChart"></div>
         <div class="trend-legend">
             <div class="trend-legend-item"><div class="trend-legend-swatch mcp"></div>MCP</div>
             <div class="trend-legend-item"><div class="trend-legend-swatch api"></div>API</div>
             <div class="trend-legend-item"><div class="trend-legend-swatch tool"></div>Tool Calls</div>
+            <div class="trend-legend-item"><div class="trend-legend-swatch probe"></div>Unregistered tool names (not in bar)</div>
         </div>
     </div>
 
@@ -1980,24 +1989,28 @@
         });
         if (maxVal === 0) maxVal = 1;
 
-        // Change 3 — tool calls per group, summed from by_tool_outcome ('<tool>|<outcome>' →
-        // count). That field exists only from worker 1.18.9 onward (24 Aug 2026, per the
-        // live data). A group counts as measured if AT LEAST ONE of its dates carries the
+        // Change 3 — tool calls per group, summed from by_tool (registered tool → count).
+        // by_tool is kept when the worker removes a day's per-call detail after 13 months,
+        // and since worker 1.22.1 (about 6 Sep 2026) it excludes unregistered names, so
+        // probe bursts no longer inflate the bar (before that they are mixed in and cannot
+        // be separated). A group counts as measured if AT LEAST ONE of its dates carries the
         // field; an all-absent group stays null (rendered as no bar at all, below) — never
-        // coerced to 0, which would assert "measured, nothing happened". A group straddling
-        // the 24 Aug boundary sums only its measured dates, same absent-vs-zero distinction
-        // as the daily chart just applied per-group instead of per-day.
-        var groupToolCounts = groups.map(function(g) {
+        // coerced to 0, which would assert "measured, nothing happened".
+        // Unregistered names (by_unknown_tool, removed with the detail) are summed apart:
+        // null when no date in the group carries the field, shown as a dot + tooltip figure.
+        function sumGroup(g, field) {
             var sum = 0, measured = false;
             g.forEach(function(d) {
                 var day = dailyData[d];
-                if (day && day.by_tool_outcome) {
+                if (day && day[field]) {
                     measured = true;
-                    Object.keys(day.by_tool_outcome).forEach(function(k) { sum += day.by_tool_outcome[k] || 0; });
+                    Object.keys(day[field]).forEach(function(k) { sum += day[field][k] || 0; });
                 }
             });
             return measured ? sum : null;
-        });
+        }
+        var groupToolCounts = groups.map(function(g) { return sumGroup(g, 'by_tool'); });
+        var groupUnknownCounts = groups.map(function(g) { return sumGroup(g, 'by_unknown_tool'); });
         var maxTool = 0;
         groupToolCounts.forEach(function(c) { if (c !== null && c > maxTool) maxTool = c; });
         if (maxTool === 0) maxTool = 1;
@@ -2042,17 +2055,20 @@
                 var tcol = document.createElement('div');
                 tcol.className = 'trend-day' + (qualitySuffix ? ' biased' : '');
                 var count = groupToolCounts[i];
+                var unknown = groupUnknownCounts[i];
+                var unknownText = unknown > 0 ? ' · Unregistered tool names: ' + unknown + ' (not in bar)' : '';
+                var unknownMark = unknown > 0 ? '<div class="trend-probe-mark"></div>' : '';
                 if (count === null) {
                     // Absent, not zero: no bar, tooltip explains why on hover/tap.
-                    tcol.innerHTML = '<div class="trend-tooltip">' + label + ' · Tool calls: no data (before tracking began)</div>';
+                    tcol.innerHTML = '<div class="trend-tooltip">' + label + ' · Tool calls: no data (before tracking began)' + unknownText + '</div>' + unknownMark;
                 } else {
                     // A measured-zero group gets a short fixed dim tick (.zero); a measured
                     // non-zero group is scaled against maxTool, with a floor so a real but
                     // small count never shrinks to invisible.
                     var toolPct = count === 0 ? 6 : Math.max(4, count / maxTool * 100);
                     tcol.innerHTML =
-                        '<div class="trend-tooltip">' + label + ' · Tool calls: ' + count + escapeHtml(qualitySuffix) + '</div>' +
-                        '<div class="trend-bar-tool' + (count === 0 ? ' zero' : '') + '" style="height:' + toolPct + '%"></div>';
+                        '<div class="trend-tooltip">' + label + ' · Tool calls: ' + count + unknownText + escapeHtml(qualitySuffix) + '</div>' +
+                        '<div class="trend-bar-tool' + (count === 0 ? ' zero' : '') + '" style="height:' + toolPct + '%"></div>' + unknownMark;
                 }
                 toolChart.appendChild(tcol);
             }
