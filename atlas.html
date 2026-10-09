@@ -11543,10 +11543,12 @@
                 if (left + tooltipWidth > window.innerWidth - padding) {
                     left = window.innerWidth - tooltipWidth - padding;
                 }
-                const tooltipHeight = 150;
+                // Overlay is laid out while hidden (visibility, not display): measure its filled height.
+                const tooltipHeight = tooltipOverlay.offsetHeight || 150;
                 if (top + tooltipHeight > window.innerHeight - padding) {
                     top = triggerRect.top - tooltipHeight - 8;
                 }
+                top = Math.max(padding, Math.min(top, window.innerHeight - padding - tooltipHeight));
                 tooltipOverlay.style.top = top + 'px';
                 tooltipOverlay.style.left = left + 'px';
                 tooltipOverlay.classList.add('visible');

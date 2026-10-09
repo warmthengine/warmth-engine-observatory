@@ -11351,11 +11351,14 @@ function generateCCSection(eventId, showFullContent) {
           left = window.innerWidth - tooltipWidth - padding;
         }
         
-        // If tooltip would go below viewport, position above
-        const tooltipHeight = 150; // Estimate
+        // If tooltip would go below viewport, position above. The overlay is laid out
+        // while hidden (visibility, not display), so its filled height can be measured.
+        const tooltipHeight = tooltipOverlay.offsetHeight || 150;
         if (top + tooltipHeight > window.innerHeight - padding) {
           top = triggerRect.top - tooltipHeight - 8;
         }
+        // Keep the whole tooltip on screen
+        top = Math.max(padding, Math.min(top, window.innerHeight - padding - tooltipHeight));
         
         tooltipOverlay.style.top = top + 'px';
         tooltipOverlay.style.left = left + 'px';
