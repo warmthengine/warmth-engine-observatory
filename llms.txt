@@ -16,7 +16,13 @@ The Compute Commitment Register records, for any named actor, publicly documente
 
 ## Currency
 
-WEO is a verified, dated record, not a live feed. Events enter the database after a verification period: six months after implementation as standard, 60 days for verified product releases, which enter at general availability (previews, waitlists and betas are not implementation) and carry a maturity re-review 180 days after implementation. Each event record carries its implementation date and, where it has been updated, the date of its latest verified update. The Bloc Membership Register is published as dated snapshots and verified in full at least annually. The Sovereign Capability Profiles are published as a dated, versioned register, reassessed at methodology version milestones, with interim changes logged against the verified event that triggered them. Figures are dated observations of the documented record.
+WEO is a verified, dated record, not a live feed. Events enter the database after a verification period: six months after implementation as standard, or 60 days for verified product releases (models, platforms and equivalent software products meeting the reduced-lag conditions), which enter at general availability and carry a maturity re-review 180 days after implementation. Previews, waitlists and betas are not implementation.
+
+Record dates: `date` is the implementation date (operational or enacted, not announced); `versionDate` is the latest verified update, present only where a rolling update has been applied, with its history in `rollingUpdates` (Analyst tier). Records are updated through rolling updates under the same verification standard.
+
+Registers: the Bloc Membership Register is published as dated snapshots (`snapshot_date`) and verified in full at least annually. The Sovereign Capability Profiles are a dated, versioned register (`assessed`, YYYY-MM per actor), reassessed at methodology version milestones, with interim changes logged against the triggering event. Figures are dated observations of the documented record.
+
+Verification window: https://warmthengine.com/research/methodology/manual/#section-3-9. Reduced lag for verified product releases: https://warmthengine.com/research/methodology/manual/#section-3-9-2. Resolve any term with `get_methodology`.
 
 ## Machine access
 
