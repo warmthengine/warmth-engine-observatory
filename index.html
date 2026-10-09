@@ -9804,16 +9804,16 @@ function generateCCSection(eventId, showFullContent) {
       return dateStr;
     }
     // Dual-date header (§6): "Implemented: [date] · Updated: [versionDate]" when the event has
-    // recorded update history; otherwise the plain implementation date. versionDate and
+    // recorded update history; otherwise "Implemented: [date]" alone. versionDate and
     // rollingUpdates are premium-gated (absent on free-tier objects), so the Updated portion
     // only renders for full-tier viewers.
     function eventDateHeaderHtml(event) {
       var implDate = escH(formatDateUK(event.date));
       if (event && event.versionDate && event.rollingUpdates && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0') {
         var updated = new Date(event.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
-        return 'Implemented: ' + implDate + '<span class="panel-subtitle-updated"> · Updated: ' + escH(updated) + '</span>';
+        return 'Implemented: ' + implDate + '<span class="panel-subtitle-updated"> · Updated: ' + escH(updated) + '</span>' + generateTooltip('dualDate');
       }
-      return implDate;
+      return 'Implemented: ' + implDate + generateTooltip('dualDate');
     }
     function getIndTags(eventId) { return industryTagsData[eventId] || {primary:"AI Software & Platforms",secondary:[]}; }
     function getEntTags(eventId) { return entTagsData[eventId] || []; }
@@ -10008,6 +10008,10 @@ function generateCCSection(eventId, showFullContent) {
     // ========================================
     
     const weoTooltips = {
+      dualDate: {
+        title: 'Implemented · Updated',
+        body: 'Implemented is the date the event became operational or enacted, not the date it was announced. Updated is the date of the record\'s latest verified update. Events enter the database after a verification period: six months after implementation as standard, 60 days for verified product releases. Each record shows what was verified as of its dates.'
+      },
       tier: {
         title: 'Tier Classification',
         body: '<strong>T1 (Cross-Bloc):</strong> Coordination involving verified cross-bloc adoption or implementation by the principal AI actor of each of at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
@@ -10183,6 +10187,7 @@ function generateCCSection(eventId, showFullContent) {
     };
     
     const weoMethodAnchors = {
+      dualDate:         'section-3-9',
       tier:             'section-5-2',
       confidence:       'section-3-4-5',
       checkpoints:      'section-3-5',
@@ -11346,11 +11351,14 @@ function generateCCSection(eventId, showFullContent) {
           left = window.innerWidth - tooltipWidth - padding;
         }
         
-        // If tooltip would go below viewport, position above
-        const tooltipHeight = 150; // Estimate
+        // If tooltip would go below viewport, position above. The overlay is laid out
+        // while hidden (visibility, not display), so its filled height can be measured.
+        const tooltipHeight = tooltipOverlay.offsetHeight || 150;
         if (top + tooltipHeight > window.innerHeight - padding) {
           top = triggerRect.top - tooltipHeight - 8;
         }
+        // Keep the whole tooltip on screen
+        top = Math.max(padding, Math.min(top, window.innerHeight - padding - tooltipHeight));
         
         tooltipOverlay.style.top = top + 'px';
         tooltipOverlay.style.left = left + 'px';

@@ -14,6 +14,10 @@ Sovereign Capability Profiles assess state actors across seven AI infrastructure
 
 The Compute Commitment Register records, for any named actor, publicly documented commitments of computing capacity to societal challenges — one record per instrument, quantities as declared and never summed — assigned to the Challenge List Reference, a fixed, epoch-stamped list derived by a threshold rule over the challenge lists of qualifying institutions. Events whose own source is a register record carry a Challenge Attribution.
 
+## Currency
+
+WEO is a verified, dated record, not a live feed. Events enter the database after a verification period: six months after implementation as standard, 60 days for verified product releases, which enter at general availability (previews, waitlists and betas are not implementation) and carry a maturity re-review 180 days after implementation. Each event record carries its implementation date and, where it has been updated, the date of its latest verified update. The Bloc Membership Register is published as dated snapshots and verified in full at least annually. The Sovereign Capability Profiles are published as a dated, versioned register, reassessed at methodology version milestones, with interim changes logged against the verified event that triggered them. Figures are dated observations of the documented record.
+
 ## Machine access
 
 - [MCP server](https://warmthengine.com/mcp): 18 read-only tools over the corpus — events, Coordination Connections (CCs), Sovereign Capability Profile (SCP) actors, coordination topology, methodology lookup, and Contribution Architecture lookup. JSON-RPC 2.0 over streamable-HTTP. A human-readable tool reference (descriptions + input schemas) is served at the same URL when fetched with Accept: text/html.

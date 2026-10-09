@@ -4116,6 +4116,10 @@ let sampleEventsFull = {};
 // ========================================
 
 const weoTooltips = {
+  dualDate: {
+    title: 'Implemented · Updated',
+    body: 'Implemented is the date the event became operational or enacted, not the date it was announced. Updated is the date of the record\'s latest verified update. Events enter the database after a verification period: six months after implementation as standard, 60 days for verified product releases. Each record shows what was verified as of its dates.'
+  },
   tier: {
     title: 'Tier Classification',
     body: '<strong>T1 (Cross-Bloc):</strong> Coordination involving verified cross-bloc adoption or implementation by the principal AI actor of each of at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
@@ -4334,6 +4338,7 @@ function scrollToModalSection(sectionKey) {
 }
 
 const weoMethodAnchors = {
+  dualDate:         'section-3-9',
   tier:             'section-5-2',
   confidence:       'section-3-4-5',
   checkpoints:      'section-3-5',
@@ -5490,17 +5495,17 @@ const openModal = (id) => {
     // Set subtitle with event type, date, and location (matching index.html format)
     const eventLocation = eventLocations[id] || '';
     // Dual-date header (§6): when the event carries update history, show
-    // "Implemented: [date] · Updated: [versionDate]"; otherwise the implementation date alone.
+    // "Implemented: [date] · Updated: [versionDate]"; otherwise "Implemented: [date]" alone.
     // versionDate + rollingUpdates are premium-gated (not in the free whitelist), so the
-    // Updated portion only renders for full-tier viewers; free tier keeps the plain date.
+    // Updated portion only renders for full-tier viewers.
     const _implDateUK = formatDateUK(e.implementation_date);
     const _hasUpdate = full && full.version && full.version !== '1.0' && full.versionDate && full.rollingUpdates && full.rollingUpdates.length > 0;
     let _datePart;
     if (_hasUpdate) {
         const _updatedUK = new Date(full.versionDate).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
-        _datePart = 'Implemented: ' + esc(_implDateUK) + '<span class="modal-subtitle-updated"> · Updated: ' + esc(_updatedUK) + '</span>';
+        _datePart = 'Implemented: ' + esc(_implDateUK) + '<span class="modal-subtitle-updated"> · Updated: ' + esc(_updatedUK) + '</span>' + generateTooltip('dualDate');
     } else {
-        _datePart = esc(_implDateUK);
+        _datePart = 'Implemented: ' + esc(_implDateUK) + generateTooltip('dualDate');
     }
     document.getElementById('modal-subtitle').innerHTML = esc(e.event_type) + ' • ' + _datePart + (eventLocation ? ' • ' + esc(eventLocation) : '');
     
