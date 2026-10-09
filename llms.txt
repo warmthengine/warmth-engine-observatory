@@ -16,7 +16,7 @@ The Compute Commitment Register records, for any named actor, publicly documente
 
 ## Currency
 
-WEO is a verified, dated record, not a live feed. Events enter after a verification period: six months after implementation as standard, or 60 days for verified product releases (models, platforms and equivalent software products meeting the reduced-lag conditions), which carry a maturity re-review 180 days after implementation. A product release's implementation date is its general availability; previews, waitlists and betas are not implementation. Each event's `date` is its implementation date; `version` and `versionDate` identify its current version, as rolling updates and corrections are applied under the same standard. The Bloc Membership Register and the Sovereign Capability Profiles are published as dated, versioned snapshots, and the Compute Commitment Register as dated observations.
+WEO is a verified, dated record, not a live feed. Events enter after a six-month verification lag from implementation — 60 days for verified product releases (models, platforms and equivalent software products meeting the reduced-lag conditions). For product releases, implementation is general availability; preview, waitlist and beta phases are not implementation. Each event's `date` is its implementation date, and its `versionDate` the date of its current version. The Bloc Membership Register and the Sovereign Capability Profiles are published as dated, versioned snapshots, and the Compute Commitment Register as dated observations.
 
 ## Machine access
 
