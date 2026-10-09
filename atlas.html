@@ -5410,6 +5410,10 @@
         // the Map and Events surfaces. Supersedes Brief 4's
         // ATLAS_CC_CONFIDENCE_TOOLTIP (covered by weoTooltips.ccConfidence).
         const weoTooltips = {
+            dualDate: {
+              title: 'Implemented · Updated',
+              body: 'Implemented is the date the event became operational or enacted, not the date it was announced. Updated is the date of the record\'s latest verified update. Events enter the database after a verification period: six months after implementation as standard, 60 days for verified product releases. Each record shows what was verified as of its dates.'
+            },
           tier: {
             title: 'Tier Classification',
             body: '<strong>T1 (Cross-Bloc):</strong> Coordination involving verified cross-bloc adoption or implementation by the principal AI actor of each of at least two distinct ecosystems. Requires binding commitments and material integration. <strong>T2 (Between-Bloc):</strong> Events creating structural separation between blocs through Restriction or parallel Buildout. <strong>T3 (Intra-Bloc):</strong> Coordination occurring entirely within a single bloc.'
@@ -5503,6 +5507,7 @@
 
         // Tooltip HTML helpers — same signatures as index.html.
         const weoMethodAnchors = {
+          dualDate:          'section-3-9',
           tier:              'section-5-2',
           confidence:        'section-3-4-5',
           checkpoints:       'section-3-5',
@@ -11016,15 +11021,15 @@
             const subtitleParts = [];
             if (event.type) subtitleParts.push(escapeHtml(event.type));
             // Dual-date header (§6): "Implemented: [date] · Updated: [versionDate]" when update
-            // history exists (full-tier — versionDate/rollingUpdates are premium); else plain date.
+            // history exists (full-tier — versionDate/rollingUpdates are premium); else "Implemented: [date]".
             if (event.date) {
                 const implHtml = escapeHtml(formatDateLong(event.date));
                 if (event.versionDate && Array.isArray(event.rollingUpdates) && event.rollingUpdates.length > 0 && event.version && event.version !== '1.0') {
                     let updHtml = event.versionDate;
                     try { updHtml = new Date(event.versionDate + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }); } catch(_e) {}
-                    subtitleParts.push('Implemented: ' + implHtml + '<span class="atlas-panel-subtitle-updated"> · Updated: ' + escapeHtml(updHtml) + '</span>');
+                    subtitleParts.push('Implemented: ' + implHtml + '<span class="atlas-panel-subtitle-updated"> · Updated: ' + escapeHtml(updHtml) + '</span>' + generateTooltip('dualDate'));
                 } else {
-                    subtitleParts.push(implHtml);
+                    subtitleParts.push('Implemented: ' + implHtml + generateTooltip('dualDate'));
                 }
             }
             if (event.location) subtitleParts.push(escapeHtml(event.location));
