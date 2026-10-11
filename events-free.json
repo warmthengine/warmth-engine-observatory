@@ -4,7 +4,7 @@
     "total_events": 219,
     "sample_events": 6,
     "standard_events": 213,
-    "last_updated": "2026-10-03",
+    "last_updated": "2026-10-11",
     "statistics": {
       "by_bloc": {
         "Eastern": 59,
@@ -48,21 +48,22 @@
         "Trade & Logistics": 2
       },
       "by_version": {
-        "1.1": 68,
+        "1.1.1": 23,
         "1.3": 2,
-        "1.2.1": 8,
+        "1.2.1": 9,
         "1.3.2": 1,
-        "1.1.1": 22,
-        "1.2": 16,
-        "1.1.2": 13,
+        "1.1": 67,
+        "1.2": 15,
+        "1.1.2": 12,
         "1.0.1": 20,
+        "1.1.3": 1,
         "1.2.2": 2,
         "1.2.4": 1,
         "1.0": 66
       }
     },
-    "versionDate": "2026-10-03",
-    "lastAudit": "2026-10-03",
+    "versionDate": "2026-10-11",
+    "lastAudit": "2026-10-11",
     "event_count": 219,
     "ent_version": "1.0",
     "ent_tagged_events": 51,
@@ -72,11 +73,11 @@
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2108,
-      "preserved": 2038,
+      "total_sources": 2106,
+      "preserved": 2036,
       "preservation_rate": 0.967,
       "by_status": {
-        "captured": 1915,
+        "captured": 1913,
         "recovered": 32,
         "existing": 91,
         "pending": 16,
@@ -84,8 +85,8 @@
       },
       "by_layer": {
         "events": {
-          "total": 1335,
-          "preserved": 1306
+          "total": 1333,
+          "preserved": 1304
         },
         "connections": {
           "total": 501,
@@ -124,7 +125,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1",
+      "version": "1.1.1",
       "basel5": [
         {
           "factor": "Size",
@@ -201,7 +202,7 @@
         },
         {
           "id": "P4",
-          "desc": "CCTV News (新闻联播) — EDWC four-year review: 带动社会投资超万亿元 (driven social investment >RMB 1T); 30+ computing new cities; ~30% annual computing growth; 70% new capacity from west; 80% intelligent computing from hub nodes (December 2025)",
+          "desc": "CCTV News (新闻联播) — East Data West Compute four-year review: 带动社会投资超万亿元 (December 2025)",
           "url": "https://news.cctv.com/2025/12/23/ARTIoVoHlGIuNbznu8jHI1zp251223.shtml",
           "accessDate": "2026-09-24",
           "captureStatus": "captured",
@@ -243,7 +244,7 @@
         },
         {
           "id": "C5",
-          "desc": "China Daily / Xinhua — Liu Liehong at Guiyang big data expo: RMB 43.5B direct + 带动投资超2000亿元 (>RMB 200B driven investment, June 2024); confirms the measure construction behind the record's original '~US$28B total leveraged' (August 2024)",
+          "desc": "China Daily / Xinhua — Liu Liehong at the Guiyang big data expo: 带动投资超2000亿元 (August 2024)",
           "url": "https://govt.chinadaily.com.cn/s/202409/02/WS66d51596498ed2d7b7eb8373/china-invests-over-6-1b-in-major-computing-hubs.html",
           "accessDate": "2026-09-24",
           "captureStatus": "captured",
@@ -310,7 +311,7 @@
       ],
       "versionDate": "2026-09-22",
       "genesis": {
-        "description": "Initial entry. China East Data West Compute Infrastructure Network: 8 hubs, 10 clusters, 215.5 EFLOPS (Q1 2025). Investment: RMB 43.5B direct (~US$6.1B) + ~US$28B total leveraged. The $28B was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, June 2024, Liu Liehong at Guiyang big data expo). Updated to >RMB 1T (December 2025) at PU-01-001; dollar conversions removed in favour of RMB source figures. Phantom v1.2.1 from 22 May 2026 Table 1 batch — no rollingUpdates, no genesis."
+        "description": "Initial entry. China East Data West Compute Infrastructure Network: 8 hubs, 10 clusters, 215.5 EFLOPS (Q1 2025). Investment: RMB 43.5B direct (~US$6.1B) + ~US$28B total leveraged. The $28B was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, June 2024, Liu Liehong at Guiyang big data expo). Updated to >RMB 1T (December 2025) at PU-01-001; dollar conversions removed in favour of RMB source figures."
       },
       "genesisDate": "2026-05-22",
       "rollingUpdates": [
@@ -318,7 +319,7 @@
           "id": "PU-01-001",
           "version": "1.1",
           "date": "2026-09-22",
-          "description": "Investment updated: driven social investment (带动社会投资) from >RMB 200B (June 2024) to >RMB 1T (December 2025, P4 CCTV). Measure-scope confirmed: the record's '~US$28B total leveraged' was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, Liu Liehong, August 2024, C5 Xinhua). Both use 带动 (driven/leveraged). The direct component (RMB 43.5B, 直接投资) is unchanged. Dollar conversions removed from investment field in favour of RMB source figures — Chinese-language source denominations do not age with the exchange rate. Basel5 Size updated to match. 215.5 EFLOPS (Q1 2025) unchanged — dated observation, protected. Phantom v1.2.1 corrected to true 1.0 → 1.1. Additional confirmation: 中央网信办/CAC republished the same CCTV passage on 24 December 2025 (cac.gov.cn). No updated EFLOPS figure found for the changelog.",
+          "description": "Investment updated: driven social investment (带动社会投资) from >RMB 200B (June 2024) to >RMB 1T (December 2025, P4 CCTV). Measure-scope confirmed: the record's '~US$28B total leveraged' was a dollar conversion of 带动投资超2000亿元 (>RMB 200B, Liu Liehong, August 2024, C5 Xinhua). Both use 带动 (driven/leveraged). The direct component (RMB 43.5B, 直接投资) is unchanged. Dollar conversions removed from investment field in favour of RMB source figures — Chinese-language source denominations do not age with the exchange rate. Basel5 Size updated to match. 215.5 EFLOPS (Q1 2025) unchanged — dated observation, protected. Additional confirmation: 中央网信办/CAC republished the same CCTV passage on 24 December 2025 (cac.gov.cn). No updated EFLOPS figure found for the changelog.",
           "changedFields": [
             "investment",
             "basel5",
@@ -1281,8 +1282,7 @@
                 "type": "PRIMARY",
                 "accessDate": "2026-09-04",
                 "captureStatus": "captured",
-                "snapshotUrl": "https://web.archive.org/web/20260904044257/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc-opening-remarks-by-the-honourable-jonathan-wilkinson-minister-of-ene.html",
-                "captureNote": "Source URL corrected from the retired washington-dc.html address to the full opening-remarks page (G-067); superseded snapshot 20260819145807 preserved in the durability registry (S108, handoff H-002)."
+                "snapshotUrl": "https://web.archive.org/web/20260904044257/https://www.canada.ca/en/natural-resources-canada/news/2025/01/january-15-2025-woodrow-wilson-international-center-for-scholars-washington-dc-opening-remarks-by-the-honourable-jonathan-wilkinson-minister-of-ene.html"
               }
             ],
             "summary": "6 qualifying responses across 3 governments (EU, Japan, Canada) within 18 months",
@@ -1516,7 +1516,7 @@
       "investment": "39 P-member countries; 51-page standard; 20+ published AI standards in SC 42 portfolio",
       "domain": "Technology",
       "sources": 11,
-      "corroborating": 11,
+      "corroborating": 9,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -1524,7 +1524,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.2",
+      "version": "1.2.1",
       "industryPrimary": "AI Software & Platforms"
     },
     {
@@ -3626,8 +3626,8 @@
       "description": "European High-Performance Computing Joint Undertaking (EuroHPC JU) pre-exascale supercomputer inaugurated in Kajaani, Finland, hosted by CSC – IT Center for Science. Built on HPE Cray EX, its LUMI-G partition comprises 2,978 nodes with four AMD Instinct MI250X accelerators each. Third fastest globally at implementation (November 2022 TOP500); supports European AI and scientific computing.",
       "investment": "€202M total (€101M EuroHPC JU + €101M consortium); TOP500 #3 at implementation (November 2022), #9 on the November 2025 TOP500",
       "domain": "Energy/Infrastructure",
-      "sources": 6,
-      "corroborating": 5,
+      "sources": 7,
+      "corroborating": 4,
       "confidence": "A",
       "checkpoints": {
         "ai": true,
@@ -3635,7 +3635,7 @@
         "implemented": true,
         "current": true
       },
-      "version": "1.1.2",
+      "version": "1.1.3",
       "basel5": [
         {
           "factor": "Size",
@@ -3663,7 +3663,6 @@
           "rationale": "11-country consortium under EU regulatory framework (Council Regulation 2021/1173)"
         }
       ],
-      "f1_annotation": "F1 qualification via Top500 pathway (#3 at implementation November 2022); currently #9 (November 2025)",
       "tierRationale": "Tier 3: Intra-Bloc Coordination (Western). An eleven-state consortium's shared supercomputer, established under Council Regulation (EU) 2021/1173 and operated by CSC at Kajaani for the EuroHPC Joint Undertaking. The Undertaking's inauguration release and CSC's system documentation frame LUMI as European research infrastructure for AI and scientific computing, its GPU partition built on AMD Instinct accelerators. Governance, funding and access all run through the Undertaking's own institutional framework: every consortium state participates under the Regulation that constitutes it.",
       "blocAnalysis": [
         {
@@ -3734,28 +3733,28 @@
           "accessDate": "2026-06-25",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260625113642/https://lumi-supercomputer.eu/lumis-full-system-architecture-revealed/"
+        },
+        {
+          "id": "P7",
+          "desc": "European Commission (DG CONNECT) — LUMI inauguration press release (13 June 2022)",
+          "url": "https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland",
+          "accessDate": "2026-08-25",
+          "captureStatus": "captured",
+          "snapshotUrl": "https://web.archive.org/web/20260825114145/https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland"
         }
       ],
       "corroboratingSources": [
         {
           "id": "C1",
-          "desc": "HPCwire — “As LUMI Launches, a Look at the State of EuroHPC”, 13 June 2022. Corroborates the inauguration at Kajaani and the EuroHPC programme context. Its 4,112-node whole-system figure is not the LUMI-G partition and does not corroborate the 2,978-node LUMI-G count.",
+          "desc": "HPCwire — “As LUMI Launches, a Look at the State of EuroHPC” (13 June 2022)",
           "url": "https://www.hpcwire.com/2022/06/13/as-lumi-launches-a-look-at-the-state-of-eurohpc/",
           "accessDate": "2026-08-25",
           "captureStatus": "captured",
           "snapshotUrl": "https://web.archive.org/web/20260825114454/https://www.hpcwire.com/2022/06/13/as-lumi-launches-a-look-at-the-state-of-eurohpc/"
         },
         {
-          "id": "C2",
-          "desc": "European Commission (DG CONNECT) — LUMI inauguration press release, 13 June 2022. Address repaired 25 August 2026 to the digital-strategy channel; the presscorner address no longer resolves. Ruled not independent of the EuroHPC Joint Undertaking (operator, 25 August 2026); carries no corroboration weight.",
-          "url": "https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland",
-          "accessDate": "2026-08-25",
-          "captureStatus": "captured",
-          "snapshotUrl": "https://web.archive.org/web/20260825114145/https://digital-strategy.ec.europa.eu/en/news/new-european-supercomputer-inaugurated-finland"
-        },
-        {
           "id": "C3",
-          "desc": "Computer Weekly (TechTarget) — “The inauguration of LUMI: Europe’s most powerful supercomputer launches”, 13 June 2022. Corroborates the inauguration date and place, the €202m cost, the HPE Cray build and the third-fastest ranking. Replaces an unrecoverable Nature address (HTTP 404 confirmed twice).",
+          "desc": "Computer Weekly (TechTarget) — “The inauguration of LUMI: Europe’s most powerful supercomputer launches” (13 June 2022)",
           "url": "https://www.computerweekly.com/news/252521433/The-inauguration-of-LUMI-Europes-most-powerful-supercomputer-launches",
           "accessDate": "2026-08-25",
           "captureStatus": "captured",
