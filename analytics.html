@@ -1142,22 +1142,59 @@
     // if one of its hyphen/slash/space-delimited components does — "service-monitor/2.5 (url)"
     // must match on its "service-monitor" component exactly as "abc-monitor" matches whole.
     // Declared here, in one place, so the list can grow without touching the matching logic.
-    var AUTOMATED_CLIENT_SUFFIXES = ['-probe', '-scanner', '-monitor', '-census', '-crawler', '-index', '-healthcheck', '-collector'];
+    var AUTOMATED_CLIENT_SUFFIXES = ['-probe', '-scanner', '-monitor', '-census', '-crawler', '-index', '-healthcheck', '-collector',
+        '-bot', '-prober', '-scan', '-health', '-liveness', '-watch', '-survey', '-research', '-catalog', '-catalogue', '-directory',
+        '-check', '-checker', '-validator', '-inspector', '-audit', '-uptime', '-snapshot', '-sweep', '-spike', '-review',
+        '-verification', '-harvester'];
+    // Endings that match with or without a leading hyphen ("FaceabotProbe", "agentprobe").
+    var AUTOMATED_CLIENT_BARE_SUFFIXES = ['probe'];
     var AUTOMATED_CLIENT_PREFIX_RE = /^__verifymcp_auth_probe_/i;
+    // Matched anywhere in the name or user agent, e.g. "Mozilla/5.0 (compatible; CensysInspect/1.1; ...)".
+    var AUTOMATED_CLIENT_ANYWHERE_RE = /censysinspect/i;
 
     // Explicit list — established from the operator's own records, not inferred from a
     // naming pattern. Matched on the NAME component only (the leading, non-version part of
     // "mcpbeat v0.1"), case-insensitively, so a version bump never drops a client off the list.
-    var AUTOMATED_CLIENT_NAMES = ['mcpbeat', 'glama', 'agent-tools.cloud', 'zevruna', 'mcpindex-trust', 'glama-mcp-inspector', 'meshdns-health', 'mcpscoringengine', 'mcp-rugpull-research', 'fixter-monitoring'];
+    var AUTOMATED_CLIENT_NAMES = ['mcpbeat', 'glama', 'agent-tools.cloud', 'zevruna', 'mcpindex-trust', 'glama-mcp-inspector', 'meshdns-health', 'mcpscoringengine', 'mcp-rugpull-research', 'fixter-monitoring',
+        'agentcommonsdoctor', 'gaip-observatory', 'mcp-observatory', 'x402-observatory', 'stillos-surface-clock', 'golemreach-trust',
+        'mcp-vouch', 'mcp-pulse', 'agentpulse', 'mcpmon', 'apps-atlas-detector', 'ai-app-tracker', 'agentstatus-gate', 'agent-scout',
+        'yado-walker', 'tripwire-archive', 'sideeffect-tool-study', 'see-registry-introspector', 'mcp-discovery-measurement',
+        'mcp-scraper', 'recon', 'capdiff', 'alpic-beacon', 'mcp-protect', 'acton-skill-extractor', 'agentalog-sonda'];
+
+    // Explicit names that contain a space, so the leading component alone cannot identify them
+    // ("MCP Radar" would otherwise read as "MCP"). Matched on the whole name, version stripped.
+    var AUTOMATED_CLIENT_FULL_NAMES = ['agentsjunction health checker', 'mcp radar'];
+
+    // Never filtered, whatever else matches. Whole-name match (version stripped), so "mcp" exempts
+    // only a client named exactly "mcp", not "MCP Radar" or "mcp-scraper".
+    var NEVER_FILTER_CLIENT_NAMES = ['claude-code', 'anthropic', 'anthropic/claudeai', 'anthropic/toolbox', 'mcp', 'mcpclient', 'rmcp',
+        'dollardollardollar-signals', 'tendle', 'zammo', 'aioum-node', 'frndos', 'histor', 'otter', 'test', 'sarnai-sales',
+        'cashmachine-mcp-router', 'og-rag-connected-mcp', 'pinework-connector-sync', 'supermetrics-toolkit-hub', 'fastn-e2e',
+        'forge-executor', 'agents-feed', 'agents-hub', 'aiagentboard-hub', 'callset-marketplace', 'agentic-resource-search',
+        'centinela', 'heldfast', 'legion-tlog', 'ziwei-ore', 'ziwei-seat', 'mcp-runtime-engine', 'mcpdd', 'span-pipeline'];
+
+    // Lower-cased whole name with a trailing version token ("v0.1", "2.5") removed.
+    function normalizeClientName(name) {
+        return String(name).trim().toLowerCase().replace(/[\s\/]+v?\d[\w.+\-]*$/, '');
+    }
+
+    function isNeverFilteredClient(name) {
+        if (!name) return false;
+        return NEVER_FILTER_CLIENT_NAMES.indexOf(normalizeClientName(name)) !== -1;
+    }
 
     function isAutomatedClientName(name) {
         if (!name) return false;
+        if (isNeverFilteredClient(name)) return false;
         if (AUTOMATED_CLIENT_PREFIX_RE.test(name)) return true;
+        if (AUTOMATED_CLIENT_ANYWHERE_RE.test(name)) return true;
+        if (AUTOMATED_CLIENT_FULL_NAMES.indexOf(normalizeClientName(name)) !== -1) return true;
         var components = String(name).split(/[\/\s()]+/).filter(Boolean);
         if (components.length && AUTOMATED_CLIENT_NAMES.indexOf(components[0].toLowerCase()) !== -1) return true;
         return components.some(function(c) {
             var lc = c.toLowerCase();
-            return AUTOMATED_CLIENT_SUFFIXES.some(function(suf) { return lc.endsWith(suf); });
+            return AUTOMATED_CLIENT_SUFFIXES.some(function(suf) { return lc.endsWith(suf); }) ||
+                AUTOMATED_CLIENT_BARE_SUFFIXES.some(function(suf) { return lc.endsWith(suf); });
         });
     }
 
@@ -1600,6 +1637,7 @@
             Object.keys(agg.by_unknown_tool || {}).forEach(function(t) { unregisteredToolNames[t] = true; });
             toolCallLog = toolCallLog.filter(function(rec) {
                 var client = rec.named_client || rec.client || '';
+                if (isNeverFilteredClient(client)) return true;
                 if (isAutomatedClientName(client)) return false;
                 if (rec.tool && unregisteredToolNames[rec.tool]) return false;
                 return true;
