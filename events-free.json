@@ -1,49 +1,49 @@
 {
   "metadata": {
     "version": "1.6",
-    "total_events": 219,
+    "total_events": 222,
     "sample_events": 6,
-    "standard_events": 213,
-    "last_updated": "2026-10-11",
+    "standard_events": 216,
+    "last_updated": "2026-10-18",
     "statistics": {
       "by_bloc": {
-        "Eastern": 59,
-        "Western": 140,
-        "Western-Led": 15,
+        "Eastern": 60,
+        "Western": 141,
+        "Western-Led": 16,
         "Eastern-Led": 4,
         "Cross-Bloc": 1
       },
       "by_tier": {
-        "T3": 199,
-        "T2": 19,
+        "T3": 201,
+        "T2": 20,
         "T1": 1
       },
       "by_type": {
         "Infrastructure": 51,
         "Coordination": 32,
-        "Policy": 67,
-        "Corporate": 69
+        "Policy": 69,
+        "Corporate": 70
       },
       "by_confidence": {
-        "A": 213,
+        "A": 216,
         "B": 6
       },
       "by_assessment_pathway": {
-        "basel5": 115,
+        "basel5": 116,
         "keohane": 31,
-        "pisa5": 51,
+        "pisa5": 53,
         "routeBased": 22,
         "oep": 7,
         "piet": 5
       },
       "by_industry_primary": {
         "Cloud, Data Centres & Connectivity Infrastructure": 65,
-        "Semiconductors & Equipment": 43,
+        "Semiconductors & Equipment": 45,
         "AI Software & Platforms": 71,
         "Mining & Critical Minerals": 11,
         "Defence & Aerospace": 18,
         "Financial Services & Investment": 3,
-        "Energy & Power Infrastructure": 5,
+        "Energy & Power Infrastructure": 6,
         "Automotive & Manufacturing": 1,
         "Trade & Logistics": 2
       },
@@ -59,15 +59,15 @@
         "1.1.3": 1,
         "1.2.2": 2,
         "1.2.4": 1,
-        "1.0": 66
+        "1.0": 69
       }
     },
-    "versionDate": "2026-10-11",
-    "lastAudit": "2026-10-11",
-    "event_count": 219,
+    "versionDate": "2026-10-18",
+    "lastAudit": "2026-10-18",
+    "event_count": 222,
     "ent_version": "1.0",
-    "ent_tagged_events": 51,
-    "ent_total_tags": 80,
+    "ent_tagged_events": 52,
+    "ent_total_tags": 81,
     "wer": {
       "value": 7.2,
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
@@ -9342,6 +9342,113 @@
       },
       "version": "1.0.1",
       "crossEcosystemPresence": false
+    },
+    {
+      "id": "253",
+      "name": "SK hynix M15X DRAM Fab",
+      "lat": 36.6555,
+      "lng": 127.432,
+      "bloc": "Western",
+      "tier": 3,
+      "type": "Corporate",
+      "sample": false,
+      "date": "Q1 2026",
+      "location": "Cheongju, North Chungcheong Province, South Korea",
+      "scope": "South Korea (global AI memory supply chain)",
+      "description": "SK hynix began wafer input at M15X, its new DRAM fab in Cheongju, in the first quarter of 2026. The fab adds production capacity for next-generation DRAM, including high-bandwidth memory (HBM).",
+      "investment": "More than KRW 20 trillion (~US$14.6B) invested, as reported in December 2025",
+      "domain": "Energy/Infrastructure",
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": [],
+      "sources": 2,
+      "corroborating": 3,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Option E (SK hynix Newsroom release — Disclosure-Verified, Confirmed, Operational)",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false
+    },
+    {
+      "id": "254",
+      "name": "US BIS Advanced Computing Licence Review Policy Revision",
+      "lat": 38.8951,
+      "lng": -77.0364,
+      "bloc": "Western-Led",
+      "tier": 2,
+      "type": "Policy",
+      "sample": false,
+      "date": "15 January 2026",
+      "location": "Washington, DC, United States",
+      "scope": "United States; export licensing targeting China and Macau",
+      "description": "The Bureau of Industry and Security (BIS) issued rule 91 FR 1684, which moves export licensing of advanced computing chips bound for China and Macau from a presumption of denial to case-by-case review subject to certifications. It covers chips below set performance thresholds, including the NVIDIA H200 and AMD MI325X.",
+      "investment": "N/A (regulatory instrument). Covered chips: total processing performance below 21,000 and total DRAM bandwidth below 6,500 GB/s. NVIDIA's filings record licences granted from February 2026.",
+      "domain": "Security",
+      "sources": 6,
+      "corroborating": 2,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false,
+      "industryPrimary": "Semiconductors & Equipment",
+      "environmentalNexusTags": [],
+      "infrastructureThreads": []
+    },
+    {
+      "id": "255",
+      "name": "China AI–Energy Two-Way Empowerment Action Plan",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "bloc": "Eastern",
+      "tier": 3,
+      "type": "Policy",
+      "sample": false,
+      "date": "8 April 2026",
+      "location": "Beijing, China",
+      "scope": "China (national)",
+      "description": "The AI–Energy Two-Way Empowerment Action Plan (国能发科技〔2026〕34号) pairs computing facilities with clean-energy supply and applies industry-specific AI models across China's energy industries. It sets targets for 2027 and 2030 and directs provinces and central enterprises to carry them out.",
+      "investment": "No capital component (national action plan)",
+      "domain": "Energy/Infrastructure",
+      "sources": 3,
+      "corroborating": 1,
+      "confidence": "A",
+      "checkpoints": {
+        "ai": true,
+        "aiDetail": "Dedicated AI Provisions",
+        "threshold": true,
+        "implemented": true,
+        "current": true
+      },
+      "version": "1.0",
+      "crossEcosystemPresence": false,
+      "industryPrimary": "Energy & Power Infrastructure",
+      "environmentalNexusTags": [
+        {
+          "type": "ENT-2",
+          "name": "Environmental Enablement",
+          "mechanism": "The plan adds renewable-energy use, power-usage efficiency, green-electricity share and waste-heat recovery to the energy-saving review of new and expanded computing facilities.",
+          "evidenceBasis": "Documented",
+          "sources": [
+            {
+              "citation": "National Energy Administration — Action Plan 国能发科技〔2026〕34号 full text, Task (六)",
+              "type": "primary",
+              "url": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
+            }
+          ]
+        }
+      ],
+      "infrastructureThreads": []
     }
   ]
 }
