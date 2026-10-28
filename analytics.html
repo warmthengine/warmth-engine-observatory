@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
     <meta property="og:image" content="https://warmthengine.com/og-image.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="weo-version" content="1.5.0">
+    <meta name="weo-version" content="1.5.1">
     <meta name="robots" content="noindex, nofollow">
     <title>Analytics — Warmth Engine Observatory</title>
 
@@ -1010,7 +1010,7 @@
     <!-- Tool Calls: per-call attribution log (tool · client · country · when) -->
     <div class="panels-row">
         <div class="panel panel-scrollable" style="grid-column:1/-1">
-            <div class="panel-title"><span>Tool Calls <span id="toolsCallLogCount"></span></span> <button class="copy-btn" onclick="copyToolCallLog(this)" title="Copy all tool calls to clipboard">Copy</button></div>
+            <div class="panel-title"><span>Tool Calls <span id="toolsCallLogCount"></span></span> <button class="copy-btn" onclick="copyToolCallLog(this)" title="Copy the listed tool calls to clipboard">Copy</button></div>
             <div id="toolsCallLogPanel"></div>
         </div>
     </div>
@@ -1133,10 +1133,17 @@
     // Such rows show no delta at all — not a zero, not a dash.
     var ROW_DELTA_FLOOR = 20;
 
-    // Change 2 — CSV export cap for the per-call attribution log. The ON-SCREEN Tool Calls
-    // panel is untouched by this constant; it has its own per-day server-side cap and keeps
-    // rendering the full selected window. This only bounds what Export CSV writes to disk.
-    var CALL_LOG_EXPORT_CAP = 500;
+    // Change 2 — CSV export cap for the per-call attribution log, multi-day windows only.
+    // Worker 1.27.0: the 24h view exports the WHOLE stored day (fetched with days=1, up to the
+    // worker's 3,000-a-day cap), uncapped; a multi-day response carries at most the newest
+    // 1,000 entries (CALL_LOG_RANGE_CAP), so this is everything a range can export. The
+    // on-screen panel has its own bound, CALL_LOG_RENDER_CAP.
+    var CALL_LOG_EXPORT_CAP = 1000;
+
+    // Worker 1.27.0 — the Tool Calls panel renders at most this many rows, newest first, and
+    // says "showing N of M" when it holds back any (M = the stored total for the window).
+    // A day can now store 3,000 calls, so an uncapped week would be tens of thousands of rows.
+    var CALL_LOG_RENDER_CAP = 500;
 
     // Change 4 — probe filter. A client/UA name is automated if it ends in one of these, OR
     // if one of its hyphen/slash/space-delimited components does — "service-monitor/2.5 (url)"
@@ -1314,95 +1321,127 @@
     if (csvBtn) {
         csvBtn.addEventListener('click', function() {
             if (!lastCsvData) return;
-            var agg = lastCsvData.agg;
-            var days = lastCsvData.days;
-            var lines = ['field,value', 'period_days,' + days,
-                'mcp,' + agg.mcp, 'api,' + agg.api,
-                'authenticated,' + agg.authenticated, 'self_excluded,' + agg.self];
-
-            function addMap(prefix, obj) {
-                if (!obj) return;
-                Object.keys(obj).sort(function(a, b) { return obj[b] - obj[a]; }).forEach(function(k) {
-                    lines.push(prefix + '_' + k.replace(/,/g, ';') + ',' + obj[k]);
-                });
+            // Worker 1.27.0 — the 24h view exports the whole stored day: fetch it alone (days=1
+            // carries the full log on every worker version) and build the whole file from that
+            // one response, so the counts and the call rows describe the same moment. If the
+            // fetch fails, export what the view holds, capped as for a range.
+            if (lastCsvData.days === 1 && lastCsvData.dates && lastCsvData.dates.length === 1) {
+                var exportDate = lastCsvData.dates[0];
+                fetch(API_BASE + '?days=1&date=' + encodeURIComponent(exportDate), {
+                    headers: { 'X-WEO-Password': password }
+                })
+                .then(function(r) { if (!r.ok) throw new Error('status ' + r.status); return r.json(); })
+                .then(function(day) {
+                    var one = {}; one[exportDate] = day;
+                    var daily = {}; daily[exportDate] = csvDailyRow(day);
+                    writeCsv({ agg: aggregateDays(one, [exportDate]), days: 1, daily: daily }, null);
+                })
+                .catch(function() { writeCsv(lastCsvData, CALL_LOG_EXPORT_CAP); });
+                return;
             }
-            addMap('country', agg.by_country);
-            addMap('client', agg.by_client);
-            addMap('endpoint', agg.by_endpoint);
-            addMap('tool', agg.by_tool);
-            addMap('method', agg.by_method);
-            addMap('ua', agg.by_ua);
-            addMap('named_client', agg.by_mcp_client_named);
-            addMap('mcp_client', agg.mcp_by_client);
-            addMap('api_client', agg.api_by_client);
-            addMap('protocol_version', agg.by_protocol_version);
-            // Worker 1.18.9. The first three carry a joined 'a|b' key; the pipe is kept as
-            // written, the way every other key here is (only commas are escaped, for CSV).
-            addMap('protocol_client', agg.by_protocol_client);
-            addMap('client_country', agg.by_client_country);
-            addMap('tool_outcome', agg.by_tool_outcome);
-            addMap('classified_ua', agg.by_classified_ua);
-            addMap('referer', agg.by_referer);
-            // Worker 1.22.0 — joined 'tool|parameter' key, same convention as the three above.
-            addMap('rejected_param', agg.by_rejected_param);
-            // Worker 1.22.1 — tools/call names that are not registered tools. Single-value
-            // key like 'tool' above, and the complement of it: no name appears in both.
-            addMap('unknown_tool', agg.by_unknown_tool);
-            addMap('hour', agg.by_hour);
-
-            // Change 1 — per-day series, so a long range can be analysed outside the browser.
-            // lastCsvData.daily is built once in render() from lastRawData, threaded through
-            // rather than reached for here as a global. Ascending by date (ISO sorts lexically
-            // = chronologically); only days the API actually returned — it never pads.
-            var daily = lastCsvData.daily || {};
-            var dailyDates = Object.keys(daily).sort();
-            if (dailyDates.length) {
-                lines.push('');
-                lines.push('daily');
-                // record_quality (worker 1.25.0) travels with every row, so an undercounted
-                // day can never be analysed as a complete one; empty for days without the label.
-                lines.push('date,mcp,api,authenticated,self_excluded,record_quality');
-                dailyDates.forEach(function(d) {
-                    var dd = daily[d];
-                    lines.push([d, dd.mcp, dd.api, dd.authenticated, dd.self, dd.record_quality].join(','));
-                });
-            }
-
-            // Per-call attribution log. Rows, not a count-map, so it gets its own headed
-            // section after the maps rather than being flattened into field,value pairs.
-            // Country stays a raw code here — the CSV's existing convention throughout.
-            // Change 2 — capped at CALL_LOG_EXPORT_CAP records (already newest-first, from
-            // aggregateDays), with a note above the section when the cap actually truncated —
-            // a silently shortened log would look like the rest just never happened.
-            if (agg.tools_call_log && agg.tools_call_log.length) {
-                var fullLogLen = agg.tools_call_log.length;
-                var exportedLog = agg.tools_call_log.slice(0, CALL_LOG_EXPORT_CAP);
-                lines.push('');
-                if (fullLogLen > CALL_LOG_EXPORT_CAP) {
-                    lines.push(fullLogLen + ' tool-call records exist; showing the most recent ' + CALL_LOG_EXPORT_CAP + '.');
-                }
-                lines.push('tool_calls');
-                lines.push('ts,tool,args,outcome,client,country');
-                exportedLog.forEach(function(rec) {
-                    lines.push([
-                        rec.ts || '',
-                        rec.tool || '',
-                        rec.args || '',   // Worker 1.18.8, forward-only: '' for pre-1.18.8 days too
-                        rec.outcome || '',  // Worker 1.18.9, forward-only: '' when not classified
-                        rec.named_client || rec.client || '',
-                        rec.country || ''
-                    ].map(function(v) { return String(v).replace(/,/g, ';'); }).join(','));
-                });
-            }
-
-            var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'weo-analytics-' + days + 'd.csv';
-            a.click();
-            URL.revokeObjectURL(url);
+            writeCsv(lastCsvData, CALL_LOG_EXPORT_CAP);
         });
+    }
+
+    // One CSV file from a { agg, days, daily } snapshot. `callLogCap` bounds the tool_calls
+    // section (null = the whole log).
+    function writeCsv(csvData, callLogCap) {
+        var agg = csvData.agg;
+        var days = csvData.days;
+        var lines = ['field,value', 'period_days,' + days,
+            'mcp,' + agg.mcp, 'api,' + agg.api,
+            'authenticated,' + agg.authenticated, 'self_excluded,' + agg.self];
+
+        function addMap(prefix, obj) {
+            if (!obj) return;
+            Object.keys(obj).sort(function(a, b) { return obj[b] - obj[a]; }).forEach(function(k) {
+                lines.push(prefix + '_' + k.replace(/,/g, ';') + ',' + obj[k]);
+            });
+        }
+        addMap('country', agg.by_country);
+        addMap('client', agg.by_client);
+        addMap('endpoint', agg.by_endpoint);
+        addMap('tool', agg.by_tool);
+        addMap('method', agg.by_method);
+        addMap('ua', agg.by_ua);
+        addMap('named_client', agg.by_mcp_client_named);
+        addMap('mcp_client', agg.mcp_by_client);
+        addMap('api_client', agg.api_by_client);
+        addMap('protocol_version', agg.by_protocol_version);
+        // Worker 1.18.9. The first three carry a joined 'a|b' key; the pipe is kept as
+        // written, the way every other key here is (only commas are escaped, for CSV).
+        addMap('protocol_client', agg.by_protocol_client);
+        addMap('client_country', agg.by_client_country);
+        addMap('tool_outcome', agg.by_tool_outcome);
+        addMap('classified_ua', agg.by_classified_ua);
+        addMap('referer', agg.by_referer);
+        // Worker 1.22.0 — joined 'tool|parameter' key, same convention as the three above.
+        addMap('rejected_param', agg.by_rejected_param);
+        // Worker 1.22.1 — tools/call names that are not registered tools. Single-value
+        // key like 'tool' above, and the complement of it: no name appears in both.
+        addMap('unknown_tool', agg.by_unknown_tool);
+        addMap('hour', agg.by_hour);
+
+        // Change 1 — per-day series, so a long range can be analysed outside the browser.
+        // csvData.daily is built in render() from lastRawData (or, for the whole-day export,
+        // from the fetched day), threaded through rather than reached for here as a global. Ascending by date (ISO sorts lexically
+        // = chronologically); only days the API actually returned — it never pads.
+        var daily = csvData.daily || {};
+        var dailyDates = Object.keys(daily).sort();
+        if (dailyDates.length) {
+            lines.push('');
+            lines.push('daily');
+            // record_quality (worker 1.25.0) travels with every row, so an undercounted
+            // day can never be analysed as a complete one; empty for days without the label.
+            lines.push('date,mcp,api,authenticated,self_excluded,record_quality');
+            dailyDates.forEach(function(d) {
+                var dd = daily[d];
+                lines.push([d, dd.mcp, dd.api, dd.authenticated, dd.self, dd.record_quality].join(','));
+            });
+        }
+
+        // Per-call attribution log. Rows, not a count-map, so it gets its own headed
+        // section after the maps rather than being flattened into field,value pairs.
+        // Country stays a raw code here — the CSV's existing convention throughout.
+        // Change 2 — capped at callLogCap records (already newest-first, from aggregateDays;
+        // null for the whole-day export), with a note above the section whenever fewer rows
+        // are written than are stored — a silently shortened log would look like the rest
+        // just never happened. Worker 1.27.0: "stored" counts the entries a range response
+        // held back (tools_call_log_total); on 1.26.1 it is the length of the log, as before.
+        if (agg.tools_call_log && agg.tools_call_log.length) {
+            var storedLogLen = Math.max(agg.tools_call_log_total || 0, agg.tools_call_log.length);
+            var exportedLog = callLogCap === null ? agg.tools_call_log : agg.tools_call_log.slice(0, callLogCap);
+            lines.push('');
+            if (storedLogLen > exportedLog.length) {
+                lines.push(storedLogLen + ' tool-call records exist; showing the most recent ' + exportedLog.length + '.');
+            }
+            lines.push('tool_calls');
+            lines.push('ts,tool,args,outcome,client,country');
+            exportedLog.forEach(function(rec) {
+                lines.push([
+                    rec.ts || '',
+                    rec.tool || '',
+                    rec.args || '',   // Worker 1.18.8, forward-only: '' for pre-1.18.8 days too
+                    rec.outcome || '',  // Worker 1.18.9, forward-only: '' when not classified
+                    rec.named_client || rec.client || '',
+                    rec.country || ''
+                ].map(function(v) { return String(v).replace(/,/g, ';'); }).join(','));
+            });
+        }
+
+        var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'weo-analytics-' + days + 'd.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // One day's row of the CSV daily section.
+    function csvDailyRow(day) {
+        return { mcp: day.mcp || 0, api: day.api || 0, authenticated: day.authenticated || 0, self: day.self || 0,
+            record_quality: /^[a-z_]+$/.test(day.record_quality || '') ? day.record_quality : '' };
     }
 
     // --- Data loading ---
@@ -1580,10 +1619,9 @@
         currentDates.forEach(function(d) {
             var day = rawData[d];
             if (!day) return;
-            dailyForCsv[d] = { mcp: day.mcp || 0, api: day.api || 0, authenticated: day.authenticated || 0, self: day.self || 0,
-                record_quality: /^[a-z_]+$/.test(day.record_quality || '') ? day.record_quality : '' };
+            dailyForCsv[d] = csvDailyRow(day);
         });
-        lastCsvData = { agg: agg, days: days, daily: dailyForCsv };
+        lastCsvData = { agg: agg, days: days, daily: dailyForCsv, dates: currentDates };
 
         // Daily trend: hide for 24h (single bar is degenerate)
         var trendPanel = document.getElementById('trendPanel');
@@ -1677,7 +1715,7 @@
         // Worker 1.22.1. Same contract: {} on every day stored before that deploy, so
         // renderBars draws its own "No data yet" state and no window can throw.
         renderBars('unknownToolPanel', agg.by_unknown_tool, 'mcp', deltaCtx(prior.by_unknown_tool));
-        renderToolCallLog('toolsCallLogPanel', toolCallLog, toolCallLogEmptyMsg);
+        renderToolCallLog('toolsCallLogPanel', toolCallLog, toolCallLogEmptyMsg, agg.tools_call_log_total, probeFilterOn && toolCallLog.length < agg.tools_call_log.length);
 
         // --- Panel-title distinct counts -------------------------------------------
         // Countries: distinct origins, with a period-over-period move. This is a count of
@@ -1760,7 +1798,11 @@
             // keep their unsplit by_tool, so a window that spans the deploy reads the old
             // mixed total in Tools and only the post-deploy names here.
             by_unknown_tool: {},
-            tools_call_log: []   // list, not a count-map — concatenated (not merged) below
+            tools_call_log: [],  // list, not a count-map — concatenated (not merged) below
+            // Worker 1.27.0 — calls STORED for these days. A multi-day response keeps only the
+            // newest 1,000 entries and marks a day it shortened with tools_call_log_stored; a
+            // day without the field (every 1.26.1 response) stored exactly what it carries.
+            tools_call_log_total: 0
         };
         dates.forEach(function(d) {
             var day = rawData[d];
@@ -1789,12 +1831,14 @@
             merge(result.by_unknown_tool, day.by_unknown_tool);
             // tools_call_log is a list, not a count-map — concatenate, don't merge().
             if (day.tools_call_log) result.tools_call_log = result.tools_call_log.concat(day.tools_call_log);
+            result.tools_call_log_total += typeof day.tools_call_log_stored === 'number'
+                ? day.tools_call_log_stored : (day.tools_call_log ? day.tools_call_log.length : 0);
             // mcp_client_names (array) is handled separately in render()
         });
         // Most-recent first (ISO timestamps sort lexically = chronologically).
-        // No client-side cap: the log carries the FULL selected window — the #toolsCallLogPanel
-        // window scrolls. NB the worker still caps per-day storage (TOOLS_CALL_LOG_CAP), so each
-        // stored day holds at most that many records; that bound lives in worker.js, not here.
+        // The list holds what the response carried; the panel renders at most
+        // CALL_LOG_RENDER_CAP of it and the CSV export bounds its own copy. NB the worker caps
+        // per-day storage (TOOLS_CALL_LOG_CAP) and, from 1.27.0, what a range response carries.
         result.tools_call_log.sort(function(a, b) { return (b.ts || '').localeCompare(a.ts || ''); });
         return result;
     }
@@ -1868,7 +1912,11 @@
         }
         var pct = Math.round((current - pitPrior) / pitPrior * 100);
         var sign = pct > 0 ? '+' : '';
-        if (pct > 0) {
+        if (pct >= 900) {
+            // Ten-fold or more: the same multiple the panel rows use (▲ ×320), not ▲ +31900%.
+            el.innerHTML = '▲ ' + multipleText(current / pitPrior) + ' <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
+            el.className = 'metric-delta positive';
+        } else if (pct > 0) {
             el.innerHTML = '▲ ' + sign + pct + '% <span class="pit-label">at ' + escapeHtml(timeLabel) + '</span>';
             el.className = 'metric-delta positive';
         } else if (pct < 0) {
@@ -2136,6 +2184,20 @@
         VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa', XX: 'Unknown'
     };
 
+    // An increase of ten-fold or more, as a multiple: ×10 … ×999, then ×1.2k, ×12k, ×1.2M,
+    // ×12M, ×1.2B, ×12B, and ×1T+ beyond that. Always 5 characters or fewer, so "▲ " + it fits the
+    // fixed-width delta column that '▲ >999%' used to fill, and two large changes can be told apart.
+    function multipleText(ratio) {
+        if (ratio < 999.5) return '×' + Math.round(ratio);
+        if (ratio < 9950) return '×' + (ratio / 1000).toFixed(1) + 'k';
+        if (ratio < 999500) return '×' + Math.round(ratio / 1000) + 'k';
+        if (ratio < 9950000) return '×' + (ratio / 1000000).toFixed(1) + 'M';
+        if (ratio < 999500000) return '×' + Math.round(ratio / 1000000) + 'M';
+        if (ratio < 9950000000) return '×' + (ratio / 1000000000).toFixed(1) + 'B';
+        if (ratio < 999500000000) return '×' + Math.round(ratio / 1000000000) + 'B';
+        return '×1T+';
+    }
+
     // Row delta against the scaled prior value. Returns null when the floor suppresses it —
     // the caller still emits the (empty) element, so row geometry never depends on this.
     function rowDelta(current, priorRaw, fraction) {
@@ -2143,8 +2205,9 @@
         if (current < ROW_DELTA_FLOOR && scaled < ROW_DELTA_FLOOR) return null;
         if (scaled === 0) return { cls: 'positive', text: '▲ new' };
         var pct = Math.round((current - scaled) / scaled * 100);
-        // Cap the printed magnitude so the fixed-width column can never be overrun.
-        if (pct > 999) return { cls: 'positive', text: '▲ >999%' };
+        // Ten-fold or more reads as a multiple (▲ ×320), which keeps the fixed-width column
+        // and, unlike the old '▲ >999%', tells one large change from another.
+        if (pct >= 900) return { cls: 'positive', text: '▲ ' + multipleText(current / scaled) };
         if (pct > 0) return { cls: 'positive', text: '▲ +' + pct + '%' };
         if (pct < 0) return { cls: 'negative', text: '▼ ' + pct + '%' };
         return { cls: 'neutral', text: '→ 0%' };
@@ -2153,6 +2216,7 @@
     var DELTA_TIP = 'Estimated change against the previous period. Per-dimension hourly ' +
         'data does not exist, so each prior row is scaled by the same fraction-of-period ' +
         'the cards at the top compare against — close to their figure, not identical to it. ' +
+        'Ten-fold or more reads as a multiple (×12). ' +
         'Rows below ' + ROW_DELTA_FLOOR + ' show no delta, because at these volumes one ' +
         'extra request would read as a large percentage.';
 
@@ -2243,7 +2307,9 @@
 
     // Per-call attribution list (not bars): one row per tools/call — tool · args · client · country · when.
     // Read-only; reuses the .bar-row rhythm. `list` is already sorted newest-first in aggregateDays.
-    function renderToolCallLog(containerId, list, emptyMessage) {
+    // Worker 1.27.0: at most CALL_LOG_RENDER_CAP rows. `storedTotal` is the calls stored for the
+    // window (aggregateDays); `automatedHidden` says the probe filter removed rows from `list`.
+    function renderToolCallLog(containerId, list, emptyMessage, storedTotal, automatedHidden) {
         var container = document.getElementById(containerId);
         var countEl = document.getElementById('toolsCallLogCount');
         if (!container) return;
@@ -2252,10 +2318,16 @@
             if (countEl) countEl.textContent = '';
             return;
         }
-        if (countEl) countEl.textContent = '· ' + fmt(list.length) + ' calls';
+        var shown = list.slice(0, CALL_LOG_RENDER_CAP);
+        var total = Math.max(storedTotal || 0, list.length);
+        if (countEl) {
+            countEl.textContent = shown.length < total
+                ? '· showing ' + fmt(shown.length) + ' of ' + fmt(total) + ' calls' + (automatedHidden ? ' (automated hidden)' : '')
+                : '· ' + fmt(shown.length) + ' calls';
+        }
         var html = '';
-        // Full window: render every record; the #toolsCallLogPanel window scrolls.
-        list.forEach(function(rec) {
+        // Newest CALL_LOG_RENDER_CAP records; the #toolsCallLogPanel window scrolls.
+        shown.forEach(function(rec) {
             var tool = rec.tool || '(unknown)';
             // Worker 1.18.8, forward-only: days stored before that carry no `args` field on
             // each record — `|| ''` makes that identical to a real zero-argument call, which
@@ -2283,7 +2355,7 @@
         container.innerHTML = html;
     }
 
-    // Copy every rendered Tool Calls row as tab-separated text (tool · args · client/country · when),
+    // Copy every rendered Tool Calls row (at most CALL_LOG_RENDER_CAP) as tab-separated text (tool · args · client/country · when),
     // independent of scroll position. Exposed on window below: this script is an IIFE, so the
     // inline onclick on the Copy button resolves against global scope, not this closure.
     function copyToolCallLog(btn) {
