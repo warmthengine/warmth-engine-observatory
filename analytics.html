@@ -286,6 +286,13 @@
             color: var(--weo-text-secondary);
         }
         .quality-banner[hidden] { display: none; }
+        /* Worker 1.27.0: one line under the banner when calls were counted but not categorised */
+        .quality-note {
+            font-size: 0.8125rem; line-height: 1.55;
+            color: var(--weo-text-secondary);
+            margin: calc(-1 * var(--weo-space-xs)) 0 var(--weo-space-md);
+        }
+        .quality-note[hidden] { display: none; }
         .quality-date { white-space: nowrap; }
         .quality-banner-title {
             font-family: var(--weo-font-mono); font-size: 0.6875rem;
@@ -906,6 +913,8 @@
 
     <!-- Record-quality banner (hidden unless the window holds a day not labelled accurate) -->
     <div class="quality-banner" id="qualityBanner" role="note" hidden></div>
+    <!-- Worker 1.27.0: hidden unless a day in the window reports map_keys_dropped -->
+    <div class="quality-note" id="mapKeysNote" role="note" hidden></div>
 
     <!-- Metric Cards -->
     <div class="metrics-row" id="metricsRow">
@@ -1579,6 +1588,7 @@
             });
         }
         renderQualityBanner(rawData, currentDates, comparisonUndercounted ? (acrossRecordingChange ? 'across' : 'undercounted') : null);
+        renderMapKeysNote(rawData, currentDates);
 
         // Distinct MCP clients (per correctness rules)
         var distinctStat = document.getElementById('metricMcpStat');
@@ -2025,6 +2035,27 @@
             '</div>' +
             '<div>' + escapeHtml(parts.join(' ')) + '</div>';
         el.hidden = false;
+    }
+
+    // Worker 1.27.0: map_keys_dropped is the number of calls a day counted but could not add to the
+    // breakdowns (client, tool, country ...) because the day's record had reached its size limit.
+    // Summed over the selected window; absent on every earlier day and on any ordinary day, and then
+    // the line stays hidden.
+    function renderMapKeysNote(rawData, dates) {
+        var el = document.getElementById('mapKeysNote');
+        if (!el) return;
+        var n = 0;
+        dates.forEach(function(d) {
+            var v = rawData[d] && rawData[d].map_keys_dropped;
+            if (typeof v === 'number' && isFinite(v) && v > 0) n += v;
+        });
+        if (n > 0) {
+            el.textContent = fmt(n) + ' calls were counted but not categorised (daily detail limit).';
+            el.hidden = false;
+        } else {
+            el.textContent = '';
+            el.hidden = true;
+        }
     }
 
     // Tooltip suffix for one trend bar: a single day states its own share; a weekly
