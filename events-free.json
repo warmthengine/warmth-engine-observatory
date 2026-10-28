@@ -73,24 +73,24 @@
       "formula": "ENT-1 (36) ÷ ENT-5 (5)"
     },
     "source_durability": {
-      "total_sources": 2106,
-      "preserved": 2036,
+      "total_sources": 2127,
+      "preserved": 2057,
       "preservation_rate": 0.967,
       "by_status": {
-        "captured": 1913,
+        "captured": 1930,
         "recovered": 32,
-        "existing": 91,
+        "existing": 95,
         "pending": 16,
         "no_capture": 54
       },
       "by_layer": {
         "events": {
-          "total": 1333,
-          "preserved": 1304
+          "total": 1350,
+          "preserved": 1321
         },
         "connections": {
-          "total": 501,
-          "preserved": 461
+          "total": 505,
+          "preserved": 465
         },
         "actors": {
           "total": 272,
@@ -9443,7 +9443,11 @@
             {
               "citation": "National Energy Administration — Action Plan 国能发科技〔2026〕34号 full text, Task (六)",
               "type": "primary",
-              "url": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
+              "url": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
+              "accessDate": "2026-10-17",
+              "captureStatus": "existing",
+              "snapshotUrl": "https://web.archive.org/web/20260917043510/http://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
+              "captureNote": "The 17 Oct 2026 Save Page Now timestamp 20261017141818 holds no capture (the archive redirects); replaced by the earlier real capture the archive serves, 20260917043510, confirmed to hold the full action plan text."
             }
           ]
         }
