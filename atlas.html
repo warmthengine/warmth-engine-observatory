@@ -302,17 +302,12 @@
         }
         .weo-nav-brand:hover { color: #2DD4BF; }
         .weo-nav-logo {
-            width: 28px; height: 28px;
-            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
-            border: 1px solid rgba(45, 212, 191, 0.25);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-mono);
-            font-size: 10px;
-            font-weight: 700;
+            height: 28px;
+            display: flex;
+            align-items: center;
             color: #2DD4BF;
-            letter-spacing: 0.5px;
         }
+        .weo-nav-logo svg { display: block; }
         .weo-nav-title-sub {
             font-weight: 500;
             color: var(--text-muted);
@@ -4983,8 +4978,8 @@
 
         <!-- Navigation -->
         <nav class="weo-nav" role="navigation" aria-label="Primary">
-            <a href="/" class="weo-nav-brand">
-                <span class="weo-nav-logo">WEO</span>
+            <a href="/" class="weo-nav-brand" aria-label="Warmth Engine Observatory">
+                <span class="weo-nav-logo"><svg viewBox="52 116 408 280" width="40.8" height="28" fill="currentColor" aria-hidden="true" focusable="false"><rect x="92" y="156" width="328" height="40" rx="20"/><rect x="92" y="236" width="151" height="40" rx="20"/><rect x="92" y="316" width="232" height="40" rx="20"/><circle cx="392" cy="256" r="28"/></svg></span>
                 <span>Warmth Engine Observatory</span>
                 <span class="weo-nav-title-sub">Interactive Atlas</span>
             </a>

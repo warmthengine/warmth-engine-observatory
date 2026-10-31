@@ -49,7 +49,7 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .weo-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 36px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:var(--raised);box-shadow:0 1px 8px rgba(0,0,0,.3)}
 .weo-nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--t2);font-weight:600;font-size:.875rem;transition:color var(--fast) var(--ease)}
 .weo-nav-brand:hover{color:#2DD4BF}
-.weo-nav-logo{width:28px;height:28px;background:linear-gradient(135deg,rgba(45,212,191,.15) 0%,rgba(59,130,246,.1) 100%);border:1px solid rgba(45,212,191,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:.5rem;font-weight:700;color:#2DD4BF}
+.weo-nav-logo{height:28px;display:flex;align-items:center;color:#2DD4BF}.weo-nav-logo svg{display:block}
 .weo-nav-links{display:flex;align-items:center;gap:4px}
 .weo-nav-links a{padding:4px 8px;color:var(--t4);text-decoration:none;font-size:.8125rem;font-weight:500;border-radius:var(--r-sm);transition:all var(--fast) var(--ease)}
 .weo-nav-links a:hover{color:var(--t2);background:rgba(59,130,246,.1)}
@@ -486,8 +486,8 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 </head>
 <body>
 <nav class="weo-nav">
-  <a href="/" class="weo-nav-brand">
-    <span class="weo-nav-logo">WEO</span>
+  <a href="/" class="weo-nav-brand" aria-label="Warmth Engine Observatory">
+    <span class="weo-nav-logo"><svg viewBox="52 116 408 280" width="40.8" height="28" fill="currentColor" aria-hidden="true" focusable="false"><rect x="92" y="156" width="328" height="40" rx="20"/><rect x="92" y="236" width="151" height="40" rx="20"/><rect x="92" y="316" width="232" height="40" rx="20"/><circle cx="392" cy="256" r="28"/></svg></span>
     <span>Warmth Engine Observatory</span>
   </a>
   <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">

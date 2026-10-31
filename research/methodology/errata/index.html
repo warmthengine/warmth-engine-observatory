@@ -149,19 +149,12 @@
         }
         .weo-nav-brand:hover { color: #2DD4BF; }
         .weo-nav-logo {
-            width: 28px;
             height: 28px;
-            background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
-            border: 1px solid rgba(45, 212, 191, 0.25);
-            border-radius: 6px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-family: var(--weo-font-mono);
-            font-size: 0.5rem;
-            font-weight: 700;
             color: #2DD4BF;
         }
+        .weo-nav-logo svg { display: block; }
         .weo-nav-links {
             display: flex;
             align-items: center;
@@ -492,8 +485,8 @@
     <div class="container" id="main-content">
 
         <nav class="weo-nav">
-            <a href="/" class="weo-nav-brand">
-                <span class="weo-nav-logo">WEO</span>
+            <a href="/" class="weo-nav-brand" aria-label="Warmth Engine Observatory">
+                <span class="weo-nav-logo"><svg viewBox="52 116 408 280" width="40.8" height="28" fill="currentColor" aria-hidden="true" focusable="false"><rect x="92" y="156" width="328" height="40" rx="20"/><rect x="92" y="236" width="151" height="40" rx="20"/><rect x="92" y="316" width="232" height="40" rx="20"/><circle cx="392" cy="256" r="28"/></svg></span>
                 <span>Warmth Engine Observatory</span>
             </a>
             <button class="weo-nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
